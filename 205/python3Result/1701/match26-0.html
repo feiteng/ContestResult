@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>611_dafeii.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>611_dafeii.py</CENTER></H3><HR>
+<PRE>
+class UF:
+    def __init__(self, n):
+        self.p = [i for i in range(n+1)]
+    
+    def find(self, a):
+        if self.p[a] != a:
+            self.p[a] = self.find(self.p[a])
+        return self.p[a]
+    
+    def union(self, a, b):
+        self.p[a] = self.p[b]
+
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        uf_alice = UF(n)
+<A NAME="0"></A>        uf_bob = UF(n)
+        delete_num = 0
+        for label, u, v in edges:
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if label == 3:
+                pu = uf_alice.find(u)
+                pv = uf_alice.find(v)
+                if pu == pv:
+                    delete_num += 1
+                else:
+                    uf_alice.union(pu, pv)
+<A NAME="1"></A>                    uf_bob.union(</B></FONT>pu, pv)
+        for label, u, v in edges:
+            if label == 1:
+                pu <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= uf_alice.find(u)
+                pv = uf_alice.find(v)
+                if pu == pv:
+                    delete_num += 1
+                else:
+                    uf_alice.union(pu, pv)
+            elif label == 2:
+                pu = uf_bob.find(u)
+                pv = uf_bob.find(v)
+                if pu == pv:
+                    delete_num += 1
+                else:
+                    uf_bob.union(pu, pv)
+        alice_ps =</B></FONT> set([uf_alice.find(i) for i in range(1, n+1)])
+        bob_ps = set([uf_bob.find(i) for i in range(1, n+1)])
+        if len(alice_ps) != 1 or len(bob_ps) != 1:
+            return -1
+        return delete_num
+                    
+                
+                    
+</PRE>
+
+</BODY>
+</HTML>

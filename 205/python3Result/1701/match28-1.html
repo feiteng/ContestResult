@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>383_spxyj.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>383_spxyj.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def init(self,n):
+        self.pre=[i for i in range(n)]
+        self.rank=[0]*n
+    def find(self,x):
+        if self.pre[x]==x:
+            return x
+        self.pre[x]=self.find(self.pre[x])
+        return self.pre[x]
+    def is_same(self,x,y):
+        return self.find(x)==self.find(y)
+    def union(self,x,y):
+        root1=self.find(x)
+        root2=self.find(y)
+        if root2==root1:
+            return
+        if self.rank[root1]&gt;self.rank[root2]:
+            self.pre[root2]=root1
+        else:
+            self.pre[root1]=root2
+            if self.rank[root2]==self.rank[root1]:
+                self.rank[root1]+=1
+
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+<A NAME="0"></A>        res=0
+        # for Alice
+        self.init(n+1)
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for edge in edges:
+            if edge[0]==3:
+                if self.is_same(edge[1],edge[2]):
+                    res+=1
+                else:
+                    self.union(edge[1],edge[2])
+        for edge in edges:
+            if edge[0]==1:
+                if self.is_same(edge[1],edge[2]):
+                    res+=1
+                else:
+                    self.union(edge[1],edge[2])
+        flag=</B></FONT>False
+        for i in range(1,n+1):
+            if not self.is_same(1,i):
+                flag=True
+<A NAME="1"></A>                break
+        if flag:
+            return -1
+        self.init<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n + 1)
+        for edge in edges:
+            if edge[0] == 3:
+                if self.is_same(edge[1], edge[2]):
+                    # res += 1
+                    pass
+                else:
+                    self.union(edge[1], edge[2])
+        for edge in edges:
+            if edge[0] == 2:
+                if self.is_same(edge[1], edge[2]):
+                    res += 1
+                else:
+                    self.union(edge[1], edge[2]</B></FONT>)
+        flag = False
+        for i in range(1, n + 1):
+            if not self.is_same(1, i):
+                flag = True
+                break
+        if flag:
+            return -1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

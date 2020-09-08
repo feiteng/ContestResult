@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_2499370956.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        UF ufa = new UF(n);
+        UF ufb = new UF(n);
+        int out = 0;
+        for (int[] e : edges) {</B></FONT>
+<A NAME="1"></A>            if (e[0] == 3) {
+                int v1 = e[1] - 1;
+                int v2 = e[2] - 1;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (ufa.isConnected(v1, v2)) {
+                    out++;
+                } else {
+                    ufa.connect(v1, v2);
+                    ufb.connect(v1, v2);
+                }
+            }
+<A NAME="2"></A>        }
+        for (int[] e : edges) {</B></FONT>
+            if (e[0] != 3) {
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int v1 = e[1] - 1;
+                int v2 = e[2] - 1;
+                if (e[0] == 1) {
+                    if (ufa.isConnected(v1, v2)) {
+                        out++;
+<A NAME="3"></A>                    } else {
+                        ufa.connect(v1, v2);
+                    }
+                }</B></FONT> else <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (e[0] == 2) {
+                    if (ufb.isConnected(v1, v2)) {
+                        out++;
+                    } else {
+                        ufb.connect(v1, v2);
+                    }
+                }</B></FONT>
+            }
+        }
+        if (ufa.cc() == 1 &amp;&amp; ufb.cc() == 1) {
+            return out;
+<A NAME="4"></A>        } else {
+            return -1;
+        }
+    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#4',2,'match2-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+    class UF {
+
+        private int[] root;
+
+        public UF(int n) {
+            this.root = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                root[i] = i;
+            }
+        }
+
+        private int root(int i</B></FONT>) {
+            if (root[i] == i) {
+                return i;
+            } else {
+                root[i] = root[root[i]];
+                return root(root[i]);
+            }
+        }
+<A NAME="5"></A>
+        public void connect(int i, int j) {
+            root[root(i)] = root(j);
+        <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#5',2,'match2-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        public boolean isConnected(int i, int j) {
+            return root(i) == root(j);
+        }
+        
+        public int cc() {</B></FONT>
+            return (int) IntStream.range(0, root.length).map(this::root).distinct().count();
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

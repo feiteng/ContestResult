@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>267_blackskygg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>267_blackskygg.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+<A NAME="0"></A>        unordered_map&lt;uint64_t, int&gt; s1, s2;
+        
+        for (const uint64_t x : nums1) s1[x*x]++;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (const uint64_t x : nums2) s2[x*x]++;
+        
+        int cnt = 0;
+        for (int i = 0; i &lt; nums1.size(); ++i) {
+            for (int j = i+1; j &lt; nums1.size(); ++j) {
+                if (s2.count(((uint64_t)nums1[i])*nums1[j]))
+                cnt += s2[((uint64_t)nums1[i])*nums1[j]];
+            }
+        }
+        for (int i = 0; i &lt; nums2.size(); ++i) {
+            for (int j = i+1; j &lt; nums2.size(); ++j) {
+                if ( s1.count(((uint64_t)nums2[i])*nums2[j]))
+                cnt += s1[((uint64_t)nums2[i])*nums2[j]];
+            }
+        }
+            
+        return cnt;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

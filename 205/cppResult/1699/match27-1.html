@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>261__mrsn_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>261__mrsn_.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    #define ll long long
+<A NAME="0"></A>    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        map&lt;ll,ll&gt; mp1,mp2;
+        for(auto e: nums1) mp1[1LL*e*e]++;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto e: nums2) mp2[1LL*e*e]++;
+        
+        int ans = 0;
+        for(int i = 0; i &lt; nums1.size(); i++){
+            for(int j = i+1; j &lt; nums1.size(); j++){
+                if (mp2[1LL*nums1[i]*nums1[j]]) ans+= mp2[1LL*nums1[i]*nums1[j]];
+            }
+        }
+        for(int i = 0; i &lt; nums2.size(); i++){
+            for(int j = i+1; j &lt; nums2.size(); j++){
+                if (mp1[1LL*nums2[i]*nums2[j]]) ans+= mp1[1LL*nums2[i]*nums2[j]];
+            }
+        }
+        
+        return ans;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

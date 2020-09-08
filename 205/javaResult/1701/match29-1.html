@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>413_zhengyuyu123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>413_zhengyuyu123.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        Arrays.sort(edges, (a, b) -&gt; (b[0] - a[0]));
+        int[] dSet1 = new int[n]</B></FONT>, dSet2 = new int[n];
+        int piece1 = n, piece2 = n;
+        for(int i = 0; i &lt; n; i++) {
+            dSet1[i] = i;
+            dSet2[i] = i;
+        }
+<A NAME="1"></A>        int res = edges.length;
+        for(int i = 0; i &lt; edges.length; i++) {
+            if(piece1 == 1 &amp;&amp; piece2 == 1) return res;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(edges[i][0] == 3) {
+                if(union(dSet1, edges[i][1] - 1, edges[i][2] - 1))
+                {
+                    union(dSet2, edges[i][1] - 1, edges[i][2] - 1);
+                    res--;
+                    piece2--;
+                    piece1--;
+                }
+            }else if(edges[i][0] == 1) {
+                if(union(dSet1, edges[i][1] - 1, edges[i][2] - 1)) {
+                    res--;
+                    piece1--;
+                }
+            }else {
+                if(union(dSet2, edges[i][1] - 1, edges[i][2] - 1)) {
+                    res--;
+                    piece2--;
+                }
+            }
+        }
+        if(piece1 &gt; 1 || piece2 &gt; 1) return -1;
+        return res;
+    }</B></FONT>
+    
+    private boolean union(int[] set, int a, int b) {
+        int rootA = getRoot(set, a);
+        int rootB = getRoot(set, b);
+        if(rootA == rootB) return false;
+        set[rootA] = rootB;
+        return true;
+    }
+    
+    private int getRoot(int[] set, int root) {
+        if(set[root] == root) return root;
+        set[root] = getRoot(set, set[root]);
+        return set[root];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

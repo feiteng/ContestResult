@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>553_sakuragi1111.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>553_sakuragi1111.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        int ans = 0;
+        UF ufa = new UF(n);
+        UF ufb = new UF(n);
+        
+        List&lt;int[]&gt; A = new ArrayList&lt;&gt;();
+        List&lt;int[]&gt; B = new ArrayList&lt;&gt;();
+        List&lt;int[]&gt; C = new ArrayList&lt;&gt;();
+        
+        for (int[] e : edges){
+            if (e[0] == 3) {
+                C.add(e);
+            } else if (e[0] == 1) {
+                A.add(e);
+            } else {
+                B.add(e);
+<A NAME="0"></A>            }
+        }
+        
+        for (int[] e : C) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (ufa.connected(e[1],e[2]) &amp;&amp; ufb.connected(e[1],e[2])) {
+                ans++;
+            } else {
+                ufa.union(e[1],e[2]);
+                ufb.union(e[1],e[2]);
+<A NAME="1"></A>            }
+        }</B></FONT>
+        
+        for (int[] e : A) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (ufa.connected(e[1],e[2])) {
+                ans++;
+            }else {
+                ufa.union(e[1],e[2]);
+<A NAME="2"></A>            }
+        }</B></FONT>
+        
+        for (int[] e : B) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (ufb.connected(e[1],e[2])) {
+                ans++;
+            } else {
+                ufb.union(e[1],e[2]);
+            }
+        }</B></FONT>
+
+        return ufa.count == 1 &amp;&amp; ufb.count == 1 ? ans : -1;
+    }
+    
+    public static class UF {
+        
+        private int[] id;
+        private int[] weight;
+        private int count;
+
+        public UF(int N) {
+            id = new int[N+1];
+            weight = new int[N+1];
+            for (int i = 0; i &lt;= N; i++) {
+                // 每个点最初与自己相连
+<A NAME="3"></A>                id[i] = i;
+                weight[i] = 1;
+            }
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>count = N;
+        }
+
+        public boolean connected(int p, int q) {
+            return find(p) == find(q);
+        }</B></FONT>
+
+        public int count() {
+            return this.count;
+        }
+
+        // 找到p所在component的标识符
+        public int find(int p) {
+            int old = p;
+            while (id[p] != p)
+                p = id[p];
+<A NAME="4"></A>            // 路径压缩，将所有的叶直接连在根上
+            while (id[old] != old) {
+                int t = old;
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match14-1.html#4',3,'match14-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>old = id[old];
+                id[t] = p;
+            }
+            return p;
+        }
+
+        // quick union的结果会形成一片森林
+        public void union(int p, int q) {
+            int pRoot = find(p);
+            int qRoot = find(q);
+            if</B></FONT> (weight[pRoot] &lt; weight[qRoot]) {
+                id[pRoot] = qRoot;
+                weight[qRoot] += weight[pRoot];
+            } else {
+                id[qRoot] = pRoot;
+                weight[pRoot] += weight[qRoot];
+            }
+            --count;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

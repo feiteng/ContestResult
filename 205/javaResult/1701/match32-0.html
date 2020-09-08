@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>263_800.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>263_800.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    
+    class UF {
+        int N;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] parent;
+        int[] size;
+        int components;
+        
+        public UF(int N) {
+            this.N = N;
+            parent = new int[N];
+            size = new int[N];
+            for (int i = 0; i &lt; N; i++) {
+                parent[i] = i;
+                size[i] = 1;
+            }</B></FONT>
+            components = N;
+        }
+        
+        public int find(int t) {
+<A NAME="1"></A>            while (parent[t] != t) {
+                t = parent[t];
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return t;
+        }
+        
+        public void union(int i, int j) {
+            int iRoot = find(i);
+            int jRoot = find(j);
+            if</B></FONT> (iRoot != jRoot) {
+                if (size[iRoot] &gt; size[jRoot]) {
+                    parent[jRoot] = iRoot;
+                    size[iRoot] += size[jRoot];
+                }
+                else {
+                    parent[iRoot] = jRoot;
+<A NAME="2"></A>                    size[jRoot] += size[iRoot];
+                }
+                components--;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+    }
+    
+    
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        UF alice = new UF(n);
+        UF bob = new UF(n);
+        int used = 0</B></FONT>;
+        List&lt;int[]&gt; type1 = new ArrayList&lt;&gt;();
+        List&lt;int[]&gt; type2 = new ArrayList&lt;&gt;();
+<A NAME="3"></A>        
+        for (int[] edge : edges) {
+            if (edge[0] == 1) {
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match32-1.html#3',3,'match32-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>type1.add(edge);
+            }
+            else if (edge[0] == 2) {
+                type2.add(edge);
+            }
+            else {</B></FONT>
+                int iRoot = alice.find(edge[1] - 1);
+                int jRoot = alice.find(edge[2] - 1);
+                if (iRoot != jRoot) {
+                    used++;
+                    alice.union(edge[1] - 1, edge[2] - 1);
+                    bob.union(edge[1] - 1, edge[2] - 1);
+                }
+            }
+        }
+        
+        if (alice.components == 1) {
+            return edges.length - used;
+        }
+        
+        for (int[] edge : type1) {
+            int iRoot = alice.find(edge[1] - 1);
+            int jRoot = alice.find(edge[2] - 1);
+            if (iRoot != jRoot) {
+                used++;
+                alice.union(edge[1] - 1, edge[2] - 1);
+            }
+        }
+        
+        if (alice.components &gt; 1) {
+            return -1;
+        }
+        
+        for (int[] edge : type2) {
+            int iRoot = bob.find(edge[1] - 1);
+            int jRoot = bob.find(edge[2] - 1);
+            if (iRoot != jRoot) {
+                used++;
+                bob.union(edge[1] - 1, edge[2] - 1);
+            }
+        }
+        
+        if (bob.components &gt; 1) {
+            return -1;
+        }
+        
+        return edges.length - used;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

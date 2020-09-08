@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>440_Nan-Do.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>440_Nan-Do.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UFS:
+    def __init__(self, n):
+        self.array = list(range(n+1))
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.groups = n
+        
+    def find(self, x):
+        if self.array[x] != x:
+            self.array[x] = self.find(self.array[x])
+            
+        return self.array[x]
+    
+    def union(self, x, y):
+        a = self.find(</B></FONT>x)
+        b = self.find(y)
+        
+<A NAME="1"></A>        if a != b:
+            self.array[a] = b
+            self.groups -= 1
+            r<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn False
+        
+        return True
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        alice = UFS(n)
+        bob = UFS(n)
+        
+        both_edges, alice_edges, bob_edges = [], [], []
+        for type, orig, dest in edges:
+            if type == 1:
+                alice_edges.</B></FONT>append((orig, dest))
+            elif type == 2:
+                bob_edges.append((orig, dest))
+            else:
+                both_edges.append((orig, dest))
+                
+        to_remove = 0
+        
+        for orig, dest in both_edges:
+            r = bob.union(orig, dest)
+            s = alice.union(orig, dest)
+            
+            if r or s:
+                to_remove += 1
+                
+        for orig, dest in alice_edges:
+            if alice.union(orig, dest):
+                to_remove += 1
+                
+        for orig, dest in bob_edges:
+            if bob.union(orig, dest):
+                to_remove += 1
+                
+        if bob.groups &gt; 1 or alice.groups &gt; 1:
+            return -1 
+        
+        return to_remove
+        
+</PRE>
+
+</BODY>
+</HTML>

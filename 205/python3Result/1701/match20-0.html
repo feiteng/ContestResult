@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>603_hectorilles.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>603_hectorilles.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UnionFind():
+    def __init__(self, n):
+        self.label = list(range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n))
+        self.sz = [1] * n
+        
+    def find(self, p):
+        while p != self.label[p]:
+            self.label[p] = self.label[self.label[p]]
+            p = self.label[p]
+        return p
+<A NAME="1"></A>    
+    def union(self, p, q):
+        proot, qroot = self.find(</B></FONT>p), self.find(q)
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if self.sz[proot] &gt;= self.sz[qroot]:
+            self.label[qroot] = proot
+            self.sz[proot] += self.sz[qroot]
+        else:
+            self.label[proot] = qroot
+            self.sz[qroot] += self.sz[</B></FONT>proot]
+    
+    def size(self, p):
+        return self.sz[self.find(p)]
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        &quot;&quot;&quot;
+        MST, union find?
+        
+        construct uf based on type 3
+        try type 1 and type2 separate
+        for a type:
+          pick from all edges to achieve reachability
+        &quot;&quot;&quot;
+        
+        def mst(uf, edges):
+            result = 0
+            for a, b in edges:
+                if uf.find(a - 1) == uf.find(b - 1):
+                    continue
+                uf.union(a - 1, b - 1)
+                result += 1
+            if uf.size(0) != n:
+                return -1
+            return result
+        
+        def commonUf(edges):
+            uf = UnionFind(n)
+            edgesNeeded = 0
+            for a, b in edges:
+                if uf.find(a - 1) == uf.find(b - 1):
+                    continue
+                uf.union(a - 1, b - 1)
+                edgesNeeded += 1
+            return uf, edgesNeeded
+        
+        commonEdges = [(edge[1], edge[2]) for edge in edges if edge[0] == 3]
+        
+        uf1, commonEdgesNeeded = commonUf(commonEdges)
+        mst1 = mst(uf1, [(edge[1], edge[2]) for edge in edges if edge[0] == 1])
+        uf2, _ = commonUf(commonEdges)
+        mst2 = mst(uf2, [(edge[1], edge[2]) for edge in edges if edge[0] == 2])
+        
+        if mst1 == -1 or mst2 == -1:
+            return -1
+        return len(edges) - commonEdgesNeeded - mst1 - mst2
+        
+</PRE>
+
+</BODY>
+</HTML>

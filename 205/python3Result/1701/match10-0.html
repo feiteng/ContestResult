@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>550_hmz74.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>550_hmz74.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n)]
+        self.rank = [1] * n
+        self.components = n
+    
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        root_x, root_y = self.find(x), self.find(y)
+        if root_x == root_y:
+            return False
+        self.components -= 1
+        if self.rank[root_x]&lt;self.rank[</B></FONT>root_y]:
+            self.parent[root_x] = root_y
+        elif self.rank[root_x]&gt;self.rank[root_y]:
+            self.parent[root_y] = root_x
+        else:
+            self.parent[root_y] = root_x
+            self.rank[root_x] += 1
+        return True
+        
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        uf_alice = UnionFind(n)
+        uf_bob = UnionFind(n)
+        res = 0
+        for edge in edges:
+            if edge[0] == 3:
+                cnt = 0
+                if not uf_alice.union(edge[1]-1, edge[2]-1):
+                    cnt += 1
+                if not uf_bob.union(edge[1]-1, edge[2]-1):
+                    cnt += 1
+                if cnt == 2:
+                    res += 1
+        
+        # print(&quot;uf_alice.components&quot;, uf_alice.components, &quot;uf_bob.components&quot;, uf_bob.components)
+        # print(&quot;res&quot;, res)
+        for edge in edges:
+            if edge[0] == 1:
+                if not uf_alice.union(edge[1]-1, edge[2]-1):
+                    res += 1
+            elif edge[0] == 2:
+                if not uf_bob.union(edge[1]-1, edge[2]-1):
+                    res += 1
+        if uf_alice.components == 1 and uf_bob.components == 1:
+            return res
+        else:
+            return -1
+# 4
+# [[3,1,2],[3,2,3],[3,1,3],[1,1,3],[1,2,4],[1,1,2],[2,3,4]] 
+                    
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

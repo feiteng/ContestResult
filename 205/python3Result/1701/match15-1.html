@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_lihuoran.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>32_lihuoran.py</CENTER></H3><HR>
+<PRE>
+from typing import List
+import collections
+
+
+class Union:
+<A NAME="0"></A>    def __init__(self, n):
+        self.n = n
+        self.p = [i for i in range(n)]
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.cnt = n
+
+    def root(self, i):
+        if self.p[i] != i:
+            self.p[i] = self.root(self.p[i])
+        return self.p[i]
+
+    def</B></FONT> merge(self, i, j):
+        if self.root(i) == self.root(j):
+<A NAME="1"></A>            return
+
+        self.cnt -= 1
+        self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.p[self.root(i)] = self.root(j)
+
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        e = {1: [], 2: [], 3: []}
+        for t, i, j in edges:
+            e[t].append((i - 1, j - 1))
+
+        u1 = Union(n)
+        u2 =</B></FONT> Union(n)
+        ecnt = 0
+        for i, j in e[3]:
+            if u1.root(i) != u1.root(j):
+                ecnt += 1
+                u1.merge(i, j)
+                u2.merge(i, j)
+
+        for i, j in e[1]:
+            if u1.root(i) != u1.root(j):
+                ecnt += 1
+                u1.merge(i, j)
+        for i, j in e[2]:
+            if u2.root(i) != u2.root(j):
+                ecnt += 1
+                u2.merge(i, j)
+
+        if u1.cnt != 1 or u2.cnt != 1:
+            return -1
+        else:
+            return len(edges) - ecnt
+</PRE>
+
+</BODY>
+</HTML>

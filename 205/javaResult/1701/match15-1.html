@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>293_keepPace.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>293_keepPace.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF {
+        int[] parents;
+        int num;
+        UF (int n) {
+            parents = new int[n];
+            num = n;
+            for (int i =0; i &lt; n; i += 1) {
+                parents[i] = i;
+            }
+        }
+        int find(int x) {</B></FONT>
+            int p = x;
+            while (parents[p] != p) {
+                p = parents[p];
+            }
+            while (x != p) {
+<A NAME="1"></A>                parents[x] = p;
+                x = parents[x];
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return p;
+        }
+        void union(int x, int y) {
+            int paX = find(x);
+            int paY = find(y);
+            if</B></FONT> (paX == paY) return;
+            parents[paX] = paY;
+            num -= 1;
+        }
+        boolean isConnected(int x, int y) {
+            return find(x) == find(y);
+        }
+    }
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        Arrays.sort(edges, (a, b) -&gt; b[0] - a[0]);
+<A NAME="2"></A>        UF uf1 = new UF(n);
+        UF uf2 = new UF(n);
+        int ret = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int[] edge : edges) {
+            int type = edge[0];
+            int u = edge[1] - 1;
+            int v = edge[2] - 1;
+            if (type == 3) {
+                if (uf1.isConnected</B></FONT>(u, v) &amp;&amp; uf2.isConnected(u, v)) {
+                    ret += 1;
+<A NAME="3"></A>                } else {
+                    uf1.union(u, v);
+                    uf2.union(u, v);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#3',2,'match15-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            } else if (type == 1) {
+                if (uf1.isConnected(u, v)) {
+                    ret += 1;
+                }</B></FONT> else {
+                    uf1.union(u, v);
+                }
+            } else {
+                if (uf2.isConnected(u, v)) {
+                    ret += 1;
+                } else {
+                    uf2.union(u, v);
+                }
+            }
+        }
+        if (uf1.num != 1 || uf2.num != 1) return -1;
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

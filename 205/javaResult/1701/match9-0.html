@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>507_linstenst.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>507_linstenst.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        Ufs ufs = new Ufs(n);
+        int m = edges.length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int count = 0;
+<A NAME="1"></A>        for(int i = 0; i &lt; m; i++){
+            if(edges[i][0] == 3){
+                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){</B></FONT>
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ufs.union(edges[i][1], edges[i][2]);
+                }else{
+                    count++;
+                }
+            }
+        }
+        for(int i = 0; i &lt; m; i++){
+            if(edges[i][0] == 1){
+                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){
+                    ufs.union(edges[i][1], edges[i][2]);
+                }else{
+                    count++;
+                }
+            }</B></FONT>
+        }
+        
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        for(int i = 1; i &lt;= n; i++){
+            set.add(ufs.find(i));
+        }
+        
+        if(set.size() &gt; 1) return -1;
+        
+        ufs = new Ufs(n);
+        
+        for(int i = 0; i &lt; m; i++){
+            if(edges[i][0] == 3){
+                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){
+                    ufs.union(edges[i][1], edges[i][2]);
+                }
+<A NAME="2"></A>            }
+        }
+        for(int i = 0; i &lt; m; i++){
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(edges[i][0] == 2){
+                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){
+                    ufs.union(edges[i][1], edges[i][2]);
+                }else{
+                    count++;
+                }
+            }</B></FONT>
+        }
+        
+        set = new HashSet&lt;&gt;();
+        for(int i = 1; i &lt;= n; i++){
+            set.add(ufs.find(i));
+        }
+        
+        if(set.size() &gt; 1) return -1;
+        
+        return count;
+        
+    }
+}
+
+class Ufs{
+    int[] parent;
+<A NAME="3"></A>    int[] ranks;
+    
+    public Ufs(int n){
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>this.parent = new int[n + 1];
+        this.ranks = new int[n + 1];
+        for(int i = 0; i &lt;= n; i++){
+            parent[i] = i;
+        }
+    }
+    
+<A NAME="4"></A>    public int find(int x){</B></FONT>
+        if(parent[x] != x)
+            parent[x] = find(parent[x]);
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match9-1.html#4',3,'match9-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return parent[x];
+    }
+    
+    public void union(int x, int y){
+        int px = find(x);
+        int py = find(y);
+        
+        if</B></FONT>(ranks[px] &gt; ranks[py]) parent[py] = px;
+        if(ranks[px] &lt; ranks[py]) parent[px] = py;
+        if(ranks[px] == ranks[py]){
+            parent[py] = px;
+            ranks[px]++;
+        }
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

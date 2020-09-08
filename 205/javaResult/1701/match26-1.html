@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>248_kazuya-w.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>248_kazuya-w.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    class UnionFind {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[] parent, size;
+        UnionFind(int n) {
+            this.parent = new int[n+1];
+            this.size = new</B></FONT> int[n+1];
+            for (int i = 0; i &lt;= n; i++) {
+<A NAME="2"></A>                parent[i] = i;
+                size[i] = 1; 
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="1"></A>
+        boolean connected(int v, int w) {
+            return root(v) == root</B></FONT>(w);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        boolean union(int v, int w) {
+            int rv = root(v);
+            int rw = root(w);
+            if (rv == rw) return false;
+            if (size[rv] &gt; size[rw]) {
+                size[rv] += size[rw];
+                p</B></FONT>arent[rw] = parent[rv];
+            } else {
+                size[rw] += size[rv];
+                parent[rv] = parent[rw];
+            }
+            return true;
+        }
+        
+        private int size(int v) {
+            return size[root(v)];
+        }
+
+        private int root(int v) {
+            while (parent[v] != parent[parent[v]]) parent[v] = parent[parent[v]];
+            return parent[v];            
+<A NAME="3"></A>        }        
+    }
+
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#3',2,'match26-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxNumEdgesToRemove(int n, int[][] es) {
+        UnionFind uf1 = new UnionFind(n), uf2 = new UnionFind(n);
+        int count = 0;
+        for (int[] e: es) {</B></FONT>
+            if (e[0] == 3) {
+                if (uf1.union(e[1], e[2]) &amp;&amp; uf2.union(e[1], e[2])) count++;
+            } 
+        }
+        
+        for (int[] e: es) {
+            switch (e[0]) {
+                case 1:
+                    if (uf1.union(e[1], e[2])) count++;
+                    break;
+                case 2:
+<A NAME="4"></A>                    if (uf2.union(e[1], e[2])) count++;
+                    break;                    
+            }
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#4',2,'match26-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        if (uf1.size(1) != n || uf2.size(1) != n) return -1;
+        return es.length - count;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

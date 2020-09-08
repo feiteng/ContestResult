@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>467_yav126.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>467_yav126.py</CENTER></H3><HR>
+<PRE>
+class UnionFind:
+    def __init__(self):
+        self.parents = dict()
+<A NAME="0"></A>    def findParent(self, node):
+        if node not in self.parents:
+            self.parents[node] = node
+        elif self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.parents[node] != node:
+            self.parents[node] = self.findParent(self.parents[node])
+        return self.parents[node]
+    def addPair(self, node1, node2):
+        parent1 = self.findParent(node1)
+        parent2 = self.findParent(node2)
+<A NAME="1"></A>        if parent1 != parent2:
+            self.</B></FONT>parents[parent1] = parent2
+    def connected(self, node1, node2):
+        return self.findParent(node1) == self.findParent(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>node2)
+            
+
+class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        edges.sort(reverse=True)
+        aliceUF = UnionFind()
+        bobUF = UnionFind()
+        numEdgesRemoved = 0
+        for</B></FONT> edge in edges:
+            edgeType = edge[0]
+            node1 = edge[1]
+            node2 = edge[2]
+            if edgeType == 1:
+                if aliceUF.connected(node1, node2):
+                    numEdgesRemoved += 1
+<A NAME="2"></A>                else:
+                    aliceUF.addPair(node1, node2)
+            elif edgeType == 2:
+                if bobUF<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.connected(node1, node2):
+                    numEdgesRemoved += 1
+                else:
+                    bobUF.addPair(node1, node2)
+            elif edgeType == 3:
+                if aliceUF.connected(node1, node2) and bobUF.connected(node1, node2):
+                    numEdgesRemoved +=</B></FONT> 1
+                if not aliceUF.connected(node1, node2):
+                    aliceUF.addPair(node1, node2)
+                if not bobUF.connected(node1, node2):
+                    bobUF.addPair(node1, node2)
+        
+        aliceParent = 0
+        if 1 not in aliceUF.parents:
+            return -1
+        else:
+            aliceParent = aliceUF.findParent(1)
+        
+        bobParent = 0
+        if 1 not in bobUF.parents:
+            return -1
+        else:
+            bobParent = bobUF.findParent(1)
+        for i in range(2, n+1):
+            if aliceUF.findParent(i) != aliceParent:
+                return -1
+            elif bobUF.findParent(i) != bobParent:
+                return -1
+        
+        return numEdgesRemoved
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+</PRE>
+
+</BODY>
+</HTML>

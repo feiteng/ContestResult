@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>220_HenryLee4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>220_HenryLee4.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minCost(String s, int[] cost) {
+        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
+<A NAME="0"></A>        int n = s.length();
+        char[] chars = s.toCharArray();
+        int res = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0 ; i &lt; n ; i++){
+<A NAME="1"></A>            if(!stack.isEmpty() &amp;&amp; chars[stack.peek()] == chars[i]){
+                if(cost[stack.peek()] &lt; cost[i]){</B></FONT>
+                    res += cost[stack.peek()];
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>stack.pop();
+                    stack.push(i);
+                } else {
+                    res += cost[i];
+                }
+            } else {
+                stack.push(i);
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

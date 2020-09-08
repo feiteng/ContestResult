@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>272_dennanisny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>272_dennanisny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    class UF {
+        int n;
+        int[] parents, sizes;
+        
+        UF(int n) {
+            this.n = n;
+            parents = new int[n];
+            sizes = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parents[i] = i;
+                sizes[i] = 1;
+            }
+        }
+        
+        int find(int i) {</B></FONT>
+            while (parents[i] != i) {
+<A NAME="1"></A>                parents[i] = parents[parents[i]];
+                i = parents[i];
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return i;
+        }
+        
+        boolean union(int p, int q) {
+            int pRoot = find(p), qRoot = find(q);
+            if</B></FONT> (pRoot == qRoot) {
+                return false;
+            } else {
+                parents[pRoot] = qRoot;
+                sizes[qRoot] += sizes[pRoot];
+                return true;
+            }
+        }
+        
+        boolean isComplete() {
+            int max = 0;
+            for (int size : sizes) {
+<A NAME="2"></A>                max = Math.max(max, size);
+            }
+            return max == n;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    }
+    
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        List&lt;int[]&gt; list1 = new ArrayList&lt;&gt;(), list2 = new ArrayList&lt;&gt;(), list3 = new ArrayList&lt;&gt;();
+        for (int[] edge : edges) {</B></FONT>
+            if (edge[0] == 1) {
+                list1.add(new int[] {edge[1], edge[2]});
+            } else if (edge[0] == 2) {
+                list2.add(new int[] {edge[1], edge[2]});
+            } else {
+                list3.add(new int[] {edge[1], edge[2]});
+            }
+        }
+        int ans = 0;
+        UF ufAlice = new UF(n), ufBob = new UF(n);
+        for (int[] edge : list3) {
+            int p = edge[0]-1, q = edge[1]-1;
+            boolean flag = true;
+            flag = ufAlice.union(p, q);
+            flag = ufBob.union(p, q);
+            if (!flag) {
+                ans++;
+            }
+        }
+        for (int[] edge : list1) {
+            int p = edge[0]-1, q = edge[1]-1;
+            if (!ufAlice.union(p, q)) {
+                ans++;
+            }
+        }
+        for (int[] edge : list2) {
+            int p = edge[0]-1, q = edge[1]-1;
+            if (!ufBob.union(p, q)) {
+                ans++;
+            }
+        }
+        if (ufAlice.isComplete() &amp;&amp; ufBob.isComplete()) {
+            return ans;
+        } else {
+            return -1;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
