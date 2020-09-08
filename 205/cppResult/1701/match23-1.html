@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>261__mrsn_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>261__mrsn_.cpp</CENTER></H3><HR>
+<PRE>
+class UnionFind{
+public:
+    int uf[100005];
+    UnionFind(){
+        memset(uf,-1,sizeof uf);
+    }
+    
+    int parent(int i){
+        if (uf[i] &lt; 0) return i;
+        return uf[i] = parent(uf[i]);
+    }
+    
+    void join(int i, int j){
+        int pi = parent(i);
+        int pj = parent(j);
+        if (pi == pj) return;
+        if (size(pi) &lt; size(pj)) swap(pi,pj);
+        uf[pi] += uf[pj];
+        uf[pj] = pi;
+        
+    }
+    
+    int size(int i){
+        int pi = parent(i);
+        return abs(uf[pi]);
+    }
+    
+    void init(){
+        memset(uf,-1,sizeof uf);
+    }
+};
+
+
+class Solution {
+public:
+
+    // int nodes1[100001] = {};
+    // int nodes2[100001] = {};
+    
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        // vector&lt;vector&lt;int&gt;&gt; g3(n,vector&lt;int&gt;),g1(n,vector&lt;int&gt;),g2(n,vector&lt;int&gt;);
+        // for(auto e: edges){
+        //     if (e[0] == 1){
+        //         g1[e[1]].push_back(e[2]);
+        //         g1[e[2]].push_back(e[1]);
+        //     }
+        //     else if (e[0] == 2){
+        //         g2[e[1]].push_back(e[2]);
+        //         g2[e[2]].push_back(e[1]);
+        //     }
+        //     else{
+        //         g3[e[1]].push_back(e[2]);
+        //         g3[e[2]].push_back(e[1]);
+        //     }
+        // }
+        
+<A NAME="0"></A>        UnionFind uf1;
+        UnionFind uf2;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+        for(auto e: edges){
+            if (e[0] == 3){
+                int i = e[1];
+                int j = e[2];
+                if (uf1.parent(i) == uf1.parent(j)){
+                    ans++;
+                }
+                if (uf1.parent(i) != uf1.parent(j)){
+                    uf1.join(i,j);
+                    uf2.join(i,j);
+                }
+            }
+        }
+        
+        for(auto e:edges){
+            if (e[0] == 1){
+                int i = e[1];
+                int j = e[2];
+                if (uf1.parent(i) == uf1.parent(j)){
+                    ans++;
+                }</B></FONT>
+                if (uf1.parent(i) != uf1.parent(j)){
+<A NAME="1"></A>                    uf1.join(i,j);
+                }
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        for(auto e:edges){
+            if (e[0] == 2){
+                int i = e[1];
+                int j = e[2];
+                if (uf2.parent(i) == uf2.parent(j)){
+                    ans++;
+                }</B></FONT>
+                if (uf2.parent(i) != uf2.parent(j)){
+                    uf2.join(i,j);
+                }
+            }
+        }
+        
+        
+        if (uf1.size(1) != n || uf2.size(1) != n) return -1;
+        return ans;
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

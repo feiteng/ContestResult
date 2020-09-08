@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>516_z71258847.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>516_z71258847.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int find(int x, vector&lt;int&gt; &amp;father){
+        if (father[x]!=x) {
+            int u=find(father[x], father);
+            father[x]=u;
+        }
+        return father[x];
+    }
+    
+    void unions(int x, int y, vector&lt;int&gt; &amp;father){
+        int fx = find(x, father);
+        int fy = find(y, father);
+        father[fx]=fy;
+    }
+    
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;int&gt; fa, fb;
+        for (int i=0; i&lt;=n; i++){
+<A NAME="0"></A>            fa.push_back(i);
+            fb.push_back(i);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans=0;
+        for (int i=0; i&lt;edges.size(); i++){
+            if (edges[i][0]==3){
+                int x=edges[i][1];
+                int y=edges[i][2];
+                if (find(x, fa)!=find(y, fa)){
+                    unions(x, y, fa);
+                    unions(x, y, fb);
+                }
+                else ans++;
+            }
+        }
+        
+        for (int i=0; i&lt;edges.size(); i++){
+            if (edges[i][0]==1){
+                int x=edges[i][1];
+                int y=edges[i][2];
+                if (find(x, fa)!=find(y, fa)){
+                    unions(x, y, fa);
+                }
+                else ans++;
+            }
+            else if (edges[i][0]==2){
+                int x=edges[i][1];
+                int y=edges[i][2];
+                if (find(x, fb)!=find(y, fb)){
+                    unions(x, y, fb);
+                }
+                else ans++;
+            }
+        }
+        
+        int ra=find(1, fa);</B></FONT>
+        int rb=find(1, fb);
+        
+        for (int i=2; i&lt;=n; i++){
+            if (find(i, fa)!=ra) return -1;
+            if (find(i, fb)!=rb) return -1;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

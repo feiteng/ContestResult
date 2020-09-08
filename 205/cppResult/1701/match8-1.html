@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>107_inszva-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>107_inszva-2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>struct DSU {
+    vector&lt;int&gt; fa;
+    vector&lt;int&gt; sz;
+    int merged;
+    DSU(int n): fa(n, 0), sz(n, 1), merged(0) {
+        for (int i = 0;  i &lt; n; i++)
+            fa[i] = i;
+    }
+    int find(int x) {
+        if (x == fa[x]) return x;
+        return fa[x] = find(fa[x]);
+    }
+    bool uni(int x, int y) {</B></FONT>
+        int fx = find(x), fy = find(y);
+<A NAME="1"></A>        if (fx == fy) return false;
+        merged++;
+        if (sz[fx] &gt; sz[fy]) swap(fx, fy);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        fa[fx] = fy;
+        sz[fy] += sz[fx];
+        return true;
+    }
+};
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int num = 0;
+        DSU u1(n+1), u2(n+1);
+        for (auto&amp; e: edges) {</B></FONT>
+            if (e[0] == 3) {
+                if (u1.uni(e[1], e[2])) {
+                    u2.uni(e[1], e[2]);
+                    num++;
+                }
+            }
+        }
+        for (auto&amp; e: edges) {
+            if (e[0] == 1) {
+                if (u1.uni(e[1], e[2])) {
+                    num++;
+                }
+            } else if (e[0] == 2) {
+                if (u2.uni(e[1], e[2])) {
+                    num++;
+                }
+            }
+        }
+        if (u1.merged &lt; n-1 || u2.merged &lt; n-1) {
+            return -1;
+        }
+        return edges.size() - num;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>85_cszclin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>85_cszclin.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int myfind(int a, vector&lt;int&gt;&amp; relation) {
+        if (relation[a] == a) return a;
+        int res = myfind(relation[a], relation);
+        relation[a] = res;
+        return res;
+    }
+
+    void myunion(int a, int b, vector&lt;int&gt;&amp; relation) {
+        int ta = myfind(a, relation);
+        int tb = myfind(b, relation);
+        if (ta == tb) return;
+        relation[ta] = tb;
+    }
+
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;pair&lt;int, int&gt;&gt; vp1, vp2, vp3;
+        for (auto e : edges) {
+            if (e[0] == 1) {
+                vp1.push_back(make_pair(e[1], e[2]));
+            }
+            if (e[0] == 2) {
+                vp2.push_back(make_pair(e[1], e[2]));
+            }
+            if (e[0] == 3) {
+                vp3.push_back(make_pair(e[1], e[2]));
+            }
+<A NAME="0"></A>        }
+        vector&lt;int&gt; r1(n + 1, 0), r2(n + 1, 0);
+        for (int i = 1; i &lt;= n; i++) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            r1[i] = i;
+            r2[i] = i;
+        }
+        int res = 0;
+        for (auto p : vp3) {
+            int a = p.first, b = p.second;
+            if (myfind(a, r1) == myfind(b, r1) &amp;&amp; myfind(a, r2) == myfind(b, r2)) {
+                res++;
+            } else {
+                myunion(a, b, r1);
+                myunion(a, b, r2);
+            }
+        }
+        
+        for (auto p : vp1) {
+            int a = p.first, b = p.second;
+            if (myfind(a, r1) == myfind(b, r1)) {
+                res++;
+            } else {
+                myunion(a, b, r1);
+            }
+        }
+        for (auto p : vp2) {
+            int a = p.first, b = p.second;
+            if (myfind(a, r2) == myfind(b, r2)) {
+                res++;
+            } else {
+                myunion(a, b, r2);
+            }
+        }</B></FONT>
+        for (int i = 2; i &lt;= n; i++) {
+            if (myfind(i, r1) != myfind(i - 1, r1) || myfind(i, r2) != myfind(i - 1 ,r2)) {
+                return -1;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

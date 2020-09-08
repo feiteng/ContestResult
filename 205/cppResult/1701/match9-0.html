@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_fallleaves01.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>118_fallleaves01.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    static const int N=1e5+50;
+    struct Mset
+    {
+        int fa[N];
+        void init(int n)
+        {
+            for (int i=1;i&lt;=n;i++)
+                fa[i]=i;
+        }
+        int getfa(int v)
+<A NAME="1"></A>        {</B></FONT>
+            if (fa[v]==v) return v;
+            return fa[v]=getfa(fa[v]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        bool merge(int a,int b)
+        {
+            int af=getfa(a),bf=getfa(b);
+            if (af==bf) return false;
+            fa[af]=bf;
+            return true;
+        }
+    }m1,m2;
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m=edges.size(),ans=0;</B></FONT>
+        m1.init(n),m2.init(n);
+        for (int i=0;i&lt;m;i++)
+            if (edges[i][0]==3)
+            {
+                bool tag=m1.merge(edges[i][1],edges[i][2]);
+                m2.merge(edges[i][1],edges[i][2]);
+                if (!tag) ans++;
+            }
+        for (int i=0;i&lt;m;i++)
+            if (edges[i][0]==1)
+            {
+                if (!m1.merge(edges[i][1],edges[i][2])) ans++;
+            }
+        for (int i=0;i&lt;m;i++)
+            if (edges[i][0]==2)
+            {
+                if (!m2.merge(edges[i][1],edges[i][2])) ans++;
+            }
+        int f1=m1.getfa(1),f2=m2.getfa(1);
+        for (int i=2;i&lt;=n;i++)
+            if (m1.getfa(i)!=f1||m2.getfa(i)!=f2)
+                return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

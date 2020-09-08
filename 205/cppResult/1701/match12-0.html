@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_galaxies.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_galaxies.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    inline int getf(vector &lt;int&gt; &amp;fa, int x) {
+<A NAME="0"></A>        return fa[x] == x ? x : fa[x] = getf(fa, fa[x]);
+    }
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector &lt;int&gt; fa1, fa2;
+        fa1.resize(n + 1); fa2.resize(n + 1);
+        for (int i = 1; i &lt;= n; ++ i) fa1[i] = i, fa2[i] = i;
+        int useless = 0;
+        for (auto e : edges) {
+            if (e[0] == 3) {
+                int fu = getf(fa1, e[1]), fv = getf(fa1, e[2]);
+                int fuu = getf(fa2, e[1]), fvv = getf(fa2, e[2]);</B></FONT>
+                if (fu == fv) {
+                    useless ++;
+                } else {
+                    fa1[fu] = fv;
+                    fa2[fuu] = fvv;
+                }
+            }
+        }
+        for (auto e : edges) {
+<A NAME="1"></A>            if (e[0] == 1) {
+                int fu = getf(fa1, e[1]), fv = getf(fa1, e[2]);
+                if (fu == fv) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    useless ++;
+                } else {
+                    fa1[fu] = fv;
+                }
+            }
+        }
+<A NAME="2"></A>        for (auto e : edges) {
+            if (e[0] == 2) {
+                int fu = getf(fa2, e[1]), fv = getf(fa2, e[2]);</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (fu == fv) {
+                    useless ++;
+                } else {
+                    fa2[fu] = fv;
+                }
+            }
+        }
+        int ff = getf(fa1, 1);</B></FONT>
+        for (int i = 1; i &lt;= n; ++ i) if (getf(fa1, i) != ff) return -1;
+        ff = getf(fa2, 1);
+        for (int i = 1; i &lt;= n; ++ i) if (getf(fa2, i) != ff) return -1;
+        return useless;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

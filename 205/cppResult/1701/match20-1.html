@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_dexterdreeeam.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_dexterdreeeam.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+
+    vector&lt;int&gt; ids;
+
+    int get_id(int x, vector&lt;int&gt; &amp;myid)
+    {
+        return myid[x] == x ? x : (myid[x] = get_id(myid[x], myid));
+    }
+
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges)
+    {
+        vector&lt;pair&lt;int, int&gt;&gt; conn1, conn2, conn3;</B></FONT>
+        for (auto &amp;v : edges)
+        {
+            if (v[0] == 1)
+            {
+                conn1.push_back(make_pair(v[1] - 1, v[2] - 1));
+            }
+            if (v[0] == 2)
+            {
+                conn2.push_back(make_pair(v[1] - 1, v[2] - 1));
+            }
+            if (v[0] == 3)
+            {
+                conn3.push_back(make_pair(v[1] - 1, v[2] - 1));
+            }
+        }
+
+        unordered_set&lt;int&gt; comein;
+        ids = vector&lt;int&gt;(n);
+        for (int i = 0; i &lt; n; ++i)
+        {
+            ids[i] = i;
+        }
+
+        int rst = 0;
+
+        for (auto p : conn3)
+        {
+            if (get_id(p.first, ids) != get_id(p.second, ids))
+            {
+                ids[get_id(p.first, ids)] = get_id(p.second, ids);
+            }
+        }
+
+        unordered_set&lt;int&gt; real_id;
+        for (int i = 0; i &lt; n; ++i)
+        {
+            real_id.insert(get_id(i, ids));
+        }
+
+        int sz_common = n - real_id.size();
+
+<A NAME="1"></A>        vector&lt;int&gt; ids1 = ids;
+        vector&lt;int&gt; ids2 = ids;
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        rst = sz_common;
+
+        for (auto p : conn1)
+        {
+            int real_id1 = get_id(p.first, ids1);
+            int real_id2 = get_id(p.second, ids1);
+            if (real_id1 != real_id2)
+            {
+                ++rst;
+                ids1[real_id1] = real_id2;</B></FONT>
+            }
+        }
+
+        for (int i = 1; i &lt; n; ++i)
+        {
+<A NAME="2"></A>            if (get_id(i, ids1) != get_id(0, ids1))
+            {
+                return -1;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+
+        for (auto p : conn2)
+        {
+            int real_id1 = get_id(p.first, ids2);
+            int real_id2 = get_id(p.second, ids2);
+            if (real_id1 != real_id2)
+            {
+                ++rst;
+                ids2[real_id1] = real_id2;</B></FONT>
+            }
+        }
+
+        for (int i = 1; i &lt; n; ++i)
+        {
+            if (get_id(i, ids2) != get_id(0, ids2))
+            {
+                return -1;
+            }
+        }
+
+        return edges.size() - rst;
+
+    }
+};
+</PRE>
+</BODY>
+</HTML>

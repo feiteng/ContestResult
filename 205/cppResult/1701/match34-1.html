@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>477_zhangchaosd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>477_zhangchaosd.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int mp[100005];
+    int mpa[100005];
+    int mpb[100005];
+    int n;
+    int fd(int k)
+    {
+        int ok=k;
+        while(mp[k]!=k)
+        {
+            k=mp[k];
+        }
+        while(mp[ok]!=ok)
+        {
+           
+            ok=mp[ok];
+             mp[ok]=k;
+        }
+        return k;
+    }
+    void lk(int a, int b)
+    {
+        int pa=fd(a);
+        mp[b]=pa;
+    }
+    int fda(int k)
+    {
+        int ok=k;
+        while(mpa[k]!=k)
+        {
+            k=mpa[k];
+        }
+        while(mpa[ok]!=ok)
+        {
+           
+            ok=mpa[ok];
+             mpa[ok]=k;
+        }
+        return k;
+    }
+    void lka(int a, int b)
+    {
+        int pa=fda(a);
+        mpa[b]=pa;
+    }
+    int fdb(int k)
+    {
+        int ok=k;
+        while(mpb[k]!=k)
+        {
+            k=mpb[k];
+        }
+        while(mpb[ok]!=ok)
+        {
+           
+            ok=mpb[ok];
+             mpb[ok]=k;
+        }
+        return k;
+    }
+    void lkb(int a, int b)
+    {
+        int pa=fdb(a);
+        mpb[b]=pa;
+    }
+public:
+    int maxNumEdgesToRemove(int nn, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+<A NAME="0"></A>        memset(mp,0,sizeof mp);
+        n=nn;
+        vector&lt;pair&lt;int,int&gt;&gt;e0,e1,e2;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto v:edges)
+        {
+            if(v[0]==3)
+            {
+                e0.push_back({v[1],v[2]});//both
+            }
+            else if(v[0]==1)
+            {
+                e1.push_back({v[1],v[2]});//alice
+            }
+            else
+            {
+                e2.push_back({v[1],v[2]});//bob
+<A NAME="1"></A>            }
+        }</B></FONT>
+        for(int i=1;i&lt;=n;i++) mp[i]=i;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans=0;
+        for(auto e:e0)
+        {
+            int pa=fd(e.first);
+            int pb=fd(e.second);
+            if(pa!=pb)
+            {
+                lk(pa,pb);
+                ans++;</B></FONT>
+            }
+        }
+        memcpy(mpa,mp,sizeof mp);
+        memcpy(mpb,mp,sizeof mp);
+        for(auto e:e1)
+        {
+            int pa=fda(e.first);
+            int pb=fda(e.second);
+<A NAME="2"></A>            if(pa!=pb)
+            {
+                lka(pa,pb);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                ans++;
+            }
+        }
+        for(auto e:e2)
+        {
+            int pa=fdb(e.first);
+            int pb=fdb(e.second);
+            if(pa!=pb)
+            {
+                lkb(pa,pb);
+                ans++;</B></FONT>
+            }
+        }
+        //int pa0=fd(1);
+        //for(int i=2;i&lt;=n;i++) if(fd(i)!=pa0) return -1;
+        int pa1=fda(1);
+                for(int i=2;i&lt;=n;i++) if(fda(i)!=pa1) return -1;
+int pa2=fdb(1);
+                for(int i=2;i&lt;=n;i++) if(fdb(i)!=pa2) return -1;
+        return edges.size()-ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

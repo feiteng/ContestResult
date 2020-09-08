@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>370_buyaojiaowobisai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>370_buyaojiaowobisai.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 100005;
+int fa[maxn];
+int N;
+
+void init() {
+    for (int i = 0; i &lt;= N; i++)
+        fa[i] = i;
+}
+
+int find_fa(int x){
+	fa[x] = (fa[x]==x?fa[x]:find_fa(fa[x]));
+	return fa[x];
+}
+
+void merge(int a,int b){
+	int faa = find_fa(a);
+	int fab = find_fa(b);
+	fa[faa] = fab;
+	return ;
+}
+
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        N = n;
+        int ne = edges.size();
+<A NAME="0"></A>        int ans;
+        
+        init();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        ans = 0;
+        for (int i = 0; i &lt; ne; i++) { //先尽量删3
+            if (edges[i][0] == 3) {
+                if (find_fa(edges[i][1]) == find_fa(edges[i][2]))
+                    ans++;
+                else
+                    merge(edges[i][1], edges[i][2]);
+            }
+        }
+        for (int i = 0; i &lt; ne; i++) {  //再考虑1
+            if (edges[i][0] == 1) {
+                if (find_fa(edges[i][1]) == find_fa(edges[i][2]))
+                    ans++;
+                else
+                    merge(edges[i][1], edges[i][2]);
+            }
+        }
+        for(int i = 2; i &lt;= n; i++) {</B></FONT>
+            if (find_fa(i - 1) != find_fa(i)) {
+                return -1;
+            }
+        }
+        
+        init();
+<A NAME="1"></A>        for (int i = 0; i &lt; ne; i++) { //先尽量删3
+            if (edges[i][0] == 3) 
+                merge(edges[i][1], edges[i][2]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        for (int i = 0; i &lt; ne; i++) {  //再考虑2
+            if (edges[i][0] == 2) {
+                if (find_fa(edges[i][1]) == find_fa(edges[i][2]))
+                    ans++;
+                else
+                    merge(edges[i][1], edges[i][2]);
+            }
+        }        
+        for(int i = 2; i &lt;= n; i++) {</B></FONT>
+            if (find_fa(i - 1) != find_fa(i)) {
+                return -1;
+            }
+        }
+        return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

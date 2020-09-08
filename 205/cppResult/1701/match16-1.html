@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>336_wra.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>336_wra.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+private:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; fa, tfa;
+    int find(int ck){return ck == fa[ck] ? ck : fa[ck] = find(fa[ck]);}
+    int tfind(int ck){return ck == tfa[ck] ? ck : tfa[ck] = tfind(tfa[ck]);}</B></FONT>
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m = edges.size(), s0 = 0, s1 = 0, s2 = 0;
+        fa = vector&lt;int&gt;(n+1, 0);
+<A NAME="1"></A>        for(int i = 1; i &lt;= n; i++){
+            fa[i] = i;
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; m; i++){
+            if( edges[i][0] == 3 ){
+                int u = find(edges[i][1]), v = find(edges[i][2]);
+                if( u != v ){
+                    fa[u] = v;</B></FONT>
+                    s0++;
+<A NAME="2"></A>                }
+            }
+        }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        tfa = fa;
+        for(int i = 0; i &lt; m; i++){
+            if( edges[i][0] == 1 ){
+                int u = find(edges[i][1]), v = find(edges[i][2]);
+                if( u != v ){
+                    fa[u] = v;
+                    s1++;
+                }
+            }else if( edges[i][0] == 2 ){</B></FONT>
+                int u = tfind(edges[i][1]), v = tfind(edges[i][2]);
+                if( u != v ){
+                    tfa[u] = v;
+                    s2++;
+                }
+            }
+        }
+        int ck1 = find(1), ck2 = tfind(1);
+        for(int i = 2; i &lt;= n; i++){
+            if( ck1 != find(i) || ck2 != tfind(i) ){
+                return -1;
+            }
+        }
+        return m - (s0 + s1 + s2);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

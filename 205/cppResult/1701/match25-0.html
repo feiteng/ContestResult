@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_EulerianDescent.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_EulerianDescent.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    typedef pair&lt;int,pair&lt;int,int&gt; &gt; Edge;
+    int f[2][100500];
+    Edge edge[100500];
+<A NAME="0"></A>    
+    int getf(int k, int p) {
+        if(f[k][p] == p) return p;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        else return f[k][p]=getf(k, f[k][p]);
+    }
+    
+    void Merge(int p, int x, int y) {
+        int fx = getf(p,x);
+        int fy = getf(p,y);
+        f[p][fx] = f[p][fy] = min (fx,fy);</B></FONT>
+    }
+    
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        for(int i = 1; i &lt;=n;++i) {
+            f[1][i] = i;
+<A NAME="1"></A>            f[0][i] = i;
+        }
+        int m = edges.size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i&lt;m;++i) {
+            edge[i] = make_pair(-1*edges[i][0],make_pair(edges[i][1], edges[i][2]));
+        }
+        sort(edge,edge+m);
+        int ans = 0;
+        for(int i = 0; i &lt; m; ++i) {</B></FONT>
+            int u = edge[i].second.first;
+            int v = edge[i].second.second;
+            if(edge[i].first==-3) {
+                if(getf(0,u) != getf(0,v) &amp;&amp; getf(1,u) != getf(1,v)) {
+                    ans += 1;
+                    Merge(0,u,v);
+                    Merge(1,u,v);
+                }
+            } else if (edge[i].first == -2) {
+                if(getf(0,u) != getf(0,v)) {
+                    ans += 1;
+<A NAME="2"></A>                    Merge(0,u,v);
+                }
+            } else if(edge[i].first == -1) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(getf(1,u) != getf(1,v)) {
+                    ans += 1;
+                    Merge(1,u,v);
+                }
+            }
+        }
+        for(int i = 1; i &lt;= n; ++i) {
+            if(getf(0,1) != getf(0,i) || getf(1,1) != getf(1,i)) {</B></FONT>
+                return -1;
+            }
+        }
+        return m-ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>119_w285714.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>119_w285714.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; f;
+    int find(int x){
+        if(f[x]==-1)
+            return x;
+        return f[x]=find(f[x]);
+    }
+<A NAME="0"></A>    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        f=vector&lt;int&gt;(n+1,-1);
+        int res=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int p=n;
+        for(auto&amp; q:edges)
+            if(q[0]==3){
+                int fx=find(q[1]);
+                int fy=find(q[2]);
+                if(fx!=fy){
+                    f[fx]=fy;</B></FONT>
+                    ++res;
+                    --p;
+<A NAME="1"></A>                }
+            }
+        vector&lt;int&gt; of=f;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int op=p;
+        for(auto&amp; q:edges)
+            if(q[0]==1){
+                int fx=find(q[1]);
+                int fy=find(q[2]);
+                if(fx!=fy){
+                    f[fx]=fy;</B></FONT>
+                    ++res;
+                    --p;
+                }
+            }
+<A NAME="2"></A>        if(p&gt;1)
+            return -1;
+        f=of;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        p=op;
+        for(auto&amp; q:edges)
+            if(q[0]==2){
+                int fx=find(q[1]);
+                int fy=find(q[2]);
+                if(fx!=fy){
+                    f[fx]=fy;</B></FONT>
+                    ++res;
+                    --p;
+                }
+            }
+        if(p&gt;1)
+            return -1;
+        return edges.size()-res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

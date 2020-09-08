@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>519_StevenDu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>519_StevenDu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;int&gt; afather, bfather;
+        for (int i = 0; i &lt;= n; ++i) {
+            afather.push_back(i);
+            bfather.push_back(i);
+        }
+<A NAME="0"></A>        int result = 0;
+        for (int i = 0; i &lt; edges.size(); ++i) {
+            int x = edges[i][1], y = edges[i][2];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (edges[i][0] == 3) {
+                int afx = getfather(x, afather), afy = getfather(y, afather);
+                int bfx = getfather(x, bfather), bfy = getfather(y, bfather);
+                if (afx == afy &amp;&amp; bfx == bfy) {
+                    result++;
+                }
+                else {
+                    afather[afx] = afy;
+                    bfather[bfx] = bfy;
+                }
+            }     
+<A NAME="2"></A>        }
+        for (int i = 0; i &lt; edges.size(); ++i) {</B></FONT>
+            int x = edges[i][1], y = edges[i][2];
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (edges[i][0] == 1) {
+                int afx = getfather(x, afather), afy = getfather(y, afather);
+                if (afx == afy) {
+                    result++;
+                }
+                else {
+<A NAME="1"></A>                    afather[afx] = afy;
+                }
+            }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            else if (edges[i][0] == 2) {
+                int bfx = getfather(x, bfather), bfy = getfather(y, bfather);
+                if (bfx == bfy) {
+                    result++;
+                }
+                else {
+                    bfather[bfx] = bfy;
+                }
+            }    
+        }</B></FONT>
+        bool check_all = true;
+        int af = getfather(1, afather), bf = getfather(1, bfather);
+        for (int i = 1; i &lt;= n; ++i) {
+            if (getfather(i, afather) != af || getfather(i, bfather) != bf) {
+                check_all = false;
+                break;
+            }
+        }
+        return check_all ? result : -1;
+    }
+    
+    int getfather(int x, vector&lt;int&gt;&amp; father) {
+        return (x == father[x] ? x : father[x] = getfather(father[x], father));
+    }
+};
+</PRE>
+</BODY>
+</HTML>

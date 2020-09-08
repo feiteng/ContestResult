@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>447_agoodusername.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>447_agoodusername.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    
+int find(vector&lt;int&gt;&amp;pre, int k)  
+{
+	if(pre[k]==k)	return k; 
+	return pre[k]=find(pre, pre[k]); 
+}
+
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; E) {
+       // sort(E.begin(), E.end());
+<A NAME="0"></A>       // reverse(E.begin(), E.end());
+        
+        vector&lt;int&gt; a(n + 1, 0), b(n+1, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt;= n; i++) a[i] = b[i] = i;
+        
+        int ans =0 ;
+        
+        int C = 2 * n;
+        for (int i = 0; i &lt; E.size(); i++) {
+         //   if (C == 2) {ans ++; continue;}
+<A NAME="1"></A>            int t = E[i][0];
+            int x = E[i][1], y = E[i][2];</B></FONT>
+            //cout &lt;&lt; t &lt;&lt; &quot;! &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (t == 3) {
+                int u = find(a,x);
+                int v = find(a,y);
+             //   cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; v &lt;&lt; endl;
+                int uu = find(b,x);
+                int vv = find(b,y);
+                if (u != v) {
+                    a[u] = v;
+                    b[uu] = vv;</B></FONT>
+                    C -= 2;
+                    
+            //        cout &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+                }
+                else ans ++;
+            }
+            
+
+        }
+        
+          for (int i = 0; i &lt; E.size(); i++) {
+         //   if (C == 2) {ans ++; continue;}
+            int t = E[i][0];
+            int x = E[i][1], y = E[i][2];
+<A NAME="2"></A>          
+            
+            if (t == 1) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int u = find(a,x);
+                int v = find(a,y);
+
+                if (u != v) {
+                    a[u] = v;
+                    C --;
+             //       cout &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+                }
+                else ans ++;
+            }
+            
+           if (t == 2) {</B></FONT>
+                int u = find(b,x);
+                int v = find(b,y);
+
+                if (u != v) {
+                    b[u] = v;
+                    C--;
+              //      cout &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+                }
+                else ans ++;
+            }
+        }
+        
+     //   cout &lt;&lt; C &lt;&lt; endl;
+        
+        if ( C &gt; 2) return -1;
+        else return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

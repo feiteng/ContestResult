@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_illenium-k.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_illenium-k.cpp</CENTER></H3><HR>
+<PRE>
+#define maxn 1000005
+#define rep(i,a,b) for(int i=a;i&lt;=b;i++)
+
+int f[maxn],f1[maxn],f2[maxn];
+
+inline int F(int x)
+{
+    if(f[x]==x) return x;
+<A NAME="0"></A>    return f[x]=F(f[x]);
+}
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>inline int F1(int x)
+{
+    if(f1[x]==x) return x;
+    return f1[x]=F1(f1[x]);
+}
+
+inline int F2(int x)
+{
+    if(f2[x]==x) return x;
+    return f2[x]=F2(f2[x]);
+}
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {</B></FONT>
+        rep(i,1,n) f[i]=i;
+        int ans=0;
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            if(edges[i][0]==3)
+            {
+                int u=edges[i][1],v=edges[i][2],tx=F(u),ty=F(v);
+                if(tx==ty) ans++;
+                else f[tx]=ty;
+            }
+        }
+        
+        rep(i,1,n) f1[i]=f[i],f2[i]=f[i];
+        for(int i=0;i&lt;edges.size();i++)
+<A NAME="1"></A>        {
+            if(edges[i][0]==1)
+            {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int u=edges[i][1],v=edges[i][2],tx=F1(u),ty=F1(v);
+                if(tx==ty) ans++;
+                else f1[tx]=ty;
+            }
+        }
+        
+        for(int i=0;i&lt;edges.size();i++)</B></FONT>
+        {
+            if(edges[i][0]==2)
+            {
+                int u=edges[i][1],v=edges[i][2],tx=F2(u),ty=F2(v);
+                if(tx==ty) ans++;
+                else f2[tx]=ty;
+            }
+        }
+        int cnt=0;
+        rep(i,1,n) if(i==f1[i]) cnt++; if(cnt!=1) return -1;
+        cnt=0;
+        rep(i,1,n) if(i==f2[i]) cnt++; if(cnt!=1) return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

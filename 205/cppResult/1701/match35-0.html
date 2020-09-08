@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>155_Hewitt_1570.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>155_Hewitt_1570.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct edge{
+<A NAME="0"></A>        int u,v;
+    }E1[100010],E2[100010],E3[100010];
+    int c1,c2,c3,f[100010],f1[100010],f2[100010];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int _find(int x,int *f){return x==f[x]?x:f[x]=_find(f[x],f);}
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m = edges.size();
+        for(int i=1;i&lt;=n;i++)f[i] = i;
+        for(int i=0;i&lt;m;i++){
+            if(edges[i][0]==1)E1[c1++] = {edges[i][1],edges[i][2]};</B></FONT>
+            if(edges[i][0]==2)E2[c2++] = {edges[i][1],edges[i][2]};
+            if(edges[i][0]==3)E3[c3++] = {edges[i][1],edges[i][2]};
+        }
+        int ans = 0;
+        for(int i=0;i&lt;c3;i++){
+            int fa = _find(E3[i].u,f),fb = _find(E3[i].v,f);
+            if(fa!=fb){
+                ans++;
+                f[fa] = fb;
+<A NAME="1"></A>            }
+        }
+        if(ans==n-1)return m-ans;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1;i&lt;=n;i++)f1[i] = f[i],f2[i] = f[i];
+        for(int i=0;i&lt;c1;i++){
+            int fa = _find(E2[i].u,f1),fb = _find(E2[i].v,f1);
+            if(fa!=fb){</B></FONT>
+                ans++;
+                f1[fa] = fb;
+            }
+        }
+        int t = 0;
+        for(int i=1;i&lt;=n;i++)if(f1[i]==i)t++;
+        if(t&gt;1)return -1;
+        for(int i=0;i&lt;c2;i++){
+            int fa = _find(E2[i].u,f2),fb = _find(E2[i].v,f2);
+            if(fa!=fb){
+                ans++;
+                f2[fa] = fb;
+            }
+        }
+        t = 0;
+        for(int i=1;i&lt;=n;i++)if(f2[i]==i)t++;
+        if(t&gt;1)return -1;
+        return m-ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

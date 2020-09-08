@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_lkh1018.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>274_lkh1018.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;set&lt;int&gt;&gt; alice(n), bob(n), both(n);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto e : edges) {
+            if (e[0] == 1 || e[0] == 3) {
+                alice[e[1] - 1].insert(e[2] - 1);
+                alice[e[2] - 1].insert(e[1] - 1);
+            }
+            if (e[0] == 2 || e[0] == 3) {
+                bob[e[1] - 1].insert(e[2] - 1);
+                bob[e[2] - 1].insert(e[1] - 1);
+            }
+            if (e[0] == 3) {
+                both[e[1] - 1].insert(e[2] - 1);
+                both[e[2] - 1].insert(e[1] - 1);
+            }
+        }
+        
+        vector&lt;bool&gt; visited_a(n, false), visited_b(n, false);
+        traverse(0, alice, visited_a);
+        traverse(0, bob, visited_b);
+        for (int i = 0; i &lt; n; i++) {
+            if (!visited_a[i] || !visited_b[i])</B></FONT>
+<A NAME="1"></A>                return -1;
+        }
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ncomponent = 0;
+        vector&lt;bool&gt; visited(n, false);
+        for (int i = 0; i &lt; n; i++) {
+            if (!visited[i]) {
+                ncomponent++;
+                traverse(i, both, visited);
+            }
+        }
+        
+        return edges.size() - (n - 1) - (ncomponent - 1);
+    }</B></FONT>
+    
+    void traverse(int i, vector&lt;set&lt;int&gt;&gt; &amp;adj, vector&lt;bool&gt; &amp;visited) {
+        if (visited[i])
+            return;
+        visited[i] = true;
+        for (int a : adj[i]) {
+            traverse(a, adj, visited);
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

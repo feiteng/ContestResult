@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_WJTung.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>73_WJTung.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int find_root(int x, vector&lt;int&gt; &amp;parent) {
+        if (parent[x] != x) {
+            parent[x] = find_root(parent[x], parent);
+        }
+        return parent[x];
+    }
+
+    void union_by_size(int x, int y, vector&lt;int&gt; &amp;parent, vector&lt;int&gt; &amp;size) {
+        int root_x = find_root(x, parent), root_y = find_root(y, parent);
+        if (root_x == root_y) {
+            return;
+        }
+        if (size[root_x] &gt;= size[root_y]) {
+            parent[root_y] = root_x;
+            size[root_x] += size[root_y];
+        }
+        else {
+            parent[root_x] = root_y;
+            size[root_y] += size[root_x];
+        }
+        return;
+    }
+    
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; E(3);
+        for (auto &amp;edge : edges) {
+            E[edge[0] - 1].push_back({edge[1], edge[2]});
+        }
+        vector&lt;int&gt; parentA(n), sizeA(n), parentB(n), sizeB(n);
+<A NAME="0"></A>        for (int i = 0; i &lt; n; ++i) {
+            parentA[i] = i;
+            sizeA[i] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            parentB[i] = i;
+            sizeB[i] = 1;
+        }
+        int ans = 0;
+        for (auto &amp;P : E[2]) {
+            int u = P.first - 1, v = P.second - 1;
+            if (find_root(u, parentA) == find_root(v, parentA)) {
+                ++ans;
+            } else {
+                union_by_size(u, v, parentA, sizeA);
+                union_by_size(u, v, parentB, sizeB);
+            }
+        }
+        for (auto &amp;P : E[0]) {
+            int u = P.first - 1, v = P.second - 1;
+            if (find_root(u, parentA) == find_root(v, parentA)) {
+                ++ans;
+            } else {
+                union_by_size(u, v, parentA, sizeA);
+            }
+        }
+        for (auto &amp;P : E[1]) {
+            int u = P.first - 1, v = P.second - 1;
+            if (find_root(u, parentB) == find_root(v, parentB)) {
+                ++ans;
+            } else {
+                union_by_size(u, v, parentB, sizeB);
+            }
+        }</B></FONT>
+        if (sizeA[find_root(0, parentA)] != n || sizeB[find_root(0, parentB)] != n) {
+            return -1;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

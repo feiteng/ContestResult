@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>406_piyifan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>406_piyifan.cpp</CENTER></H3><HR>
+<PRE>
+
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+#define POW2(X) (1&lt;&lt;(X))
+#define CKBIT(S,X) (((S)&amp;POW2(X))!=0)
+#define BIG 1000000007
+const double pi=acos(-1.0);
+const double eps=1e-11;
+template&lt;class T&gt; inline void ckmin(T &amp;a,T b){ a=min(a,b); }
+template&lt;class T&gt; inline void ckmax(T &amp;a,T b){ a=max(a,b); }
+template&lt;class T&gt; inline T sqr(T x){ return x*x; }
+#define SIZE(A) ((int)A.size())
+#define LENGTH(A) ((int)A.length())
+#define MP(A,B) make_pair(A,B)
+#define PB(X) push_back(X)
+#define FOR(i,a,b) for(int i=(a);i&lt;(b);++i)
+#define REP(i,a) for(int i=0;i&lt;(a);++i)
+#define ALL(A) A.begin(),A.end()
+template&lt;class T&gt; int CMP(T a[],const T b[],int n) { return memcmp(a,b,n*sizeof(T)); }
+template&lt;class T&gt; void COPY(T a[],const T b[],int n) { memcpy(a,b,n*sizeof(T)); }
+template&lt;class T&gt; void SET(T a[],int val,int n) { memset(a,val,n*sizeof(T)); }
+using uint=unsigned int;
+using int64=long long;
+using uint64=unsigned long long;
+using ipair=pair&lt;int,int&gt;;
+using VI=vector&lt;int&gt;;
+using VD=vector&lt;double&gt;;
+const vector&lt;pair&lt;int, int&gt;&gt; dxy = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+
+// A structure to represent a subset for union-find  
+class subset  
+{  
+    public: 
+    int parent;  
+    int rank;  
+};  
+  
+subset subsets[100002], tsub[100002];
+
+inline int find(int i)  
+{  
+    if (subsets[i].parent != i)  
+        return subsets[i].parent = find( subsets[i].parent);  
+    else 
+        return subsets[i].parent;  
+}  
+  
+// A function that does union of two sets of x and y  
+// (uses union by rank)  
+void Union(int x, int y)  
+{  
+    int xroot = x;  
+    int yroot = y;  
+  
+    if (subsets[xroot].rank &lt; subsets[yroot].rank)  
+        subsets[xroot].parent = yroot;  
+    else if (subsets[xroot].rank &gt; subsets[yroot].rank)  
+        subsets[yroot].parent = xroot;  
+    else
+    {  
+        subsets[yroot].parent = xroot;  
+        subsets[xroot].rank++;  
+    }  
+}  
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; es) {
+        for (int i = 0; i &lt; n; i++) {
+            subsets[i].parent = i;
+<A NAME="0"></A>            subsets[i].rank = 0;
+        }
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int tot3 = 0;
+        for (auto e : es) 
+            if (e[0] == 3) {
+                int x = find(e[1]-1);
+                int y = find(e[2]-1);
+                if (x != y) {
+                    tot3++;</B></FONT>
+                    Union(x,y);
+<A NAME="1"></A>                }
+            }
+        COPY(tsub,subsets,n);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int tot1 = 0;
+        for (auto e : es)
+            if (e[0] == 1) {
+                int x = find(e[1]-1);
+                int y = find(e[2]-1);
+                if (x != y) {
+                    tot1++;</B></FONT>
+                    Union(x,y);
+
+                }
+            }
+<A NAME="2"></A>        if (tot1+tot3 &lt; n-1) return -1;
+        
+        COPY(subsets,tsub,n);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int tot2 = 0;
+        for (auto e : es)
+            if (e[0] == 2) {
+                int x = find(e[1]-1);
+                int y = find(e[2]-1);
+                if (x != y) {
+                    tot2++;</B></FONT>
+                    Union(x,y);
+
+                }
+            }
+        if (tot2+tot3 &lt; n-1) return -1;
+        return es.size() - (tot1+tot2+tot3);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

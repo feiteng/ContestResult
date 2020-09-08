@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>555_rgkbitw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>555_rgkbitw.cpp</CENTER></H3><HR>
+<PRE>
+class DSU{
+    int n;
+    vector&lt;int&gt; par, sz;
+    int comp;
+public:
+    DSU(int n1){
+        n = n1;
+        sz.assign(n, 1);
+        par.assign(n, 0);
+        for(int i=0; i&lt;n; ++i){
+            par[i] = i;
+        }
+        comp = n;
+    }
+    
+    int root(int u){
+        if( par[u] == u ){ return u; }
+        return par[u] = root(par[u]);
+    }
+    
+    bool unite(int a, int b){
+        int x = root(a);
+        int y = root(b);
+        if( x == y ){ return false; }
+        if( sz[y] &gt; sz[x] ){ swap(x, y); }
+        par[y] = x;
+        sz[x] += sz[y];
+        comp--;
+        return true;
+    }
+    int getComp(){
+        return comp;
+    }
+};
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+<A NAME="0"></A>        
+        DSU ds(n), ds2(n);
+        int ans = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int a1 = 0, a2 = 0;
+        for(auto i : edges){
+            if( i[0] == 3 ){
+                int u = i[1]-1;
+                int v = i[2]-1;
+                if( ds.unite(u, v) == false ){
+                    ++ans;
+                }
+                if( ds2.unite(u, v) == false){
+                    // 
+                }
+            }
+        }
+        for(auto i : edges){
+            if( i[0] == 1 ){
+                int u = i[1] - 1;
+                int v = i[2] - 1;
+                if( ds.unite(u, v) == false ){
+                    ++a1;
+<A NAME="1"></A>                }</B></FONT>
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if( ds.getComp() != 1 ){ return -1; }
+        for(auto i : edges){
+            if( i[0] == 2 ){
+                int u = i[1] - 1;
+                int v = i[2] - 1;
+                if( ds2.unite(u, v) == false ){
+                    ++a2;
+                }</B></FONT>
+            }
+        }
+        if( ds2.getComp() != 1 ){ return -1; }
+        return ans + a1 + a2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
