@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>479_li-zi-he.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>479_li-zi-he.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int unhappyFriends(int n, vector&lt;vector&lt;int&gt;&gt;&amp; preferences, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+        vector&lt;vector&lt;int&gt;&gt; cl(n, vector&lt;int&gt;(n, 0));
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; n-1; ++j) {
+                cl[i][preferences[i][j]] = n-j;
+            }
+        }
+        int res = 0;</B></FONT>
+        vector&lt;int&gt; adj(n);
+        for (auto&amp; p : pairs) {
+<A NAME="1"></A>            adj[p[0]] = p[1];
+            adj[p[1]] = p[0];
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int x = 0; x &lt; n; ++x) {
+                int y = adj[x];
+                for (int u = 0; u &lt; n; ++u) {
+                    if (x == u || y == u) continue;
+                    int v = adj[u];
+                    //cout &lt;&lt; cl[x][u] &lt;&lt; cl[x][y] &lt;&lt; endl;
+                    if (cl[x][u] &gt; cl[x][y] &amp;&amp; cl[u][x] &gt; cl[u][v]) {
+                        res++;
+                        break;
+                    }
+                }
+            
+            
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

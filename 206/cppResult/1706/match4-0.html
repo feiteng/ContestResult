@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>707_fine-57.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>707_fine-57.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minCostConnectPoints(vector&lt;vector&lt;int&gt;&gt;&amp; points) {
+        int n = points.size();
+        vector&lt;vector&lt;int&gt; &gt; dist(n, vector&lt;int&gt;(n, 0));
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; i; j++) {
+                dist[i][j] = dist[j][i] = abs(points[i][0]-points[j][0]) + abs(points[i][1] - points[j][1]);</B></FONT>
+            }
+        }
+        vector&lt;bool&gt; connected(n, false);
+<A NAME="1"></A>        int cost = 0;
+        connected[0] = true;
+        vector&lt;int&gt; mindist(n, 0);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i++) mindist[i] = dist[i][0];
+<A NAME="2"></A>        for (int i = 1; i &lt; n; i++) {
+            int pos = -1, d = INT_MAX;</B></FONT>
+            for (int j = 0; j &lt; n; j++) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (!connected[j] &amp;&amp; mindist[j] &lt; d) {
+                    pos = j;
+                    d = mindist[j];
+                }
+            }
+            //cout &lt;&lt; pos;
+            connected[pos] = true;
+            cost += d;
+            for (int j = 0; j &lt; n; j++) {
+                if (!connected[j] &amp;&amp; mindist[j] &gt; dist[pos][j]) {</B></FONT>
+                    mindist[j] = dist[pos][j];
+                }
+            }
+        }
+        //cout &lt;&lt; endl;
+        return cost;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_tian-tang-6.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_tian-tang-6.java</CENTER></H3><HR>
+<PRE>
+
+
+
+import java.util.*;
+import java.util.function.IntUnaryOperator;
+
+public class Solution {
+    public boolean isTransformable(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+<A NAME="0"></A>
+        int n = s.length();
+        Segment seg = new Segment(0, n - 1, i -&gt; s.charAt(i));
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Deque&lt;Integer&gt;[] dqs = new Deque[128];
+        for (int i = '0'; i &lt;= '9'; i++) {
+            dqs[i] = new ArrayDeque&lt;&gt;();
+        }
+        for (int i = 0; i &lt; s.length(); i++) {
+<A NAME="1"></A>            dqs[s.charAt(i)].addLast(i);
+        }</B></FONT>
+        int inf = (int) 1e9;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; t.length(); i++) {
+            char c = t.charAt(i);
+            if (dqs[c].isEmpty()) {
+                return false;
+            }
+            int head = dqs[c].removeFirst</B></FONT>();
+            if (seg.query(0, head, 0, n - 1) &lt; c) {
+                return false;
+            }
+            seg.update(head, head, 0, n - 1, inf);
+        }
+
+        return true;
+    }
+}
+
+
+class Segment implements Cloneable {
+    private Segment left;
+    private Segment right;
+    private int min;
+    private static int inf = (int) 1e9;
+
+
+    private void modify(int x) {
+        min = x;
+    }
+
+    public void pushUp() {
+        min = Math.min(left.min, right.min);
+    }
+
+    public void pushDown() {
+    }
+
+    int floorAverage(int l, int r) {
+        return (l + r) / 2;
+    }
+
+    public Segment(int l, int r, IntUnaryOperator func) {
+        if (l &lt; r) {
+            int m = floorAverage(l, r);
+            left = new Segment(l, m, func);
+            right = new Segment(m + 1, r, func);
+            pushUp();
+        } else {
+            min = func.applyAsInt(l);
+        }
+    }
+
+    private boolean covered(int ll, int rr, int l, int r) {
+        return ll &lt;= l &amp;&amp; rr &gt;= r;
+    }
+
+    private boolean noIntersection(int ll, int rr, int l, int r) {
+        return ll &gt; r || rr &lt; l;
+    }
+
+    public void update(int ll, int rr, int l, int r, int x) {
+        if (noIntersection(ll, rr, l, r)) {
+            return;
+        }
+        if (covered(ll, rr, l, r)) {
+            modify(x);
+            return;
+        }
+        pushDown();
+        int m = floorAverage(l, r);
+        left.update(ll, rr, l, m, x);
+        right.update(ll, rr, m + 1, r, x);
+        pushUp();
+    }
+
+    public int query(int ll, int rr, int l, int r) {
+        if (noIntersection(ll, rr, l, r)) {
+            return inf;
+        }
+        if (covered(ll, rr, l, r)) {
+            return min;
+        }
+        pushDown();
+        int m = floorAverage(l, r);
+        return Math.min(left.query(ll, rr, l, m),
+                right.query(ll, rr, m + 1, r));
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

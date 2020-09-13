@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>508_azala.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>508_azala.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="1"></A>    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        edges = []
+        cc = [i for i in range(len(points))]
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(len(points)):
+            for j in range(i+1, len(points)):
+                d = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])
+<A NAME="0"></A>                edges.append((d, i, j))
+        edges.sort(</B></FONT>)
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def root(x):
+            if cc[x] != x:
+                cc[x] = root(cc[x])
+            return cc[x]
+        def join(x, y):
+            rx = root(x)
+            ry = root(y)
+            if rx != ry:
+                cc[rx] =</B></FONT> ry
+            return rx != ry
+        
+        cct = len(points)
+        cost = 0
+        # print('foo')
+        for x, i, j in edges:
+            if join(i, j):
+                cost += x
+                # print(x)
+                cct -= 1
+                if cct == 1:
+                    break
+        return cost
+</PRE>
+
+</BODY>
+</HTML>

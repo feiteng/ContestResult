@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>98_hcx11333.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>98_hcx11333.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int unhappyFriends(int n, vector&lt;vector&lt;int&gt;&gt;&amp; preferences, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int tp[505][505];
+        for (int i = 0; i &lt; preferences.size(); ++i) {
+            for (int j = 0; j &lt; preferences[0].size(); ++j) {
+                tp[i][preferences[i][j]] = j;
+<A NAME="1"></A>            }
+        }
+        int ans = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int vis[505] = {0};
+<A NAME="2"></A>        for (int i = 0; i &lt; pairs.size(); ++i) {
+            for (int j = i + 1; j &lt; pairs.size(); ++j) {
+                int u = pairs[i][0], v = pairs[i][1];</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int w = pairs[j][0], x = pairs[j][1];
+                if (tp[u][w] &lt; tp[u][v] &amp;&amp; tp[w][u] &lt; tp[w][x]) {
+                    vis[u] = 1, vis[w] = 1;
+                }
+                if (tp[u][x] &lt; tp[u][v] &amp;&amp; tp[x][u] &lt; tp[x][w]) {
+                    vis[u] = 1, vis[x] = 1;
+                }
+                if (tp[v][w] &lt; tp[v][u] &amp;&amp; tp[w][v] &lt; tp[w][x]) {
+                    vis[v] = 1, vis[w] = 1;
+                }
+                if (tp[v][x] &lt; tp[v][u] &amp;&amp; tp[x][v] &lt; tp[x][w]) {
+                    vis[v] = 1, vis[x] = 1;
+                }
+            }
+        }</B></FONT>
+        for (int i = 0; i &lt; n; ++i) {
+            ans += vis[i];
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

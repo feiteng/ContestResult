@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>330_jason_wong1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>330_jason_wong1.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public boolean isTransformable(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] nums = new</B></FONT> int[10];
+        int[] pos = new int[10];
+        int[] dp = new int[10];
+        Map&lt;Integer, List&lt;int[]&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt;= 9; i++) {
+            map.put(i, new ArrayList&lt;&gt;());
+        }
+        for (int i = 0; i &lt; s.length(); i++) {
+<A NAME="1"></A>            int cur = s.charAt(i) - '0';
+            nums[s.charAt(i) - '0']++;
+            map.get(cur).add(copy(nums));
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int[] numss = new int[10];
+        for (int i = 0; i &lt; t.length(); i++) {
+            int cur = t.charAt</B></FONT>(i) - '0';
+            if (dp[cur] &gt;= map.get(cur).size()) {
+                return false;
+            }
+            int[] num = map.get(cur).get(dp[cur]);
+            if (!fuhe(numss, num, cur)) {
+                return false;
+<A NAME="2"></A>            }
+            dp[cur]++;
+            numss[cur]++;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return true;
+    }
+    
+    public int[] copy(int[] arr) {
+        int[] arr1 = new int[arr.length];
+        
+        for (int i = 0;i &lt; arr.length; i++) {
+            a</B></FONT>rr1[i] = arr[i];
+        }
+        return arr1;
+    }
+    
+    public boolean fuhe(int[] numss, int[] num, int val) {
+        for (int i = 0; i &lt; 10; i++) {
+<A NAME="3"></A>            if (i &gt;= val) {
+                return true;
+            }
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match19-1.html#3',3,'match19-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (numss[i] &lt; num[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

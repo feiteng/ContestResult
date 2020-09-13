@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>194_danielcy715.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>194_danielcy715.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+        int[] friends = new int[n];
+        for (int[] pair : pairs) {
+            int a = pair[0];
+            int b = pair[1];
+            friends[a] = b;
+            friends[b] = a;
+        }
+        
+        int[][] score = new int[n][n];
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+            int[] pref = preferences[i];
+            int s = n;
+<A NAME="1"></A>            for (int j = 0; j &lt; pref.length; j++) {
+                score[i][pref[j]] = s;
+                s--;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        int unhappy = 0;
+        for (int i = 0; i &lt; n; i++) {
+            int f = friends[i]</B></FONT>;
+            int s = score[i][f];
+            for (int j = 0; j &lt; n; j++) {
+                if (score[i][j] &lt;= s) {
+                    continue;
+<A NAME="2"></A>                }
+                // friend j is a candidate
+                int js = score[j][friends[j]];
+                if (score[j][i] &gt; js) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    unhappy++;
+                    break;
+                }
+            }
+        }
+        
+        return unhappy;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

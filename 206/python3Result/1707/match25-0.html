@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_apoi2333.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>210_apoi2333.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def isTransformable(self, s: str, t: str) -&gt; bool:
+        n = len(s)
+        freqs <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [0] * 10
+        freqt = [0] * 10
+        for ch in s:
+            freqs[ord(ch)-48] += 1
+        for ch in t:
+            freqt[ord(ch)-48] += 1
+        for i in range(10):
+            if freqs[i] != freqt[i]:
+                re</B></FONT>turn False
+            
+        sufsums = [[0] * 10 for _ in range(n+1)]
+        sufsumt = [[0] * 10 for _ in range(n+1)]
+        for i in range(n-1, -1, -1):
+            indexs = ord(s[i]) - 48
+            indext = ord(t[i]) - 48
+            for j in range(10):
+                if j &lt; indexs:
+                    sufsums[i][j] = sufsums[i+1][j] + 1
+                else:
+                    sufsums[i][j] = sufsums[i+1][j]
+                if j &lt; indext:
+                    sufsumt[i][j] = sufsumt[i+1][j] + 1
+                else:
+                    sufsumt[i][j] = sufsumt[i+1][j]
+        #print(sufsums)
+        #print(sufsumt)
+        greaters = [[] for _ in range(10)]
+        greatert = [[] for _ in range(10)]
+        for i in range(n):
+            indexs = ord(s[i]) - 48
+            indext = ord(t[i]) - 48
+            gs, gt = sufsums[i][indexs], sufsumt[i][indext]
+            greaters[indexs].append(gs)
+            greatert[indext].append(gt)
+        for i in range(10):
+<A NAME="1"></A>            greaters[i].sort()
+            greatert[i].sort()
+            k = len(greaters[i])
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for j in range(k):
+                if greaters[i][j] &gt; greatert[i][j]:
+                    return False
+        re</B></FONT>turn True
+</PRE>
+
+</BODY>
+</HTML>

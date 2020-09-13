@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>326_Siddhant_Khare.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>326_Siddhant_Khare.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    // pvt class
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private class DSU{
+        int[] parent;
+
+        public DSU(int N) {
+            //array
+            
+            parent = new int[N];
+            for (int i = 0; i &lt; N; ++i) {
+                parent[i] = i;
+            }
+        }
+        
+        // public class
+
+        public int find(int x) {
+            // array
+            
+            if (parent[x] != x) parent[x] = find(parent[x]);
+            
+            // exit 
+            
+            return parent[x];
+        }
+
+        public void union(int x, int y) {
+            parent[find(x)] = find(y);
+        }
+        // end
+    }
+    // end
+    
+    
+    
+    // public class 
+    
+    public int minCostConnectPoints(int[][] points) {
+        if</B></FONT> (points == null || points.length &lt;= 1) {
+            return 0;
+        }
+<A NAME="1"></A>        
+        // length
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int len = points.length;
+        int[][] distances = new int[len][len];
+        // int array
+        
+        PriorityQueue&lt;int[]&gt; queue = new PriorityQueue&lt;&gt;((a, b) -&gt; (distances[a[0]][a[1]] - distances[b[0]][b[1]]));
+        
+        // for looping
+        
+        for (int i = 0; i &lt; len; ++i) {
+            for (int j = i; j &lt; len; ++j) {
+                
+                // array logical executiuon
+                
+                int distance = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
+                distances[i][j] = distance;
+                distances[j][i] = distance;
+                
+                // queue mapping
+                 
+                queue.add(new int[]{i,j});
+            }
+        }
+        // new lenght
+        
+        DSU uf = new</B></FONT> DSU(len);
+        int res = 0, count = len;
+<A NAME="2"></A>        
+        // while looping 
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!queue.isEmpty() &amp;&amp; count != 0) {
+            
+            // array 
+            
+            int[] tmp = queue.poll();
+            
+            // if looping
+            
+            if (uf.find(tmp[0]) != uf.find(tmp[1])) {
+                
+                // result
+                
+                res += distances[tmp[0]][tmp[1]];
+                uf.union(tmp[0], tmp[1]);
+            }
+        }
+        // result 
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

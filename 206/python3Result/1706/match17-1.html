@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>643_TerryHung.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>643_TerryHung.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def minnode(n, keyval, mstset): 
+    mini = 999999999999
+    mini_index = None
+      
+    for i in range(n): 
+        if (mstset[i] == False and 
+            keyval[i] &lt; mini):  
+            mini = keyval[i] 
+            mini_index = i 
+    r</B></FONT>eturn mini_index 
+ 
+def findcost(n, city): 
+<A NAME="1"></A>  
+    # Array to store the parent  
+    # node of a particular node.  
+    parent <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [None] * n 
+      
+    # Array to store key value  
+    # of each node.  
+    keyval = [None] * n  
+      
+    # Boolean Array to hold bool  
+    # values whether a node is 
+    # included in MST or not.  
+    mstset = [None] * n 
+      
+    # Set all the key values to infinite and  
+    # none of the nodes is included in MST. 
+    for i in range(n): 
+        keyval[i] = 9999999999999
+        mstset[i] = False
+      
+    # Start to find the MST from node 0.  
+    # Parent of node 0 is none so set -1.  
+    # key value or minimum cost to reach  
+    # 0th node from 0th node is 0.  
+    parent[0] = -1
+    keyval[0] = 0
+      
+    # Find the rest n-1 nodes of MST. 
+    for i in range(n - 1): 
+      
+        # First find out the minimum node  
+        # among the nodes which are not yet  
+        # included in MST.  
+        u = minnode(n, keyval, mstset)  
+      
+        # Now the uth node is included in MST.  
+        mstset[u] = True
+      
+        # Update the values of neighbor  
+        # nodes of u which are not yet  
+        # included in MST.  
+        for v in range(n): 
+            if (city[u][v] and mstset[v] == False and 
+                city[u][v] &lt; keyval[v]):  
+                keyval[v] = city[u][v]  
+                parent[v] = u 
+      
+    # Find out the cost by adding  
+    # the edge values of MST.  
+    cost = 0
+    for i in range(1, n): 
+        cost += city[parent[i]][i]  
+    r</B></FONT>eturn cost
+
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        n = len(points)
+        m = [[0] * n for i in range(n)]
+        
+        for i in range(n):
+            for j in range(i+1, n):
+                a = points[i]
+                b = points[j]
+                dist = abs(a[0] - b[0]) + abs(a[1] - b[1])
+                m[i][j] = dist
+                m[j][i] = dist
+        return findcost(n, m)
+        
+</PRE>
+
+</BODY>
+</HTML>

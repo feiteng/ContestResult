@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_nike0good.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_nike0good.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int unhappyFriends(int n, vector&lt;vector&lt;int&gt;&gt;&amp; preferences, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+        int m=pairs.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt;&gt; M;
+        M.resize(n);
+        
+        for(int i=0;i&lt;n;i++){
+            M[i].resize(n);
+            for(int j=0;j&lt;n-1;j++) {
+                M[i][preferences[i][j]]=j;
+<A NAME="1"></A>            }
+        }
+        int ans=0;</B></FONT>
+<A NAME="2"></A><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        bool b[501]={};
+        for(int i=0;i&lt;m;i++) {
+            for(int j=i+1;j&lt;m;j++) {
+                int x=pairs[i][0],y=pairs[i][1],u=pairs[j][0],v=pairs[j][1];</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                if(M[x][u]&lt;M[x][y]&amp;&amp;M[u][x]&lt;M[u][v]) {
+                    b[x]=b[u]=1;  
+                }
+                if(M[x][v]&lt;M[x][y]&amp;&amp;M[v][x]&lt;M[v][u]) {
+                    b[x]=b[v]=1;  
+                }
+                swap(x,y);
+                if(M[x][u]&lt;M[x][y]&amp;&amp;M[u][x]&lt;M[u][v]) {
+                    b[x]=b[u]=1;  
+                }
+                if(M[x][v]&lt;M[x][y]&amp;&amp;M[v][x]&lt;M[v][u]) {
+                    b[x]=b[v]=1;  
+                }
+                
+            }
+        }</B></FONT>
+        int t=accumulate(b,b+n,0);
+        return t;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

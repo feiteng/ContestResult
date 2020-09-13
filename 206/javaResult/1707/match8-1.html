@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>317_WindfuryBulb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>317_WindfuryBulb.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean isTransformable(String s, String t) {
+        int[] scnt = new int[10];
+        int[] tcnt = new int[10];
+        List&lt;PriorityQueue&lt;Integer&gt;&gt; sGreater = new ArrayList&lt;&gt;();
+        List&lt;PriorityQueue&lt;Integer&gt;&gt; tGreater = new ArrayList&lt;&gt;();
+        for(int i = 0; i &lt; 10; i++) {
+            sGreater.add(new PriorityQueue&lt;Integer&gt;());
+            tGreater.add(new PriorityQueue&lt;Integer&gt;());
+        }
+        for(int i = 0; i &lt; s.length(); i++) {
+            int chs = s.charAt(i) - '0';
+            int cht = t.charAt</B></FONT>(i) - '0';
+            scnt[chs]++;
+            tcnt[cht]++;
+            int gtS = 0, gtT = 0;
+            for(int j = chs+1; j &lt; 10; j++)
+                gtS += scnt[j];
+<A NAME="1"></A>            for(int j = cht+1; j &lt; 10; j++)
+                gtT += tcnt[j];
+            PriorityQueue&lt;Integer&gt; pqs = sGreater.get(chs);
+            PriorityQueue&lt;Integer&gt; pqt = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>tGreater.get(cht);
+            pqs.add(gtS);
+            pqt.add(gtT);
+        }
+        for(int i = 0; i &lt; 10; i++) {
+            if(scnt[i] != tcnt[i])
+                return false;
+        }
+        for(int i = 0; i &lt; 10; i++) {</B></FONT>
+            PriorityQueue&lt;Integer&gt; pqs = sGreater.get(i);
+            PriorityQueue&lt;Integer&gt; pqt = tGreater.get(i);
+            while(!pqs.isEmpty()) {
+                int tops = pqs.poll();
+                int topt = pqt.poll();
+                if(topt &gt; tops)
+                    return false;
+            }
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

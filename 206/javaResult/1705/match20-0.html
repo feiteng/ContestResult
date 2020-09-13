@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>637_rdwood.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>637_rdwood.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+        int[][] prefer = new int[n][n];
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for(int i=0; i&lt;n; i++){</B></FONT>
+<A NAME="1"></A>            for(int j=0; j&lt;n-1; j++){
+                int to = preferences[i][j];
+                prefer[i][to] = n-1-j;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        for(int i=0; i&lt;n/2; i++){
+            map.put(pairs[i][0], pairs[i][1]);
+            map.put(pairs[i][1], pairs[i][0]);
+        }
+        int res = 0;
+        for(int i=0; i&lt;n; i++){
+            for(int j=0; j&lt;n; j++){
+                if</B></FONT>(i == j) continue;
+<A NAME="2"></A>                int iP = map.get(i);
+                int jP = map.get(j);
+                if(j == iP) continue;
+                if(prefer[i][j] &gt; prefer[i][iP] &amp;&amp; prefer[j][i] &gt; prefer[j][jP])<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    //System.out.println(i);
+                    res ++;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>265_BingleLove.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>265_BingleLove.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[2] - b[2]);
+        
+        int n = points.length;
+        
+<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (i == j) continue;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int dis = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
+                pq.offer(new int[]{i, j, dis});
+            }
+        }
+        
+        UnionFind uf = new UnionFind(n);
+<A NAME="2"></A>        int res = 0;
+        while (!pq.isEmpty</B></FONT>()) {
+            int[] cur = pq.poll();
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i = cur[0], j = cur[1];
+            if (uf.union(i, j)) {
+                res += cur[2];
+            } 
+        }
+        return res;
+    }
+}</B></FONT>
+
+class UnionFind {
+    private int[] id;
+<A NAME="0"></A>    private int[] sz;
+    
+    public UnionFind(int n) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>id = new int[n];
+        sz = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            sz[i] = 1;
+            id[i] = i;
+        }
+    }
+    
+    public int find(int i) {
+        while (i != id[i]) {
+            id[i] = id[id[i]]; //path compression
+            i = id[i];
+        }
+        return i;
+    }
+    
+    public boolean union(int p , int q) {
+        int i = find(p);
+        int j = find(q);
+        if</B></FONT> (i == j) return false;
+        if (sz[i] &lt; sz[j]) { // weighting
+            id[i] = j; 
+            sz[j] += sz[i]; 
+        } else { 
+            id[j] = i; 
+            sz[i] += sz[j]; 
+        }
+        return true;
+        // otherwise just use id[i] = j;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

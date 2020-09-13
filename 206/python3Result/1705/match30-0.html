@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>423_lilipads.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>423_lilipads.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def unhappyFriends(self, n: int, preferences: List[List[int]], pairs: List[List[int]]) -&gt; int:
+<A NAME="1"></A>        d = [{} for _ in range(n)]
+        for friend1, p in enumerate(preferences):
+            for friend2_rank, friend2 in enumerate(p):
+                d[friend1][</B></FONT>friend2] <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= friend2_rank
+        
+        d_pairs = {}
+        for friend1, friend2 in pairs:
+            d_pairs[friend1] = friend2
+            d_pairs[friend2] = friend1
+        
+        ans = 0
+        
+        for</B></FONT> f1, f2 in pairs:
+            for preferred_friend in preferences[f1]:
+                if preferred_friend == f2:
+                    break
+                their_friend = d_pairs[preferred_friend]
+                if d[preferred_friend][their_friend] &gt; d[preferred_friend][f1]:
+                    ans += 1
+                    break
+            
+            for preferred_friend in preferences[f2]:
+<A NAME="2"></A>                if preferred_friend == f1:
+                    break
+                their_friend = d_pairs[preferred_friend]
+                if d<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[preferred_friend][their_friend] &gt; d[preferred_friend][f2]:
+                    ans += 1
+                    break
+                
+        
+        re</B></FONT>turn ans
+                
+            
+</PRE>
+
+</BODY>
+</HTML>

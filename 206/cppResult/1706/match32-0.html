@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>522_Simu1ator.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>522_Simu1ator.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minCostConnectPoints(vector&lt;vector&lt;int&gt;&gt;&amp; points) {
+        int n=points.size();
+        vector&lt;vector&lt;int&gt;&gt; graph(n, vector&lt;int&gt;(n,0));
+        int d=0;
+        for(int i=0; i&lt;n; ++i) {
+            for(int j=i+1; j&lt;n; ++j) {
+                d = abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]);
+                graph[i][j] = d;
+<A NAME="0"></A>                graph[j][i] = d;
+            }
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int sum = 0;
+        vector&lt;bool&gt; visit(n, false);
+        vector&lt;int&gt; dis(n, INT_MAX);
+        int start=0;
+        dis[start] = 0;
+        for(int i=0; i&lt;n; ++i) {
+            int u=-1;</B></FONT>
+            int minn = INT_MAX;
+            for(int j=0; j&lt;n; ++j) {
+                if(!visit[j] &amp;&amp;dis[j]&lt;minn) {
+<A NAME="1"></A>                    minn = dis[j];
+                    u=j;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            visit[u] = true;
+            sum+=dis[u];
+            for(int v=0; v&lt;n; ++v) {
+                if(!visit[v] &amp;&amp; graph[u][v]&lt;dis[v]) dis[v] = graph[u][v];
+            }
+        }
+        return sum;   
+    }
+  
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

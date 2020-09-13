@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>401_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>401_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+
+        int[][] rank = new int[n][n];
+<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n - 1; j++) {</B></FONT>
+                int k = preferences[i][j];
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rank[i][k] = j;
+            }
+        }
+
+<A NAME="2"></A>        int[] pairTo = new int[n];
+        for (int[] pair : pairs) {</B></FONT>
+            int x = pair[0], y = pair[1];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pairTo[x] = y;
+            pairTo[y] = x;
+        }
+
+
+        int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            int r = rank[i][pairTo[i]]</B></FONT>;
+
+            for (int[] pair : pairs) {
+
+                int u = pair[0], v = pair[1];
+                if (v == i || u == i) {
+                    continue;
+                }
+
+                if (rank[i][u] &lt; r &amp;&amp; rank[u][i] &lt; rank[u][v]) {
+                    ans++;
+                    break;
+                }
+<A NAME="3"></A>                if (rank[i][v] &lt; r &amp;&amp; rank[v][i] &lt; rank[v][u]) {
+                    ans++;
+                    break;
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+
+            }
+
+
+        }
+        return ans;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

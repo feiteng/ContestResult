@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>177_BrWang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>177_BrWang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import defaultdict 
+  
+#Class to represent a graph 
+class Graph: 
+  
+    def __init__(self,vertices): 
+        self.V= vertices #No. of vertices 
+        self.graph = [] # default dictionary  
+                                # to store graph 
+          
+    # function to add an edge to graph 
+    def addEdge(self,u,v,w): 
+        self.graph.append([u,v,w]) 
+  
+    # A utility function to find set of an element i 
+    # (uses path compression technique) 
+    def find(self, parent, i): 
+        if parent[i] == i: 
+            return i 
+        return self.find(parent, parent[i]) 
+  
+    # A function that does union of two sets of x and y 
+    # (uses union by rank) 
+    def union(self, parent, rank, x, y): 
+        xroot = self.find(parent, x) 
+        yroot = self.find(parent, y) 
+  
+        # Attach smaller rank tree under root of  
+        # high rank tree (Union by Rank) 
+        if rank[xroot] &lt; rank[yroot]: 
+            parent[xroot] = yroot 
+        elif rank[xroot] &gt; rank[yroot]: 
+            parent[yroot] = xroot 
+  
+        # If ranks are same, then make one as root  
+        # and increment its rank by one 
+        else : 
+            parent[yroot] = xroot 
+            rank[xroot] += 1
+  
+    # The main function to construct MST using Kruskal's  
+        # algorithm 
+    def KruskalMST(self): 
+  
+        result =[] #This will store the resultant MST 
+  
+        i = 0 # An index variable, used for sorted edges 
+        e = 0 # An index variable, used for result[] 
+  
+            # Step 1:  Sort all the edges in non-decreasing  
+                # order of their 
+                # weight.  If we are not allowed to change the  
+                # given graph, we can create a copy of graph 
+        self.graph =  sorted(self.graph,key=lambda item: item[2]) 
+  
+        parent = [] ; rank = [] 
+  
+        # Create V subsets with single elements 
+        for node in range(self.V): 
+            parent.append(node) 
+            rank.append(0) 
+      
+        # Number of edges to be taken is equal to V-1 
+        while e &lt; self.V -1 : 
+  
+            # Step 2: Pick the smallest edge and increment  
+                    # the index for next iteration 
+            u,v,w =  self.graph[i] 
+            i = i + 1
+            x = self.find(parent, u) 
+            y = self.find(parent ,v) 
+  
+            # If including this edge does't cause cycle,  
+                        # include it in result and increment the index 
+                        # of result for next edge 
+            if x != y: 
+                e = e + 1     
+                result.append([u,v,w]) 
+                self.union(p</B></FONT>arent, rank, x, y)             
+            # Else discard the edge 
+  
+        # print the contents of result[] to display the built MST 
+        res = 0
+        for u,v,weight  in result: 
+            #print str(u) + &quot; -- &quot; + str(v) + &quot; == &quot; + str(weight) 
+            res += weight
+        
+        return res
+
+import heapq
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        def dis(i, j):
+            return abs(points[i][0] -points[j][0]) + abs(points[i][1] - points[j][1])
+        
+        n = len(points)
+
+        g = Graph(n)
+        for i in range(n):
+            for j in range(n):
+                g.addEdge(i, j, dis(i, j))
+        
+        res = g.KruskalMST()
+        return res
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>245_ShidaLei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>245_ShidaLei.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A> public:
+  int unhappyFriends(int n, vector&lt;vector&lt;int&gt;&gt;&amp; preferences, vector&lt;vector&lt;int&gt;&gt;&amp; pairss) {
+    vector&lt;int&gt; pairs(n);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; pref(n, vector&lt;int&gt; (n, 0));
+    for (int i = 0; i &lt; n; i++) {
+      for (int j = 0; j &lt; n - 1; j++) {
+<A NAME="1"></A>        pref[i][preferences[i][j]] = j;
+      }
+    }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (auto p : pairss) {
+      pairs[p[0]] = p[1];
+      pairs[p[1]] = p[0];
+    }
+    int res = 0;
+    for (int i = 0; i &lt; n; i++) {
+      int p = pairs[i];
+      for (int j = 0; j &lt; n; j++) {
+        if (j == p || j == i || pref[i][j] &gt; pref[i][p]) continue;
+        int jp = pairs[j];
+        if (pref[j][i] &lt; pref[j][jp]) {
+          res++;
+          break;
+        }
+      }
+    }
+    return res;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

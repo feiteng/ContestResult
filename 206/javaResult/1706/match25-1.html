@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>532_mabeiyi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>532_mabeiyi.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; {
+            return dist(points[a[0]], points[a[1]]) - dist(points[b[0]], points[b[1]]);
+<A NAME="0"></A>        });
+        
+        int l = points.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; l; i++) {
+            for (int j = i + 1; j &lt; l; j++) {
+                pq.add(new int[]{i, j}</B></FONT>);
+            }
+        }
+        int re = 0;
+        UF u = new UF(points.length);
+        while (!pq.isEmpty()) {
+            int[] pair = pq.poll();//i, j
+            int i = pair[0];
+            int j = pair[1];
+            if (u.findParent(i) == u.findParent(j)) {
+                continue;
+<A NAME="1"></A>            }
+            u.union(i, j);
+            re += dist(points[i], points[j]);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}    
+        return re;
+    }
+    
+    
+    
+    private int dist(int[] a, int[] b) {
+        return Math.abs(a[0]-b[0]) + Math.abs(a[1]-b[1]);
+    }
+    
+    public class UF {
+        int[] arr;
+        int count;
+        public UF(int n) {
+            arr = new int[n];
+<A NAME="3"></A>            for (int i = 0; i &lt; n; i++) {
+                arr[i] = i;
+            }</B></FONT>
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        public int findParent(int i) {
+            int p = arr[i];
+            while (p != i) {
+                i</B></FONT> = p;
+<A NAME="2"></A>                p = arr[i];
+            }
+            return p;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        public void union(int i, int j) {
+            int a = findParent(i);
+            int b = findParent(j);
+            if (a != b) {</B></FONT>
+                count++;
+            }
+            arr[a] = b;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

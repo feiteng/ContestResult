@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>599_louisfghbvc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>599_louisfghbvc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int p[1005];
+    
+    int find(int x){
+        return p[x] &lt; 0 ? x : p[x] = find(p[x]);
+    }
+    struct node{
+        int a, b, c;
+        bool operator&lt;(const node&amp; n2){</B></FONT>
+            return c &lt; n2.c;
+        }
+    };
+    
+    int dis(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b){
+        return abs(a[0]-b[0])+abs(a[1]-b[1]);
+<A NAME="1"></A>    }
+    
+    int minCostConnectPoints(vector&lt;vector&lt;int&gt;&gt;&amp; points) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        int n = points.size();
+        vector&lt;node&gt; e;
+        for(int i = 0; i &lt; n; ++i){
+            for(int j = i+1; j &lt; n; ++j){</B></FONT>
+                e.push_back({i, j, dis(points[i], points[j])});
+            }
+        }
+        sort(e.begin(), e.end());
+<A NAME="2"></A>        
+        memset(p, -1, sizeof p);
+        
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; e.size(); ++i){
+            int a = find(e[i].a), b = find(e[i].b);
+            if(a != b){
+                res += e[i].c;
+                p[b] = a;
+            }
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

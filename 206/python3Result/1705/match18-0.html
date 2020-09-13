@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>387_sidag.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>387_sidag.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def unhappyFriends(self, n: int, preferences: List[List[int]], pairs: List[List[int]]) -&gt; int:
+        pref = [dict() for _ in range(n)]
+        for i in range(n):
+            for j in range(n - 1):
+                pref[i][</B></FONT>preferences[i][j]] = j
+        
+        unhappy = set()
+        for i in range(len(pairs)):
+            x = pairs[i][0]
+<A NAME="1"></A>            y = pairs[i][1]
+            for j in range(i + 1, len(pairs)):
+                u = pairs[j][0]
+                v = pairs[j]<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[1]
+                
+<A NAME="2"></A>                if pref[x][u] &lt; pref[x][y] and pref[u][x] &lt; pref[u][v]:
+                    unhappy.add(x)
+                    unhappy.add(</B></FONT>u)
+<A NAME="3"></A>                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if pref[x][v] &lt; pref[x][y] and pref[v][x] &lt; pref[v][u]:
+                    unhappy.add(x)
+                    unhappy.add(</B></FONT>v)
+<A NAME="4"></A>                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match18-1.html#3',3,'match18-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if pref[y][u] &lt; pref[y][x] and pref[u][y] &lt; pref[u][v]:
+                    unhappy.add(y)
+                    unhappy.add(</B></FONT>u)
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match18-1.html#4',3,'match18-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if pref[y][v] &lt; pref[y][x] and pref[v][y] &lt; pref[v][u]:
+                    unhappy.add(y)
+                    unhappy.add(v)
+        return len(u</B></FONT>nhappy)
+        
+</PRE>
+
+</BODY>
+</HTML>

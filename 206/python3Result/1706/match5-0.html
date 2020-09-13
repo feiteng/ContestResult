@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>551_xiang-zuo-zou-xiang-you-zou-d.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>551_xiang-zuo-zou-xiang-you-zou-d.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        n = len(points)
+        parents = [i for i in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n+1)]
+        def find(parents,x):
+            if parents[x]==x:
+<A NAME="1"></A>                return x
+            parents[x] = find(parents,parents[x])
+            return parents[</B></FONT>x]
+        dist <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+        for i in range(n):
+            for j in range(i+1,n):
+                d = abs(points[i][0]-points[j][0]) + abs(points[i][1]-points[j][1])
+                dist.append([i,j,d])
+        # print(dist)        
+        res =</B></FONT> 0
+<A NAME="2"></A>        dist = sorted(dist,key=lambda x:x[-1])
+        for di in dist:
+            x,y,d = di
+            px,py <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= find(parents,x),find(parents,y)
+            if px!=py:
+                res += d
+                parents[px] = py
+        re</B></FONT>turn res         
+        
+</PRE>
+
+</BODY>
+</HTML>

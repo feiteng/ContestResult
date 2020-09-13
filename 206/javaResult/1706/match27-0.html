@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>401_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>401_necoramen.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+<A NAME="0"></A>import java.util.List;
+import java.util.PriorityQueue;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCostConnectPoints(int[][] points) {
+
+        PriorityQueue&lt;int[]&gt; edges = new PriorityQueue&lt;&gt;((a, b) -&gt; a[2] - b[2]);
+<A NAME="1"></A>        int n = points.length;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {</B></FONT>
+                int d = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dist(points[i], points[j]);
+                edges.add(new int[]{i, j, d});
+            }
+        }
+
+
+        UnionFind uf = new UnionFind(n);
+        int ans = 0;
+
+        while</B></FONT> (uf.cap &gt; 1) {
+
+            int[] edge = edges.poll();
+            int v = edge[0], w = edge[1], cost = edge[2];
+            if (!uf.isUnited(v, w)) {
+                uf.unite(v, w);
+                ans += cost;
+            }
+        }
+        return ans;
+    }
+
+    private int dist(int[] s, int[] t) {
+        int dx = Math.abs(s[0] - t[0]);
+        int dy = Math.abs(s[1] - t[1]);
+<A NAME="2"></A>        return dx + dy;
+    }
+
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private static class UnionFind {
+        private int cap;
+        private int[] root;
+
+        private UnionFind(int cap) {
+<A NAME="3"></A>            root = new int[cap];
+            t</B></FONT>his.cap = cap;
+            for (int i = 0; i &lt; root.length; i++) {
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>root[i] = i;
+            }
+        }
+
+        private int find(int s) {
+            while (root[s] != s) {
+                root[s] = root[root[s]];
+                s = root[s];
+            }
+            return s;
+        }
+
+        private void unite(int s, int t) {
+            int rs = find(s);
+            int rt = find(t);
+            if</B></FONT> (rs == rt) {
+                return;
+            }
+            root[rs] = rt;
+            cap--;
+        }
+
+        private boolean isUnited(int s, int t) {
+            return find(s) == find(t);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

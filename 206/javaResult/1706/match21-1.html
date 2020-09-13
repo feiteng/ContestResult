@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_zhui-feng-hun-zi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>364_zhui-feng-hun-zi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Edges{
+        int p1;
+        int p2;
+        int weight;
+        public Edges(int p1, int p2, int weight){
+            this.p1 = p1;
+            this.p2 = p2;
+            this.weight = weight;
+        }
+<A NAME="3"></A>    }</B></FONT>
+    public int minCostConnectPoints(int[][] points) {
+        List&lt;Edges&gt; edges = new ArrayList&lt;&gt;();
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;points.length;++i){
+            for(int j=i+1;j&lt;points.length;++j){
+                edges.add(new Edges(i,j,distance(points[i],points[j])));
+            }
+        }</B></FONT>
+        Collections.sort(edges,(a,b)-&gt;a.weight-b.weight);
+        int[] arr = new int[points.length];
+        for(int i=0;i&lt;points.length;++i){
+            arr[i]=i;
+        }
+<A NAME="4"></A>        int num = 0;
+        int n = points.length;
+        int ans = 0;
+        for(int i=0;i&lt;<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#4',2,'match21-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>edges.size();++i){
+            Edges e = edges.get(i);
+            if (union(e.p1,e.p2,arr)){
+                ++num;
+                ans +=e.weight;
+            }</B></FONT>
+            if(num==n-1){
+                return ans;
+            }
+<A NAME="2"></A>        }
+        return ans;
+    }
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int distance(int[] p1, int[] p2){
+        return Math.abs(p1[0]-p2[0])+Math.abs(p1[1]-p2[1]);
+    }
+    private int find(int a</B></FONT>,int[] arr){
+        if(arr[a]==a)
+            return a;
+<A NAME="1"></A>        arr[a] = find(arr[a],arr);
+        return arr[a];
+    }
+    private boolean union(int a,<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int b,int[] arr){
+        int pa = find(a,arr);
+        int pb = find(b,arr);
+        if(pa==pb)
+            return false;
+        arr[pb] = pa;
+        return true;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

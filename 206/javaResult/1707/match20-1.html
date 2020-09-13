@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_Hughstudy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_Hughstudy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public boolean isTransformable(String s, String t) {
+        int len = s.length();
+        List&lt;int[]&gt;[] lists = new ArrayList[10];
+        for (int i = 0</B></FONT>; i &lt; 10; ++i) {
+            lists[i] = new ArrayList&lt;&gt;();
+        }
+
+        // Find out how many numbers that is less than this number
+        // Before this number appear
+        int[] count = new int[10];
+        for (char c : s.toCharArray()) {
+            int p = c - '0';
+            count[p] += 1;
+<A NAME="1"></A>            int[] tmp = new int[p + 1];
+            for (int i = 0; i &lt;= p; ++i) {
+                tmp[i] = count[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            lists[p].add(tmp);
+        }
+
+        // Verify
+        count = new int[10];
+        for (char c : t.toCharArray()) {
+            int p = c - '0'</B></FONT>;
+            count[p] += 1;
+            if (lists[p].size() &lt; count[p]) {
+                return false;
+            }
+            int[] last = lists[p].get(count[p] - 1);
+<A NAME="2"></A>            for (int i = 0; i &lt;= p; ++i) {
+                if (last[i] &gt; count[i]) {
+                    return false;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

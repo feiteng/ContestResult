@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>616_fnwjkm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>616_fnwjkm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        int len = points.length;
+        int[] roots = new int[len];
+        PriorityQueue&lt;int[]&gt; pq = new</B></FONT> PriorityQueue&lt;&gt;((a, b) -&gt; (a[2] - b[2]));
+        for (int i = 0;i &lt; len;i++) {
+<A NAME="1"></A>            roots[i] = i;
+            for (int j = i + 1;j &lt; len;j++) {
+                int dis = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new int[]{i, j, dis});
+            }
+        }
+        int cnt = len</B></FONT>, res = 0;
+        while (cnt &gt; 1) {
+            int[] cur = pq.poll();
+            if (union(roots, cur[0], cur[1])) {
+<A NAME="2"></A>                res += cur[2];
+                cnt--;
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return res;
+    }
+<A NAME="3"></A>    private int findRoot(int[] roots, int root) {
+        return roots[root] == root ? root : (roots[root] = findRoot(roots, roots[root]));
+    }
+    private boolean union(int[] roots, int root1, int root2</B></FONT>) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        root1 = findRoot(roots, root1);
+        root2 = findRoot(roots, root2);
+        if (root1 == root2) {
+            return false;
+        }</B></FONT>
+        roots[root2] = root1;
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

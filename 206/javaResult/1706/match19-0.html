@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>559_yuhwu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>559_yuhwu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class DSU{
+        int[] parent;
+        int[] size;
+<A NAME="0"></A>        int comp;
+        public DSU(int N){
+            comp = N;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>parent = new int[N];
+            size = new int[N];
+            for(int i=0; i&lt;parent.length; i++){
+                parent[i] = i;
+                size[i] = 1;
+            }
+        }
+
+        public int find(int x){
+            if(parent[x]!=x){
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+
+        public boolean union(int x, int y){
+            int xParent = find(x);
+            int yParent = find(y);
+            if(xParent==yParent){
+                return false;
+            }
+            comp--;
+            if(size[xParent]&lt;=size[yParent]){</B></FONT>
+                parent[xParent] = yParent;
+                size[yParent]+=size[xParent];
+            }
+            else{
+                parent[yParent] = xParent;
+                size[xParent] += size[yParent];
+            }
+            return true;
+        }
+    }
+    
+<A NAME="1"></A>    public int minCostConnectPoints(int[][] points) {
+        int n = points.length;
+        DSU dsu = new DSU(n);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = 0;
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((a,b)-&gt;(Integer.compare(a[2], b[2])));
+        for(int i=0; i&lt;n; i++){
+            for(int j=i+1; j&lt;n; j++){</B></FONT>
+                int dist = dist(points, i, j);
+<A NAME="2"></A>                pq.offer(new int[]{i, j, dist});
+            }
+        }
+        while(!pq.isEmpty() &amp;&amp; dsu.comp&gt;1)<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            int[] e = pq.poll();
+            if(dsu.union(e[0], e[1])){
+                res += e[2];
+            }
+        }</B></FONT>
+        return res;
+    }
+    
+    private int dist(int[][]points, int a, int b){
+        return Math.abs(points[a][0]-points[b][0]) + Math.abs(points[a][1]-points[b][1]);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

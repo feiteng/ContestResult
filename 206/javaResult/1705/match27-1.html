@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>393_hui1202.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>393_hui1202.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+        Map&lt;Integer, Integer&gt; mapPair = new HashMap&lt;&gt;();
+        for(int[] p : pairs) {
+            int x = p[0];
+            int y = p[1];
+            mapPair.put(x, y);
+            mapPair.put(y, x);
+<A NAME="0"></A>        }
+        
+        int res = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int[] p : pairs) {
+            int x = p[0];
+            int y = p[1];
+            if(!isHappy(x, y, preferences, mapPair)) {
+                res++;
+            }
+            if(!isHappy(y, x, preferences, mapPair)) {
+                res++;
+            }
+        }
+        
+        return res;
+    }
+    
+<A NAME="1"></A>    boolean isHappy(int x, int y, int[][] preferences, Map&lt;Integer, Integer&gt; mapPair) {
+        int[] prefer = preferences[x]; 
+        for(int p : prefer) {</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(p == y) {
+                break;
+            }
+            int v = mapPair.get(p);
+            for(int t : preferences[p]) {
+                if(t == x) {</B></FONT>
+<A NAME="2"></A>                    return false;
+                } else if(t == v) {
+                    break;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

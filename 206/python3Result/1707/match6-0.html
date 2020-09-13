@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>90_Coup_De_Grace.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>90_Coup_De_Grace.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def isTransformable(self, s: str, t: str) -&gt; bool:
+        cs = Counter(s)
+        ct = Counter(t)
+        for i in cs.keys():
+            if cs[i] != ct[i]:
+                return False
+        for i in ct.keys():
+            if cs[i] != ct[i]:
+                return False
+        sx = [deque() for i in range(10)]
+        for i, c in enumerate(s):
+            pos = ord(c) - ord('0')
+            sx[pos].append(i)
+<A NAME="0"></A>        
+        for c in t:
+            v = ord(c) - ord('0')
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(v):
+                if sx[i] and sx[i][0] &lt; sx[v][0]:
+                    return False
+            sx[v].popleft()
+        re</B></FONT>turn True
+</PRE>
+
+</BODY>
+</HTML>

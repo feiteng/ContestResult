@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>117_yuan-zhi-b.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>117_yuan-zhi-b.py</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        n=len(points)
+        uf=list<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(range(n))
+        def find(x):
+            if uf[x]!=x:
+                uf[x]=find(uf[x])
+<A NAME="0"></A>            return uf[x]
+        def union(x,y):
+            uf[</B></FONT>find(x)]=find(y)
+        costs<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=[]
+        for i in range(n-1):
+            for j in range(i+1,n):
+                x1,y1=points[i]
+                x2,y2=points[j]
+                cost=abs(x1-x2)+abs(y1-y2)
+                costs.append([cost,i,j])
+        costs.sort()
+        res=</B></FONT>0
+        for cost,i,j in costs:
+            if find(i)!=find(j):
+                union(i,j)
+                res+=cost
+        return res
+</PRE>
+
+</BODY>
+</HTML>

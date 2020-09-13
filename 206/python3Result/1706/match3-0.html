@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>517_s53cao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>517_s53cao.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>from collections import defaultdict 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Graph: 
+  
+    def __init__(self,vertices): 
+        self.V= vertices
+        self.graph = [] 
+
+    def addEdge(self,u,v,w): 
+        self.graph.append([u,v,w]) 
+
+    def find(self, parent, i): 
+        if parent[i] == i: 
+            return i 
+        return self.find(parent, parent[i]) 
+
+    def union(self, parent, rank, x, y): 
+        xroot = self.find(parent, x) 
+        yroot = self.find(parent, y) 
+
+        if rank[xroot] &lt; rank[yroot]: 
+            parent[xroot] = yroot 
+        elif rank[xroot] &gt; rank[yroot]: 
+            parent[yroot] = xroot 
+
+        else : 
+            parent[yroot] = xroot 
+            rank[xroot] += 1
+
+    def MST(self): 
+  
+        result =[] 
+  
+        i = 0 # An index variable, used for sorted edges 
+        e = 0 # An index variable, used for result[] 
+        self.graph =  sorted(self.graph,key=lambda item: item[2]) 
+  
+        parent = [] ; rank = [] 
+  
+        # Create V subsets with single elements 
+        for node in range(self.V): 
+            parent.append(node) 
+            rank.append(0) 
+      
+        # Number of edges to be taken is equal to V-1 
+        while e &lt; self.V -1 :
+            u,v,w =  self.graph[i] 
+            i = i + 1
+            x = self.find(parent, u) 
+            y = self.find(parent ,v) 
+            if x != y: 
+                e = e + 1     
+                result.append([u,v,w]) 
+                self.union(p</B></FONT>arent, rank, x, y)
+        return result
+            
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        def dist(x,y):
+            return abs(x[0]-y[0])+abs(x[1]-y[1])
+        n = len(points)
+        g = Graph(n)
+        for i in range(n):
+            for j in range(i):
+                g.addEdge(i,j,dist(points[i],points[j]))
+        res = g.MST()
+        total = 0
+        for _,_,w in res:
+            total += w
+        return total
+</PRE>
+
+</BODY>
+</HTML>

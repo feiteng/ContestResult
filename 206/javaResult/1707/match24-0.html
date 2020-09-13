@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>392_liquid_science.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>392_liquid_science.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+class Solution {
+    public boolean isTransformable(String s, String t) {
+
+        StringBuilder sb = new StringBuilder(s);
+<A NAME="0"></A>        ArrayList&lt;Integer&gt;[] buckets= new ArrayList[10];
+
+        for (int i=0;i&lt;buckets.length;i++)
+            buckets[i]= new ArrayList&lt;&gt;()<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+
+        for (int i=0;i&lt;s.length();i++)
+        {
+            int c=s.charAt(i)-'0';
+            buckets[c].add(i);
+        }
+
+
+//        for (int j=0;j&lt;buckets.length;j++)
+//            System.out.println(buckets[j]);
+//        System.out.println();
+
+
+
+        for (int i=0;i&lt;s.length();i++)
+        {</B></FONT>
+            if (sb.charAt(i)!=t.charAt(i))
+            {
+                int first=find_first(buckets,t.charAt(i));
+                if (first==-1)
+                    return false;
+                else
+                {
+                    sb.deleteCharAt(first);
+                    sb.insert(i,t.charAt(i));
+                }
+            }
+            else
+<A NAME="1"></A>            {
+                int c1=sb.charAt(i)-'0';
+                buckets[c1].remove(0);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+//            for (int j=0;j&lt;buckets.length;j++)
+//                System.out.println(buckets[j]);
+//            System.out.println();
+
+        }
+        return true;
+    }
+
+    int find_first( ArrayList&lt;Integer&gt;[] buckets,char c)
+    {</B></FONT>
+       int c1=c-'0';
+       if (buckets[c1].size()==0)
+           return -1;
+       else
+       {
+           int idx=buckets[c1].get(0);
+           buckets[c1].remove(0);
+
+           for (int i=0;i&lt;c1;i++)
+<A NAME="2"></A>           {
+               if (buckets[i].size()!=0)
+               {
+                   <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (buckets[i].get(0)&lt;idx) {
+                       //System.out.println(&quot;break&quot;);
+                       return -1;
+                   }
+               }
+           }
+           return idx;
+       }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

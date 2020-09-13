@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>654_atul2938.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>654_atul2938.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>b) -&gt; a[0] - b[0]);
+        int n = points.length;
+        System.out.println(n);
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; n; j++){
+                if(i == j){</B></FONT>
+                    continue;
+                }
+                int dist = Math.abs(points[j][0] - points[i][0]) + Math.abs(points[j][1] - points[i][1]);
+                pq.add(new int[]{dist, i, j});
+            }
+        }
+<A NAME="1"></A>        
+        DisjointSets dsu = new DisjointSets(n);
+        int cost = 0;
+        while(!pq.isEmpty())<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            int[] node = pq.poll();
+            if(dsu.union(node[1], node[2])){
+                cost += node[0];
+            }
+        }
+        return cost;
+<A NAME="2"></A>    }</B></FONT>
+}
+
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class DisjointSets {
+    int[] rank;
+    int[] par;
+    
+    DisjointSets(int n){
+        rank = new int[n];
+        p</B></FONT>ar = new int[n];
+        
+<A NAME="4"></A>        for(int i = 0; i &lt; n; i++){
+            par[i] = i;
+        }
+    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#4',2,'match9-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    int findRoot(int x){
+        if(par[x] != x){
+<A NAME="3"></A>            par[x] = findRoot(par[x]);
+        }
+        return</B></FONT> par[x];
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#3',2,'match9-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    boolean union(int x, int y){
+        int X = findRoot(x);
+        int Y = findRoot(y);
+        
+        if(X == Y){
+            return false;
+        }</B></FONT>
+        
+        if(rank[X] &gt; rank[Y]){
+            par[Y] = X;
+        }
+        else if(rank[X] &lt; rank[Y]){
+            par[X] = Y;
+        }
+        else{
+            rank[X] += 1;
+            par[Y] = X;
+        }
+        
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

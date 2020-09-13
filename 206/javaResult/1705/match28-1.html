@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>150_rsajith.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>150_rsajith.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+        int [][] rank = new int[n][n];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int [] p = new int[n];
+        for (int i = 0; i &lt; pairs.length; i++) {
+            p[pairs[i][0]] = pairs[i][1];
+<A NAME="1"></A>            p[pairs[i][1]] = pairs[i][0];
+        }</B></FONT>
+        for (int i = 0; i &lt; n; i++) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; n - 1; j++) {
+                rank[i][preferences[i][j]] = j;
+            }
+        }
+        int res = 0;
+        for (int i = 0; i &lt; n; i++) {
+            int cur = rank[i][p[i]]; boolean found = false</B></FONT>;
+            for (int j = 0; j &lt; n; j++) {
+<A NAME="2"></A>                if (j == i || j == p[i]) continue;
+                int myRank = rank[i][j];
+                if (myRank &gt; cur) continue;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int hisRank = rank[j][i];
+                if (hisRank &lt; rank[j][p[j]]) found = true;
+            }
+            if (found) ++res;
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

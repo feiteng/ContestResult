@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_ammoi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_ammoi.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int lowbit(int x) {
+    return x &amp; (-x);
+}
+
+void update1(vector&lt;int&gt;&amp; tree, int num, int x, int n) {
+    while (x &lt;= n) {
+        tree[x] = min(tree[x], num);
+        x += lowbit(x);
+    }
+}
+
+void update2(vector&lt;int&gt;&amp; tree, const vector&lt;int&gt;&amp; a, int x, int n) {
+    while (x &lt;= n) {
+        tree[x] = a[x - 1];
+        int lbit = lowbit(x);
+        for (int i = 1; i &lt; lbit; i &lt;&lt;= 1) {
+            tree[x] = min(tree[x], tree[x - i]);
+        }
+        x += lbit;
+    }
+}
+
+int query(const vector&lt;int&gt;&amp; tree, int x, int n) {
+    int ret = n * 2 + 215;
+    while (x) {
+        ret = min(ret, tree[x]);
+        x -= lowbit(x);
+    }
+    return ret;
+}</B></FONT>
+
+public:
+    bool isTransformable(string s, string t) {
+    vector&lt;int&gt; a, b;
+    for (char c : s) {
+        a.push_back(c);
+    }
+    for (char c : t) {
+        b.push_back(c);
+    }
+    int n = a.size();
+    // keng die de leetcode
+    if (n == 0) {
+        return true;
+    }
+
+    // li san hua
+    vector&lt;int&gt; q(a);
+    sort(q.begin(), q.end());
+    for (int i = 0; i &lt; n; ++i) {
+        a[i] = lower_bound(q.begin(), q.end(), a[i]) - q.begin();
+    }
+    for (int i = 0; i &lt; n; ++i) {
+        auto iter = lower_bound(q.begin(), q.end(), b[i]);
+<A NAME="1"></A>        if (iter == q.end() || *iter != b[i]) {
+            return false;
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        b[i] = iter - q.begin();
+    }
+
+    // for (int i = 0; i &lt; n; ++i) cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;; cout &lt;&lt; &quot;\n&quot;;
+    // for (int i = 0; i &lt; n; ++i) cout &lt;&lt; b[i] &lt;&lt; &quot; &quot;; cout &lt;&lt; &quot;\n&quot;;
+    
+    // dui lie
+    unordered_map&lt;int, queue&lt;int&gt;&gt; usq;
+    for (int i = 0; i &lt; n; ++i) {
+        usq[a[i]].push(i);
+    }
+
+    // shu zhuang shu zu
+    int verybignumber = n * 2 + 215;
+    vector&lt;int&gt; tree(n + 1, verybignumber);
+    for (int i = 0; i &lt; n; ++i) {
+        update1(tree, a[i], i + 1, n);
+    }
+
+    // check
+    for (int i = 0; i &lt; n; ++i) {
+        queue&lt;int&gt;&amp; q = usq[b[i]];
+        if (q.empty()) {
+            return false;
+        }
+        // cout &lt;&lt; &quot;check &quot; &lt;&lt; i &lt;&lt; &quot; start\n&quot;;
+        int pos = q.front();
+        q.pop();
+        int prefixmin = query(tree, pos + 1, n);
+        // cout &lt;&lt; &quot;min = &quot; &lt;&lt; prefixmin &lt;&lt; &quot; &quot; &lt;&lt; b[i] &lt;&lt; &quot;\n&quot;;
+        if (prefixmin != b[i]) {
+            return false;
+        }
+        a[pos] = verybignumber;
+        update2(tree, a, pos + 1, n);
+        // cout &lt;&lt; &quot;tree: &quot;; for (int j = 1; j &lt;= n; ++j) cout &lt;&lt; tree[j] &lt;&lt; &quot; &quot;; cout &lt;&lt; &quot;\n&quot;;
+    }
+    return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

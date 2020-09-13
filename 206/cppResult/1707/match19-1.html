@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_arignote.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_arignote.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+int _(int s, vector&lt;int&gt;&amp; v, int e, int l, int r, int i) {
+  return l &lt;= s &amp;&amp; r &gt;= e ? v[i] : e &lt; l || s &gt; r ? 2147483647 : min(_(s, v, s + (e - s) / 2, l, r, 2 * i + 1), _(s + (e - s) / 2 + 1, v, e, l, r, 2 * i + 2));
+}
+
+void _(vector&lt;int&gt;&amp; v, int s, int e, int j, int t, int i) {
+  if (j &gt;= s &amp;&amp; j &lt;= e)
+    if (s == e)
+      v[i] = t;
+    else {
+      if (j &gt;= s &amp;&amp; j &lt;= s + (e - s) / 2)
+        _(v, s, s + (e - s) / 2, j, t, 2 * i + 1);
+      else
+        _(v, s + (e - s) / 2 + 1, e, j, t, 2 * i + 2);
+      v[i] = min(v[2 * i + 1], v[2 * i + 2]);
+    }
+}
+
+int _(vector&lt;int&gt;&amp; a, int s, int e, vector&lt;int&gt;&amp; v, int i) {
+  return v[i] = s == e ? a[s] : min(_(a, s, s + (e - s) / 2, v, i * 2 + 1), _(a, s + (e - s) / 2 + 1, e, v, i * 2 + 2));
+}
+
+public:
+    bool isTransformable(string s, string t) {
+    vector&lt;int&gt; a, b;
+    for (char c : s) {</B></FONT>
+        a.emplace_back((int) c);
+    }
+<A NAME="1"></A>    for (char c : t) {
+        b.emplace_back((int) c);
+    }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    if (!a.empty()) {
+        vector&lt;int&gt; v(2 * (int) pow(2, (int) ceil(log2(a.size()))) - 1);
+        _(a, 0, a.size() - 1, v, 0);
+        unordered_map&lt;int, int&gt; m1, m2;
+        unordered_map&lt;int, vector&lt;int&gt;&gt; m3;
+        for (int i = 0; i &lt; a.size(); i++) {
+          m1[a[i]]++;
+          m3[a[i]].emplace_back(i);
+        }
+        for (int i : b) {
+          if (--m1[i] &lt; 0 || i != _(0, v, a.size() - 1, 0, m3[i][m2[i]], 0))
+            return false;
+          _(v, 0, a.size() - 1, m3[i][m2[i]++], 2147483647, 0);
+        }
+      }
+      return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

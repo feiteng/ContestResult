@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_sshang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_sshang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -&gt; int:
+        
+        n = len(points)
+        if n == 1:
+            return 0
+        
+        q = []
+<A NAME="0"></A>        for i in range(n):
+            for j in range(i + 1, n):
+                x1, y1 = points[i]
+                x2, y2 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= points[j]
+                heapq.heappush(q, (abs(x1 - x2) + abs(y1 - y2), i, j))
+                
+        parent = list(range(n))
+        
+        def find(x):
+            if parent[x] != x:
+                parent[x] = find(parent[x])
+            return parent[x]
+        
+        res, num = 0, 0
+        while q:
+            cost, i, j = heapq.heappop(q)
+            rooti, rootj = find(i), find(j)
+            if rooti != rootj:
+                parent[rooti] = rootj
+                res +=</B></FONT> cost
+                num += 1
+                
+            if num == n-1:
+                break
+        return res
+                
+                
+</PRE>
+
+</BODY>
+</HTML>
