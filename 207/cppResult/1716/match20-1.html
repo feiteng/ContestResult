@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_absolute_Coder.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>364_absolute_Coder.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxProductPath(vector&lt;vector&lt;int&gt;&gt;&amp; arr) {
+        #define ll long long
+        int n = arr.size();
+        int m = arr[0].size();
+        vector&lt;vector&lt;ll&gt;&gt; dpmin(n, vector&lt;ll&gt;(m, -1));
+        vector&lt;vector&lt;ll&gt;&gt; dpmax(n, vector&lt;ll&gt;(m, -1));
+        dpmin[0][0] = dpmax[0][0] = arr[0][0];
+        for(int i = 1; i &lt; n; i++){
+            dpmin[i][0] = dpmax[i][0] = dpmax[i-1][0]*arr[i][0];
+        }
+        
+        for(int j = 1; j &lt; m; j++){
+            dpmin[0][j] = dpmax[0][j] = dpmax[0][j-1]*arr[0][j];
+        }
+        
+        for(int i = 1; i &lt; n; i++){
+            for(int j = 1; j &lt; m; j++){
+                ll cur1 = dpmin[i][j-1]*arr[i][j];</B></FONT>
+                ll cur2 = dpmax[i][j-1]*arr[i][j];
+                ll mi = min(cur1, cur2);
+                ll ma = max(cur1, cur2);
+                cur1 = dpmin[i-1][j]*arr[i][j];
+                cur2 = dpmax[i-1][j]*arr[i][j];
+                ll mi1 = min(cur1, cur2);
+                ll ma1 = max(cur1, cur2);
+                
+                dpmin[i][j] = min(mi, mi1);
+                dpmax[i][j] = max(ma, ma1);
+            }
+        }
+        if(dpmax[n-1][m-1] &lt; 0) return -1;
+        else return dpmax[n-1][m-1]%1000000007;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

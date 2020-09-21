@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>180_seeean.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>180_seeean.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def connectTwoGroups(self, cost: List[List[int]]) -&gt; int:
+        n1, n2 = len(cost), len(cost[0])
+        self.cost = cost
+        self.D = {}
+        return self.dp((1&lt;&lt;n1)-1, (1&lt;&lt;n2)-1, n1, n2)
+    
+    @lru_cache(None)
+    def dp(self, s1, s2, n1, n2):
+        if s1 == s2 == 0:
+            return 0
+        #if (s1, s2) in self.D:
+        #    return self.D[(s1, s2)]
+        res = float('inf')
+<A NAME="0"></A>        for j in range(n2):
+            if (1&lt;&lt;j) &amp; s2:
+                for k in range(n1):
+                    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (1&lt;&lt;k) &amp; s1:
+                        res = min(res, self.cost[k][j] + self.dp(s1-(1&lt;&lt;k), s2-(1&lt;&lt;j), n1, n2))
+                    else:
+                        res = min(res, self.cost[k][j] + self.dp(s</B></FONT>1, s2-(1&lt;&lt;j), n1, n2))
+                break
+            else:
+                for k in range(n1):
+                    if (1&lt;&lt;k) &amp; s1:
+                        res = min(res, self.cost[k][j] + self.dp(s1-(1&lt;&lt;k), s2, n1, n2))
+                        break
+        # for k in range(n1):
+        #     if (1&lt;&lt;k) &amp; s1:
+        #         for j in range(n2):
+        #             if not (1&lt;&lt;j) &amp; s2:
+        #                 res = min(res, self.cost[k][j] + self.dp(s1-(1&lt;&lt;k), s2, n1, n2))
+        #self.D[(s1, s2)] = res
+        return res
+                    
+</PRE>
+
+</BODY>
+</HTML>

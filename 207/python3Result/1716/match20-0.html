@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_shiyanhui.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_shiyanhui.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+  def maxProductPath(self, grid: List[List[int]]) -&gt; int:
+    n, m = len(grid), len(grid[0])
+    dp = [[[0, 0] for _ in range(m)] for _ in range(n)]
+    
+    dp[0][0] = [grid[0][0], grid[0][0]]
+    
+    for i in range(1, n):
+      dp[i][0] = [grid[i][0] * dp[i-1][0][0], grid[i][0] * dp[i-1][0][1]]
+    
+    for j in range(1, m):
+      dp[0][j] = [grid[0][j] * dp[0][j-1][0], grid[0][j] * dp[0][j-1][1]]
+    
+<A NAME="1"></A>    for i in range(1, n):
+<A NAME="2"></A>      for j in range(</B></FONT>1, m):
+        dp[i][j] = [
+          min<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(grid[i][j] * dp[i-1][j][0], grid[i][j] * dp[i][j-1][0], grid[i][j] * dp[i-1][j][1], grid[i][j] * dp[i][j-1][</B></FONT>1]),
+          max<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(grid[i][j] * dp[i-1][j][0], grid[i][j] * dp[i][j-1][0], grid[i][j] * dp[i-1][j][1], grid[i][j] * dp[i][j-1][</B></FONT>1])
+        ]
+    
+    return dp[-1][-1][1] % (10**9 + 7) if dp[-1][-1][1] &gt;= 0 else -1
+</PRE>
+
+</BODY>
+</HTML>

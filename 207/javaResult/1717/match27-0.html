@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>23_hahahiehie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>23_hahahiehie.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  private static final int INF = 1_000_000_001;
+    private static final long MOD = 1_000_000_007;
+    private static final int UNSET = -123;
+    private static final int[][] DIR = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+    public int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost) {
+        int m = cost.size();
+        int n = cost.get(0).size();
+        int[][] dp = new int[m][1 &lt;&lt; n];
+
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; dp[i].length; j++) {
+                dp[i][j] = INF;
+<A NAME="0"></A>            }
+        }
+
+        int[][] c = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[m][1 &lt;&lt; n];
+
+        for (int i = 0; i &lt; m; i++) {
+            for (int s = 1; s &lt; (1 &lt;&lt; n); s++) {
+                int sum = 0;
+                for (int j = 0; j &lt; n; j++) {
+                    if</B></FONT> ((s &amp; (1 &lt;&lt; j)) != 0) {
+                        sum += cost.get(i).get(j);
+                    }
+                }
+                c[i][s] = sum;
+                if (i == 0) {
+                    dp[0][s] = sum;
+                }
+            }
+        }
+        
+
+        for (int i = 1; i &lt; m; i++) {
+            for (int s = 0; s &lt; (1 &lt;&lt; n); s++) {
+<A NAME="1"></A>                if (dp[i - 1][s] &gt;= INF) continue;
+                for (int j = 1; j &lt; (1 &lt;&lt; n); j++) {
+                    dp[i][s | j] = Math.min(dp[i][s | j], dp[i - 1][s] + c[i][j]);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return dp[m - 1][(1 &lt;&lt; n) - 1];
+    }
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

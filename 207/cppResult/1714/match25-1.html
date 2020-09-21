@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_cyn3966.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_cyn3966.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string reorderSpaces(string s) {
+<A NAME="0"></A>        vector&lt;string&gt; words;
+        int spaces = 0;
+        bool f = false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto c : s) {
+            if (c == ' ') {
+                f = false;
+                spaces++;
+            } else {
+                if (f == false) {
+                    words.push_back(&quot;&quot;);
+                } 
+                words.back().push_back(c);
+                f = true;</B></FONT>
+            }
+        }
+        
+        //printf(&quot;spaces = %d, %d\n&quot;, spaces, words.size()); 
+        
+        string ans;
+        int n = words.size();
+<A NAME="1"></A>        int t = n == 1 ? 0 : spaces / (n-1);
+        int re = spaces - t * (n-1);
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; words.size(); ++i) {
+            ans += words[i];
+            
+            if (i != n - 1)
+                ans += string(t, ' ');
+        }
+        ans += string(re, ' ');
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

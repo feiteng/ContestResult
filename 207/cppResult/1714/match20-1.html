@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>455_FighterNan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>455_FighterNan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string reorderSpaces(string text) {
+        int cnt_space = 0;
+        for (auto ch : text) {
+            cnt_space += ch == ' ';
+        }
+        vector&lt;string&gt; words;
+        for (int i = 0; i &lt; text.size(); ++i) {
+            if (text[i] == ' ') {
+                continue;
+<A NAME="0"></A>            }
+            int start = i;
+            while (i &lt; text.size() &amp;&amp; text[i] != ' ') {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                i++;
+            }
+            words.push_back(text.substr(start, i - start));
+        }
+        string res;
+        if (words.size() == 1) {
+            res += words[0];
+            for (int i = 0; i &lt; cnt_space; ++i) {
+                res += ' ';
+<A NAME="1"></A>            }
+            return res;
+        }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int num_space = cnt_space / (words.size() - 1);
+        for (int i = 0; i &lt; words.size() - 1; ++i) {
+            res += words[i];
+            for (int i = 0; i &lt; num_space; ++i) {
+                res += ' ';
+            }
+        }
+        res += words.back();
+        for (int i = 0; i &lt; cnt_space - (words.size() - 1) * num_space; ++i) {
+            res += ' ';
+        }</B></FONT>
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

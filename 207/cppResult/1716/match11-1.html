@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>429_zhou-zhou-36.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>429_zhou-zhou-36.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int maxProductPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int row=grid.size(),col=grid[0].size();
+        vector&lt;vector&lt;long long&gt;&gt; mmax(row,vector&lt;long long&gt;(col));
+        vector&lt;vector&lt;long long&gt;&gt; mmin(row,vector&lt;long long&gt;(col));
+        mmax[0][0]=grid[0][0];
+        mmin[0][0]=grid[0][0];
+        for(int i=1;i&lt;row;++i)
+        {
+            mmax[i][0]=mmax[i-1][0]*grid[i][0];
+            mmin[i][0]=mmax[i][0];
+        }
+        for(int j=1;j&lt;col;++j)
+        {
+            mmax[0][j]=mmax[0][j-1]*grid[0][j];
+            mmin[0][j]=mmax[0][j];
+        }
+        for(int i=1;i&lt;row;++i)
+        {
+            for(int j=1;j&lt;col;++j)
+            {</B></FONT>
+                int t=grid[i][j];
+                if(t&gt;0)
+                {
+<A NAME="1"></A>                    mmax[i][j]=max(mmax[i-1][j],mmax[i][j-1])*t;
+                    mmin[i][j]=min(mmin[i-1][j],mmin[i][j-1])*t;
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                else if(t&lt;0)
+                {
+                    mmin[i][j]=max(mmax[i-1][j],mmax[i][j-1])*t;
+                    mmax[i][j]=min(mmin[i-1][j],mmin[i][j-1])*t;
+                }
+                else
+                {
+                    mmin[i][j]=0;
+                    mmax[i][j]=0;
+                }
+            }
+        }</B></FONT>
+        long long a=mmax[row-1][col-1];
+        if(a&lt;0) return -1;
+        return a%(long long)(1e9+7);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

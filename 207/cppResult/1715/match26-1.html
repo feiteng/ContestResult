@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>361_ForGive.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>361_ForGive.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int res = 0;
+public:
+    int maxUniqueSplit(string s) {
+        set&lt;string&gt; m;
+        
+        helper(s, 0, m);
+        
+        return res;
+    }
+    
+    void helper(string&amp; s, int st, set&lt;string&gt;&amp; m)
+    {
+<A NAME="1"></A>        if(st == s.size())
+        {</B></FONT>
+            res = max(res, int(m.size()));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            return;
+        }
+        
+        for(int end = st; end &lt; s.size(); end++)
+        {
+            string sub = s.substr(st, end-st+1);
+            
+            if(m.find(sub) == m.end())
+            {
+                m.insert(sub);
+                
+                helper(s, end+1, m);
+                
+                m.erase(sub);
+            }
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>879_zt222.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>879_zt222.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int mod = 1_000_000_007;
+<A NAME="0"></A>    public int maxProductPath(int[][] grid) {
+        System.out.println((-5)%4);
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int m = grid.length;
+        int n = grid[0].length;
+        
+        long[][] maxs = new long[m][n];
+        long[][] mins = new long[m][n];
+        
+        maxs[0][0] = grid[0][0];
+        mins[0][0] = grid[0][0];
+        
+        for(int i=1; i&lt;n; i++){
+            maxs[0][i] = maxs[0][i-1]*grid[0][i];
+            mins[0][i] = maxs[0][i];
+        }
+        
+        for(int i=1; i&lt;m; i++){
+            maxs[i][0] = maxs[i-1][0]*grid[i][0];
+            mins[i][0] = maxs[i][0];
+        }
+        
+        for(int i=1; i&lt;m; i++){
+            for(int j=1; j&lt;n; j++){</B></FONT>
+                int v = grid[i][j];
+                long r1 = v * maxs[i-1][j];
+<A NAME="1"></A>                long r2 = v * maxs[i][j-1];
+                long r3 = v * mins[i-1][j];
+                long r4 = v * mins[i][j-1];
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>maxs[i][j] = Math.max(Math.max(r1,r2),Math.max(r3,r4));
+                mins[i][j] = Math.min(Math.min(r1,r2),Math.min(r3,r4));
+            }
+        }
+        // System.out.println(Arrays.deepToString(maxs));
+        // System.out.println(Arrays.deepToString(mins));
+        return maxs[m-1][n-1] &gt;= 0 ? (int)(maxs[m-1][n-1] % mod): -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

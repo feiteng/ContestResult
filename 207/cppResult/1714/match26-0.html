@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>96_newhar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>96_newhar.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string reorderSpaces(string text) {
+        vector&lt;string&gt; v;
+        int cnt = 0, last = -1;
+        for(int i = 0;i &lt; text.size(); ++i) {
+            if(text[i] == ' ') {
+                if(last != -1) {
+                    v.push_back(text.substr(last, i - last));
+                    last = -1;
+                }
+                cnt++;
+            }
+            else {
+                if(last == -1) {
+                    last = i;
+                }
+            }
+        }
+        
+        if(cnt == 0) {
+            return text;
+        }
+        if(last != -1) {
+            v.push_back(text.substr(last));
+        }
+<A NAME="0"></A>        
+        string res;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(v.size() == 1) {
+            res += v[0];
+            for(int i = 0; i &lt; cnt; ++i) {
+                res += ' ';
+            }
+<A NAME="1"></A>            return res;
+        } else {</B></FONT>
+            int d = cnt / (v.size() - 1);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int r = cnt % (v.size() - 1);
+            res += v[0];
+            for(int i = 1; i &lt; v.size(); ++i) {
+                for(int j = 0; j &lt; d; ++j) {
+                    res += ' ';
+                }
+                res += v[i];
+            }
+            for(int i = 0; i &lt; r; ++i) {
+                res += ' ';
+            }
+            return res;
+        }</B></FONT>
+        
+        return &quot;&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

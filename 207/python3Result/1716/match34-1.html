@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>908_x372p.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>908_x372p.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxProductPath(self, grid: List[List[int]]) -&gt; int:
+        m = len(grid)
+        n = len(grid[0])
+<A NAME="0"></A>        if (grid[m-1][n-1] == 0):
+            return 0
+        
+        pos <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [[0 for x in range(n)] for y in range(m)]
+        neg = [[0 for x in range(n)] for y in range(m)]
+        
+        pos[0][0] = max(0, grid[0][0])
+        neg[0][0] = min(0, grid[0][0])
+        
+<A NAME="1"></A>        for i in range(1, m):
+            temp = grid[i][0]
+            if (temp &gt; 0):
+                pos[i][0] =</B></FONT> pos[i-1][0] * grid<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][0]
+                neg[i][0] = neg[i-1][0] * temp
+            else:
+                pos[i][0] = neg[i-1][0] * temp
+                neg[i][0] = pos[i-1][0] * temp
+                
+        for j in range(1, n):
+            temp = grid[0][j]
+            if (temp &gt; 0):
+                pos[0][j] = pos[0][j-1] * temp
+                neg[0][j] = neg[0][j-1] * temp
+            else:
+                pos[0][j] = neg[0][j-1] * temp
+                neg[0][j] = pos[0][j-1] * temp
+        
+        for i in range(1,m):
+            for j in range(1,n):
+                temp = grid[i][j]
+                if (temp &gt; 0):
+                    pos[i][j] = max(pos[i-1][j] * temp, pos[i][j-1]*temp)
+                    neg[i][j] = min(neg[i-1][j] * temp, neg[i][j-1]*temp)
+                else:
+                    pos[i][j] = max(neg[i-1][j] * temp, neg[i][j-1]*temp)
+                    neg[i][j] = min(pos[i-1][j] * temp, pos[i][j-1]*temp)
+        
+        if (pos[m-1][</B></FONT>n-1] == 0):
+            #check 0
+            for i in range(m):
+                for j in range(n):
+                    if (grid[i][j] == 0):
+                        return 0
+            return -1
+        
+        return (pos[m-1][n-1] % 1000000007)
+                # if (pos[m-1][n-1] == 0 and neg[i][j] == 0):
+        #     return 0
+        # elif(pos[m-1][n-1] == 0):
+        #     return -1
+        # else:
+        #     return pos[m-1][n-1]
+                
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_philip2207.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>22_philip2207.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost) {
+<A NAME="0"></A>        int size1 = cost.size();
+        int size2 = cost.get(0).size();
+        
+        int[] minSize2 = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[size2];
+        
+        for (int x = 0; x &lt; size2; x++) {
+            int min = 100;
+            for (int y = 0; y &lt; size1; y++) {
+                min = Math.min(min, cost.get(y).get(x));
+            }
+            
+            minSize2[x] = min;
+        }
+        
+        return connectTwoGroups</B></FONT>(cost, 0, 0, minSize2, new HashMap&lt;&gt;());
+    }
+    
+    private int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost, int y, int bitmaskX, int[] minSize2, Map&lt;Integer, Integer&gt; dp) {
+        int size1 = cost.size();
+        int size2 = cost.get(0).size();
+        if (y == size1) {
+<A NAME="1"></A>            if (dp.containsKey(bitmaskX)) {
+                return dp.get(bitmaskX);
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int totalCost = 0;
+            for (int x = 0; x &lt; size2; x++) {
+                if ((bitmaskX &amp; 1) != 1) {
+                    totalCost += minSize2[x];
+                }
+                bitmaskX &gt;&gt;= 1;
+            }</B></FONT>
+            dp.put(bitmaskX, totalCost);
+            return totalCost;
+        }
+        
+<A NAME="2"></A>        int mask = (bitmaskX &lt;&lt; 16) + y;
+        if (dp.containsKey(mask)) {
+            return dp.get(mask);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int min = Integer.MAX_VALUE;
+        
+        
+        for (int x = 0; x &lt; size2; x++) {
+            int nextMask = 1 &lt;&lt; x;
+            
+            min = Math.min(min, cost.get(y).get(x) + connectTwoGroups(cost, y+1, bitmaskX | nextMask, minSize2, dp));
+        }</B></FONT>
+        
+        dp.put(mask, min);
+        return min;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

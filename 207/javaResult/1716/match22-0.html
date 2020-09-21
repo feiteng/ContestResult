@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>787_imxishang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>787_imxishang.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxProductPath(int[][] grid) {
+<A NAME="0"></A>        int MOD = (int)1e9 + 7;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long[][][] dp = new long[rows][cols][2]; // dp[i][j][0]: max, dp[i][j][1]: min
+        // base cases
+        dp[rows-1][cols-1][0] = grid[rows-1][cols-1];
+        dp[rows-1][cols-1][1] = grid[rows-1][cols-1];
+        for (int i = rows-2; i &gt;= 0; i--) {
+            dp[i][cols-1][0] = grid[i][cols-1] * dp[i+1][cols-1][0];
+            dp[i][cols-1][1] = grid[i][cols-1] * dp[i+1][cols-1][1];
+        }
+        for (int j = cols-2; j &gt;= 0; j--) {
+            dp[rows-1][j][0] = grid[rows-1][j] * dp[rows-1][j+1][0];
+            dp[rows-1][j][1] = grid[rows-1][j] * dp[rows-1][j+1][1];
+        }
+        // calculate dp array
+        for (int i = rows-2; i &gt;= 0; i--) {
+            for (int j = cols-2; j &gt;= 0; j--) {
+                if (grid[i][j] &gt; 0) {
+                    dp[i][j][0] = Math.max(dp[i+1][j][0], dp[i][j+1][0]) * grid[i][j];
+                    dp[i][j][1] = Math.min(dp[i+1][j][1], dp[i][j+1][1]) * grid[i][j];
+                } else {
+                    dp[i][j][0] = Math.min(dp[i+1][j][1], dp[i][j+1][1]) * grid[i][j];
+                    dp[i][j][1] = Math.max(dp[i+1][j][0], dp[i][j+1][0]) * grid[i][j];
+                }
+            }
+        }
+        
+        int result = (int)(dp[0][0][0] % MOD);
+        return result &lt; 0 ? -1 : result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

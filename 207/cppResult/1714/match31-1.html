@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1015_qiurisy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1015_qiurisy.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string reorderSpaces(string text) {
+        vector&lt;string&gt; words;
+        int spaces = 0;
+        string word = &quot;&quot;;
+        for (char c : text) {
+            if (c == ' ') {
+                spaces++;
+                if (!word.empty()) {
+                    words.push_back(word);
+                    word = &quot;&quot;;
+                }
+            } else {
+                word += c;
+            }
+        }</B></FONT>
+        if (!word.empty()) {
+            words.push_back(word);
+        }
+        int spaces_between_words = words.size() == 1 ? 0 : spaces / (words.size() - 1);
+        int remaining_spaces = spaces - spaces_between_words * (words.size() - 1);
+        string res = words[0];
+        for (int i = 1; i &lt; words.size(); ++i) {
+            for (int j = 0; j &lt; spaces_between_words; ++j) {
+                res += ' ';
+            }
+            res += words[i];
+        }
+        for (int j = 0; j &lt; remaining_spaces; ++j) {
+            res += ' ';
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

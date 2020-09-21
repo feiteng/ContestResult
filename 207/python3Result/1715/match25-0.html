@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>547_faii.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>547_faii.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxUniqueSplit(self, s: str) -&gt; int:
+<A NAME="0"></A>        if not s:
+            return 0
+        
+        N <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(s)
+        res = 1
+        def dfs(index, visited):
+            nonlocal res
+            if index == N:
+                res = max(res, len(visited))
+                return
+            
+            for next_index in range(index + 1, N + 1):
+                ss = s[index:next_index]
+                if ss not in visited:
+                    visited.add(ss)
+                    dfs(next_index, visited)
+                    visited.remove(ss)
+                    
+        dfs(0, set())
+        re</B></FONT>turn res
+            
+            
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

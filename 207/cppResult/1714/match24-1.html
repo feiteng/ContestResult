@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_LighT-cml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_LighT-cml.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string reorderSpaces(string s) {
+        int n=s.size();
+        vector&lt;string&gt; A;
+        int cnt=0;
+        for (int i=0;i&lt;n;++i) if (s[i]==' ') ++cnt;
+        for (int i=0,j;i&lt;n;++i)
+        {
+            if (s[i]==' ') continue;
+            string a;
+            j=i;
+            while (j+1&lt;n &amp;&amp; s[j+1]!=' ') ++j;
+            for (int k=i;k&lt;=j;++k) a.push_back(s[k]);
+            A.push_back(a);
+<A NAME="0"></A>            i=j;
+        }
+        //for (int i=0;i&lt;A.size();++i) cout&lt;&lt;A[i]&lt;&lt;endl;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (A.size()==1)
+        {
+            string ans=A[0];
+            for (int i=1;i&lt;=cnt;++i) ans.push_back(' ');
+            return ans;
+        }
+        int v=cnt/(A.size()-1);
+        int r=cnt%(A.size()-1);
+        string ans=A[0];
+        for (int i=1;i&lt;A.size();++i)
+        {
+            for (int j=1;j&lt;=v;++j) ans.push_back(' ');
+            ans+=A[i];
+        }
+        for (int j=1;j&lt;=r;++j) ans.push_back(' ');
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

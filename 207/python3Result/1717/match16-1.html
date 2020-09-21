@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>119_rickdiculous.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>119_rickdiculous.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def connectTwoGroups(self, cost: List[List[int]]) -&gt; int:
+        n1, n2 = len(cost), len(cost[0])
+        sys.setrecursionlimit(1000000000)
+        @lru_cache(None)
+        def dfs(ind1: int, mask2: int) -&gt; int:
+            if ind1 == n1:
+                c = 0
+                for j in range(n2):
+                    if not mask2 &gt;&gt; j &amp; 1:
+                        _min = float('inf')
+                        for i in range(n1):
+                            _min = min(cost[i][j], _min)
+                        c += _min          
+                return c         
+            ans = float('inf') 
+            _min = float('inf')
+            k = -1
+            for i in range(n2):
+                if mask2 &gt;&gt; i &amp; 1:
+                    if _min &gt; cost[ind1][i]:
+                        _min = cost[ind1][i]
+<A NAME="0"></A>                        k = i
+                else:         
+                    ans = min(ans, cost[ind1][i] + dfs(ind1 + 1, mask2 | (1 &lt;&lt; i)))
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if not k == -1:           
+                ans = min(ans, _min + dfs(ind1 + 1, mask2))
+            return ans                
+        
+        return dfs(0</B></FONT>, 0)   
+</PRE>
+
+</BODY>
+</HTML>

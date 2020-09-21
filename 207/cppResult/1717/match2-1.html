@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_poi-a.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_poi-a.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int d[15][(1 &lt;&lt; 12)+5];
+    const int oo = 10000000;
+    int size1, size2;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+        size1 = cost.size();
+        size2 = cost[0].size();
+<A NAME="1"></A>        
+        for (int j = 0; j &lt;= size1; ++j)
+            for (int i = 0; i &lt; (1 &lt;&lt; size2); ++i) d[j][i] = oo;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        d[0][0] = 0;
+    
+        for (int i = 0; i &lt; size1; ++i)
+            for (int j = 0; j &lt; size2; ++j) {
+                int state = (1 &lt;&lt; (j));</B></FONT>
+                int c = cost[i][j];
+                for (int s = 0; s &lt; (1 &lt;&lt; size2); ++s) {
+                    d[i+1][s|(1&lt;&lt;j)] = min(d[i+1][s|(1&lt;&lt;j)], d[i][s] + c);
+                    d[i+1][s] = min(d[i+1][s], d[i][s] + c);
+                    d[i+1][s|(1&lt;&lt;j)] = min(d[i+1][s|(1&lt;&lt;j)], d[i+1][s] + c);
+                }
+            }
+        
+        return d[size1][(1&lt;&lt;size2)-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

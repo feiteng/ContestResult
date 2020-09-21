@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_smartly.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_smartly.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int n,m;
+<A NAME="0"></A>    int f[13][1&lt;&lt;12],now[1&lt;&lt;12];
+    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+        n=cost.size(),m=cost[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0;i&lt;(1&lt;&lt;m);i++) 
+            f[0][i]=(1e9)*(i&gt;0);
+        for (int i=0;i&lt;n;i++){
+            for (int j=0;j&lt;(1&lt;&lt;m);j++)</B></FONT>
+                f[i+1][j]=1e9;
+            for (int T=0;T&lt;(1&lt;&lt;m);T++){
+                now[T]=0;
+                for (int j=0;j&lt;m;j++)
+                    if ((T&gt;&gt;j)&amp;1) now[T]+=cost[i][j];
+            }
+            for (int S=0;S&lt;(1&lt;&lt;m);S++)
+                if (f[i][S]&lt;1e9){
+                    int mi=cost[i][0];
+                    for (int j=0;j&lt;m;j++)
+<A NAME="1"></A>                        mi=min(mi,cost[i][j]);
+                    f[i+1][S]=min(f[i+1][S],f[i][S]+mi);
+                    int inv=((1&lt;&lt;m)-1)^S;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    for (int T=inv;T;T=(T-1)&amp;inv){
+                        f[i+1][S|T]=min(f[i+1][S|T],f[i][S]+now[T]);
+                    }
+                }
+        }
+        return f[n][(1&lt;&lt;m)-1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

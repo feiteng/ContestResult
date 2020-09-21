@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>175_Yuzu_sofa.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>175_Yuzu_sofa.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def connectTwoGroups(self, cost: List[List[int]]) -&gt; int:
+        m = len(cost)
+        n = len(cost[0])
+        dic = {}
+        a = {}
+        b =</B></FONT> {}
+        for i in range(m):
+            tem = cost[i][0]
+            ind = 0
+            for j in range(1,n):
+                if cost[i][j] &lt; tem:
+                    tem = cost[i][j]
+                    ind = j
+            a[i] = [ind,tem]
+        for j in range(n):
+            tem = cost[0][j]
+            ind = 0
+            for i in range(1,m):
+                if cost[i][j] &lt; tem:
+                    tem = cost[i][j]
+                    ind = i
+            b[j] = [ind,tem]
+                
+        
+        
+        
+        def solve(c,d):
+            sign = (c,tuple(d))
+            if sign in dic:
+                return dic[sign]
+            if c == m and not d:
+                return 0
+            elif c == m:
+                re = 0  
+                for i in d:
+                    re += b[i][1]
+                dic[sign] = re
+                return re
+            elif not d:
+                re = 0
+                for i in range(c,m):
+                    re += a[i][1]
+                dic[sign] = re
+                return re
+            else:
+                re = 100000000
+                        
+                for i in list(d):
+                    d.remove(i)
+                    re = min(re,cost[c][i] + solve(c + 1,d))
+                    d.add(i)
+                if a[c][0] not in d:
+                    re = min(re,a[c][1] + solve(c + 1,d))
+      
+                        
+                        
+                dic[sign] = re
+                return re
+
+        return solve(0,set([i for i in range(n)]))
+                
+</PRE>
+
+</BODY>
+</HTML>

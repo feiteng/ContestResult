@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197__dup4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>197__dup4.cpp</CENTER></H3><HR>
+<PRE>
+#define fi first
+#define se second
+#define SZ(x) ((int)(x).size())
+#define mkp make_pair
+#define all(x) (x).begin(), (x).end()
+using db = double;
+using ll = long long;
+using ull = unsigned long long; 
+using pII = pair &lt;int, int&gt;;
+using pLL = pair &lt;ll, ll&gt;;
+constexpr int mod = 1e9 + 7;
+template &lt;class T1, class T2&gt; inline void chadd(T1 &amp;x, T2 y, int Mod = mod) { x += y; while (x &gt;= Mod) x -= Mod; while (x &lt; 0) x += Mod; } 
+template &lt;class T1, class T2&gt; inline void chmax(T1 &amp;x, T2 y) { if (x &lt; y) x = y; }
+template &lt;class T1, class T2&gt; inline void chmin(T1 &amp;x, T2 y) { if (x &gt; y) x = y; }
+inline int nextInt() { int x; cin &gt;&gt; x; return x; }
+void rd() {}
+template &lt;class T, class... Ts&gt; void rd(T&amp; arg, Ts&amp;... args) { cin &gt;&gt; arg; rd(args...); }
+#define dbg(x...) do { cout &lt;&lt; &quot;\033[32;1m&quot; &lt;&lt; #x &lt;&lt; &quot; -&gt; &quot;; err(x); } while (0) 
+void err() { cout &lt;&lt; &quot;\033[39;0m&quot; &lt;&lt; endl; } 
+template &lt;class T, class... Ts&gt; void err(const T&amp; arg, const Ts&amp;... args) { cout &lt;&lt; arg &lt;&lt; ' '; err(args...); }
+template &lt;template&lt;typename...&gt; class T, typename t, typename... A&gt; 
+void err(const T &lt;t&gt; &amp;arg, const A&amp;... args) { for (auto &amp;v : arg) cout &lt;&lt; v &lt;&lt; ' '; err(args...); }
+void ptt() { cout &lt;&lt; endl; }
+template &lt;class T, class... Ts&gt; void ptt(const T&amp; arg, const Ts&amp;... args) { cout &lt;&lt; ' ' &lt;&lt; arg; ptt(args...); }
+template &lt;class T, class... Ts&gt; void pt(const T&amp; arg, const Ts&amp;... args) { cout &lt;&lt; arg; ptt(args...); }
+void pt() {}
+template &lt;template&lt;typename...&gt; class T, typename t, typename... A&gt;
+void pt(const T &lt;t&gt; &amp;arg, const A&amp;... args) { for (int i = 0, sze = arg.size(); i &lt; sze; ++i) cout &lt;&lt; arg[i] &lt;&lt; &quot; \n&quot;[i == sze - 1]; pt(args...); }
+inline ll qpow(ll base, ll n) { assert(n &gt;= 0); ll res = 1; while (n) { if (n &amp; 1) res = res * base % mod; base = base * base % mod; n &gt;&gt;= 1; } return res; }
+//head
+constexpr int N = 1e2 + 10; 
+constexpr int INF = 0x3f3f3f3f;
+int n, m, f[N], g[2][1 &lt;&lt; 13]; 
+
+class Solution {
+public:
+    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+		n = SZ(cost);
+<A NAME="0"></A>		m = SZ(cost[0]);
+		int res = INF;
+		memset(f, 0x3f, sizeof f);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		memset(g, 0x3f, sizeof g);
+		g[1][0] = 0;
+		for (int i = 0; i &lt; n; ++i) {
+			for (int j = 0; j &lt; m; ++j) {</B></FONT>
+				chmin(f[j], cost[i][j]);
+<A NAME="1"></A>			}
+		}
+		for (int i = 0; i &lt; n; ++i) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			int p = i &amp; 1;
+			memset(g[p], 0x3f, sizeof g[p]);
+<A NAME="2"></A>			for (int j = 0; j &lt; m; ++j) {
+				for (int S = 0; S &lt; 1 &lt;&lt; m; ++S) {</B></FONT>
+					chmin(g[p][S | (1 &lt;&lt; j)], g[p ^ 1][S] + cost[i][j]);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				}
+			}
+		}
+		int p = (n - 1) &amp; 1;
+		for (int S = 0; S &lt; 1 &lt;&lt; m; ++S) {
+			int add = 0;
+			for (int i = 0; i &lt; m; ++i) {
+				if (!((S &gt;&gt; i) &amp; 1)) {</B></FONT>
+					add += f[i];
+				}
+			}
+			chmin(res, g[p][S] + add);
+		}
+		return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

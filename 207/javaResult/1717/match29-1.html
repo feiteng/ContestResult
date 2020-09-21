@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>144_66brother.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>144_66brother.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int grid[][];
+<A NAME="1"></A>    int dp[][];
+    int r,c;
+    int mycost[][];
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost) {
+        r=cost.size();
+        c=cost.get(0).size();
+        grid=new int[r][c];
+        
+        for(int i=0;i&lt;r;i++){
+            for(int j=0;j&lt;c;j++){
+                grid[i][j]=cost.get(i).get(j);
+            }
+        }</B></FONT>
+        dp=new int[r][1&lt;&lt;c];
+        for(int i=0;i&lt;dp.length;i++){
+            Arrays.fill(dp[i],-2);
+        }
+        
+        mycost=new int[r][1&lt;&lt;c];
+        
+        for(int i=0;i&lt;r;i++){
+            for(int j=0;j&lt;mycost[0].length;j++){
+                mycost[i][j]=getcost(i,j);
+            }
+        }
+        
+        
+        int path=(1&lt;&lt;c)-1;
+        return dfs(0,path);
+    }
+    
+    public int dfs(int index,int path){
+        if(index&gt;=r){
+            if(path==0){
+                return 0;
+<A NAME="0"></A>            }else{
+                return -1;
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if(dp[index][path]!=-2)return dp[index][path];
+        
+        int res=Integer.MAX_VALUE;
+        int total=(1&lt;&lt;c)-1;
+        for(int i=1;i&lt;=total;i++){</B></FONT>
+            int cost=mycost[index][i];
+            int copy=path;
+            int n=~i;
+           // for(int j=0;j&lt;=c;j++){//turn off bit
+               // int b=n&amp;1;n&gt;&gt;=1;
+               // if(b==1){
+                   // copy=turnoff(copy,j);
+                //}
+            //}
+            copy=copy&amp;n;
+            int val=dfs(index+1,copy);
+            
+            if(val!=-1){
+                res=Math.min(res,cost+val);
+            }
+        }
+        
+        if(res==Integer.MAX_VALUE)res=-1;
+        dp[index][path]=res;
+        return res;
+    }
+    
+    
+    public int turnoff(int number, int bit)
+    {
+        return (number &amp; ~(1 &lt;&lt; (bit )));
+    }
+    
+    public int getcost(int r,int n){
+        int sum=0;
+        for(int i=0;i&lt;=c;i++){
+            int b=n&amp;1;n&gt;&gt;=1;
+            if(b==1){
+                sum+=grid[r][i];
+            }
+        }
+        return sum;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

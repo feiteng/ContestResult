@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>495_zf97.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>495_zf97.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxProductPath(int[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+        long[][] maxdp = new long[row][col];
+        long[][] mindp = new long[row][col];
+        maxdp[0][0] = grid[0][0];
+        mindp[0][0] = grid[0][0];
+        for (int i = 1; i &lt; col; i++){
+            maxdp[0][i] = maxdp[0][i-1] * grid[0][i];
+            mindp[0][i] = mindp[0][i-1] * grid[0][i];
+        }
+        for (int i = 1; i &lt; row; i++){
+            maxdp[i][0] = maxdp[i-1][0] * grid[i][0];
+            mindp[i][0] = mindp[i-1][0] * grid[i][0];
+        }
+        for (int i = 1; i &lt; row; i++){
+            for (int j = 1; j &lt; col; j++){</B></FONT>
+                long num1 = maxdp[i-1][j] * grid[i][j];
+                long num2 = mindp[i-1][j] * grid[i][j];
+<A NAME="1"></A>                long num3 = maxdp[i][j-1] * grid[i][j];
+                long num4 = mindp[i][j-1] * grid[i][j];
+                
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (grid[i][j] == 0){
+                    maxdp[i][j] = 0;
+                    mindp[i][j] = 0;
+                }
+                else if (grid[i][j] &gt; 0){
+                    maxdp[i][j] = Math.max(num1, num3);
+                    mindp[i][j] = Math.min(num2, num4);
+                }
+                else {
+                    maxdp[i][j] = Math.max(num2, num4);
+                    mindp[i][j] = Math.min(num1, num3);
+                }
+                
+            }
+        }</B></FONT>
+        return maxdp[row-1][col-1] &gt;= 0 ? (int)(maxdp[row-1][col-1] % (1e9+7)): -1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

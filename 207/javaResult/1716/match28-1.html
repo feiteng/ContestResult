@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_FelixWang_.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_FelixWang_.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxProductPath(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        long[][] max = new long[m][n];
+        long[][] min = new long[m][n];
+        max[0][0] = (long)grid[0][0];
+        min[0][0] = (long)grid[0][0];
+        for (int i = 1; i &lt; m; i++) {
+            max[i][0] = max[i - 1][0] * (long)grid[i][0];
+            min[i][0] = min[i - 1][0] * (long)grid[i][0];
+        }
+        for (int i = 1; i &lt; n; i++) {
+            max[0][i] = max[0][i - 1] * (long)grid[0][i];
+            min[0][i] = min[0][i - 1] * (long)grid[0][i];
+        }
+        for (int i = 1; i &lt; m; i++) {
+<A NAME="1"></A>            for (int j = 1; j &lt; n; j++) {
+                max[i][j] = Math.max</B></FONT>(Math.max((long)grid[i][j] * max[i - 1][j], (long)grid[i][j] * max[i][j - 1]),
+                                     Math.max((long)grid[i][j] * min[i - 1][j], (long)grid[i][j] * min[i][j - 1]));
+                min[i][j] = Math.min(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min((long)grid[i][j] * min[i - 1][j], (long)grid[i][j] * min[i][j - 1]),
+                                     Math.min((long)grid[i][j] * max[i - 1][j], (long)grid[i][j] * max[i][j - 1]));
+            }
+        }
+        // show(max);
+        // System.out.println(&quot;----&quot;);
+        // show(min);
+        if (max[m - 1][n - 1] &lt; 0) {
+            return -1;
+        }
+        return (int)(max[m - 1][n - 1] % 1000000007);
+    }
+//     private void show(long[][] m) {
+//         for (long[] ma : m) {
+            
+//             System.out.println(Arrays.toString(ma));
+//         }
+//     }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

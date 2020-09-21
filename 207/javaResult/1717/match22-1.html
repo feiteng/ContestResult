@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_punit3199.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_punit3199.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    static int n;
+    static int m;
+    static int[][]mat;
+    static int[][] cos;
+    static int[][]dp;
+    static int solve(int ind,int mask)
+    {
+        if(ind==n)
+        {
+            if(mask==((1&lt;&lt;m)-1))
+                return 0;
+            return 1000000000;
+        }
+        if(dp[ind][mask]!=-1)
+            return dp[ind][mask];
+        int res=1000000000;
+        int mx=(1&lt;&lt;m)-1;
+        for(int i=1;i&lt;=mx;i++)
+        {
+            res=Math.min(res,cos[ind][i]+solve(ind+1,mask|i));
+        }
+        dp[ind][mask]=res;
+        return res;
+    }
+    public int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost) {
+        n=cost.size();
+        m=cost.get(0).size();
+        mat=new int[n][m];
+        for(int i=0;i&lt;n;i++)
+        {
+            for(int j=0;j&lt;m;j++)
+            {
+                mat[i][j]=cost.get(i).get(j);
+<A NAME="0"></A>            }
+        }
+        int mx=(1&lt;&lt;m)-1;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>cos=new int[n][mx+1];
+        for(int k=0;k&lt;n;k++){
+        for(int i=1;i&lt;=mx;i++)
+        {
+            int c=0;
+<A NAME="1"></A>            for(int j=0;j&lt;m;j++)
+            {
+                if</B></FONT>((i&amp;(1&lt;&lt;j))!=0)
+                    c=c+mat[k][j]<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+            cos[k][i]=c;
+        }}
+        dp=new int[n+1][(1&lt;&lt;m)];
+        for(int i=0;i&lt;=n;i++)
+        {
+            Arrays.fill(dp[i],-1);
+        }</B></FONT>
+        return solve(0,0);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

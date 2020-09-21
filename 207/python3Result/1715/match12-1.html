@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>636_hudeven.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>636_hudeven.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maxUniqueSplit(self, s: str) -&gt; int:
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.max_len = 0
+        self.dfs(s, 0, set())
+        return self.max_len
+        
+    def dfs(self, s: str, start: int, cur_set):
+        # print(f&quot;dfs: start: {start}, cur_set: {cur_set}&quot;)
+        if start &gt;= len(s):
+            self.max_len = max(self.max_len, len(cur_set))
+            # print(f&quot;return: max_len: {self.max_len}, cur_set: {cur_set}&quot;)
+            return
+        
+        for i in range(start + 1, len(s) + 1):
+            word = s[start: i]
+            if word not in cur_set:
+                cur_set.add(word)
+                # print(f&quot;not in cur set: word: {word}, i: {i}, cur_set: {cur_set}&quot;)
+                self.dfs(s, i, cur_set)
+                cur_set.remove(wor</B></FONT>d)
+                # print(f&quot;removed: word: {word}, i: {i}, cur_set: {cur_set}&quot;)
+            
+</PRE>
+
+</BODY>
+</HTML>

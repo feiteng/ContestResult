@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>437_lovehhf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>437_lovehhf.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maxProductPath(self, grid: List[List[int]]) -&gt; int:
+        m, n <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(grid), len(grid[0])
+        
+        f = [[[0, 0] for _ in range(n)] for _ in range(m)]  #f[i][j][0]: 最大正积, f[i][j][1]: 最大负积
+        
+        if grid[0][0] &gt; 0:
+            f[0][0][0] = grid[0][0]
+        else:
+<A NAME="1"></A>            f[0][0][1] = grid[0][0]
+        
+        for i in range(</B></FONT>1, n):
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if grid[0][i] &gt; 0: 
+                f[0][i][0] = f[0][i - 1][0] * grid[0][i]
+                f[0][i][1] = f[0][i - 1][1] * grid[0][i]
+            else:
+                f[0][i][0] = f[0][i - 1][1] * grid[0][i]
+<A NAME="2"></A>                f[0][i][1] = f[0][i - 1][0] * grid[0][</B></FONT>i]
+        
+        for i in range(1, m):
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if grid[i][0] &gt; 0: 
+                f[i][0][0] = f[i - 1][0][0] * grid[i][0]
+                f[i][0][1] = f[i - 1][0][1] * grid[i][0]
+            else:
+                f[i][0][0] = f[i - 1][0][1] * grid[i][0]
+                f[i][0][1] = f[i - 1][0][0] * grid[i][</B></FONT>0]
+<A NAME="3"></A>                
+        for i in range(1, m):
+            for j in range(1, n):
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if grid[i][j] &gt; 0: 
+                    f[i][j][0] = max(f[i - 1][j][0], f[i][j - 1][0]) * grid[i][j]
+                    f[i][j][1] = min(f[i - 1][j][1], f[i][j - 1][1]) * grid[i][j]
+                else:
+                    f[i][j][0] = min(f[i - 1][j][1], f[i][j - 1][1]) * grid[i][j]
+                    f[i][j][1] = max(f[i - 1][j][0], f[i][j - 1][0]) * grid[i][j]
+                    
+        # for i in f:
+        #     print(i)
+        
+        if f[m - 1][n - 1][</B></FONT>0] == 0:
+            if all(grid[i][j] != 0 for i in range(m) for j in range(n)):
+                return -1
+            
+        return f[m - 1][n - 1][0] % (10 ** 9 + 7)
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

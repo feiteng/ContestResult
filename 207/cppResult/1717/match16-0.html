@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>143_angry-varahamihiraroa.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>143_angry-varahamihiraroa.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+<A NAME="0"></A>        int N = cost.size();
+        int M = cost[0].size();
+        int F[N][1&lt;&lt;M];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; (1&lt;&lt;M); j++) {
+<A NAME="1"></A>                F[i][j] = 1000000000;
+            }
+        }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int j = 1; j &lt; (1&lt;&lt;M); j++) {
+            int c = 0;
+            for (int b = 0; b &lt; M; b++) {
+                if (((j&gt;&gt;b)&amp;1)==1) {</B></FONT>
+                    c += cost[0][b];
+                }
+            }
+            F[0][j] = c;
+        }
+        for (int j = 1; j &lt; (1&lt;&lt;M); j++) {
+            for (int k = 0; k &lt; (1&lt;&lt;M); k++) {
+                if ((j&amp;k)==k) {
+                    F[0][k] = min(F[0][k], F[0][j]);
+<A NAME="2"></A>                }
+            }
+        }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt; N; i++) {
+            for (int j = 1; j &lt; (1&lt;&lt;M); j++) {
+                for (int k = 1; k &lt;= j; k++) {</B></FONT>
+                    if ((j&amp;k)==k) {
+                        int c = 0;
+                        for (int b = 0; b &lt; M; b++) {
+                            if (((k&gt;&gt;b)&amp;1)==1) {
+                                c += cost[i][b];
+                            }
+                        }
+                        F[i][j] = min(F[i][j], F[i-1][j-(j&amp;k)] + c);
+                    }
+                }
+            }
+            for (int j = 1; j &lt; (1&lt;&lt;M); j++) {
+                for (int k = 0; k &lt; (1&lt;&lt;M); k++) {
+                    if ((j&amp;k)==k) {
+                        F[i][k] = min(F[i][k], F[i][j]);
+                    }
+                }
+            }
+        }
+        return F[N-1][(1&lt;&lt;M)-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

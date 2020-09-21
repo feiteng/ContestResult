@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1021_GT2019.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1021_GT2019.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxProductPath(self, grid: List[List[int]]) -&gt; int:
+        
+<A NAME="0"></A>        # max prod in array 的2d 扩展
+        
+        m, n = len(grid), len(grid[0])
+        max_prod <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [[0] * n for i in range(m)]
+        min_prod = [[0] * n for i in range(m)]
+        
+        max_prod[0][0] = grid[0][0] 
+        min_prod[0][0] = grid[0][0] 
+        for i in range(1, m):
+            # j = 0
+            if grid[i][0] &gt;= 0:
+                max_prod[i][0] = max_prod[i-1][0] * grid[i][0]
+                min_prod[i][0] = min_prod[i-1][0] * grid[i][0]
+            else:
+                max_prod[i][0] = min_prod[i-1][0] * grid[i][0]
+                min_prod[i][0] = max_prod[i-1][0] * grid[i][0]
+                
+        for j in range(1, n):
+            # i = 0
+            if grid[0][j] &gt;= 0:
+                max_prod[0][j] = max_prod[0][j-1] * grid[0][j]
+                min_prod[0][j] = min_prod[0][j-1] * grid[0][j]
+            else:
+                max_prod[0][j] = min_prod[0][j-1] * grid[0][j]
+                min_prod[0][j] = max_prod[0][j-1] * grid[0][j]
+                
+        for i in range(1, m):
+            for j in range(1, n):
+                if grid[i][j] &gt;= 0:
+                    max_prod[i][j] = max(max_prod[i][j-1], max_prod[i-1][j]) * grid[i][j]
+                    min_prod[i][j] = min(min_prod[i][j-1], min_prod[i-1][j]) * grid[i][j]
+                else:
+                    max_prod[i][j] = min(min_prod[i][j-1], min_prod[i-1][j]) * grid[i][j]
+                    min_prod[i][j] = max(max_prod[i][j-1], max_prod[i-1][j]) * grid[i][j]</B></FONT>
+
+                
+        return max_prod[m-1][n-1] % (10**9 + 7) if max_prod[m-1][n-1] &gt;= 0 else -1
+                
+                
+                
+                
+</PRE>
+
+</BODY>
+</HTML>

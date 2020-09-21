@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private static final int INF = 987654321;
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost) {
+        final int N = cost.size();
+<A NAME="2"></A>        final int M = cost.get(0).size();
+        
+        int[][] C = new</B></FONT> int[N][M];
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; N; ++i) {
+            for (int j = 0; j &lt; M; ++j) {
+                C[i][j] = cost.get</B></FONT>(i).get(j);
+            }
+        }
+        
+        int[] best = new int[1 &lt;&lt; M];
+        Arrays.fill(best, INF);
+<A NAME="1"></A>        best[0] = 0;
+        for (int i = 0; i &lt; N; ++i) {
+            int[] next = new int[1 &lt;&lt; M];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Arrays.fill(next, INF);
+            for (int j = 0; j &lt; M; ++j) {
+                for (int mask = 0; mask &lt; best.length; ++mask) {
+                    int nextMask = mask | (1 &lt;&lt; j);
+                    next[nextMask] = Math.min</B></FONT>(next[nextMask], next[mask] + C[i][j]);
+                    next[nextMask] = Math.min(next[nextMask], best[mask] + C[i][j]);
+                }
+            }
+            best = next;
+            // for (int mask = 0; mask &lt; best.length; ++mask) {
+            //     System.out.format(&quot;i = %d, mask = %3s: best = %d\n&quot;, i, Integer.toBinaryString(mask), best[mask]);
+            // }
+        }
+        return best[best.length - 1];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

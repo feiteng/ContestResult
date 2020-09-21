@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>705_steven-42.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>705_steven-42.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string reorderSpaces(string text) {
+        int spaceNum = -1;
+        vector&lt;string&gt; words;
+        string word;
+        text += ' ';
+        for (char c:text) {
+            if (c == ' ') {
+                spaceNum++;
+                if (word != &quot;&quot;) {
+                    words.push_back(word);
+                    word = &quot;&quot;;
+                } 
+            } else {
+                word += c;
+            }
+        }</B></FONT>
+        string ans = words[0];
+        if (words.size() == 1) return ans+string(spaceNum, ' ');
+        string spaceWord(spaceNum/(words.size()-1), ' ');
+        for (int i=1; i&lt;words.size(); i++) {
+            ans += spaceWord + words[i];
+        }
+        return ans + string(spaceNum%(words.size()-1), ' ');
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>96_newhar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>96_newhar.cpp</CENTER></H3><HR>
+<PRE>
+
+class Solution {
+public:
+    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+        int m = cost.size(), n = cost[0].size(), N = (1 &lt;&lt; n) - 1;
+        int dp[m + 1][n + 1][2][1 &lt;&lt; n];
+        // dp[i][j][k][l]
+        // i - 第一组考虑
+<A NAME="0"></A>        // j - 第二组考虑
+        // k - 当前组是否选择了
+        // l - 第二组连了多少
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        memset(dp, 0x3f, sizeof(dp));
+        dp[m][0][0][N] = 0;
+        for(int i = m-1; i &gt;= 0; --i) {
+            for(int j = n-1; j &gt;= 0; --j) {
+                for(int k = 0; k &lt;= 1; ++k) {
+                    for(int l = 0; l &lt;= N; ++l) {</B></FONT>
+                        if(j == n-1) {
+                            dp[i][j][k][l] = dp[i+1][0][0][l | (1 &lt;&lt; j)] + cost[i][j];
+                            if(k != 0) {
+                                dp[i][j][k][l] = min(dp[i][j][k][l], dp[i+1][0][0][l]);
+                            }
+                        } else {
+                            dp[i][j][k][l] = dp[i][j+1][k][l];
+                            dp[i][j][k][l] = min(dp[i][j][k][l], dp[i][j+1][1][l | (1 &lt;&lt; j)] + cost[i][j]);
+                        }
+                    }
+                }
+            }
+        }
+        return dp[0][0][0][0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

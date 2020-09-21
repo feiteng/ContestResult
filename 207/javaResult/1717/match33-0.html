@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>129_bhas_gurr.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>129_bhas_gurr.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int connectTwoGroups(List&lt;List&lt;Integer&gt;&gt; cost) {
+        int m = cost.size();
+        int n = cost.get(0).size();
+<A NAME="1"></A>        int[][] arr = new int[m][n];
+        
+        for(int i = 0</B></FONT>; i&lt; cost.size(); i++) {
+            for(int j = 0 ;j &lt; cost.get(i).size(); j++) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                arr[i][j] = cost.get(i).get(j);
+            }
+        }
+        
+        Set&lt;Integer&gt; nv = new HashSet&lt;&gt;()</B></FONT>;
+        for(int i = 0; i&lt;n;i++) {
+            nv.add(i);
+        }
+        Map&lt;String, Integer&gt; storage = new HashMap&lt;&gt;();
+        
+        return connectTwoGroups(0, arr, m, n, nv, storage);
+        
+    }
+    
+    private int connectTwoGroups(int curr, int[][] cost, int m, int n, Set&lt;Integer&gt; nv, Map&lt;String, Integer&gt; storage) {
+        String hash = curr +&quot;#&quot;+getRep(nv, n);
+        if(storage.containsKey(hash)) {
+            return storage.get(hash);
+        }
+        if (curr == m) {
+            int t = 0;
+            for (int num : nv) {
+                int min = Integer.MAX_VALUE;
+                for(int i = 0; i &lt; m; i++) {
+                    min = Math.min(min, cost[i][num]);
+                }
+                t += min;
+            }
+            storage.put(hash, t);
+            return t;
+        }
+        
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i &lt; n; i++) {
+            boolean removed = nv.contains(i);
+            nv.remove(i);
+            int currV = cost[curr][i] + connectTwoGroups(curr + 1, cost, m, n, nv, storage);
+            
+            if(removed) {
+                nv.add(i);
+            }
+            min = Math.min(min, currV);
+        }
+        
+        storage.put(hash, min);
+        return min;
+        
+    }
+    
+    private int getRep(Set&lt;Integer&gt; nv, int n) {
+        int num = 0;
+        for(int i = 0; i&lt;n; i++) {
+            if(nv.contains(i)) {
+               num = num | 1 &lt;&lt; i; 
+            }
+        }
+        
+        return num;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

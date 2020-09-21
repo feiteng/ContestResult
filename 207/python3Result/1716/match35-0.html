@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>414_SamChen856.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>414_SamChen856.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    # dp, time O(HW), space O(HW)
+    def maxProductPath(self, A: List[List[int]]) -&gt; int:
+        INF = float('inf')
+        H, W = len(A), len(A[0])
+        small = [[INF] * W for _ in range(H)]
+        large = [[-INF] * W for _ in range(H)]
+        has_zero = False
+        for i in range(H):
+            if has_zero:
+                break
+            for j in range(W):
+<A NAME="0"></A>                if A[i][j] == 0:
+                    has_zero = True
+                    break
+        small[0][0] = large<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0][0] = A[0][0]
+        for i in range(1, H):
+            small[i][0] = min(small[i - 1][0] * A[i][0], large[i - 1][0] * A[i][0])
+            large[i][0] = max(small[i - 1][0] * A[i][0], large[i - 1][0] * A[i][0])
+        for j in range(1, W):
+            small[0][j] = min(small[0][j - 1] * A[0][j], large[0][j - 1] * A[0][j])
+            large[0][j] = max(small[0][j - 1] * A[0][j], large[0][j - 1] * A[0][j])
+        for i in range(1, H):
+            for j in range(1, W):
+                small[i][j] = min(small[i - 1][j] * A[i][j], small[i][j - 1] * A[i][j], large[i - 1][j] * A[i][j], large[i][j - 1] * A[i][j])
+                large[i][j] = max(small[i - 1][j] * A[i][j], small[i][j - 1] * A[i][j], large[i - 1][j] * A[i][j], large[i][j - 1] * A[i][j])
+        res = max(small[-1][-1], large[-1][-1])
+        # print(small, large, res)
+        if res &lt; 0:
+            return 0 if has_zero else -1
+        re</B></FONT>turn res % (10**9 + 7)
+        
+</PRE>
+
+</BODY>
+</HTML>

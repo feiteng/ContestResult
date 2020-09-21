@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_panpeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_panpeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+        int N=cost.size();
+        int M=cost[0].size();
+        int total=1&lt;&lt;M;</B></FONT>
+        vector&lt;vector&lt;int&gt;&gt; dp(N+1,vector&lt;int&gt;(total,-1));
+        dp[0][0]=0;
+        for(int i=0;i&lt;N;i++){
+            for(int ls=0;ls&lt;total;ls++){
+                if(dp[i][ls]&lt;0){
+                    continue;
+                }
+                for(int j=0;j&lt;M;j++){
+                    int ns=ls|(1&lt;&lt;j);
+<A NAME="1"></A>                    int nco=cost[i][j]+dp[i][ls];
+                    if(dp[i+1][ns]&lt;0){
+                        dp[i+1][ns]=nco;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }else{
+                        dp[i+1][ns]=min(dp[i+1][ns],nco);
+                    }
+
+                }
+            }
+            for(int ls=0;ls&lt;total;ls++){
+                if(dp[i+1][ls]&lt;0){
+                    continue;
+                }   
+                for(int j=0;j&lt;M;j++){
+                    int ns=ls|(1&lt;&lt;j);
+                    int nco=cost[i][j]+dp[i+1][ls];</B></FONT>
+                    if(dp[i+1][ns]&lt;0){
+                        dp[i+1][ns]=nco;
+                    }else{
+                        dp[i+1][ns]=min(dp[i+1][ns],nco);
+                    }
+
+                }
+            }
+        }
+        
+        return dp[N][total-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_LarryNY.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>64_LarryNY.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def connectTwoGroups(self, cost: List[List[int]]) -&gt; int:
+        N1 = len(cost)
+        N2 = len(cost[0])
+        #print(N1, N2)
+        
+        @lru_cache(None)
+        def go(index, used, index2, mask):
+            if</B></FONT> index == N1:
+                if mask == (1 &lt;&lt; N2) - 1:
+                    return 0
+                return 10 ** 20
+            if index2 == N2:
+                if used:
+                    return go(index + 1, False, 0, mask)
+                return 10 ** 20
+            
+            
+            best = 10 ** 20
+
+            total = cost[index][index2]
+            if used:
+                best = min(best, go(index + 1, False, 0, mask))
+            
+            best = min(best, go(index, used, index2 + 1, mask))
+            best = min(best, go(index, True, index2 + 1, mask | (1 &lt;&lt; index2)) + total)
+            return best
+        
+        return go(0, False, 0, 0)
+            
+</PRE>
+
+</BODY>
+</HTML>

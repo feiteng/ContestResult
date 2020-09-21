@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_swf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>67_swf.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int connectTwoGroups(vector&lt;vector&lt;int&gt;&gt;&amp; cost) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = cost.size();
+        int m = cost[0].size();
+        vector&lt;int&gt; mycost(1 &lt;&lt; m, 1000000000);
+        mycost[0] = 0;
+        for(int i=0;i&lt;n;i++){
+            vector&lt;int&gt; tc(1&lt;&lt;m, 0);
+            for(int j=1;j&lt;1&lt;&lt;m;j++){
+                for(int k=0;k&lt;m;k++) {</B></FONT>
+                    if(j &amp; (1&lt;&lt;k)) {tc[j] = tc[j ^ (1&lt;&lt;k)] + cost[i][k]; break;}
+                }
+            }
+            int mi = 100;
+            for(int j=0;j&lt;m;j++){
+                mi = min(mi, cost[i][j]);
+            }
+            vector&lt;int&gt; precost = mycost;
+            for(int &amp;j: mycost) j+= mi;
+            for(int j=1;j&lt;1&lt;&lt;m;j++){
+                int k = j;
+                while(k){
+                    mycost[j] = min(mycost[j], precost[j ^ (k)] + tc[k]);
+                    k = (k - 1) &amp; j;
+                }
+            }
+        }
+        return mycost[(1&lt;&lt;m)-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>
