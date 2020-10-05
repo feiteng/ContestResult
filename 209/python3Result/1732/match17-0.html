@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>336_nhatdx.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>336_nhatdx.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+class Solution:
+    def minimumOneBitOperations(self, n: int) -&gt; int:
+
+        @lru_cache(None)
+        def dp(st):
+            if st == &quot;0&quot;:
+                return 0
+            
+            if st == &quot;1&quot;:
+                return 1
+            
+            if st[0] == &quot;0&quot;:
+<A NAME="0"></A>                return dp(st[1:])
+            
+            st2 = &quot;1&quot; + &quot;0&quot; * (len(st) - 2)
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return 1 + dp2(st[1:]) + dp(st2)
+                
+
+        @lru_cache(None)
+        def dp2(st):
+            if st == &quot;1&quot;:
+                return 0
+            
+            if st == &quot;0&quot;:
+                r</B></FONT>eturn 1
+            
+            if st[0] == &quot;1&quot;:
+                return dp(st[1:])
+            
+            st2 = &quot;1&quot; + &quot;0&quot; * (len(st) - 2)
+            return 1 + dp2(st[1:]) + dp(st2)
+        
+        st = bin(n)[2:]
+        ans = dp(st)
+                
+        return ans
+                
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

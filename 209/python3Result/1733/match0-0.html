@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>658_giggly.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>658_giggly.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        lists = []
+        res = 0
+        
+        x = location[0]
+        y = location[1]
+        
+        curr_res = 0
+       # print(&quot;points &quot; , points)
+
+        for point in points:
+    #        print(&quot;point &quot; , point)
+            if (point[0] == x):
+                if(point[1] == y):
+                    curr_res += 1
+                elif(point[1] &gt; y):
+                    lists.append(90)
+                else:
+                    lists.append(-90)
+                continue
+                
+            curr = math.atan((point[1]-y) / (point[0] - x)) /math.pi
+       #     print(curr)
+            curr *= 180
+            
+            if(point[0] &lt; x):
+                lists.append(180+curr)
+            else:
+                lists.append(curr)
+                
+        lists.sort(</B></FONT>)
+        for i in range(len(lists)):
+            lists.append(lists[i]+360)
+ #       print(lists, res)
+<A NAME="1"></A>        p1 = 0
+        p2 = 0
+        while (p1 &lt; len(lists)):
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (p2 &lt;len(lists)) and lists[p2] - lists[p1] &lt;= angle:
+                p2 += 1
+            res = max(res, p2-p1)
+            p1 +=1
+        re</B></FONT>turn res + curr_res
+</PRE>
+
+</BODY>
+</HTML>

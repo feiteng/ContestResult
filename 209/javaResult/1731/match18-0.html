@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>83_miya6479.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>83_miya6479.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+<A NAME="0"></A> *     }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue&lt;TreeNode&gt; queue = new ArrayDeque&lt;&gt;();
+        queue.offer(root);
+        int level = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            TreeNode prev = null</B></FONT>;
+            while (size &gt; 0) {
+                size--;
+<A NAME="1"></A>                
+                TreeNode cur = queue.poll();
+                //even
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (level % 2 == 0) {
+                    if (cur.val % 2 != 1) {
+                        return false;
+                    }
+                    if (prev != null &amp;&amp; prev.val &gt;= cur.val) {
+                        return false;
+                    }
+                } else {
+                    if (cur.val % 2 != 0) {
+                        return false;
+                    }
+                    if (prev != null &amp;&amp; prev.val &lt;= cur.val) {
+<A NAME="2"></A>                        return false;
+                    }
+                }</B></FONT>
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }</B></FONT>
+                prev = cur;
+            }
+            level++;
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>985_cyhw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>985_cyhw.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+        int n = points.size();
+        List&lt;Double&gt; angles = new ArrayList&lt;&gt;();
+        int samePoint = 0;
+        for(int i = 0; i &lt; n; i++) {</B></FONT>
+            List&lt;Integer&gt; point = points.get(i);
+            if(point.get(0) == location.get(0) &amp;&amp; point.get(1) == location.get(1)) {
+<A NAME="1"></A>                samePoint++;
+                continue;
+            }
+            double _angle = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>calcAngle(point, location);
+            angles.add(_angle);
+            angles.add(_angle + 360);
+        }
+        Collections.sort(angles);
+        int i = 0, curIdx = 0;
+        Queue&lt;Double&gt; q = new LinkedList&lt;&gt;()</B></FONT>;
+        while(i &lt; angles.size() &amp;&amp; angles.get(i) - angles.get(curIdx) &lt;= angle) {
+            q.offer(angles.get(i));
+            i++;
+        }
+        int res = i;
+        while(i &lt; angles.size()) {
+            curIdx++;
+            while(!q.isEmpty() &amp;&amp; !q.peek().equals(angles.get(curIdx))) q.poll();
+            while(i &lt; angles.size() &amp;&amp; angles.get(i) - angles.get(curIdx) &lt;= angle) {
+                q.offer(angles.get(i));
+<A NAME="2"></A>                i++;
+            }
+            res = Math.max(res, q.size());
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return res + samePoint;
+    }
+
+    private double calcAngle(List&lt;Integer&gt; p1, List&lt;Integer&gt; p2) {
+        double angle = Math.toDegrees(Math.atan2(p1.get(1) - p2.get(1), p1.get</B></FONT>(0) - p2.get(0)));
+        if(angle &lt; 0) angle += 360;
+        return angle;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

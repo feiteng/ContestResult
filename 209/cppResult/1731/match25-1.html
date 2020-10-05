@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_da-chui-15.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_da-chui-15.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+<A NAME="0"></A> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        int level = 1;
+        queue&lt;TreeNode *&gt; q;
+        q.push(root);
+        
+        while(q.size()) {
+            int size = q.size();
+            int last = -1;</B></FONT>
+            while(size--) {
+                auto p = q.front();
+                q.pop();
+<A NAME="1"></A>                if(p -&gt; val % 2 != level) return false;
+                if(level) {
+                    // 奇 递增
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if(last == -1) {
+                        last = p -&gt; val;
+                    } else {
+                        if(last &gt;= p -&gt; val) {
+                            return false;
+                        }
+<A NAME="2"></A>                        last = p -&gt; val;
+                    }
+                } else {
+                    if(last == -1) {</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                        last = p -&gt; val;
+                    } else {
+                        if(last &lt;= p -&gt; val) {
+                            return false;
+                        }
+                        last = p -&gt; val;
+                    }
+                }
+                if(p -&gt; left) q.push(p -&gt; left);</B></FONT>
+                if(p -&gt; right) q.push(p -&gt; right);
+            }
+            level = !level;
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

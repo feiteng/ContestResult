@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>895_Karis_.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>895_Karis_.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+<A NAME="0"></A> *     }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        int odd = 1;
+        Deque&lt;TreeNode&gt; queue = new ArrayDeque&lt;&gt;();
+        queue.offer(root);
+        while(!queue.isEmpty()) {
+            Deque&lt;TreeNode&gt; next = new ArrayDeque&lt;&gt;()</B></FONT>;
+<A NAME="1"></A>            int size = queue.size(), last = odd == 1 ? 0 : Integer.MAX_VALUE;
+            for(int i = 0; i &lt; size; i++) {
+                TreeNode node = queue.poll();
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(node.val % 2 != odd) return false;
+                if(odd == 1 &amp;&amp; node.val &lt;= last) return false;
+                if(odd == 0 &amp;&amp; node.val &gt;= last) return false;
+                last = node.val;
+                if(node.left != null) next.offer(node.left);
+                if(node.right != null) next.offer(node.right);
+            } 
+            queue = next;
+            odd = 1 - odd;
+        }
+        
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

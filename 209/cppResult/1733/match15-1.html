@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>146_Yjl_Richard.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>146_Yjl_Richard.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define pi 3.1415926
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int visiblePoints(vector&lt;vector&lt;int&gt;&gt;&amp; points, int angle, vector&lt;int&gt;&amp; location) {
+        vector&lt;double&gt; angles;
+<A NAME="1"></A>        int c = 0;
+        for (auto p : points) {</B></FONT>
+            double dx = p[0] - location[0];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            double dy = p[1] - location[1];
+            if (p[0] == location[0] &amp;&amp; p[1] == location[1]) {
+                c++;
+                continue;
+            }
+            double a = atan2(dy, dx) * 180 / pi;
+            angles.push_back(a);
+        }
+        sort(angles.begin(), angles.end());
+        int ans = 0;
+        for (int i = 0; i &lt; angles.size(); i++) {</B></FONT>
+            double right = angles[i] + angle;
+            int count = 1 + c;
+            if (right &gt; 180) {
+                count = count + angles.size() - i - 1;
+                right = angle + angles[i] - 360;
+                int p = upper_bound(angles.begin(), angles.end(), right) - angles.begin();
+                count = count + p;
+            } else {
+                int p = upper_bound(angles.begin() + (i + 1), angles.end(), right) - angles.begin();
+                count = count + p - i - 1;
+            }
+            ans = max(ans, count);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

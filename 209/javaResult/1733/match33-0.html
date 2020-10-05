@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>974_qiukailin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>974_qiukailin.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+        // if (angle == 0) {
+        //     if (points.size() &gt;= 1) return 1;
+        //     return 0;
+        // }
+        
+        int same = 0;
+        List&lt;Double&gt; lst = new ArrayList&lt;&gt;();
+        for (List&lt;Integer&gt; p : points) {
+            //System.out.println(angle(location, p));
+<A NAME="0"></A>            if (location.get(0) == p.get(0) &amp;&amp; location.get(1) == p.get(1)) {
+                same++;
+                continue;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            lst.add(angle(location, p));
+        }
+        //System.out.println(&quot;---------------&quot;);
+        Collections.sort(lst);
+        int count = same;
+        //System.out.println(&quot;same: &quot; + same);
+        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;()</B></FONT>;
+        int back = 0;
+        
+        int size = lst.size();
+        for (int i = 0; i &lt; size; i++) lst.add(lst.get(i));
+        
+<A NAME="1"></A>        int last = 0;
+        for (int i = 0; i &lt; lst.size(); i++) {
+            if (i != last &amp;&amp; i % size == last) break;
+            while( <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>diff(lst, i, last) &gt; angle) last++;
+            //System.out.println(&quot;i: &quot; + i);
+            //System.out.println(&quot;last: &quot; + i);
+            count = Math.max(count, i - last + 1 + same);
+            //System.out.println(&quot;count: &quot; + count);
+        }
+        
+        // for (int i = 0; i &lt; lst.size(); i++) {
+        //     //double d = lst.get(i);
+        //     //System.out.println(d);
+        //     q.add(i);
+        //     while((i &lt; size || i &lt; q.peek()) &amp;&amp; diff(lst, i, q.peek()) &gt; angle) q.poll();
+        //     //while(lst.get(back) &lt; q.peek() &amp;&amp; diff(lst.get(back), q.peek()) &lt;= angle) back++;
+        //     count = Math.max(count, q.size() + same);
+        // }
+        
+        // for (Double d : lst) {
+        //     //System.out.println(d);
+        //     q.add(d);
+        //     while(!q.isEmpty() &amp;&amp; diff(d, q.peek()) &gt; angle) q.poll();
+        //     count = Math.max(count, q.size() + same);
+        // }
+        //System.out.println(&quot;---------------&quot;);
+        return count;
+    }</B></FONT>
+    
+    public double angle(List&lt;Integer&gt; location, List&lt;Integer&gt; point) {
+        long x = (long)point.get(0) - (long)location.get(0);
+        long y = (long)point.get(1) - (long)location.get(1);
+        ///x /= 1000;
+        //y /= 1000;
+        
+        double angle = Math.atan2(y, x) * 180 / Math.PI;
+        if (angle &lt; 0) angle = 360 + angle;
+        
+<A NAME="2"></A>        return angle;
+    }
+    
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public double diff (List&lt;Double&gt; lst, int i, int j) {
+        double a = lst.get(i);
+        double b = lst.get</B></FONT>(j);
+        if (a &gt;= b) return a-b;
+        return a + 360 - b;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

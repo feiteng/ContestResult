@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>798_yeshichen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>798_yeshichen.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+<A NAME="0"></A> *     }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+      
+    
+    public boolean isEvenOddTree(TreeNode root) {
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        ((LinkedList&lt;TreeNode&gt;) queue).add(root);
+        boolean flag = false;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            int c = 0;
+            if</B></FONT> (!flag) {
+                c = Integer.MIN_VALUE;
+<A NAME="1"></A>            } else c = Integer.MAX_VALUE;
+            while (size != 0) {
+                TreeNode middle = queue.poll();
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!flag) {
+                    if (middle.val % 2 == 0) return false;
+                    if (middle.val &lt;= c) return false;
+                } else {
+                    if (middle.val % 2 == 1) return false;
+                    if (middle.val &gt;= c) return false;
+                }
+                c = middle.val;
+                if (middle.left != null) queue.add(middle.left);
+                if (middle.right != null) queue.add(middle.right);
+                size--;
+            }
+            flag = !flag;
+        }
+        return true;
+    }
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

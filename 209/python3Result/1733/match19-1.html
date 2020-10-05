@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>524_kweezy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>524_kweezy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>from math import atan2
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        thetas = []
+        x, y = location
+        dummies = 0
+        for xp, yp in points:
+            if xp == x and yp == y:
+                dummies += 1
+                continue
+            thetas.append((atan2(yp-y, xp-x) * 360 / (2*math.pi))%360  )
+        thetas.sort(</B></FONT>)
+        def can_do(l,r):
+            return (r-l)%360 &lt;= angle
+        ans = 0
+        r = 0
+        # print(thetas)
+        for l in range(len(thetas)):
+            # print('l is', l)
+            counter = 0
+            while can_do(thetas[l],thetas[(r+1)%len(thetas)]):
+                # print('we can do', l, (r+1)%len(thetas), 'and increment r')
+                counter +=1 
+                r = (r+1)%len(thetas)
+                ans = max(ans, (r-l)%len(thetas))
+                if counter &gt; len(points):
+                    return len(points)
+        return ans+1+dummies
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

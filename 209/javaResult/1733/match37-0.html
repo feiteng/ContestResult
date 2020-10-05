@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>644_fang2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>644_fang2018.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+        List&lt;Double&gt; angles = new ArrayList&lt;&gt;();
+        int count = 0;
+        for (List&lt;Integer&gt; p : points) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            int dx = p.get(0) - location.get(0);
+            int dy = p.get(1) - location.get(1);
+            if (dx == 0 &amp;&amp; dy == 0) {</B></FONT>
+                count++;
+                continue;
+            } 
+            angles.add(Math.atan2(dy, dx) * (180 / Math.PI));
+        }
+<A NAME="1"></A>        Collections.sort(angles);
+        List&lt;Double&gt; tmp = new ArrayList&lt;&gt;(angles);
+        for (double d : angles) tmp.add(d + 360);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = count;
+<A NAME="2"></A>        for (int i = 0, j = 0; i &lt; tmp.size(); i++) {
+            while (tmp.get(i) - tmp.get</B></FONT>(j) &gt; angle) {
+                j++;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match37-1.html#2',3,'match37-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            //System.out.println(i + &quot; &quot;);
+            res = Math.max(res, count + i - j + 1);
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

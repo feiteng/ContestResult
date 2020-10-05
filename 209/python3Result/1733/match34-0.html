@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>150_soulshooter.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>150_soulshooter.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        if angle&gt;=360:
+            return len(points)
+        count=0
+        c,d=location[0],location[1]
+        ang=[]
+        for a,b in points:
+            if a==c and d==b:
+                count+=1
+            else:
+                ang.append((math.atan2(b-d,a-c)/3.14159265359*180+360)%360)
+        ang.sort()
+<A NAME="0"></A>        ang=ang+ang
+        for m in range(len(ang)//2,len(ang)):
+            ang[m]+=360
+        p<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=0
+        maxn=0
+        for m,i in enumerate(ang[:len(ang)//2]):
+            while p&lt;len(ang) and ang[p]-i&lt;angle+0.0001:
+                p+=1
+            maxn=max(maxn,p-m)
+        re</B></FONT>turn maxn+count
+</PRE>
+
+</BODY>
+</HTML>

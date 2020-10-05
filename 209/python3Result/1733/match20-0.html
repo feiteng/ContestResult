@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>845_orcax.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>845_orcax.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        offset = 0
+        q = []
+        for p in points:
+            y, x = p[1] - location[1], p[0] - location[0]
+            if x == 0 and y == 0:
+                offset += 1
+                continue
+            if x == 0:
+                rad = math.pi / 2 if y &gt; 0 else -math.pi / 2
+            else:
+                rad = math.atan(y / x)
+            if x &lt; 0:
+<A NAME="0"></A>                rad += math.pi
+            elif x &gt;= 0 and y &lt; 0:
+                rad += 2 * math.pi
+            q.append<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(rad)
+        # print(q)
+        q.sort()
+        
+        q = q + [x + math.pi * 2 for x in q]
+        a = angle / 180 * math.pi
+        ans = 0
+        l = 0
+        for r in range(len(q)):
+            while q[r] - q[l] &gt; a:
+                l += 1
+            ans = max(ans, r - l + 1)
+        re</B></FONT>turn ans + offset
+            
+                
+</PRE>
+
+</BODY>
+</HTML>

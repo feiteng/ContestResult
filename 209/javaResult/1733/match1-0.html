@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>842_xianglaniunan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>842_xianglaniunan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+        int px = location.get(0), py = location.get(1);
+        List&lt;Double&gt; list = new ArrayList&lt;&gt;();
+        int sp = 0;
+        for(List&lt;Integer&gt; p : points)
+        {
+            int x = p.get(0), y = p.get(1);
+            if(x == px &amp;&amp; y == py)
+            {
+                sp++;
+                continue;
+            }
+            double calculatedAngle = getAngle(x, y, px, py);
+            list.add(calculatedAngle);
+        }</B></FONT>
+        int size = list.size();
+        int j = 0;
+        int ans = 0;
+        
+        Collections.sort(list);
+        
+        for(int i = 0; i &lt; size; i++)
+        {
+            j = findNextPos(list, i, j, angle);
+<A NAME="1"></A>            if(j &lt; 0)
+            {
+                return size + sp;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            ans = Math.max(ans, (j - i + size) % size);
+        }
+        return ans + sp;
+        
+    }
+    
+    int findNextPos(List&lt;Double&gt; list, int cur, int j, double ang)
+    {
+        int size = list.size();
+        int count = 0;
+        while((list.get(j) - list.get(cur) + 360) % 360 &lt;= ang &amp;&amp; count &lt; size) 
+        {
+            j = (j + 1) % size;
+            count++;
+        }
+<A NAME="2"></A>        if</B></FONT>(count == size) 
+        {
+            return -1;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return j;
+    }
+    
+    double getAngle(int x, int y, int px, int py)
+    {
+        int dx = x - px, dy = y - py;
+        double ang = Math.toDegrees(Math.atan2(dy, dx));
+        if</B></FONT>(ang &lt; 0) 
+        {
+            ang += 360.0;
+        }
+        return ang;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>266_suresh1997.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>266_suresh1997.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+<A NAME="0"></A>    bool isEvenOddTree(TreeNode* root) {
+        
+        queue&lt;TreeNode*&gt; q;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int dep = 1;
+        q.push(root);
+        while(!q.empty()){
+            int l = q.size();
+            vector&lt;int&gt; v;
+            for(int i=0;i&lt;l;i++){
+                TreeNode* p = q.front();
+                q.pop();
+                v.push_back(p-&gt;val);
+                if(p-&gt;left)
+                     q.push(p-&gt;left);
+                
+                
+                if(p-&gt;right)
+                     q.push(p-&gt;right);
+                    
+
+                }</B></FONT>
+            
+            
+            int val = dep%2;
+            if(v.size()==0){
+                continue;
+            }
+<A NAME="1"></A>          
+            if(dep%2==1){
+                int k = v.size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(v[0]%2!=val)
+                     return false;
+                for(int i=1;i&lt;k;i++){
+                    if(val!=(v[i]%2)  || v[i]&lt;=v[i-1] )
+                         return false;
+                }
+            }
+            
+            
+<A NAME="2"></A>            else{</B></FONT>
+                
+                int k = v.size();
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(v[0]%2!=val)
+                     return false;
+                for(int i=1;i&lt;k;i++){
+                    if(val!=(v[i]%2)  || v[i]&gt;=v[i-1] )
+                         return false;
+                }
+                
+            }
+            
+            
+            dep++;
+            
+        }
+        
+        
+        
+        
+        
+        
+        return true;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

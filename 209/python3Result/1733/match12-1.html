@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>512_ben_kwok_cy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>512_ben_kwok_cy.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        X,Y = location
+<A NAME="0"></A>        PI = math.pi
+        FOV = math.radians(angle)
+        
+        bonus <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0
+        angles = []
+        for x,y in points:
+            if (x,y) == (X,Y):
+                bonus += 1
+                continue
+            pos = math.atan2(</B></FONT>y-Y, x-X)
+            if (pos &lt; 0.0): pos += 2 * PI
+            angles.append(pos)
+        
+        angles.sort()
+        N = len(angles)
+        angles = angles + [(2*PI)+ a for a in angles]
+<A NAME="1"></A>        r = 0
+        res = 0
+        
+        for l in range<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(N):
+            while angles[r] - angles[l] &lt;= FOV:
+                r += 1
+            res = max(res, r - l)
+        
+        re</B></FONT>turn res + bonus
+</PRE>
+
+</BODY>
+</HTML>

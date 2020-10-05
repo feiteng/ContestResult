@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>723_zengfh2006.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>723_zengfh2006.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isEvenOddTree(self, root: TreeNode) -&gt; bool:
+        if not root:
+            return False
+        q = [root]
+<A NAME="0"></A>        level = 0
+        while q:
+            nxt = []
+            cur <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+            for i in range(len(q)):
+                node = q.pop(0)
+                cur.append(node.val)
+                if node.left:
+                    nxt.append(node.left)
+                if node.right:
+                    nxt.append(node.right)
+            if level == 0:
+                for i in range(len(cur)):
+                    if cur[i] % 2 == 0:
+                        return False
+                    if i &gt; 0 and cur[i] &lt;= cur[i - 1]:
+                        return False
+            else:
+                for i in range(len(cur)):
+                    if cur[i] % 2 == 1:
+                        return False
+                    if i &gt; 0 and cur[i] &gt;= cur[i - 1]:
+                        return False
+            level ^=</B></FONT> 1
+            q = nxt
+        return True
+</PRE>
+
+</BODY>
+</HTML>

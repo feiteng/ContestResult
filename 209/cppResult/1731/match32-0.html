@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>600_xiabin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>600_xiabin.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+<A NAME="0"></A> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q;
+        q.push(root);
+        int l = 0;
+        while(!q.empty()){
+            //cout&lt;&lt;l&lt;&lt;endl;
+            int size = q.size();
+            int pre = q.front()-&gt;val;</B></FONT>
+            if(q.front()-&gt;left) q.push(q.front()-&gt;left);
+            if(q.front()-&gt;right) q.push(q.front()-&gt;right);
+            q.pop();
+            size--;
+            if(l%2==0){
+                if(pre%2==0) return false;
+            }else{
+                if(pre%2==1) return false;
+<A NAME="1"></A>            }
+            //cout&lt;&lt;777&lt;&lt;endl;
+            while(size--){
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                auto cur = q.front();
+                q.pop();
+                if(l%2==0){
+                    if(cur-&gt;val &lt;= pre||cur-&gt;val%2==0) return false;
+                }else{
+                    if(cur-&gt;val &gt;= pre||cur-&gt;val%2==1) return false;
+                }
+                pre = cur-&gt;val;
+                if(cur-&gt;left) q.push(cur-&gt;left);
+                if(cur-&gt;right) q.push(cur-&gt;right);</B></FONT>
+            }
+            l++;
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

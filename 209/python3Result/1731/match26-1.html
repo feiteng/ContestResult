@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_FromDihPout.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>280_FromDihPout.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+class Solution:
+    def isEvenOddTree(self, root: TreeNode) -&gt; bool:
+        q = collections.deque([root])
+<A NAME="0"></A>        odd = False
+        while q:
+            l = len(q)
+            prev = float<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>('inf') if odd else -1
+            #print('*', odd)
+            for i in range(l):
+                node = q.popleft()
+                #print(node.val)
+                if odd:
+                    if node.val % 2 != 0 or node.val &gt;= prev:
+                        #print(node.val, prev)
+                        return False
+                else:
+                    if node.val % 2 == 0 or node.val &lt;= prev:
+                        #print(node.val, prev)
+                        return False
+                prev = node.val
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            odd = not odd
+        re</B></FONT>turn True
+                    
+</PRE>
+
+</BODY>
+</HTML>

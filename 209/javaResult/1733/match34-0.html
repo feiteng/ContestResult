@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>657_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>657_zac4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+        List&lt;Double&gt; angles = new ArrayList();
+        int zeroPoint = 0;
+        for (List&lt;Integer&gt; p : points) {
+            int x = p.get(0) - location.get(0);
+            int y = p.get(1) - location.get(1);
+            if (x == 0 &amp;&amp; y == 0) {
+                zeroPoint++;
+            } else {</B></FONT>
+                angles.add(getAngle(x, y));
+            }
+        }
+        Collections.sort(angles);
+        int max = zeroPoint;
+        int le = 0, ri = le + 1;
+        while (le &lt; angles.size()) {
+            ri = Math.max(ri, le + 1);
+            while (ri % angles.size() != le) {
+                if (ri &lt; angles.size()) {
+                    if ((angles.get(le) + angle * 1.0) &lt; angles.get(ri)) {
+                        break;
+                    }
+                } else {
+                    if ((angles.get(le) + angle * 1.0) &lt; (angles.get(ri - angles.size()) + 360.0)) {
+                        break;
+<A NAME="1"></A>                    }
+                }
+                ri++;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            max = Math.max(max, zeroPoint + ri - le);
+            le++;
+        }
+        return max;
+    }</B></FONT>
+    
+    private double getAngle(int x, int y) {
+        if (x == 0) {
+            if (y &gt; 0) {
+                return 90.0;
+            } else {
+                return 270.0;
+            }
+        }
+        double degree = Math.toDegrees(Math.atan(1.0 * Math.abs(y) / Math.abs(x)));
+        if (x &lt; 0) {
+            if (y &gt; 0) {
+                degree = 180.0 - degree;            
+            } else {
+                degree = 180.0 + degree;
+            }
+        } else if (y &lt; 0) {
+            degree = 360.0 - degree;
+        }
+        return degree;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

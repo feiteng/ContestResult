@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>872_objectkuan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>872_objectkuan.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+<A NAME="0"></A>        vector&lt;TreeNode*&gt; q[2];
+        q[0].push_back(root);
+        int level = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (q[0].size() &gt; 0) {
+            if (level) {
+                for (int i = 0; i &lt; q[0].size(); i++) {
+                    if (q[0][i]-&gt;val % 2 == 1) return false;
+                }
+                for (int i = 1; i &lt; q[0].size(); i++) {
+                    if (q[0][i]-&gt;val &gt;= q[0][i - 1]-&gt;val) return false;
+                }
+            } else {
+                for (int i = 0; i &lt; q[0].size(); i++) {
+                    if (q[0][i]-&gt;val % 2 == 0) return false;
+                }
+                for (int i = 1; i &lt; q[0].size(); i++) {
+                    if (q[0][i]-&gt;val &lt;= q[0][i - 1]-&gt;val) return false;
+                }
+            }</B></FONT>
+            for (int i = 0; i &lt; q[0].size(); i++) {
+                if (q[0][i]-&gt;left) q[1].push_back(q[0][i]-&gt;left);
+                if (q[0][i]-&gt;right) q[1].push_back(q[0][i]-&gt;right);
+            }
+            q[0].clear();
+            q[0].swap(q[1]);
+            level = 1 - level;
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

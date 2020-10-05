@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>577_dkyyy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>577_dkyyy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        def ang(x1, y1, x2, y2):
+            return math<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.atan2((y2-y1), (x2-x1)) / math.pi * 180
+        a = []
+        flag = 0
+        for p in points:
+            if location[0] == p[0] and location[1] == p[1]:
+                flag += 1
+            else:
+                a.append(ang(location[0], location[1], p[0], p[1]))
+        
+        a.sort()
+        # print(a)
+        n = len(</B></FONT>a)
+        for i in range(n):
+            a.append(a[i] + 360)
+        i, j = 0, 0
+        ans = 0
+        def check(i, j):
+            if abs(a[j] - a[i]) &lt; angle + 1e-6:
+                return True
+            else:
+                return False
+        for i in range(n):
+            ang = a[i]
+            l, r = i, i + n
+            while l &lt; r:
+                mid  = (l + r + 1) &gt;&gt; 1
+                if check(i, mid):
+                    l = mid
+                else:
+                    r = mid - 1
+            ans = max(ans, l - i + 1)
+        
+        return ans + flag
+</PRE>
+
+</BODY>
+</HTML>

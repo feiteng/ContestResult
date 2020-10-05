@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>738_14417335.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>738_14417335.java</CENTER></H3><HR>
+<PRE>
+
+import java.awt.Point;
+
+class Solution {
+  private int orientation(Point p, Point q, Point r) {
+    int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+    if (val == 0)
+      return 0;
+    return (val &gt; 0) ? 1 : 2;
+  }
+  boolean onSegment(Point p, Point q, Point r) {
+    if (q.x &lt;= Math.max(p.x, r.x) &amp;&amp; q.x &gt;= Math.min(p.x, r.x) &amp;&amp; q.y &lt;= Math.max(p.y, r.y)
+        &amp;&amp; q.y &gt;= Math.min(p.y, r.y))
+<A NAME="0"></A>      return true;
+    return false;
+  }
+  <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+    int cx = location.get(0), cy = location.get(1);
+    int res = 0;
+    List&lt;Double&gt; ptgles = new ArrayList&lt;Double&gt;();
+    for (List&lt;Integer&gt; p : points) {</B></FONT>
+      if (cx == p.get(0) &amp;&amp; cy == p.get(1)) {
+        res++;
+        continue;
+<A NAME="1"></A>      }
+      final double tmp = Math.toDegrees(Math.atan2(p.get(1) - cy, p.get(0) - cx));
+      ptgles.add(tmp &lt; 0 ? tmp + 360d : tmp);
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    Collections.sort(ptgles);
+    int max = 0;
+    int l = 0;
+    for (int r = 0; r &lt; ptgles.size(); r++) {
+      while (ptgles.get(r) - ptgles.get(l) &gt; angle)
+        l++;
+      max = Math.max(max, r + 1 - l);
+    }</B></FONT>
+    for (int r = 0; r != ptgles.size(); r++) {
+      while (l != ptgles.size() &amp;&amp; ptgles.get(r) + 360 - ptgles.get(l) &gt; angle) {
+        l++;
+      }
+      if (l == ptgles.size())
+        break;
+      max = Math.max(max, ptgles.size() + 1 + r - l);
+    }
+    res += max;
+    return res;
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

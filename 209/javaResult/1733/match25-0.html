@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>744_luminis.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>744_luminis.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int degree, List&lt;Integer&gt; location) {
+<A NAME="0"></A>        int base = 0;
+        List&lt;List&lt;Integer&gt;&gt; aPoints = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; points.size(); ++i) {
+            if (<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>isPointsEqual(points.get(i), location)) {
+                base += 1;
+            } else {
+                aPoints.add(points.get(i));
+            }
+        }
+        
+        double radian = Math.toRadians(degree)</B></FONT>;
+<A NAME="1"></A>        List&lt;Double&gt; angleList = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; aPoints.size(); ++i) {
+            List&lt;Integer&gt; point = aPoints.get(i);
+            double angle = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.atan2(point.get(1) - location.get(1), point.get(0) - location.get(0));
+            angleList.add(angle);
+            angleList.add(angle + Math.PI*2);
+        }
+        Collections.sort(angleList);
+        
+        int count = 0;
+        int j = 0;
+        for (int i = 0</B></FONT>; i &lt; angleList.size(); ++i) {
+<A NAME="2"></A>            double start = angleList.get(i);
+            if (start &gt; Math.PI*2) break;
+            for (j = Math.max(i + 1, j); j &lt; angleList.size() &amp;&amp; angleList.get(j) - start &lt;= radian; ++j);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>count = Math.max(j - i, count);
+        }
+        
+        return count + base;
+    }
+    
+    boolean isPointsEqual(List&lt;Integer&gt; p1, List&lt;Integer&gt; p2) {</B></FONT>
+        return p1.get(0) == p2.get(0) &amp;&amp; p1.get(1) == p2.get(1);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

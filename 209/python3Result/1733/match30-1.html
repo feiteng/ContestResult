@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>481_Joe_Bao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>481_Joe_Bao.py</CENTER></H3><HR>
+<PRE>
+import math
+
+class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        points = [[point[0] - location[0], point[1] - location[1]] for point in points]
+        angles = []
+        counter = 0
+        for (dx, dy) in points:
+            if dx == 0 and dy == 0:
+                counter += 1  # always see
+            elif dx == 0:
+                if dy &gt; 0:
+                    angles.append(90)
+                else:
+                    angles.append(-90)
+            elif dy == 0:
+                if dx &gt; 0:
+                    angles.append(0)
+<A NAME="0"></A>                else:
+                    angles.append(180)
+            else:
+                angles.append(math.degrees(math.atan2(d<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>y, dx)))
+        angles.sort()
+        angles = angles + [item + 360 for item in angles]
+        # print(angles)
+        
+        max_len = 0
+        l = 0
+        for r in range(len(angles)):
+            while l &lt;= r and angles[r] - angles[l] &gt; angle:
+                l += 1
+            max_len = max(max_len, r - l + 1)
+        re</B></FONT>turn max_len + counter
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

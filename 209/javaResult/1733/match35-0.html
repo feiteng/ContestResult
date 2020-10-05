@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>885_pbdpbd123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>885_pbdpbd123.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+     double pi = Math.PI;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+       
+<A NAME="1"></A>        List&lt;Double&gt; degrees = new ArrayList&lt;&gt;();
+        int count = 0;
+        for(List&lt;Integer&gt; point : points) {</B></FONT>
+            if(point.get(0) == location.get(0) &amp;&amp; point.get(1) == location.get(1)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                count++;
+            }
+            else {
+                double degree = getDegree(point, location);
+                degrees.add(degree);
+                degrees.add(degree+2*pi);
+                //System.out.println(degree);
+            }
+        }
+        
+        double a = (pi * angle) / 180;
+       // System.out.println(&quot;a=&quot; + a );
+        //System.out.println(degrees.toString());
+        Collections.sort(degrees);
+        //System.out.println(degrees.toString());
+        
+        int size = 0;
+        double max = degrees.get(0)</B></FONT>;
+        double min = degrees.get(0);
+        int i = 0;
+        int j = 0;
+        int n = degrees.size();
+        while(i &lt; n) {
+            max = degrees.get(i);
+            while(j &lt; i &amp;&amp; max - min - a &gt; 0.00000001) {
+                j++;
+                min = degrees.get(j);
+            }
+            
+            if(i - j + 1 &gt; size){
+                size = i - j +1;
+            }
+            i++;
+        }
+    
+        return count + size;
+    }
+    
+    private double getDegree(List&lt;Integer&gt; p, List&lt;Integer&gt; l) {
+        int x= p.get(0) - l.get(0);
+        int y = p.get(1) - l.get(1);
+        
+        if(x == 0) {
+            if(y &gt;0){
+                return pi/2;
+            }
+            else{
+                return -1.0*pi/2 + 2* pi;
+            }
+        }
+       // System.out.format(&quot;x = %d, y = %d \n&quot;, x, y);
+        double d = Math.atan((double)y/(double)x);
+        
+        if( x &lt; 0){
+            d += pi;
+        }
+        if(d &lt; 0) {
+            d += 2 * pi;
+        }
+        
+        return d;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

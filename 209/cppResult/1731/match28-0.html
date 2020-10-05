@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>603_hsiu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>603_hsiu.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+  vector&lt;vector&lt;int&gt;&gt; vals;
+  void indexing(TreeNode* root, int depth) {
+    if (!root) return;
+    if (vals.size() &lt;= depth) {
+      vals.push_back({root-&gt;val});
+    } else {
+      vals[depth].push_back(root-&gt;val);
+    }
+    indexing(root-&gt;left, depth+1);
+<A NAME="0"></A>    indexing(root-&gt;right, depth+1);
+  }
+  
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  bool isEvenOddTree(TreeNode* root) {
+    indexing(root, 0);
+    // for (int d = 0; d &lt; vals.size(); ++d) {
+    //   printf(&quot;%d: &quot;, d);
+    //   for (int i = 0; i &lt; vals[d].size(); ++i) {
+    //     printf(&quot;, %d&quot;, vals[d][i]);
+    //   }
+    //   printf(&quot;\n&quot;);
+    // }
+    for (int d = 0; d &lt; vals.size(); ++d) {
+      if ((vals[d][0]-d) % 2 == 0) return false;
+      for (int i = 1; i &lt; vals[d].size(); ++i) {
+        if (d % 2 == 0) {
+          if (vals[d][i] &lt;= vals[d][i-1] || (vals[d][i] - vals[d][i-1])%2 != 0)
+          return false;
+        } else {
+          if (vals[d][i] &gt;= vals[d][i-1] || (vals[d][i] - vals[d][i-1])%2 != 0)
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

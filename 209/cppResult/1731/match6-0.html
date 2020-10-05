@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>956_acw_ssssssssssssp-offer.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>956_acw_ssssssssssssp-offer.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q;
+        q.push(root);
+<A NAME="0"></A>        int odd=false;
+        while(q.size())
+        {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            vector&lt;int&gt; level;
+            for(int k=q.size();k&gt;0;--k)
+            {
+                auto t=q.front();
+                q.pop();
+                level.push_back(t-&gt;val);
+                if(t-&gt;left) q.push(t-&gt;left);
+                if(t-&gt;right) q.push(t-&gt;right);
+            }
+            if(odd)
+            {
+                for(int i=0;i&lt;level.size();++i)
+                {
+                    if(level[i]%2 || (i&gt;0 &amp;&amp; level[i] &gt;= level[i-1]))
+                        return false;
+                }
+            }
+            else
+            {
+                for(int i=0;i&lt;level.size();++i)
+                {
+                    if(level[i]%2==0 || (i&gt;0 &amp;&amp; level[i] &lt;= level[i-1]))
+                        return false;
+                }
+            }
+            odd=!odd;
+        }
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>797_Asagi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>797_Asagi.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        queue&lt;TreeNode*&gt; mq;
+        mq.push(root);
+        int cnt, pre;
+<A NAME="0"></A>        bool odd = false;
+        while (!mq.empty()) {
+            cnt = mq.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            pre = odd ? INT_MAX : 0;
+            for (int i = 0; i &lt; cnt; ++i) {
+                auto cur = mq.front();
+                mq.pop();
+                if (odd) {
+                    if (cur-&gt;val % 2 == 1 || cur-&gt;val &gt;= pre)
+                        return false;
+                } else {
+                    if (cur-&gt;val % 2 == 0 || cur-&gt;val &lt;= pre)
+                        return false;
+                }
+                pre = cur-&gt;val;
+                if (cur-&gt;left)
+                    mq.push(cur-&gt;left);
+                if (cur-&gt;right)
+                    mq.push(cur-&gt;right);
+            }
+            odd = !odd;
+        }
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

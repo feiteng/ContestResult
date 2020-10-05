@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1009_suzyzhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1009_suzyzhang.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+<A NAME="0"></A> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        vector&lt;int&gt; v;
+        return dfs(root, 0, v);
+        
+    }
+    
+    bool dfs(TreeNode *cur, int h, vector&lt;int&gt; &amp;v) {
+        if (!cur)
+            return true;
+        
+        if (cur-&gt;val % 2 != 1 - h%2)
+            return false;
+        
+        if (v.size() == h) {
+            v.push_back(cur-&gt;val);
+        } else {
+            if (h % 2 &amp;&amp; cur-&gt;val &gt;= v[h]) {</B></FONT>
+                return false;
+            } else if (h % 2 == 0 &amp;&amp; cur-&gt;val &lt;= v[h])
+                return false;
+            v[h] = cur-&gt;val;
+        }
+        return dfs(cur-&gt;left, h+1, v) &amp;&amp; dfs(cur-&gt;right, h+1, v);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

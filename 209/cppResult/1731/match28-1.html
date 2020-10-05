@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_ajinkya1p3.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_ajinkya1p3.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    vector&lt;int&gt; X[100005];
+
+    void dfs(TreeNode* root, int level) {
+        if (root == NULL)
+            return;
+        
+        X[level].push_back(root-&gt;val);
+        
+        dfs(root-&gt;left, level+1);
+<A NAME="0"></A>        dfs(root-&gt;right, level+1);
+    }
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool isEvenOddTree(TreeNode* root) {
+        dfs(root, 0);
+        for (int i=0; !X[i].empty(); i++)
+        {
+            if (X[i][0] % 2 == i % 2)
+                return false;
+            
+            for (int j=1; j&lt;X[i].size(); j++)
+            {
+                if (i % 2)
+                {
+                    if (X[i][j] % 2 || X[i][j] &gt;= X[i][j-1])
+                        return false;
+                }
+                else
+                {
+                    if (X[i][j] % 2 == 0 || X[i][j] &lt;= X[i][j-1])
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

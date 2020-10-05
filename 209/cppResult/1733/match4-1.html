@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>580_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>580_y119777.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const double pi = 3.1415926;
+    int visiblePoints(vector&lt;vector&lt;int&gt;&gt;&amp; p, int ang, vector&lt;int&gt;&amp; lo) {
+<A NAME="0"></A>        vector&lt;double&gt; a;
+        //cout &lt;&lt; ang &lt;&lt; &quot; asd&quot; &lt;&lt; endl;
+        int tag = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto &amp;t : p) {
+            if(t[1] == lo[1] &amp;&amp; t[0] == lo[0]) {
+                ++tag;
+                continue;
+            }
+            a.push_back(atan2(t[1] - lo[1], t[0] - lo[0]) * 180 / pi);
+            if (a.back() &lt; 0)
+                a.back() += 360;
+           // cout &lt;&lt; a.back() &lt;&lt; endl;
+        }
+        sort(a.begin(), a.end());
+        
+        int n = a.size();
+        for (int i = 0; i &lt; n; i++)</B></FONT>
+            a.push_back(a[i] + 360);
+<A NAME="1"></A>        n *= 2;
+        int res = 0;
+        int pi = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++) {
+            while(pi &lt; n &amp;&amp; a[pi] &lt;= a[i] + ang)
+                ++pi;
+            res = max(res, pi - i);
+        }
+        return res + tag;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

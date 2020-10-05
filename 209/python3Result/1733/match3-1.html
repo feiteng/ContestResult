@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_mimicmasterax.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>52_mimicmasterax.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import math
+import bisect
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -&gt; int:
+        lx, ly = location
+        num_always_visible = 0
+        point_angles = []
+        for px, py in points:
+            if px == lx and py == ly:
+                num_always_visible += 1
+            else:
+                dx, dy = px - lx, py - ly
+                pt_deg = math.degrees(math.atan2(dy, dx))
+                point_angles.append(</B></FONT>pt_deg)
+                if pt_deg &lt;= 0:
+                    point_angles.append(pt_deg + 360)
+        point_angles.sort()
+        
+        idx = bisect.bisect_left(point_angles, 0)
+        N = len(point_angles)
+        max_in_view = 0
+        while idx &lt; N:
+            left_idx = bisect.bisect_left(point_angles, point_angles[idx]-angle)
+            max_in_view = max(max_in_view, idx - left_idx + 1)
+            idx += 1
+        return num_always_visible + max_in_view
+</PRE>
+
+</BODY>
+</HTML>

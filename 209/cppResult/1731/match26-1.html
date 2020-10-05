@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>41_darkaimagic.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>41_darkaimagic.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; db;
+    void dfs(TreeNode* node, int lv) {
+        if (!node)
+            return;
+        if (lv == db.size())
+            db.push_back(vector&lt;int&gt;());
+        db[lv].push_back(node-&gt;val);
+        dfs(node-&gt;left, lv + 1);
+        dfs(node-&gt;right, lv + 1);
+<A NAME="0"></A>    }
+    bool isEvenOddTree(TreeNode* root) {
+        dfs(root, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        bool flag = true;
+        for (int i = 0; i &lt; db.size(); i++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j &lt; db[i].size(); j++) {
+                    if (db[i][j] % 2 == 0) {
+                        flag = false;
+                        break;
+                    }
+                    if (j &gt; 0 &amp;&amp; db[i][j] &lt;= db[i][j - 1]) {
+                        flag = false;
+                        break;
+                    }
+                }
+            } else {
+                for (int j = 0; j &lt; db[i].size(); j++) {
+                    if (db[i][j] % 2 != 0) {
+                        flag = false;
+                        break;
+                    }
+                    if (j &gt; 0 &amp;&amp; db[i][j] &gt;= db[i][j - 1]) {
+                        flag = false;
+                        break;
+                    }
+                }
+            }</B></FONT>
+        }
+        return flag;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>984_NuozhouXu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>984_NuozhouXu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; location) {
+        List&lt;Double&gt; pointAngles = new ArrayList&lt;&gt;();
+        int posX = location.get(0)</B></FONT>;
+        int posY = location.get(1);
+        int numEqualPoints = 0;
+        for (List&lt;Integer&gt; point: points) {
+            int x = point.get(0);
+            int y = point.get(1);
+            if (posX == x &amp;&amp; posY == y) numEqualPoints++;
+            else {
+                pointAngles.add(getAngle(posX, posY, x, y));
+            }
+        }
+        Collections.sort(pointAngles);
+        //System.out.println(pointAngles);
+        //System.out.println(pointAngles.size());
+        int maxVisiblePoints = 0;
+        int windowStart = 0;
+        int numPoints = 0;
+        for (int windowEnd = 0; windowEnd &lt; pointAngles.size(); windowEnd++) {
+            double newPointAngle = pointAngles.get(windowEnd);
+            numPoints++;
+            while (windowStart &lt; windowEnd &amp;&amp; newPointAngle - pointAngles.get(windowStart) &gt; (double) angle) {
+                windowStart++;
+                numPoints--;
+            }
+            //System.out.println(numPoints);
+            maxVisiblePoints = Math.max(maxVisiblePoints, numPoints);
+        }
+<A NAME="1"></A>        for (int windowEnd = 0; windowEnd &lt; pointAngles.size() &amp;&amp; windowStart &lt; pointAngles.size(); windowEnd++) {
+            double newPointAngle = pointAngles.get(windowEnd);
+            numPoints++;
+            while (windowStart &lt; <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pointAngles.size() &amp;&amp; newPointAngle + 360 - pointAngles.get(windowStart) &gt; (double) angle) {
+                windowStart++;
+                numPoints--;
+            }
+            //System.out.println(numPoints);
+            maxVisiblePoints = Math.max(maxVisiblePoints, numPoints);
+        }
+        return maxVisiblePoints + numEqualPoints;
+    }
+    
+    public double getAngle(int posX, int posY, int x, int y) {
+        double angle = Math.toDegrees(Math.atan2(y - posY, x - posX));
+
+        if (angle &lt; 0) {
+            angle += 360;
+        }
+
+        return angle;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

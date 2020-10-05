@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>370_qingdu_river.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>370_qingdu_river.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumOneBitOperations(self, n: int) -&gt; int:
+        bins = [int(x) for x in bin(n)[2:]][::-1]
+        if len(bins) == 1:
+            return bins[0]
+        
+        leading1 = [0] * 32
+        leading1[0] = 1
+        for i in range(1,32):
+            leading1[i] = 2**i + leading1[i-1]
+        
+        dp = [[0,0] for i in range(len(bins))]
+        
+<A NAME="0"></A>        dp[0] = [0,1] if bins[0] == 0 else [1,0]
+        
+        for i in range(1, len(bins)):
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if bins[i] == 0:
+                dp[i][0] = dp[i-1][0]
+                dp[i][1] = 1 + dp[i-1][1] + leading1[i-1]
+            else:
+                dp[i][</B></FONT>0] = dp[i-1][1] + 1 + leading1[i-1]
+                dp[i][1] = dp[i-1][0]
+        return dp[len(bins)-1][0]
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

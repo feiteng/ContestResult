@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>942_DoperZQ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>942_DoperZQ.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int visiblePoints(List&lt;List&lt;Integer&gt;&gt; points, int angle, List&lt;Integer&gt; loc) {
+        List&lt;Double&gt; degs = new ArrayList&lt;&gt;();
+        int res = 0, same = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (List&lt;Integer&gt; p: points) {
+            int d1 = p.get(1) - loc.get(1), d2 = p.get(0) - loc.get(0);
+            if (d1 == 0 &amp;&amp; d2 == 0) {
+                same++;
+                continue;
+            }
+            double d = Math.toDegrees(Math.atan(d1 / (double)d2));
+            if</B></FONT> (d1 &lt; 0 &amp;&amp; d2 &lt; 0) {
+                d -= 180;
+            }
+            if (d1 &gt; 0 &amp;&amp; d2 &lt; 0) {
+                d += 180;
+            }
+            if (d1 == 0 &amp;&amp; d2 &lt; 0) {
+                d = 180;
+            }
+            degs.add(d);
+        }
+        int n = degs.size();
+        // System.out.println(degs);
+        Map&lt;Double, Integer&gt; mins = new HashMap&lt;&gt;();
+        Map&lt;Double, Integer&gt; maxs = new HashMap&lt;&gt;();
+        Collections.sort(degs);
+        int diff = 0;
+        for (int i = 0; i &lt; n; i++) {
+            double d = degs.get(i);
+            mins.put(d, Math.min(i, mins.getOrDefault(degs.get(i), Integer.MAX_VALUE)));
+            maxs.put(d, Math.max(i, maxs.getOrDefault(degs.get(i), Integer.MIN_VALUE)));
+            diff = Math.max(diff, maxs.get(d) - mins.get(d) + 1);
+        }
+        if (angle == 0) {
+            return diff + same;
+        }
+        TreeSet&lt;Double&gt; set = new TreeSet&lt;&gt;(degs);
+        for (double deg: mins.keySet()) {
+            double hi = deg + angle;
+            int i = mins.get(deg);
+            if (hi &gt; 180) {
+                hi -= 360;
+            }
+            Double val = set.floor(hi);
+            // System.out.println(&quot;i: &quot; + i + &quot;; deg: &quot; + deg + &quot;; hi: &quot; + hi + &quot;; val: &quot; + val);
+            if (val == null) {
+                res = Math.max(n - i, res);
+                continue;
+            }
+            if (hi &gt; deg) {
+<A NAME="1"></A>                res = Math.max(res, maxs.get(val) - i + 1);
+                continue;
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>res = Math.max(n - i + maxs.get(val) + 1, res);
+        }
+        return res + same;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>192_hanwang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>192_hanwang.py</CENTER></H3><HR>
+<PRE>
+
+
+class Solution(object):
+<A NAME="0"></A>    def __init__(self):
+        self.cache = {}
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def minimumOneBitOperations(self, n):
+        if n == 0:
+            return 0
+        if n == 1:
+            return 1
+        if n == 3:
+            return 2
+        if n == 2:
+            return 3
+
+        bits =</B></FONT> []
+
+        while n &gt; 0:
+            if n % 2 == 0:
+                bits.insert(0, 0)
+            else:
+                bits.insert(0, 1)
+            n = n//2
+        return self.find(bits)
+
+    def find(self, bits):
+        if len(bits) == 1:
+            return bits[0]
+        elif len(bits) == 2:
+            if bits[0] == 1:
+                if bits[1] == 0:
+                    return 3
+                else:
+                    return 2
+            else:
+                if bits[1] == 0:
+                    return 0
+                else:
+                    return 1
+
+        l = len(bits)
+
+
+        if bits[0] == 1:
+            low = 1 &lt;&lt; (l-1)
+            high = low*2-1
+            if bits[1] == 0:
+                temp = self.find(bits[2:])
+                return high-temp
+            else:
+                temp = self.find(bits[2:])
+                return low+temp
+        else:
+            high = (1 &lt;&lt; (l-1))-1
+            low = 0
+            if bits[1] == 1:
+                temp = self.find(bits[2:])
+                return high-temp
+            else:
+                temp = self.find(bits[2:])
+                return low+temp            
+</PRE>
+
+</BODY>
+</HTML>

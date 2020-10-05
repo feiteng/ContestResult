@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>117_jdluckyday.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>117_jdluckyday.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isEvenOddTree(self, root: TreeNode) -&gt; bool:
+        pointers = [root]
+        nextPointers = []
+        level = 0
+        while pointers:
+<A NAME="0"></A>            values = []
+            if level%2 == 0:
+                preValue = 0
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for pointer in pointers:
+                    if pointer.val%2 == 0 or pointer.val &lt;= preValue:
+                        return False
+                    preValue = pointer.val
+                    if pointer.left:
+                        nextPointers.append(pointer.left)
+                    if pointer.right:
+                        nextPointers.append(pointer.right)
+            else:
+                preValue = float('inf')
+                for pointer in pointers:
+                    if pointer.val%2 == 1 or pointer.val &gt;= preValue:
+                        return False
+                    preValue = pointer.val
+                    if pointer.left:
+                        nextPointers.append(pointer.left)
+                    if pointer.right:
+                        nextPointers.append(pointer.right)
+            pointers, nextPointers = nextPointers, []
+            level += 1
+        re</B></FONT>turn True
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>799_astroash.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>799_astroash.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+<A NAME="0"></A> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        queue&lt;TreeNode*&gt; q;
+        q.push(root);
+        int x = 0;
+        
+        while(!q.empty()) {
+            int sz = q.size();
+            vector&lt;int&gt; v;
+            for(int i = 0; i &lt; sz; i++) {
+                TreeNode* curr = q.front();
+                q.pop();
+                v.push_back(curr -&gt; val);
+                if(curr -&gt; left) {</B></FONT>
+                    q.push(curr -&gt; left);
+                }
+                if(curr -&gt; right) {
+                    q.push(curr -&gt; right);
+                }
+            }
+            if(x &amp; 1) {
+                for(int i = 0; i &lt; v.size(); i++) {
+                    if((v[i] &amp; 1))
+                        return false;
+                    if(i &amp;&amp; (v[i] &gt;= v[i - 1]))
+<A NAME="1"></A>                        return false;
+                }
+            } else {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for(int i = 0; i &lt; v.size(); i++) {
+                    if(!(v[i] &amp; 1))
+                        return false;
+                    if(i &amp;&amp; (v[i] &lt;= v[i - 1]))
+                        return false;
+                }
+            }
+            x++;
+        }
+        
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>570_devansh5398.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>570_devansh5398.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define PI 3.14159265358979
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int visiblePoints(vector&lt;vector&lt;int&gt;&gt;&amp; pts, int theta, vector&lt;int&gt;&amp; pos) {
+        int n = pts.size();
+        vector&lt;double&gt; angles;
+        
+        int res = 0;
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+            if (pts[i][0] == pos[0] &amp;&amp; pts[i][1] == pos[1]) {
+                res += 1;
+                continue;
+            }
+            
+            if (pts[i][0] == pos[0]) {
+                angles.push_back((pos[1] &gt; pts[i][1]) ? -90.0 : 90.0);
+                continue;
+            }
+            
+            double tan = ((pts[i][1] - pos[1]) * 1.0) / (pts[i][0] - pos[0]);
+            double ang = atan(tan);
+            if (pts[i][0] &lt; pos[0])
+                ang += PI;
+            
+            ang = (ang * 180) / PI;
+            
+            angles.push_back(ang);
+        }
+        
+        // for (auto x: angles)
+        //     cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        
+        sort(angles.begin(), angles.end());
+        for (int i = 0; i &lt; n; i++)
+            angles.push_back(angles[i] + 360.0);
+        
+        // for (auto x: angles)
+<A NAME="1"></A>        //     cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
+        for (int i = 0; i &lt; 2*n; i++) {
+            double a = angles[i];
+            int j = upper_bound(angles.begin()+i, angles.end(), angles[i]+theta) - angles.begin();
+            
+            ans = max(ans, j-i);
+        }
+        
+        return (ans + res);
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

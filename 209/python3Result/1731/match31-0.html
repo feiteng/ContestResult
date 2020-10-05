@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>743_dongfangli.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>743_dongfangli.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isEvenOddTree(self, root: TreeNode) -&gt; bool:
+        queue = collections.deque([root])
+        level = 0
+        while queue:
+            n = len(queue)
+            node = queue.popleft()
+            curVal = node.val
+            if (curVal%2 + level%2) != 1: return False
+            if node.left:
+<A NAME="0"></A>                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for _ in range(n - 1):
+                node = queue.popleft()
+                if level % 2 == 0:
+                    if node.val%2 == 0 or node.val &lt;= curVal:
+                        return False
+                else:
+                    if node.val%2 == 1 or node.val &gt;= curVal:
+                        return False
+                curVal = node.val
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            level += 1
+        re</B></FONT>turn True
+                    
+        
+</PRE>
+
+</BODY>
+</HTML>

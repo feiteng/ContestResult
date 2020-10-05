@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>647_kasperyang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>647_kasperyang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, loc: List[int]) -&gt; int:
+        countSame = 0
+        listDegree = [];
+        for pt in points:
+            if pt[0] == loc[0] and pt[1] == loc[1]: 
+<A NAME="1"></A>                countSame +=</B></FONT> 1;
+                continue;
+            
+            if pt<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0] == loc[0]:
+                if pt[1] &gt; loc[1]:
+                    listDegree.append(90.0);
+                    #// listDegree.add(90.0 + 360);
+                else:
+                    listDegree.append(270.0);
+                    #// listDegree.add(270.0 + 360);
+            elif pt[1] == loc[1]:
+                if pt[0] &gt; loc[0]:
+                    listDegree.append(0.0);
+                    # // listDegree.add(0.0 + 360);
+                else:
+                    listDegree.append(</B></FONT>180.0);
+                    # // listDegree.add(180.0 + 360);
+            else:
+                y = pt[1] - loc[1] + 0.0;
+                x = pt[0] - loc[0] + 0.0;
+                tanVal = y / x;
+                degree = math.atan2(y, x) * 180.0 / math.pi;
+                # if (degree &gt; 0 &amp;&amp; x &lt; 0) {
+                #     degree += 180.0;
+                # } else if (degree &lt; 0) {
+                #     degree += 180.0;
+                #     if (x &gt; 0) {
+                #         degree += 180.0;
+                #     }
+                # }
+                if degree &lt; 0:
+                    degree += 360.0
+                listDegree.append(degree);
+                # // listDegree.add(degree + 360.0);
+
+        listDegree.sort();
+        left = 0;
+        right = 0;
+        maxCnt = 0;
+        for left in range(len(listDegree)):
+            while right &lt; len(listDegree) and listDegree[right] - listDegree[left] &lt;= angle:
+                right += 1;
+                maxCnt = max(maxCnt, right - left);
+            
+            
+            while right &gt;= len(listDegree) and right &lt; 2 * len(listDegree) and listDegree[right - len(listDegree)] + 360.0 - listDegree[left] &lt;= angle:
+                right += 1;
+                maxCnt = max(maxCnt, right - left);
+        
+        
+        return maxCnt + countSame;
+</PRE>
+
+</BODY>
+</HTML>
