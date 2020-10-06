@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_paranan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_paranan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maximumRequests(int n, int[][] requests) {
+        
+        return maxTransfers(new int[n],requests,0,0);
+        
+    }
+    
+    public int maxTransfers(int[] dp,int[][] requests,int pos,int count){
+        if(pos==requests.length){
+            for(int i=0;i&lt;dp.length;i++){
+                if(dp[i]!=0){
+                    return 0;
+                }
+            }
+            
+            return count;
+        }
+        dp[requests[pos][0]]--;
+        dp[requests[pos][1]]++;
+        int val1=maxTransfers</B></FONT>(dp,requests,pos+1,count+1);
+        dp[requests[pos][0]]++;
+        dp[requests[pos][1]]--;
+        int val2=maxTransfers(dp,requests,pos+1,count);
+        
+        return Math.max(val1,val2);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

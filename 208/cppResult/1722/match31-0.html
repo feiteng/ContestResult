@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>262_lu_MT.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>262_lu_MT.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class ThroneInheritance {
+public:
+    string king;
+    unordered_map&lt;string, bool&gt; mp;
+    unordered_map&lt;string, vector&lt;string&gt;&gt; son;
+    ThroneInheritance(string kingName) {
+        king = kingName;
+    }
+    
+    void birth(string p, string c) {
+        son[p].push_back(c);
+    }
+    
+    void death(string name) {
+        mp[name] = true;
+    }
+    
+    vector&lt;string&gt; getInheritanceOrder() {
+        vector&lt;string&gt; res;
+        dfs(res, king);
+        return res;
+    }
+    
+    void dfs(vector&lt;string&gt; &amp;res, string cur) {
+        if (!mp[cur]) {
+            res.push_back(cur);
+        }
+        for (auto s : son[cur]) {
+            dfs(res, s);
+        }
+    }
+};</B></FONT>
+
+
+vector&lt;int&gt; preTraversal(TreeNode* root){
+    vector&lt;int&gt; res;
+    stack&lt;TreeNode*&gt; stk;
+    TreeNode* cur = root;
+    while(cur != NULL || !stk.empty()){
+        while(cur != NULL){
+            res.push_back(cur-&gt;val);
+            stk.push(cur);
+            cur = cur-&gt;left;
+        }
+        TreeNode* p = stk.top();
+        stk.pop();
+      	cur = p-&gt;right;
+    }
+    return res;
+}
+
+/**
+ * Your ThroneInheritance object will be instantiated and called as such:
+ * ThroneInheritance* obj = new ThroneInheritance(kingName);
+ * obj-&gt;birth(parentName,childName);
+ * obj-&gt;death(name);
+ * vector&lt;string&gt; param_3 = obj-&gt;getInheritanceOrder();
+ */
+</PRE>
+</BODY>
+</HTML>

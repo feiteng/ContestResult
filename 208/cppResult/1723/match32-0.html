@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>760_amrsna.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>760_amrsna.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maximumRequests(int n, vector&lt;vector&lt;int&gt;&gt;&amp; rq) {
+        int r = rq.size();
+        int ans = 0;
+        for(int state = 0; state &lt; (1&lt;&lt;r); state++){
+<A NAME="1"></A>            vector&lt;int&gt; flow(n,0);
+            for(int i = 0; i &lt; r; i++){
+                if ((state&gt;&gt;i)&amp;1){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    flow[rq[i][0]]--;
+                    flow[rq[i][1]]++;
+                }
+            }
+            bool ok = true;
+            for(int i = 0; i &lt; n; i++){
+                if (flow[i] != 0){
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok){
+                ans = max(ans,__builtin_popcount(state));
+            }
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

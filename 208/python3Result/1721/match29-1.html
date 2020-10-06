@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>682_RanZ98.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>682_RanZ98.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -&gt; int:
+        ans = -1
+        profile = 0
+        waiting = 0
+        used = 0
+        rotate = 0
+        for num in customers:
+            waiting += num
+            rotate += 1
+            if waiting &gt;= 4:
+                waiting -= 4
+                used += 4  
+            else:
+                used += waiting
+                waiting = 0
+            if profile&lt;boardingCost*used-rotate*runningCost:
+                ans = rotate
+                profile = boardingCost*used-rotate*runningCost
+        while waiting &gt; 0:
+            rotate += 1
+            if waiting &gt;= 4:
+                waiting -= 4
+                used += 4  
+            else:
+                used += waiting
+                waiting = 0
+            if profile&lt;boardingCost*used-rotate*runningCost:
+                ans = rotate
+                profile = </B></FONT>boardingCost*used-rotate*runningCost
+        return ans
+            
+</PRE>
+
+</BODY>
+</HTML>

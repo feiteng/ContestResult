@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>614_weak-chicken.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>614_weak-chicken.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Tree:
+    def __init__(self,name):
+        self.val=name
+        self.child=[]
+        self.death=False
+    
+    
+class ThroneInheritance:
+
+    def __init__(self, kingName: str):
+        self.root=Tree(kingName)
+        self.d={kingName:self.root}
+
+    def birth(self, parentName: str, childName: str) -&gt; None:
+        cur=self.d[parentName]
+        tmp=Tree(childName)
+        cur.child.append(tmp)
+<A NAME="1"></A>        self.d[childName]=tmp
+
+    def</B></FONT> death(self, name: str) -&gt; None:
+        cur=self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.d[name]
+        cur.death=True
+
+    def getInheritanceOrder(self) -&gt; List[str]:
+        ans=[]
+        def dfs(root):
+            nonlocal ans
+            if not root.death:
+                ans.append(root.val)
+            for child in root.child:
+                dfs(child)
+        dfs(self.root)
+        re</B></FONT>turn ans
+
+# Your ThroneInheritance object will be instantiated and called as such:
+# obj = ThroneInheritance(kingName)
+# obj.birth(parentName,childName)
+# obj.death(name)
+# param_3 = obj.getInheritanceOrder()
+</PRE>
+
+</BODY>
+</HTML>

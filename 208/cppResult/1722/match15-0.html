@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>48_bladerunner123.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>48_bladerunner123.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class ThroneInheritance {
+public:
+    ThroneInheritance(string kingName) {
+        
+        dict[kingName] = vector&lt;string&gt;();
+        root = kingName;
+    }
+    
+    void birth(string parentName, string childName) {
+        dict[parentName].push_back(childName);
+    }
+    
+    void death(string name) {
+        deaths.insert(name);
+    }
+    
+    vector&lt;string&gt; getInheritanceOrder() {
+        vector&lt;string&gt; ret;
+        DFS(root, ret);
+        return ret;
+    }
+    
+    void DFS(string cur, vector&lt;string&gt;&amp; ret)
+    {
+        if (deaths.count(cur) == 0) ret.push_back(cur);
+        
+        for (auto&amp; item : dict[cur])
+        {
+            DFS(item, ret);
+        }
+    }
+    
+    string root;
+    unordered_set&lt;string&gt; deaths;
+    unordered_map&lt;string, vector&lt;string&gt;&gt; dict;
+};</B></FONT>
+
+/**
+ * Your ThroneInheritance object will be instantiated and called as such:
+ * ThroneInheritance* obj = new ThroneInheritance(kingName);
+ * obj-&gt;birth(parentName,childName);
+ * obj-&gt;death(name);
+ * vector&lt;string&gt; param_3 = obj-&gt;getInheritanceOrder();
+ */
+</PRE>
+</BODY>
+</HTML>

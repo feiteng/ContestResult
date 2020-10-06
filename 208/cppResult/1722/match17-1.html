@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>152_mei-qian-chi-bai-cai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>152_mei-qian-chi-bai-cai.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ThroneInheritance {
+public:
+    unordered_map&lt;string, vector&lt;string&gt;&gt; pa;
+    unordered_map&lt;string, bool&gt; is_dead;
+    string kingName;
+    ThroneInheritance(string _kingName) {
+        // pa[kingName]=new vector&lt;string&gt;();
+        is_dead[kingName]=false;
+        kingName = _kingName;
+    }
+    
+    void birth(string parentName, string childName) {
+        pa[parentName].push_back(childName);
+        is_dead[childName]=false;
+    }
+    
+    void death(string name) {
+        is_dead[name]=true;
+    }
+    
+    void dfs(string kingName, vector&lt;string&gt; &amp;ret){
+        if(!is_dead[kingName]){
+            ret.push_back(kingName);
+        }
+        for(auto&amp; child:pa[kingName]){
+            dfs(child, ret);
+        }
+    }
+    
+    vector&lt;string&gt; getInheritanceOrder() {
+        vector&lt;string&gt; ret;
+        dfs(kingName, ret);
+        return ret;
+    }</B></FONT>
+};
+
+/**
+ * Your ThroneInheritance object will be instantiated and called as such:
+ * ThroneInheritance* obj = new ThroneInheritance(kingName);
+ * obj-&gt;birth(parentName,childName);
+ * obj-&gt;death(name);
+ * vector&lt;string&gt; param_3 = obj-&gt;getInheritanceOrder();
+ */
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>583_sakuragi1111.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>583_sakuragi1111.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximumRequests(self, n: int, requests: List[List[int]]) -&gt; int:
+        G = [0] * n
+        
+        ans = 0
+        def all_zero(arr):
+            for x in arr:
+                if x != 0:
+                    return False
+            return True
+            
+        def dfs(d,cnt):
+<A NAME="0"></A>            nonlocal ans
+            if d == len(requests):
+                if all_zero(G):
+                    ans <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= max(ans,cnt)
+                return
+            f,t = requests[d]
+            G[f] -= 1
+            G[t] += 1
+            dfs(d+1,cnt+1)
+            G[f] += 1
+            G[t] -= 1
+            dfs(d+1,cnt)
+        
+        dfs(0,0)
+        re</B></FONT>turn ans
+            
+#         mp = defaultdict(list)
+#         for f,t in requests:
+#             if f not in mp:
+#                 mp[f] = [0,0]
+#             if t not in mp:
+#                 mp[t] = [0,0]
+#             mp[f][0] += 1
+#             mp[t][1] += 1
+#         print(mp)
+        
+#         ans = 0
+#         def dfs(d,cnt):
+#             nonlocal ans
+#             if d == len(requests):
+#                 ans = max(ans,cnt)
+#                 return
+#             f,t = requests[d]
+#             if mp[f][0] &gt; 0 and mp[t][1] &gt; 0:
+#                 mp[f][0] -= 1
+#                 mp[t][1] -= 1
+#                 dfs(d+1,cnt+1)
+#                 mp[f][0] += 1
+#                 mp[t][1] += 1
+#             else:
+#                 dfs(d+1,cnt)
+#         dfs(0,0)
+#         return ans
+</PRE>
+
+</BODY>
+</HTML>

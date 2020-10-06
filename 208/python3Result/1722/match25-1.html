@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>154_chuan-chih.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>154_chuan-chih.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ThroneInheritance:
+
+    def __init__(self, kingName: str):
+        self.root = kingName
+        self.tree = collections.defaultdict(list)
+        self.dead = set()
+        
+
+    def birth(self, parentName: str, childName: str) -&gt; None:
+        self.tree[parentName].append(childName)
+        
+
+    def death(self, name: str) -&gt; None:
+        self.dead.add(name)
+        
+
+    def getInheritanceOrder(self) -&gt; List[str]:
+        self.ans = []
+        self.recurse(self.root)
+        return self.ans
+        
+    def recurse(self, name):
+        if name not in self.dead:
+            self.ans.append(name)
+        for child in self.tree[name]:
+            self.recurse(ch</B></FONT>ild)
+        
+
+
+# Your ThroneInheritance object will be instantiated and called as such:
+# obj = ThroneInheritance(kingName)
+# obj.birth(parentName,childName)
+# obj.death(name)
+# param_3 = obj.getInheritanceOrder()
+</PRE>
+
+</BODY>
+</HTML>

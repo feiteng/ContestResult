@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>509_jazzcat.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>509_jazzcat.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -&gt; int:
+        total_board = 0
+        remaining = 0
+        max_profit = -1
+        rotations = 0
+        for i, c in enumerate(customers, 1):
+            remaining += c
+            board = min(4, remaining)
+            total_board += board
+            remaining = remaining - board
+            profit = (total_board * boardingCost) - (i * runningCost)
+            #print(i, &quot; profit: &quot;, profit)
+            if profit &gt; max_profit:
+                rotations = i
+                max_profit = profit
+        while remaining &gt; 0:
+            i += 1
+            board = min(4, remaining)
+            total_board += board
+            remaining = remaining - board
+            profit = (total_board * boardingCost) - (i * runningCost)
+            if profit &gt; max_profit:
+                rotations = i
+                max_profit = </B></FONT>profit
+        if max_profit &gt; 0:
+            return rotations
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

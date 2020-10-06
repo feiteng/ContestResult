@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_htedsv-i.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_htedsv-i.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;string&gt;
+#include &lt;cstring&gt;
+#include &lt;cmath&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;cstdio&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stack&gt;
+#include &lt;numeric&gt;
+#include &lt;bitset&gt;
+#include &lt;cctype&gt;
+#include &lt;list&gt;
+#include &lt;assert.h&gt;
+#include &lt;random&gt;
+#include &lt;unordered_map&gt;
+#include &lt;ctime&gt;
+typedef  long long ll;
+using namespace std;
+#define INF 2147483647
+#define infL (1LL&lt;&lt;60)
+#define inf (1&lt;&lt;30)
+#define inf9 (1000000000)
+#define MOD  1000000007
+#define EPS 1e-9
+#define Gr 9.8
+#define PI acos(-1)
+#define REP(i,n) for(int (i)=0;(i)&lt;(int)(n);(i)++)
+#define REQ(i,n) for(int (i)=1;(i)&lt;=(int)(n);(i)++)
+#define lch (rt&lt;&lt;1)
+#define rch (rt&lt;&lt;1|1)
+#define readmp(n) for(int i=0,u,v;i&lt;n;i++) {scanf(&quot;%d%d&quot;,&amp;u,&amp;v); mp[u].push_back(v); mp[v].push_back(u);}
+typedef pair&lt;int, int&gt; pii;
+typedef pair&lt;ll, ll&gt; pll;
+typedef long double ld;
+typedef unsigned int uint;
+typedef unsigned long long ull;
+typedef ll ValType;
+template&lt;typename  T&gt; void maxtt(T&amp; t1, T t2) {
+    t1=max(t1,t2);
+}
+template&lt;typename  T&gt; void mintt(T&amp; t1, T t2) {
+    t1=min(t1,t2);
+}
+#define MAX 135
+
+bool debug = 0;
+int n,m,k;
+int dx[4] = {0,1,0,-1}, dy[4] = {1,0,-1,0};
+string direc=&quot;RDLU&quot;;
+ll ln, lk, lm;
+void etp(bool f = 0) {
+    puts(f ?&quot;YES&quot; : &quot;NO&quot;);
+    exit(0);
+}
+void addmod(int &amp;x, int y, int mod = MOD) {
+    assert(y&gt;=0);
+    x+=y; if (x&gt;=mod) x-=mod;
+    assert(x&gt;=0 &amp;&amp; x&lt;mod);
+}
+void et(int x=-1) {
+    printf(&quot;%d\n&quot;, x); exit(0);
+}
+ll fastPow(ll x, ll y, int mod=MOD) {
+    ll ans = 1;
+    while(y&gt;0) {
+        if(y&amp;1) ans = (x * ans)%mod;
+        x = x*x%mod;
+        y&gt;&gt;=1;
+    }
+    return ans;
+}
+ll gcd1(ll x, ll y) { return y?gcd1(y,x%y):x;}
+
+
+
+<A NAME="0"></A>void fmain(int tid) {
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class ThroneInheritance {
+public:
+    string root;
+    set&lt;string&gt; ds;
+    map&lt;string, vector&lt;string&gt;&gt; mp;
+    
+    ThroneInheritance(string kingName) {
+        root=kingName;
+        ds.clear();
+        mp.clear();
+        mp[root];
+    }
+    
+    void birth(string parentName, string childName) {
+        mp[parentName].push_back(childName);
+    }
+    
+    void death(string name) {
+        ds.insert(name);
+    }
+    
+    void dfs(string x, vector&lt;string&gt; &amp;s) {
+        if (ds.find(x)==ds.end())s.push_back(x);
+        for(string cc: mp[x]) {
+            dfs(cc, s);
+        }
+    }
+    
+    vector&lt;string&gt; getInheritanceOrder() {
+        vector&lt;string&gt; ans; ans.clear();
+        dfs(root, ans);
+        return ans;
+    }
+};</B></FONT>
+
+</PRE>
+</BODY>
+</HTML>

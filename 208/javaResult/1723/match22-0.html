@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_s3m7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_s3m7.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int max = 0;
+    public int maximumRequests(int n, int[][] requests) {
+        dfs(0, new int[n], requests, 0);
+        return max;
+    }
+    
+    public void dfs(int idx, int[] capacity, int[][] requests, int count) {
+        if (idx == requests.length) {
+            for (int i : capacity)
+                if (i != 0)
+                    return;
+            max = Math.max(max, count);
+            return;
+        }</B></FONT>
+        dfs(idx + 1, capacity, requests, count);
+        --capacity[requests[idx][0]];
+        ++capacity[requests[idx][1]];
+        dfs(idx + 1, capacity, requests, count + 1);
+        ++capacity[requests[idx][0]];
+        --capacity[requests[idx][1]];
+        return;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

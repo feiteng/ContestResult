@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>908_z123k3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>908_z123k3.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperationsMaxProfit(int[] customers, int boardingCost, int runningCost) {
+        int maxProfit = 0;
+        int out = -1;
+        
+        int profit = 0;
+        int waiting = 0;
+        
+        int turn = 0;
+        
+        for(int cust : customers) {
+            waiting += cust;
+            
+            int board = Math.min(4, waiting);
+            profit += board * boardingCost - runningCost;
+            waiting -= board;
+            turn++;
+            
+            if(profit &gt; maxProfit) {
+                maxProfit = profit;
+                out = turn;
+            }
+        }
+        
+        while(waiting &gt; 0) {
+            int board = Math.min(4, waiting);
+            profit += board * boardingCost - runningCost;
+            waiting -= board;
+            turn++;
+            
+            if(profit &gt; maxProfit) {
+                maxProfit = profit;
+                out = turn;
+            }
+        }
+        
+        return out;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

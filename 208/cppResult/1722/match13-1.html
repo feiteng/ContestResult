@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>318_max123321.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>318_max123321.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ThroneInheritance {
+public:
+    unordered_map&lt;string, vector&lt;string&gt;&gt; m;
+    string king;
+    unordered_set&lt;string&gt; alive;
+    
+    ThroneInheritance(string kingName) {
+        king = kingName;
+        alive.insert(kingName);
+    }
+    
+    void birth(string parentName, string childName) {
+        m[parentName].push_back(childName);
+        alive.insert(childName);
+    }
+    
+    void death(string name) {
+        alive.erase(name);
+    }
+    
+    void helper(vector&lt;string&gt;&amp; ans, string&amp; cur){
+        if(alive.count(cur))
+            ans.push_back(cur);
+        
+        for(auto&amp; item : m[cur]){
+            helper(ans, item);
+        }
+        
+    }
+    
+    vector&lt;string&gt; getInheritanceOrder() {</B></FONT>
+        vector&lt;string&gt; ans;
+        
+        string cur = king;
+        helper(ans, cur);
+        
+        return ans;
+    }
+};
+
+/**
+ * Your ThroneInheritance object will be instantiated and called as such:
+ * ThroneInheritance* obj = new ThroneInheritance(kingName);
+ * obj-&gt;birth(parentName,childName);
+ * obj-&gt;death(name);
+ * vector&lt;string&gt; param_3 = obj-&gt;getInheritanceOrder();
+ */
+</PRE>
+</BODY>
+</HTML>

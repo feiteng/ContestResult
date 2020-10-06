@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>375_heLeet.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>375_heLeet.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    
+    int maximumRequests(int n, vector&lt;vector&lt;int&gt;&gt;&amp; requests) {
+        
+        int mx = requests.size();
+        int ans = 0;
+        for(int i = 0; i&lt;(1 &lt;&lt; mx); i++)
+        {
+            vector&lt;int&gt; build(n, 0);
+            int cnt = 0;
+            for(int j = 0; j&lt;requests.size(); j++)
+            {
+                if (i &amp; (1 &lt;&lt; j))
+                {
+                    cnt++;
+                    build[requests[j][0]]--;
+                    build[requests[j][1]]++;
+                    
+                }
+            }
+            bool poss = true;
+            for(int i = 0; i&lt;n; i++)
+            {
+                if (build[i] != 0)
+                {
+                    poss = false;
+                    break;
+                }
+            }
+            
+            if (poss)
+            {
+                ans = max(ans, cnt);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

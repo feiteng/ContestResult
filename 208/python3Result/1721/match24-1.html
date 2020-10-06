@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_hcchiu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_hcchiu.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minOperationsMaxProfit(self, customers: List[int], boardingCost: int, runningCost: int) -&gt; int:
+        result = 0
+        cost = 0
+        now = 0
+        best_cost = 0
+        best_result = -1
+        for ind, i in enumerate(customers):
+            now += i
+            tmp = min(4, now)
+            now -= tmp
+            cost += tmp * boardingCost - runningCost
+            if cost &gt; best_cost:
+                best_cost = cost
+<A NAME="1"></A>                best_result = ind + 1
+        remain =</B></FONT> now // 4
+        cost += remain * (4 * boardingCost - runningCost)
+        now <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>-= remain * 4
+        if cost &gt; best_cost:
+            best_cost = cost
+            best_result = len(customers) + remain
+        cost += now * boardingCost - runningCost
+        if cost &gt; best_cost:
+            best_cost = cost
+            best_result = len(customers) + remain + 1
+        re</B></FONT>turn best_result
+        
+</PRE>
+
+</BODY>
+</HTML>

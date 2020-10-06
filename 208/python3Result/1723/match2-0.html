@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>879_BaronZaoMingYan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>879_BaronZaoMingYan.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maximumRequests(self, n: int, requests: List[List[int]]) -&gt; int:
+        s_num <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(requests)
+        swap = [0 for _ in range(n)]
+        vis = [0 for _ in range(s_num)]
+        total = 0
+
+        def update_total():
+            flag = True
+            for s in swap:
+                if s != 0:
+                    flag = False
+            if flag:
+                count = 0
+                for v in vis:
+                    if v == 1:
+                        count += 1
+                nonlocal total
+                if count &gt; total:
+                    total = count
+
+        def go(index):
+            if index == s_num:
+                return
+            else:
+                request = requests[index]
+
+                p_from = request[0]
+                p_to = request[1]
+                swap[p_from] += 1
+                swap[p_to] -= 1
+                vis[index] = 1
+
+                update_total()
+                go(index + 1)
+
+                swap[p_from] -= 1
+                swap[p_to] += 1
+                vis[index] = 0
+                go(index + 1)
+                update_total()
+
+        go(0)
+
+        re</B></FONT>turn total
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>657_klaus9.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>657_klaus9.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ThroneInheritance {
+    map&lt;string,vector&lt;string&gt; &gt; m;
+    map&lt;string,bool&gt; dead;
+public:
+    string kk;
+    ThroneInheritance(string kingName) {
+        kk=kingName;
+    }
+    
+    void birth(string parentName, string childName) {
+        m[parentName].push_back(childName);
+    }
+    
+    void death(string name) {
+        dead[name]=true;
+    }
+    vector&lt;string&gt; ans;
+    void go(string cur)
+    {
+        if(!dead[cur])
+        {
+            ans.push_back(cur);
+        }
+        for(auto i:m[cur])
+        {
+            go(i);
+        }
+    }
+    vector&lt;string&gt; getInheritanceOrder() {
+        ans.clear();
+        go(kk);
+        return ans;
+    }
+};</B></FONT>
+
+/**
+ * Your ThroneInheritance object will be instantiated and called as such:
+ * ThroneInheritance* obj = new ThroneInheritance(kingName);
+ * obj-&gt;birth(parentName,childName);
+ * obj-&gt;death(name);
+ * vector&lt;string&gt; param_3 = obj-&gt;getInheritanceOrder();
+ */
+</PRE>
+</BODY>
+</HTML>

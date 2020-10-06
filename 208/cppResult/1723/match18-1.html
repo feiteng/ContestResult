@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>282_ling-dian-16.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>282_ling-dian-16.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maximumRequests(int n, vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        int m = a.size();
+        int res = 0;
+        for (int i = 0; i &lt; (1&lt;&lt;m); i++) {
+            vector&lt;int&gt; cnt(n+1);
+            int bit = 0;
+            for (int j = 0; j &lt; m; j++) {
+                if (i&amp;(1&lt;&lt;j)) {
+                    bit++;
+                    cnt[a[j][0]]--;
+                    cnt[a[j][1]]++;
+                }
+            }
+            bool flag = true;
+            for (int i = 0; i &lt; n; i++) {
+                if (cnt[i]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                res = max(res, bit);
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_xunzaiyo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>446_xunzaiyo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ThroneInheritance {
+    
+    static class Node {
+        String name;
+        boolean isDied;
+        List&lt;Node&gt; children;
+        Node(String name) {
+<A NAME="1"></A>            this.name = name;
+            t</B></FONT>his.isDied = false;
+            this.children = new LinkedList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    }
+    
+    Map&lt;String, Node&gt; map;
+    Node king;
+    
+    public ThroneInheritance(String kingName) {
+        map = new HashMap&lt;&gt;();
+        king = new Node(kingName);
+        map.put(kingName, king);
+    }
+    
+<A NAME="2"></A>    public void birth(String parentName, String childName) {
+        Node p = map.get(parentName)</B></FONT>;
+        Node child = new Node(childName);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>p.children.add(child);
+        map.put(childName, child);
+    }
+    
+    public void death(String name) {
+        map.get(name).isDied = true;
+    }
+    
+    public List&lt;String&gt; getInheritanceOrder() {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        dfs(king, res);
+        return res;
+    }
+    
+    private void dfs(Node p, List&lt;String&gt; res) {
+        if (!p.isDied) {
+            res.add(p.name);
+        }
+        for (Node ch : p.children) {
+            dfs(ch, res);
+        }
+    }
+}</B></FONT>
+
+/**
+ * Your ThroneInheritance object will be instantiated and called as such:
+ * ThroneInheritance obj = new ThroneInheritance(kingName);
+ * obj.birth(parentName,childName);
+ * obj.death(name);
+ * List&lt;String&gt; param_3 = obj.getInheritanceOrder();
+ */
+</PRE>
+
+</BODY>
+</HTML>
