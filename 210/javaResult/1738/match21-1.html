@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>329_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>329_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maximalNetworkRank(int n, int[][] roads) {
+
+        boolean[][] hasRoad = new boolean[n][n];
+        int[] cnt = new int[n];
+        for (int[] road : roads) {
+            int v = road[0], w = road[1];
+            cnt[v]++;
+            cnt[w]++;
+            hasRoad[v][w] = true;
+            hasRoad[w][v] = true;
+        }
+
+        int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                int roadCnt = cnt[i] + cnt[j];
+                if (hasRoad[i][j]) {
+                    roadCnt--;
+                }
+                ans = Math.max(ans, roadCnt);
+            }
+        }
+        return ans;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

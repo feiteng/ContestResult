@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_suzyzhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_suzyzhang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    vector&lt;vector&lt;int&gt;&gt; g, d;
+    bool ok[16], vis[16];
+public:
+<A NAME="2"></A>    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; ed) {
+        vector&lt;int&gt; res(n-1);
+        g = vector&lt;vector&lt;int&gt;&gt;(n);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        d = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;(n));
+        
+        for (int i = 0; i &lt; ed.size(); ++i) {
+            int u = ed[i][0]-1, v = ed[i][1]-1;
+            g[u].push_back(v);
+            g[v].push_back(u);
+        }
+        
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            memset(vis, 0, sizeof(vis));
+            queue&lt;int&gt; qu;
+            qu.push(i);
+            vis[i] = true;
+<A NAME="1"></A>            int step = 0;
+            
+            while (!qu.empty()) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int sz = qu.size();
+                ++step;
+                
+                while (sz) {
+                    --sz;
+                    int u = qu.front();
+                    qu.pop();
+                    for (int j = 0; j &lt; g[u].size(); ++j) {</B></FONT>
+                        if (!vis[g[u][j]]) {
+                            int v = g[u][j];
+                            vis[v] = true;
+                            d[i][v] = step;
+                            qu.push(v);
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        int tot = (1 &lt;&lt; n) - 1;
+        for (int i = 3; i &lt;= tot; ++i) {
+            int st = 0, cnt = 0;
+            memset(ok, 0, sizeof(ok));
+            for (int j = 0; j &lt; n; ++j)
+                if (i &amp; (1 &lt;&lt; j)) {
+                    ok[j] = true;
+                    ++cnt;
+                    st = j;
+                }
+            
+            if (cnt == 1 || !bfs(st, cnt))
+                continue;
+            
+            int maxd = 0;
+            for (int j = 0; j &lt; n; ++j)
+                if (ok[j])
+                    for (int k = j+1; k &lt; n; ++k)
+                        if (ok[k])
+                            maxd = max(maxd, d[j][k]);
+            
+            if (maxd &gt; 0)
+                ++res[maxd-1];
+            
+             // printf(&quot;maxd:%d\n&quot;, maxd);
+            // for (int j = 0; j &lt; n; ++j)
+            //     if (ok[j])
+            //         printf(&quot;%d &quot;, j);
+            // printf(&quot;\n&quot;);
+        }
+        
+        return res;
+    }
+    
+<A NAME="0"></A>    bool bfs(int st, int cnt) {
+        // printf(&quot;\nst:%d %d\n&quot;, st, cnt);
+         memset(vis, 0, sizeof(vis));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            queue&lt;int&gt; qu;
+            qu.push(st);
+            vis[st] = true;
+            
+            while (!qu.empty()) {
+                int u = qu.front();
+                qu.pop();
+                --cnt;
+                for (int j = 0; j &lt; g[u].size(); ++j) { 
+                    int v = g[u][j];
+                    if (!vis[v] &amp;&amp; ok[v]) {
+                            vis[v] = true;
+                            qu.push(v);
+                    }
+                }
+            }
+        
+        return cnt == 0;
+    }</B></FONT>
+    void calc(vector&lt;int&gt; &amp;cur, vector&lt;int&gt; &amp;res) {
+        // printf(&quot;\n cur:\n&quot;);
+        int maxd = 0;
+        for (int i = 0; i &lt; cur.size(); ++i) {
+            // printf(&quot;%d &quot;, cur[i]);
+            for (int j = i+1; j &lt; cur.size(); ++j) {
+                maxd = max(maxd, d[cur[i]][cur[j]]);
+            }
+        }
+        if (maxd &gt; 0)
+            ++res[maxd-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

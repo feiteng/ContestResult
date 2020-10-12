@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>169_rign-LR7Rq2TRuq.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>169_rign-LR7Rq2TRuq.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int fa[20];
+    int get(int x){
+        if(x==fa[x]) return x;
+        return fa[x]=get(fa[x]);
+    }
+    void merge(int x,int y){
+        fa[get(x)]=get(y);
+    }
+    int dis[20][20];
+    void init(int n){
+        for(int i=1;i&lt;=n;i++) fa[i]=i;
+    }
+    int ans[20];
+    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        for(int i=1;i&lt;=n;i++){
+            for(int j=1;j&lt;=n;j++){
+                if(i==j) continue;
+<A NAME="0"></A>                dis[i][j]=0x3f3f3f3f;
+            }
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;edges.size();i++){
+            dis[edges[i][0]][edges[i][1]]=1;
+            dis[edges[i][1]][edges[i][0]]=1;
+        }
+        for(int k=1;k&lt;=n;k++){
+            for(int i=1;i&lt;=n;i++){
+                for(int j=1;j&lt;=n;j++){
+                    dis[i][j]=min(dis[i][j],dis[i][k]+dis[k][j]);
+                }
+            }
+        }</B></FONT>
+        int vis[20];
+        set&lt;int&gt;s;
+        for(int i=0;i&lt;(1&lt;&lt;n);i++){
+            init(n);
+            int tmp=0;
+            s.clear();
+            for(int j=1;j&lt;=n;j++) vis[j]=0;
+            for(int j=1;j&lt;=n;j++) if((i&gt;&gt;(j-1))&amp;1) vis[j]=1,tmp++;
+            for(int j=0;j&lt;edges.size();j++){
+                if(vis[edges[j][0]] &amp;&amp; vis[edges[j][1]]){
+                    merge(edges[j][0],edges[j][1]);
+                }
+<A NAME="1"></A>            }
+            for(int j=1;j&lt;=n;j++){
+                if(vis[j]) s.insert(get(j));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            if(s.size()==1){
+                int nC=0;
+<A NAME="2"></A>                for(int j=1;j&lt;=n;j++){
+                    for(int k=1;k&lt;=n;k++){
+                        if(vis[j] &amp;&amp; vis[k]) nC=max(nC,dis[j][k]);</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }
+                }
+                ans[nC]++;
+            }
+        }
+        vector&lt;int&gt;vvvv;
+        for(int i=1;i&lt;=n-1;i++){
+            vvvv.push_back(ans[i]);
+        }
+        return vvvv;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

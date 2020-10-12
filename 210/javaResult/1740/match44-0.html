@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>464_BeetFarmer.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>464_BeetFarmer.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    List&lt;List&lt;Integer&gt;&gt; allGraph;
+    HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; graph;
+    int [] res;
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        allGraph = new ArrayList&lt;&gt;();
+<A NAME="0"></A>        
+        subsets(n, 1, new ArrayList&lt;&gt;());
+        
+        graph = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match44-1.html#0',3,'match44-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new HashMap&lt;&gt;();
+        for(int i = 1; i &lt;= n; i++) {
+            graph.put(i, new HashSet&lt;&gt;());
+        }
+        for(int [] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }</B></FONT>
+        
+        res = new int [n-1];
+        
+        
+        helper(n);
+        
+        return res;
+    }
+    
+    public void helper(int n) {
+        for(int i = 0; i &lt; allGraph.size(); i++) {
+            List&lt;Integer&gt; nodeList = allGraph.get(i);
+            
+            HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; currGraph = buildGraph(nodeList, graph, n);
+            
+            
+            int longest = findLongestPath(currGraph, n, nodeList.size());
+            
+            if(longest &gt; 0) {
+                res[longest-1]++;
+            }
+        }
+        
+    }
+    
+    public int findLongestPath(HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; currGraph, int n, int nodeCnt) {
+        int best = 0;
+        for(int node : currGraph.keySet()) {
+            Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+            q.offer(node);
+            
+            boolean [] visited = new boolean [n+1];
+            int level = bfs(q, visited, 0, currGraph);
+            
+            int cnt = 0;
+            for(boolean b : visited) {
+                if(b) cnt++;
+            }
+<A NAME="1"></A>            
+            if(cnt == nodeCnt) {
+                best = Math.max(level, best);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match44-1.html#1',3,'match44-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        return best;
+    }
+    
+    public int bfs(Queue&lt;Integer&gt; queue, boolean [] visited, int level</B></FONT>, HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; currGraph) {
+        Queue&lt;Integer&gt; next = new LinkedList&lt;&gt;();
+        while(!queue.isEmpty()) {
+            int node = queue.poll();
+            visited[node] = true;
+            for(int adj : currGraph.get(node)) {
+                if(!visited[adj]) {
+                    next.offer(adj);
+                }
+            }
+        }
+        
+<A NAME="2"></A>        return next.isEmpty() ? level : bfs(next, visited, level+1, currGraph);
+    }
+    
+    public void subsets(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match44-1.html#2',3,'match44-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n, int i, List&lt;Integer&gt; list) {
+        if(list.size() &gt; 1) {
+            allGraph.add(new ArrayList&lt;&gt;(list));
+        }
+        
+        for(int j = i; j &lt;= n; j++) {
+            list.add(j);
+            
+            subsets(n, j+1, list);
+            
+            list.remove</B></FONT>(list.size()-1);
+        }
+    }
+    
+    public HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; buildGraph(List&lt;Integer&gt; nodes, HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; graph, int n) {
+        HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; currGraph = new HashMap&lt;&gt;();
+        for(int i = 1; i &lt;= n; i++) {
+            currGraph.put(i, new HashSet&lt;&gt;());
+        }
+        for(int i = 0; i &lt; nodes.size(); i++) {
+            for(int j = i+1; j &lt; nodes.size(); j++) {
+                int node1 = nodes.get(i);
+                int node2 = nodes.get(j);
+                if(graph.get(node1).contains(node2)) {
+                    currGraph.get(node1).add(node2);
+                    currGraph.get(node2).add(node1);
+                }
+            }
+        }
+        return currGraph;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

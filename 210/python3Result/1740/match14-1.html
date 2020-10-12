@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>236_sunjc-3.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>236_sunjc-3.py</CENTER></H3><HR>
+<PRE>
+# class UF:
+#     def __init__(self, N):
+#         self.parent = list(range(N))
+#         self.rank = [0] * N
+#         self.count = N
+#     def find(self, node):
+#         p = self.parent
+#         root = node
+#         while root != p[root]:
+#             root = p[root]
+#         while node != root:
+#             node, p[node] = p[node], root
+#     def union(self, x, y):
+#         x_root = self.find(x)
+#         y_root = self.find(y)
+#         if x_root != y_root:
+#             p = self.parent
+#             r = self.rank
+#             if r[x_root] &lt; r[y_root]:
+#                 x_root, y_root = y_root, x_root
+#             elif r[x_root] == r[y_root]:
+#                 r[x_root] += 1
+#             p[y_root] = x_root
+#             self.count -= 1
+    
+class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        dist = [[float('inf')] * n for _ in range(n)]
+        outs = [[] for _ in range(n)]
+        for e in edges:
+<A NAME="0"></A>            s, t = tuple(e)
+            s -= 1
+            t -= 1
+            dist<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[s][t] = 1
+            dist[t][s] = 1
+            outs[s].append(t)
+            outs[t].append(s)
+        for i in range(n):
+            dist[i][i] = 0
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    if dist[i][j] == -1 or dist[i][j] &gt; dist[i][k] + dist[j][</B></FONT>k]:
+                        dist[i][j] = dist[i][k] + dist[j][k]
+        
+        
+        
+        
+        # print(dist)
+            
+        ans = [0] * (n-1)
+        for X in range(1, 1&lt;&lt;n):
+            b = 0
+            nodes = []
+            while X:
+                if X &amp; 1:
+                    nodes.append(b)
+                b += 1
+                X &gt;&gt;= 1
+            if len(nodes) == 1:
+                continue
+            D = 0
+            for i in range(len(nodes)):
+                for j in range(i+1, len(nodes)):
+                    d = dist[nodes[i]][nodes[j]]
+                    D = max(d, D)
+            # uf = UF(n)
+            # for x in nodes:
+            #     uf.union()
+            # print(D, nodes)
+            v = set()
+            s = [nodes[0]]
+            ns = set(nodes)
+            while s:
+                node = s.pop()
+                v.add(node)
+                for x in outs[node]:
+                    if x not in v and x in nodes:
+                        s.append(x)
+            if len(v) == len(ns):
+                ans[D-1] += 1
+        return ans
+            
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

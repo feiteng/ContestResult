@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>682_haroldli.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>682_haroldli.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean checkPalindromeFormation(String a, String b) {
+        if (isPalindrome(a) || isPalindrome(b)) {
+            return true;
+        }</B></FONT>
+        
+        int len = a.length();
+        int idxA = 0, idxB = len - 1;
+        boolean result = false;
+        /*
+            &quot;pvhm upgqeltozftlmfjjde&quot;
+                  | idxB
+            &quot;yjgp zbezspnnpszebz mhvp&quot;
+                               | idxA
+        
+        */
+        while (idxA &lt; idxB) {
+            if (a.charAt(idxA) == b.charAt(idxB)) {
+                idxA ++;
+                idxB --;
+            } else {
+                break;
+            }
+        }
+        
+        result = isPalindrome(a.substring(0, idxA) + b.substring(idxA)) ||
+                 isPalindrome(a.substring(0, idxB + 1) + b.substring(idxB + 1));
+        
+        if (result) {
+            return true;
+        }
+        
+        idxA = len - 1;
+        idxB = 0;
+        while (idxB &lt; idxA) {
+            if (a.charAt(idxA) == b.charAt(idxB)) {
+                idxA --;
+                idxB ++;
+            } else {
+                break;
+            }
+        }
+        
+        result = isPalindrome(b.substring(0, idxB) + a.substring(idxB)) ||
+<A NAME="1"></A>                 isPalindrome(b.substring(0, idxA + 1) + a.substring(idxA + 1));
+        
+        return result;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private boolean isPalindrome(String s) {
+        int start = 0, end = s.length() - 1;
+        while (start &lt; end) {
+            if (s.charAt(start) != s.charAt(end)) {
+                return false;
+            }
+            start ++;
+            end --;
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

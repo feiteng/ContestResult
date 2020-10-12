@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>262_cppowboy_i_am_back.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>262_cppowboy_i_am_back.py</CENTER></H3><HR>
+<PRE>
+# from typing import List
+# import collections
+
+<A NAME="1"></A>
+class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def connected(edges):
+            points = set()
+            for u, v in edges:
+                points.add(u)
+                points.add(v)
+            return len(points) - 1 == len(</B></FONT>edges)
+
+        def get_distance(edges):
+            # print('get', edges, connected(edges))
+            if len(edges) == 0:
+<A NAME="0"></A>                return 0
+            if not connected(edges):
+                return 0
+            nxt <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= collections.defaultdict(list)
+            for u, v in edges:
+                nxt[u].append(v)
+                nxt[v].append(u)
+            visited = collections.</B></FONT>defaultdict(bool)
+
+            def dfs_for_distance(i):
+                visited[i] = True
+                depth, distance = 0, 0
+                first, second = 0, 0
+                for j in nxt[i]:
+                    if not visited[j]:
+                        dep, dist = dfs_for_distance(j)
+                        if dep + 1 &gt;= first:
+                            first, second = dep + 1, first
+                        elif dep + 1 &gt;= second:
+                            first, second = first, dep + 1
+                        depth = max(depth, 1 + dep)
+                        distance = max(distance, dist)
+                distance = max(distance, first + second)
+                return depth, distance
+
+            _, result = dfs_for_distance(edges[0][0])
+            return result
+
+        ans = [0] * (n - 1)
+
+        def dfs(i, buf):
+            if i &gt;= n - 1:
+                dist = get_distance(buf)
+                if dist &gt; 0:
+                    ans[dist - 1] += 1
+                return
+            dfs(i + 1, buf)
+            dfs(i + 1, buf + [edges[i]])
+
+        dfs(0, [])
+        return ans
+
+
+# solution = Solution()
+# n = 4
+# edges = [[1, 3], [1, 4], [2, 3]]
+# ans = solution.countSubgraphsForEachDiameter(n, edges)
+# print(ans)
+</PRE>
+
+</BODY>
+</HTML>

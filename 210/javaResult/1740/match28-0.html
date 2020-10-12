@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_william5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_william5.java</CENTER></H3><HR>
+<PRE>
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+  public static void main(String args[]) {
+    int n = 4;
+    Solution sol = new Solution();
+    int[][] edges = {{1,2},{2,3},{2,4}};
+    System.out.println(Arrays.toString(sol.countSubgraphsForEachDiameter(n, edges)));
+  }
+  
+  int n;
+<A NAME="0"></A>  HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; tree = new HashMap&lt;&gt;();
+  public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+    this.n = n;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt;= n; i++) {
+      tree.put(i, new HashSet&lt;&gt;());
+    }
+    for (int[] edge : edges) {</B></FONT>
+      int a = edge[0];
+      int b = edge[1];
+      tree.get(a).add(b);
+      tree.get(b).add(a);
+    }
+    int[] results = new int[n-1];
+    
+    for (int i = 1; i &lt; (1 &lt;&lt; n); i++) {
+      Set&lt;Integer&gt; subtree = getSet(i);
+      if (validTree(subtree)) {
+        int maxDistance = maxDistance(subtree, subtree.iterator().next(), null)[1] - 1;
+<A NAME="1"></A>        if (maxDistance &gt; 0) {
+          results[maxDistance - 1]++;
+        }
+      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    }
+    
+    return results;
+  }
+  
+  public Set&lt;Integer&gt; getSet(int mask</B></FONT>) {
+    HashSet&lt;Integer&gt; set = new HashSet&lt;&gt;();
+    for (int i = 1; i &lt;= n; i++) {
+      if ((mask &gt;&gt; (i - 1) &amp; 1) == 1) {
+        set.add(i);
+      }
+    }
+    return set;
+  }
+  
+  public boolean validTree(Set&lt;Integer&gt; subset) {
+    HashSet&lt;Integer&gt; remaining = new HashSet&lt;&gt;(subset);
+    int first = remaining.iterator().next();
+    remaining.remove(first);
+    return validTree(remaining, first);
+  }
+  
+  public boolean validTree(Set&lt;Integer&gt; remaining, int curr) {
+    for (Integer neigh : tree.get(curr)) {
+      if (remaining.contains(neigh)) {
+        remaining.remove(neigh);
+        validTree(remaining, neigh);
+      }
+    }
+    return remaining.isEmpty();
+<A NAME="2"></A>  }
+  
+  public int[] maxDistance(Set&lt;Integer&gt; subtree, int curr, Integer parent) {
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int bestChildDepth1 = 0;
+    int bestChildDepth2 = 0;
+    int maxDist = 0;
+    for (int neigh : tree.get(curr)) {
+<A NAME="3"></A>      if (subtree.contains(neigh) &amp;&amp; (parent == null || neigh != parent)) {</B></FONT>
+        int[] childResult = maxDistance(subtree, neigh, curr);
+        int childDepth = childResult[0];
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match28-1.html#3',3,'match28-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>maxDist = Math.max(maxDist, childResult[1]);
+        if (childDepth &gt;= bestChildDepth1) {
+          bestChildDepth2 = bestChildDepth1;
+          bestChildDepth1 = childDepth;
+        } else if (childDepth &gt;= bestChildDepth2) {
+          bestChildDepth2 = childDepth;
+        }
+      }</B></FONT>
+    }
+    return new int[] {1 + bestChildDepth1, Math.max(maxDist, 1 + bestChildDepth1 + bestChildDepth2)};
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

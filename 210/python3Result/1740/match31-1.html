@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>304_qibincode.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>304_qibincode.py</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.adj = defaultdict(list)
+        
+        for x, y in edges:
+            self.adj[x - 1].append(y - 1)
+            self.adj[y - 1].append(</B></FONT>x - 1)
+        ans = [0] * (n - 1)
+        for op in range(1, 1 &lt;&lt; n):
+            ret = self.dia(op, n)
+            if ret != -1 and ret != 0:
+                ans[ret - 1] += 1
+        return ans
+    
+    def dia(self, op, n):
+        visited = [False] * n
+        for i in range(n):
+<A NAME="0"></A>            if (op &amp; (1 &lt;&lt; i)):
+                break
+        q = deque([i])
+        visited<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i] = True
+        while q:
+            i = q.popleft()
+            for j in self.adj[i]:
+                if op &amp; (1 &lt;&lt; j) and not visited[j]:
+                    visited[j] = True
+                    q.</B></FONT>append(j)
+        # start from i
+        q = deque([i])
+        d = [0] * n
+        visited = [False] * n
+        visited[i] = True
+        while q:
+            i = q.popleft()
+            for j in self.adj[i]:
+                if op &amp; (1 &lt;&lt; j) and not visited[j]:
+                    q.append(j)
+                    visited[j] = True
+                    d[j] = d[i] + 1
+        ret = d[i]
+        for i in range(n):
+            if (op &amp; (1 &lt;&lt; i)) and not visited[i]:
+                return -1
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

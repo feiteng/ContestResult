@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_sshang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_sshang.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict, deque
+class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        
+        d = defaultdict(set)
+        for u, v in edges:
+            d[u-1].add(v-1)
+            d[v-1].add(u-1)
+            
+        dist_d = {}
+        for i in range(n):
+            q, seen = deque([(i, 0)]), set([i])
+            while q:
+                j, dist = q.popleft()
+                dist_d[i, j] = dist
+                for nj in d[j]:
+                    if nj not in seen:
+                        q.append((nj, dist + 1))
+                        seen.add(nj)
+                        
+        print(dist_d)
+<A NAME="0"></A>                        
+        res = [0] * (n - 1)
+            
+        q, seen <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= deque(), set()
+        for i in range(n):
+            q.append((0, 1 &lt;&lt; i))
+            
+        while q:
+            dist, state = q.popleft(</B></FONT>)
+<A NAME="1"></A>            if dist != 0:
+                res[dist - 1] += 1
+            
+            cur <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= set()
+            for i in range(n):
+                if (state &gt;&gt; i) &amp; 1:
+                    cur.add(i)
+                    
+            for i in range(n):
+                if i not in cur and d[i] &amp; cur:
+                    nstate =</B></FONT> state | (1 &lt;&lt; i)
+                    if nstate not in seen:
+                        
+                        ndist = dist
+                        for j in cur:
+                            ndist = max(ndist, dist_d[i, j])
+                        
+                        seen.add(nstate)
+                        q.append((ndist, nstate))
+                        
+        return res
+</PRE>
+
+</BODY>
+</HTML>

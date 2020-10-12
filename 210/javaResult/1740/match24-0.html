@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>460_myu23.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>460_myu23.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        List[] graph = new List[n];
+        for(int i = 0; i &lt; n; i++){
+            g</B></FONT>raph[i] = new ArrayList&lt;&gt;();
+        }
+        for(int[] e : edges){
+            graph[e[0]-1].add(e[1]-1);
+            graph[e[1]-1].add(e[0]-1);
+        }
+        // System.out.println(graph[0]);
+        int[][] dist = computeDist(n, graph);
+
+        int[] res = new int[n-1];
+        for(int comb = 3; comb &lt; 1&lt;&lt;(n); comb++){
+            List&lt;Integer&gt; nodes = new ArrayList&lt;&gt;(n);
+            int count = Integer.bitCount(comb);
+            if(count &lt; 2) continue;
+            if(!valid(comb, graph)) continue;
+            // System.out.println(comb);
+            for(int i = 0; i &lt; n; i++){
+                if((1 &amp; (comb&gt;&gt;i)) == 1) nodes.add(i);
+            }
+            int max = 0;
+            for(int i : nodes){
+                for(int j : nodes){
+                    if(i == j) continue;
+                    max = Math.max(max, dist[i][j]);
+                }
+            }
+            // System.out.println(max);
+            res[max-1]++;
+        }
+        return res;
+        
+    }
+    
+    public boolean valid(int comb, List&lt;Integer&gt;[] graph){
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        int i = 0;
+        for(i = 0; i &lt; 16; i++){
+            if(((comb&gt;&gt;i) &amp; 1) == 1){
+                queue.add(i);
+                break;
+            }
+        }
+<A NAME="1"></A>        boolean visit[] = new boolean[16];
+        visit[i] = true;
+        int c = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(queue.size()!= 0){
+            int cur = queue.poll();
+            c++;
+            for(int j : graph[cur]){
+                if(!visit[j] &amp;&amp; (((comb&gt;&gt;j) &amp; 1) == 1)){</B></FONT>
+                    queue.add(j);
+                    visit[j] = true;
+                }
+            }
+        }
+        return c == Integer.bitCount(comb);
+    }
+    
+    
+    public int[][] computeDist(int n, List&lt;Integer&gt;[] graph){
+        int[][] dist = new int[n][n];
+        // System.out.println(graph[0]);
+        for(int i = 0; i &lt; n; i++){
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+<A NAME="2"></A>            boolean[] visit = new boolean[n]; 
+            Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+            queue.add(i);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>visit[i] = true;
+            int d = 0;
+            while(queue.size() != 0){
+                int size = queue.size();
+                for(int k = 0; k &lt; size; k++){
+                    int cur = queue.poll();
+                    d</B></FONT>ist[i][cur] = Math.min(dist[i][cur], d);
+                    // System.out.println(graph[i]);
+                    for(int j : graph[cur]){
+<A NAME="3"></A>                        if(!visit[j]){
+                            queue.add(j);
+                            visit[j] = true;
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match24-1.html#3',3,'match24-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                    }
+                }
+                d++;
+            }
+
+        }</B></FONT>                   
+        // for(int m = 0; m &lt; n;m++){
+        //     System.out.println(Arrays.toString(dist[m]));
+        // }
+        return dist;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

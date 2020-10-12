@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>381_r03245011.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>381_r03245011.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int bfs(int state, int idx, vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        int ret = idx;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;int&gt; q;
+        q.push(idx);
+        state ^= (1 &lt;&lt; idx);
+        while (!q.empty()) {
+            int top = q.front();
+            q.pop();
+            ret = top;
+            for(int i=0; i&lt;graph[top].size(); i++) {
+                int next = graph[top][i];
+                if (state &amp; (1 &lt;&lt; next)) {
+                    state ^= (1 &lt;&lt; next);
+                    q.push(next);
+                }
+            }
+        }
+        return ret;
+    }</B></FONT>
+    int getCnt(int state, vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        int start = -1;
+        int size = __builtin_popcount(state);
+        for(int i=0; i&lt;32; i++) {
+            if (state &amp; (1 &lt;&lt; i)) {
+                start = i;
+                break;
+            }
+        }
+<A NAME="1"></A>        if (start == -1) return 0;
+        int end = bfs(state, start, graph);
+        int ret = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;int&gt; q;
+        q.push(end);
+        state ^= (1 &lt;&lt; end);
+        size--;
+        while (!q.empty()) {
+            ret++;
+            int len = q.size();
+            for(int i=0; i&lt;len; i++) {</B></FONT>
+                int top = q.front();
+                q.pop();
+                for(int j=0; j&lt;graph[top].size(); j++) {
+                    int next = graph[top][j];
+                    if (state &amp; (1 &lt;&lt; next)) {
+                        state ^= (1 &lt;&lt; next);
+                        q.push(next);
+                        size--;
+                    }
+                }
+            }
+        }
+        if (size != 0) return 0;
+<A NAME="2"></A>        return ret;
+    }
+    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; ret(n);
+        vector&lt;vector&lt;int&gt;&gt; graph(n);
+        for(int i=0; i&lt;e.size(); i++) {
+            int f = e[i][0] - 1, b = e[i][1] - 1;
+            graph[f].push_back(b);
+            graph[b].push_back(f);
+        }
+        for(int i=0; i&lt;(1 &lt;&lt; n); i++) {</B></FONT>
+            int cnt = getCnt(i, graph);
+            if (cnt &gt; 0) ret[cnt-1]++;
+        }
+        vector&lt;int&gt; v;
+        for(int i=1; i&lt;ret.size(); i++) v.push_back(ret[i]);
+        return v;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

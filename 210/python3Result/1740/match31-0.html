@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_Loxis.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>43_Loxis.py</CENTER></H3><HR>
+<PRE>
+class Unionfind:
+        def __init__(self, n):
+            self.par = [-1]*n
+            self.rank = [1]*n
+
+        def root(self, x):
+            r = x
+
+            while not self.par[r]&lt;0:
+                r = self.par[r]
+
+            t = x
+
+            while t!=r:
+                tmp = t
+                t = self.par[t]
+                self.par[tmp] = r
+
+            return r
+
+        def unite(self, x, y):
+            rx = self.root(x)
+            ry = self.root(y)
+
+            if rx==ry:
+                return
+
+            if self.rank[rx]&lt;=self.rank[ry]:
+                self.par[ry] += self.par[rx]
+                self.par[rx] = ry
+
+                if self.rank[rx]==self.rank[ry]:
+                    self.rank[ry] += 1
+            else:
+                self.par[rx] += self.par[ry]
+                self.par[ry] = rx
+
+        def is_same(self, x, y):
+            return self.root(x)==self.root(y)
+
+        def count(self, x):
+            return -self.par[self.root(x)]
+        
+class Solution:
+<A NAME="0"></A>    def bfs(self, s):
+        q = deque([s])
+        dist = [-1]*self.n
+        dist<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[s] = 0
+        
+        while q:
+            v = q.popleft()
+            
+            for nv in self.G[v]:
+                if dist[nv]==-1:
+                    dist[nv] = dist[</B></FONT>v]+1
+                    q.append(nv)
+        
+        return dist
+    
+<A NAME="1"></A>    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        self.n = n
+        dists = []
+        self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.G = [[] for _ in range(n)]
+        
+        for u, v in edges:
+            self.G[u-1].append(v-1)
+            self.G[v-1].append(</B></FONT>u-1)
+        
+        for i in range(n):
+            dists.append(self.bfs(i))
+        
+        ans = [0]*(n-1)
+        
+        for S in range(1, 1&lt;&lt;n):
+            l = []
+            
+            for i in range(n):
+                if (S&gt;&gt;i)&amp;1:
+                    l.append(i)
+            
+            s = set(l)
+            uf = Unionfind(n)
+            
+            for u, v in edges:
+                if u-1 in s and v-1 in s:
+                    uf.unite(u-1, v-1)
+            
+            if uf.count(l[0])==len(l):
+                d = 0
+                
+                for i in range(len(l)):
+                    for j in range(len(l)):
+                        d = max(d, dists[l[i]][l[j]])
+                
+                #print(l, d)
+                
+                if d&gt;=1:
+                    ans[d-1] += 1
+        
+        return ans
+                
+</PRE>
+
+</BODY>
+</HTML>

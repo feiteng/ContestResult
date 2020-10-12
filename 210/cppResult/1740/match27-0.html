@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_szp14.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool isSubTree(int n, int k, vector&lt;vector&lt;int&gt; &gt;&amp; D)
+{
+    int vis = 0;
+    queue&lt;int&gt; q;
+    int s = log2(k &amp; (-k));
+    vis |= 1 &lt;&lt; s;
+    q.push(s);
+    while(!q.empty())
+    {
+        int c = q.front(); q.pop();
+        for(int i = 0; i &lt; n; i++) if(D[c][i] == 1 &amp;&amp; ((k &gt;&gt; i) &amp; 1))
+        {
+            if(((vis &gt;&gt; i) &amp; 1) == 0)
+            {
+                vis |= 1 &lt;&lt; i;
+                q.push(i);
+            }
+        }
+    }
+    return vis == k;
+}
+
+vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt; &gt;&amp; edges)
+{
+    int INF = 0x3f3f3f3f;
+    vector&lt;vector&lt;int&gt; &gt; D(n, vector&lt;int&gt;(n, INF));
+    for(int i = 0; i &lt; n - 1; i++)
+    {
+        D[i][i] = 0;
+        int u = edges[i][0] - 1, v = edges[i][1] - 1;
+<A NAME="0"></A>        D[u][v] = D[v][u] = 1;
+    }
+    D[n - 1][n - 1] = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for(int k = 0; k &lt; n; k++)
+        for(int i = 0; i &lt; n; i++)
+            for(int j = 0; j &lt; n; j++)
+                D[i][j] = min(D[i][j], D[i][k] + D[k][j]);
+<A NAME="1"></A>    vector&lt;int&gt; cnt(n - 1, 0);
+    for(int i = 1; i &lt; (1 &lt;&lt; n); i++)
+    {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(!isSubTree(n, i, D)) continue;
+        int ans = 0;
+        for(int j = 0; j &lt; n; j++) if((i &gt;&gt; j) &amp; 1)
+            for(int k = j + 1; k &lt; n; k++) if((i &gt;&gt; k) &amp; 1)
+                ans = max(ans, D[j][k]);
+        if(ans == 0 || ans == INF) continue;</B></FONT>
+        cnt[ans - 1]++;
+    }
+    return cnt;
+}
+};
+</PRE>
+</BODY>
+</HTML>

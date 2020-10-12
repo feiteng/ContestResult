@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>167_yan_wei_zhe.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>167_yan_wei_zhe.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        costs = [[float('inf')]*(n+1) for i in range(n+1)]
+        for i in range(1, n+1):
+            costs[i][i] = 0
+        
+        queue = collections.deque()
+        a_to_b = defaultdict(set)
+        for x, y in edges:
+            a_to_b[x].add(y)
+            a_to_b[y].add(x)
+<A NAME="0"></A>            costs[x][y] = 1
+            costs[y][x] = 1
+            z = (1&lt;&lt;x) + (1&lt;&lt;y)
+            queue.append([z<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>, 1])
+            
+        #Floyd-Warshall algorithm
+        for k in range(1, n+1):
+            for i in range(1, n+1):
+                for j in range(1, n+1):
+                    if costs[i][j] &gt; costs[i][k]+costs[k][j]:
+                        costs[i][j] = costs[i][k]+costs[k][j]</B></FONT>
+            
+        res = [0]*(n-1)
+        seen = set()
+        while queue:
+            pt, level = queue.popleft()
+            if pt in seen:
+                continue
+            seen.add(pt)
+            res[level-1] += 1
+            nums = self.get_bit_nums(pt)
+            for num in nums:
+                for x in a_to_b[num]:
+                    bit = (1 &lt;&lt; x)
+                    if bit &amp; pt &gt; 0:
+                        continue
+                    tmp_level = level
+                    ##tmp_pt = pt
+                    for num in nums:
+                        tmp_level = max(tmp_level, costs[num][x])
+                    queue.append([pt+bit, tmp_level])
+                    
+                        
+        return res
+        
+    def get_bit_nums(self, x):
+        res = []
+        cur = 0
+        while x:
+            if x &amp; 1:
+                res.append(cur)
+            x &gt;&gt;= 1
+            cur += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

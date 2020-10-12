@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_nanotrt2333.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>223_nanotrt2333.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+public:
+<A NAME="0"></A>    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;int&gt;&gt; G(n, vector&lt;int&gt;(n, n));
+        for (int i = 0; i &lt; n; ++i) G[i][i] = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (const auto&amp; e : edges) {
+            G[e[0] - 1][e[1] - 1] = G[e[1] - 1][e[0] - 1] = 1;
+        }
+        for (int k = 0; k &lt; n; ++k) {
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    G[i][j] = min(G[i][j], G[i][k] + G[k][j]);
+                }
+            }
+<A NAME="1"></A>        }
+        vector&lt;int&gt; dp(1 &lt;&lt; n, -1);</B></FONT>
+        vector&lt;int&gt; ans(n - 1);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; ++i) {
+            dp[1 &lt;&lt; i] = 0;
+        }
+        for (int i = 1; i &lt; 1 &lt;&lt; n; ++i) {</B></FONT>
+            //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; dp[i] &lt;&lt; endl;
+            if (dp[i] &lt; 0) continue;
+            if (dp[i] &gt; 0) {
+                ans[dp[i] - 1]++;
+            }
+            for (int j = 0; j &lt; n; ++j) {
+                if (i &amp; (1 &lt;&lt; j)) continue;
+                bool flag = false;
+                int dist = 1;
+                for (int k = 0; k &lt; n; ++k) {
+                    if ((i &amp; (1 &lt;&lt; k)) == 0) continue;
+                    if (G[j][k] == 1) flag = true;
+                    dist = max(G[j][k], dist);
+                }
+                if (flag) {
+                    dist = max(dist, dp[i]);
+                    dp[i ^ (1 &lt;&lt; j)] = max(dp[i ^ (1 &lt;&lt; j)], dist);
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

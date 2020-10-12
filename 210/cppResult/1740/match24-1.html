@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>497_sharkshark.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>497_sharkshark.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="1"></A>    int n;
+    int maxd;
+    bool conn[16*16];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; ans;
+    int a[16*16];
+    int depth(vector&lt;int&gt;&amp; coll){
+        int d = 0;
+                for (int i = 0; i &lt; coll.size(); i ++){
+                    for (int j = 0; j &lt; coll.size(); j++){
+                        if (conn[coll[i]*n + coll[j]]){</B></FONT>
+                            a[i*coll.size() + j] = 1;
+<A NAME="0"></A>                        }
+                        else a[i*coll.size() + j] = 100;
+                    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+                for (int j = 0; j &lt; coll.size(); j ++){
+                    for (int i = 0; i &lt; coll.size(); i++){
+                        for (int k = 0; k &lt; coll.size(); k++){
+                            if (a[i*coll.size() + k] &gt; a[i*coll.size() + j] + a[j*coll.size() + k])
+                            a[i*coll.size() + k] = a[i*coll.size() + j] + a[j*coll.size() + k];
+                        }
+                    }
+                }
+                for (int i = 0; i &lt; coll.size(); i ++){</B></FONT>
+                    for (int j = 0; j &lt; coll.size(); j++){
+                        if (i != j){
+                            if (d == 100) return 100;
+                            d = max(d, a[i*coll.size() + j]);
+                        }
+                    }
+                }
+        return d;
+    }
+    void walk(int ith, vector&lt;int&gt;&amp; coll) {
+        if (ith &lt; this-&gt;n){
+            walk(ith + 1, coll);
+            coll.push_back(ith);
+            walk(ith + 1, coll);
+            coll.pop_back();
+        }
+        else if (coll.size() &gt; 1) {
+            int d = depth(coll);
+            
+                if (d &lt; 100){
+                    ans[d - 1] += 1;
+                }
+        }
+    }
+    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        this-&gt;n = n;
+        for (int i = 0; i &lt; n - 1; i ++) ans.push_back(0);
+        for (int i = 0; i &lt; 16*16; i += 1) conn[i] = false;
+        for (auto e: edges){
+            conn[(e[0]-1)*n + e[1] - 1] = true;
+            conn[(e[1]-1)*n + e[0] - 1] = true;
+        }
+        //vector&lt;int&gt; full;
+        //for (int i = 0; i &lt; n; i++) full.push_back(i);
+        vector&lt;int&gt; coll;
+        walk(0, coll);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

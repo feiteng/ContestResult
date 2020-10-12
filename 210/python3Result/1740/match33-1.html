@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>470_praveen97uma.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>470_praveen97uma.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        G <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= collections.defaultdict(set)
+        for f, t in edges:
+            G[f].add(t)
+            G[t].add(f)
+            
+        
+        N =</B></FONT> 2**(n)
+        aset = list(range(1, n+1))
+        
+        result = [0]*(n-1)
+        
+        
+        for i in range(N):
+            curr = set()
+            index = 0
+            k = i
+            while k:
+                if k  &amp; 1:
+                    curr.add(aset[index])
+                index += 1
+                k = k&gt;&gt;1
+            if not curr:
+                continue
+            dist, farthest, valid = self.farthest(next(iter(curr)), G, curr)
+            diam, _, valid = self.farthest(farthest, G, curr)
+            #print(curr, diam, valid)
+            if diam&gt;0 and valid == len(curr):
+                result[diam-1] += 1
+            
+        return result
+        
+        
+    def farthest(self, f, G, nodes):
+        queue = collections.deque([f])
+        level = 0
+        farthest = f
+        visited = set([f])
+        while queue:
+            size = len(queue)
+<A NAME="1"></A>            for _ in range(size):
+                curr = queue.popleft()
+                farthest = curr
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for child in G[curr]:
+                    if child not in visited and child in nodes:
+                        visited.add(child)
+                        queue.append(child)
+                    
+            level +</B></FONT>= 1
+            
+        return (level-1, farthest, len(visited))
+</PRE>
+
+</BODY>
+</HTML>

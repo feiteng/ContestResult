@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>392_Madman_FF.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>392_Madman_FF.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int diameter = 0;
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        int[] res = new int[n - 1];
+        for (int i = 0; i &lt; (1 &lt;&lt; n - 1); i++) {
+            Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+            List&lt;Integer&gt;[] graph = new List[n];
+            for (int j = 0; j &lt; n; ++j) graph[j] = new LinkedList&lt;&gt;();
+            int g = i;
+            int r = 0;
+            int es = 0;
+            int root = 0;
+            while (g &gt; 0) {
+                if (g % 2 &gt; 0) {
+                    es++;
+                    int[] e = edges[r];
+                    set.add(e[0]);
+                    set.add(e[1]);
+                    graph[e[0] - 1].add(e[1] - 1);
+                    graph[e[1] - 1].add(e[0] - 1);  
+                    root = e[0] - 1;
+                }
+                g = g &gt;&gt; 1;
+                r++;
+            }
+            if (set.size() == es + 1) {
+                diameter = 0;
+                depth(root, -1, graph);
+<A NAME="0"></A>                res[diameter - 1]++;
+            }
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res;
+    }
+    
+    int depth(int root, int parent, List&lt;Integer&gt;[] graph) {
+        int maxDepth1st = 0, maxDepth2nd = 0;
+        for (int child : graph[root]) {
+            if (child == parent) continue; // Only one way from root node to child node, don't allow child node go to root node again!
+            int childDepth = depth(child, root, graph);
+            if (childDepth &gt; maxDepth1st) {
+                maxDepth2nd = maxDepth1st;
+                maxDepth1st = childDepth;
+            } else if (childDepth &gt; maxDepth2nd) {
+                maxDepth2nd = childDepth;
+            }
+        }
+        int longestPathThroughRoot = maxDepth1st + maxDepth2nd + 1; // the number of nodes in the longest path
+        diameter = Math.max(diameter, longestPathThroughRoot - 1); // diameter = number of edges = number of nodes - 1
+        return maxDepth1st + 1;     
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

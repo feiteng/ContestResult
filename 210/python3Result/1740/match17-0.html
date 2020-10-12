@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>413_codepeasant.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>413_codepeasant.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+
+        def treeDiameter(edges):
+            graph <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= collections.defaultdict(list)
+            for e1, e2 in edges:
+                graph[e1].append(e2)
+                graph[e2].append(e1)
+
+            start = edges[</B></FONT>0][0]
+            queue = collections.deque([start])
+            visited = set([start])
+
+            while queue:
+                for _ in range(len(queue)):
+                    node = queue.popleft()
+                    for nei in graph[node]:
+                        if nei not in visited:
+                            visited.add(nei)
+                            queue.append(nei)
+
+            start = node
+            queue = collections.deque([(start, 0)])
+            visited = set([start])
+
+            while queue:
+                for _ in range(len(queue)):
+                    node, step = queue.popleft()
+                    for nei in graph[node]:
+                        if nei not in visited:
+                            visited.add(nei)
+                            queue.append((nei, step+1))
+<A NAME="1"></A>
+            return step
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def validTree(subtree_edges):
+            seen = set()
+            for i, j in subtree_edges:
+                seen.add(i)
+                seen.add(j)
+            return len(seen) - 1 == len(</B></FONT>subtree_edges)
+            &quot;&quot;&quot;
+            parent = list(range(n))
+            new_edges = []
+            seen = set()
+            for i, j in subtree_edges:
+                if i in seen:
+                    
+
+            def find(x):
+                if parent[x] != x:
+                    parent[x] = find(parent[x])
+                return parent[x]
+
+            def union(x, y):
+                px, py = find(x), find(y)
+                if px == py:
+                    return 
+                parent[px] = py
+
+            for x, y in subtree_edges:
+                if find(x) != find(y):
+                    union(x, y)
+                else:
+                    return False
+            return len(set(map(find, parent))) == 1
+            &quot;&quot;&quot;
+        
+        
+
+        
+        ans = [0] * (n-1)
+        for i in range(len(edges), 0, -1):
+            for comb in list(itertools.combinations(edges, i)):
+                # print(i, comb)
+                if validTree(comb):
+                    ans[treeDiameter(comb) - 1] += 1
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

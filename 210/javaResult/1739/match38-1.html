@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_faisal47.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>459_faisal47.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+	public boolean checkPalindromeFormation(String a, String b) {
+		return isPalindrome(a) || isPalindrome(b) || leftFlip(a, b) || rightFlip(a, b) || leftFlip(b, a)
+				|| rightFlip(b, a);</B></FONT>
+	}
+
+	private boolean rightFlip(String a, String b) {
+		int l = 0;
+		int r = a.length() - 1;
+		boolean rightFlipDone = false;
+		while (l &lt; r) {
+			if (rightFlipDone) {
+				if (a.charAt(l) != a.charAt(r))
+					return false;
+			} else {
+				if (a.charAt(l) != b.charAt(r)) {
+					rightFlipDone = true;
+					l--;
+					r++;
+				}
+			}
+			l++;
+			r--;
+		}
+		return true;
+	}
+
+	private boolean leftFlip(String a, String b) {
+		int l = 0;
+		int r = a.length() - 1;
+		boolean leftFlipDone = false;
+		while (l &lt; r) {
+			if (leftFlipDone) {
+				if (b.charAt(l) != b.charAt(r))
+					return false;
+			} else {
+				if (a.charAt(l) != b.charAt(r)) {
+					leftFlipDone = true;
+					l--;
+					r++;
+				}
+			}
+			l++;
+<A NAME="1"></A>			r--;
+		}
+		return true;
+	}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+
+	private boolean isPalindrome(String arr) {
+		int l = 0;
+		int r = arr.length() - 1;
+		while (l &lt; r) {
+			if (arr.charAt(l) != arr.charAt(r))
+				return false;
+			l++;
+			r--;
+		}
+		return true;
+	}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

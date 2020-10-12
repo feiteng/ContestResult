@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_guoyihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_guoyihua.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match43-0.html#0',2,'match43-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; mapping = new HashMap&lt;&gt;();
+        
+        for (int[] e : edges) {
+            addCity</B></FONT>(mapping, e[0], e[1]);
+            addCity(mapping, e[1], e[0]);
+        }
+        
+        int bound = (1 &lt;&lt; n);
+        int[] res = new int[n-1];
+        for (int i = 1; i &lt; bound; i++) {
+            if (subtree(mapping, i, n)) {
+                int d = diameter(mapping, i);
+<A NAME="1"></A>                if (d &gt;= 1) {
+                    res[d-1]++;
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match43-0.html#1',2,'match43-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return res;
+    }
+    
+    public void addCity(Map&lt;Integer, Set&lt;Integer&gt;&gt; mapping, int a, int b) {</B></FONT>
+        Set&lt;Integer&gt; set = mapping.get(a);
+        if (set == null) {
+            set = new HashSet&lt;&gt;();
+            mapping.put(a, set);
+        }
+        set.add(b);
+    }
+    
+    private Set&lt;Integer&gt; nodes(int tree) {
+        int i = 1;
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        while (tree &gt; 0) {
+            if (tree % 2 == 1) {
+                set.add(i);
+            }
+            tree /= 2;
+            i++;
+        }
+        return set;
+    }
+    
+    private boolean subtree(Map&lt;Integer, Set&lt;Integer&gt;&gt; mapping, int tree, int n) {
+        Set&lt;Integer&gt; nodes = nodes(tree);
+        boolean[] v = new boolean[n+1];
+        for (Integer i : nodes) {
+            dfs(i, mapping, nodes, v);
+            break;
+        }
+        
+        for (int i = 1; i &lt;= n; i++) {
+            if (nodes.contains(i) &amp;&amp; !v[i]) {
+                return false;
+            }
+<A NAME="3"></A>        }
+        
+        return true;
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match43-0.html#3',2,'match43-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private void dfs(int node, Map&lt;Integer, Set&lt;Integer&gt;&gt; mapping, Set&lt;Integer&gt; nodes, boolean[] v) {
+        if</B></FONT> (!v[node]) {
+            v[node] = true;
+            Set&lt;Integer&gt; neis = mapping.get(node);
+            if (neis != null) {
+                for (Integer next : neis) {
+                    if (nodes.contains(next) &amp;&amp; !v[next]) {
+                        dfs(next, mapping, nodes, v);
+                    }
+                }
+            }
+        }
+    }
+    
+    private int diameter(Map&lt;Integer, Set&lt;Integer&gt;&gt; mapping, int tree) {
+        Set&lt;Integer&gt; nodes = nodes(tree);
+        int root = 0;
+        for (Integer i : nodes) {
+            root = i;
+            break;
+        }
+        int[] res = new int[1];
+        diameter(root, mapping, nodes, -1, res);
+        
+        return res[0];
+    }
+    
+    private int diameter(int node, Map&lt;Integer, Set&lt;Integer&gt;&gt; mapping, Set&lt;Integer&gt; nodes, int parent, int[] res) {
+        int max1 = 0;
+        int max2 = 0;
+        
+        Set&lt;Integer&gt; neis = mapping.get(node);
+<A NAME="2"></A>        if (neis != null) {
+            for (Integer next : neis) {
+                if (next != parent &amp;&amp; nodes.contains(next)) {
+                    int dep = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match43-0.html#2',2,'match43-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>diameter(next, mapping, nodes, node, res);
+                    if (dep &gt; max1) {
+                        max2 = max1;
+                        max1 = dep;
+                    } else if (dep &gt; max2) {
+                        max2 = dep;
+                    }
+                }</B></FONT>
+            }
+        }
+        
+        res[0] = Math.max(res[0], max1 + max2);
+        return max1 + 1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

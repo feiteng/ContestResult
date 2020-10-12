@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>201_mongsiry013.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>201_mongsiry013.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, E: List[List[int]]) -&gt; List[int]:
+        G = [i for i in range(n)]
+        G_cnt = [1] * n
+        def get_group(x) :
+            if G[x] == x :
+                return x
+            G[x] = get_group(G[x])
+            return G[x]
+
+        def merge_group(x, y) :
+            gx = get_group(x)
+            gy = get_group(y)
+            if gx == gy :
+                return
+            if gx &gt; gy :
+                gx, gy = gy, gx
+            G[gx] = G[gy]
+            G_cnt[gy] += G_cnt[gx]
+        
+        D = [[float('inf')] * n for _ in range(n)]
+        for i in range(n) :
+<A NAME="0"></A>            D[i][i] = 0
+        for e in E :
+            u, v = e[0]-1, e[1]-1
+            D<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[u][v] = D[v][u] = 1
+        
+        for k in range(n) :
+            for i in range(n) :
+                for j in range(n) :
+                    if D[i][k] + D[k][j] &lt; D[i][j] :
+                        D[i][j] = D[i][k] + D[k][</B></FONT>j]
+        
+        ret = [0] * (n-1)
+        for subset in range(1, 1 &lt;&lt; n) :
+            G = [i for i in range(n)]
+            G_cnt = [1] * n
+            for e in E :
+                u, v = e[0]-1, e[1]-1
+                if subset &amp; (1 &lt;&lt; u) and subset &amp; (1 &lt;&lt; v) :
+                    merge_group(u, v)
+            one_cnt = bin(subset).count('1')
+            if one_cnt &lt;= 1 :
+                continue
+            if max(G_cnt) != one_cnt :
+                #print(bin(subset), G_cnt)
+                continue
+            
+            max_val = 0
+            for i in range(n) :
+                if subset &amp; (1 &lt;&lt; i) :
+                    for j in range(i+1, n) :
+                        if subset &amp; (1 &lt;&lt; j) :
+                            max_val = max(max_val, D[i][j])
+
+            
+            ret[max_val-1] += 1
+        return ret
+                    
+</PRE>
+
+</BODY>
+</HTML>

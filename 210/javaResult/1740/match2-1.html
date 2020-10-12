@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>18_arignote.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        int[][] graph = new int[n][n];
+        for (int[] edge : edges) {
+            graph[edge[0] - 1][edge[1] - 1] = graph[edge[1] - 1][edge[0] - 1] = 1;
+        }
+        int[] distance[] = floydWarshallAlgorithm(graph), count = new int[n - 1];
+        countSubgraphsForEachDiameter(0, new boolean[n], count, distance, graph);
+        return count;
+    }
+
+    private void countSubgraphsForEachDiameter(int index, boolean[] cities, int[] count, int[][] distance,
+            int[][] graph) {
+        if (index == cities.length) {
+            int city = -1;
+            for (int i = 0; i &lt; cities.length; i++) {
+                if (cities[i]) {
+                    city = i;
+                    break;
+                }
+            }
+            if (city &gt;= 0) {
+                boolean[] visited = new boolean[cities.length];
+                countSubgraphsForEachDiameter(city, visited, cities, graph);
+                for (int i = 0; i &lt; cities.length; i++) {
+                    if (cities[i] &amp;&amp; !visited[i]) {
+                        return;
+<A NAME="2"></A>                    }
+                }
+                int max = 0;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; cities.length; i++) {
+                    for (int j = i + 1; j &lt; cities.length; j++) {
+                        if (cities[i] &amp;&amp; cities[j]) {
+                            max = Math.max(max, distance[i][j]);
+                        }
+                    }
+                }
+                if (max &gt; 0 &amp;&amp; max &lt; Integer.MAX_VALUE) {
+                    count[max - 1]++;
+                }
+            }</B></FONT>
+        } else {
+            countSubgraphsForEachDiameter(index + 1, cities, count, distance, graph);
+            cities[index] = true;
+            countSubgraphsForEachDiameter(index + 1, cities, count, distance, graph);
+            cities[index] = false;
+        }
+    }
+
+<A NAME="1"></A>    private void countSubgraphsForEachDiameter(int index, boolean[] visited, boolean[] cities, int[][] graph) {
+        if (cities[index] &amp;&amp; !visited[index]) {
+            visited[index] = true;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; graph[0].length; i++) {
+                if (graph[index][i] &gt; 0) {
+                    countSubgraphsForEachDiameter(i, visited, cities, graph);
+                }
+            }</B></FONT>
+        }
+    }
+
+    private int[][] floydWarshallAlgorithm(int[][] graph) {
+        int[][] dist = new int[graph.length][graph.length];
+        for (int i = 0; i &lt; graph.length; i++) {
+<A NAME="0"></A>            for (int j = 0; j &lt; graph.length; j++) {
+                dist[i][j] = i == j ? 0 : graph[i][j] == 0 ? Integer.MAX_VALUE : graph[i][j];
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int k = 0; k &lt; graph.length; k++) {
+            for (int i = 0; i &lt; graph.length; i++) {
+                for (int j = 0; j &lt; graph.length; j++) {
+                    if (dist[i][k] != Integer.MAX_VALUE &amp;&amp; dist[k][j] != Integer.MAX_VALUE) {
+                        dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+                    }
+                }
+            }
+        }</B></FONT>
+        return dist;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

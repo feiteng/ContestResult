@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_flyman3046.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>285_flyman3046.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+      List&lt;List&lt;Integer&gt;&gt; graph;
+  int[][] dist;
+  public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+    int[] res = new int[n - 1];
+    graph = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; n; i++) {
+      graph.add(new ArrayList&lt;&gt;());
+    }
+    dist = new int[n][n];
+    for (int i = 0; i &lt; n; i++) {
+      for (int j = 0; j &lt; n; j++) {
+        dist[i][j] = Integer.MAX_VALUE;
+      }
+    }
+    for (int i = 0; i &lt; n; i++) {
+      dist[i][i] = 0;
+    }
+
+    for (int[] edge : edges) {
+      int from = edge[0] - 1;
+      int to = edge[1] - 1;
+      dist[from][to] = 1;
+<A NAME="0"></A>      dist[to][from] = 1;
+      graph.get(from).add(to);
+      graph.get(to).add(from);
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    for (int k = 0; k &lt; n; k++) {
+      for (int i = 0; i &lt; n; i++) {
+        for (int j = 0; j &lt; n; j++) {
+          if (dist[i][k] != Integer.MAX_VALUE &amp;&amp; dist[k][j] != Integer.MAX_VALUE) {
+            dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+          }
+        }
+      }
+    }</B></FONT>
+<A NAME="1"></A>
+    for (int mask = 1; mask &lt; (1 &lt;&lt; n); mask++) {
+      TreeSet&lt;Integer&gt; subtree = new TreeSet&lt;&gt;();
+      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = 0; j &lt; n; j++) {
+        if (((1 &lt;&lt; j) &amp; mask) != 0) {
+          subtree.add(j);
+        }
+      }</B></FONT>
+
+      int start = subtree.first();
+      Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+      dfs(start, subtree, visited);
+      if (visited.size() != subtree.size()) {
+        continue;
+      }
+<A NAME="2"></A>
+      int max = 0;
+      List&lt;Integer&gt; ls = new ArrayList&lt;&gt;(subtree);
+      <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int v1 : ls) {
+        for (int v2 : ls) {
+          if (v1 != v2) {
+            max = Math.max(max, dist[v1][v2]);
+          }
+        }
+      }
+
+      if (max &gt; 0) {
+        res[max - 1]++;
+      }
+    }</B></FONT>
+    return res;
+  }
+
+  void dfs(int idx, Set&lt;Integer&gt; subtree, Set&lt;Integer&gt; visited) {
+    if (visited.contains(idx) || !subtree.contains(idx)) {
+      return;
+    }
+    visited.add(idx);
+    for (int nxt : graph.get(idx)) {
+      dfs(nxt, subtree, visited);
+    }
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

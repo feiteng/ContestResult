@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>151_wxy9018.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        res = [0] * (n - 1)
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for selected in range(2 ** n):
+            nodes = set()
+            for i in range(n):
+                if (1 &lt;&lt; i) &amp; selected:
+                    nodes.add(i + 1)
+            if len(</B></FONT>nodes) &gt;= 2:
+<A NAME="1"></A>                graph = collections.defaultdict(set)
+                cnt = 0
+                for a, b in edges:
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if a in nodes and b in nodes:
+                        graph[a].add(b)
+                        graph[b].add(a) 
+                        cnt += 1
+                # if number of edges == number of nodes - 1, then it is a tree
+                if cnt == len(</B></FONT>nodes) - 1:
+                    # calculate the max dist
+                    level = [i + 1 for i in range(n) if len(graph[i + 1]) == 1]
+                    #print(nodes, graph, level)
+
+                    steps = 0
+                    while level:
+                        if len(level) == 2 and level[0] in graph[level[1]]:
+                            steps += 1
+                            break
+                        if len(level) == 1 and len(graph[level[0]]) == 0:
+                            break
+                            
+                        n_level = []
+                        for t in level:
+                            nxt = graph[t].copy()
+                            for p in nxt:
+                                graph[t].remove(p)
+                                graph[p].remove(t)
+                                if len(graph[p]) == 1:
+                                    n_level.append(p)
+                                    
+                        level = n_level
+                        steps += 2
+                        
+                    res[steps - 1] += 1
+                    #print(nodes, steps)
+        return res
+                    
+        
+        '''
+        graph = collections.defaultdict(edges)
+        for a, b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
+        
+        subtrees = collections.defaultdict(collections.defaultdict(collections.Counter))
+
+        def dfs(node, parent, depth):
+            if not node:
+                return
+            if parent &gt;= 0:
+                subtrees[parent][node][depth] += 1
+            for child in graph[node]:
+                if child != parent:
+                    dfs(child, node, depth + 1)
+        
+        for i in range(n):
+            dfs(i, -1, 1)
+        '''
+        
+</PRE>
+
+</BODY>
+</HTML>

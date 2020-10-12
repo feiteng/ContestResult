@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>310_ddoudle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>310_ddoudle.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, A: List[List[int]]) -&gt; List[int]:
+        
+        # self.nodes = []
+        
+        for i in range(len(A)):
+            A[i][0] -= 1
+            A[i][1] -= 1
+            
+        
+        path = [[[float('inf')] * (n+1) for _ in range(n)] for _ in range(n)]
+        for x, y in A:
+            path[x][y][0] = 1
+            path[y][x][0] = 1
+        for i in range(n):
+            path[i][i][0] = 0
+        
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    path[i][j][k+1] = min(path[i][j][k], path[i][k][k] + path[k][j][k])
+        
+        # for i in range(n):
+        #     for j in range(n):
+        #         # print(i,j,path[i][j][n])
+        res = [0] * n
+        
+        def connected(nodes):
+            if len(nodes) &lt;= 1:
+<A NAME="0"></A>                return True
+            # start = nodes[0]
+            q = deque([nodes[0]])
+            nodes = set<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(nodes[1:])
+            while q:
+                node = q.popleft()
+                for c in edge[node]:
+                    if c in nodes:
+                        nodes.remove(c)
+                        q.append(c)</B></FONT>
+<A NAME="1"></A>            return len(nodes) == 0
+        # root = {}
+        # child = defaultdict(list)
+        edge = defaultdict<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        for x, y in A:
+            edge[x].append(y)
+            edge[y].append(x)
+        
+        for i in range(1&lt;&lt;n):
+            nodes =</B></FONT> []
+            for j in range(n):
+                if (i &gt;&gt; j) &amp; 1 == 1:
+                    nodes.append(j)
+            if connected(nodes):
+                mx = 0
+                for x in nodes:
+                    for y in nodes:
+                        mx = max(mx, path[x][y][n])
+                res[mx] += 1
+        return res[1:]
+    
+            
+#         def cal(root, p):
+#             self.nodes = []
+#             self.nodes.append(root)
+#             dfs(root, p)
+#             mx = 0
+#             for i in self.nodes:
+#                 for j in self.nodes:
+#                     mx = max(mx, path[i][j][n])
+#             print(root, p, self.nodes, mx)
+#             res[mx] += 1
+            
+#         def dfs(root, p):
+#             for c in edge[root]:
+#                 if c != p:
+#                     self.nodes.append(c)
+#                     dfs(c, root)
+                    
+#         for x, y in A:
+#             cal(x, y)
+#             cal(y, x)
+#         cal(0, -1)
+            
+        # def dfs(x, p):
+        #     root[x] = p
+        #     for c in edge[x]:
+        #         if c != p:
+        #             child[x].append(c)
+        #             dfs(c, x)
+        
+        
+        
+#         dfs(0, -1)
+        # print(res)
+        
+        return res[1:]
+        
+#         print(child)
+#         return []
+        
+        # for 
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_Jh_.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>486_Jh_.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+   
+        c=collections.defaultdict(list)
+        for x,y in edges:
+            c[x].append(y)
+            c[y].append(x)
+        def findpath(a,b):
+            seq=</B></FONT>[a]
+<A NAME="1"></A>            seen=set()
+            seen.add(a)
+            path=collections.defaultdict(list)
+            path[a]<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=[a]
+            while seq:
+                v=seq.pop()
+                for w in c[v]:
+                    if w not in seen: 
+                        seq.append(w)
+                        seen.add(</B></FONT>w)
+                        path[w]=path[v][:]
+                        path[w].append(w)
+                        if w==b:
+                            return path[b]
+                        
+        res=[0 for _ in range(n-1)]         
+        def check(s):
+            l=len(s)
+            maxi=0
+            reach=set()
+            for i in range(l-1):
+                for j in range(i+1,l):
+                    path=findpath(s[i],s[j])
+                    flag=0
+                    for x in path:
+                        if x not in s:
+                            #print('false',path,s)
+                            return False
+          
+                            
+                            flag=1
+                    if not flag:
+                        reach.add(i)
+                        reach.add(j)
+                        
+                        maxi=max(maxi,len(path))
+            if len(reach)&lt;l:
+                return False
+            return maxi-1
+        
+        maxi=int(math.pow(2,n))
+        for i in range(1,maxi):
+            b=bin(i)[2:].zfill(n)
+            #print(b)
+            cand=[]
+            for j,x in enumerate(b):
+                if x=='1':
+                    cand.append(j+1)
+            #print(cand)
+            if len(cand)==1: continue
+            if (check(cand)):
+                #print('ok',cand,check(cand))
+                res[check(cand)-1]+=1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

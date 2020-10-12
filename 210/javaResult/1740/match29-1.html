@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>314_max_wmm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>314_max_wmm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        int[] ans = new int[n - 1];
+        List&lt;Set&lt;Integer&gt;&gt; allSubgraphs = new ArrayList&lt;&gt;();
+        allSubgraphs.add(new HashSet&lt;&gt;());
+        for(int i = 1; i &lt;= n; i++){
+            int num = allSubgraphs.size();
+            for(int j = 0; j &lt; num; j ++){
+                Set&lt;Integer&gt; s2 = new HashSet&lt;&gt;(allSubgraphs.get(j));
+                s2.add(i);
+                allSubgraphs.add(s2);
+            }
+        }
+        
+        for(Set&lt;Integer&gt; s : allSubgraphs){
+            if(valid(s, edges)){
+                int d = maxDistance(s, edges);
+                ans[d - 1] ++;
+            }
+        }
+        
+        return ans;
+    }
+    
+    public boolean valid(Set&lt;Integer&gt; set, int[][] edges){
+        int n = set.size();
+        if(n &lt;= 1){
+            return false;
+<A NAME="3"></A>        }
+        int t = 0;
+        for(int i = 0; i &lt; edges.length; i++){
+            if(set.contains(edges[i][0]) &amp;&amp; <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#3',2,'match29-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>set.contains(edges[i][1])){
+                t ++;
+            }
+        }
+<A NAME="2"></A>        return t == (n - 1);
+    }</B></FONT>
+    
+    public Integer maxDistance(Set&lt;Integer&gt; set, <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] edges){
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; edges.length; i++){
+            if(set.contains</B></FONT>(edges[i][0]) &amp;&amp; set.contains(edges[i][1])){
+                int x = edges[i][0];
+                int y = edges[i][1];
+                
+                List&lt;Integer&gt; list_x = map.getOrDefault(x, new ArrayList&lt;&gt;());
+                list_x.add(y);
+                map.put(x, list_x);
+                
+                List&lt;Integer&gt; list_y = map.getOrDefault(y, new ArrayList&lt;&gt;());
+                list_y.add(x);
+                map.put(y, list_y);
+            }
+        }
+        
+        int ans = 0;
+        
+        for(Integer x : set){
+<A NAME="0"></A>            Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+            Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+            q.offer(x);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited.add(x);
+            int d = -1;
+            while(q.size() &gt; 0){
+                d ++;
+                int n = q.size();
+                for(int i = 0; i &lt; n; i++){
+                    int y = q.poll</B></FONT>();
+                    List&lt;Integer&gt; list_y = map.getOrDefault(y, new ArrayList&lt;&gt;());
+<A NAME="1"></A>                    for(Integer t : list_y){
+                        if(!visited.contains(t)){
+                            q.offer(t);
+                            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited.add(t);
+                        }
+                    }
+                }
+            }</B></FONT>
+            
+            ans = Math.max(ans, d);
+        }
+        
+        return ans;
+    }
+    
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

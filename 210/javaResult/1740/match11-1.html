@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_SilverNarcissus.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>218_SilverNarcissus.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean[][] map = new boolean[n][n];
+        for(int[] edge : edges){
+            map[edge[0] - 1][edge[1] - 1] = true;
+            map[edge[1] - 1][edge[0] - 1] = true;
+        }</B></FONT>
+        
+        int[][] dis = new int[n][n];
+        
+        // get distance
+        for(int i = 0; i &lt; n; i++){
+            Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+            q.add(i);
+            boolean[] record = new boolean[n + 1];
+            record[i] = true;
+            int curDis = 0;
+            while(!q.isEmpty()){
+                int size = q.size();
+<A NAME="3"></A>                for(int j = 0; j &lt; size; j++){
+                    int cur = q.poll();
+                    dis[i][cur] = curDis;
+                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#3',2,'match11-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int k = 0; k &lt; n; k++){
+                        if(map[cur][k] &amp;&amp; !record[k]){
+                            record[k] = true;
+                            q.add(k);
+                        }
+                    }
+                }</B></FONT>
+                curDis++;
+            }
+        }
+        
+//         for(int i = 0; i &lt; n; i++){
+//             System.out.println(Arrays.toString(dis[i]));
+//         }
+        
+        int[] mask = new int[1 &lt;&lt; n];
+        int[] res = new int[n - 1];
+        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+<A NAME="2"></A>        for(int i = 0; i &lt; n; i++){
+            int cur = 1 &lt;&lt; i;
+            q.add(cur);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        while(!q.isEmpty()){
+            int cur = q.poll();
+            for(int i = 0; i &lt; n; i++){
+                if((cur &amp; (1 &lt;&lt; i)) &gt; 0){</B></FONT>
+                    for(int j = 0; j &lt; n; j++){
+                        // new dege
+                        if((cur &amp; (1 &lt;&lt; j)) == 0 &amp;&amp; map[i][j]){
+                            int key = (cur | (1 &lt;&lt; j));
+                            // new group
+                            if(mask[key] == 0){
+                                int curDis = mask[cur];
+                                for(int k = 0; k &lt; n; k++){
+                                    if((cur &amp; (1 &lt;&lt; k)) &gt; 0){
+                                        curDis = Math.max(curDis, dis[j][k]);
+<A NAME="1"></A>                                    }
+                                }
+                                
+                                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>mask[key] = curDis;
+                                res[curDis - 1]++;
+                                q.add(key);
+                            }
+                        }
+                    }
+                }</B></FONT>
+            }
+        }
+        
+        
+        return res;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

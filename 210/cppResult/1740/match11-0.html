@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_Xiaohao1211.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>36_Xiaohao1211.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    vector&lt;vector&lt;int&gt;&gt;e;
+    vector&lt;vector&lt;int&gt;&gt;d;
+    void dfs(int cur, int&amp; mask, int t){
+        mask|=(1&lt;&lt;cur);
+        for(int i=0;i&lt;e[cur].size();i++){
+            int v = e[cur][i];
+            if(mask&amp;(1&lt;&lt;v))continue;
+            if(t&amp;(1&lt;&lt;v)){
+                dfs(v, mask, t);
+            }
+        }
+    }
+public:
+    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        e = vector&lt;vector&lt;int&gt;&gt;(n);
+        for(auto tt: edges){
+            e[tt[0]-1].push_back(tt[1]-1);
+            e[tt[1]-1].push_back(tt[0]-1);
+<A NAME="0"></A>        }
+        d = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;(n, n+1));
+        for(int i=0;i&lt;n;i++)d[i][i] = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto tt: edges){
+            d[tt[0]-1][tt[1]-1] = 1;
+            d[tt[1]-1][tt[0]-1] = 1;
+        }
+        for(int k=0;k&lt;n;k++)
+            for(int i=0;i&lt;n;i++)
+<A NAME="1"></A>                for(int j=0;j&lt;n;j++)
+                    d[i][j] = min(d[i][j],d[i][k]+d[k][j]);
+        vector&lt;int&gt;ans = vector&lt;int&gt;(n-1, 0);</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1;i&lt;(1&lt;&lt;n);i++){
+            vector&lt;int&gt;v;
+            for(int j=0;j&lt;n;j++){
+                if(i&amp;(1&lt;&lt;j)){</B></FONT>
+                    v.push_back(j);
+                }
+            }
+<A NAME="2"></A>            int mask = 0;
+            dfs(v[0], mask, i);
+            if(mask!=i)continue;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int mx = 0;
+            for(int j=0;j&lt;v.size();j++)
+                for(int k=j+1;k&lt;v.size();k++){
+                    mx = max(mx, d[v[j]][v[k]]);</B></FONT>
+                }
+            if(mx&gt;0)ans[mx-1]++;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

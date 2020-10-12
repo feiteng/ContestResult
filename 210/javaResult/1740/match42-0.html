@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_Zheng_Four_Oranges.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>53_Zheng_Four_Oranges.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match42-1.html#0',3,'match42-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        int state = 1&lt;&lt;n;
+        HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i=0;i&lt;n;i++){
+<A NAME="1"></A>            map.put(i,new HashSet&lt;&gt;());
+        }
+        for(int[] edge : edges){</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match42-1.html#1',3,'match42-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(edge[0]-1).add(edge[1]-1);
+            map.get(edge[1]-1).add(edge[0]-1);
+        }
+        int[] res = new int[n-1];
+        loop: for(int i=0;i&lt;state;i++){
+            if(Integer.bitCount(i)&lt;2){</B></FONT>continue;}
+            HashSet&lt;Integer&gt; set = new HashSet&lt;&gt;();
+            int tmp = i;
+            int num = 0;
+            int mx = 0;
+            while(tmp!=0){
+                if(tmp%2==1){
+                    set.add(num);
+                    mx=num;
+                }
+                tmp/=2;
+                num++;
+            }
+            int stt = 0;
+            for(int ee : set)
+            {
+            boolean[] visited = new boolean[n];
+            Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+            int ss = 0;
+<A NAME="2"></A>            q.add(ee);
+            //set.remove(num);
+            visited[ee]=true;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match42-1.html#2',3,'match42-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int ct = 1;
+            while(!q.isEmpty()){
+                int sz = q.size();
+                for(int j=0;j&lt;sz;j++){
+                    int cur = q.remove</B></FONT>();
+                    for(int ele : map.get(cur)){
+                        if(set.contains(ele)&amp;&amp;!visited[ele]){
+                            q.add(ele);
+                            visited[ele]=true;
+                            ct++;
+                            //set.remove(ele);
+                        }
+                    }
+                }
+                ss++;
+            }
+                if(ct!=set.size()){
+                    continue loop;
+                }
+                stt=Math.max(stt,ss);
+            }
+            //if(ct==set.size()){
+                res[stt-2]=res[stt-2]+1;
+            //}
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

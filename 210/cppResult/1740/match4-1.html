@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_xinxin1000.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_xinxin1000.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int INF = 0x3f3f3f3f;
+    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;int&gt;&gt; dis(n+1, vector&lt;int&gt;(n+1, INF));
+        
+        for(auto&amp; e: edges) {
+            dis[e[0]][e[1]] = dis[e[1]][e[0]] = 1;
+<A NAME="1"></A>        }
+        
+        for(int i = 1; i &lt;= n; ++i) dis[i][i] = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int k = 1; k &lt;= n; ++k) {
+            for(int i = 1; i &lt;= n; ++i) {
+                for(int j = 1; j &lt;= n; ++j) {
+                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
+                    //printf(&quot;%d %d %d\n&quot;, i, j, dis[i][j]);
+                }
+            }
+        }
+        
+        vector&lt;int&gt; ans(n - 1);
+     
+        for(int i = 1; i &lt; (1&lt;&lt;n-1); ++i) { //选边
+            vector&lt;int&gt; p;</B></FONT>
+            set&lt;int&gt; sp;  //去重用
+
+            for(int j = 0; j &lt; 14; ++j) if(i &amp; (1&lt;&lt;j)) {
+                sp.insert(edges[j][0]);
+                sp.insert(edges[j][1]);
+                //printf(&quot;%d %d &quot;, edges[j][0], edges[j][1]);
+            }
+            puts(&quot;&quot;);
+            
+<A NAME="0"></A>            if(__builtin_popcount(i) != sp.size() -1) continue;
+            
+            p.assign(sp.begin(), sp.end());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int mx = 0;
+            for(int u = 0; u &lt; sp.size(); ++u) {
+                for(int v = u + 1; v &lt; sp.size(); ++v) {
+                    mx = max(mx, dis[p[u]][p[v]]);</B></FONT>
+                }
+            }
+            ans[mx-1] ++;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

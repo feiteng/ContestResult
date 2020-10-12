@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>250_MuzheZeng.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>250_MuzheZeng.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        edgelist = collections.defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        for e in edges:
+            edgelist[e[0]-1].append(e[1]-1)
+            edgelist[e[1]-1].append(e[0]-1)
+        #print(edgelist)
+        
+        distance =</B></FONT> [[float(&quot;Inf&quot;) for j in range(n)] for i in range(n)]
+        
+        def bfs(i):
+            queue = collections.deque([i])
+            res = distance[i]
+            res[i] = 0
+            seen = set()
+            seen.add(i)
+            cnt = 0
+            
+            while queue:
+                cnt += 1
+                curLen = len(queue)
+                for i in range(curLen):
+                    cur = queue.popleft()
+<A NAME="1"></A>                    for x in edgelist[cur]:
+                        if x not in seen:
+                            res[x] = cnt
+                            seen<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.add(x)
+                            queue.append(x)
+            
+            return res
+    
+        for i in range(</B></FONT>n):
+            distance[i] = bfs(i)
+        
+        #print(distance)
+        result = [0 for i in range(n)]
+        
+        def dfs(cur, index):
+            if index == n:
+                subdistance = [distance[i][j] for i in cur for j in cur]
+                if subdistance and subdistance.count(1) &gt;= 2*len(cur) - 2:
+                    tmp = max(subdistance)
+                    #print(cur, tmp)
+                    result[tmp] += 1
+                return
+            
+            dfs(cur, index + 1)
+            
+            cur.append(index)
+            dfs(cur, index + 1)
+            cur.pop()
+            
+        cur = []
+        dfs(cur, 0)
+        
+        
+        return result[1:]
+                
+                
+</PRE>
+
+</BODY>
+</HTML>

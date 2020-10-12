@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>438_vishalsinghdeepak.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>438_vishalsinghdeepak.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int cal(map&lt;int, vector&lt;int&gt; &gt; &amp;graph, vector&lt;bool&gt; &amp;subset, int node, int &amp;res)
+    {
+        //cout&lt;&lt;node&lt;&lt;endl;
+        subset[node]=false;
+        int dist=0;
+        for(int j=0;j&lt;graph[node].size();j++)
+        {
+            int next=graph[node][j];
+            
+            if(subset[next])
+<A NAME="1"></A>            {</B></FONT>
+                int dist_next = 1 + cal(graph, subset, next, res);
+                res=max(res, dist+dist_next);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                dist=max(dist, dist_next);
+            }
+        }
+        return dist;
+    }
+    
+    vector&lt;int&gt; countSubgraphsForEachDiameter(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        map&lt;int, vector&lt;int&gt; &gt; graph;
+        
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            int x=edges[i][0];</B></FONT>
+            int y=edges[i][1];
+            graph[x].push_back(y);
+            graph[y].push_back(x);
+        }
+        
+       
+        vector&lt;int&gt; d(n, 0);
+        
+        for(int num=1;num&lt;=(1&lt;&lt;n)-1;num++)
+        {
+            vector&lt;bool&gt; subset(n+1, 0);
+            for(int j=0;j&lt;=n-1;j++)
+            {
+                if(num&amp;(1&lt;&lt;j))
+                {
+                    subset[j+1]=true;
+                }
+            }
+            /*
+            cout&lt;&lt;&quot;subset &quot;;
+            for(int i=1;i&lt;=n;i++)
+            {
+                if(subset[i])
+                    cout&lt;&lt;i&lt;&lt;&quot; &quot;;
+            }
+            cout&lt;&lt;endl;
+            */
+            for(int i=1;i&lt;=n;i++)
+            {
+                if(subset[i])
+<A NAME="2"></A>                {
+                    int res=0;
+                    res=max(res, cal(graph, subset, i, res));
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    bool valid=true;
+                    for(int i=0;i&lt;=n;i++)
+                    {
+                        if(subset[i])
+                        {
+                            valid=false;
+                            break;
+                        }
+                    }
+                    //cout&lt;&lt;res&lt;&lt;endl;
+                    if(valid)</B></FONT>
+                        d[res]++;
+                    break;
+                }
+            }
+                
+        }
+        
+        vector&lt;int&gt; res;
+        for(int i=1;i&lt;=n-1;i++)
+            res.push_back(d[i]);
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

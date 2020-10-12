@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>409_cloudstrife0142.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>409_cloudstrife0142.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        int[] ret = new int[n-1];
+        int[][] graph = new int[n][n];
+        
+        int[][] graph2 = new int[n][n];
+        for (int[] edge : edges) {
+            edge[0]--;
+            edge[1]--;
+            graph2[edge[0]][edge[1]] = 1;
+            graph2[edge[1]][edge[0]] = 1;
+        }
+<A NAME="0"></A>        for (int[] edge : edges) {
+                graph[edge[0]][edge[1]] = 1;
+                graph[edge[1]][edge[0]] = 1;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            for (int k = 0; k &lt; n; k++) {
+                for (int i = 0; i &lt; n; i++) {
+                    for (int l = 0; l &lt; n; l++) {
+                        if</B></FONT> (i == l || i == k || k == l)
+                            continue;
+                        if (graph[i][k] &gt; 0 &amp;&amp; graph[k][l] &gt; 0) {
+                            if (graph[i][l] == 0) {
+                                graph[i][l] = graph[i][k] + graph[k][l];
+<A NAME="1"></A>                            } else {
+                                graph[i][l] = Math.min(graph[i][k] + graph[k][l], graph[i][l]);
+                            }
+                        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                    }
+                }
+            }
+        for (int j = 1; j &lt; 1&lt;&lt;n; j++) {
+            
+            boolean[] seen = new boolean[n]</B></FONT>;
+            int num = 0;
+            Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+            for (int k = 0; k &lt; n; k++) {
+                if (((1&lt;&lt;k)&amp;j) != 0 &amp;&amp; q.size() == 0) {
+                    q.add(k);
+                    seen[k] = true;
+                    num++;
+                }
+                if (((1&lt;&lt;k)&amp;j) != 0) {
+                    num--;
+                }
+            }
+            while (q.size() &gt; 0) {
+                int yo = q.poll();
+                for (int k = 0; k &lt; n; k++) {
+                    if (((1&lt;&lt;k)&amp;j) != 0 &amp;&amp; graph2[yo][k] == 1 &amp;&amp; !seen[k]) {
+                        num++;
+                        seen[k] = true;
+                        q.add(k);
+                    }
+                }
+<A NAME="2"></A>            }
+            int max = 0;
+            boolean conn = num == 0;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = 0; k &lt; n; k++) {
+                for (int l = 0; l &lt; n; l++) {
+                    if (((1&lt;&lt;k)&amp;j) != 0 &amp;&amp; ((1&lt;&lt;l)&amp;j) != 0 &amp;&amp; k != l) {
+                    max = Math.max(max, graph[k][l]);
+                    }
+                }
+            }
+            if</B></FONT> (conn &amp;&amp; max &gt; 0)
+                ret[max-1]++;
+            
+            //System.out.printf(&quot;max: %d, conn: %d, j: %d\n&quot;, max, conn ? 1 : 0, j);
+        }
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

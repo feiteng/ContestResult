@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>42_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        int[][] dist = new int[n][n];
+        int[] g = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[n];
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+<A NAME="1"></A>                dist[i][j] = 1000;
+            }</B></FONT>
+            dist[i][i] = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int[] uv : edges) {
+            int u = uv[0]-1;
+            int v = uv[1]-1;
+            dist[u][v] = 1;
+<A NAME="2"></A>            d</B></FONT>ist[v][u] = 1;
+            g[v]|=(1&lt;&lt;u);
+            g[u]|=(1&lt;&lt;v);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int k = 0; k &lt; n; ++k) {
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; n; ++j) {
+                    dist[i][j] = Math.min(dist[i][j],dist[i][k]+dist[k][j]);
+                }
+            }
+        }
+        ArrayDeque&lt;Integer&gt; q = new ArrayDeque&lt;&gt;()</B></FONT>;
+        int[] dp = new int[1&lt;&lt;n];
+        for (int i = 0; i &lt; n; ++i) {
+            q.add(1&lt;&lt;i);
+        }
+        int[] ans = new int[n-1];
+        while (!q.isEmpty()) {
+            int u = q.removeFirst();
+            for (int j = 0; j &lt; n; ++j) {
+                int v = u|(1&lt;&lt;j);
+                //System.out.println(u+&quot; &quot;+v);
+                if (u==v)
+                    continue;
+                if ((g[j]&amp;u)==0)
+                    continue;
+                if (dp[v]&gt;0)
+                    continue;
+                dp[v] = dp[u];
+                for (int k = 0; k &lt; n; ++k) {
+                    if (((1&lt;&lt;k)&amp;u)&gt;0)
+                        dp[v] = Math.max(dp[v],dist[j][k]);
+                }
+                ans[dp[v]-1]++;
+                q.add(v);
+            }
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

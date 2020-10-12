@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>48_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>48_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        for (int[] e : edges) {
+            --e[0];
+<A NAME="0"></A>            --e[1];
+        }
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] ans = new int[n - 1];
+        for (int mask = 1; mask &lt; (1 &lt;&lt; n); ++mask) {
+            int subsetCount = Integer.bitCount(mask);
+            if (subsetCount &lt; 2) {
+                continue;
+            }
+            Node root = construct(n, mask, edges);
+            if</B></FONT> (countNodes(root) != subsetCount) {
+                continue;
+            }
+            int[] bestPtr = {0};
+            diameter(root, new int[1], bestPtr);
+            ++ans[bestPtr[0] - 2];
+        }
+<A NAME="1"></A>        return ans;
+    }
+    
+    private static Node construct(int n, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int mask, int[][] edges) {
+        Node[] nodes = new Node[n];
+        for (int i = 0; i &lt; n; ++i) {
+            nodes[i] = new Node();
+        }
+        for (int[] e : edges) {
+            nodes[e[0]].children.add(nodes[e[1]]);
+            nodes[e[1]].children.add(nodes[e[0]]);
+        }
+        Node root = null</B></FONT>;
+        for (int i = 0; i &lt; n; ++i) {
+            if (((mask &gt;&gt; i) &amp; 1) != 0) {
+                nodes[i].active = true;
+                if (root == null) {
+                    root = nodes[i];
+                }
+            }
+<A NAME="2"></A>        }
+        setRoot(root, null);
+        return root;
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    
+    
+    // private static Node activate(int mask, Node[] nodes) {
+    //     Node root = null;
+    // }
+    
+    private static int countNodes(Node root) {
+        if (root == null || !root.active) {
+            return 0;
+        }</B></FONT>
+<A NAME="3"></A>        int count = 1;
+        for (Node v : root.children) {
+            count += countNodes(v);
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match19-1.html#3',3,'match19-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return count;
+    }
+    
+    private static void diameter(Node u, int[] bestChildPtr, int[] bestPtr) {</B></FONT>
+        if (u == null || !u.active) {
+            return;
+        }
+        TopTwo top = new TopTwo();
+        for (Node v : u.children) {
+            int[] vBestPtr = {0};
+            diameter(v, vBestPtr, bestPtr);
+            top.add(vBestPtr[0]);
+        }
+        bestChildPtr[0] = 1 + top.first();
+        bestPtr[0] = Math.max(bestPtr[0], 1 + top.first() + top.second());
+    }
+    
+    private static void setRoot(Node u, Node p) {
+        u.children.remove(p);
+        for (Node v : u.children) {
+            setRoot(v, u);
+        }
+    }
+    
+    private static class Node {
+        public HashSet&lt;Node&gt; children = new HashSet&lt;&gt;();
+        public boolean active;
+    }
+    
+    private static class TopTwo {
+        public int[] arr = new int[2];
+        
+        private void add(int x) {
+            if (x &gt; arr[1]) {
+                arr[1] = x;
+            }
+            if (arr[1] &gt; arr[0]) {
+                int tmp = arr[0];
+                arr[0] = arr[1];
+                arr[1] = tmp;
+            }
+<A NAME="4"></A>        }
+        
+        private int first() {
+            <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match19-1.html#4',3,'match19-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return arr[0];
+        }
+        
+        private int second() {
+            return arr[1];
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

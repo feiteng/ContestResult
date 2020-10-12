@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1006_sudhanshu_mallick.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1006_sudhanshu_mallick.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match41-0.html#0',2,'match41-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean checkPalindromeFormation(String a, String b) {
+        if(isPalindrome(a) || isPalindrome(b))
+            return true;
+        
+        int i = 0, j = a.length</B></FONT>() - 1, n = a.length();
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        StringBuilder s = new StringBuilder();
+        
+        while(i &lt; n / 2) {
+            if(a.charAt(i) == b.charAt(j)) {
+                sb1.append(a.charAt(i));
+                sb2.append(b.charAt(j));
+                s.append(a.charAt(i));
+            }
+            else {
+                break;
+            }
+            
+            ++i;
+            --j;
+        }
+        
+        
+        while(i &lt;= j) {
+            sb1.append(a.charAt(i++));
+        }
+        
+        
+        sb1.append(sb2.reverse());
+        
+        if(isPalindrome(sb1.toString()))
+            return true;
+        
+        i = s.length();
+        
+        while(i &lt;= j) {
+            s.append(b.charAt(i++));
+        }
+        
+        s.append(sb2);
+        
+        if(isPalindrome(s.toString()))
+            return true;
+        
+        s = new StringBuilder();
+        sb1 = new StringBuilder();
+        sb2 = new StringBuilder();
+        i = 0;
+        j = a.length() - 1;
+        n = a.length();
+        
+        while(i &lt; n / 2) {
+            if(b.charAt(i) == a.charAt(j)) {
+                sb1.append(b.charAt(i));
+                sb2.append(a.charAt(j));
+                s.append(b.charAt(i));
+            }
+            else {
+                break;
+            }
+            
+            ++i;
+            --j;
+        }
+        
+        
+        while(i &lt;= j) {
+            sb1.append(b.charAt(i++));
+        }
+        
+        sb1.append(sb2.reverse());
+        
+        if(isPalindrome(sb1.toString()))
+            return true;
+        
+        i = s.length();
+        
+        while(i &lt;= j) {
+            s.append(a.charAt(i++));
+        }
+<A NAME="1"></A>        
+        s.append(sb2);
+        
+        if(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match41-0.html#1',2,'match41-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>isPalindrome(s.toString()))
+            return true; 
+            
+        return false;     
+    }
+    
+    private boolean isPalindrome(String s) {
+        int i = 0, j = s.length() - 1;
+        
+        while(i &lt; j) {
+            if(s.charAt(i) != s.charAt(j))
+                return false;
+            
+            ++i;
+            --j;
+        }
+        
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

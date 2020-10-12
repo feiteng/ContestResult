@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_rsajith.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_rsajith.java</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static ArrayList&lt;Integer&gt; [] adj;
+    static ArrayList&lt;Integer&gt; [] adj2;
+    static boolean [] c;
+    static int ct;
+    static int best;
+    static int depth;
+    public int[] countSubgraphsForEachDiameter(int n, int[][] edges</B></FONT>) {
+        adj = new ArrayList[n];
+        for (int i = 0; i &lt; n; i++) adj[i] = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n - 1; i++) {
+            int u = edges[i][0] - 1; int v = edges[i][1] - 1;
+            adj[u].add(v); adj[v].add(u);
+        }
+        c = new boolean[1 &lt;&lt; n];
+        for (int mask = 1; mask &lt; (1 &lt;&lt; n); mask++) {
+<A NAME="3"></A>            adj2 = new ArrayList[n];
+            ct = 0; int start = -1;
+            for (int i = 0; i &lt; n; i++) adj2[i] = new ArrayList&lt;&gt;();
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#3',2,'match30-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
+                if (((mask &gt;&gt; i) &amp; 1) == 0) continue;
+                //System.out.print(i + &quot; &quot;);
+                start = i;
+                for (Integer j: adj[i]) {
+                    if (((mask &gt;&gt; j) &amp; 1) == 0) continue;
+                    adj2[i].add(j);
+                }
+            }</B></FONT>
+            dfs(start, -1);
+<A NAME="4"></A>            c[mask] = (Integer.bitCount(mask) == ct);
+            //System.out.print(c[mask]);
+            //System.out.println();
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#4',2,'match30-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int [] res = new int[n - 1];
+        for (int i = 1; i &lt; (1 &lt;&lt; n); i++) {
+            if (!c[i] || Integer.bitCount(i) == 1) continue;
+            int start = -1;
+            for (int j = 0; j &lt; n; j++) {
+                if</B></FONT> (((i &gt;&gt; j) &amp; 1) == 1) {
+                    start = j;
+                    break;
+                }
+            }
+            adj2 = new ArrayList[n];
+            for (int j = 0; j &lt; n; j++) adj2[j] = new ArrayList&lt;&gt;();
+            for (int j = 0; j &lt; n; j++) {
+                if (((i &gt;&gt; j) &amp; 1) == 0) continue;
+                //System.out.print(i + &quot; &quot;);
+                start = j;
+                for (Integer k: adj[j]) {
+                    if (((i &gt;&gt; k) &amp; 1) == 0) continue;
+                    adj2[j].add(k);
+                }
+            }
+            best = start; depth = 0;
+            dfs2(start, -1, 0);
+<A NAME="0"></A>            //System.out.println(depth);
+            depth = 0;
+            dfs2(best, -1, 0);
+            if (depth &gt; 0) res[depth - 1]++<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        return res;
+    }
+    
+    static void dfs(int cur, int par) {</B></FONT>
+        ++ct;
+        for (Integer next: adj2[cur]) {
+            if (next != par) {
+<A NAME="1"></A>                dfs(next, cur);
+            }
+        }
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    static void dfs2(int cur, int par, int dep) {
+        if (dep &gt; depth) {
+            best = cur;
+            d</B></FONT>epth = dep;
+        }
+        for (Integer next: adj2[cur]) {
+            if (next != par) {
+                dfs2(next, cur, dep + 1);
+            }
+        }
+    }
+    
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

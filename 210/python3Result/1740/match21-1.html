@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_im_dumb_af.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_im_dumb_af.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def countSubgraphsForEachDiameter(self, n: int, edges: List[List[int]]) -&gt; List[int]:
+        for i in range(len(edges)):
+            edges[i][0] -= 1
+<A NAME="1"></A>            edges[i][1] -= 1
+            
+        dist = [[float('inf') for _ in range(n)] for __ in range(</B></FONT>n)]
+        track = collections.defaultdict<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(list)
+        
+        for i, j in edges:
+            track[i].append(j)
+            track[j].append(i)
+            
+        for i in range(n):
+            q =</B></FONT> collections.deque()
+            visited = set()
+            q.append((i, 0))
+            
+            while q:
+                node, cost = q.popleft()
+                if node in visited: continue
+                visited.add(node)
+                
+                dist[i][node] = cost
+                
+                for nei in track[node]:
+                    q.append((nei, cost+1))
+        
+        subsets = collections.deque()
+        for i in range(n):
+            for nei in track[i]:
+                mask = (1 &lt;&lt; i) | (1 &lt;&lt; nei)
+                subsets.append(mask)
+        
+        ans = [0] * (n-1)
+        visited = set()
+        while subsets:
+            mask = subsets.popleft()
+            if mask in visited: continue
+            visited.add(mask)
+            
+            present = []
+            for i in range(n):
+                if mask &amp; (1&lt;&lt;i): present.append(i)
+            
+            m = 0
+            for n1 in present:
+                for n2 in present:
+                    m = max(m, dist[n1][n2])
+            
+            ans[m-1] += 1
+            for node in present:
+                for nei in track[node]:
+                    subsets.append(mask | (1&lt;&lt;nei))
+                    
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

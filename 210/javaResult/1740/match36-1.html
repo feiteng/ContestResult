@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>286_krantarat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>286_krantarat.java</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int[] countSubgraphsForEachDiameter(int n, int[][] edges) {
+        List&lt;Integer&gt; candidates = generateCandidates(n);
+        Set&lt;Integer&gt;[] graph = create(edges, n);
+        int[] result = new int[n - 1]</B></FONT>;
+        for (int cand : candidates) {
+<A NAME="6"></A>            if (cand == 0) continue;
+            // System.out.println((cand &gt;&gt; 1) + &quot;has diameter = &quot; + findDiameter(cand, graph));
+            int d = findDiameter(cand, graph);
+            if (d &lt;= 0) continue<FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#6',2,'match36-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            result[d - 1]++;
+        }
+        // System.out.println();
+        return result;
+    }
+    
+    private List&lt;Integer&gt; generateCandidates(int n) {
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;()</B></FONT>;
+        gen(n, 1, 0, res);
+        return res;
+    }
+    
+    private void gen(int n, int pos, int acc, List&lt;Integer&gt; res) {
+        res.add(acc);
+    
+        for (int i = pos; i &lt;= n; i++) {
+            acc = acc | (1 &lt;&lt; i);
+<A NAME="3"></A>            gen(n, i + 1, acc, res);
+            acc = acc ^ (1 &lt;&lt; i);
+        }
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private int findDiameter(int cand, Set&lt;Integer&gt;[] graph) {
+        int first = getSetBit(cand);
+        int[] r1 = bfs(first, cand, graph);
+        if (r1[1] == -1) return -1;</B></FONT>
+        int[] r2 = bfs(r1[0], cand, graph);
+        return r2[1];
+<A NAME="4"></A>    }
+    
+    private int getSetBit(int x) {
+<A NAME="0"></A>        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#4',2,'match36-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt; 16; i++) {
+            if (isSet(x, i)) return i;
+        }</B></FONT>
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return -1;
+    }
+    
+    private boolean isSet(int x, int bit) {
+        return (x &amp; (1 &lt;&lt; bit)) != 0;
+    }
+    
+    private int[] bfs(int cur, int cand</B></FONT>, Set&lt;Integer&gt;[] graph) {
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        int distance = 0;
+        int lastNode = cur;
+        queue.offer(cur);
+        visited.add(cur);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- &gt; 0) {
+                int x = queue.poll();
+                for (int next : graph[x]) {
+                    if (!isSet(cand, next)) continue;
+                    if (!visited.add(next)) continue;
+                    queue.offer(next);
+                }
+                lastNode = x;
+            }
+            distance++;
+        }
+        if (visited.size() == countBits(cand)) {
+            return new int[] {lastNode, distance - 1};
+        } else {
+            return new int[] {lastNode, -1};
+        }
+    }
+    
+<A NAME="1"></A>    private int countBits(int cand) {
+        int res = 0;
+        for (int i = 1; i &lt; 16; i++) {
+            if (isSet(cand, i)) res++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        return res;
+<A NAME="5"></A>    }
+    
+     private Set&lt;Integer&gt;[] create(int[][] roads, int n) {
+        Set&lt;Integer&gt;[] set = <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#5',2,'match36-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new HashSet[n + 1]</B></FONT>;
+        for (int i = 1; i &lt;= n; i++) {
+            set[i] = new HashSet&lt;&gt;();
+        }
+        for (int[] road : roads) {
+            int x = road[0];
+            int y = road[1]</B></FONT>;
+            set[x].add(y);
+            set[y].add(x);
+        }
+        return set;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
