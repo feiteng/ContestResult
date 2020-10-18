@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_QAMichaelPeng.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_QAMichaelPeng.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+<A NAME="0"></A>#         self.left = None
+#         self.right = None
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def balanceBST(self, root: TreeNode) -&gt; TreeNode:
+        l=[]
+        def dfs(node):
+            if not node:return
+            dfs(node.left)
+            l.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        #(&quot;l:%s&quot;%l)
+        def dfs2(nodes, begin, size):
+            #print(&quot;dfs2 %d,%d&quot;%(begin,size))
+            if not size: r</B></FONT>eturn None
+<A NAME="1"></A>            if size==1:
+                #print(&quot;node %d&quot;%(nodes[begin]))
+                return TreeNode(nodes[begin])
+            m<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=begin+size//2
+            node=TreeNode(nodes[m])
+#print(&quot;node:%d&quot;%(node.val))
+            node.left=dfs2(nodes,begin,m-begin)
+            node.right=dfs2(nodes,m+1,begin+size-m-1)
+            #print(&quot;return %d,left:%s,right:%s&quot;%(node.val, node.left.val if node.left else &quot;None&quot;, node.right.val if node.right else &quot;None&quot;))
+            return node
+        return dfs2(l,0,len(l</B></FONT>))
+            
+</PRE>
+
+</BODY>
+</HTML>

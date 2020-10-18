@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>368_pbdpbd123.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>368_pbdpbd123.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+   def getProbability(self, balls: List[int]) -&gt; float:
+       s = sum(balls)//2
+       self.S = s
+       self.cnt = 1
+       while s&gt;1:
+           self.cnt*=s
+           s-=1
+       self.tot = self.pos = 0
+<A NAME="1"></A>       self.process([],[],0,0,balls,0)
+       return self.pos/self.</B></FONT>tot
+
+   <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def other(self, queue, balls):
+       que2 = balls[:]
+       for i,v in enumerate(queue):
+           que2[i]-=v
+       return que2
+   
+   def calcuate(self, queue):
+       cnt = self.cnt
+       for s in queue:
+           c = 1
+           while s&gt;1:
+<A NAME="2"></A>               c*=s
+               s-=1
+           cnt = cnt//c
+       r<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn</B></FONT> cnt
+   
+   def process(self, que1, que2, s1,s2, balls, i):
+       if self.S in (s1,s2):
+           if s1==self.S:
+               que2 = self.other(que1,balls)
+           else:
+               que1 = self.other(que2,balls)
+           cnt = self.calcuate(que1) * self.calcuate(que2)
+           a = b = 0
+           for v in que1:
+               if v: a+=1
+           for v in que2:
+               if v: b+=1
+           
+           
+           self.tot+=cnt
+           if a==b: self.pos+=cnt
+           return
+       if i&gt;=len(balls):
+           return
+       for v in range(balls[i]+1):
+           que1.append(v)
+           que2.append(balls[i]-v)
+           s1+=v
+           s2+=balls[i]-v
+           if max(s1,s2)&lt;=self.S:
+               self.process(que1,que2,s1,s2,balls,i+1)
+           que1.pop()
+           que2.pop()
+           s1-=v
+           s2-=balls[i</B></FONT>]-v
+   
+
+        
+
+</PRE>
+
+</BODY>
+</HTML>

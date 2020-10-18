@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>303_deltacancri.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>303_deltacancri.py</CENTER></H3><HR>
+<PRE>
+
+<A NAME="0"></A>            
+class Solution:
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -&gt; List[bool]:
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class dfs: 
+            def __init__(self, n): 
+                self.r = [1] * n 
+                self.p = [i for i in range(n)] 
+
+            def find(self, x): 
+                if (self.p[x] != x): 
+                    self.p[x] = self.find(self.p[x]) 
+
+                return self.p[x] 
+
+            def Union(self, x, y): 
+
+                # Find current sets of x and y 
+                xr = self.find(x) 
+                yr = self.find(y) 
+
+                # If they are already in same set 
+                if xr == yr: 
+                    return
+
+                if self.r[xr] &lt; self.r[yr]: 
+                    self.p[xr] = yr 
+
+                elif self.r[xr] &gt; self.r[yr]: 
+                    self.p[yr] = xr 
+
+                else: 
+                    self.p[yr] = xr 
+                    self.r[xr] = self.r[xr</B></FONT>] + 1
+        d = dfs(n+1)
+        if threshold == 0:
+            return [True] * len(queries)
+        for i in range(threshold+1, n):
+            ts = n // i
+            for j in range(1,ts+1):
+                for k in range(1,j):
+                    d.Union(i*j, i*k)
+        res = []
+        for q in queries:
+            res.append(True if d.find(q[0]) == d.find(q[1]) else False)
+        return res
+</PRE>
+
+</BODY>
+</HTML>

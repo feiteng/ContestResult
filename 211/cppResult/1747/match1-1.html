@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>501_uuuouou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>501_uuuouou.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string findLexSmallestString(string s, int a, int b) {
+        queue&lt;string&gt; q;
+        set&lt;string&gt; vis;
+        q.push(s);
+<A NAME="1"></A>        vis.insert(s);
+        while(!q.empty()){
+            auto s = q.front(); q.pop();
+            auto u = add(s, a), v = move(s, b);</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+            if(!vis.count(u)){
+                vis.insert(u);
+                q.push(u);
+            }
+            if(!vis.count(v)){
+                vis.insert(v);
+                q.push(v);
+            }
+        }
+        return *vis.begin();
+    }
+<A NAME="2"></A>    string add(const string&amp; s, int a){
+        string t = s;
+        for(int i = 1; i &lt; t.size(); i += 2){</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            t[i] = '0' + (t[i] - '0' + a) % 10;
+        }
+        return t;
+    }
+    string move(const string&amp; s, int b){
+        int n = s.size();
+        return s.substr(n-b) + s.substr(0, n-b);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

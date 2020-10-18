@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_Sakamono.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>249_Sakamono.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+<A NAME="0"></A>    def balanceBST(self, root: TreeNode) -&gt; TreeNode:
+        if not root:
+            return None
+        inorder <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
+        def dfs(root):
+            if not root:
+                return
+            dfs(root.left)
+            inorder.append(root.val)
+            dfs(root.right)
+        def buildTree(start, end):
+            if start &gt; end:
+                return None
+            if start == end:
+                return TreeNode(inorder[start])
+            mid = start + (end - start) // 2
+            root = TreeNode(inorder[mid])
+            root.left = buildTree(start, mid - 1)
+            root.right = buildTree(mid + 1, end)
+            return root
+        dfs(root)
+        return buildTree(0, len(i</B></FONT>norder) - 1)
+        
+</PRE>
+
+</BODY>
+</HTML>

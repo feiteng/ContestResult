@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>262_sgkldfkl.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>262_sgkldfkl.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int[] root;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        root = new int[n + 1];
+        for (int i = 0; i &lt;= n; i++) {
+            root[i] = i;
+        }</B></FONT>
+        List&lt;Integer&gt;[] lists = new List[n + 1];
+        for (int i = 0; i &lt;= n; i++) {
+            lists[i] = new ArrayList&lt;&gt;();
+        }
+        for (int t = threshold + 1; t &lt;= n; t++) {
+            for (int i = t; i &lt;= n; i++) {
+                if (i % t == 0) {
+                    lists[t].add(i);
+                }
+            }
+        }
+        for (int i = threshold + 1; i &lt;= n; i++) {
+            int size = lists[i].size();
+            if (size &lt; 2) {
+                continue;
+            }
+            for (int j = 0; j &lt; size - 1; j++) {
+<A NAME="1"></A>                int x = lists[i].get(j);
+                int y = lists[i].get(j + 1);
+                int rx = find(root, x);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ry = find(root, y);
+                if (rx != ry) {
+                    root[rx] = ry;
+                }
+            }
+        }
+        List&lt;Boolean&gt; result = new ArrayList&lt;&gt;();
+<A NAME="2"></A>        for (int[] q : queries) {
+            int x = q[0]</B></FONT>;
+            int y = q[1];
+            int rx = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>find(root, x);
+            int ry = find(root, y);
+            result.add(rx == ry);
+<A NAME="3"></A>        }
+        return result;
+    }</B></FONT>
+    private int find(int[] root, <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#3',2,'match31-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int x) {
+        if (root[x] == x) {
+            return x;
+        }
+        return root[x] = find(root, root[x]);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

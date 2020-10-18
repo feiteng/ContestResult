@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>334_fan-cai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>334_fan-cai.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -&gt; int:
+        n = len(ages)
+<A NAME="0"></A>        age_sort = sorted(list(range(n)), key=lambda x: ages[x] * 10000000 + scores[x])
+        dp = [0] * n
+        dp[0] = scores[age_sort[0]]
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(1, n):
+            dp[i] = scores[age_sort[i]]
+            for j in range(i):
+                if scores[age_sort[i]] &gt;= scores[age_sort[j]]:
+                    dp[i] = max(dp[i], dp[j] + scores[age_sort[i]])
+        return max(d</B></FONT>p)
+</PRE>
+
+</BODY>
+</HTML>

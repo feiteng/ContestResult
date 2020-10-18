@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>422_dhiren_007.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>422_dhiren_007.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int bestTeamScore(int[] scores, int[] ages) {
+        int n = scores.length;
+        Pair arr[] = new Pair[n];
+        for(int i=0;i&lt;n;i++){
+            arr[i] = new Pair(scores[i],ages[i]);
+        }
+        Arrays.sort(arr,(a,b)-&gt;(a.age!=b.age)?(a.age-b.age):(a.score-b.score));
+        long dp[] = new</B></FONT> long[n];
+<A NAME="2"></A>        dp[0]=arr[0].score;
+        for(int i=1;i&lt;n;i++){
+            long sum=0;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int j=i-1;j&gt;=0;j--){
+                if(arr[j].score&lt;=arr[i].score){
+                    sum = Math.max(sum,dp[j]);
+<A NAME="3"></A>                }
+            }</B></FONT>
+            dp[i] = sum+arr[i].score;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#3',2,'match26-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        long max=0;
+        for(int i=0;i&lt;n;i++){
+            max = Math.max(max,dp[i]);
+        }
+<A NAME="0"></A>        return (int)(max);
+    }
+}</B></FONT>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Pair{
+    int score;
+    int age;
+    Pair(int sc, int a){
+        score=sc;
+        age=a;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

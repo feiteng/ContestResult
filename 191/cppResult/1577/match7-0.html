@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_beet.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_beet.cpp</CENTER></H3><HR>
+<PRE>
+
+
+template&lt;typename T1,typename T2&gt; inline void chmin(T1 &amp;a,T2 b){if(a&gt;b) a=b;}
+template&lt;typename T1,typename T2&gt; inline void chmax(T1 &amp;a,T2 b){if(a&lt;b) a=b;}
+//INSERT ABOVE HERE
+using D = double;
+D binom[11][11]={};
+D dp[11][51][11][51]={};
+D nx[11][51][11][51]={};
+class Solution {
+public:
+
+  double getProbability(vector&lt;int&gt;&amp; balls) {
+    for(int i=0;i&lt;11;i++)
+      for(int j=0;j&lt;11;j++)
+        binom[i][j]=0;
+
+    binom[0][0]=1;
+    for(int i=0;i&lt;10;i++){
+      for(int j=0;j&lt;10;j++){
+        //cout&lt;&lt;i&lt;&lt;' '&lt;&lt;j&lt;&lt;&quot;:&quot;&lt;&lt;binom[i][j]&lt;&lt;endl;
+        binom[i+1][j+0]+=binom[i][j]/2;
+        binom[i+1][j+1]+=binom[i][j]/2;
+      }
+    }
+
+    for(int i=0;i&lt;10;i++)
+      for(int j=0;j&lt;50;j++)
+        for(int k=0;k&lt;10;k++)
+          for(int l=0;l&lt;50;l++)
+            dp[i][j][k][l]=nx[i][j][k][l]=0;
+
+<A NAME="0"></A>    dp[0][0][0][0]=1;
+    int sum=0;
+    for(int b:balls){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      sum+=b;
+      for(int i=0;i&lt;10;i++)
+        for(int j=0;j&lt;50;j++)
+          for(int k=0;k&lt;10;k++)
+            for(int l=0;l&lt;50;l++)
+<A NAME="1"></A>              for(int a=0;a&lt;=b;a++)</B></FONT>
+                if(j+a&lt;50 and l+(b-a)&lt;50)
+                  nx[i+(a!=0)][j+a][k+((b-a)!=0)][l+(b-a)]
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                       +=dp[i][j][k][l]*binom[b][a];
+
+      for(int i=0;i&lt;10;i++)
+        for(int j=0;j&lt;50;j++)
+          for(int k=0;k&lt;10;k++)
+            for(int l=0;l&lt;50;l++)
+              dp[i][j][k][l]=nx[i][j][k][l],nx[i][j][k][l]=0;</B></FONT>
+<A NAME="2"></A>    }
+
+    D num=0;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for(int i=0;i&lt;10;i++)
+      num+=dp[i][sum/2][i][sum/2];
+
+    D dom=0;
+    for(int i=0;i&lt;10;i++)
+      for(int k=0;k&lt;10;k++)
+        dom+=dp[i][sum/2][k][sum/2];</B></FONT>
+    return num/dom;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

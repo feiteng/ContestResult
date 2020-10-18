@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1357_yoyo.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>1357_yoyo.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+<A NAME="0"></A>class Solution:
+    def pseudoPalindromicPaths (self, root: TreeNode) -&gt; int:
+        path = set()
+        self.res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        def dfs(root):
+          if not root:
+            return
+          if root.val in path:
+            path.remove(root.val)
+          else:
+            path.add(root.val)
+          if not root.left and not root.right: #leaf
+            if len(path) &lt;=1:
+              self.res += 1
+          dfs(root.left)
+          dfs(root.right)
+          if root.val in path:
+            path.remove(root.val)
+          else:
+            path.add(root.val)
+        
+        dfs(root)
+        return self.r</B></FONT>es
+</PRE>
+
+</BODY>
+</HTML>

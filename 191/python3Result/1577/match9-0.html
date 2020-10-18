@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_denjoy___.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_denjoy___.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+import math
+
+class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        numchoices = math.factorial(sum(b for b in balls))
+        for b in balls:
+            numchoices //= math.factorial(b)
+        # print(f&quot;numchoices = {numchoices}&quot;)
+        numgood = 0
+        
+
+# After that we add the first two balls to the first box and the second two balls to the second box.
+#We can see that 8 of these 12 possible random distributions have the same number of distinct colors of balls in  # each box.
+        
+<A NAME="0"></A>        # [1,1 / 2,3], [1,1 / 3,2], [1,2 / 1,3], [1,2 / 3,1], [1,3 / 1,2], [1,3 / 2,1], [2,1 / 1,3],
+        # [2,1 / 3,1], [2,3 / 1,1], [3,1 / 1,2], [3,1 / 2,1], [3,2 / 1,1]
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def getnum(B):
+            num = math.factorial(sum(b for b in B))
+            for b in B:
+                num //= math.factorial(b)
+            return num
+        
+        box1, box2 =</B></FONT> [0 for _ in range(len(balls))], [0 for _ in range(len(balls))]
+        def dfs(i):
+            nonlocal numchoices, numgood
+            if i == len(balls):
+                if sum(box1) == sum(box2):
+                    # numchoices += 1
+                    a = sum(1 for i in range(len(box1)) if box1[i] &gt; 0)
+                    b = sum(1 for i in range(len(box2)) if box2[i] &gt; 0)
+                    if a == b:
+                        # print(f&quot;box1 = {box1}&quot;)
+                        # print(f&quot;box2 = {box2}&quot;)
+                        # print(&quot;---&quot;)
+                        # numgood += (math.factorial(a)*math.factorial(b))
+                        numgood += (getnum(box1)*getnum(box2))
+                return
+            for x in range(balls[i]+1):
+                box1[i], box2[i] = x, balls[i] - x
+                dfs(i + 1)
+                box1[i], box2[i] = 0, 0
+        
+        dfs(0)
+        # print(numgood, numchoices)
+        # print(f&quot;~~~~&quot;)
+        return numgood/numchoices
+            
+</PRE>
+
+</BODY>
+</HTML>

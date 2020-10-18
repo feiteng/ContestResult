@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>948_yogeshgupta.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>948_yogeshgupta.py</CENTER></H3><HR>
+<PRE>
+from typing import List
+import math
+from collections import defaultdict
+
+
+<A NAME="0"></A>class DisjSet:
+    def __init__(self, n):
+        self.rank = [1] * n
+        self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.parent = [i for i in range(n)]
+
+    def find(self, x):
+
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+
+        return self.parent[x]
+
+<A NAME="1"></A>    def Union(self, x, y):
+
+        xset = self.find(</B></FONT>x)
+        yset = self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.find(y)
+
+        if xset == yset:
+            return
+
+        if self.rank[xset] &lt; self.rank[yset]:
+            self.parent[xset] = yset
+
+        elif self.rank[</B></FONT>xset] &gt; self.rank[yset]:
+<A NAME="2"></A>            self.parent[yset] = xset
+
+        else:
+            self<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.parent[yset] = xset
+            self.rank[xset] = self.rank[xset] + 1
+
+
+class Solution:
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -&gt; List[bool]:
+        disj = DisjSet(n)
+        if threshold == 0:
+            return [True] * (len(</B></FONT>queries))
+
+        graph = defaultdict(set)
+        for i in range(threshold, n + 1):
+            j = i
+<A NAME="3"></A>            while j &lt;= n:
+                if math.gcd(i, j) &gt; threshold:
+                    disj.Union(i - 1, j - 1)
+                j +=<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match2-1.html#3',3,'match2-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> i
+
+        ans = []
+        for a, b in queries:
+            if disj.find(a-1) == disj.find(b-1):
+                ans.append(True)
+            else:
+                ans.append(False)
+
+        re</B></FONT>turn ans
+
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minReorder(int n, int[][] cs) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ArrayList&lt;HashSet&lt;Integer&gt;&gt; g = new ArrayList&lt;&gt;();
+        ArrayList&lt;HashSet&lt;Integer&gt;&gt; g2 = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; ++i) {
+            g.add(new HashSet&lt;&gt;());
+            g2.add(new HashSet&lt;&gt;());
+        }
+        for (int[] c : cs) {</B></FONT>
+            g.get(c[0]).add(c[1]);
+            g2.get(c[0]).add(c[1]);
+            g2.get(c[1]).add(c[0]);
+        }
+        int[] p = new int[n];
+        for (int i = 0; i &lt; n; ++i)
+            p[i] = -1;
+<A NAME="1"></A>        ArrayDeque&lt;Integer&gt; q = new ArrayDeque&lt;&gt;();
+        q.add(0);
+        int ans = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!q.isEmpty()) {
+            int u = q.removeFirst();
+            for (int v : g2.get(u)) {
+                if</B></FONT> (p[v]==-1&amp;&amp;v!=0) {
+                    p[v] = u;
+                    q.add(v);
+<A NAME="2"></A>                    //System.out.println(u+&quot; &quot;+v);
+                    if (g.get(u).contains(v))
+                        ans++;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

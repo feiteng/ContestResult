@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2162_Hccct.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2162_Hccct.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+<A NAME="0"></A> *     }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int res = 0;
+    public int pseudoPalindromicPaths (TreeNode root) {
+        check(root, new HashSet&lt;&gt;());
+        return res;
+    }
+    
+    private void check(TreeNode node, Set&lt;Integer&gt; set){
+        if(node == null) return;
+        
+        int val = node.val;
+        if(set.contains(val)) set.remove(val);
+        else set.add(val);
+        // System.out.println(node.val + &quot;   &quot; + set.size());
+        if(node.left == null &amp;&amp; node.right == null){
+            if(set.size() &lt;= 1) res++;
+            return;
+        }
+        
+
+        check(node.left, new HashSet&lt;&gt;(set));
+        check(node.right, new HashSet&lt;&gt;(set));
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

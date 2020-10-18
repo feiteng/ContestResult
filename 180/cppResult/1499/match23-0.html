@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>564_kjs1095.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>564_kjs1095.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxPerformance(int n, vector&lt;int&gt;&amp; speed, vector&lt;int&gt;&amp; efficiency, int k) {
+        vector&lt;vector&lt;int&gt;&gt; eng;
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            eng.push_back({efficiency[i], speed[i]});
+        }
+        sort(eng.begin(), eng.end());
+        // for (int i = 0; i &lt; n; ++i) {
+        //     printf(&quot;%d %d\n&quot;, eng[i][0], eng[i][1]);
+<A NAME="1"></A>        // }
+        // puts(&quot;----&quot;);
+        long long int sum = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long int res = 0;
+        priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt;pq;
+        for (int i = n -1; i &gt;= n - k; --i) {
+            sum += eng[i][1];
+            pq.push(eng[i][1]);
+            res = max(res, sum * eng[i][0]);
+        }
+        // long long int res = sum * eng[n - k][0];
+        // printf(&quot;%lld %lld %d\n&quot;, sum, res, eng[n - k][0]);
+        for (int i = n - k -1; i &gt;= 0; --i) {
+            sum -= pq.top();
+            // printf(&quot;pop = %d, &quot;, pq.top());
+            pq.pop();
+            sum += eng[i][1];
+            pq.push(eng[i][1]);
+            // printf(&quot;push = %d\n&quot;, eng[i][1]);
+            res = max(res, sum * eng[i][0]);
+            // printf(&quot;%lld %lld, eff = %d\n&quot;, sum, res, eng[i][0]);
+        }
+        return res % 1000000007;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

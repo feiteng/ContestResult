@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>180_Gambler147.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>180_Gambler147.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -&gt; int:
+        
+        outs = collections.defaultdict(list)
+        ins = collections.defaultdict(list)
+        
+        for i,j in connections:
+            outs[i].append(j)
+            ins[j].append(i)
+            
+        # start from citi 0 find all its outwards citis and reorder the path
+        queue =</B></FONT> collections.deque()
+        queue.append(0)
+        res = 0
+        seen = {0}
+        # bfs
+        while queue:
+            i = queue.popleft()
+<A NAME="1"></A>            for j in ins[i]:
+                if j not in seen:
+                    # fina its indegree node
+                    queue<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.append(j)
+                    seen.add(j)
+                
+            for j in outs[i]:
+                if j not in seen:
+                    queue.append(j)
+                    seen.add(</B></FONT>j)
+                    res += 1
+            # first extend
+        return res
+            
+</PRE>
+
+</BODY>
+</HTML>

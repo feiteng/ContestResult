@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>146_payall4u.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>146_payall4u.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.Arrays;
+import java.util.PriorityQueue;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        int[][] pairs = new int[n][2];
+        for (int i = 0; i &lt; n; i++) {
+            pairs[i][0] = speed[i];
+            pairs[i][1] = efficiency[i];
+        }</B></FONT>
+        long ans = 0;
+<A NAME="1"></A>        long sum = 0;
+        Arrays.sort(pairs, (x, y) -&gt; y[1] - x[1]);
+        // System.out.println(pairs);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>PriorityQueue&lt;Integer&gt; topK1 = new PriorityQueue&lt;&gt;((x, y) -&gt; x - y);
+        for (int[] pair : pairs) {
+            topK1.add(pair[0]);
+            sum += pair[0];
+            if (topK1.size() &gt; k) {
+                sum -= topK1.poll();
+            }
+            // System.out.println(topK1);
+            ans = Math.max(ans, sum * pair[1]);
+        }
+        return (int)(ans % 1000000007);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

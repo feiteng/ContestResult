@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>784_GiaoGiaoWo.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>784_GiaoGiaoWo.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def findLexSmallestString(self, s: str, a: int, b: int) -&gt; str:
+
+        def change(s, a):
+            _s = ''
+            for i in range(len(s)):
+                if i &amp; 1:
+                    _s += str((int(s[i])+a) % 10)
+                else:
+                    _s += s[i]
+            r</B></FONT>eturn _s
+        
+        q = [s, ]
+        vis = set([s])
+        
+        while q:
+            ss = q.pop()
+            s1 = change(ss, a)
+            s2 = ss[-b:] + ss[:-b]
+            
+            if s1 not in vis:
+                q.append(s1)
+                vis.add(s1)
+                
+            if s2 not in vis:
+                q.append(s2)
+                vis.add(s2)
+        return sorted(list(vis))[0]
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>303_457368837.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>303_457368837.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+class Solution(object):
+    def minReorder(self, n, A):
+        edgeMap = self.build(A) 
+        que = [0]
+        # print que
+        # usedEdges = set(que)
+        visited = set([0])
+        turns = 0
+        while que:
+            size = len(que)
+            for _ in range(size):
+                element = que.pop(0)
+                for a, b in edgeMap[element]:
+                    for ele in [a, b]:
+                        if ele not in visited:
+                            visited.add(ele)
+                            if b == ele:
+                                turns += 1
+<A NAME="0"></A>                            que.append(ele)
+        return turns
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def build(self, A):
+        edgeMap = defaultdict(set)
+        for a, b in A:
+            edgeMap[a].add((a, b))
+            edgeMap[b].add((a</B></FONT>, b))
+        return edgeMap
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>342_txingml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>342_txingml.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    string solvea(const string&amp; s, int a) {
+        string ret = s;
+        for (int i = 1; i &lt; s.size(); i += 2) {
+            int val = s[i] - '0';
+            val = (val + a) % 10;
+            ret[i] = val + '0';</B></FONT>
+        }
+        return ret;
+    }
+    string solveb(const string&amp; s, int b) {
+        int n = s.size();
+        string ret = s.substr(n-b) + s.substr(0, n-b);
+        assert(ret.size() == n);
+<A NAME="0"></A>        // cout &lt;&lt; s &lt;&lt; &quot; rotate &quot; &lt;&lt; b &lt;&lt; &quot; &quot; &lt;&lt; ret &lt;&lt; endl;
+        return ret;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    string findLexSmallestString(string s, int a, int b) {
+        set&lt;string&gt; table;
+        queue&lt;string&gt; q;
+        q.push(s);
+        while (!q.empty()) {
+            string cur = q.front(); q.pop();
+            string nxt = solvea(cur, a);
+            if (table.find(nxt) == table.end()) {
+                table.insert(nxt);
+                q.push(nxt);
+            }
+            // cout &lt;&lt; &quot;solve a&quot; &lt;&lt; endl;
+            nxt = solveb(cur, b);
+            if (table.find(nxt) == table.end()) {
+                table.insert(nxt);
+                q.push(nxt);
+            }
+            // cout &lt;&lt; &quot;solve b&quot; &lt;&lt; endl;
+        }
+        return *table.begin();
+        
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

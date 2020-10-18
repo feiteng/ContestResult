@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>582_McGar.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>582_McGar.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        if (s == null || s.isEmpty()) return s;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;String&gt; dict = new HashSet&lt;&gt;();
+        Queue&lt;String&gt; queue = new ArrayDeque&lt;&gt;();
+        queue.offer(s);
+        dict.add(s);
+        String min = s;
+        while (!queue.isEmpty()) {
+            String cur = queue.poll();
+            if (cur.compareTo(min) &lt; 0) {
+                min = cur;
+            }
+            String next = rotate(cur, b);
+            if (dict.add(next)) {
+<A NAME="1"></A>                queue.offer(next);
+            }</B></FONT>
+
+            next = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>add(cur, a);
+            if (dict.add(next)) {
+                queue.offer(next);
+            }
+        }
+
+        return min;
+    }
+
+    private String rotate(String s, int b) {
+<A NAME="2"></A>        int n = s.length</B></FONT>();
+        b = b % n;
+        if (b == 0) return s;
+        return <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new StringBuilder().append(s, n - b, n).append(s, 0, n - b).toString();
+    }
+
+    private String add(String s, int a) {
+        char[] cs = s.toCharArray</B></FONT>();
+        int n = cs.length;
+        for (int i = 1; i &lt; n; i += 2) {
+            int cur = cs[i] - '0';
+            int next = (cur + a) % 10;
+            cs[i] = (char)('0' + next);
+        }
+        return String.valueOf(cs);
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.findLexSmallestString(&quot;5525&quot;, 9, 2));
+        System.out.println(s.findLexSmallestString(&quot;74&quot;, 5, 1));
+        System.out.println(s.findLexSmallestString(&quot;0011&quot;, 4, 2));
+        System.out.println(s.findLexSmallestString(&quot;43987654&quot;, 7, 3));
+
+
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

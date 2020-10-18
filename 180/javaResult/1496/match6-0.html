@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>487_flyingpenguin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>487_flyingpenguin.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; luckyNumbers (int[][] a) {
+<A NAME="0"></A>        int m = a.length;
+        int[] rm = new int[m];
+        int n = a[0].length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] cm = new int[n];
+        for(int i=0; i&lt;m;i++){
+            rm[i]  = Integer.MAX_VALUE;
+            for(int j=0; j&lt;n;j++){
+                rm[i] = Math.min(rm[i], a[i][j]);
+            }
+        }
+        for(int j=0; j&lt;n;j++){
+            cm[j] = Integer.MIN_VALUE;
+            for(int i=0; i&lt;m;i++){
+                cm[j] = Math.max(cm[j], a[i][j]);
+            }
+        }
+        List&lt;Integer&gt; r = new ArrayList&lt;&gt;();
+        for(int i=0; i&lt;m;i++){
+            for(int j=0; j&lt;n;j++){
+                if(a[i][j] == rm[i] &amp;&amp; a[i][j] == cm[j]){
+                    r.add(a[i][j]);
+                }
+            }
+        }
+        return r;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

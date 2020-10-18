@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>794_bangzhen.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>794_bangzhen.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -&gt; int:
+        
+        
+<A NAME="0"></A>        persons = [(a,s) for s,a in zip(scores, ages)]
+        persons.sort()
+        dp = [0]*len(ages)  # dp[i] 表示以第 i 个人结尾的最大 scores
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i,(age,score) in enumerate(persons):
+            dp[i] = score
+            for j in range(i):
+                if persons[j][0] == age or persons[j][1] &lt;= score:
+                    dp[i] = max(dp[i], dp[j] + score)
+        return max(d</B></FONT>p)
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

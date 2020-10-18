@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1823_YoungYang0820.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1823_YoungYang0820.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+<A NAME="0"></A> */
+class Solution {
+    int count = 0;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int pseudoPalindromicPaths (TreeNode root) {
+        if (root == null) return 0;
+        traverse(root, new int[10]);
+<A NAME="1"></A>        return count;
+    }</B></FONT>
+    
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void traverse(TreeNode node, int[] nums) {
+        nums[node.val]++;
+        if (node.left == null &amp;&amp; node.right == null) {
+            int c = 0;
+            for (int i = 1; i &lt; 10; i++) {
+<A NAME="2"></A>                if (nums[i] % 2 == 1) c++;
+            }
+            if (c &lt; 2) count++;</B></FONT>
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if (node.left != null) traverse(node.left, nums);
+        if (node.right != null) traverse(node.right, nums);
+        nums[node.val]--;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

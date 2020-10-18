@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>298_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>298_necoramen.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public double getProbability(int[] balls) {
+<A NAME="0"></A>
+        int sum = 0;
+        int sums[] = new int[balls.length];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; balls.length; i++) {
+            sum += balls[i];
+            if (i &gt; 0) {
+                sums[i] = sums[i - 1] + balls[i];
+            } else {
+                sums[i] = balls[i];
+            }
+        }
+
+        int ballType = balls.length</B></FONT>;
+        double[][][] p = new double[sum / 2 + 1][ballType + 1][ballType + 1];
+        p[0][0][0] = 1.0;
+        for (int i = 0; i &lt; ballType; i++) {
+            double[][][] newP = new double[sum / 2 + 1][ballType + 1][ballType + 1];
+
+            int cnt = balls[i];
+            for (int leftUsed = 0; leftUsed &lt;= sum / 2; leftUsed++) {
+                int totalUsed = i == 0 ? 0 : sums[i - 1];
+                int rightUsed = totalUsed - leftUsed;
+                if (rightUsed &lt; 0) {
+                    continue;
+                }
+
+                int leftSlot = sum / 2 - leftUsed, rightSlot = sum / 2 - rightUsed;
+                double totalSlotAlloc = C(leftSlot + rightSlot, cnt);
+
+                for (int k = Math.max(0, cnt - rightSlot); k &lt;= leftSlot &amp;&amp; cnt - k &gt;= 0; k++) {
+                    int l = cnt - k;
+                    double probPickKFromLeft = C(leftSlot, k) * C(rightSlot, l) / totalSlotAlloc;
+
+                    for (int leftType = 0; leftType &lt; ballType; leftType++) {
+                        for (int rightType = 0; rightType &lt; ballType; rightType++) {
+
+                            if (k &gt; 0 &amp;&amp; l &gt; 0) {
+                                newP[leftUsed + k][leftType + 1][rightType + 1]
+                                        += p[leftUsed][leftType][rightType] * probPickKFromLeft;
+                            } else if (k == 0) {
+                                newP[leftUsed][leftType][rightType + 1]
+                                        += p[leftUsed][leftType][rightType] * probPickKFromLeft;
+                            } else {
+                                newP[leftUsed + k][leftType + 1][rightType]
+                                        += p[leftUsed][leftType][rightType] * probPickKFromLeft;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            p = newP;
+        }
+
+<A NAME="1"></A>        double ans = 0;
+        for (int i = 1; i &lt;= ballType; i++) {
+            ans += p[sum / 2][i][i];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return ans;
+    }
+
+    private double C(int m, int n) {
+        double ans = 1;
+<A NAME="2"></A>
+        double up = m;
+        double bel = n</B></FONT>;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; n; i++) {
+            ans *= up;
+            ans /= bel;
+            up -= 1;
+            bel -= 1;
+        }
+        return ans;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

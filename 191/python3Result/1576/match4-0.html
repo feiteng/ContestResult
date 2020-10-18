@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>272_zenan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>272_zenan.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -&gt; int:
+        tree = collections.defaultdict(set)
+        rev = collections.defaultdict(set)
+        for a, b in connections:
+            tree[b].add(a)
+            rev[a].add(b)
+        res = 0
+        visited = set([0])
+        que = collections.deque([0])
+        while que:
+            x = que.popleft(</B></FONT>)
+            for y in tree[x]:
+                if y in visited: continue
+                visited.add(y)
+                que.append(y)
+            for y in rev[x]:
+                if y in visited: continue
+                visited.add(y)
+                que.append(y)
+                res += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

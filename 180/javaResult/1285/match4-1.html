@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161_jiaweil.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>161_jiaweil.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode balanceBST(TreeNode root) {
+        List&lt;TreeNode&gt; list = new ArrayList&lt;&gt;();
+        inorder(root, list);
+        
+        return build(list, 0, list.size() - 1);
+    }
+    
+    private TreeNode build(List&lt;TreeNode&gt; list, int start, int end) {
+        if (start &gt; end) return null;
+        
+        int mid = start + (end - start) / 2;
+        TreeNode curr = list.get(mid);
+        curr.left = build(list, start, mid - 1);
+        curr.right = build(list, mid + 1, end);
+        
+        return curr;
+    }
+    
+    private void inorder(TreeNode root, List&lt;TreeNode&gt; list) {
+        if (root == null) return;
+        inorder(root.left, list);
+        list.add(root);
+        inorder(root.right, list);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

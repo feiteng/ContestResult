@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>119_ph52.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>119_ph52.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -&gt; int:
+<A NAME="0"></A>        # sorted age and score
+        sorted_as = sorted(zip(ages, scores))
+        
+        N <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(sorted_as)
+        
+        # dp[i] the best score to choose i as the last player
+        dp = [0] * N
+        
+        for i in range(N):
+            dp[i] = sorted_as[i][1]
+            
+            for i0 in range(i):
+                # A conflict exists if a younger player has a strictly higher score than an older player.
+<A NAME="1"></A>                if sorted_as[i0][0] &lt; sorted_as[i][0] and sorted_as[</B></FONT>i0][1] &gt; sorted_as[i][1]:
+                    continue
+                else:
+                    dp[i] <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= max(dp[i], sorted_as[i][1] + dp[i0])
+        return max(d</B></FONT>p)
+</PRE>
+
+</BODY>
+</HTML>

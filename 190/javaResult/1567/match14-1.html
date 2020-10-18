@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1421_avlgood2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1421_avlgood2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxVowels(String s, int k) {
+        HashSet&lt;Character&gt; vowels = new HashSet&lt;&gt;();
+        vowels.add('a');
+        vowels.add('e');
+        vowels.add('i');
+        vowels.add('o');
+        vowels.add('u');
+        int count = 0;
+        for (int i = 0; i &lt; k; i++) {
+            if (vowels.contains(s.charAt(i))) {
+                count++;
+            }
+        }
+        int max = count;
+        for (int i = k; i &lt; s.length(); i++) {
+            if (vowels.contains(s.charAt(i))) {
+                count++;
+            }
+            if (vowels.contains(s.charAt(i - k))) {
+                count--;
+            }
+            max = Math.max(max, count);
+        }
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

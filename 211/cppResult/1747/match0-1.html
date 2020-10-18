@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_luo-bu-zhao-tian-jiao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>200_luo-bu-zhao-tian-jiao.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define fo(i,a,b) for(int i=a;i&lt;=b;i++)
+#define fod(i,a,b) for(int i=a;i&gt;=b;i--)
+#define me0(a) memset(a,0,sizeof(a))
+#define me1(a) memset(a,-1,sizeof(a))
+#define op freopen(&quot;in.txt&quot;, &quot;r&quot;, stdin)
+#define op1 freopen(&quot;C:\\acm\\Cproj\\in.txt&quot;,&quot;r&quot;,stdin);
+#define pr freopen(&quot;C:\\acm\\Cproj\\out.txt&quot;,&quot;w&quot;,stdout)
+#define pr2 freopen(&quot;C:\\acm\\Cproj\\std.txt&quot;,&quot;w&quot;,stdout)
+#define pii pair&lt;int,int&gt;
+<A NAME="0"></A>#define Please return
+#define AC 0
+using namespace std;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int INF = 0x3f3f3f3f;
+typedef long long LL;
+template &lt;class T&gt;
+void read(T &amp;val) { T x = 0; T bz = 1; char c; for (c = getchar(); (c&lt;'0' || c&gt;'9') &amp;&amp; c != '-'; c = getchar()); if (c == '-') { bz = -1; c = getchar(); }for (; c &gt;= '0' &amp;&amp; c &lt;= '9'; c = getchar()) x = x * 10 + c - 48; val = x * bz; }
+const int mod=998244353;
+const int maxn = 1e4+10;
+char s[maxn];
+char tr(char c,int x){
+    x=c-'0'+x;
+    x%=10;
+    return x+'0';
+}
+int n;
+map&lt;string,int&gt;mpp2;
+
+auto solve(string rs,int b){
+    vector&lt;bool&gt;mpp(n+1);
+    int nw = b;
+    vector&lt;string&gt;res;
+    fo(i,0,n+n-1) s[i]=rs[i%n];
+    while(!mpp[nw]){
+        string tmp;
+        fo(i,0,n-1){
+            tmp+=s[(i+nw)];
+        }
+        if(mpp2.count(tmp)) {
+            break;
+        }
+        res.push_back(tmp);
+        mpp[nw]=1;
+        nw+=b;
+        nw%=n;
+    }
+    return res;
+}
+
+class Solution {
+public:
+    string findLexSmallestString(string rs, int a, int b) {
+        mpp2.clear();
+        n = rs.size();
+        vector&lt;string&gt;res;
+        res = solve(rs,b);
+        for(auto to:res) mpp2[to]=1;
+
+        fo(i,0,res.size()-1){
+            string tmp=res[i];
+            auto xx = solve(res[i],b);
+            for(auto to:xx){
+                if(!mpp2.count(to)) {
+                    res.push_back(to);
+                    mpp2[to]=1;
+                }
+            }
+
+            fo(j,1,100000){//加上这么多次
+                for(int k = 1;k&lt;n;k+=2){
+                    tmp[k]=tr(res[i][k],j*a);
+                }
+                if(mpp2.count(tmp)) break;
+                res.push_back(tmp);
+                mpp2[tmp]=1;
+            }
+        }
+
+        string mi = res[0];
+        for(auto to:res) mi = min(mi,to);
+        return mi;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

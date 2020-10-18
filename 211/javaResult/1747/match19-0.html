@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>816_avlgood2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>816_avlgood2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+     public String findLexSmallestString(String s, int a, int b) {
+        HashSet&lt;String&gt; set = new HashSet&lt;&gt;();
+        set.add(s);
+        String smallest = s</B></FONT>;
+        LinkedList&lt;String&gt; q = new LinkedList&lt;&gt;();
+        q.add(s);
+        while(!q.isEmpty()) {
+            String top = q.poll();
+            if (top.compareTo(smallest) &lt; 0) {
+                smallest = top;
+            }
+            String str1 = do1(top, a);
+            if (!set.contains(str1)) {
+                set.add(str1);
+                q.add(str1);
+            }
+            String str2 = do2(top, b);
+<A NAME="1"></A>            if (!set.contains(str2)) {
+                set.add(str2);
+                q.add(str2);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return smallest;
+    }
+
+    private String do1(String from, int a) {
+<A NAME="2"></A>        char[] arr = from.toCharArray();
+        for (int i = 1; i &lt; arr.length; i += 2) {</B></FONT>
+            int num = (arr[i] - '0' + a) % 10;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>arr[i] = (char)('0' + num);
+        }
+        return new String(arr);
+    }
+    
+    private String do2(String from, int b) {
+        return from.substring(from.length() - b) + from.substring(0, from.length() - b);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

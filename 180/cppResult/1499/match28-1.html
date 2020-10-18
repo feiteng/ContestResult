@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>190_cavac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>190_cavac.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxPerformance(int n, vector&lt;int&gt;&amp; s, vector&lt;int&gt;&amp; e, int k) {
+        vector&lt;pair&lt;int, int&gt;&gt; all;
+<A NAME="1"></A>        for(int i = 0; i &lt; n; i++) all.push_back(make_pair(e[i], s[i]));</B></FONT>
+        sort(all.begin(), all.end());
+        multiset&lt;int&gt; S;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        long long sum = 0, ans = 0;
+        for(int i = n - 1; i &gt;= 0; i--) {
+            ans = max(ans, (sum + all[i].second) * all[i].first);
+            S.insert(all[i].second);
+            sum += all[i].second;
+            if(S.size() &gt; k - 1) {
+                sum -= (*S.begin());
+                S.erase(S.begin());
+            }
+        }</B></FONT>
+        int mod = 1e9 + 7;
+        return ans % mod;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

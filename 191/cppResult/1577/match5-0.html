@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>93_liouzhou_101.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>93_liouzhou_101.cpp</CENTER></H3><HR>
+<PRE>
+using ll = long long;
+using ld = double;
+
+ld f[11][55][1&lt;&lt;8][1&lt;&lt;8];
+ld C[55][55];
+ld fact[55];
+
+class Solution {
+public:
+    double getProbability(vector&lt;int&gt;&amp; b) {
+        
+        
+        int n = b.size();
+        int sum = 0;
+        for (auto x : b) sum += x;
+        
+        
+        for (int i = 0; i &lt;= sum; ++ i)
+            for (int j = 0; j &lt;= sum; ++ j)
+                C[i][j] = 0;
+        for (int i = 0; i &lt;= sum; ++ i)
+        {
+            C[i][0] = 1;
+            for (int j = 1; j &lt;= i; ++ j)
+<A NAME="0"></A>                C[i][j] = C[i-1][j-1]+C[i-1][j];
+        }
+        fact[0] = 1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt;= sum; ++ i) fact[i] = fact[i-1]*i;
+        
+        for (int i = 0; i &lt;= n; ++ i)
+           for (int j = 0; j &lt;= sum; ++ j)
+               for (int s = 0; s &lt; 1&lt;&lt;n; ++ s)
+<A NAME="1"></A>                   for (int t = 0; t &lt; 1&lt;&lt;n; ++ t)
+                       f[i][j][s][t] = 0;
+        f[0][0][0][0] = 1;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++ i)
+           for (int j = 0; j &lt;= sum; ++ j)
+               for (int s = 0; s &lt; 1&lt;&lt;n; ++ s)
+                   for (int t = 0; t &lt; 1&lt;&lt;n; ++ t)
+                   {
+                       if (f[i][j][s][t] == 0) continue;</B></FONT>
+                       for (int d = 0; d &lt;= b[i]; ++ d)
+                       {
+                           if (j+d &lt;= sum) f[i+1][j+d][s|(d &gt; 0)&lt;&lt;i][t|(d &lt; b[i]) &lt;&lt; i] += C[b[i]][d]*f[i][j][s][t];
+                       }
+                   }
+        double ret = 0;
+        for (int s = 0; s &lt; 1&lt;&lt;n; ++ s)
+            for (int t = 0; t &lt; 1&lt;&lt;n; ++ t)
+                if (__builtin_popcount(s) == __builtin_popcount(t))
+                    ret += f[n][sum/2][s][t];
+        ret *= fact[sum/2];
+        ret *= fact[sum/2];
+        ret /= fact[sum];
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

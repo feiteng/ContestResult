@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>497_volodymyr_k.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>497_volodymyr_k.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;(queries.length);
+        
+        if (threshold == 0) {
+            for (int[] q : queries) {
+                res.add(true);
+            }
+            return res;
+        }
+
+        Union u = new</B></FONT> Union(n + 1);
+        boolean[] used = new boolean[n + 1];
+        
+        for (int i = threshold + 1; i &lt;= n; i++) {
+            int v = i*2;
+            while (v &lt;= n) {
+<A NAME="1"></A>                u.union(i, v);
+                v += i;
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        for (int[] q : queries) {
+            res.add(u.getParent(q[0]) == u.getParent(q[1]));
+        }
+        
+        return res;
+    }
+    
+    static class Union {
+        int[] parents</B></FONT>;
+<A NAME="2"></A>        
+        Union(int n) {
+            parents = new int[n];
+            for (int i = 0; i &lt; n; i++) parents[i] = i<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        
+        int getParent(int i) {
+            if (parents[i] != i) parents[i] = getParent(parents[i]);
+            return parents[i];
+        }
+        
+        void union(int i1, int i2) {
+            int p1 = getParent(i1), p2 = getParent(i2);
+            if (p1 == p2) return;</B></FONT>
+            
+            parents[p1] = p2;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

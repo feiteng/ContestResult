@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1917_yangaobo.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1917_yangaobo.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxDotProduct(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        len1, len2 = len(nums1), len(nums2)
+        max_dots = [[float('-inf')] * len2 for _ in range(len1)]
+        
+                
+        for i in range(len1 - 1, -1, -1):
+            for j in range(len2 - 1, -1, -1):
+                cans = []
+                
+                if i + 1 &lt; len1:
+                    cans.append(max_dots[i + 1][j])
+                if j + 1 &lt; len2:
+                    cans.append(max_dots[i][j + 1])
+                
+                if i + 1 &lt; len1 and j + 1 &lt; len2:
+                    cans.append(max_dots[i + 1][j + 1] + nums1[i] * nums2[j])
+
+                cans.append(nums1[i] * nums2[j])
+                    
+                max_dots[i][j] = max(cans)
+        
+        return max_dots[0][0</B></FONT>]
+        
+</PRE>
+
+</BODY>
+</HTML>

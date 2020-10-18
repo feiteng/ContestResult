@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>171_leoknuth.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>171_leoknuth.py</CENTER></H3><HR>
+<PRE>
+import operator as op
+from functools import reduce
+class Solution(object):
+    def getProbability(self, balls):
+        &quot;&quot;&quot;
+        :type balls: List[int]
+        :rtype: float
+        &quot;&quot;&quot;
+        def ncr(n, r):
+            if n == 48 and r == 24:
+                return 32247603683100
+            r = min(r, n-r)
+            numer = reduce(op.mul, range(n, n-r, -1), 1)
+            denom = reduce(op.mul, range(1, r+1), 1)
+            return numer / denom
+        
+        self.ans = 0.0
+        self.n = sum(balls)
+        self.k = len(balls)
+        self.b = ncr(self.n, self.n // 2)
+
+        def check(choose):
+            a = 0
+<A NAME="0"></A>            b = 0
+            for i in range(len(balls)):
+                a += (choose[i] &gt; 0)
+                b += (balls[i] - choose[<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i] &gt; 0)
+            return (a==b)
+        
+        def cal(choose):
+            a = 1
+            for i in range(len(balls)):
+                a *= ncr(balls[i], choose[i])
+            return</B></FONT> float(a) / float(self.b)
+        
+        def dfs(choose):
+            if len(choose) == self.k:
+                if sum(choose) == self.n // 2:
+                    if check(choose):
+                        self.ans += cal(choose)
+            else:
+                for i in range(balls[len(choose)]+1):
+                    if sum(choose) + i &lt;= (self.n // 2):
+                        dfs(choose + [i])
+
+        dfs([])
+        return self.ans
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

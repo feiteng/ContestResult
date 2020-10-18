@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_tommyjiang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_tommyjiang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -&gt; int:
+        mod = 10**9 + 7
+        
+        es = sorted(zip(efficiency, speed), reverse=True)
+        # print(es)
+        
+<A NAME="0"></A>        pq = []
+        heapq.heapify(pq)
+        
+        res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        heaps = 0
+        for i in range(k):
+            heapq.heappush(pq, es[i][1])
+            heaps += es[i][1]
+            cur_e = es[i][0]
+            res = max(res, cur_e * heaps)
+        
+        for i in range(k, n):
+            pop_v = heapq.heappop(</B></FONT>pq)
+            push_v = es[i][1]
+            heapq.heappush(pq, push_v)
+            heaps -= pop_v
+            heaps += push_v
+            cur_e = es[i][0]
+            
+            res = max(res, cur_e * heaps)
+        
+        return res % mod
+</PRE>
+
+</BODY>
+</HTML>

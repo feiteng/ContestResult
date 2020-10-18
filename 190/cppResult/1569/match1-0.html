@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1287_stanislavchuk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>1287_stanislavchuk.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxDotProduct(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        vector&lt;vector&lt;int&gt;&gt; dp(nums1.size(), vector&lt;int&gt;(nums2.size(), 0));
+        dp[0][0] = nums1[0]*nums2[0];
+        for (int r = 1; r &lt; nums1.size(); ++r)
+            dp[r][0] = max(nums1[r]*nums2[0], dp[r-1][0]);
+        for (int c = 1; c &lt; nums2.size(); ++c)
+            dp[0][c] = max(nums1[0]*nums2[c], dp[0][c-1]);
+        for (int r = 1; r &lt; nums1.size(); ++r) {
+            for (int c = 1; c &lt; nums2.size(); ++c) {
+                dp[r][c] = max({nums1[r]*nums2[c] + max(dp[r-1][c-1], 0), dp[r-1][c-1], dp[r-1][c], dp[r][c-1]});
+            }
+        }
+        // for (int r = 0; r &lt; nums1.size(); ++r) {
+        //     for (int c = 0; c &lt; nums2.size(); ++c) {
+        //         cout &lt;&lt; dp[r][c] &lt;&lt; &quot; &quot;;
+        //     }
+        //     cout &lt;&lt; endl;
+        // }
+        return dp.back().back();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>318_michael-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>318_michael-2.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        N = len(balls)
+        num = sum(balls) // 2
+        self.tot = 0
+        @functools.lru_cache(None)
+        def fac(n):
+            if n == 1:
+                return 1
+            return n * fac(n - 1)
+        
+        def perm(balls):
+            n = sum(balls)
+            res = fac(n)
+            for m in balls:
+                if m &gt; 0:
+                    res //= fac(m)
+            return res
+        
+        def dfs(l_balls, s, cur_t):
+            if cur_t &gt; num:
+                return
+<A NAME="0"></A>            if len(l_balls) == N:
+                r_balls = [balls[i] - l_balls[i] for i in range(N)]
+                if sum(l_balls) == num and sum([x &gt; 0 for x in l_balls]) == sum([x &gt; 0 for x in r_balls]):
+                    self.tot += perm(l_balls) * perm<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(r_balls)
+                return
+            for n in range(balls[s] + 1):
+                dfs(l_balls + [n], s + 1, cur_t + n)
+        dfs([], 0, 0)
+        return self.</B></FONT>tot / float(perm(balls))
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

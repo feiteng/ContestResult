@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>213_leo934524.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>213_leo934524.py</CENTER></H3><HR>
+<PRE>
+from typing import List
+from functools import lru_cache
+
+class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        cs = len(balls)
+        total = sum(balls)
+<A NAME="0"></A>
+        @lru_cache(maxsize=2500)
+        def cal(a,b)-&gt;int:
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if b == 0 or a == b:
+                return 1
+            c = 1
+            for i in range(1, a + 1):
+                c *= i
+            for i in range(1, b + 1):
+                c = c // i
+            for i in range(1, (a-b) + 1):
+                c =</B></FONT> c // i
+            return c
+        
+        c = cal(total,total//2)
+
+        cur = {(0, cs, (total // 2)): 1}
+        for i in range(len(balls)):
+            next = {}
+            ball = balls[i]
+            for k, v in cur.items():
+                if v == 0:
+                    continue
+                for b in range(ball + 1):
+                    if k[2] - b &lt; 0:
+                        break
+                    if b == 0:
+                        nv = (k[0], k[1], k[2] - b)
+                    elif b == ball:
+                        nv = (k[0] + 1, k[1] - 1, k[2] - b)
+                    else:
+                        nv = (k[0] + 1, k[1], k[2] - b)
+                    if nv not in next:
+                        next[nv] = 0
+                    next[nv] += v * cal(ball,b)
+            cur = next
+        r = 0
+        for k, v in cur.items():
+            if k[2] == 0 and k[0] == k[1]:
+                r += v
+        return r / c
+</PRE>
+
+</BODY>
+</HTML>

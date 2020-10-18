@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_Sakamono.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>249_Sakamono.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    class State {
+        int speed;
+        int efficiency;
+        State(int speed, int efficiency) {
+            this.speed = speed;
+            this.efficiency = efficiency;
+        }
+<A NAME="1"></A>    }
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        int MOD = (int)1e9 + 7;</B></FONT>
+        List&lt;State&gt; list = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            list.add(new State(speed[i], efficiency[i]));
+        }
+        Collections.sort(list, (a, b) -&gt; (a.effi</B></FONT>ciency == b.efficiency ? b.speed - a.speed : b.efficiency - a.efficiency));
+        PriorityQueue&lt;State&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a.speed - b.speed);
+        long sum = 0;
+        long res = 0;
+        for (State state : list) {
+            pq.offer(state);
+<A NAME="2"></A>            sum += state.speed;
+            if (pq.size() &gt; k) {
+                sum -= pq.poll().speed;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            res = Math.max(res, sum * state.efficiency);
+        }
+        return (int)(res % MOD);
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

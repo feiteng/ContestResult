@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>85_cf_newbie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>85_cf_newbie.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 5e4 + 100;
+
+class Solution {
+public:
+    vector&lt;int&gt; g[maxn];
+<A NAME="0"></A>    set&lt;pair&lt;int,int&gt;&gt; edges;
+    int res;
+    void dfs(int at, int p) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (at != 0) {
+            //check edge
+            if (!edges.count(make_pair(at, p))) {
+                res++;
+            }
+        }
+        for (int to: g[at]) {
+            if (to != p) {
+                dfs(to ,at);
+            }
+        }
+    }
+    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; v) {
+        res=0;
+        for (auto ed: v) {</B></FONT>
+            g[ed[0]].push_back(ed[1]);
+            g[ed[1]].push_back(ed[0]);
+            edges.insert({ed[0], ed[1]});
+        }
+        
+        dfs(0, -1);
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

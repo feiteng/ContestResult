@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>315_cheng-en.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>315_cheng-en.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minReorder(int n, int[][] connections) {
+        List&lt;Integer&gt;[] lists = new List[n];
+        List&lt;Integer&gt;[] revLists = new List[n];
+        for (int i = 0; i &lt; n; ++i) {
+            lists[i] = new ArrayList&lt;&gt;();
+            revLists[i] = new ArrayList&lt;&gt;();
+        }</B></FONT>
+        for (int[] conn : connections) {
+            lists[conn[0]].add(conn[1]);
+            revLists[conn[1]].add(conn[0]);
+<A NAME="1"></A>        }
+        Queue&lt;Integer&gt; que = new LinkedList&lt;&gt;();
+        boolean[] visited = new boolean[n];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>que.offer(0);
+        visited[0] = true;
+        int res = 0;
+        while (!que.isEmpty()) {
+            int cur = que.poll();
+            for (int next : revLists[cur]) {</B></FONT>
+                if (visited[next]) continue;
+                visited[next] = true;
+<A NAME="2"></A>                que.offer(next);
+            }
+            for (int next : lists[cur]) {
+                if (visited[next]) continue<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                visited[next] = true;
+                que.offer(next);
+                ++res;
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

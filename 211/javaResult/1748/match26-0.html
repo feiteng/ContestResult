@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>660_liusandao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>660_liusandao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public class Player {
+        int score;
+        int age;
+
+        public Player(int score, int age) {
+            this.score = score;
+            this.age = age;
+<A NAME="1"></A>        }
+    }</B></FONT>
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int bestTeamScore(int[] scores, int[] ages) {
+        int n = scores.length;
+        Player[] players = new Player[n];
+        for (int i = 0; i &lt; n; i++) {
+            players[i] = new Player(scores[i], ages[i]);
+        }
+        Arrays.sort(players, (o1, o2) -&gt; o1.age == o2.age ? o1.score - o2.score : o1.age - o2.age);
+<A NAME="2"></A>        int[] dp = new</B></FONT> int[n];
+        for (int i = 0; i &lt; n; i++) {
+            dp[i] = players[i].score;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = 0; j &lt; i; j++) {
+                if (players[i].score &gt;= players[j].score) {
+<A NAME="3"></A>                    dp[i] = Math.max(dp[i], players[i].score + dp[j]);
+                }
+            }</B></FONT>
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        int res = 0;
+        for (int i = 0; i &lt; n; i++) {
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

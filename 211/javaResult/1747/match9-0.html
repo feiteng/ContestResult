@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>513_i30361.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>513_i30361.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+    	Set&lt;String&gt; seen = new HashSet&lt;&gt;();
+    	Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
+    	q.add(s);
+    	seen.add(s);
+    	String min = s;
+    	while( !q.isEmpty() ) {
+    		String current = q.remove();
+    		String addedString = add(current, a);
+    		//System.out.println(seen);
+    		if( !seen.contains(addedString) ) {
+<A NAME="1"></A>    			q.add(addedString);</B></FONT>
+    			//System.out.println(&quot;Adding&quot; + addedString);
+    			seen.add(addedString);
+    			if( addedString.c<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ompareTo(min) &lt; 0 ) {
+    				min = addedString;
+    			}
+    		}
+    		//System.out.println(String.format(&quot;min %s&quot;, min));
+    		String shiftedString = shift(current, b);
+    		//System.out.println(String.format(&quot;Shifted %s min %s %d&quot;, shiftedString, min, shiftedString.compareTo(min)));
+<A NAME="2"></A>    		if( !seen.contains(shiftedString) ) {</B></FONT>
+    			q.add(shiftedString);
+    			//System.out.println(&quot;Adding&quot; + shiftedString);
+    			seen.add(shiftedS<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>tring);
+    			if( shiftedString.compareTo(min) &lt; 0 ) {
+    				min = shiftedString;
+    			}
+    		}
+    		//System.out.println(String.format(&quot;min %s&quot;, min));
+    	}
+    	return min;
+    }
+    
+    
+    private String add(String s, int a) {
+    	StringBuilder sb = new St</B></FONT>ringBuilder(&quot;&quot;);
+    	int l = s.length();
+<A NAME="3"></A>    	for(int i=0; i&lt;l; ) {
+    		sb.append(s.charAt(i++));
+    		sb.append( (char)('0' + (s.charAt(i++) - '0' + a) % 10));
+    	}<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+    	//System.out.println(String.format(&quot;Add %s -&gt; %s&quot;, s, sb.toString()));
+    	return sb.toString();
+    }
+   
+    private String shift(String s, int b) {</B></FONT>
+    	StringBuilder sb = new StringBuilder(&quot;&quot;);
+    	int l = s.length();
+    	for(int i=0; i&lt;l; i++) {
+    		sb.append(s.charAt((i+b)%l));
+    	}
+    	
+    	//System.out.println(String.format(&quot;Shift %s -&gt; %s&quot;, s, sb.toString()));
+    	return sb.toString();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

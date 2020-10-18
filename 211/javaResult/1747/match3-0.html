@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>864_calochroa.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>864_calochroa.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayDeque;
+<A NAME="0"></A>import java.util.Set;
+import java.util.TreeSet;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+  public String findLexSmallestString(String paramString, int paramInt1, int paramInt2) {
+    TreeSet&lt;String&gt; treeSet = new TreeSet();
+    ArrayDeque&lt;String&gt; arrayDeque = new ArrayDeque(Set.of(paramString));
+    while (!arrayDeque.isEmpty()) {
+      String str = arrayDeque.remove();
+      if (!treeSet.contains(str)) {
+        treeSet.add(str);
+        String str1 = &quot;&quot;;
+        String str2 = &quot;&quot;;
+        for (byte b = 0; b &lt; str.length(); b++) {
+          if (b % 2 == 1) {</B></FONT>
+            str1 = String.valueOf(str1) + (char)((str.charAt(b) - 48 + paramInt1) % 10 + 48);
+<A NAME="1"></A>          } else {
+            str1 = String.valueOf(str1) + str.charAt(b);
+          } 
+          str2 = String.valueOf(str2) + <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>str.charAt((b + paramInt2) % str.length());
+        } 
+        arrayDeque.add(str1);
+        arrayDeque.add(str2);
+      } 
+    } 
+    return treeSet.first();
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

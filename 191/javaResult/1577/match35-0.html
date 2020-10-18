@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_calcsaransh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>191_calcsaransh.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int arr[];
+    double memo[][][][][][];
+    int sum;
+    public double getProbability(int[] balls) {
+        
+        sum = 0;
+<A NAME="0"></A>        for(int i=0;i&lt;balls.length;i++)sum+=balls[i];
+        arr=new int[sum];
+        int k=0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i=0;i&lt;balls.length;i++) {
+            for(int j=0;j&lt;balls[i];j++) {
+                arr[k++]=i;
+            }
+        }</B></FONT>
+<A NAME="1"></A>        memo=new double[48][10][10][9][9][25];
+        
+        return find(0,-1,-1, 0, 0, 0);
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public double find(int pos, int lastin1, int lastin2, int distinct1, int distinct2, int first) {
+        if (pos==arr.length) {</B></FONT>
+            if (distinct1==distinct2)return 1.0;
+            return 0.0;
+        }
+        if (memo[pos][lastin1+1][lastin2+1][distinct1][distinct2][first]&gt;0)return memo[pos][lastin1+1][lastin2+1][distinct1][distinct2][first]-1.0;
+        double ans = 0.0;
+        double remaining = sum-pos;
+        int possibleForFirst = sum/2-first;
+        double probabilityForFirst = (double)possibleForFirst/(remaining*1.0);
+        if (possibleForFirst&gt;0) {
+            ans += probabilityForFirst*find(pos+1,arr[pos],lastin2, arr[pos]==lastin1 ? distinct1:distinct1+1,distinct2, first+1);
+        }
+        ans += (1-probabilityForFirst)*find(pos+1, lastin1, arr[pos], distinct1, arr[pos]==lastin2 ? distinct2: distinct2+1, first);
+        memo[pos][lastin1+1][lastin2+1][distinct1][distinct2][first]=1.0+ans;
+        //memo[pos][bitmask1][bitmask2][first]=1.0+ans;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

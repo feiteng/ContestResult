@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>779_x372p.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>779_x372p.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+<A NAME="0"></A>        Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
+        queue.add(s);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>set.add(s);
+        while(!queue.isEmpty()) {
+            String curr = queue.remove();
+            String next1 = change1(curr, a);
+            String next2 = change2(curr, b);
+            if (!set.contains(next1)) {
+                set.add(next1);
+                queue.add(next1);
+            }
+            if (!set.contains(next2)) {
+                set.add(next2);
+                queue.add(next2);
+            }
+        }</B></FONT>
+<A NAME="1"></A>        
+        List&lt;String&gt; list = new ArrayList&lt;&gt;(set);
+        Collections.sort(list);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return list.get(0);
+    }
+    
+    private String change1(String curr, int a) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; curr.length(); i++) {
+            int num = curr.charAt(i) - '0';
+            if (i % 2 == 1) {
+<A NAME="2"></A>                num = (num + a)%10;
+            }
+            sb.append</B></FONT>(String.valueOf(num));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return sb.toString();
+    }
+    
+    private String change2(String curr, int b) {
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        String s1 = curr.substring(0, b);
+        String s2 = curr.substring(b);
+        sb.append(s2);
+        sb.append(s1);
+        return sb.toString();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2156_hanwenwang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>2156_hanwenwang.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def pseudoPalindromicPaths (self, root):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :rtype: int
+        &quot;&quot;&quot;
+        path_map = {} 
+        result = [0]
+        if root is None:
+            return result[0]
+        self.dfs(root, path_map, result)
+        return result[0]
+<A NAME="0"></A>        
+    def dfs(self, root, path_map, result):
+        if root.val not in path_map:
+            path_map[root.val] =<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> 0
+        path_map[root.val] += 1
+<A NAME="1"></A>        if root.left is None and root.right is None:
+            if self.is_palindromic(path_map):
+                result[0] +</B></FONT>= 1
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if root.left is not None:
+            self.dfs(root.left, path_map, result)
+        if root.right is not None:
+            self.dfs(root.</B></FONT>right, path_map, result)
+        path_map[root.val] -= 1
+        
+        
+    def is_palindromic(self, path_map):
+        odd_num = 0
+        for num in path_map:
+            if path_map[num] % 2 == 1:
+                odd_num += 1
+        if odd_num &gt; 1:
+            return False
+        return True
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

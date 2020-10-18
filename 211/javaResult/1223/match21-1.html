@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161_fighting_for_flag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>161_fighting_for_flag.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int[] components;
+    int[] size;
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        components=new int[n+1];
+        size=new int[n+1];
+        for(int i=1;i&lt;=n;i++)
+        {    
+            components[i]=i;
+            size[i]=1;
+<A NAME="1"></A>        }
+        for(int i=Math.max(0,threshold)+1;i&lt;=n</B></FONT>;i++){
+            int cur=i;
+            for(int j=2;j*i&lt;=n;j++)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                union(i,j*i);
+            }
+        }
+        List&lt;Boolean&gt; res=new ArrayList&lt;&gt;();
+        for(int[] query:queries){
+            int pa=findParent(query[0]);</B></FONT>
+<A NAME="2"></A>            int pb=findParent(query[1]);
+            if(pa==pb) res.add(true);
+            else res.add(false);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return res;
+<A NAME="3"></A>    }
+    int findParent(int n){
+        while(components[n]!=n){</B></FONT>
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>n=components[components[n]];
+        }
+        return n;
+    }
+    void union(int a,int b){
+<A NAME="4"></A>        int pa=findParent(a);
+        int pb=findParent(b);
+        if</B></FONT>(pa==pb) return;
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#4',2,'match21-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(size[pa]&gt;size[pb]){
+            size[pa]+=size[pb];
+            components[pb]=pa;
+        } else{
+            size[pb]+=size[pa];
+            components[pa]=pb;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

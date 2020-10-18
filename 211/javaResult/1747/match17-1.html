@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>528_robinlzl1989.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>528_robinlzl1989.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        Queue&lt;String&gt; q = new LinkedList&lt;&gt;(); 
+        q.add(s); 
+<A NAME="1"></A>        Set&lt;String&gt; set = new HashSet&lt;&gt;()</B></FONT>; 
+        int len = s.length();
+        String ret = s; 
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!q.isEmpty()) {
+            String str = q.poll(); 
+            // System.out.println(str);
+            if (str.compareTo(ret) &lt; 0) {
+                ret = str;
+            }
+            String pre = str.substring</B></FONT>(0, len - b);
+<A NAME="2"></A>            String suf = str.substring(len-b);
+            String tmp = suf + pre;
+            // System.out.println(str + &quot; &quot; + tmp);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!set.contains(tmp)) {
+                set.add(tmp);
+                q.add(tmp);
+            }
+            char[] cs = str.toCharArray</B></FONT>(); 
+            for (int i = 1; i &lt; len; i += 2) {
+                int val = cs[i] - '0'; 
+                val += a; 
+                if (val &gt;= 10) {
+                    val -= 10; 
+                }
+                // System.out.println(str + &quot; &quot; + i + &quot; &quot; + val);
+                cs[i] = (char)(val + '0');
+<A NAME="3"></A>            }
+            String x = new String(cs); 
+            // System.out.println(str + &quot; &quot; + x);
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!set.contains(x)) {
+                set.add(x);
+                q.add(x); 
+            }
+        }
+        return ret;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

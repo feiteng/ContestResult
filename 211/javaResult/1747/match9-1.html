@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>272_aChris.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>272_aChris.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        HashSet&lt;String&gt; visited = new HashSet&lt;&gt;();
+        Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer(s);
+        visited.add(s);
+        String res = s;
+        while (!queue.isEmpty()) {
+            String cur = queue.poll();
+<A NAME="1"></A>            String next1 = add(cur, a);
+            if (visited.add(next1)) {
+                queue.offer</B></FONT>(next1);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (res.compareTo(next1) &gt; 0) {
+                    res = next1;
+                }
+            }
+<A NAME="2"></A>            
+            String next2 = rotate(cur, b);
+            if (visited.add(next2)) {</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>queue.offer(next2);
+                if (res.compareTo(next2) &gt; 0) {
+                    res = next2;
+                }
+            }
+        }
+        return res;
+    }
+    
+    private String add(String s, int a) {
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        for (int i = 0; i &lt; s.length(); i++) {
+            if (i % 2 == 0) {
+                sb.append(s.charAt(i));
+            } else {
+<A NAME="3"></A>                int d = s.charAt(i) - '0';
+                sb.append((d + a) % 10);
+            }
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#3',2,'match9-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return sb.toString();
+    }
+    
+    private String rotate(String s, int b) {</B></FONT>
+        return s.substring(b) + s.substring(0, b);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

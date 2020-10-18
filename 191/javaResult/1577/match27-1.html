@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_zhongzh13.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_zhongzh13.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="2"></A>    int n,k;
+    int[] bals, suffix;
+    double[] fac;
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double total_sum=0.;
+    public double getProbability(int[] balls) {
+        int total = 0;
+        for(int i:balls) total += i;
+        n</B></FONT> = total/2; k = balls.length;
+        bals = balls;
+        suffix = new int[k+1];
+        for(int i=k-1;i&gt;=0;i--) suffix[i] = suffix[i+1]+balls[i];
+        fac = new double[2*n+1];
+        fac[0] = 1.;
+        for(int i=1;i&lt;=2*n;i++) fac[i] = fac[i-1]*(i);
+        dfs(0, new int[k], 0);
+        double up = fac[2*n];
+        double down = 1.;
+        for(int b:bals) down *= fac[b];
+        double dd = up/down;
+        return total_sum/dd;
+<A NAME="1"></A>    }
+    void dfs(int idx, int[] status, int preSum){
+        if(idx==k){
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>check(status,preSum);
+            return;
+        }
+        if(preSum+suffix[idx]&lt;n) return;
+        for(int j=0; j&lt;=bals[idx]; j++){</B></FONT>
+            status[idx] = j;
+            dfs(idx+1,status,preSum+j);
+        }
+        status[idx] = 0;
+    }
+<A NAME="0"></A>    void check(int[] status, int preSum){
+        if(preSum!=n) return;
+        double a = fac[n], b = fac[n];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int pre = 0, suf = 0;
+        for(int i=0; i&lt;k;i++){
+            if(status[i]&gt;0) pre++;
+            if(status[i]&lt;bals[i]) suf++;
+        }
+        if(pre!=suf) return;</B></FONT>
+        for(int i=0; i&lt;k;i++){
+            a /= fac[status[i]];
+            b /= fac[bals[i]-status[i]];
+        }
+        total_sum += a*b;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

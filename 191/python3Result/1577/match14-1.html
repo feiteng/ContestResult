@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_peichaoD.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_peichaoD.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        self.n = sum(balls)//2
+<A NAME="0"></A>        
+        #calculate how many possible ways to distribute
+        def base(n):
+            return math.factorial(2*n)/math.factorial(n)/math<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.factorial(n)
+        
+        def choose(m,k):
+            return math.factorial(m)/math.factorial(m-k)/math.factorial(</B></FONT>k)
+        
+        denominator = base(self.n)
+        #print(real_balls)
+        self.res = 0
+        
+        def dfs(balls,index,count1,count2,diff1,diff2,times):
+            if index==len(balls):
+                if diff1==diff2:
+                    self.res+=1*times
+                return
+            
+            #print(index,count1,count2,diff1,diff2)
+            if count1&gt;self.n or count2&gt;self.n:
+                return
+            val = balls[index]  
+            for give1 in range(0,val+1):
+                give2 = val-give1
+                
+                if give1&gt;self.n-count1:
+                    break
+                if give2&gt;self.n-count2:
+                    continue
+                nt = times*choose(val,give1)
+                add1 = 1 if give1!=0 else 0
+                add2 = 1 if give2!=0 else 0
+                dfs(balls,index+1,count1+give1,count2+give2,diff1+add1,diff2+add2,nt)
+        
+        dfs(balls,0,0,0,0,0,1)
+                
+                
+        
+        return self.res/denominator
+        
+</PRE>
+
+</BODY>
+</HTML>

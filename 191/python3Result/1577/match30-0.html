@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_miacxj.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_miacxj.py</CENTER></H3><HR>
+<PRE>
+import itertools
+import math
+
+class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        k = len(balls)
+        colors = list(range(k))
+        n = sum(balls) // 2
+        count = 0
+        # (k+1)//2 ~ k 
+        for m in range((k+1)//2, k + 1):
+            leftColorCombinations = list(itertools.combinations(colors, m))
+            for leftColors in leftColorCombinations:
+                rightOnlyColors = list(set(colors) - set(leftColors))
+                numSharedColors = m - len(rightOnlyColors)
+                # print(&quot;leftColors: &quot;, leftColors)
+                # print(&quot;rightOnlyColors: &quot;, rightOnlyColors)
+                # print(&quot;numSharedColors: &quot;, numSharedColors)
+                if numSharedColors == 0:
+                    leftBalls = [balls[color] for color in leftColors]
+                    rightBalls = [balls[color] for color in rightOnlyColors]
+                    if sum(leftBalls) != sum(rightBalls):
+                        continue
+                    count += self.getTotalCount(leftBalls) * self.getTotalCount(rightBalls)
+                    # print(&quot;no numSharedColors: leftBalls, rightBalls: &quot;, leftBalls, rightBalls)
+                    continue
+
+                for sharedColors in itertools.combinations(leftColors, numSharedColors):
+                    # print(&quot;sharedColors: &quot;, sharedColors)
+                    if not self.checkSharedColors(balls, sharedColors):
+                        continue
+                    leftOnlyColor = set(leftColors) - set(sharedColors)
+                    # print(&quot;leftOnlyColor: &quot;, leftOnlyColor)
+                    for leftSharedColorCount in self.generateSharedColorsDistribution(balls, sharedColors):
+                        rightSharedColorCount = [balls[color] for color in sharedColors]
+                        for i in range(len(sharedColors)):
+                            rightSharedColorCount[i] -= leftSharedColorCount[i]
+                        # print(&quot;leftSharedColorCount, rightSharedColorCount: &quot;, leftSharedColorCount, rightSharedColorCount)
+                        leftBalls = [balls[color] for color in leftOnlyColor] + leftSharedColorCount
+                        rightBalls = [balls[color] for color in rightOnlyColors] + rightSharedColorCount
+                        if sum(leftBalls) != sum(rightBalls):
+                            continue
+                        # print(&quot;leftBalls, rightBalls: &quot;, leftBalls, rightBalls)
+                        count += self.getTotalCount(leftBalls) * self.getTotalCount(rightBalls)
+                                        
+<A NAME="0"></A>        totalCount = self.getTotalCount(balls)
+        return count / totalCount
+                    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def getTotalCount(self, balls):
+        result = math.factorial(sum(balls))
+        for ball in balls:
+            result /= math.factorial(ball)
+        r</B></FONT>eturn result
+    
+    def checkSharedColors(self, balls, sharedColors):
+        for color in sharedColors:
+            if balls[color] &lt;= 1:
+                return False
+        return True
+    
+    def generateSharedColorsDistribution(self, balls, sharedColors):
+        color = sharedColors[0]
+        if len(sharedColors) == 1:
+            return [[i] for i in range(1, balls[color])]
+        result = []
+        for pattern in self.generateSharedColorsDistribution(balls, sharedColors[1:]):
+            for i in range(1, balls[color]):
+                result.append([i] + pattern)
+        return result
+                
+            
+        
+        
+                    
+                
+</PRE>
+
+</BODY>
+</HTML>

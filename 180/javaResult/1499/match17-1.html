@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>476_wyuanTju.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>476_wyuanTju.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private static final long MOD = (long)(1e9+7);
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Person {
+        long s;
+        long e;
+        Person(long s, long e) {
+            this.s = s;
+            this.e = e;
+        }
+    }
+    
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        List&lt;Person&gt; ps = new ArrayList&lt;&gt;();
+        for(int i = 0; i &lt; n; i++) {
+            ps.add(new Person(speed[i], efficiency[i]));
+        }
+        Collections.sort(ps, (a, b) -&gt; (int)(b.e - a.e));
+        
+        Queue&lt;Person&gt; que = new PriorityQueue&lt;Person&gt;((a, b) -&gt; (int)(a.s - b.s));
+        long cure = 0</B></FONT>;
+        long sum = 0;
+        long res = 0;
+        for(Person p : ps) {
+            cure = p.e; 
+            sum += p.s;
+<A NAME="1"></A>            que.offer(p);
+            if(que.size() &gt; k) {
+                sum -= que.poll().s;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            res = Math.max(res, sum * cure);
+        }
+        return (int) (res%MOD);
+    }
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>114_YangZhenjian.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>114_YangZhenjian.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pseudoPalindromicPaths (self, root: TreeNode) -&gt; int:
+        cnts = [0]*9
+        def check():
+<A NAME="0"></A>            s = sum(c%2 for c in cnts)
+            return s &lt;= 1
+        
+        ans <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0
+        def dfs(node):
+            nonlocal ans
+<A NAME="1"></A>            cnts[node.val-1] += 1
+            if not node.left and not node.right:
+                if check():
+                    ans +</B></FONT>=<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> 1
+            if node.left:
+                dfs(node.left)
+            if node.right:
+                dfs(node.right)
+            cnts[node.val-1] -= 1
+        
+        dfs(root)
+        re</B></FONT>turn ans
+        
+</PRE>
+
+</BODY>
+</HTML>

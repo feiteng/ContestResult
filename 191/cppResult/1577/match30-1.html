@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>258_naoya_t.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>258_naoya_t.cpp</CENTER></H3><HR>
+<PRE>
+// #include &lt;bits/stdc++.h&gt;
+// using namespace std;
+
+#define NDEBUG
+#include &lt;cassert&gt;
+
+
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;int,int&gt; ii;
+typedef pair&lt;ll,ll&gt; llll;
+typedef pair&lt;double,double&gt; dd;
+
+typedef vector&lt;int&gt; vi;
+typedef vector&lt;vector&lt;int&gt;&gt; vvi;
+typedef vector&lt;ii&gt; vii;
+typedef vector&lt;vector&lt;ii&gt;&gt; vvii;
+typedef vector&lt;ll&gt; vll;
+typedef vector&lt;vector&lt;ll&gt;&gt; vvll;
+typedef vector&lt;string&gt; vs;
+typedef vector&lt;char&gt; vch;
+typedef vector&lt;bool&gt; vb;
+
+#define sz(a)  int((a).size())
+#define pb  push_back
+#define FOR(var,from,to) for(int var=(from);var&lt;=(to);++var)
+#define rep(var,n)  for(int var=0;var&lt;(n);++var)
+#define rep1(var,n)  for(int var=1;var&lt;=(n);++var)
+#define repC2(vari,varj,n)  for(int vari=0;vari&lt;(n)-1;++vari)for(int varj=vari+1;varj&lt;(n);++varj)
+#define ALL(c)  (c).begin(),(c).end()
+#define RALL(c)  (c).rbegin(),(c).rend()
+#define tr(i,c)  for(auto i=(c).begin(); i!=(c).end(); ++i)
+#define mset(arr,val)  memset(arr,val,sizeof(arr))
+#define mid(x,y) ((x)+((y)-(x))/2)
+#define IN(x,a,b) ((a)&lt;=(x)&amp;&amp;(x)&lt;=(b))
+#define clamp(v,lo,hi) min(max(v,lo),hi)
+
+template &lt;typename T&gt;
+inline bool found(set&lt;T&gt; &amp;s, T elem) { return s.find(elem) != s.end(); }
+template &lt;typename T&gt;
+inline bool found(unordered_set&lt;T&gt; &amp;s, T elem) { return s.find(elem) != s.end(); }
+template &lt;typename T, typename U&gt;
+inline bool found(map&lt;T,U&gt; &amp;s, U elem) { return s.find(elem) != s.end(); }
+template &lt;typename T, typename U&gt;
+inline bool found(unordered_map&lt;T,U&gt; &amp;s, U elem) { return s.find(elem) != s.end(); }
+template &lt;typename T&gt;
+inline bool found(vector&lt;T&gt; &amp;s, T elem) { return find(s.begin(), s.end(), elem) != s.end(); }
+inline int found(string &amp;s, string t) { return (int)s.find(t); }
+inline int found(string &amp;s, int c) { return (int)s.find(c); }
+
+template&lt;class T&gt; inline void amin(T &amp; a, T const &amp; b) { a = min(a, b); }
+template&lt;class T&gt; inline void amax(T &amp; a, T const &amp; b) { a = max(a, b); }
+
+inline ll square(ll x) { return x * x; }
+inline ll gcd(ll a, ll b) { while(a) swap(a, b%=a); return b; }
+template &lt;typename T&gt;
+inline T mod(T a, T b) { return ((a % b) + b) % b; }
+
+const ll MOD=1000000007LL;
+
+inline ll ADD(ll x, ll y) { return (x+y) % MOD; }
+inline ll SUB(ll x, ll y) { return (x-y+MOD) % MOD; }
+inline ll MUL(ll x, ll y) { return x*y % MOD; }
+inline ll POW(ll x, ll e) { ll v=1; for(; e; x=MUL(x,x), e&gt;&gt;=1) if (e&amp;1) v = MUL(v,x); return v; }
+inline ll INV(ll y) { /*assert(y%MOD!=0);*/ return POW(y, MOD-2); }
+inline ll DIV(ll x, ll y) { return MUL(x, INV(y)); }
+
+
+
+int pas[9][9];
+
+using T = ll;
+
+T dp[9][9][9][49];
+
+T nCk(int n, int k){
+    int denom = 1 &lt;&lt; n;
+    return (double)pas[n][k];
+}
+
+class Solution {
+public:
+    double getProbability(vector&lt;int&gt;&amp; balls) {
+        int colors=balls.size();
+        int nball = accumulate(ALL(balls),0), half=nball/2;
+        mset(dp,0);
+        dp[0][0][0][0] = (T)1;
+
+        {
+            mset(pas,0);
+            pas[0][0] = 1;
+            rep1(i,8) pas[i][0] = pas[i][i] = 1;
+            for(int r=2;r&lt;=8;++r){
+                for(int c=1;c&lt;r;++c){
+                    pas[r][c] = pas[r-1][c-1] + pas[r-1][c];
+                }
+<A NAME="0"></A>            }
+        }
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int subtotal=0;
+        rep(i,colors){
+            int nc = balls[i];
+            for(int q=0; q&lt;=subtotal; ++q){
+                for(int u=0; u&lt;=i; ++u){</B></FONT>
+                    for(int v=0; v&lt;=i; ++v){
+                        T here = dp[i][u][v][q];
+                        if (here == 0) continue;
+<A NAME="1"></A>                        for(int t=0;t&lt;=nc; ++t){
+                            if (q+t &gt; nball) continue;
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            if (t==0){
+                                dp[i+1][u][v+1][q+t] += here * nCk(nc,0);
+                            } else if (t==nc){
+                                dp[i+1][u+1][v][q+t] += here * nCk(nc,nc);
+                            }else {
+                                dp[i+1][u+1][v+1][q+t] += here * nCk(nc,t);
+                            }
+
+                        }
+
+                    }
+                }</B></FONT>
+            }
+            subtotal += nc;
+
+        }
+
+        T numer=0, denom=0;
+        rep(u,colors+1) rep(v,colors+1){
+            T here = dp[colors][u][v][half];
+            denom += here;
+            if (u==v) numer += here;
+        }
+        return (double)numer / denom;
+
+
+    }
+};
+</PRE>
+</BODY>
+</HTML>

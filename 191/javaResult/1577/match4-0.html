@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>376_hanyc1992.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>376_hanyc1992.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    double possible = 0;
+    
+    public double getProbability(int[] balls) {
+        int k = balls.length;
+        int sum = 0;
+        for(int ball: balls) sum += ball;
+        int n = sum / 2;
+        
+<A NAME="0"></A>        double allCount = countUniformShuffle(balls);
+        helper(balls, n, n, new int[k], 0);
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>System.out.println(&quot;allCount=&quot; + allCount + &quot;, possible=&quot; + possible);
+        return possible / allCount;
+    }
+    
+    void helper(
+        int[] originalBalls, 
+        int firstRemaining,
+        int secondRemaining,
+        int[] prev,
+        int index</B></FONT>
+<A NAME="1"></A>    ) {
+        if(firstRemaining &lt; 0 || secondRemaining &lt; 0) return;
+        int k = originalBalls.length;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(index == k) {
+            if(firstRemaining == 0 &amp;&amp; secondRemaining == 0 &amp;&amp; isDivideEven(originalBalls, prev)) {
+                possible += computePossibleCount(originalBalls, prev);
+            }
+            return;
+        }</B></FONT>
+        
+<A NAME="2"></A>        int ballCount = originalBalls[index];
+        for(int i = 0; i &lt;= ballCount; i++) {
+            prev[index] = i;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>helper(originalBalls, firstRemaining-i, secondRemaining-(ballCount-i), prev, index+1);
+            // prev[index] = 0;
+        }
+    }
+    
+    boolean isDivideEven(int[] originalBalls, int[] firstBox) {
+        int k = originalBalls.length;
+        
+        // for(int i = 0; i &lt; k; i++) {
+        //     System.out.print(&quot; &quot; + firstBox[i]);
+        // }
+        // System.out.println();
+        
+<A NAME="3"></A>        int[] secondBox = new int[k]</B></FONT>;
+        for(int i = 0; i &lt; k; i++) {
+            secondBox[i] = originalBalls[i] - firstBox[i];
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match4-1.html#3',3,'match4-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        return countDistinctBalls(firstBox) == countDistinctBalls(secondBox);
+    }
+    
+<A NAME="4"></A>    int countDistinctBalls(int[] box</B></FONT>) {
+        int result = 0;
+        for(int i = 0; i &lt; box.length; i++) {
+            if(box[i] &gt; 0) result++<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match4-1.html#4',3,'match4-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        }
+        return result;
+    }
+    
+    double computePossibleCount(int[] originalBalls, int[] firstBox</B></FONT>) {
+        int k = originalBalls.length;
+        int[] secondBox = new int[k];
+        for(int i = 0; i &lt; k; i++) {
+            secondBox[i] = originalBalls[i] - firstBox[i];
+        }
+        
+        double first = countUniformShuffle(firstBox);
+        double second = countUniformShuffle(secondBox);
+        return first * second;
+    }
+    
+    double countUniformShuffle(int[] box) {
+        int sum = 0;
+        for(int b: box) sum += b;
+        
+        double result = 1;
+        for(int i = 1; i &lt;= sum; i++) {
+            result *= i;
+        }
+        for(int b: box) {
+            for(int i = b; i &gt;= 1; i--) {
+                result /= i;
+            }
+        }
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

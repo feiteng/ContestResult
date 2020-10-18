@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>254_zizhong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>254_zizhong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+ public:
+  double getProbability(vector&lt;int&gt; &amp;b) {
+    int nc = b.size();
+    int nb = 0;
+    for (auto x : b) nb += x;
+      typedef long long ll;
+    double dp[2][10][10][64] = {0};
+
+    dp[0][0][0][0] = 1;
+<A NAME="0"></A>
+    double cc[50][50];
+    memset(cc, 0, sizeof(cc));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    cc[0][0] = 1;
+    for (int i = 1; i &lt;= nb; i++) {
+      cc[i][i] = cc[i][0] = 1;
+      for (int j = 1; j &lt; i; j++) {</B></FONT>
+        cc[i][j] = cc[i - 1][j] + cc[i - 1][j - 1];
+      }
+    }
+    int sumb = 0;
+    for (int i = 1; i &lt;= nc; i++) {
+<A NAME="1"></A>      int cur = i &amp; 1;
+      int pre = 1 - cur;
+      memset(dp[cur], 0, sizeof(dp[cur]));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int c1 = 0; c1 &lt;= i; c1++) {
+        for (int c2 = 0; c2 &lt;= i; c2++) {
+          for (int j = 0; j &lt;= nb / 2; j++) {
+            if (dp[pre][c1][c2][j] == 0) continue;</B></FONT>
+            for (int a = 0; a &lt;= b[i - 1]; a++) {
+              // j, sumb - j
+              // j + a, sumb - j + b[i-1] - a
+              //debug(j + a, a, cc[j + a][a]);
+              //debug(sumb - j + b[i - 1] - a, b[i - 1] - a, cc[sumb - j + b[i - 1] - a][b[i - 1] - a]);
+              dp[cur][c1 + (a == 0 ? 0 : 1)][c2 + (a == b[i - 1] ? 0 : 1)][j + a] +=
+                  dp[pre][c1][c2][j] * cc[j + a][a] * cc[sumb - j + b[i - 1] - a][b[i - 1] - a];
+            }
+          }
+        }
+      }
+
+<A NAME="2"></A>      sumb += b[i - 1];
+    }
+    double x = 0;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    double sum = 0;
+    for (int c1 = 0; c1 &lt;= nc; c1++) {
+      x += dp[nc &amp; 1][c1][c1][nb / 2];
+      for (int c2 = 0; c2 &lt;= nc; c2++) {</B></FONT>
+        sum += dp[nc &amp; 1][c1][c2][nb / 2];
+      }
+    }
+    //debug(x, sum);
+    return x * 1.0 / sum;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

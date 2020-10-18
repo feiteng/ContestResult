@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1330_viveksmenon87.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1330_viveksmenon87.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+<A NAME="0"></A> *     }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int count;
+    public int pseudoPalindromicPaths (TreeNode root) {
+        int[] map = new int[10];
+        pseudoPalindromicPathsRecur(root, map);
+        return count;
+    }
+    
+    public void pseudoPalindromicPathsRecur (TreeNode root, int[] map) {
+        if (root == null)
+            return;
+<A NAME="1"></A>        if (root.left == null &amp;&amp; root.right == null) {
+             map[root.val]++;
+            if (checkPalinMap</B></FONT>(map))
+                count++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            map[root.val]--;
+            return;
+        }
+        
+        map[root.val]++;
+        //System.out.println(root.val);
+        pseudoPalindromicPathsRecur(root.left, map);
+        pseudoPalindromicPathsRecur(root.right, map);
+        map[root.val]--;
+    }
+    
+    public boolean checkPalinMap(int[] map) {
+        int countOdds = 0;
+        for (int i = 1; i &lt;= 9; i++) {
+            if (map[i]%2 == 1)
+                countOdds++;
+        }
+        return countOdds &lt;= 1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

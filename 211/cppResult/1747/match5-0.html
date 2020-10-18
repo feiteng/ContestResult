@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>691_zhangwenyao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>691_zhangwenyao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    string aa(string s, int a){
+<A NAME="0"></A>        for(int i = 1; i &lt; s.size(); i += 2){
+            s[i] += a;
+            if(s[i] &gt; '9') s[i] -= 10;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return s;
+    }
+    string ab(string s, int b){
+        string t = s;
+        for(int i = 0; i &lt; s.size(); i++){
+            t[i] = s[(i + b) % s.size()];
+        }
+        return t;
+    }</B></FONT>
+public:
+<A NAME="1"></A>    string findLexSmallestString(string s, int a, int b) {
+        set&lt;string&gt; st, t;
+        t.insert(s);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(!t.empty()){
+            string x = *t.begin();
+            t.erase(x);
+            string sa = aa(x, a);
+            if(!st.count(sa)){
+                st.insert(sa);
+                t.insert(sa);
+            }
+            string sb = ab(x, b);
+            if(!st.count(sb)){
+                st.insert(sb);
+                t.insert(sb);
+            }
+        }
+        return *st.begin();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_SilverNarcissus.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_SilverNarcissus.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        HashSet&lt;String&gt; set = new HashSet&lt;&gt;();
+        Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
+        q.add</B></FONT>(s);
+        set.add(s);
+<A NAME="1"></A>        
+        while(!q.isEmpty()){
+            String cur = q.poll();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String first = first(cur, a);
+            String second = second(cur, b);
+            if(set.add(first)){
+                q.add(first);
+            }
+            
+            if(set.add(second)){
+                q.add(second);
+            }
+        }</B></FONT>
+        
+        // System.out.println(set);
+        
+        String res = s;
+        for(String cur : set){
+            if(res.compareTo(cur) &gt; 0){
+                res = cur;
+<A NAME="2"></A>            }
+        }
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+    }
+    
+    public String first(String s, int a){
+        char[] res = s.toCharArray</B></FONT>();
+<A NAME="3"></A>        for(int i = 1; i &lt; s.length(); i += 2){
+            int cur = s.charAt(i) - '0' + a;
+            res[i] = (char) ((cur % 10) + '0');
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return new String(res);
+    }
+    
+    public String second(String s, int b){</B></FONT>
+        char[] res = new char[s.length()];
+        for(int i = 0; i &lt; s.length(); i++){
+            res[(i + b) % s.length()] = s.charAt(i);
+        }
+        
+        return new String(res);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

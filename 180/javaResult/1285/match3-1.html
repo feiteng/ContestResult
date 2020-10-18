@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>195_wengames.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>195_wengames.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode balanceBST(TreeNode root) {
+        List&lt;TreeNode&gt; nodes = new ArrayList&lt;&gt;();
+        midOrder(root, nodes);
+        return balanceBST(nodes, 0, nodes.size() - 1);
+    }
+
+    private void midOrder(TreeNode root, List&lt;TreeNode&gt; res) {
+        if (root == null) return;
+        midOrder(root.left, res);
+        res.add(root);
+        midOrder(root.right, res);
+    }
+
+<A NAME="1"></A>    private TreeNode balanceBST(List&lt;TreeNode&gt; nodes, int i, int j) {
+        if (i &gt; j) return null;
+        int mid = (i + j) / 2;
+        TreeNode root = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>nodes.get(mid)</B></FONT>;
+        root.left = balanceBST(nodes, i, mid - 1);
+        root.right = balanceBST(nodes, mid + 1, j);
+        return root;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

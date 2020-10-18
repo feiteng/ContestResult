@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>246_wtf_wtf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>246_wtf_wtf.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minReorder(int n, int[][] connections) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; edges = new HashMap&lt;&gt;();
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; relation = new</B></FONT> HashMap&lt;&gt;();
+        
+        for (int[] con : connections) {
+            relation.computeIfAbsent(con[0], v -&gt; new HashSet&lt;&gt;()).add(con[1]);
+            edges.computeIfAbsent(con[0], v -&gt; new HashSet&lt;&gt;()).add(con[1]);
+            edges.computeIfAbsent(con[1], v -&gt; new HashSet&lt;&gt;()).add(con[0]);
+        }
+<A NAME="1"></A>        
+        Deque&lt;Integer&gt; queue = new ArrayDeque&lt;&gt;();
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int count = 0;
+        
+        queue.offer(0);
+        visited.add(0);
+        
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            
+            for (Integer next : edges.get(cur)) {
+                if (!visited.contains(next)) {
+                    visited.add</B></FONT>(next);
+<A NAME="2"></A>                    if (!relation.containsKey(next) || !relation.get(next).contains(cur)) {
+                        count++;
+                    }
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue.offer(next);
+                }
+            }
+        }
+        
+        return count;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

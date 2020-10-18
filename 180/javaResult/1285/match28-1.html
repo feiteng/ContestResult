@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>162_yge2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>162_yge2.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode balanceBST(TreeNode root) {
+        List&lt;Integer&gt; l = new ArrayList&lt;&gt;();
+        traverse(root, l);
+        return buildTree(l, 0, l.size() - 1);
+    }
+
+    private void traverse(TreeNode root, List&lt;Integer&gt; l) {
+        if (root == null)
+            return;
+        traverse(root.left, l);
+        l.add(root.val);
+        traverse(root.right, l);
+    }
+    
+    private TreeNode buildTree(List&lt;Integer&gt; li, int l, int r) {
+<A NAME="1"></A>        if (l &gt; r)
+            return null;
+        int mid = (l+r) / 2;
+        TreeNode t = new TreeNode(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>li.get(mid))</B></FONT>;
+        t.left = buildTree(li, l, mid-1);
+        t.right = buildTree(li, mid+1, r);
+        return t;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

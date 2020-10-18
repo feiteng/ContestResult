@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>195_yuanzwan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>195_yuanzwan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    double getProbability(vector&lt;int&gt;&amp; balls) {
+        vector&lt;int&gt; colors;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int size = balls.size();
+        for (int i = 0; i &lt; size; ++i) {
+            for (int j = 0; j &lt; balls[i]; ++j) {</B></FONT>
+                colors.push_back(i + 1);
+            }
+        }
+        int len = colors.size();
+        double dp[25][10][10][9][9] = {0};
+        dp[0][0][0][0][0] = 1; 
+        for (int i = 1; i &lt;= len; ++i) {
+            int color = colors[i - 1];
+            double next[25][10][10][9][9] = {0};
+<A NAME="1"></A>            for (int k = 0; k &lt;= min(23, i); ++k) {
+                for (int m = 0; m &lt;= color; ++m) {
+                    for (int n = 0; n &lt;= color; ++n) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        for (int p = 0; p &lt;= color; ++p) {
+                            for (int q = 0; q &lt;= color; ++q) {
+                                double addition = dp[k][m][n][p][q] * 0.5;
+                                if (color == p) {</B></FONT>
+                                    next[k + 1][m][n][p][q] += addition;
+                                } else {
+                                    next[k + 1][m + 1][n][color][q] += addition;
+                                }  
+                                if (color == q) {
+                                    next[k][m][n][p][q] += addition;
+                                } else {
+                                    next[k][m][n + 1][p][color] += addition;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+<A NAME="2"></A>            swap(dp, next);
+        }
+        double total = 0.0;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        double match = 0.0;
+        for (int m = 0; m &lt;= size; ++m) {
+            for (int n = 0; n &lt;= size; ++n) {</B></FONT>
+                for (int p = 0; p &lt;= size; ++p) {
+                    for (int q = 0; q &lt;= size; ++q) {
+                        total += dp[len / 2][m][n][p][q];
+                        match += m == n ? dp[len / 2][m][n][p][q] : 0.0;
+                    }
+                }
+            }
+        }
+        return match / total;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

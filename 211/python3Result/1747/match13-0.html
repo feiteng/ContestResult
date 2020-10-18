@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>745_Cjz_Y.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>745_Cjz_Y.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLexSmallestString(self, s: str, a: int, b: int) -&gt; str:
+
+        def first_process(ss):
+            templ = list(ss)
+            for j in range(1, len(templ), 2):
+                temp = int(templ[j]) + a
+                temp %= 10
+                templ[j] = str(temp)
+            return ''.join(templ)
+
+        def second_process(ss):
+            return ss[len(ss) - b:] + ss[:len(ss) - b]
+
+<A NAME="0"></A>        ans = s
+        use = set()
+
+        cur <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [s]
+        while cur:
+            next = []
+
+            for current in cur:
+
+
+                first = first_process(current)
+                if first not in use:
+                    next.append(first)
+                    use.add(first)
+                    ans = min(ans, first)
+
+                second = second_process(current)
+                if second not in use:
+                    next.append(second)
+                    use.add(second)
+                    ans = min(ans, second)
+            cur = next
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

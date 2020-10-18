@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>370_essence-16.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>370_essence-16.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; inorder(TreeNode* root) { 
+        stack&lt;TreeNode*&gt; stk;
+        vector&lt;int&gt; ans;
+        TreeNode* cur = root;
+        while (cur != nullptr || !stk.empty()) { 
+            while (cur != nullptr) { 
+                stk.push(cur);
+                cur = cur-&gt;left;
+            }
+            TreeNode* tmp = stk.top();
+            stk.pop();
+            ans.push_back(tmp-&gt;val);
+            cur = tmp-&gt;right;
+        }
+        return ans;
+    }
+    
+    TreeNode* build(vector&lt;int&gt;&amp; val, int l, int r) { 
+        if (l &gt; r) { 
+            return nullptr;
+        }
+        int mid = (l + r) / 2;
+        TreeNode* root = new TreeNode(val[mid]);
+        root-&gt;left = build(val, l, mid - 1);
+        root-&gt;right = build(val, mid + 1, r);
+        return root;
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        vector&lt;int&gt; nums;
+        nums = inorder(root);
+        TreeNode* ans = build(nums, 0, nums.size() - 1);
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

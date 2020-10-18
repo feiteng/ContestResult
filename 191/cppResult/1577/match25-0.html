@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>77_minhquanym.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>77_minhquanym.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int a[10], x[10];
+    int n;
+    int numBall;
+    long double res = 0, p[100];
+    
+    long double C(int nn, int kk) {
+        if (nn &lt; kk) return 0;
+        return p[nn]/(p[kk]*p[nn-kk]);
+    }
+    long double A(int nn, int kk) {
+<A NAME="0"></A>        return p[nn]/(p[nn-kk]);
+    }
+    void calc() {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int dt1 = 0, dt2 = 0, cnt = 0;
+        for (int i = 1; i &lt;= n; i++) {
+            cnt += x[i];
+            if (x[i] &gt; 0) dt1++;
+            if (x[i] &lt; a[i]) dt2++;
+        }
+        if (dt1 != dt2 || cnt*2 != numBall) return;</B></FONT>
+        int cnt1 = cnt, cnt2 = cnt;
+        long double ans = 1;
+        
+        for (int i = 1; i &lt;= n; i++) {
+            ans *= C(a[i], x[i])*A(cnt1, x[i])*A(cnt2, a[i]-x[i]);
+            
+            cnt1 -= x[i];
+            cnt2 -= (a[i] - x[i]);
+        }
+        res += ans;
+    }
+    void Try(int pos) {
+        if (pos &gt; n) {
+            calc();
+            // for (int i = 1; i &lt;= n; i++) cout &lt;&lt;x[i]&lt;&lt;' ';
+            // cout &lt;&lt;res&lt;&lt;endl;
+            return;
+        }
+        for (int y = 0; y &lt;= a[pos]; y++) {
+            x[pos] = y;
+<A NAME="1"></A>            Try(pos+1);
+        }
+    }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    double getProbability(vector&lt;int&gt;&amp; balls) {
+        n = balls.size();
+        for (int i = 1; i &lt;= n; i++) a[i] = balls[i-1], numBall += a[i];
+        p[0] = 1;
+        for (int i = 1; i &lt;= numBall; i++) p[i] = p[i-1]*i;</B></FONT>
+        
+        Try(1);
+        double resFloat = res;
+        for (int i = 1; i &lt;= numBall; i++) resFloat /= i;
+        return resFloat;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>866_sky18.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>866_sky18.py</CENTER></H3><HR>
+<PRE>
+class DUS:
+<A NAME="0"></A>  def __init__(self, n):
+    self.n = n
+    self.par = [i for i in range(n)]
+    self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.size = [1 for i in range(n)]
+  
+  def find(self, x):
+    if x!=self.par[x]:
+      self.par[x] = self.find(self.par[x])
+    return self.par[x]
+<A NAME="1"></A>  
+  
+  def union(self,x,y):
+    xPar, yPar = self.find(</B></FONT>x), self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.find(y)
+    if xPar == yPar:
+      return
+    
+    if self.size[xPar] &gt; self.size[yPar]:
+<A NAME="2"></A>      self.par[yPar] = xPar
+      self.size[</B></FONT>xPar] += self.size[yPar]
+    else:
+      self<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.par[xPar] = yPar
+      self.size[yPar] += self.size[xPar]
+      
+  
+class Solution:
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -&gt; List[bool]:
+      
+      dsu = DUS(</B></FONT>n+1)
+      if threshold == 0:
+        return [True for _ in range(len(queries))]
+      
+      for i in range(threshold+1, n+1):
+        for j in range(i,n+1,i):
+<A NAME="3"></A>          dsu.union(i,j)
+      ret = []
+      for x,y in queries:
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if dsu.find(x) == dsu.find(y):
+          ret.append(True)
+        else:
+          ret.append(False)
+      re</B></FONT>turn ret
+      
+      
+        
+</PRE>
+
+</BODY>
+</HTML>

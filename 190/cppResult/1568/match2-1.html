@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_ddmike.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>257_ddmike.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+<A NAME="0"></A> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int f[10];
+    int ans;
+    void travelTree(TreeNode* root)
+    {
+        f[root-&gt;val] += 1;
+        if (root-&gt;left == nullptr &amp;&amp; root-&gt;right == nullptr)
+        {
+            int odd_num = 0;
+            for (int i = 1; i &lt; 10; ++i)
+            {
+<A NAME="1"></A>                if (f[i] % 2 == 1){</B></FONT>
+                    odd_num++;
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+            if (odd_num &lt;= 1) ans += 1;
+        }
+        else
+        {
+            if (root-&gt;left != nullptr) travelTree(root-&gt;left);
+            if (root-&gt;right != nullptr) travelTree(root-&gt;right);
+        }
+        f[root-&gt;val] -= 1;
+    }
+    int pseudoPalindromicPaths (TreeNode* root) {
+        ans = 0;</B></FONT>
+        memset(f, 0, sizeof(f));
+        travelTree(root);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

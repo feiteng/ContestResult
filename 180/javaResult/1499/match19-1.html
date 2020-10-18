@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>298_kepingwang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>298_kepingwang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    // naively eponential time, pick all combinations
+    // dynamic programming
+    
+    // min efficiency, so pick min
+    
+    // sort by efficiency asc (then speed), for each efficiency value, pick find the max sum speeds
+    
+    // go over with efficiency high to low, then take aggregate of sum speeds (TreeSet)
+    
+    // [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2]
+    // 8 3 10 2 5 1
+    // 2 3 4  5 7 9
+    
+    static class Person {
+        int speed;
+        int efficiency;
+        Person(int speed, int efficiency) {
+            this.speed = speed;
+            this.efficiency = efficiency;
+        }
+    }
+    
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        List&lt;Person&gt; persons = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            persons.add(new Person(speed[i], efficiency[i]));
+        }
+        Collections.sort(persons, (p1, p2) -&gt; {</B></FONT>
+            if (p1.efficiency != p2.efficiency) { // higher efficiency comes first
+                return -Integer.compare(p1.efficiency, p2.efficiency);
+            } else { // higher speed comes first
+                return -Integer.compare(p1.speed, p2.speed);
+            }
+        });
+        // keep top K speeds with a priority queue, and calculating the sum eagerly
+        PriorityQueue&lt;Integer&gt; topSpeeds = new PriorityQueue&lt;&gt;();
+        long speedSum = 0;
+        long maxPerformance = 0;
+        for (Person p : persons) {
+<A NAME="1"></A>            topSpeeds.add(p.speed);
+            speedSum = (speedSum + p.speed);
+            if (topSpeeds.size() &gt; k) {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int removedSpeed = topSpeeds.poll();
+                speedSum = (speedSum - removedSpeed);
+            }            
+//            System.out.println(topSpeeds);
+//            System.out.println(&quot;speedSum=&quot;+speedSum);
+            maxPerformance = Math.max(maxPerformance, (p.efficiency * speedSum));
+        }
+        
+        return (int) (maxPerformance % (1_000_000_007));
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

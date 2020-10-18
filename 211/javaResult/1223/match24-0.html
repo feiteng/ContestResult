@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>269_Charlesna.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>269_Charlesna.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        int[] p = new int[n + 1];
+        for (int i = 0; i &lt;= n; i++) {
+            p[i] = i;
+        }
+<A NAME="1"></A>        
+        for (int i = 1; i &lt;= n; i++) {
+            for (int k = 1; k * k &lt;= i; k++) {</B></FONT>
+                if (i % k == 0 &amp;&amp; k &gt; threshold) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    int pa = find(k, p);
+                    int pb = find(i, p);
+                    if (pa != pb) {
+                        p[pa] = p[pb];
+                    }
+                }</B></FONT>
+                if (i % k == 0 &amp;&amp; i / k &gt; threshold) {
+                    int pa = find(i, p);
+                    int pb = find(i / k, p);
+                    if (pa != pb) {
+<A NAME="2"></A>                        p[pa] = p[pb];
+                    }
+                }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+<A NAME="3"></A>        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;();
+        for (int[] q : queries) {</B></FONT>
+            int pa = find(q[0], p);
+            int pb = <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match24-1.html#3',3,'match24-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>find(q[1], p);
+            res.add(pa == pb);
+        }
+        return res;
+    }
+    
+    private int find(int x, int[] p) {
+        if</B></FONT> (p[x] == x) return x;
+        p[x] = find(p[x], p);
+        return p[x];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

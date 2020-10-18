@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>354_acaibird.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>354_acaibird.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minReorder(int n, int[][] connections) {
+          LinkedList&lt;Integer&gt;[][] relas = new LinkedList[n][2];
+        for(int i=0;i&lt;n;i++) {
+            relas[i][0] = new</B></FONT> LinkedList&lt;&gt;();
+            relas[i][1] = new LinkedList&lt;&gt;();
+        }
+        for(int[] con:connections) {
+           relas[con[0]][0].add(con[1]);
+           relas[con[1]][1].add(con[0]);
+<A NAME="1"></A>        }
+        LinkedList&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        boolean[] visited = new boolean[n];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue.offer(0);
+        int cnt=  0;
+        visited[0] = true;
+       
+        while(!queue.isEmpty()) {
+            int cur = queue.poll();
+            //逆序
+            for(int next:relas[cur][1]) {
+                if(!visited[next]) {</B></FONT>
+                    queue.offer(next);
+                    visited[next] = true;
+                   
+                }
+            }
+            //正序可以达到的点
+            for(int next:relas[cur][0]) {
+                if(!visited[next]) {
+<A NAME="2"></A>                    queue.offer(next);
+                    visited[next] = true;
+                     cnt++;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            
+        }
+        return cnt;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

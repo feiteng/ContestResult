@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>526_Chunmeng_Zhong.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>526_Chunmeng_Zhong.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Node{
+        long eff, speed;
+        public Node(int e, int s){
+            eff = e;
+            speed = s;
+        }
+    }
+    
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        List&lt;Node&gt; list = new ArrayList&lt;&gt;();
+        for(int i = 0; i &lt; n; i++){
+            list.add(new Node(efficiency[i], speed[i]));
+        }
+        Collections.sort</B></FONT>(list, new Comparator&lt;Node&gt;(){
+            @Override
+            public int compare(Node a, Node b){
+                if(b.eff == a.eff)
+                    return 0;
+                return b.eff - a.eff &gt; 0 ? 1 : -1;
+            }
+        });
+        PriorityQueue&lt;Node&gt; qu = new PriorityQueue&lt;&gt;(new Comparator&lt;Node&gt;(){
+            @Override
+            public int compare(Node a, Node b){
+                if(a.speed == b.speed)
+                    return 0;
+                return a.speed - b.speed &gt; 0 ? 1 : -1;
+            }
+        });
+        long res = 0;
+        long sum = 0, max = list.get(0).eff;
+        int base = 1000000007;
+        for(int i = 0; i &lt; n; i++){
+<A NAME="1"></A>            Node node = list.get(i);
+            max = Math.min(max, node.eff);
+            sum += node.speed;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>qu.offer(node);
+            if(qu.size() &gt; k){
+                sum -= qu.poll().speed;
+            }
+            //sum = (sum % base + base) % base;
+            //max = max % base;
+            res = Math.max(res, sum * max);
+        }
+        return (int)(res % base);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

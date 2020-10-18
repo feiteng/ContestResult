@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_dystopiawave.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_dystopiawave.py</CENTER></H3><HR>
+<PRE>
+class Solution(object):
+    def getProbability(self, balls):
+        &quot;&quot;&quot;
+        :type balls: List[int]
+        :rtype: float
+        &quot;&quot;&quot;
+        d = [1, 1]
+        
+        for i in range(2, 49):
+            d.append(d[-1] * i)
+            
+            
+<A NAME="0"></A>        def cal(bs):
+            tot = sum(bs)
+            a = 1
+            di <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= tot
+            for num in bs:
+                a *= (d[di] / d[di-num]) / d[num]
+                di -= num
+            return a
+        
+
+        dp = {}
+        self.</B></FONT>res = 0
+        self.target = sum(balls) / 2
+        all_d = {}
+        for i,num in enumerate(balls):
+            all_d[i] = num
+        
+        b2 = [[i,num] for i, num in enumerate(balls)]
+        
+        def dfs(cur, count1, cur_d):
+            if not cur:
+                if count1 == self.target:
+                    c1 = {}
+                    c2 = {}
+                    for key in cur_d:
+                        if cur_d[key]!=0:
+                            c1[key] = cur_d[key]
+                        if all_d[key]-cur_d[key]!=0:
+                            c2[key] = all_d[key]-cur_d[key]
+                    if len(c1)==len(c2):
+                        #print c1,c2
+                        self.res += cal([c1[key] for key in c1]) * cal([c2[key] for key in c2])
+                return
+            kind, count = cur[0]
+            for nei in range(count+1):
+                if count1 + nei &lt;= self.target:
+                    tmp = dict(cur_d)
+                    tmp[kind] = nei
+                    dfs(cur[1:], count1 + nei, tmp)
+            return
+        
+        dfs(b2, 0, {})
+        print self.res
+        
+        return 1.0 * self.res / cal(balls)
+                    
+            
+            
+            
+            
+                        
+            
+        
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

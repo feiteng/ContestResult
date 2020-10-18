@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_vmaksimo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_vmaksimo.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+<A NAME="0"></A> * };
+ */
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    std::vector&lt;int&gt; elems;
+    
+    void traverse(TreeNode* root){
+        if(root == NULL){
+            return;
+        }
+        
+        traverse(root-&gt;left);
+        elems.push_back(root-&gt;val);
+        traverse(root-&gt;right);
+    }
+    
+    TreeNode* createTree(int l, int r){
+        if(l &gt;= r){
+<A NAME="1"></A>            return NULL;
+        }</B></FONT>
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mid = (l + r) / 2;
+        
+        TreeNode* c = new TreeNode(elems[mid]);
+        c-&gt;left = createTree(l, mid);
+        c-&gt;right = createTree(mid + 1, r);
+        
+        return c;
+    }
+
+    TreeNode* balanceBST(TreeNode* root) {
+        elems.clear();
+        traverse(root);
+        return createTree(0, elems.size());
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

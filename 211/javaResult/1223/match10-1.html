@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>170_mhaghpanah.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>170_mhaghpanah.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    class DisjointSet {
+        int[] p;
+        int[] s;
+<A NAME="2"></A>        int n;
+        public DisjointSet(int n) {
+            this.n = n;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>p = new int[n];
+            s = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                p[i] = i;
+                s[i] = 1;
+            }
+        }
+        
+<A NAME="3"></A>        public int parent(int x) {</B></FONT>
+            if (x == p[x]) return x;
+            return p[x] = parent(p[x]);
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#3',2,'match10-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+<A NAME="4"></A>        public void union(int x, int y) {
+            int px = parent(x);
+            int py = parent(y);
+            if</B></FONT> (px == py) return<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#4',2,'match10-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            if (s[px] &lt; s[py]) {
+                p[px] = py;
+                s[py] += s[px];
+            } else {
+                p[py] = px;
+                s[px] += s[py];
+<A NAME="0"></A>            }
+        }
+    }</B></FONT>
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Boolean&gt; areConnected(int n, int t, int[][] queries) {
+        
+        DisjointSet ds = new DisjointSet(n + 1);
+        for (int i = 1; i &lt;= n; i++) {
+            for (int j = 1</B></FONT>; j &lt;= Math.sqrt(i) + 1; j++) {
+<A NAME="1"></A>                if (i % j == 0) {
+                    if (j &gt; t) ds.union(i, j);
+                    if (i / j &gt; t) ds.union(i, i / j);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        
+        List&lt;Boolean&gt; ans = new ArrayList&lt;&gt;();
+        for (int[] q : queries) {
+            ans.add(ds.parent</B></FONT>(q[0]) == ds.parent(q[1]));
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

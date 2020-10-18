@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>119_foorest.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>119_foorest.cpp</CENTER></H3><HR>
+<PRE>
+double p[30][1 &lt;&lt; 8][1&lt;&lt;8];
+double p2[30][1 &lt;&lt; 8][1 &lt;&lt; 8];
+
+int bc(int n) {
+	int res = 0;
+	while (n) {
+		res += n % 2;
+		n /= 2;
+	}
+	return res;
+}
+
+class Solution {
+public:
+	double getProbability(vector&lt;int&gt;&amp; balls) {
+		memset(p, 0, sizeof p);
+		p[0][0][0] = 1;
+		int n = balls.size();
+
+<A NAME="1"></A>		int N = accumulate(begin(balls), end(balls), 0) / 2;
+
+		vector&lt;int&gt; cols;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i &lt; balls.size(); ++i)
+			for (int j = 0; j &lt; balls[i]; ++j)
+				cols.push_back(i);
+		
+<A NAME="0"></A>		for (int i = 0; i &lt; cols.size(); ++i) {</B></FONT>
+			int cc = cols[i];
+			memset(p2, 0, sizeof p2);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			for (int val = min(i, N); val&gt;=0 ; --val) for (int mask1 = (1 &lt;&lt; n)-1; mask1 &gt;=0 ; --mask1) for (int mask2 = (1 &lt;&lt; n)-1; mask2 &gt;= 0; --mask2) if (p[val][mask1][mask2] &gt; 0) {</B></FONT>
+				double G1 = N - val;
+				double G2 = N - (i - val);
+
+				double pr1 = G1 / (G1 + G2);
+				
+				p2[val + 1][mask1 | (1 &lt;&lt; cc)][mask2] += pr1*p[val][mask1][mask2];
+				p2[val][mask1][mask2 | (1 &lt;&lt; cc)] += (1-pr1)*p[val][mask1][mask2];
+				
+<A NAME="2"></A>			}
+
+			memcpy(p, p2, sizeof p);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		}
+
+		double res = 0;
+		for (int mask1 = (1 &lt;&lt; n) - 1; mask1 &gt;= 0; --mask1) for (int mask2 = (1 &lt;&lt; n) - 1; mask2 &gt;= 0; --mask2) if (p[N][mask1][mask2] &gt; 0) {</B></FONT>
+			int c1 = bc(mask1);
+			int c2 = bc(mask2);
+			if (c1 == c2)
+				res += p[N][mask1][mask2];
+		}
+
+		return res;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

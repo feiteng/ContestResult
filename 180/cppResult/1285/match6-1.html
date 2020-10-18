@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_mingrui.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>280_mingrui.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    vector&lt;int&gt; vals;
+    void traverse(TreeNode *node) {
+        if (node == NULL) {
+            return;
+        }
+        traverse(node-&gt;left);
+        vals.push_back(node-&gt;val);
+        traverse(node-&gt;right);
+    }
+    TreeNode *gen(int first, int last) {
+        if (first &gt; last) {
+            return NULL;
+        }
+        int mid = first + (last - first) / 2;
+        TreeNode *node = new TreeNode(vals[mid]);
+        node-&gt;left = gen(first, mid - 1);
+        node-&gt;right = gen(mid + 1, last);
+        return node;
+    }
+public:
+    TreeNode* balanceBST(TreeNode* root) {
+        traverse(root);
+        return gen(0, vals.size() - 1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

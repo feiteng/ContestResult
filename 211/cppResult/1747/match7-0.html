@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>91_justinwongjianhui.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>91_justinwongjianhui.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    string add(string &amp;s, int a) {
+        string t=s;
+        for (int i=1; i&lt;s.size(); i+=2) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            t[i]=(t[i]-'0'+a)%10+'0';
+        }
+        return t;
+    }
+    string rotate(string &amp;e, int b) {
+        string s=e;
+        reverse(s.begin(), s.end());
+        reverse(s.begin(), s.begin()+b);
+        reverse(s.begin()+b, s.end());
+        return s;
+    }
+    string findLexSmallestString(string s, int a, int b) {
+        string res=s;
+        queue&lt;string&gt; q;
+        q.push(s);
+        unordered_set&lt;string&gt; vis;
+        while (!q.empty()) {
+            string curr=q.front(); q.pop();
+            res=min(res, curr);
+            string v1=add(curr, a);
+            string v2=rotate(curr, b);
+            if (vis.find(v1)==vis.end()) {
+                q.push(v1);
+                vis.insert(v1);
+            }
+            if (vis.find(v2)==vis.end()) {
+                q.push(v2);
+                vis.insert(v2);
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

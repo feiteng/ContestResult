@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>545_naivelamb.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>545_naivelamb.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DSU:
+    def __init__(self, n):
+        self.parent = [x for x in range(n)]
+        self.rank =<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> [0] * n
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+<A NAME="1"></A>    def union(self, x, y):
+        px, py = self.find(</B></FONT>x), self.find(y)
+        if px != py:
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if self.rank[px] &gt; self.rank[py]:
+                self.parent[py] = px
+            elif self.rank[px] &lt; self.rank[py]:
+                self.parent[px] = py
+            else:
+                self.parent[py] = px
+                self.rank[px] +=</B></FONT> 1
+
+class Solution:
+    def areConnected(self, n: int, g: int, queries: List[List[int]]) -&gt; List[bool]:
+        if g == 0:
+            return [True] * len(queries)
+        if g &gt;= n:
+            return [False] * len(queries)
+        
+        dsu = DSU(n)
+        
+        for candidate in range(g+1, n+1):
+            current = [t * candidate for t in range(1, n // candidate + 1)]
+            for curr in current:
+                dsu.union(candidate-1, curr-1)
+
+<A NAME="2"></A>        res = []
+        for k in range(len(queries)):
+            origin, destination = queries[k][0], queries[k][1]
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if origin &gt; g and destination &gt; g and dsu.find(origin-1) ==  dsu.find(destination-1):
+                res.append(True)
+            else:
+                res.append(False)
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

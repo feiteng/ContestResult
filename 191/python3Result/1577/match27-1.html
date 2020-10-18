@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>236_stdll00.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>236_stdll00.py</CENTER></H3><HR>
+<PRE>
+from operator import mul
+from functools import reduce
+
+def comb(n, r):
+    r = min(n - r, r)
+    if r == 0: return 1
+    over = reduce(mul, range(n, n - r, -1))
+    under = reduce(mul, range(1, r + 1))
+<A NAME="0"></A>    return over // under
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        # max 6*8 balls
+        n = sum(balls) // 2 
+        k = len(balls)
+        b_sum = [0]
+        for b in balls:
+            b_sum.append(b_sum[</B></FONT>-1]+b)
+        def calc(left,remain_index):
+            left_count = sum(left) 
+            right_count = b_sum[remain_index] - left_count
+            if left_count &gt; n or right_count &gt; n:
+                return 0
+            if remain_index == k:
+                if sum(left[i] &gt; 0 for i in range(k)) != sum((ball - left[i])&gt;0 for i,ball in enumerate(balls)):
+                    return 0
+                return reduce(mul,(comb(balls[i],left[i]) for i in range(k)))/ comb(2*n,n)
+            ball = balls[remain_index]
+            return sum(calc(left+(i,),remain_index + 1 )for i in range(ball+1))
+        
+        return calc(tuple(),0)
+</PRE>
+
+</BODY>
+</HTML>

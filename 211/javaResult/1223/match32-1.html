@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>878_xywang0520.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>878_xywang0520.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        DSU dsu = new DSU(n);
+        for (int i = 1; i &lt;= n; i++) {
+            for (int j = 1</B></FONT>; j &lt;= Math.sqrt(i); j++) {
+                if (i % j == 0) {
+<A NAME="1"></A>                    if (j &gt; threshold) dsu.union(i-1, j-1);
+                    if (i / j  &gt; threshold) dsu.union(i-1, i/j-1);
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        List&lt;Boolean&gt; result = new ArrayList&lt;&gt;();
+        for (int[] query: queries) {</B></FONT>
+            if (dsu.find(query[0]-1) == dsu.find(query[1]-1)) result.add(true);
+            else result.add(false);
+        }
+        return result;
+<A NAME="2"></A>    }
+}
+
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class DSU {
+    int N;
+    int[] parent;
+    int[] capacity;
+    
+    public DSU(int n) {
+        this.N = n;
+        this.parent = new int[n];
+        this.capacity = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+            capacity[i] = 1;
+        }
+    }
+    
+    public int find(int a) {</B></FONT>
+        int root = parent[a];
+        while (root != parent[root]) {
+            root = parent[root];
+        }
+        while (a != parent[a]) {
+            int temp = parent[a];
+            parent[a] = root;
+<A NAME="3"></A>            a = temp;
+        }
+        return root;
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#3',2,'match32-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public void union(int a, int b) {
+        int rootA = find(a);
+        int rootB = find(b);
+        if (rootA == rootB) return;
+        if (capacity[rootA] &gt;= capacity[rootB]) {</B></FONT>
+            capacity[rootA] += capacity[rootB];
+            parent[rootB] = rootA;
+        } else {
+            capacity[rootB] += capacity[rootA];
+            parent[rootA] = rootB;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

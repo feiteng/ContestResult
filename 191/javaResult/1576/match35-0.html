@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>84_hahahiehie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>84_hahahiehie.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  Set&lt;String&gt; conn = new HashSet&lt;&gt;();
+    List&lt;Integer&gt;[] adj;
+<A NAME="0"></A>    boolean[] vst;
+    public int minReorder(int n, int[][] connections) {
+        adj = new List[n];
+        vst = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new boolean[n];
+        for (int i = 0; i &lt; n; i++) {
+            adj[i] = new ArrayList&lt;&gt;();
+        }
+
+        for (int i = 0; i &lt; connections.length; i++) {
+<A NAME="1"></A>            int x = connections[i][0]</B></FONT>;
+            int y = connections[i][1];
+            adj[x].add(y);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>adj[y].add(x);
+            conn.add(x + &quot;,&quot; + y);
+        }
+        
+        return dfs(0);
+    }
+    
+    int dfs(int x</B></FONT>) {
+        if (vst[x]) return 0;
+        vst[x] = true;
+        
+        int ret = 0;
+<A NAME="2"></A>        for (int y : adj[x]) {
+            if (vst[y]) continue;
+            String key = y + &quot;,&quot; + x;
+            if (!conn.contains(key)) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match35-1.html#2',3,'match35-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                ret++;
+            }
+            ret += dfs(y);
+        }
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>877_xuhr.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>877_xuhr.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n + 1))
+        self.rank = [0] * (n + 1)
+        
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        px, py = self.find(x), self.find(y)
+        if</B></FONT> px != py:
+<A NAME="1"></A>            if self.rank[px] &lt; self.rank[py]:
+                self.parent[px] = py
+            else:
+                self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.parent[py] = px
+                if self.rank[px] == self.rank[py]:
+                    self.rank[px] +</B></FONT>= 1
+<A NAME="2"></A>
+class Solution:
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -&gt; List[bool]:
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if not threshold:
+            return [True] * len(queries)
+        
+        uf = UnionFind(n)
+        for x in range(threshold + 1, n // 2 + 1):
+            i = 2
+            while i * x &lt;= n:
+                uf.union(x, i * x)
+                i +=</B></FONT> 1
+                    
+        return [uf.find(x) == uf.find(y) for x, y in queries]
+        
+</PRE>
+
+</BODY>
+</HTML>

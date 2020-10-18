@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_zl-cheng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>179_zl-cheng.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        int[][] arr = new int[n][2];
+        long mod = 1000000007;
+        for(int i = 0; i &lt; n; i++){
+            arr[i][0] = speed[i];
+            arr[i][1] = efficiency[i];
+        }
+        
+        Arrays.sort(arr, (i1, i2) -&gt; (i2[1] - i1[1]));
+        // System.out.println(Arrays.deepToString(arr));
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((i1, i2) -&gt; (i1[0] - i2[0]));
+        long cur = 0, res = 0;
+        for(int i = 0; i &lt; k; i++){
+            cur += arr[i][0];
+            pq.add(arr[i]);
+            res = Math.max(res, arr[i][1] * cur);
+        }
+        
+        // System.out.println(res);
+        for(int i = k; i &lt; n; i++){
+            if(pq.peek()[0] &lt; arr[i][0]){
+                cur -= pq.poll()[0];
+                pq.add(arr[i]);
+                cur += arr[i][0];
+                res = Math.max(res, cur * arr[i][1]);
+            }
+        }
+        return (int)(res % mod);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

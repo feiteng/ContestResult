@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>386_srivinodp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>386_srivinodp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int c[10001];
+    int find(int i){
+        return c[i]=(c[i]==i?i:find(c[i]));
+<A NAME="1"></A>    }
+    void mer(int i,int j){
+        i = find(i);j = find(j);</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        c[i] = j;
+    }
+    vector&lt;bool&gt; areConnected(int n, int t, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        for(int i = 0;i&lt;10001;i++) c[i] = i;
+        for(int i = t+1;i&lt;n;i++){
+            for(int j = 2;i*j&lt;=n;j++){mer(i,i*j);}</B></FONT>
+        }
+        vector&lt;bool&gt; ans;
+        for(auto q:queries){
+            ans.push_back(find(q[0])==find(q[1]));
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

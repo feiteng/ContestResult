@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>494_susususueeeeeee.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>494_susususueeeeeee.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; nodes;
+    
+    void dfs(TreeNode *root){
+        if(root == NULL)    return;
+        dfs(root -&gt; left);
+        nodes.push_back(root -&gt; val);
+        dfs(root -&gt; right);
+    }
+    
+    TreeNode* build(int start, int end){
+        if(start &gt; end) return NULL;</B></FONT>
+        if(start == end){
+            TreeNode * node = new TreeNode(nodes[start]);
+<A NAME="1"></A>            return node;
+        }
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mid = (start + end) / 2;
+        TreeNode * node = new TreeNode(nodes[mid]);
+        node -&gt; left = build(start, mid - 1);
+        node -&gt; right = build(mid + 1, end);
+        
+        return node;
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        dfs(root);
+        
+        return build(0, nodes.size() - 1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_peterrockwave.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>36_peterrockwave.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -&gt; int:
+        # wait, connections.length == n-1, this is easy
+        
+        forwardsdict = {x:[] for x in range(n)}
+        backwarddict = {x:[] for x in range(n)}
+        for c in connections:
+            forwardsdict[c[</B></FONT>0]].append(c[1])
+            backwarddict[c[1]].append(c[0])
+        
+        #print(forwardsdict)
+        #print(backwarddict)
+        
+        final = 0
+        seen = {0}
+        tocheck = [0]
+        while len(tocheck)!=0:
+            newtocheck = []
+<A NAME="1"></A>            for city in tocheck:
+                for connect in backwarddict[city]:
+                    if connect not in seen:
+                        seen<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.add(connect)
+                        newtocheck.append(connect)
+                for connect in forwardsdict[city]:
+                    if connect not in seen:
+                        seen.add(connect)
+                        newtocheck.append(</B></FONT>connect)
+                        final+=1
+            tocheck = newtocheck
+        #print(seen)
+        return final
+                
+</PRE>
+
+</BODY>
+</HTML>

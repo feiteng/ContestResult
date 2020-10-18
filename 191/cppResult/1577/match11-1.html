@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_OTTFF.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_OTTFF.cpp</CENTER></H3><HR>
+<PRE>
+double dp[10][10][10][50];
+// after i-th ball j type in first k type in second l balls in the first half
+
+//double C[50][50];
+
+int C(int n,int m)
+{
+    int ans=1;
+    for(int i=n,j=1;j&lt;=m;i--,j++)
+        ans=ans*i/j;
+    return ans;
+}
+
+class Solution {
+public:
+    double EPS=1e-10;
+    double getProbability(vector&lt;int&gt;&amp; balls) {
+        int n=balls.size();
+<A NAME="0"></A>        int sum=0;
+        for(int i:balls) sum+=i;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m=sum/2;
+        
+        for(int i=0;i&lt;=n;i++)
+            for(int j=0;j&lt;=n;j++)
+                for(int k=0;k&lt;=n;k++)
+                    for(int l=0;l&lt;=m;l++)
+                        dp[i][j][k][l]=0.0;
+        dp[0][0][0][0]=1.0;</B></FONT>
+        
+        // for(int i=0;i&lt;50;i++)
+        // {
+        //     C[i][0]=C[i][i]=1.0;
+        //     for(int j=1;j&lt;i;j++)
+        //         C[i][j]=C[i-1][j-1]+C[i-1][j];
+        // }
+        
+        sum=0;
+<A NAME="1"></A>        for(int i=0;i&lt;n;i++)
+        {
+            sum+=balls[i];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int j=0;j&lt;=i;j++)
+                for(int k=0;k&lt;=i;k++)
+                    for(int l=0;l&lt;=m;l++)
+                    {
+                        if(dp[i][j][k][l]&lt;EPS) continue;</B></FONT>
+                        //cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot; &quot;&lt;&lt;l&lt;&lt;&quot; &quot;&lt;&lt;dp[i][j][k][l]
+                        int cnt=0;
+                        for(int t=0;t&lt;=balls[i];t++) // put t into first half
+                        {
+                            if(t+l&gt;m) break;
+                            if(sum-l-t&gt;m) continue;
+                            cnt+=C(m-l,t)*C(m-(sum-balls[i]-l),balls[i]-t);
+                        }
+                        //cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot; &quot;&lt;&lt;l&lt;&lt;&quot; &quot;&lt;&lt;cnt&lt;&lt;endl;
+                        for(int t=0;t&lt;=balls[i];t++) // put t into first half
+                        {
+                            if(t+l&gt;m) break;
+                            if(sum-l-t&gt;m) continue;
+                            dp[i+1][j+(t!=0)][k+(t!=balls[i])][l+t]+=dp[i][j][k][l]*C(m-l,t)*C(m-(sum-balls[i]-l),balls[i]-t)/cnt;
+                        }
+                        
+                    }
+        }
+            
+        
+        double ans=0.0;
+        for(int j=0;j&lt;=n;j++)
+            ans+=dp[n][j][j][m];
+        // cout&lt;&lt;ans&lt;&lt;endl;
+        // double down=1.0;
+        // for(int i=1;i&lt;=sum;i++)
+        //     down*=i;
+        // cout&lt;&lt;down&lt;&lt;endl;
+        // for(int i=0;i&lt;n;i++)
+        //     for(int j=1;j&lt;=balls[i];j++)
+        //         down/=j;
+        // cout&lt;&lt;down&lt;&lt;endl;
+        return ans;
+    }
+};
+/*
+
+[1,1]
+[2,1,1]
+[1,2,1,2]
+[3,2,1]
+[6,6,6,6,6,6]
+
+*/
+</PRE>
+</BODY>
+</HTML>

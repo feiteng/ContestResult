@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_minz-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>257_minz-2.py</CENTER></H3><HR>
+<PRE>
+from itertools import product
+class Solution:
+    def getProbability(self, balls: List[int]) -&gt; float:
+        n = len(balls)
+        prod = product(*[range(x + 1) for x in balls])
+        case = 0
+        for num in prod:
+<A NAME="0"></A>            if sum(num) != sum(balls) // 2:
+                continue
+            num1, num2 = 0, 0
+            for i in range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n):
+                if num[i] != 0:
+                    num1 += 1
+                if num[i] != balls[i]:
+                    num2 += 1
+            if</B></FONT> num1 != num2:
+                continue
+            ans = 1
+            for i in range(n):
+                ans *= combine(balls[i], num[i])
+            case += ans
+        n = sum(balls) // 2
+        ans = 1.0
+        for i in range(1, n + 1):
+            ans *= i / (n + i)
+        return ans * case
+            
+def combine(n, m):
+    ans = 1
+    for i in range(1, m + 1):
+        ans *= (n - m + i) / i
+    return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>183_1v9n418vn51.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>183_1v9n418vn51.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        Queue&lt;String&gt; q = new ArrayDeque&lt;&gt;();
+        Set&lt;String&gt; visited = new</B></FONT> HashSet&lt;&gt;();
+        String res = s;
+        q.add(s);
+        visited.add(s);
+        while (!q.isEmpty()) {
+            String str = q.poll();
+<A NAME="1"></A>            if (str.compareTo(res) &lt; 0) {
+                res = str;
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String x = op1(str, a);
+            String y = op2(str, b);
+            if (!visited.contains(x)) {
+                q.add(x);
+                visited.add(x);
+            }
+            if (!visited.contains(y)) {
+                q.add(y);
+                visited.add(y);
+<A NAME="2"></A>            }
+        }
+        return</B></FONT> res;
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private String op1(String s, int a) {
+        //System.out.println(s);
+<A NAME="3"></A>        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; s.length(); i++) {
+            if</B></FONT> (i % 2 == 0) sb.append(s.charAt(i));
+            else <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#3',2,'match5-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                int val = s.charAt(i) - '0' + a;
+                sb.append(val % 10);
+            }
+        }
+        //System.out.println(sb);
+        return sb.toString();
+    }</B></FONT>
+    
+    private String op2(String s, int b) {
+        b %= s.length();
+        int v = s.length() - b;
+        return s.substring(v) + s.substring(0, v);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

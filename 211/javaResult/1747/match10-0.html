@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>558_z123k3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>558_z123k3.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        Set&lt;String&gt; seen = new HashSet&lt;&gt;();
+        String out = s</B></FONT>;
+        
+        Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
+        q.add(s);
+        
+        while(!q.isEmpty()) {
+            String next = q.poll();
+            
+            if(!seen.contains(next)) {
+                if(next.compareTo(out) &lt; 0) {
+                    out = next;
+                }
+                
+<A NAME="1"></A>                q.add(add(next, a));
+                q.add(rotate(next, b));
+                seen.add(next);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        return out;
+    }
+    
+    private String add(String s, int a) {
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i = 0; i &lt; s.length(); i++) {
+            if(i % 2 == 0) {
+                sb.append(s.charAt(i));
+<A NAME="2"></A>            } else {
+                Integer added = (Character.getNumericValue(s.charAt</B></FONT>(i)) + a) % 10;
+                sb.append(added);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        //System.out.println(&quot;add: &quot; + s + &quot; &quot; + a + &quot; &quot; + sb.toString());
+        
+        return sb.toString();
+    }
+    
+    private String rotate(String s, int b) {
+        //System.out.println(&quot;rotate: &quot; + s + &quot; to &quot; + s.substring(s.length() - b) + s.substring(0, s.length() - b));
+        
+        return s.substring(s.length</B></FONT>() - b) + s.substring(0, s.length() - b);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

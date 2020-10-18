@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>317_AestheticXJTU.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>317_AestheticXJTU.py</CENTER></H3><HR>
+<PRE>
+class Solution(object):
+    def getProbability(self, balls):
+        &quot;&quot;&quot;
+        :type balls: List[int]
+        :rtype: float
+        &quot;&quot;&quot;
+        self.count = 0
+        checklist = [1, 1]
+        tot = sum(balls)
+        self.half = tot / 2
+        for i in range(2, tot + 1):
+            checklist.append(checklist[-1] * i)
+        
+        
+        def dfs(aes, box1):
+            if not aes:
+                if sum(box1.values()) == self.half:
+                    c1 = {key:box1[key] for key in box1 if box1[key]}
+                    c2 = {key:stat[key] - box1[key] for key in box1 if stat[key] - box1[key]}
+                    self.count += cc(c1.values()) * cc(c2.values()) if len(c1)==len(c2) else 0
+            else:
+                for possible in range(aes[0][1] + 1):
+                    cur = dict(box1)
+                    cur[aes[0][0]] = possible
+                    dfs(aes[1:], cur)
+<A NAME="0"></A>                    
+        def cc(input):
+            cur = tot = sum(input)
+            res <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 1
+            for num in input:
+                res *= (checklist[cur] / checklist[cur - num]) / checklist[num]
+                cur -= num
+            return res
+        stat = {yuu</B></FONT>:num for yuu,num in enumerate(balls)}
+        dfs([[i,num] for i, num in enumerate(balls)], {})
+        return 1.0 * self.count / cc(balls)
+                    
+            
+            
+            
+            
+                        
+            
+        
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

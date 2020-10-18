@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1341_je390.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1341_je390.py</CENTER></H3><HR>
+<PRE>
+class Solution(object):
+    def pseudoPalindromicPaths (self, root):
+        hs = set([])
+        count = [0]
+        self.dfs(root, hs, count)
+        return count[0]
+    def dfs(self, node, hs, count):
+<A NAME="0"></A>        if node is None:
+            return
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if node.val not in hs:
+            hs.add(node.val)    
+        else:
+            hs.remove(node.val)
+        if node.left is None and node.right is None :
+            if len(hs) &lt;= 1:        
+                count[0] +</B></FONT>=1
+            
+        self.dfs(node.left, set([e for e in hs]), count)
+        
+        self.dfs(node.right, set([e for e in hs]), count)
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

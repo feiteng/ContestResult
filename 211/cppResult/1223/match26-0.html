@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_manu_sy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>459_manu_sy.cpp</CENTER></H3><HR>
+<PRE>
+struct DSU {
+    vector&lt;int&gt; parent;
+    vector&lt;int&gt; size;
+    int n;
+    DSU(int n) : n(n + 1) {
+<A NAME="0"></A>        parent.resize(n + 1);
+        size.assign(n + 1, 1);
+        for (int i = 0; i &lt;= n; i++)    parent[i] = i;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    int find_set(int u) {
+        if (u == parent[u]) return u;
+        return parent[u] = find_set(parent[u]);
+    }
+    void union_set(int u, int v) {
+        u = find_set(u);
+        v = find_set(v);
+        if (u != v) {</B></FONT>
+            if (size[u] &gt; size[v])  swap(u, v);
+<A NAME="1"></A>            parent[u] = v;
+            size[v] += size[u];
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+};
+class Solution {
+public:
+    vector&lt;bool&gt; areConnected(int n, int threshold, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        DSU dsu(n);
+        for (int i = threshold + 1; i &lt;= n; i++) {
+            for (int j = i; j &lt;= n; j += i)
+                dsu.union_set(j, i);
+        }
+        vector&lt;bool&gt; ans;
+        for (auto q : queries) {
+            ans.push_back(dsu.find_set(q[0]) == dsu.find_set(q[1]));
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

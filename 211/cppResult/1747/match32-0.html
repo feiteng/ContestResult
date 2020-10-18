@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>710_aqibm.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>710_aqibm.cpp</CENTER></H3><HR>
+<PRE>
+static auto __io_speed_up = [](){
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  return nullptr;  
+}();
+
+
+#define ll              long long
+#define pb              push_back
+#define vi              vector&lt;int&gt;
+#define pii             pair&lt;int,int&gt;
+#define vii             vector&lt;pii&gt;
+#define mi              map&lt;int,int&gt;
+#define mii             map&lt;pii,int&gt;
+#define all(a)          (a).begin(),(a).end()
+#define repp(i,a,b)     for(int i=a;i&lt;b;i++)
+#define rep(i,a,b) 	    for(int i=a;i&lt;=b;i++)
+#define deb1(x)      	cout &lt;&lt; #x &lt;&lt; &quot;=&quot; &lt;&lt; x &lt;&lt; endl
+#define deb2(x, y)  	cout &lt;&lt; #x &lt;&lt; &quot;=&quot; &lt;&lt; x &lt;&lt; &quot;,&quot; &lt;&lt; #y &lt;&lt; &quot;=&quot; &lt;&lt; y &lt;&lt; endl
+#define deb3(x, y, z)  	cout &lt;&lt; #x &lt;&lt; &quot;=&quot; &lt;&lt; x &lt;&lt; &quot;,&quot; &lt;&lt; #y &lt;&lt; &quot;=&quot; &lt;&lt; y &lt;&lt; &quot;,&quot; &lt;&lt; #z &lt;&lt; &quot;=&quot; &lt;&lt; z &lt;&lt; endl
+#define trace(v) 		for(auto it=v.begin();it!=v.end();it++)cout&lt;&lt;*it&lt;&lt;&quot; &quot;;cout&lt;&lt;endl;
+#define tracearr(a,l,r) for(int iii=l;iii&lt;=r;iii++)cout &lt;&lt; a[iii] &lt;&lt; &quot; &quot;;cout &lt;&lt; endl;
+#define F 				first
+#define S 				second
+#define clr(x,y) 		memset(x, y, sizeof(x))
+//2d- vector ---&gt; vector&lt;vector&lt;int&gt; &gt; v( n , vector&lt;int&gt; (m, 0));
+
+const int N=1e5 + 5;
+const int M=1e9 + 7;
+
+int n;
+
+string func(string s,int b)
+{
+    while(b--)
+    {
+        char c = s[n-1];
+        s.erase(s.begin()+n-1);
+        s.insert(s.begin(),c);
+    }
+    return s;
+}
+
+string solve(string s,int b)
+{
+    string ans = &quot;&quot;;
+    rep(i,0,n-1)
+        ans += &quot;9&quot;;
+    rep(i,1,100)
+    {
+        s = func(s,b);
+        ans = min(ans,s);
+    }
+<A NAME="0"></A>    return ans;
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string findLexSmallestString(string s, int a, int b) 
+    {
+        n = s.size();
+        string ans = &quot;&quot;;
+        rep(i,0,n-1)
+            ans += &quot;9&quot;;
+        for(int j=0;j&lt;11;j++)
+        {</B></FONT>
+            rep(i,0,n-1)
+            {
+               if(i%2==0)
+                 continue;
+                int f = s[i] - '0';
+                f = (f+a)%10;
+                s[i] = char(f+'0');
+            }
+            //deb1(s);
+            if(b%2==0)
+                ans = min(ans,solve(s,b));
+            else
+            {
+                for(int jj=0;jj&lt;11;jj++)
+                {
+                    rep(ii,0,n-1)
+                    {
+                       if(ii%2==1)
+                         continue;
+                        int f = s[ii] - '0';
+                        f = (f+a)%10;
+                        s[ii] = char(f+'0');
+                    }
+                    ans = min(ans,solve(s,b));
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>402_practice-123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>402_practice-123.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; luckyNumbers (int[][] matrix) {
+<A NAME="0"></A>        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        if (matrix.length == 0) return result;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i=0; i&lt;matrix.length; i++) {
+            int min = Integer.MAX_VALUE;
+            int col = -1;
+            for (int j=0; j&lt;matrix[0].length; j++) {
+                if (min &gt; matrix[i][j]) {
+                    min = matrix[i][j];
+                    col = j;
+                }
+            }</B></FONT>
+            
+            if (map.containsKey(col)) {
+                if (map.get(col) &lt; min) {
+                    map.put(col, min);
+                }
+            } else {
+                map.put(col, min);
+            }
+            
+
+        }
+        
+        for (Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) {
+<A NAME="1"></A>            int col = entry.getKey();
+            int val = entry.getValue();
+            
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean max = true;
+            for (int i=0; i&lt;matrix.length; i++) {
+                if (matrix[i][col] &gt; val) {
+                    max = false;
+                    break;
+                }
+            }
+            
+            if (max) result.add(val);
+        }
+        
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

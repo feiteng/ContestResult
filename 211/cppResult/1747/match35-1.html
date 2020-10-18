@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_parfenov.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_parfenov.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string findLexSmallestString(string s, int a, int b) {
+        set&lt;string&gt; st;
+        impl(s, a, b, st);
+        return *st.begin();
+    }
+    
+private:
+    void impl(string&amp; s, int a, int b, set&lt;string&gt;&amp; st)
+    {
+        if (st.count(s))
+            return;</B></FONT>
+        
+        st.insert(s);
+        
+        auto s1 = s;
+        rotate(s1.begin(), s1.end() - b, s1.end());
+        impl(s1, a, b, st);
+        
+        auto s2 = s;
+        for (int i = 1; i &lt; s2.size(); i += 2)
+            s2[i] = ((s2[i] - '0') + a) % 10 + '0';
+        impl(s2, a, b, st);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

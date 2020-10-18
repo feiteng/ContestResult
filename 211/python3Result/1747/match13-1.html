@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>498_Lawliet890.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>498_Lawliet890.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLexSmallestString(self, s: str, a: int, b: int) -&gt; str:
+        def move(s):
+            return s[b:] + s[:b]
+        def add(s):
+            ans = []
+            for i, c in enumerate(s):
+                if i % 2 == 0: ans.append(c)
+                else:
+                    ans.append(str((int(c) + a) % 10))
+            return ''.join(ans)
+<A NAME="0"></A>        
+        seen = set()
+        q = [s]
+        ans <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= s
+        # bfs
+        while q:
+            n_q = []
+            for s in q:
+                n_s = move(s)
+                if n_s not in seen:
+                    seen.add(n_s)
+                    n_q.append(n_s)
+                    ans = min(ans, n_s)
+                n_s = add(s)
+                if n_s not in seen:
+                    seen.add(n_s)
+                    n_q.append(n_s)
+                    ans = min(ans, n_s)
+            q = n_q
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

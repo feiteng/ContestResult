@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>402_practice-123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>402_practice-123.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        int[][] combine = new</B></FONT> int[n][2];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0; i&lt;n; i++) {
+            combine[i][0] = speed[i];
+            combine[i][1] = efficiency[i];
+        }
+        Arrays.sort(combine, (a,b) -&gt; b[1] - a[1]);
+        
+        PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;();
+<A NAME="2"></A>        
+        long sum = 0;
+        long max = 0</B></FONT>;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0; i&lt;k; i++) {
+            sum += combine[i][0];
+            heap.offer(combine[i][0]);
+            max = Math.max(max, sum * combine[i][1]);
+        }
+        
+        for (int i=k; i&lt;n; i++) {</B></FONT>
+            sum -= heap.poll();
+            heap.offer(combine[i][0]);
+            sum += combine[i][0];
+            
+            max = Math.max(max, sum * combine[i][1]);
+        }
+        
+        return (int)(max % 1000000007);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

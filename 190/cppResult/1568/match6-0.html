@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>441_mei-qian-chi-bai-cai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>441_mei-qian-chi-bai-cai.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+<A NAME="0"></A> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int ans;
+    void PreOrder(TreeNode* root, vector&lt;int&gt;&amp; cnt){
+        cnt[root-&gt;val]++;
+<A NAME="1"></A>        if(!root-&gt;left&amp;&amp;!root-&gt;right){
+            int tt=0;
+            for(int i=1;i&lt;=9;i++){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                tt=tt+cnt[i]%2;
+            }
+            if(tt&lt;=1)ans++;
+            cnt[root-&gt;val]--;
+            return;
+        }
+        if(root-&gt;left)PreOrder(root-&gt;left, cnt);
+        if(root-&gt;right)PreOrder(root-&gt;right, cnt);
+        cnt[root-&gt;val]--;
+    }
+    int pseudoPalindromicPaths (TreeNode* root) {
+        vector&lt;int&gt; cnt(15,0);
+        ans=0;</B></FONT>
+        PreOrder(root, cnt);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197_songrenchu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>197_songrenchu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        long mod = 1000000007;
+        List&lt;Person&gt; eng = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            eng.add(new Person(speed[i], efficiency[i]));
+        }
+        Collections.sort(eng, (p1, p2) -&gt; {</B></FONT>
+            if (p1.eff &lt; p2.eff || (p1.eff == p2.eff &amp;&amp; p1.speed &lt; p2.speed)) {
+                return 1;
+            }
+            if (p1.eff == p2.eff &amp;&amp; p1.speed == p2.speed) {
+                return 0;
+            }
+            return -1;
+        });
+        // System.out.println(eng);
+        long ans = 0;
+        long sumSpeed = 0;
+        // PriorityQueue&lt;Person&gt; maxSpeed = new PriorityQueue&lt;&gt;(k, (p1, p2) -&gt; p2.speed - p1.speed);
+        PriorityQueue&lt;Person&gt; minSpeed = new PriorityQueue&lt;&gt;(n, (p1, p2) -&gt; p1.speed - p2.speed);
+<A NAME="2"></A>
+        for (int i = 0; i &lt; n; i++) {
+            Person e = eng.get(i);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>minSpeed.add(e);
+            sumSpeed += e.speed;
+            if (minSpeed.size() &gt; k) {
+                sumSpeed -= minSpeed.poll().speed;
+            }
+            ans = Math.max(ans, sumSpeed * e.eff);
+        }
+<A NAME="0"></A>        return (int)(ans % mod);
+    }</B></FONT>
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private class Person {
+        int speed;
+        int eff;
+        public Person(int speed, int eff) {
+            this.speed = speed;
+            this.eff = eff;
+        }</B></FONT>
+        
+        public String toString() {
+            return this.eff + &quot; &quot; + this.speed;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

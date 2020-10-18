@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>368_pbdpbd123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>368_pbdpbd123.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    Set&lt;Integer&gt; toZ;
+    Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+    Map&lt;Integer, List&lt;Integer&gt;&gt; toMap = new HashMap&lt;&gt;();
+    public int minReorder(int n, int[][] connections) {
+        toZ = new HashSet&lt;&gt;();
+        map = new HashMap&lt;&gt;();
+        toMap = new HashMap&lt;&gt;();
+        for(int[] x : connections){
+            int from = x[0];
+            int to = x[1];
+            if(map.get(to) == null){
+                map.put(to, new ArrayList&lt;&gt;());
+            }
+            map.get(to).add(from);
+            
+            if(toMap.get(from) == null){
+                toMap.put(from, new ArrayList&lt;&gt;());
+            }
+            toMap.get(from).add(to);
+        }
+        
+        int count = 0;
+        List&lt;Integer&gt; temp = new ArrayList&lt;&gt;();
+        temp.add(0);
+        dfs(temp);
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        for(Integer x : toZ){
+            queue.offer(x);
+        }
+<A NAME="0"></A>        while(queue.size() &gt; 0){
+            System.out.println(queue.toString());
+            int size = queue.size();
+            for(int i = 0; i &lt; size; i++)<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                int from = queue.poll();
+                if(map.get(from)!=null){
+                    for(Integer next : map.get(from)){
+                        if(!toZ.contains(next)){
+                            toZ.add(next);
+                            queue.offer(next);
+                        }
+                    }
+                }
+                if(toMap.get(from)!=null){</B></FONT>
+                    List&lt;Integer&gt; tl = new ArrayList&lt;&gt;(toMap.get(from));
+                    for(Integer to : tl){
+                        if(!toZ.contains(to)){
+                            count++;
+                            reverse(to, from);
+<A NAME="1"></A>                            queue.offer(to);
+                            toZ.add(to);
+                            if(map.get(to)!=null){
+                                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(Integer newFrom : map.get(to)){
+                                    if(!toZ.contains(newFrom)){
+                                        toZ.add(newFrom);
+                                        queue.offer(newFrom);
+                                    }
+                                }
+                            }
+                        }</B></FONT>
+                    }
+                }
+            }
+        }
+        
+        return count;
+    }
+    
+    private void reverse(int to, int from){
+        int newTo = from;
+        int newFrom = to;
+        if(map.get(to)!=null){
+            map.get(to).remove(new Integer(from));
+        }
+        if(toMap.get(from)!=null){
+            toMap.get(from).remove(new Integer(to));
+        }
+        
+        if(map.get(newTo)==null){
+            map.put(newTo, new ArrayList&lt;&gt;());
+        }
+        map.get(newTo).add(newFrom);
+        
+        if(toMap.get(newFrom) == null){
+            toMap.put(newFrom, new ArrayList&lt;&gt;());
+        }
+        toMap.get(newFrom).add(newTo);
+    }
+    
+    private void dfs(List&lt;Integer&gt; temp){
+        for(Integer x : temp){
+            toZ.add(x);
+            if(map.get(x)!=null){
+                dfs(map.get(x));
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

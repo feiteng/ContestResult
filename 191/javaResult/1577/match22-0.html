@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_luo122174088.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>367_luo122174088.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int sum = 0;
+    double ways = 0;
+
+    public double getProbability(int[] balls) {
+        int len = balls.length;
+        sum = 0;
+        for (int ball : balls) {
+            sum += ball;
+        }
+        double total = factor(sum);
+        for (int ball : balls) {
+            total /= factor(ball);
+        }
+<A NAME="0"></A>
+        ways = 0;
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt;= len; i++) {
+            compute(balls, i, sum / 2);
+        }
+        return ways / total;
+    }
+
+    private void compute(int[] balls, int dist</B></FONT>, int n) {
+        if (dist * 2 &lt; balls.length) {
+            return;
+        }
+<A NAME="1"></A>        int pickall = balls.length - dist;
+        int[] selected = new int[balls.length];
+        compute(balls, selected, dist, pickall, n, 0);
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    private void compute(int[] array, int[] selected, int colors, int pickall, int balls, int i) {
+        if (colors &lt;= 0 || balls &lt;= 0 || pickall &lt; 0 || i &gt;= array.length) {
+            if (colors == 0 &amp;&amp; pickall == 0 &amp;&amp; balls == 0) {
+                double tmp = factor(sum/2) * factor(sum/2);</B></FONT>
+                for(int pos = 0;pos&lt;array.length;pos++){
+                    tmp /= factor(selected[pos]) * factor(array[pos] - selected[pos]);
+                }
+                ways += tmp;
+            }
+            return ;
+        }
+
+        compute(array, selected, colors, pickall, balls, i + 1);
+        // may skip this ball
+        if (balls &gt;= array[i] &amp;&amp; pickall &gt; 0) {
+            // try to pick all
+            selected[i] = array[i];
+            compute(array, selected, colors - 1, pickall - 1, balls - array[i], i + 1);
+            selected[i] = 0;
+        }
+        // try to pick this ball
+        for (int pick = 1; pick &lt; array[i]; pick++) {
+            if (balls - pick &gt;= 0) {
+                selected[i] = pick;
+                compute(array, selected, colors - 1, pickall, balls - pick, i + 1);
+<A NAME="2"></A>                selected[i] = 0;
+            } else {
+                break;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+    }
+
+    private double factor(int n) {
+        double t = 1;
+        for (int i = 1; i &lt;= n; i++) {
+            t *= i;
+        }</B></FONT>
+        return t;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

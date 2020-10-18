@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_s_tsat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_s_tsat.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+        
+    
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        UF uf = new UF(n + 1);
+        for (int gcd = threshold + 1; gcd &lt; n; gcd++){
+            for (int i = gcd; i &lt;= n - gcd; i+= gcd){
+                //System.out.println(i + &quot; &quot; + (i + gcd));
+                uf.union(i, i + gcd);
+            }
+               
+        }
+<A NAME="1"></A>        
+        List&lt;Boolean&gt; ans = new ArrayList&lt;&gt;();
+        for (int[] query</B></FONT> : queries)
+            ans.add (uf.find(query[0]) == uf.find(query[1]))<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        
+        return ans;
+    }
+    
+    
+    
+    
+     class UF {
+
+    private int[] parent;  
+    private byte[] rank;   
+    private int count;     
+
+<A NAME="2"></A>
+    UF(int n) {</B></FONT>
+        if (n &lt; 0) throw new IllegalArgumentException();
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>count = n;
+        parent = new int[n];
+        rank = new byte[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+            rank[i] = 0;
+        }
+    }
+
+
+     int find(int p) {</B></FONT>;
+        while (p != parent[p]) {
+            parent[p] = parent[parent[p]];  
+<A NAME="3"></A>            p = parent[p];
+        }
+        return p;
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+
+   void union(int p, int q) {
+        int rootP = find(p);
+        int rootQ = find(q);
+        if (rootP == rootQ) return;
+
+        if</B></FONT>      (rank[rootP] &lt; rank[rootQ]) parent[rootP] = rootQ;
+        else if (rank[rootP] &gt; rank[rootQ]) parent[rootQ] = rootP;
+        else {
+            parent[rootQ] = rootP;
+            rank[rootP]++;
+        }
+        count--;
+    }
+
+
+
+}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

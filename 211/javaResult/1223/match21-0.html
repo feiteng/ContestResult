@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>931_dennanisny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>931_dennanisny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    int[] parents, sizes;
+    
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        parents = new int[n+1];
+        sizes = new int[n+1];
+        for (int i = 1; i &lt;= n; i++) {
+            parents[i] = i;
+            sizes[i] = 1;
+<A NAME="1"></A>        }
+        for (int i = 1</B></FONT>; i &lt;= n; i++) {
+            TreeSet&lt;Integer&gt; set = getDivisors(i);
+            for (int j : set.tailSet(threshold, false)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                union(i, j);
+            }
+        }
+        List&lt;Boolean&gt; ans = new ArrayList&lt;&gt;();
+<A NAME="2"></A>        for (int[] q : queries) {
+            int a = q[0]</B></FONT>, b = q[1];
+            ans.add(find(a) == find(b));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return ans;
+    }
+    
+<A NAME="3"></A>    private int find(int x) {
+        while (parents[x] != x) {</B></FONT>
+            parents[x] = parents[parents[x]];
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>x = parents[x];
+        }
+        return x;
+    }
+    
+<A NAME="4"></A>    private void union(int p, int q) {
+        int pRoot = find(p), qRoot = find(q);
+        if</B></FONT> (pRoot != qRoot) {
+            <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match21-1.html#4',3,'match21-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (sizes[pRoot] &gt; sizes[qRoot]) {
+                parents[qRoot] = pRoot;
+                sizes[pRoot] += sizes[qRoot];
+            } else {
+                parents[pRoot] = qRoot;
+                sizes[qRoot] += sizes[pRoot];
+            }
+        }</B></FONT>
+    }
+    
+    private TreeSet&lt;Integer&gt; getDivisors(int n) {
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        for (int i = 1; i*i &lt;= n; i++) {
+            if (n%i == 0) {
+                set.add(i);
+                set.add(n/i);
+            }
+        }
+        return set;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>400_odinmillion.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>400_odinmillion.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+<A NAME="0"></A>#         self.right = right
+class Solution:
+    def pseudoPalindromicPaths (self, root: TreeNode) -&gt; int:
+        ans <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        def traverse(node, state1):
+            nonlocal ans
+            if not node:
+                return
+            
+            state1[node.val] += 1
+            
+            if not node.left and not node.right:
+                odd_cnt = 0
+                for</B></FONT> val in state1:
+<A NAME="1"></A>                    if val % 2 == 1:
+                        odd_cnt += 1
+                if odd_cnt &lt;= 1:
+                    ans <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>+= 1
+            else:
+                traverse(node.left, state1)
+                traverse(node.right, state1)
+                
+            state1[node.val] -= 1
+        
+        traverse(root, [0] * 10)
+        
+        re</B></FONT>turn ans
+        
+</PRE>
+
+</BODY>
+</HTML>

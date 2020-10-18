@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_sshang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_sshang.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict, deque
+<A NAME="0"></A>class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -&gt; int:
+        
+        pre, pro <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= defaultdict(set), defaultdict(set)
+        for u, v in connections:
+            pre[v].add(u)
+<A NAME="1"></A>            pro[u].add(v)
+            
+        q, seen, res =</B></FONT> deque([0]), {0}, 0
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while q:
+            u = q.popleft()
+            for v in pre[u]:
+                if v not in seen:
+                    q.append(v)
+                    seen.add(v)
+            for v in pro[u]:
+                if v not in seen:
+                    q.append(</B></FONT>v)
+                    seen.add(v)
+                    res += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2165_18801182352.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>2165_18801182352.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxDotProduct(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        len1 = len(nums1)
+        len2 = len(nums2)
+        dp = [[0 for _ in range(len2)] for _ in range(len1)]
+        dp[len1-1][len2-1] = nums1[len1-1]*nums2[len2-1]
+        for i in range(len1-2, -1, -1):
+            dp[i][len2-1] = max(dp[i+1][len2-1], nums1[i]*nums2[len2-1])
+        for j in range(len2-2, -1, -1):
+            dp[len1-1][j] = max(dp[len1-1][j+1], nums1[len1-1]*nums2[j])
+        
+        for i in range(len1-2, -1, -1):
+            for j in range(len2-2, -1, -1):
+                dp[i][j] = max(dp[i+1][j], dp[i][j+1], dp[i+1][j+1] + nums1[i]*nums2[j], nums1[i]*nums2[j])
+                # dp[i][j] = max(dp[i+1][j], dp[i][j+1], nums1[i]*nums2[j])
+                # for k in range(j, len2-1):
+                    # dp[i][j] = max(dp[i][j], dp[i+1][k+1] + nums1[i]*nums2[k])
+        return dp[0][0</B></FONT>]
+</PRE>
+
+</BODY>
+</HTML>

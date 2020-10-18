@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>748_bakezq.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>748_bakezq.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int bestTeamScore(vector&lt;int&gt;&amp; scores, vector&lt;int&gt;&amp; ages) {
+        int n = scores.size();
+        vector&lt;pair&lt;int, int&gt;&gt; vp;
+        for (int i = 0; i &lt; n; i++)
+            vp.emplace_back(ages[i], scores[i]);
+        sort(vp.begin(), vp.end());
+
+<A NAME="1"></A>        int res = 0;</B></FONT>
+        vector&lt;int&gt; dp(n);
+        res = dp[0] = vp[0].second;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int j = 1; j &lt; n; j++) {
+            dp[j] = vp[j].second;
+            for (int i = j - 1; i &gt;= 0; i--) {
+                if (vp[j].first == vp[i].first || vp[j].second &gt;= vp[i].second)
+                    dp[j] = max(dp[j], dp[i] + vp[j].second);
+            }
+            res = max(res, dp[j]);
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

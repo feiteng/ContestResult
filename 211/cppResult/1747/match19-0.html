@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>848_ankit_6776.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>848_ankit_6776.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    set&lt;string&gt; ss;
+    void f(string s,int a,int b){
+        if(ss.count(s))return;
+        ss.insert(s);
+        int n=s.length();
+        string zz=s.substr(n-b)+s.substr(0,n-b);
+        f(zz,a,b);
+        string z;
+        for(int i=0;i&lt;n;++i){</B></FONT>
+            if(i%2==0){
+                z.push_back(s[i]);
+                continue;
+            }
+            int x=s[i]-'0';
+            x+=a;
+            x%=10;
+            z.push_back((char)(x+'0'));
+        }
+        f(z,a,b);
+    }
+    string findLexSmallestString(string s, int a, int b) {
+       
+        f(s,a,b);
+        return (*ss.begin());
+    }
+};
+</PRE>
+</BODY>
+</HTML>

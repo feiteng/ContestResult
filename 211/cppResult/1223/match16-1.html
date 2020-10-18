@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_dark1011.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>203_dark1011.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int findPar(int a,vector&lt;int&gt; &amp;parent)
+    {
+        if(a!=parent[a])
+            parent[a] = findPar(parent[a],parent);
+        return parent[a];
+    }
+    void dsu(int a,int b,vector&lt;int&gt; &amp;parent)
+    {
+        int par_a = findPar(a,parent);
+<A NAME="1"></A>        int par_b = findPar(b,parent);</B></FONT>
+        if(par_a!=par_b)
+            parent[par_b] = par_a;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    vector&lt;bool&gt; areConnected(int n, int threshold, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        vector&lt;int&gt; parent(n+1);
+        for(int i=1;i&lt;=n;i++)
+            parent[i] = i;
+        for(int i=threshold+1;i&lt;=n;i++)
+<A NAME="2"></A>        {</B></FONT>
+            for(int k=1;k&lt;=n&amp;&amp;i*k&lt;=n;k++)
+                dsu(i*k,i,parent);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        vector&lt;bool&gt; answer;
+        int m = queries.size();
+        for(int i=0;i&lt;m;i++)
+        {
+            if(findPar(queries[i][0],parent)==findPar(queries[i][1],parent))
+                answer.push_back(true);
+            else
+                answer.push_back(false);
+        }
+        return answer;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

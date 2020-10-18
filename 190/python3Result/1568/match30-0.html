@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>944_meiyiyan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>944_meiyiyan.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pseudoPalindromicPaths (self, root: TreeNode) -&gt; int:
+        if root is None:
+            return 0
+<A NAME="0"></A>        if root.left is None and root.right is None:
+            return 1
+        
+        count <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [0]
+        
+        def preorder(root, path, count):
+            if root is None:
+                return
+            
+            if root.val in path:
+                path.remove(root.val)
+            else:
+                path.add(root.val)
+<A NAME="1"></A>                
+            if root.left is None and root.right is None:
+                if len(</B></FONT>path) == 1 or len(path) == 0:
+                    count<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0] += 1
+            
+            preorder(root.left, path, count)
+            preorder(root.right, path, count)
+            
+            if root.val in path:
+                path.remove(root.val)
+            else:
+                path.add(root.v</B></FONT>al)
+            
+        path = set([root.val])
+        preorder(root.left, path, count)
+        preorder(root.right, path, count)
+        
+        return count[0]
+        
+            
+</PRE>
+
+</BODY>
+</HTML>

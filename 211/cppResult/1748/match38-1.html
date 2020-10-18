@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>281_zeeshanlakshya.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>281_zeeshanlakshya.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int bestTeamScore(vector&lt;int&gt;&amp; scores, vector&lt;int&gt;&amp; ages) {
+        vector&lt;pair&lt;int,int&gt;&gt; players;
+        
+        for(int i=0; i&lt; scores.size(); i++)</B></FONT>
+            players.push_back(make_pair(scores[i], ages[i]));
+        
+        sort(players.begin(), players.end(), [](pair&lt;int,int&gt;&amp;a, pair&lt;int,int&gt;&amp;b){
+            if(b.second &gt; a.second)
+                return true;
+            
+            if( b.second == a.second)
+<A NAME="1"></A>                return b.first &gt; a.first;
+            
+            return false;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        });
+        
+       // for(int i=0;  i&lt;players.size(); i++)
+        //    cout &lt;&lt; players[i].first &lt;&lt; &quot; &quot; &lt;&lt; players[i].second &lt;&lt; &quot;\n&quot;;
+        vector&lt;int&gt; dp( players.size(), 0);
+        
+        int maxScore =0;
+        for(int i=0; i&lt; dp.size(); i++)
+        {
+            dp[i] = players[i].first;
+            for(int j=0; j&lt;i; j++)
+            {
+                if(players[i].first &gt;= players[j].first)
+                    dp[i] = max(dp[i], dp[j]+players[i].first);
+            }
+            maxScore = max(maxScore, dp[i]);
+        }
+        
+        return maxScore;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

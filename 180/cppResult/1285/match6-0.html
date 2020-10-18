@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>85_hhhyyyfff.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>85_hhhyyyfff.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    vector&lt;int&gt; v;
+    
+    void to_list(TreeNode* root) {
+        if (root == NULL) {
+            return;
+        }
+        
+        to_list(root-&gt;left);
+        v.push_back(root-&gt;val);
+        to_list(root-&gt;right);
+    }
+    
+    TreeNode* to_BST(int l, int r) {
+        if (l == r) {
+            return NULL;
+        }
+        
+        int mid = (l + r) &gt;&gt; 1;
+        TreeNode* root = new TreeNode(v[mid]);
+        root-&gt;left = to_BST(l, mid);
+        root-&gt;right = to_BST(mid + 1, r);
+        return root;
+    }
+    
+public:
+    TreeNode* balanceBST(TreeNode* root) {
+        to_list(root);
+        return to_BST(0, v.size());
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_calcsaransh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_calcsaransh.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    ArrayList&lt;Integer&gt;[] in;
+    ArrayList&lt;Integer&gt;[] out;
+    boolean visited[];
+    int ans;
+    public int minReorder(int n, int[][] connections) {
+<A NAME="1"></A>        in = new ArrayList[n];
+        out = new</B></FONT> ArrayList[n];
+        ans = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited = new boolean[n];
+        for(int i=0;i&lt;n;i++) {
+            in[i]=new ArrayList();
+            out[i]=new ArrayList();
+        }
+        for(int i=0;i&lt;connections.length;i++) {
+            int from = connections[i][0];
+<A NAME="2"></A>            int to = connections[i][1];
+            in[to].add(from);
+            out[from].add</B></FONT>(to);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        dfs(0);
+        return ans;
+    }
+    
+    public void dfs(int pos) {</B></FONT>
+        visited[pos]=true;
+        for(int i=0;i&lt;in[pos].size();i++) {
+            int pos1=in[pos].get(i);
+            if (visited[pos1])continue;
+            dfs(pos1);
+        }
+        for(int i=0;i&lt;out[pos].size();i++) {
+            int pos1=out[pos].get(i);
+            if (visited[pos1])continue;
+            ans++;
+            dfs(pos1);
+        }
+        
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

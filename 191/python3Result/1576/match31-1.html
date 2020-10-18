@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_kkspeed3.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_kkspeed3.py</CENTER></H3><HR>
+<PRE>
+import collections
+
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -&gt; int:
+        graph = collections.defaultdict(list)
+        dest = collections.defaultdict(list)
+        for s, d in connections:
+            graph[d].append(s)
+            dest[s].append(d)
+        
+        edges = set()
+        def bfs(s, graph, dest, edges):
+            visited = set([s])
+            
+            count = 0
+<A NAME="0"></A>            queue = collections.deque([s])
+            
+            while len(queue) &gt; 0:
+                cur <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= queue.popleft()
+                for n in graph[cur]:
+                    if n not in visited:
+                        visited.add(n)
+                        queue.append(n)
+                for u in dest[cur]:
+                    if u not in visited:
+                        visited.add(u)
+                        queue.append(u)
+                        count += 1
+            r</B></FONT>eturn count
+        return bfs(0, graph, dest, edges)
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

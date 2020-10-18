@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>564_ASOP.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>564_ASOP.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+	int res;
+    int pseudoPalindromicPaths (TreeNode* root) {
+        res = 0;
+<A NAME="0"></A>        int mask = 0;
+        if(!root) return 0;
+        dfs(root, mask);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return res;
+    }
+    void dfs(TreeNode *root, int mask) {
+    	int v = root-&gt;val;
+    	mask ^= (1 &lt;&lt; v);
+    	cout &lt;&lt; mask &lt;&lt; endl;
+    	if(!root-&gt;left &amp;&amp; !root-&gt;right) {
+    		if(countBit(mask) &lt;= 1) {
+                res++; 
+            }
+    		return;
+    	}
+    	if(root-&gt;left)</B></FONT>
+<A NAME="1"></A>	    	dfs(root-&gt;left, mask);
+    	if(root-&gt;right)
+    		dfs(root-&gt;right, mask);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+
+    int countBit(int n) {
+    	int c = 0;
+    	while(n) {
+    		n = n&amp;(n-1);
+    		c++;
+    	}
+    	return c;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

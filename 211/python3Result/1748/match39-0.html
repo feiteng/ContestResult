@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>979_xiao-dian-di.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>979_xiao-dian-di.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -&gt; int:
+        ages_scores = [(x, y) for x, y in zip(ages, scores)]
+        ages_scores.sort(key = lambda x: (x[0], x[1]))
+<A NAME="0"></A>        n = len(ages_scores)
+        dp = [0 for _ in range(n)]
+        dp[0] = ages_scores[0][1]
+        ret <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        for i in range(n):
+            dp[i] = ages_scores[i][1]
+            for j in range(i):
+                if ages_scores[i][1] &gt;= ages_scores[j][1]:
+                    dp[i] = max(dp[i], dp[j] + ages_scores[i][1])
+            ret = max(ret, dp[i])
+        re</B></FONT>turn ret
+</PRE>
+
+</BODY>
+</HTML>

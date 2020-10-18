@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>338_navin0706.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>338_navin0706.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def pseudoPalindromicPaths (self, root):
+        &quot;&quot;&quot;
+<A NAME="0"></A>        :type root: TreeNode
+        :rtype: int
+        &quot;&quot;&quot;
+        self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.ans = 0
+        def dfs(node, so_far):
+            if not node:
+                return
+            
+            if not node.left and not node.right:
+                so_far[node.val] += 1
+                odds = 0
+                for i in xrange(1, 10):
+                    if so_far[i] % 2:
+                        odds += 1
+                if odds == 1 or odds == 0:
+                    self.ans +</B></FONT>= 1
+                so_far[node.val] -= 1
+                return
+            so_far[node.val] += 1
+            dfs(node.left, so_far)
+            dfs(node.right, so_far)
+            so_far[node.val] -= 1
+        
+        so_far = [0] * 10
+        dfs(root, so_far)
+        return self.ans
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

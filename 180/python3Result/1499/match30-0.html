@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>376_johnwu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>376_johnwu.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import heapq
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -&gt; int:
+        newlist = [(speed[i],  efficiency[i]) for i in range(n)]
+        newlist.sort(reverse=True)
+        total = 0
+        people = []
+        ans = 0
+        for (spe</B></FONT>, eff) in newlist:
+            total += spe
+            heapq.heappush(people, (eff, spe))
+            if len(people) &gt; k:
+                (tmpeff, tmpspe) = heapq.heappop(people)
+                total -= tmpspe
+            sofar = total * people[0][0]
+            ans = max(ans, sofar)
+        while len(people) &gt; 1:
+            (tmpeff, tmpspe) = heapq.heappop(people)
+            total -= tmpspe
+            sofar = total * people[0][0]
+            ans = max(ans,  sofar)
+        return ans % 1000000007
+</PRE>
+
+</BODY>
+</HTML>

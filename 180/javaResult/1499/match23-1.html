@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>216_SilverNarcissus.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>216_SilverNarcissus.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int MOD = 1_000_000_007;
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+//         if(k == 1){
+//             long res = 0;
+//             for(int i = 0; i &lt; n; i++){
+//                 res = Math.max((long) speed[i] * efficiency[i]);
+//             }
+            
+//             return (int) (res % MOD);
+//         }
+        
+        // sort by efficiency
+        Integer[] order = new Integer[n];
+        for(int i = 0; i &lt; n; i++){
+            o</B></FONT>rder[i] = i;
+        }
+        
+        Arrays.sort(order, new Comparator&lt;Integer&gt;(){
+            public int compare(Integer i1, Integer i2){
+                return Integer.compare(efficiency[i1], efficiency[i2]);
+            }
+        });
+        
+        int[] temp = Arrays.copyOf(speed, n);
+        for(int i = 0; i &lt; n; i++){
+            speed[i] = temp[order[i]];
+        }
+<A NAME="1"></A>        Arrays.sort(efficiency);
+        // end of sort
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>PriorityQueue&lt;Integer&gt; speeds = new PriorityQueue&lt;&gt;();
+        long sum = 0;
+        long res = 0;
+        for(int i = n - 1; i &gt;= n - k; i--){
+            speeds.add(speed[i]);
+            sum += speed[i];
+            res = Math.max(res, sum * efficiency[i]);
+        }
+        
+        for(int i = n - k - 1; i &gt;= 0; i--){</B></FONT>
+            int cur = speed[i];
+<A NAME="2"></A>            int smallest = speeds.poll();
+            sum -= smallest;
+            sum += Math.max(cur, smallest);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>speeds.add(Math.max(cur, smallest));
+            res = Math.max(res, sum * efficiency[i]);
+        }
+        
+        return (int) (res % MOD);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

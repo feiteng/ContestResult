@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>199_jie-luo-te-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>199_jie-luo-te-2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    static const int maxn = 10000 + 10;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int fa[maxn];
+    int find(int x){
+        return fa[x] == x? x : fa[x] = find(fa[x]);
+    }
+    
+    vector&lt;bool&gt; areConnected(int n, int threshold, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        for (int i = 0; i &lt;= n; ++i) fa[i] = i;
+        vector&lt;bool&gt;ans;    
+        
+        for (int i = threshold + 1; i &lt;= n; ++i){
+            for (int j = 2 * i; j &lt;= n; j += i){
+                fa[find(j)] = find(i);
+            }
+        }
+        for (int i = 0; i &lt; queries.size(); ++i){
+            int u = queries[i][0];</B></FONT>
+            int v = queries[i][1];
+            if (find(u) == find(v)){
+                ans.push_back(1);
+            }
+            else ans.push_back(0);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

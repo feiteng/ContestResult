@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>134_liquid_science.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>134_liquid_science.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Queue;
+
+class Solution {
+  public String findLexSmallestString(String s, int a, int b) {
+<A NAME="0"></A>
+    Queue&lt;String&gt; q= new ArrayDeque&lt;&gt;();
+    q.add(s);
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>HashSet&lt;String&gt; visited= new HashSet&lt;&gt;();
+    visited.add(s);
+    String ans= s;
+
+
+
+    while (!q.isEmpty())
+    {
+
+      String pop=q.remove();
+
+<A NAME="1"></A>      if (ans.compareTo</B></FONT>(pop)&gt;0)
+      {
+        ans=pop;
+      <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+      String rotate=rightrotate(pop,b);
+      String added =add(pop,a);
+
+      if (!visited.contains(rotate))
+      {
+        //System.out.println(&quot;adding &quot;+rotate);
+        visited.add</B></FONT>(rotate);
+        q.add(rotate);
+      }
+
+      if (!visited.contains(added))
+      {
+<A NAME="2"></A>        //System.out.println(&quot;adding &quot;+added);
+
+        visited.add(added);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.add(added);
+      }
+    }
+
+    return ans;
+  }
+
+  String leftrotate(String str, int d)
+<A NAME="3"></A>  {
+    String ans = str.substring</B></FONT>(d) + str.substring(0, d);
+    return ans;
+  <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+  // function that rotates s towards right by d
+  String rightrotate(String str, int d)
+  {
+    return leftrotate(str, str.length() - d);
+  }</B></FONT>
+
+  String add(String str, int a)
+  {
+    StringBuilder sb = new StringBuilder(str);
+    for (int i=1;i&lt;sb.length();i=i+2)
+    {
+      sb.setCharAt(i, (char) ('0'+(((sb.charAt(i)-'0')+a)%10)));
+    }
+    return sb.toString();
+  }
+
+
+}
+</PRE>
+
+</BODY>
+</HTML>

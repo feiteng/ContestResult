@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_azala.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>215_azala.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def getProbability(self, b: List[int]) -&gt; float:
+        n = len(b)
+        
+        fac <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [1]
+        for i in range(1, 50):
+            fac.append(fac[-1] * i)
+            
+        def ncr(a, b):
+            # print(a, b)
+            if b &gt; a:
+                return 0
+            if b &lt; 0:
+                return 0
+            return fac[a] / (fac[b] * fac[a-b])
+        
+        memo = {}
+        def</B></FONT> f(idx, df, sa):
+            if (idx, df, sa) in memo:
+                return memo[idx, df, sa]
+            if idx == n:
+                return 1. if df == 0 else 0.
+            ret = 0
+            bi = b[idx]
+            for i in range(bi+1):
+                if i &lt;= sa and sum(b[idx:]) &gt;= sa:
+                    cp = 1. * ncr(bi, i) * ncr(sum(b[idx+1:]), sa-i) / ncr(sum(b[idx:]), sa)
+                    cd = 0
+                    if i == 0:
+                        cd = -1
+                    elif i == bi:
+                        cd = 1
+                    ret += cp * f(idx+1, df + cd, sa-i)
+            memo[idx, df, sa] = ret
+            return ret
+        return f(0, 0, int(sum(b)/2))
+</PRE>
+
+</BODY>
+</HTML>

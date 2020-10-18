@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_ffutop.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_ffutop.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+        public String findLexSmallestString(String s, int a, int b) {
+            TreeSet&lt;String&gt; existed = new TreeSet&lt;&gt;();
+            Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
+            queue.add(s);
+            existed.add(s);
+            while (queue.isEmpty() == false) {
+                String cur = queue.poll();
+                String next</B></FONT>;
+                next = nextA(cur, a);
+                if (existed.contains(next) == false) {
+                    queue.add(next);
+                    existed.add(next);
+<A NAME="1"></A>                }
+
+                next = nextB(cur, b);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (existed.contains(next) == false) {
+                    queue.add(next);
+                    existed.add(next);
+<A NAME="2"></A>                }
+            }</B></FONT>
+
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return existed.first();
+        }
+
+        private String nextA(String s, int a) {
+            StringBuilder builder = new</B></FONT> StringBuilder();
+            char[] cs = s.toCharArray();
+            int len = s.length();
+            for (int i=0;i&lt;len;i++) {
+                char n = cs[i];
+<A NAME="3"></A>                if (i % 2 == 1) {
+                    n = (char) (((n-'0'+a) % 10) + '0');
+                }
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#3',2,'match15-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>builder.append(n);
+            }
+            return builder.toString();
+        }
+
+        private String nextB(String s, int b) {
+            StringBuilder builder = new StringBuilder();
+            char[] cs = s.toCharArray();
+            int len = s.length</B></FONT>();
+            for (int i=len-b;i&lt;len;i++) {
+                builder.append(cs[i]);
+            }
+            for (int i=0;i&lt;len-b;i++) {
+                builder.append(cs[i]);
+            }
+            return builder.toString();
+        }
+    }
+</PRE>
+
+</BODY>
+</HTML>

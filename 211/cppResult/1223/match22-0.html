@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>881_PiggyHead.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>881_PiggyHead.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    int par[10005];
+    
+    int findpar(int x) {
+        return par[x] = par[x] == x ? x : findpar(par[x]);
+    }
+    
+<A NAME="1"></A>    void unite(int x, int y) {
+        x = findpar(x), y = findpar(y);</B></FONT>
+        if (x == y) return;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        par[x] = y;
+    }
+    
+    vector&lt;bool&gt; areConnected(int n, int threshold, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        vector&lt;bool&gt; vec;
+        for (int i = 1; i &lt;= n; i ++) par[i] = i;
+        for (int z = threshold + 1; z &lt;= n; z ++) {
+            for (int i = z; i &lt;= n; i += z)</B></FONT>
+                for (int j = i + z; j &lt;= n; j += z)  {
+                    // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+                    unite(i, j);
+                }
+        }
+        for (auto q : queries) {
+            // cout &lt;&lt; q[0] &lt;&lt; &quot; &quot; &lt;&lt; findpar(q[0]) &lt;&lt; &quot; &quot; &lt;&lt; findpar(q[1]) &lt;&lt; endl;
+                vec.push_back(findpar(q[0]) == findpar(q[1]));
+        }
+        return vec;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

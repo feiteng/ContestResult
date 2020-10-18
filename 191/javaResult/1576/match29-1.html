@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>136_danielcy715.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>136_danielcy715.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minReorder(int n, int[][] connections) {
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        Set&lt;String&gt; path = new HashSet&lt;&gt;();
+        for (int[] conn : connections) {
+            path.add</B></FONT>(conn[0] + &quot;|&quot; + conn[1]);
+            List&lt;Integer&gt; list = map.getOrDefault(conn[0], new ArrayList&lt;&gt;());
+            list.add(conn[1]);
+<A NAME="1"></A>            map.put(conn[0], list);
+            
+            list = map.getOrDefault(conn[1], new ArrayList&lt;&gt;());
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.add(conn[0]);
+            map.put(conn[1], list);
+        }
+        
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        int revCount = 0;
+        Deque&lt;Integer&gt; q = new ArrayDeque&lt;&gt;();
+        q.offerLast</B></FONT>(0);
+        visited.add(0);
+        while (!q.isEmpty()) {
+            int curr = q.pollFirst();
+            List&lt;Integer&gt; nei = map.getOrDefault(curr, new ArrayList&lt;&gt;());
+            for (int ne : nei) {
+                if (visited.add(ne)) {
+<A NAME="2"></A>                    if (!path.contains(ne + &quot;|&quot; + curr)) {
+                        revCount++;
+                    }
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.offerLast(ne);                    
+                }
+            }            
+        }
+        return revCount;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_jevancc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_jevancc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -&gt; int:
+        f = [[] for _ in range(n)]
+        r = [[] for _ in range(n)]
+        
+        for s, t in connections:
+            f[s].append(t)
+            r[t].append(s)
+        
+            
+<A NAME="0"></A>        seen = set([0])
+        q = [0]
+        ans = 0
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while q:
+            n = q.pop()
+            
+            for m in r[n]:
+                if m not in seen:
+                    seen.add(m)
+                    q.append(m)
+                
+            for m in f[n]:
+                if m not in seen:
+                    seen.add(m)
+                    q.append(m)
+                    ans += 1
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

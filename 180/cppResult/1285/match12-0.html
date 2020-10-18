@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>565_is03wlei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>565_is03wlei.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; a;
+    
+    void dfs(TreeNode* r) {
+        if (r==NULL) return ;
+        dfs(r-&gt;left);
+        a.push_back(r-&gt;val);
+        dfs(r-&gt;right);
+    }
+<A NAME="1"></A>    
+    TreeNode* build(int x, int y) {
+        if (x&gt;y)return NULL;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int m = (x+y)/2;
+        TreeNode *r = new TreeNode(a[m]);
+        
+        r-&gt;left = build(x, m-1);
+        r-&gt;right = build(m+1,y);
+        return r;
+    }
+    
+    TreeNode* balanceBST(TreeNode* root) {
+        dfs(root);
+        return build(0, a.size()-1);    
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

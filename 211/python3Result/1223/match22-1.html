@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_venico19.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_venico19.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def gcd(self, a, b):
+        while b:
+            a, b = b, a%b
+        return a
+<A NAME="0"></A>    
+    def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -&gt; List[bool]:
+        if threshold == 0:
+            return [True for _ in range(len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(queries))]
+        
+        parents = list(range(n+1))
+        
+        def find(i):
+            if parents[i] != i:
+                parents[i] = find(parents[i])
+            return parents[i]
+            
+        def union(i, j):
+            p_i = find(i)
+            p_j = find(j)
+            if</B></FONT> p_i != p_j:
+                if p_i &gt; p_j:
+                    parents[p_j] = p_i
+                else:
+                    parents[p_i] = p_j        
+        
+        for cd in range(threshold+1, n//2 + 1):
+            a = 1
+            b = 2
+            while a*cd &lt; n:
+                while b*cd &lt;= n:
+<A NAME="1"></A>                    union(a*cd, b*cd)
+                    b += 1
+                a += 1
+                b = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>a + 1
+
+        res = []
+        
+        for a, b in queries:
+            if find(a) == find(b):
+                res.append(True)
+            else:
+                res.append(False)
+
+        re</B></FONT>turn res
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

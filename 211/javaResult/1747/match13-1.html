@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>651_Shoooooo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>651_Shoooooo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String findLexSmallestString(String s, int a, int b) {
+        // BFS
+<A NAME="0"></A>        TreeSet&lt;String&gt; set = new TreeSet&lt;String&gt;();
+        set.add(s);
+        Queue&lt;String&gt; queue = new LinkedList();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>queue.add(s);
+        while (!queue.isEmpty()) {
+            String curr = queue.poll();
+            String A = getA(curr, a);
+            String B = getB(curr, b);
+            //System.out.println(A +&quot; &quot; + B);
+            if (!set.contains(A)) {
+                queue.add(A);
+                set.add(A);
+            }
+            if (!set.contains(B)) {
+                queue.add(B);
+<A NAME="1"></A>                set.add(B);
+            }
+        }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return set.first();
+    }
+    
+    private String getA(String s, int a) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; s.length(); i++) {
+            char c = s.charAt(i);
+            if (i % 2 == 1) {
+<A NAME="2"></A>                c = (char) (((c - '0' + a) % 10) + '0'); 
+            }
+            sb.append</B></FONT>(c);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return sb.toString();
+    }
+    
+    private String getB(String s, int b) {
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        for (int i = b; i &lt; s.length(); i++) {
+            sb.append(s.charAt(i));
+        }
+        for (int i = 0; i &lt; b; i++) {
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    } 
+}
+</PRE>
+
+</BODY>
+</HTML>

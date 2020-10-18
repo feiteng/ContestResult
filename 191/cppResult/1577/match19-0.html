@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_RadianceSheep.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>59_RadianceSheep.cpp</CENTER></H3><HR>
+<PRE>
+double dp[25][25][1 &lt;&lt; 8][1 &lt;&lt; 8];
+
+class Solution {
+public:
+    double getProbability(vector&lt;int&gt;&amp; balls) {
+        int n = static_cast&lt;int&gt;(balls.size());
+        int m = 0;
+        for (auto b : balls) {
+            m += b;
+        }
+        m /= 2;
+        for (int i = 0; i &lt;= m; ++i) {
+            for (int j = 0; j &lt;= m; ++j) {
+                for (int ma = 0; ma &lt; (1 &lt;&lt; n); ++ma) {
+                    for (int mb = 0; mb &lt; (1 &lt;&lt; n); ++mb) {
+                        dp[i][j][ma][mb] = 0.0;
+                    }
+                }
+            }
+        }
+        dp[0][0][0][0] = 1.0;
+        for (int i = 0, sum = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; balls[i]; ++j) {
+<A NAME="0"></A>                for (int k = 0; k &lt;= min(m, sum); ++k) {
+                    for (int ma = 0; sum - k &lt;= m &amp;&amp; ma &lt; (1 &lt;&lt; n); ++ma) {
+                        for (int mb = 0; mb &lt; (1 &lt;&lt; n); ++mb) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                            if (dp[k][sum - k][ma][mb] != 0.0) {
+                                if (k + 1 &lt;= m) {
+                                    dp[k + 1][sum - k][ma | (1 &lt;&lt; i)][mb] += dp[k][sum - k][ma][mb] * 0.5;
+                                }
+                                if (sum - k + 1 &lt;= m) {
+                                    dp[k][sum - k + 1][ma][mb | (1 &lt;&lt; i)] += dp[k][sum - k][ma][mb] * 0.5;
+                                }
+                            }
+                        }
+                    }
+                }</B></FONT>
+<A NAME="1"></A>                ++sum;
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        double prob = 0.0, even = 0.0;
+        for (int ma = 0; ma &lt; (1 &lt;&lt; n); ++ma) {
+            int na = cnt1(ma);
+            for (int mb = 0; mb &lt; (1 &lt;&lt; n); ++mb) {</B></FONT>
+                even += dp[m][m][ma][mb];
+                if (na == cnt1(mb)) {
+                    prob += dp[m][m][ma][mb];
+                }
+            }
+        }
+        return prob / even;
+<A NAME="2"></A>    }
+    
+private:
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int cnt1(int x) {
+        int num = 0;
+        while (x) {
+            num += x &amp; 1;
+            x &gt;&gt;= 1;
+        }
+        return num;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

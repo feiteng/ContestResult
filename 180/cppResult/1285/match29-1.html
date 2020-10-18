@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>359_vivek_shah98.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>359_vivek_shah98.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+
+#define Node TreeNode
+   #define data val
+/* This function traverse the skewed binary tree and 
+stores its nodes pointers in vector nodes[] */
+void storeBSTNodes(Node* root, vector&lt;Node*&gt; &amp;nodes) 
+{ 
+   // Base case 
+   if (root==NULL) 
+      return; 
+
+   // Store nodes in Inorder (which is sorted 
+   // order for BST) 
+   storeBSTNodes(root-&gt;left, nodes); 
+   nodes.push_back(root); 
+   storeBSTNodes(root-&gt;right, nodes); 
+} 
+
+/* Recursive function to construct binary tree */
+Node* buildTreeUtil(vector&lt;Node*&gt; &amp;nodes, int start, 
+            int end) 
+{ 
+   // base case 
+   if (start &gt; end) 
+      return NULL; 
+
+   /* Get the middle element and make it root */
+   int mid = (start + end)/2; 
+   Node *root = nodes[mid]; 
+
+   /* Using index in Inorder traversal, construct 
+   left and right subtress */
+   root-&gt;left = buildTreeUtil(nodes, start, mid-1); 
+   root-&gt;right = buildTreeUtil(nodes, mid+1, end); 
+
+   return root; 
+} 
+
+// This functions converts an unbalanced BST to 
+// a balanced BST 
+Node* buildTree(Node* root) 
+{ 
+   // Store nodes of given BST in sorted order 
+   vector&lt;Node *&gt; nodes; 
+   storeBSTNodes(root, nodes); 
+
+   // Constucts BST from nodes[] 
+   int n = nodes.size(); 
+   return buildTreeUtil(nodes, 0, n-1); 
+}    </B></FONT>
+    TreeNode* balanceBST(TreeNode* root) {
+        return buildTree(root);
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

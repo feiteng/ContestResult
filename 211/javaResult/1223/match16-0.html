@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>520_user1692.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>520_user1692.java</CENTER></H3><HR>
+<PRE>
+
+class Solution {
+    private static class UnionFind{
+<A NAME="0"></A>        int[] rank;
+        int[] father;
+        public UnionFind(int n){
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>rank = new int[n];
+            father = new int[n];
+            for(int i = 0; i &lt; n; i ++){
+                rank[i] = 1;
+                father[i] = i;
+            }
+        }
+        private int findFather(int x){
+<A NAME="1"></A>            if(father[x] == x){
+                return x;
+            }</B></FONT>
+            return father[x] = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>findFather(father[x]);
+        }
+<A NAME="2"></A>        public void union(int x, int y){
+            int fx = findFather(x);
+            int fy = findFather(y);
+            if</B></FONT>(fx == fy) return<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            if(rank[fx] &gt; rank[fy]){
+                father[fy] = fx;
+                rank[fx] += rank[fy];
+            }else{
+                father[fx] = fy;
+                rank[fy] += rank[fx];
+            }
+        }</B></FONT>
+        public boolean isSameSet(int x, int y){
+            return findFather(x) == findFather(y);
+        }
+    }
+<A NAME="3"></A>    private int gcd(int x, int y){
+        return x % y == 0 ? y : gcd(y , x % y);
+    }
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match16-1.html#3',3,'match16-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        UnionFind uf = new UnionFind(n);
+        for(int i = threshold + 1; i &lt;= n; i ++){</B></FONT>
+            int last = i;
+            int j = 2;
+            while(j * i &lt;= n){
+                uf.union(last - 1, j * i - 1);
+<A NAME="4"></A>                last = j * i;
+                j ++;
+            }
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match16-1.html#4',3,'match16-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;();
+        for(int i = 0; i &lt; queries.length; i ++){
+            res.add(uf.isSameSet(queries[i][0] - 1,queries[i][1] - 1));
+        }
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

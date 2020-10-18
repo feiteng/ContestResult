@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>658_ikangaroo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>658_ikangaroo.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+<A NAME="0"></A> *     }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int count = 0;
+    public int pseudoPalindromicPaths (TreeNode root) {
+        int[] A = new int[9];
+        dfs(root, A);
+        return count;
+    }
+    
+    private void dfs(TreeNode root, int[] A) {</B></FONT>
+        if (root == null)
+<A NAME="1"></A>            return;
+        
+        A[root.val - 1]++;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (root.left == null &amp;&amp; root.right == null)
+            if (judge(A))
+                count++;
+        
+        if (root.left != null)
+            dfs(root.left, A);
+        if (root.right != null)
+            dfs(root.right, A);
+        A[root.val - 1]--;
+    }
+    
+    private boolean judge(int[] A) {
+        int odd = 0;
+        for (int a: A) {
+            if ((a &amp; 1) == 1)
+                odd++;
+            if (odd == 2)
+                return false;
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

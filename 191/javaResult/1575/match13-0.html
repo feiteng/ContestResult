@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_luo122174088.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>367_luo122174088.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxArea(int h, int w, int[] hcuts, int[] vcuts) {
+        
+        long max = 0;
+        Arrays.sort(hcuts);
+        Arrays.sort(vcuts);
+       
+        int diff1 = hcuts[0];
+        for(int i =1;i&lt;hcuts.length;i++){
+            diff1 = Math.max(diff1, hcuts[i]-hcuts[i-1]);
+        }
+        diff1 = Math.max(diff1, h - hcuts[hcuts.length-1]);
+        
+        int diff2 = vcuts[0];
+        for(int i =1;i&lt;vcuts.length;i++){
+            diff2 = Math.max(diff2, vcuts[i]-vcuts[i-1]);
+        }
+        diff2 = Math.max</B></FONT>(diff2, w - vcuts[vcuts.length-1]);
+        
+        long area = (long)diff1 * diff2;
+        return (int)(area % (int)(1e9+7));
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

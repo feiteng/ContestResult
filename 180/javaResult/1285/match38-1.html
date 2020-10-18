@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>219_sunxiaohua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>219_sunxiaohua.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode balanceBST(TreeNode root) {
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        dfs(list, root);
+        return buildTree(list, 0, list.size() - 1);
+    }
+    
+    public void dfs(List&lt;Integer&gt; list, TreeNode root) {
+        if (root == null) return;
+        dfs(list, root.left);
+        list.add(root.val);
+        dfs(list, root.right);
+    }
+    
+<A NAME="1"></A>    public TreeNode buildTree(List&lt;Integer&gt; list, int left, int right) {
+        if (left &gt; right) return null;</B></FONT>
+        if (left == right) return new TreeNode(list.get(left));
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int mid = (left + right) / 2;
+        TreeNode node = new TreeNode(list.get(mid));
+        node.left = buildTree(list, left, mid - 1);
+        node.right = buildTree(list, mid + 1, right);
+        return node;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

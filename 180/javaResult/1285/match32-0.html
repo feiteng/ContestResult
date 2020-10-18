@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>311_Goodnstudy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>311_Goodnstudy.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+    public TreeNode balanceBST(TreeNode root) {
+        getList(root);
+        return construct(0, list.size() - 1);
+    }
+    
+    private void getList(TreeNode root) {
+        if(root == null) return;
+        getList(root.left);
+        list.add(root.val);
+        getList(root.right);
+    }
+<A NAME="1"></A>    
+    private TreeNode construct(int start, int end) {
+        if(start == end) return</B></FONT> new TreeNode(list.get(start));
+        if(start &gt; end) return null<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        int i = start + (end - start) / 2;
+        TreeNode node = new TreeNode(list.get(i));
+        node.left = construct(start, i - 1);
+        node.right = construct(i + 1, end);
+        return node;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

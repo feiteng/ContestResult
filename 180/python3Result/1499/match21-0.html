@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>369_helloworld-259.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>369_helloworld-259.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxPerformance(self, n: int, s: List[int], e: List[int], k: int) -&gt; int:
+        l = [[a,b] for a, b in zip(s, e)]
+        l = sorted(l, key=lambda x :(-x[1], -x[0]))
+<A NAME="0"></A>        res, th, ans = float('-inf'), float('inf'), 0
+        import heapq
+        heap = []
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for a, b in l:
+            th = min(b, th)
+            if len(heap) &gt;= k:
+                ans -= heapq.heappop(heap)
+            heapq.heappush(heap, a)
+            ans += a
+            res = max(res, ans * th)
+        re</B></FONT>turn res % (10**9 + 7)
+            
+</PRE>
+
+</BODY>
+</HTML>

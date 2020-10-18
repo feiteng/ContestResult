@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>41_Charlesna.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>41_Charlesna.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    long count = 0;
+    long[][] f = new long[10][10];
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long p = 0;
+    public double getProbability(int[] balls) {
+        int sum = 0;
+        for (int b : balls) {
+            sum += b;
+        }</B></FONT>
+        
+        for (int i = 0; i &lt; 10; i++) {
+            for (int j = 0; j &lt;= i; j++) {
+                if (j == 0) f[i][j] = 1;
+                else f[i][j] = f[i - 1][j - 1] + f[i - 1][j];
+            }
+        }
+        p = per(sum / 2, sum / 2);
+<A NAME="1"></A>        long all = per(sum, sum / 2);
+        // System.out.println(all);
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>helper(balls, list, 0, sum / 2);
+        
+        return (double) count / all;
+    }
+    
+    private void helper(int[] b, List&lt;Integer&gt; list, int index, int k) {
+        if</B></FONT> (k &lt; 0) return;
+        if (index == b.length) {
+            if (k == 0) {
+                if (same(b, list)) {
+                    // System.out.println(list.toString());
+                    count += combo(b, list);
+                }
+            }
+            return;
+        }
+        
+        for (int i = 0; i &lt;= b[index]; i++) {
+<A NAME="2"></A>            list.add(i);
+            helper(b, list, index + 1, k - i);
+            list.remove(list.size() - 1);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    }
+    
+    private boolean same(int[] b, List&lt;Integer&gt; list) {
+        
+        int a = 0, c = 0;
+        for (int i = 0; i &lt; b.length; i++) {</B></FONT>
+            int num = i &gt;= list.size() ? 0 : list.get(i);
+            if (num &gt; 0) a++;
+            if (b[i] - num &gt; 0) c++;
+        }
+        return a == c;
+    }
+    
+    private long combo(int[] b, List&lt;Integer&gt; list) {
+        long res = 1;
+        for (int i = 0; i &lt; b.length; i++) {
+            int num = i &gt;= list.size() ? 0 : list.get(i);
+            res *= f[b[i]][num];
+        }
+        return res;
+    }
+<A NAME="3"></A>    
+       
+    private long per(int n, int m) {
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long res = 1;
+        for (int i = 1; i &lt;= m; i++) {
+            res *= n - i + 1;
+            res /= i;
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

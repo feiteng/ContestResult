@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>294_ytqiaqia.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>294_ytqiaqia.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxPerformance(int n, vector&lt;int&gt;&amp; speed, vector&lt;int&gt;&amp; efficiency, int k) {
+        vector&lt;pair&lt;int, int&gt;&gt; vec;
+        for(int i = 0; i &lt; speed.size(); ++i){
+            vec.push_back(make_pair(-efficiency[i], -speed[i]));
+<A NAME="1"></A>        }
+        sort(vec.begin(), vec.end());
+        priority_queue&lt;int&gt; PQ;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long cur_sum = 0;
+        long long res = 0;
+        for(int i = 0; i &lt; vec.size(); ++i){
+            PQ.push(vec[i].second);
+            cur_sum += vec[i].second;
+            if(PQ.size()&gt;k){</B></FONT>
+                int val = PQ.top();
+                PQ.pop();
+                cur_sum-=val;
+            }
+            res = max(res, cur_sum*vec[i].first);
+        }
+        return (int)(res %(1000000000 + 7));
+    }
+};
+</PRE>
+</BODY>
+</HTML>

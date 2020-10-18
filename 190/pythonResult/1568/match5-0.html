@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2321_dayday_baday.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2321_dayday_baday.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def pseudoPalindromicPaths (self, root):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :rtype: int
+        &quot;&quot;&quot;
+        # 得到根结点到叶子节点的所有路径
+        # 判断各个路径是否为回文路径
+        
+        if not root:
+            return 0
+        
+        queue = [(root, [root.val])]
+        
+        paths = []
+        
+<A NAME="0"></A>        while queue:
+            tmp = []
+            while queue:
+                (node, path) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= queue.pop(0)
+                if node.left:
+                    tmp.append((node.left, path+[node.left.val]))
+                if node.right:
+                    tmp.append((node.right, path+[node.right.val]))
+                if not node.left and not node.right:
+                    paths.append(p</B></FONT>ath)
+            queue = tmp
+            
+        # print paths
+        return [self.check(path) for path in paths].count(True)
+    
+    def check(self, lyst):
+        flag = True
+        for _ in range(1, 10):
+            if lyst.count(_) % 2 != 0:
+                if flag:
+                    flag = False
+                else:
+                    return False
+        return True
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

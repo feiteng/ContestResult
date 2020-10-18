@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>504_youjiahan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>504_youjiahan.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLexSmallestString(self, s: str, a: int, b: int) -&gt; str:
+        visited = set([s])
+        queue = collections.deque([s])
+        
+        def add(s):
+            ans = []
+            for i in range(len(s)):
+                if i % 2 == 1:
+                    c = (int(s[i]) + a) % 10
+                    ans.append(str(c))
+                else:
+                    ans.append(s[i])
+            return ''.join(ans)    
+            
+<A NAME="0"></A>        def move(s):
+            return s[len(s) - b:] + s[0: len(s) - b]
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while queue:
+            cur = queue.popleft()
+            one = add(cur)            
+            two = move(cur)
+            if one not in visited:
+                visited.add(one)
+                queue.append(one)
+            if two not in visited:
+                visited.add(two)
+                queue.append(t</B></FONT>wo)      
+        
+        ans = list(visited)
+        ans.sort()
+        return ans[0]
+        
+        
+        
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

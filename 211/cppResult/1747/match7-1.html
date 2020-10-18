@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>239_Acepted.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>239_Acepted.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string cal1(string s, int a){
+        for(int i = 1; i &lt; s.length(); i += 2){
+<A NAME="0"></A>                int t = s[i] - '0';
+                t += a;
+                if(t &gt;= 10) t -= 10;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                s[i] = '0'+ t;
+            }
+        return s;
+    }
+    string cal2(string s, int b){
+        s = s.substr(s.length()-b, b) + s.substr(0, s.length()-b);
+        return s;
+    }
+    string findLexSmallestString(string s, int a, int b) {
+        string ans = s;
+        queue&lt;string&gt; q;
+        q.push(s);
+       
+        set&lt;string&gt; se; se.insert(s);
+        while(!q.empty()){
+            string p = q.front(); q.pop();
+            ans = min(ans, p);
+            string p1 = cal1(p,a);
+            string p2 = cal2(p,b);
+            if(!se.count(p1)){
+                q.push(p1);
+                se.insert(p1);
+            }
+            if(!se.count(p2)){
+                q.push(p2);
+                se.insert(p2);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

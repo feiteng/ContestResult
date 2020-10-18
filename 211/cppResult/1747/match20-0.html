@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_jasxu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_jasxu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    string findLexSmallestString(string s, int a, int b) {
+        set&lt;string&gt; used;
+        queue&lt;string&gt; que;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int len = s.length();
+        used.insert(s);
+        que.push(s);
+        while(!que.empty())
+        {
+            auto cur = que.front();
+            que.pop();
+            string nb = cur.substr(len-b, b) + cur.substr(0, len - b);
+            string na = cur;
+            for(int i=1;i&lt;len;i+=2)
+            {
+                na[i] = (((cur[i] - '0') + a )%10) + '0';
+            }
+            if(!used.count(na)) {
+                used.insert(na);
+                que.push(na);
+            }</B></FONT>
+            if(!used.count(nb))
+            {
+                used.insert(nb);
+                que.push(nb);
+            }
+        }
+        auto it = used.begin();
+        return *it;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

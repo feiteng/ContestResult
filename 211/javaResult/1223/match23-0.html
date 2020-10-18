@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>348_CrhnbP.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>348_CrhnbP.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;Boolean&gt; areConnected(int n, int threshold, int[][] queries) {
+        
+        UnionFind uf = new UnionFind(n);
+        
+        for(int i = 0; i &lt; n; i++) {
+            if</B></FONT>(i + 1 &lt;= threshold) continue;
+            for(int j = i + 1; j &lt; n; j++) {
+<A NAME="1"></A>                if(uf.find(i) != uf.find(j) &amp;&amp; isConnected(j + 1, i + 1, threshold)) {
+                    uf.union(i, j);
+                }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;();
+        for(int[] q : queries) {
+            res.add(uf.find(q[0] - 1) == uf.find(q[1] - 1));
+        }
+        return res;
+    }
+    
+    class UnionFind {
+        int n;
+        int[] parents;
+        int[] ranks;
+        public UnionFind(int n) {
+            this.n = n;
+            this.parents = new int[n];
+            this.ranks = new int[n];
+<A NAME="2"></A>            
+            for(int i = 0; i &lt; n; i++) {</B></FONT>
+                parents[i] = i;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ranks[i] = 1;
+            }
+        }
+        
+        public int find(int x) {
+            while(x != parents[x]) {
+                parents[x] = parents[parents[x]];
+                x = parents[x];
+            }
+            return x;
+        }
+        public void union(int x, int y) {
+            
+            int px = find(x);
+            int py = find(y);
+            
+            if(px == py) return;
+            
+            if(ranks[px] &gt; ranks[py]) {
+                parents[py] = px;
+            } else {
+                parents[px] = py;
+                if</B></FONT>(ranks[px] == ranks[py]) ranks[py]++;
+            }
+            
+        }
+    }
+    
+    private boolean isConnected(int i, int j, int thres) {
+        
+        if(j == 0) return i &gt; thres;
+        
+        if(i &lt;= thres) return false;
+        
+        return isConnected(j, i % j, thres);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>589_insane_reckless.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>589_insane_reckless.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def pseudoPalindromicPaths (self, root):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :rtype: int
+        &quot;&quot;&quot;
+        self.path = {}
+        self.res = 0
+        for i in range(1,10):
+            self.path[i] = 0
+        self.dfs(root)
+        return self.res
+        
+    def isPalin(self):
+        cnt = 0
+        for i in range(1,10):
+            if self.path[i] % 2 == 1:
+                cnt += 1
+<A NAME="0"></A>        return cnt &lt;= 1
+        
+    def dfs(self, node):
+        self.path<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[node.val] += 1
+        if node.left == None and node.right == None:
+<A NAME="1"></A>            if self.isPalin():
+                self.res +</B></FONT>= 1
+            self.path[node.val] -= 1
+            r<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn
+        if node.left != None:
+            self.dfs(node.left)
+        
+        if node.right != None:
+            self.dfs(node.right)
+        self.path[</B></FONT>node.val] -= 1
+</PRE>
+
+</BODY>
+</HTML>

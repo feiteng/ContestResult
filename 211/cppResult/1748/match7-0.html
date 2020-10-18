@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>96_seaskylwl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>96_seaskylwl.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define fo(i, nodes, b) for (int i = nodes; i &lt;= b; i++)
+#define fod(i, nodes, b) for (int i = nodes; i &gt;= b; i--)
+#define me0(nodes) memset(nodes, 0, sizeof(nodes))
+#define me1(nodes) memset(nodes, -1, sizeof(nodes))
+#define op freopen(&quot;in.txt&quot;, &quot;r&quot;, stdin)
+#define op1 freopen(&quot;C:\\acm\\Cproj\\in.txt&quot;, &quot;r&quot;, stdin);
+#define pr freopen(&quot;C:\\acm\\Cproj\\out.txt&quot;, &quot;w&quot;, stdout)
+#define pr2 freopen(&quot;C:\\acm\\Cproj\\std.txt&quot;, &quot;w&quot;, stdout)
+#define pii pair&lt;int, int&gt;
+<A NAME="0"></A>#define Please return
+#define AC 0
+using namespace std;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int INF = 0x3f3f3f3f;
+typedef long long LL;
+template &lt;class T&gt;
+void read(T &amp;val)
+{
+    T x = 0;
+    T bz = 1;
+    char c;
+    for (c = getchar(); (c &lt; '0' || c &gt; '9') &amp;&amp; c != '-'; c = getchar())
+        ;
+    if (c == '-')
+    {
+        bz = -1;
+        c = getchar();
+    }
+    for (; c &gt;= '0' &amp;&amp; c &lt;= '9'; c = getchar())
+        x = x * 10 + c - 48;
+    val = x * bz;
+}
+const int mod = 998244353;
+const int maxn = 1e4 + 10;
+
+struct node
+{
+    int nodes, b;
+    bool operator&lt;(const node t) const
+    {
+        if (b == t.b)
+        {
+            return nodes &lt; t.nodes;
+        }
+        return b &lt; t.b;
+    }
+} nodes[maxn];
+
+int dp[maxn];
+class Solution
+{
+public:
+    int bestTeamScore(vector&lt;int&gt; &amp;scr, vector&lt;int&gt; &amp;ages)
+    {
+        int n = scr.size();
+        fo(i, 0, n - 1) nodes[i + 1].nodes = scr[i];
+        fo(i, 0, n - 1) nodes[i + 1].b = ages[i];
+        sort(nodes + 1, nodes + 1 + n);
+        me0(dp);
+        fo(i, 1, n)
+        {
+            fo(j, 0, i - 1)
+            {
+                if (nodes[i].b == nodes[j].b)
+                {
+                    dp[i] = max(dp[i], dp[j] + nodes[i].nodes);
+                }
+                else if (nodes[i].nodes &gt;= nodes[j].nodes)
+                {
+                    dp[i] = max(dp[i], dp[j] + nodes[i].nodes);
+                }
+            }
+        }
+        int res = 0;
+        fo(i, 1, n)
+             res = max(res, dp[i]);
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

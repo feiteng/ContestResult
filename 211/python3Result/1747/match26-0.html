@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>813_danny45s.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>813_danny45s.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLexSmallestString(self, s: str, a: int, b: int) -&gt; str:
+        stack = [s]
+        visited = set([s])
+        while stack:
+            cur = stack.pop()
+            next1 = cur[b:] + cur[:b]
+            
+            update = False
+            new_s = []
+            for char in cur:
+                if update:
+                    new_s.append((int(char) + a) % 10)
+<A NAME="0"></A>                else:
+                    new_s.append(int(char))
+                update = not update
+            next2 = &quot;&quot;.join<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>([str(c) for c in new_s])
+            if next1 not in visited:
+                stack.append(next1)
+                visited.add(next1)
+            if next2 not in visited:
+                stack.append(next2)
+                visited.add(next2)
+        return sorted(</B></FONT>visited)[0]
+</PRE>
+
+</BODY>
+</HTML>

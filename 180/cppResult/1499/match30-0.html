@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>464_500kg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>464_500kg.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    const int MOD = 1e9 + 7;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int maxPerformance(int n, vector&lt;int&gt;&amp; speed, vector&lt;int&gt;&amp; efficiency, int k) {
+        vector&lt;pair&lt;int, int&gt;&gt; V;
+        for(int i = 0; i &lt; n; i++){
+            V.push_back(make_pair(efficiency[i], speed[i]));
+        }
+        sort(V.begin(), V.end());
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; Q;
+        long long low = INT_MAX, sum = 0, ans = 0;</B></FONT>
+        for(int i = n - 1, j = 0; j &lt; k; j++, i--){
+       //     cout&lt;&lt;i&lt;&lt;endl;
+            low = min(low, 1LL*V[i].first);
+            sum += V[i].second;
+<A NAME="1"></A>            Q.push(V[i].second);
+            ans = max(ans, low*sum);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = n - k - 1; i &gt;= 0; i--){
+      //       cout&lt;&lt;i&lt;&lt;endl;
+            low = min(low, 1LL*V[i].first);
+            if(Q.top() &lt; V[i].second){
+                sum += V[i].second - Q.top(); Q.pop();
+                Q.push(V[i].second);
+            }
+            ans = max(ans, low*sum);
+            
+        }
+        return ans%MOD;</B></FONT>
+    }
+};
+</PRE>
+</BODY>
+</HTML>
