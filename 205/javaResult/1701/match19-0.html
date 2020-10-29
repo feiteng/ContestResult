@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>549_rexue70.java</TITLE>
+ <TITLE>263_800.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,105 +15,108 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>549_rexue70.java</CENTER></H3><HR>
+<H3><CENTER>263_800.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    class UF {
+        int N;
+        int[] parent;
+        int[] size;
+        int components;
+        
+        public UF(int N) {
+            this.N = N;
+            parent = new int[N];
+            size = new int[N];
+            for (int i = 0; i &lt; N; i++) {
+                parent[i] = i;
+                size[i] = 1;
+            }
+            components = N;
+        }
+        
+        public int find(int t) {
+            while (parent[t] != t) {
+                t = parent[t];
+            }
+            return t;
+        }
+        
+        public void union(int i, int j) {
+            int iRoot = find(i);
+            int jRoot = find(j);
+            if (iRoot != jRoot) {
+                if (size[iRoot] &gt; size[jRoot]) {
+                    parent[jRoot] = iRoot;
+                    size[iRoot] += size[jRoot];
+                }
+                else {
+                    parent[iRoot] = jRoot;
+                    size[jRoot] += size[iRoot];
+                }
+                components--;
+            }
+        }
+    }
+    
+    
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        //check if you can reach every node, if not return -1;
-        DSU dsu1 = new DSU(n + 1);
+        UF alice = new UF(n);
+        UF bob = new UF(n);
+        int used = 0;
+        List&lt;int[]&gt; type1 = new ArrayList&lt;&gt;();
+        List&lt;int[]&gt; type2 = new ArrayList&lt;&gt;();
+        
         for (int[] edge : edges) {
-            int type = edge[0], start = edge[1], end = edge[2];
-            if (type == 1 || type == 3) {
-                dsu1.union(start, end);
+            if (edge[0] == 1) {
+                type1.add(edge);
             }
-        }
-        for (int node = 2; node &lt;= n; node++) {
-            if (dsu1.find(node) != dsu1.find(node - 1)) return -1;
-        }
-        
-        
-        DSU dsu2 = new DSU(n + 1);
-        for (int[] edge : edges) {
-            int type = edge[0], start = edge[1], end = edge[2];
-            if (type == 2 || type == 3) {
-                dsu2.union(start, end);
+            else if (edge[0] == 2) {
+                type2.add(edge);
             }
-        }
-        for (int node = 2; node &lt;= n; node++) {
-            if (dsu2.find(node) != dsu2.find(node - 1)) return -1;
-        }
-        
-        
-        //construct two graph using type3
-        
-        //dsu3 for check type1
-        DSU dsu3 = new DSU(n + 1);
-<A NAME="0"></A>        int count = 0;
-        for (int[] edge : edges) {
-            int type = edge[0], start = edge[1], end = edge[2];
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (type == 3) {
-                if (dsu3.find(start) == dsu3.find(end)) {
-                    count++;
-                } else {
-                    dsu3.union(start, end);
-                }
-            }
-        }</B></FONT>
-        
-<A NAME="1"></A>
-        for (int[] edge : edges) {
-            int type = edge[0], start = edge[1], end = edge[2];
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (type == 1) {
-                if (dsu3.find(start) == dsu3.find(end)) {
-                    count++;
-                } else {
-                    dsu3.union(start, end);
+            else {
+                int iRoot = alice.find(edge[1] - 1);
+                int jRoot = alice.find(edge[2] - 1);
+                if (iRoot != jRoot) {
+                    used++;
+                    alice.union(edge[1] - 1, edge[2] - 1);
+                    bob.union(edge[1] - 1, edge[2] - 1);
                 }
             }
         }
         
-        // System.out.println(count);
-        //dsu4 for check type2
-        DSU dsu4 = new</B></FONT> DSU(n + 1);
-        for (int[] edge : edges) {
-            int type = edge[0], start = edge[1], end = edge[2];
-            if (type == 3) {
-                if (dsu4.find(start) != dsu4.find(end)) {
-                    dsu4.union(start, end);
-                }
+        if (alice.components == 1) {
+            return edges.length - used;
+        }
+        
+        for (int[] edge : type1) {
+            int iRoot = alice.find(edge[1] - 1);
+            int jRoot = alice.find(edge[2] - 1);
+            if (iRoot != jRoot) {
+                used++;
+                alice.union(edge[1] - 1, edge[2] - 1);
             }
         }
-<A NAME="2"></A>        
-        for (int[] edge : edges) {
-            int type = edge[0], start = edge[1], end = edge[2];
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (type == 2) {
-                if (dsu4.find(start) == dsu4.find(end)) {
-                    count++;
-                } else {
-                    dsu4.union(start, end);
-                }
+        
+        if (alice.components &gt; 1) {
+            return -1;
+        }
+        
+        for (int[] edge : type2) {
+            int iRoot = bob.find(edge[1] - 1);
+            int jRoot = bob.find(edge[2] - 1);
+            if (iRoot != jRoot) {
+                used++;
+                bob.union(edge[1] - 1, edge[2] - 1);
             }
-        }</B></FONT>
-
+        }
         
+        if (bob.components &gt; 1) {
+            return -1;
+        }
         
-        //check if you connect two nodes in same dsu, using type1 or type2;
-        return count;
-<A NAME="3"></A>    }
-}    
-
-<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match19-1.html#3',3,'match19-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DSU {
-<A NAME="4"></A>    int[] parent;
-    public DSU(int N) {
-        parent = new int[N];
-        for (int i = 0</B></FONT>; i &lt; N; i++) parent[i] = i<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match19-1.html#4',3,'match19-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-    }
-    public int find(int x) {
-        if (parent[x] != x) parent[x] = find(parent[x]);
-        return parent[x];
-    }
-    public void union(int x, int y) {
-        parent[find(x)] = find(y);
+        return edges.length - used;
     }
 }</B></FONT>
 </PRE>

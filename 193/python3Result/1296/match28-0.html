@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_yajc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>210_yajc.py</CENTER></H3><HR>
+<PRE>
+class TreeAncestor:
+
+    def __init__(self, n: int, parent: List[int]):
+        maxlogv=20
+        self.parent = [[0] * n  for _ in range(maxlogv)]
+        self.depth = [0] * n
+        
+        
+        g = collections.defaultdict(list)
+        
+        for i in range(n):
+            g[parent[i]] += [i]
+            g[i] += [parent[i]]
+        def dfs(v, p, d):
+            # print (self.parent, v)
+            self.parent[0][v] = p
+            self.depth[v] = d
+            for nxt in g[v]:
+                if nxt != p:
+                    dfs(nxt, v, d + 1)
+        
+<A NAME="0"></A>        dfs(0, -1, 0)
+        for k in range(maxlogv - 1):
+            for v in range(n):
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if self.parent[k][v] &lt; 0:
+                    self.parent[k +1][v] = -1
+                else:
+                    self.parent[k + 1][v] = self.parent[k][self.parent[k][v]]
+                    
+            
+
+    def getKthAncestor(self, node: int, k: int) -&gt; int:
+        
+        for i in range(30, -1, -1):
+            if (k &amp; (1 &lt;&lt; i)):
+                # print (node)
+                node =</B></FONT> self.parent[i][node]
+                if node == -1:
+                    break
+                # print (node,  i)
+        
+        
+        return node
+                
+        
+
+
+# Your TreeAncestor object will be instantiated and called as such:
+# obj = TreeAncestor(n, parent)
+# param_1 = obj.getKthAncestor(node,k)
+</PRE>
+
+</BODY>
+</HTML>

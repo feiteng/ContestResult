@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>808_jwgoh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>808_jwgoh.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int cherryPickup(int[][] grid) {
+        int R = grid.length;
+        int C = grid[0].length;
+        
+        int[][][] dp = new int[R + 1][C + 1][C + 1]; // dp[i][j][k] row i, robot 1 on col j, robot 2 on col k
+<A NAME="0"></A>        for (int[][] d : dp) {
+            for (int[] e : d) {
+                Arrays.fill(e, IMPOSSIBLE);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        dp[0][0][C - 1] = grid[0][0] + grid[0][C - 1];
+        
+        for (int i = 1; i &lt; R; i++) {
+            for (int j = 0; j &lt; C; j++) {
+                for (int k = 0; k &lt; C; k++) {
+                    int max = IMPOSSIBLE;
+                    for (int m1 = -1; m1 &lt;= 1; m1++) {</B></FONT>
+                        int jNew = j + m1;
+                        if (jNew &lt; 0 || jNew &gt;= C) continue;
+                        
+<A NAME="1"></A>                        for (int m2 = -1; m2 &lt;= 1; m2++) {
+                            int kNew = k + m2;
+                            if (kNew &lt; 0 || kNew &gt;= C) continue;
+                            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (dp[i - 1][jNew][kNew] == IMPOSSIBLE) continue;
+                            
+                            max = Math.max(max, dp[i - 1][jNew][kNew]);
+                        }
+                    }</B></FONT>
+                    
+<A NAME="2"></A>                    if (max != IMPOSSIBLE) {
+                        dp[i][j][k] = max + grid[i][j] + (j == k ? 0 : grid[i][k]);
+                    }
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        
+        int cherry = 0;
+        for (int[] e : dp[R - 1]) {
+            for (int f : e) {
+                cherry = Math.max(cherry, f);
+            }
+        }
+        return cherry;
+    }</B></FONT>
+    
+    private static final int IMPOSSIBLE = -1;
+    private static final int[][] MOVES = new int[][]{
+        {+1,-1},
+        {+1,0},
+        {+1,+1}
+    };
+}
+</PRE>
+
+</BODY>
+</HTML>

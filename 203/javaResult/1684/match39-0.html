@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>745_UMN-HKC.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>745_UMN-HKC.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int findLatestStep(int[] arr, int m) {
+        
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int latest = -1;
+        int mCnt = 0</B></FONT>;
+        for (int i = 0; i &lt; arr.length; i++) {
+            int num = arr[i];
+            map.putIfAbsent(num, 1);
+            int left = map.containsKey(num - 1) ? map.get(num - 1) : 0;
+            int right = map.containsKey(num + 1) ? map.get(num + 1) : 0;
+            int len = left + right + 1;
+            map.put(num - left, len);
+<A NAME="1"></A>            map.put(num + right, len);
+            map.put(num, len);
+            
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match39-1.html#1',3,'match39-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (left == m) {
+                mCnt--;
+            }
+            if (right == m) {
+                mCnt--;
+            }
+<A NAME="2"></A>            if (len == m) {
+                mCnt++;
+            }</B></FONT>
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match39-1.html#2',3,'match39-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (mCnt &gt; 0) {
+                latest = i + 1;                
+            }
+
+
+        }
+        return latest;
+    }
+}</B></FONT>
+// 3,5,1,2,4
+    
+// [00100]
+</PRE>
+
+</BODY>
+</HTML>

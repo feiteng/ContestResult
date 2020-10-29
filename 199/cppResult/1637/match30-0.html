@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>71_superj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>71_superj.cpp</CENTER></H3><HR>
+<PRE>
+int dp[101][101][27][101];
+const int INF=0x3f3f3f3f;
+class Solution {
+public:
+     //dp[i][j][k][l] 前i个，删除j个，k结尾，且l个结尾k
+    int cal(int last, int now) {
+        if (last==1&amp;&amp;now==2) return 1;
+        if (last==9&amp;&amp;now==10) return 1;
+        if (last==99&amp;&amp;now==100) return 1;
+        return 0;
+    }
+    int cnt[27];
+    int getLengthOfOptimalCompression(string s, int K) {
+        int n=s.length();
+        memset(cnt,0,sizeof(cnt));
+        int Max=0;
+        for (int i=0; i&lt;n; i++) cnt[s[i]-'a']++,Max=max(Max,cnt[s[i]-'a']);
+        memset(dp[0],0x3f,sizeof(dp[0]));
+<A NAME="0"></A>        for (int k=0; k&lt;26; k++) dp[0][0][k][0]=0;
+        for (int i=0; i&lt;n; i++) {
+            memset(dp[i+1],0x3f,sizeof(dp[i+1]));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j=0; j&lt;=min(i,K); ++j) {
+                for (int k=0; k&lt;26; ++k) {
+                    for (int l=0; l&lt;=min(i,Max); ++l) {</B></FONT>
+                        if (dp[i][j][k][l]==INF) continue;
+                        //保留i
+                        if (s[i]-'a'==k) dp[i+1][j][k][l+1]=min(dp[i][j][k][l]+cal(l,l+1)+(l==0),dp[i+1][j][k][l+1]);
+                        else dp[i+1][j][s[i]-'a'][1]=min(dp[i+1][j][s[i]-'a'][1],dp[i][j][k][l]+1);
+                        dp[i+1][j+1][k][l]=min(dp[i+1][j+1][k][l],dp[i][j][k][l]);//删除i
+                    }
+                }
+<A NAME="1"></A>            }
+        }
+        int res=INF;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int j=0; j&lt;=K; j++) {
+            for (int k=0; k&lt;26; k++) {
+                for (int l=0; l&lt;=n; l++) {
+                    res=min(res,dp[n][j][k][l]);
+                }
+            }
+        }</B></FONT>
+        return res;
+    }
+};
+//?????
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>654_matchalatte.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>654_matchalatte.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestDiverseString(self, a: int, b: int, c: int) -&gt; str:
+        if a &gt; 2*(b+c+1):
+            a = 2*(b+c+1)
+        if b &gt; 2*(a+c+1):
+            b = 2*(a+c+1)
+        if c &gt; 2*(b+a+1):
+            c = 2*(b+a+1)
+        
+        res = ''
+        pre = None
+        while a &gt; 0 or b &gt; 0 or c &gt; 0:
+            if pre == None:
+                mx = max(a,b,c)
+            elif pre == 'a':
+                mx = max(b,c)
+            elif pre == 'b':
+                mx = max(a,c)
+            elif pre == 'c':
+                mx = max(a,b)
+<A NAME="0"></A>            cur = None
+            mx3 = max(a,b,c)
+            if pre != 'a' and a == mx:
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if a &gt; 1 and mx3 == mx:
+                    a -= 2
+                    res += 'aa'
+                else:
+                    a -= 1
+                    res += 'a'
+                pre = 'a'
+            elif pre != 'b' and b == mx:
+                if b &gt; 1 and mx3 == mx:
+                    b -= 2
+                    res += 'bb'
+                else:
+                    b -= 1
+                    res += 'b'
+                pre = 'b'
+            elif pre != 'c' and c == mx:
+                if c &gt; 1 and mx3 == mx:
+                    c -= 2
+                    res += 'cc'
+                else:
+                    c -= 1
+                    res +</B></FONT>= 'c'
+                pre = 'c'
+            
+        return res                
+</PRE>
+
+</BODY>
+</HTML>

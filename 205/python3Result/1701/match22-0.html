@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>550_hmz74.py</TITLE>
+ <TITLE>170_wincss.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>550_hmz74.py</CENTER></H3><HR>
+<H3><CENTER>170_wincss.py</CENTER></H3><HR>
 <PRE>
-class UnionFind:
-<A NAME="0"></A>    def __init__(self, n):
-        self.parent = [i for i in range(n)]
-        self.rank = [1] * n
-        self.components =<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> n
-    
-    def find(self, x):
-        if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
-    
-    def union(self, x, y):
-        root_x, root_y = self.find(x), self.find(y)
-        if root_x == root_y:
-            r</B></FONT>eturn False
-<A NAME="1"></A>        self.components -= 1
-        if self.rank[root_x]&lt;self.rank[root_y]:
-            self.parent[root_x] = root_y
-        elif self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.rank[root_x]&gt;self.rank[root_y]:
-            self.parent[root_y] = root_x
-<A NAME="2"></A>        else:
-            self.parent[root_y] = root_x
-            self.rank[</B></FONT>root_x] += 1
-        r<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn True
-        
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        uf_alice = UnionFind(n)
-        uf_bob = UnionFind(n)
-        res = 0
-        for edge in edges:
-            if edge[</B></FONT>0] == 3:
-                cnt = 0
-                if not uf_alice.union(edge[1]-1, edge[2]-1):
-                    cnt += 1
-                if not uf_bob.union(edge[1]-1, edge[2]-1):
-                    cnt += 1
-                if cnt == 2:
-                    res += 1
-        
-        # print(&quot;uf_alice.components&quot;, uf_alice.components, &quot;uf_bob.components&quot;, uf_bob.components)
-        # print(&quot;res&quot;, res)
-        for edge in edges:
-            if edge[0] == 1:
-                if not uf_alice.union(edge[1]-1, edge[2]-1):
-                    res += 1
-            elif edge[0] == 2:
-                if not uf_bob.union(edge[1]-1, edge[2]-1):
-                    res += 1
-        if uf_alice.components == 1 and uf_bob.components == 1:
-            return res
-        else:
+        fa = {}
+        sz = {}
+        def find(x):
+            nonlocal fa, sz
+            if x not in fa:
+                fa[x] = x
+                sz[x] = 1
+            if fa[x] == x:
+                return x
+            fa[x] = find(fa[x])
+            return fa[x]
+        def union(x, y):
+            nonlocal fa
+            x = find(x)
+            y = find(y)
+            fa[x] = y
+            sz[y] += sz[x]
+
+        ans = 0
+        for t, a, b in edges:
+            if t == 3:
+                pa = find(a)
+                pb = find(b)
+                if pa == pb:
+                    ans += 1
+                else:
+                    union(a, b)
+        tfa = dict(fa)
+        tsz = dict(sz)
+        for t, a, b in edges:
+            if t == 1:
+                pa = find(a)
+                pb = find(b)
+                if pa == pb:
+                    ans += 1
+                else:
+                    union(a, b)
+        if sz[find(1)] != n:
             return -1
-# 4
-# [[3,1,2],[3,2,3],[3,1,3],[1,1,3],[1,2,4],[1,1,2],[2,3,4]] 
-                    
-        
-        
-        
+        fa = tfa
+        sz = tsz
+        for t, a, b in edges:
+            if t == 2:
+                pa = find(a)
+                pb = find(b)
+                if pa == pb:
+                    ans += 1
+                else:
+                    union(a, b)
+        if sz[find(1)] != n:
+            return -1
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_zyyyyy-25.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_zyyyyy-25.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; eg) {
+        using PII = pair&lt;int,int&gt;;
+        vector&lt;PII&gt; G[n];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (const auto &amp;p : eg) {
+            G[p[1]].push_back({p[0],0});
+            G[p[0]].push_back({p[1],1});
+        }
+        queue&lt;int&gt; q;
+        q.push(0);
+        vector&lt;bool&gt; vis(n,0);
+        vis[0]=true;
+        int ans=0;
+        while (!q.empty()) {</B></FONT>
+            auto u=q.front();
+            q.pop();
+            for (const auto &amp;p : G[u]) {
+                if (!vis[p.first]) {
+                    vis[p.first]=true;
+                    q.push(p.first);
+                    ans += p.second;
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

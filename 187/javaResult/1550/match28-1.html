@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_taran_1407.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_taran_1407.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int kthSmallest(int[][] mat, int k) {
+        int m = mat.length, n= mat[0].length;
+        PriorityQueue&lt;Tuple&gt; queue = new PriorityQueue&lt;&gt;();
+        int sum = 0</B></FONT>;
+        for(int i = 0; i&lt; m; i++)sum += mat[i][0];
+        queue.add(new Tuple(new int[m], sum));
+        TreeSet&lt;Tuple&gt; set = new TreeSet&lt;&gt;();
+        while(!queue.isEmpty()){
+            Tuple t = queue.poll();
+            if(k == 1)return t.sum;
+            k--;
+            for(int i = 0; i&lt; m; i++){
+                if(t.ind[i] != n-1){
+<A NAME="1"></A>                    int[] nxt = new int[m];
+                    for(int j = 0; j&lt; m; j++)nxt[j] = t.ind[j];
+                    nxt[i]++;
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Tuple tmp = new Tuple(nxt, t.sum+mat[i][nxt[i]]-mat[i][nxt[i]-1]);
+                    if(!set.contains(tmp)){
+                        set.add(tmp);
+                        queue.add(tmp);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+    class Tuple implements Comparable&lt;Tuple&gt;{
+        int[] ind;
+        int sum;
+        public Tuple(int[] x, int s){
+            i</B></FONT>nd = x;sum = s;
+        }
+        public int compareTo(Tuple t){
+            if(sum != t.sum)return Integer.compare(sum, t.sum);
+            for(int i = 0; i&lt; ind.length; i++)if(ind[i] != t.ind[i])return Integer.compare(ind[i], t.ind[i]);
+            return 0;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

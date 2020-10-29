@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>85_happyleetcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>85_happyleetcode.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    double distSum(double[] p, int[][] ps, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n) {
+        double sum = 0;
+        for (int i = 0; i &lt; n; i++) {
+            double disty = Math.abs(ps[i][0] - p[0]);
+            double distx = Math.abs(ps[i][1] - p[1]);
+            sum += Math.sqrt((distx * distx) + (disty * disty));
+        }
+<A NAME="1"></A>        return sum;
+    }</B></FONT>
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double[][] dirs = {{-1, 0},{0, 1},{1, 0},{0, -1}};
+<A NAME="2"></A>
+    public double getMinDistSum(int[][] ps</B></FONT>) {
+        int n = ps.length;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match36-1.html#2',3,'match36-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double[] curP = new double[2];
+        for (int i = 0; i &lt; n; i++) {
+            curP[1] += ps[i][1];
+            curP[0] += ps[i][0];
+        }
+<A NAME="3"></A>        curP[1] /= n;
+        curP[0] /= n;
+        double minDis = distSum</B></FONT>(curP, ps, n);
+        for (int k = 0; k &lt; n; k++) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match36-1.html#3',3,'match36-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            for (int i = 0; i &lt; n &amp;&amp; i != k; i++) {
+                double[] newpoint = {ps[i][1], ps[i][0]};
+                double newd =
+                        distSum(newpoint, ps, n);
+                if (newd &lt; minDis) {
+                    minDis = newd;
+                    curP[1] = newpoint[1];
+                    curP[0] = newpoint[0];
+<A NAME="4"></A>                }
+            }
+        }</B></FONT>
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match36-1.html#4',3,'match36-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double test_distance = 500;
+        int flag = 0;
+        while (test_distance &gt; 1e-5) {
+<A NAME="5"></A>            flag = 0;
+            for (int i = 0; i &lt; 4; i++) {
+                double[] newpoint = {cu</B></FONT>rP[0] + test_distance * dirs[i][0], curP[1] + test_distance * dirs[i][1]};
+                <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match36-1.html#5',3,'match36-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double newd = distSum(newpoint, ps, n);
+
+                if (newd &lt; minDis) {
+                    minDis = newd;
+                    curP[1] = newpoint[1];
+                    curP[0] = newpoint[0];
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 0)
+                test_distance /= 2;
+        }
+        return minDis;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>578_Lencerf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>578_Lencerf.py</CENTER></H3><HR>
+<PRE>
+from collections import deque
+class Solution:
+    def bfs(self, grid, si, sj):
+        grid[si][sj] = 2
+        q = deque([(si, sj)])
+<A NAME="0"></A>        while len(q) &gt; 0:
+            length = len(q)
+            for _ in range(length):
+                i, j <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= q.popleft()
+                for di, dj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                    if 0 &lt;= i + di &lt; len(grid) and 0 &lt;= j + dj &lt; len(grid[0]) and grid[i+di][j+dj] == 1:
+                        grid[i+di][</B></FONT>j+dj] = 2
+                        q.append((i+di, j+dj))
+        
+    def count_island(self, grid):
+        count = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 1:
+                    self.bfs(grid, i, j)
+                    count += 1
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 2:
+                    grid[i][j] = 1
+<A NAME="1"></A>        return count
+
+    def minDays(self, grid: List[List[int]]) -&gt; int:
+        if self.count_island<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(grid) != 1:
+            return 0
+        for i in range(len(grid)):
+<A NAME="2"></A>            for j in range(len(grid[i])):
+                if grid[i][j] == 1:
+                    grid[i][j] = 0
+                    if</B></FONT> self.count_island<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(grid) != 1:
+                        return 1
+                    grid[i][j] = 1
+        re</B></FONT>turn 2
+</PRE>
+
+</BODY>
+</HTML>

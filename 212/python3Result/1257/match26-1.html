@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>105_jazzcat.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>105_jazzcat.py</CENTER></H3><HR>
+<PRE>
+class UF:
+    def __init__(self, n):
+        self.n = n
+        self.data = list(range(n))
+        
+<A NAME="0"></A>    def union(self, i, j):
+        pi, pj = self.find(i), self.find(j)
+        if pi != pj:
+            self.data[pi] = self.data[p<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>j]
+
+    def find(self, i):
+        if self.data[i] != i:
+            self.data[i] = self.find(self.data[i])
+<A NAME="1"></A>        return self.data[</B></FONT>i]
+    
+    def reset(self):
+        self.data = list(range(self.n<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>))
+
+
+class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        r, c = len(matrix), len(matrix[0])
+        n =</B></FONT> r + c
+        result = [[None]*c for _ in range(r)]
+        # num_to_uf = {}
+        # arr = []
+        # for i in range(r):
+        #     for j in range(c):
+        #         if matrix[i][j] not in num_to_uf:
+        #             num_to_uf[matrix[i][j]] = UF(n)
+        #         uf = num_to_uf[matrix[i][j]]
+        #         uf.union(i, j+r)
+        #         arr.append((matrix[i][j], (i,j)))
+        
+        num2xy = defaultdict(list)
+        for i in range(r):
+            for j in range(c):
+                num2xy[matrix[i][j]].append((i,j))
+        
+        ROW = [0]*r # ROW[i] is max rank for ROW[i]
+        COL = [0]*c # COL[j] is max rank for COL[j]
+        
+        uf = UF(n)
+        for num in sorted(num2xy):
+            uf.reset()
+            for (i,j) in num2xy[num]:
+                uf.union(i,j+r)
+            idx2rank = collections.defaultdict(int) # maps index to the least rank we can assign
+            for (i,j) in num2xy[num]:
+                idx = uf.find(i)
+                idx2rank[idx] = max(idx2rank[idx], ROW[i]+1, COL[j]+1)
+            for (i,j) in num2xy[num]:
+                idx = uf.find(i)
+                result[i][j] = idx2rank[idx]
+                ROW[i] = result[i][j]
+                COL[j] = result[i][j]
+        return result
+            
+                
+                
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

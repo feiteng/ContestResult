@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>115_cnmgb_leetcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>115_cnmgb_leetcode.java</CENTER></H3><HR>
+<PRE>
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.util.stream.*;
+
+
+public class Solution {
+
+    public int findMaxValueOfEquation(int[][] points, int k) {
+        int fu = Integer.MIN_VALUE;
+        var deng = new ArrayDeque&lt;Integer&gt;();
+        for (int i = 0, j = i + 1; i &lt; points.length; i++) {
+            while (j &lt; points.length &amp;&amp; points[j][0] - points[i][0] &lt;= k) {
+                while (!deng.isEmpty() &amp;&amp; points[j][0] + points[j][1] &gt;= points[deng.peekLast()][0] + points[deng.peekLast()][1])
+                    deng.pollLast();
+                deng.addLast(j);
+<A NAME="0"></A>                j++;
+            }
+            while (!deng.isEmpty() &amp;&amp; deng.peekFirst() &lt;= i)
+                deng.pollFirst()<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            if (!deng.isEmpty()) {
+                int ii = deng.peekFirst();
+                fu = Math.max(fu, points[i][1] - points[i][0] + points[ii][0] + points[ii][1]);
+            }
+        }
+        return fu;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

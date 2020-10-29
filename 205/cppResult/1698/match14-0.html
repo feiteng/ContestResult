@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>542_tom0727.cpp</TITLE>
+ <TITLE>118_fallleaves01.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,19 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>542_tom0727.cpp</CENTER></H3><HR>
+<H3><CENTER>118_fallleaves01.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     string modifyString(string s) {
-        int n = s.size();
-        for (int i = 0; i &lt; n; i++) {
-            if (s[i] == '?') {
-                for (int j = 0; j &lt; 26; j++) {
-                    if (i&gt;0 &amp;&amp; 'a'+j == s[i-1]) continue;
-                    if (i&lt;n-1 &amp;&amp; 'a'+j == s[i+1]) continue;
-                    s[i] = 'a'+j;
-                    break;
+        int l=s.length();
+        if (l==1&amp;&amp;s[0]=='?')
+        {
+            s[0]='a';
+            return s;
+        }
+        for (int i=0;i&lt;l;i++)
+        {
+            if (s[i]=='?')
+            {
+                if (i==0)
+                {
+                    if (s[i+1]=='a') s[i]='b';
+                    else s[i]='a';
+                }
+                else if (i==l-1)
+                {
+                    if (s[i-1]=='a') s[i]='b';
+                    else s[i]='a';
+                }
+                else
+                {
+                    if (s[i-1]=='a'||s[i+1]=='a') s[i]='b';
+                    else s[i]='a';
+                    if (s[i]=='b'&amp;&amp;(s[i-1]=='b'||s[i+1]=='b')) s[i]='c';
                 }
             }
         }

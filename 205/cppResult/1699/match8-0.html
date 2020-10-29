@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_implicit.cpp</TITLE>
+ <TITLE>121_lichunzhu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>41_implicit.cpp</CENTER></H3><HR>
+<H3><CENTER>121_lichunzhu.cpp</CENTER></H3><HR>
 <PRE>
-#define ll long long 
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>typedef long long ll;
 class Solution {
-<A NAME="0"></A>public:
-    unordered_map&lt;ll , ll &gt; Q1 , Q2;
-    int numTriplets(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = a.size() , m = b.size();
-        for (int i = 0 ; i &lt; n ; i++){
-            for (int j = i + 1 ; j &lt; n ; j++){
-                Q1[1ll * a[i] * a[j]]++;
+public:
+    int count(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        int n = nums1.size(), m = nums2.size();
+        int i, j, res = 0;
+        unordered_map&lt;ll, int&gt;S;
+        for (i = 0; i &lt; m; i++) {
+            ll t = nums2[i] * ll(nums2[i]);
+            S[t]++;
+        }
+        for (i = 0; i &lt; n; i++) {
+            for (j = i + 1; j &lt; n; j++) {
+                ll t1 = nums1[i] * ll(nums1[j]);                
+                if (S.count(t1)) {
+                    res += S[t1];
+                }
             }
         }
-        for (int i = 0 ; i &lt; m ; i++){
-            for (int j = i + 1 ; j &lt; m ; j++){
-                Q2[1ll * b[i] * b[j]]++;
-            }
-        }
-        ll ans = 0;
-        for (int i = 0 ; i &lt; n ; i++){
-            ans += Q2[1ll * a[i] * a[i]];
-        }
-        for (int i = 0 ; i &lt; m ; i++){
-            ans += Q1[1ll * b[i] * b[i]];
-        }
-        return ans;
+        return res;
+    }
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        return count(nums1, nums2) + count(nums2, nums1);
     }
 };</B></FONT>
 </PRE>

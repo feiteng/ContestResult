@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>539_onion12138.java</TITLE>
+ <TITLE>253_mcy4ever.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,82 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>539_onion12138.java</CENTER></H3><HR>
+<H3><CENTER>253_mcy4ever.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int find(int[] father, int x) {
+        if (father[x] == x) {
+            return x;
+        } else {
+            return father[x] = find(father, father[x]);
+        }
+    }
+    public boolean union(int[] father, int[] rank, int x, int y) {
+        int fx = find(father, x);
+        int fy = find(father, y);
+        if (fx == fy) {
+            return false;
+        }
+        if (rank[fx] &lt; rank[fy]) {
+            int t = fx;
+            fx = fy;
+            fy =t;
+        } else if (rank[fx] == rank[fy]) {
+            rank[fx]++;
+        }
+        father[fy] = fx;
+        return true;
+    } 
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        Arrays.sort(edges, (a, b) -&gt; a[0] == 3 ? -1 : (b[0] == 3 ? 1 : 0));
-        UnionFind uf1 = new UnionFind(n);
-<A NAME="0"></A>        UnionFind uf2 = new UnionFind(n);
-        int count = 0;
-        for(int[] e : edges) {
-            if(e[0] == 3) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                if(uf1.isConnected(e[1] - 1, e[2] - 1) &amp;&amp; uf2.isConnected(e[1] - 1, e[2] - 1)){
-                    count ++;
-                }
-                else{
-<A NAME="1"></A>                    uf1.union(e[1] - 1, e[2] - 1);
-                    uf2.union(e[1] - 1, e[2] - 1);
-                }
-            }</B></FONT>else if(e[0] == 2) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                if(uf2.isConnected(e[1] - 1, e[2] - 1)) {
-                    count ++;
-<A NAME="2"></A>                }else{
-                    uf2.union(e[1] - 1, e[2] - 1);
-                }
-            }</B></FONT>else if(e[0] == 1) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                if(uf1.isConnected(e[1] - 1, e[2] - 1)) {
-                    count ++;
-                }else{
-                    uf1.union(e[1] - 1, e[2] - 1);
-                }
-            }</B></FONT>
+        int[] father = new int[n];
+        int[] rank = new int[n];
+        int[] father1 = new int[n];
+        int[] rank1 = new int[n];
+        int[] father2 = new int[n];
+        int[] rank2 = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            father[i] = i;
+            father1[i] = i;
+            father2[i] = i;
         }
-        if(uf1.getCount() != 1 || uf2.getCount() != 1)
+        int num1 = n;
+        int num2 = n;
+        int num = 0;
+        for (int[] e : edges) {
+            if (e[0] == 1) {
+                num1 -= union(father1, rank1, e[1] - 1, e[2] - 1) ? 1 : 0;
+            } else if (e[0] == 2) {
+                num2 -= union(father2, rank2, e[1] - 1, e[2] - 1) ? 1 : 0;
+            } else {
+                num1 -= union(father1, rank1, e[1] - 1, e[2] - 1) ? 1 : 0;
+                num2 -= union(father2, rank2, e[1] - 1, e[2] - 1) ? 1 : 0;
+                num += union(father, rank, e[1] - 1, e[2] - 1) ? 1 : 0;
+            }
+        }
+        if (num1 &gt; 1 || num2 &gt; 1) {
             return -1;
-<A NAME="3"></A>        return count;
-    }
-}
-<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind{
-    private int[] parent;
-    private int[] rank; //用于压缩路径的
-    private int count; //连通分量
-    public UnionFind(int size){
-        parent = new int[size];
-        rank = new int[size];
-        for (int i = 0; i &lt; size; i++) {
-            parent[i] = i;
-            rank[i] = 1;
-        }
-        count = size;
-    }
-    private int find(int p</B></FONT>){
-        if (p != parent[p]) //路径压缩
-<A NAME="4"></A>            parent[p] = find(parent[p]);
-        return parent[p];
-    }
-    public boolean isConnected(int p, <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#4',2,'match21-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int q) {
-        return find(p) == find(q);
-    }
-    public int getCount() {
-        return count;
-    }
-    public void union(int p</B></FONT>, int q) {
-        int pRoot = find(p);
-        int qRoot = find(q);
-        if(pRoot == qRoot)
-            return;
-        count--; //每合并一次减一
-        if(rank[pRoot] &lt; rank[qRoot])
-            parent[pRoot] = qRoot;
-        else if(rank[pRoot] &gt; rank[qRoot])
-            parent[qRoot] = pRoot;
-        else {
-            parent[qRoot] = pRoot;
-            rank[pRoot] += 1;
+        } else {
+            return edges.length - (2 * n - 2 - num);
         }
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

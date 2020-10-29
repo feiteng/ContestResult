@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>660_zxMrlc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>660_zxMrlc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        mp = {}
+        cnt = {}
+        fcnt = {}
+        def find(x):
+            if mp.get(x) is None:
+                cnt[x] = 1
+<A NAME="0"></A>                fcnt[1] = fcnt.get(1,0)+1
+                mp[x] = x
+                return x
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if mp[x] != x:
+                mp[x] = find(mp[x])
+            return mp[x]
+                
+        def union(x,y):
+            x = find(</B></FONT>x)
+<A NAME="1"></A>            y = find(y)
+            if x==y:
+                return
+            mp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x] = y
+            # print(x,y,mp,cnt,fcnt)
+            fcnt[cnt[x]] -= 1
+            fcnt[cnt[y]] -= 1
+            cnt[y] += cnt[x]
+            fcnt[cnt[y]] =</B></FONT> fcnt.get(cnt[y],0)+1
+        ans = -1
+        for i,num in enumerate(arr):
+            find(num)
+            # print(mp)
+            if num-1 in mp:
+                union(num-1,num)
+            if num+1 in mp:
+                union(num,num+1)
+            
+            # print(num,fcnt)
+            if fcnt.get(m,0)&gt;0:
+                ans = i+1
+        # print(ans)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

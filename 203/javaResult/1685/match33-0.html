@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>745_UMN-HKC.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>745_UMN-HKC.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int stoneGameV(int[] stoneValue) {
+        if (stoneValue == null || stoneValue.length &lt; 2) {
+<A NAME="0"></A>            return 0;
+        }
+        int n = stoneValue.length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] prefixSum = new int[n + 1];
+        for (int i = 1; i &lt;= n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + stoneValue[i - 1];
+        }
+<A NAME="1"></A>        int[][] memo = new int[n][n];
+        return dfs(stoneValue, prefixSum, memo, 0, n - 1);
+    }
+    private int dfs(int[] stoneValue, int[] prefixSum, int[][] memo, int i</B></FONT>, int j) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        if (i == j) {
+            return 0;
+        }
+        if (memo[i][j] != 0) {
+            return memo[i][j];
+        }
+
+        int val = 0;
+<A NAME="2"></A>        for (int k = i; k &lt; j; k++) {</B></FONT>
+            int left = prefixSum[k + 1] - prefixSum[i];
+            int right = prefixSum[j + 1] - prefixSum[k + 1];
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (left &gt; right) {
+                val = Math.max(val, right + dfs(stoneValue, prefixSum, memo, k + 1, j));
+            }
+            else if (left &lt; right) {
+                val = Math.max(val, left + dfs(stoneValue, prefixSum, memo, i, k));                                
+            } 
+<A NAME="3"></A>            else {</B></FONT>
+                int rightVal = right + dfs(stoneValue, prefixSum, memo, k + 1, j);
+                int leftVal = left + dfs(stoneValue, prefixSum, memo, i, k);                                
+                val = <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match33-1.html#3',3,'match33-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(val, Math.max(leftVal, rightVal));
+            }
+        }
+        memo[i][j] = val;
+        return val;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

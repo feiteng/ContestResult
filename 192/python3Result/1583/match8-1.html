@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_tyhaha.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>244_tyhaha.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minCost(self, h: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        MAX_C = 1e10
+        f = [[[MAX_C for k in range(n+1)] for j in range(target+1)] for i in range(m)]
+        if h[0] != 0:
+            f[0][1][h[0]] = 0
+        else:
+            for p in range(1, n+1):
+                f[0][1][p] = cost[0][p-1]
+        for i in range(1, m):
+            for j in range(</B></FONT>1, target+1):
+                for k in range(1, n+1):
+                    if h[i] == 0 or h[i] == k:
+<A NAME="1"></A>                        cst = cost[i][k-1]
+                        if h[i] == k:
+                            cst = 0
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for kk in range(1, n+1):
+                            if k == kk:
+                                f[i][j][k] = min(f[i][j][k], f[i-1][j][kk] + cst)
+                            else:
+                                f[i][j][k] = min(f[i][j][k], f[i-1][j-1][k</B></FONT>k] + cst)
+                    # print(i, j, k, f[i][j][k])
+        # print(f)
+        ans = min(f[m-1][target])
+        if ans == MAX_C:
+            return -1
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

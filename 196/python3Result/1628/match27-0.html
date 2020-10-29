@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>564_happymark.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>564_happymark.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numSubmat(self, mat: List[List[int]]) -&gt; int:
+        def findPrefixCount(p_arr, arr):  
+<A NAME="0"></A>            n=len(arr)
+            m=len(arr[0])
+  
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(0, n):  
+                for j in range(m - 1, -1, -1):  
+
+                    if not arr[i][j]:  
+                        continue
+
+                    if j != m - 1:  
+                        p_arr[i][j] += p_arr[i][j + 1]  
+
+                    p_arr[i][j] += arr[i][j]</B></FONT>  
+
+<A NAME="1"></A>        # Function to count the number of  
+        # sub-matrices with all 1s  
+        def matrixAllOne(arr):  
+            n<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=len(arr)
+            m=len(arr[0])
+            # Array to store required prefix count of  
+            # 1s from right to left for boolean array  
+            p_arr = [[0 for i in range(m)] for j in range(n)]  
+
+            findPrefixCount(p_arr, arr)  
+
+            # variable to store the final answer  
+            ans = 0
+
+            # Loop to evaluate each column of  
+            # the prefix matrix uniquely.  
+            # For each index of a column we will try to  
+            # determine the number of sub-matrices  
+            # starting from that index and has all 1s 
+            for j in range(0, m):  
+
+                i = n - 1
+
+                # Stack to store elements and the count  
+                # of the numbers they popped  
+
+                # First part of pair will be the  
+                # value of inserted element.  
+                # Second part will be the count  
+                # of the number of elements pushed  
+                # before with a greater value */ 
+                q = []  
+
+                # variable to store the number of  
+                # submatrices with all 1s  
+                to_sum = 0
+
+                while i &gt;= 0:  
+
+                    c = 0
+                    while len(q) != 0 and q[-1][0] &gt; p_arr[i][j]:  
+
+                        to_sum -= (q[-1][1] + 1) * (q[-1][0] - p_arr[i][j])  
+
+                        c += q[-1][1] + 1
+                        q.pop()  
+
+                    to_sum += p_arr[i][j]  
+                    ans += to_sum  
+
+                    q.append((p_arr[i][j], c))  
+                    i -= 1
+
+            r</B></FONT>eturn ans  
+        return(matrixAllOne(mat))
+</PRE>
+
+</BODY>
+</HTML>

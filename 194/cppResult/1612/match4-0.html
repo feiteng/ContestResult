@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_yoofor.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>486_yoofor.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; avoidFlood(vector&lt;int&gt;&amp; rains) {
+        int n = rains.size();
+        vector&lt;int&gt; ans(n, -1);
+        unordered_map&lt;int, int&gt; seen;
+        set&lt;int&gt; st;
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+<A NAME="1"></A>            int lake = rains[i];
+            if (!lake) st.insert(i);
+            else if (lake &gt; 0) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (seen.count(lake)) {
+                    //cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; rains[i] &lt;&lt; ' ';
+                    auto it = st.upper_bound(seen[lake]);
+                    if (it == st.end()) return {};
+                    //cout &lt;&lt; *it &lt;&lt; endl;
+                    ans[*it] = lake;
+                    st.erase(it);
+                    seen.erase(lake);
+                }
+                seen[lake] = i;
+            }</B></FONT>
+        }
+        
+        for (int i : st) ans[i] = 1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

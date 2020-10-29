@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>416_Siddhant_Khare.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>416_Siddhant_Khare.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>// DS 
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>struct Point { 
+    
+    // decimal 
+    
+    double x, y; 
+}; 
+
+
+// SOLUTION
+
+class Solution {
+public:
+    double lower_limit = 0.000001;
+    
+    // deciamla 
+    
+
+    double helper(Point p,Point arr[], int n) { 
+        double sum = 0;
+        
+        /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+        for (int i = 0; i &lt; n; i++) { 
+            double dx = abs(arr[i].x - p.x); 
+            double dy = abs(arr[i].y - p.y); 
+            sum += sqrt((dx * dx) + (dy * dy)); 
+    } 
+        
+        // exit 
+        
+    return sum; 
+} 
+    
+     /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+
+    double geometricMedian(Point arr[], int n) 
+{ 
+    Point pp; 
+  Point initial[] = { { -1.0, 0.0 }, 
+                       { 0.0, 1.0 }, 
+                       { 1.0, 0.0 }, 
+                       { 0.0, -1.0 } }; 
+        
+        // for looping 
+        
+    for (int i = 0; i &lt; n; i++) { 
+        pp.x += arr[i].x; 
+        pp.y += arr[i].y; 
+    } 
+         /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+
+    pp.x /= n; 
+    pp.y /= n; 
+
+    double minimum_distance =  
+       helper(pp, arr, n); 
+
+    int k = 0;
+        
+        // while loop 
+        
+    while (k &lt; n) { 
+        
+         /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+        
+        for (int i = 0; i &lt; n, i != k; i++) { 
+            Point newpoint; 
+            newpoint.x = arr[i].x; 
+            newpoint.y = arr[i].y; 
+            double newd =  
+                   helper(newpoint, arr, n); 
+            
+            // looping 
+            
+            if (newd &lt; minimum_distance) { 
+                minimum_distance = newd; 
+                pp.x = newpoint.x; 
+                pp.y = newpoint.y; 
+            } 
+        } 
+        
+        // incr
+         
+        k++; 
+    } 
+
+    double test_distance = 900; 
+    int flag = 0; 
+        
+         /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+
+    while (test_distance &gt; lower_limit) { 
+
+        flag = 0; 
+        
+         /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+        
+        for (int i = 0; i &lt; 4; i++) { 
+            Point newpoint; 
+            
+             /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+            
+            newpoint.x = pp.x 
+                 + (double)test_distance * initial[i].x; 
+            newpoint.y = pp.y 
+                 + (double)test_distance * initial[i].y; 
+            double newd = helper(newpoint, arr, n); 
+            
+             /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+
+            if (newd &lt; minimum_distance) { 
+                minimum_distance = newd; 
+                pp.x = newpoint.x; 
+                pp.y = newpoint.y; 
+                flag = 1; 
+                
+                // cont 
+                
+                break; 
+            } 
+        } 
+        
+        // if loop 
+        
+        if (flag == 0) 
+            test_distance /= 2; 
+    }
+        
+        
+        
+        // exit
+         
+
+    return minimum_distance;
+} 
+    
+     /*
+        
+        for(; r &lt; n; r++){
+            char c = s[r];
+            if (c != '1') l = r + 1;
+            else{
+                res = (res + r - l + 1) % mod;
+            }
+            */
+    
+
+    double getMinDistSum(vector&lt;vector&lt;int&gt;&gt;&amp; positions) {
+        
+        // new func
+        
+        const int N = positions.size();
+        Point p[N];
+        
+        // for loop 
+        
+        for(int i = 0; i&lt; N; i++){
+            p[i].x = positions[i][0];
+            p[i].y = positions[i][1];
+        }
+        
+        // decimal
+        
+        double res = geometricMedian(p,N);
+        
+        // exit result 
+        
+        return res;
+
+    }
+    
+    //  end
+     
+}; </B></FONT>
+
+// exit 
+</PRE>
+</BODY>
+</HTML>

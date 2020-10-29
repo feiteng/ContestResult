@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>413_zhengyuyu123.java</TITLE>
+ <TITLE>249_abhigyankole.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>413_zhengyuyu123.java</CENTER></H3><HR>
+<H3><CENTER>249_abhigyankole.java</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A>class Solution {
-    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int numTriplets(int[] nums1, int[] nums2) {
-        return checkProd(nums1, nums2) + checkProd(nums2, nums1);
-    }</B></FONT>
-<A NAME="0"></A>    
-    private int checkProd(int[] nums1, int[] nums2) {
-        if(nums1.length == 0 || nums2.length == 0) return 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
-        int res = 0;
-        for(int i : nums1) {
-            long key = (long)i * i;
-            map.put(key, map.getOrDefault(key, 0) + 1);
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+        HashMap&lt;Long,Long&gt; map1=new HashMap&lt;&gt;();
+        HashMap&lt;Long,Long&gt; map2=new HashMap&lt;&gt;();
+        
+        for(int i:nums1)
+        {
+            map1.put((long)((long)i*(long)i),map1.getOrDefault((long)((long)i*(long)i),0L)+1);
         }
-        for(int i = 0; i &lt; nums2.length; i++) {
-            for(int j = i + 1; j &lt; nums2.length; j++) {
-                long prod = (long)nums2[i] * nums2[j];
-                if(map.containsKey(prod)) {
-                    res += map.get(prod);
-                } 
+        for(int i:nums2)
+        {
+            map2.put((long)((long)i*(long)i),map2.getOrDefault((long)((long)i*(long)i),0L)+1);
+        }
+        int cnt=0;
+        for(int i=0;i&lt;nums1.length;i++)
+        {
+            for(int j=i+1;j&lt;nums1.length;j++)
+            {
+                if(map2.containsKey((long)((long)nums1[i]*(long)nums1[j])))
+                {
+                    cnt+=map2.get((long)((long)nums1[i]*(long)nums1[j]));
+                }
             }
         }
-        return res;
-    }</B></FONT>
-}
+        
+        for(int i=0;i&lt;nums2.length;i++)
+        {
+            for(int j=i+1;j&lt;nums2.length;j++)
+            {
+                if(map1.containsKey((long)((long)nums2[i]*(long)nums2[j])))
+                {
+                    cnt+=map1.get((long)((long)nums2[i]*(long)nums2[j]));
+                }
+            }
+        }
+        return cnt;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_daurenabd.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_daurenabd.py</CENTER></H3><HR>
+<PRE>
+class Node:
+    def __init__(self, arr: List[int], L: int, R: int):
+        self.L = L
+        self.R = R
+        if L + 1 == R:
+            self.left = None
+            self.right = None
+            self.val = arr[L]
+        else:
+            middle = (L + R) // 2
+            self.left = Node(arr, L, middle)
+            self.right = Node(arr, middle, R)
+            self.val = self.left.val &amp; self.right.val
+            
+    def intersect(self, L: int, R: int) -&gt; bool:
+        return not (self.L &gt;= R or self.R &lt;= L)
+            
+    def get(self, L: int, R: int) -&gt; int:
+        if self.L &gt;= L and self.R &lt;= R:
+            return self.val
+        if self.L &gt;= R or self.R &lt;= L:
+            return None
+        left = None if self.left is None else self.left.get(L, R)
+        right = None if self.right is None else self.right.get(L, R)
+        if left is None:
+            return right
+        if right is None:
+            return left
+<A NAME="0"></A>        return left &amp; right
+    
+def brute_force(arr: List[int], L: int, R: int) -&gt; int:
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if R &lt;= L:
+        return -1000000000
+    ans = arr[L]
+    for i in range(L + 1, R):
+        ans &amp;= arr[i]
+    r</B></FONT>eturn ans
+
+class Solution:
+    def closestToTarget(self, arr: List[int], target: int) -&gt; int:
+        root = Node(arr, 0, len(arr))
+        
+        @functools.lru_cache(maxsize=None)
+        def get(L: int, R: int) -&gt; int:
+            return root.get(L, R)
+        
+        answer = abs(-1000000000 - target)
+        
+        for left in range(len(arr)):
+            if abs(arr[left] - target) &gt;= answer:
+                continue
+            L, R = left, len(arr) - 1
+            right = L
+            while L &lt;= R:
+                M = (L + R) // 2
+                x = get(left, M + 1)
+                if x &gt; target:
+                    L = M + 1
+                else:
+                    right = M
+                    R = M - 1
+            answer = min(answer, abs(get(left, right + 1) - target))
+            L, R = left, len(arr) - 1
+            right = L
+            while L &lt;= R:
+                M = (L + R) // 2
+                x = get(left, M + 1)
+                if x &gt;= target:
+                    right = M
+                    L = M + 1
+                else:
+                    R = M - 1
+            answer = min(answer, abs(get(left, right + 1) - target))
+        
+        return answer
+</PRE>
+
+</BODY>
+</HTML>

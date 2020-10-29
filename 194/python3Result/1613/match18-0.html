@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_Lawliet890.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>82_Lawliet890.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        def count_mst(n, _edges):
+            _edges = [(c[2], c[0], c[1]) for c in _edges]
+            _edges.sort()
+<A NAME="0"></A>            
+            UF = {}
+            
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def find(p):
+                if p != UF[p]:
+                    UF[p] = find(UF[p])
+                return UF[p]
+            
+            def union(p1, p2):
+                UF.setdefault(</B></FONT>p1, p1)
+                UF.setdefault(p2, p2)
+                UF[find(p1)] = find(p2)
+            
+            res = 0
+            cnt = 0
+            for ed in _edges:
+                if ed[1] in UF and ed[2] in UF and find(ed[1]) == find(ed[2]):
+                    continue
+                res += ed[0]
+                cnt += 1
+                union(ed[1], ed[2])
+            return res
+        
+        
+        
+        mst_weight = count_mst(n, edges)
+        #print(mst_weight)
+        
+        N = len(edges)
+        cri = []
+        uncri = []
+        # bug i 可能不是任何一个边
+        for i in range(N):
+            cur_edges = edges[:i] + edges[i+1:]
+            cur_mst = count_mst(n, cur_edges)
+            
+            #print(cur_edges, cur_mst)
+            #print(i, cur_mst)
+            if cur_mst != mst_weight:
+                cri.append(i)
+            else:
+                uncri.append(i)
+        
+        # mst_weight  先加 edg i， 如果算出来跟它一样，就是，否则就不是
+        def check(i, _edges):
+            a, b, cost = _edges[i]
+            
+            _edges = [(c[2], c[0], c[1]) for c in _edges]
+            _edges.sort()
+            
+            UF = {}
+            
+            def find(p):
+                if p != UF[p]:
+                    UF[p] = find(UF[p])
+                return UF[p]
+            
+            def union(p1, p2):
+                UF.setdefault(p1, p1)
+                UF.setdefault(p2, p2)
+                UF[find(p1)] = find(p2)
+            
+            res = cost
+            cnt = 1
+            union(a, b)
+            
+            for ed in _edges:
+                if ed[1] in UF and ed[2] in UF and find(ed[1]) == find(ed[2]):
+                    continue
+                res += ed[0]
+                cnt += 1
+                union(ed[1], ed[2])
+            return res
+        
+        new_uncri = []
+        for i in uncri:
+            if check(i, edges) == mst_weight:
+                new_uncri.append(i)
+            
+        return [cri, new_uncri]
+        
+</PRE>
+
+</BODY>
+</HTML>

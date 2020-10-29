@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>593_daxios.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>593_daxios.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int ways(String[] pizza, int K) {
+        K = K-1;
+        long mod = 1000000007;
+<A NAME="0"></A>        final int rows = pizza.length;
+        if(rows == 0)
+            return 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>final int cols = pizza[0].length();
+        long[][][] count = new long[rows][][];
+        int[][] a = new int[rows][];
+        int[][] t = new int[rows][];
+        for(int row = 0; row &lt; rows; row++) {</B></FONT>
+            count[row] = new long[cols][];
+            a[row] = new int[cols];
+            t[row] = new int[cols];
+            for(int col = 0; col &lt; cols; col++) {
+                count[row][col] = new long[K+1];
+                a[row][col] = (pizza[row].charAt(col) == 'A' ? 1 : 0);
+<A NAME="1"></A>            }
+        }
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int col = cols-1; col &gt;= 0; col--) {
+            int tmp = 0;
+            for(int row = rows-1; row &gt;= 0; row--) {
+                if(col == cols-1) {</B></FONT>
+                    t[row][col] = (row == rows-1 ? a[row][col] : a[row][col] + t[row+1][col]);
+                } else {
+<A NAME="2"></A>                    t[row][col] = t[row][col+1] + a[row][col] + tmp;
+                    tmp += a[row][col];
+                }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        for(int row = rows-1; row &gt;= 0; row--) {
+            for(int col = cols-1; col &gt;= 0; col--) {</B></FONT>
+                if(t[row][col] == 0) {
+                    continue;
+                }   
+                
+                count[row][col][0] += 1; // gives whole piece
+                // System.out.println(&quot;count[&quot; + row + &quot;][&quot; + col + &quot;][0] = &quot; + count[row][col][0]);   
+                for(int k = K; k &gt;= 1; k--) {
+                    // Cut vertically
+                    for(int midCol = col+1; midCol &lt; cols; midCol++) {
+                        if(t[row][col] - t[row][midCol] &gt; 0) {
+                            count[row][col][k] = (count[row][col][k] + count[row][midCol][k-1]) % mod;
+                        }
+                    }
+                    // Cut horizontally
+<A NAME="3"></A>                    for(int midRow = row+1; midRow &lt; rows; midRow++) {
+                        if(t[row][col] - t[midRow][col] &gt; 0) {
+                            count[row][col][k] = (count[row][col][k] + count[midRow][col][k-1]) % mod;
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match31-1.html#3',3,'match31-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                    }
+                
+                    // System.out.println(&quot;count[&quot; + row + &quot;][&quot; + col + &quot;][&quot; + k + &quot;] = &quot; + count[row][col][k]);   
+                }
+            }
+        }
+        
+        return (int)(count[0][0][K] % mod);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

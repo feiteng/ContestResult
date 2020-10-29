@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>252_chinazu.cpp</TITLE>
+ <TITLE>137_astroash.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>252_chinazu.cpp</CENTER></H3><HR>
+<H3><CENTER>137_astroash.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-<A NAME="1"></A>        int len = s.size();
-        int rtn = 0;
-        for (int i = 0; i &lt; len; ++i) {</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int mx = cost[i];
-            int sum = cost[i];
-            while (i &lt; len-1 &amp;&amp; s[i+1] == s[i]) {
-                ++ i;
-                mx = max(mx, cost[i]);
-                sum += cost[i];
+        int ans = 0;
+        
+        int n = s.size();
+        
+        int i = 0;
+        
+        while(i &lt; n) {
+            int j = i + 1;
+            while(j &lt; n &amp;&amp; s[j] == s[i]) {
+                j++;
             }
-            rtn += sum - mx;
+            if(j == i + 1) {
+                i++;
+                continue;
+            }
+            int currSum = 0;
+            int largest = 0;
+            for(int x = i; x &lt; j; x++) {
+                currSum += cost[x];
+                largest = max(largest, cost[x]);
+            }
+            
+            ans += currSum;
+            ans -= largest;
+            i = j;
         }
-        return rtn;
+        
+        return ans;
     }
 };</B></FONT>
 </PRE>

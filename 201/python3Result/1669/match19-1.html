@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>365_400Coffee.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>365_400Coffee.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, n: int, cuts: List[int]) -&gt; int:
+        #sort cuts
+<A NAME="0"></A>        #dp[i][j]: minimal cost for position from cuts[i] to cuts[j], i: 0-m, j: 0-m
+        #dp[i][j] = min((k-i)*(j-k) + dp[i][k] + dp[k][j] for k in range(i, j)), where k is the first cut. 
+        cuts+=[0, n]
+        cuts<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.sort()
+        m = len(cuts)
+<A NAME="1"></A>        dp = [[0]*m for _ in range(m)]
+        for i in range(m-3, -1, -1):
+            for j in range(i+2, m):
+                dp[i][j] =</B></FONT> min((cuts[k]-cuts[i])+(cuts[j]-cuts[k]) + dp<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][k] + dp[k][j] for k in range(i+1, j))
+        return dp[0][m</B></FONT>-1]
+                
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>362_modi_nitin13.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>362_modi_nitin13.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int totl;
+    vector&lt;int&gt; DP;
+    int find(vector&lt;int&gt; &amp;A,int ind,int rem_sum)
+    {
+        if(ind&gt;=A.size())
+            return 0;
+        if(DP[ind]!=-1)
+            return DP[ind];
+<A NAME="1"></A>        int sum=0,ans=INT_MIN,i;
+        for(i=ind;i&lt;A.size() &amp;&amp; i-ind&lt;3;i++)</B></FONT>
+        {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            sum+=A[i];
+            ans=max(ans,rem_sum-find(A,i+1,rem_sum-sum));
+        }
+        return DP[ind]=ans;
+    }
+    string stoneGameIII(vector&lt;int&gt;&amp; A) 
+    {
+        int n=A.size(),i;
+        DP.resize(n,-1);
+        totl=0;
+        for(i=0;i&lt;n;i++)</B></FONT>
+            totl+=A[i];
+        int cnt=find(A,0,totl);
+        cout&lt;&lt;cnt&lt;&lt;endl;
+        if(cnt&gt;totl-cnt)
+            return &quot;Alice&quot;;
+        if(cnt&lt;totl-cnt)
+            return &quot;Bob&quot;;
+        return &quot;Tie&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

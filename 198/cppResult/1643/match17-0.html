@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>489_beginner1010.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>489_beginner1010.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string labels;
+    vector&lt; vector&lt;int&gt; &gt; G;
+    vector&lt;int&gt; ans;
+<A NAME="1"></A>    vector&lt;int&gt; dfs(int node, int parent) {
+        vector&lt;int&gt; ret('z' - 'a' + 1, 0);
+        ret[labels[node] - 'a'] ++;
+        for(int child: G[node]) {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            if(child != parent) {
+                vector&lt;int&gt; aux = dfs(child, node);
+                for(int x = 0; x &lt; ret.size(); x ++) ret[x] += aux[x]; 
+            }
+        }
+        ans[node] = ret[labels[node] - 'a'];
+        return ret;
+    }
+    
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, string labels) {</B></FONT>
+        this-&gt;labels = labels;
+        G.clear();
+        G.resize(n);
+        for(auto edge: edges) {
+            G[edge[0]].push_back(edge[1]);
+            G[edge[1]].push_back(edge[0]);
+        }
+        ans.clear();
+        ans.resize(n, 0);
+        dfs(0, -1);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

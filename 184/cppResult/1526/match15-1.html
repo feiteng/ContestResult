@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_xiong-bao-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>367_xiong-bao-2.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string entityParser(string text) {
+        unordered_map&lt;string, string&gt; mp;
+        mp[&quot;quot;&quot;] = &quot;\&quot;&quot;;
+        mp[&quot;apos;&quot;] = &quot;'&quot;;
+        mp[&quot;amp;&quot;] = &quot;&amp;&quot;;
+        mp[&quot;gt;&quot;] = &quot;&gt;&quot;;
+<A NAME="0"></A>        mp[&quot;lt;&quot;] = &quot;&lt;&quot;;
+        mp[&quot;frasl;&quot;] = &quot;/&quot;;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const int n = text.size();
+        string res;
+        for (int i = 0; i &lt; n; ) {
+            if (text[i] == '&amp;') {
+                if (i+6 &lt; n &amp;&amp; text.substr(i+1, 6) == &quot;frasl;&quot;) {
+                    res += &quot;/&quot;;
+                    i += 7;
+                } else if (i+5 &lt; n &amp;&amp; text.substr(i+1, 5) == &quot;quot;&quot;) {
+                    res += &quot;\&quot;&quot;;
+                    i += 6;
+                } else if (i+5 &lt; n &amp;&amp; text.substr(i+1, 5) == &quot;apos;&quot;) {
+                    res += &quot;'&quot;;
+                    i += 6;
+                } else if (i+4 &lt; n &amp;&amp; text.substr(i+1, 4) == &quot;amp;&quot;) {
+                    res += &quot;&amp;&quot;;
+                    i += 5;
+                } else if (i+3 &lt; n &amp;&amp; text.substr(i+1, 3) == &quot;gt;&quot;) {
+                    res += &quot;&gt;&quot;;
+                    i += 4;
+                } else if (i+3 &lt; n &amp;&amp; text.substr(i+1, 3) == &quot;lt;&quot;) {
+                    res += &quot;&lt;&quot;;
+                    i += 4;
+                } else {
+                    res += '&amp;';
+                    i++;
+                } 
+            } else {
+                res += text[i];
+                i++;
+            }
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

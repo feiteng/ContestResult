@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>106_JerryJin2905.py</TITLE>
+ <TITLE>126_xunrui.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>106_JerryJin2905.py</CENTER></H3><HR>
+<H3><CENTER>126_xunrui.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        cnt1 = Counter(nums1)
+        cnt2 = Counter(nums2)
         ans = 0
-        prod1 = defaultdict(int)
-        for i in range(len(nums2)):
-            for j in range(i + 1, len(nums2)):
-                prod1[nums2[i] * nums2[j]] += 1
-        
-<A NAME="1"></A>        for num in nums1:
-            ans += prod1[num * num]
-        
-        prod2 =</B></FONT> defaultdict<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(int)
-        for i in range(len(nums1)):
-            for j in range(i + 1, len(nums1)):
-                prod2[nums1[i] * nums1[j]] += 1
-        
-        for num in nums2:
-            ans += prod2[num * num]
+        ans += self.check(cnt1,cnt2)
+        ans += self.check(cnt2,cnt1)
+        return ans
+    
+    def check(self,cnt1,cnt2):
+        ans = 0
+        for x in cnt1:
+            for y in cnt2:
+                if x*x % y != 0:
+                    continue
+                z = x*x // y
+                if y == z:
+                    ans += cnt1[x]*(cnt2[y]-1)*(cnt2[y])//2
+                elif y &lt; z:
+                    ans += cnt1[x]*cnt2[y]*cnt2[z]
         re</B></FONT>turn ans
 </PRE>
 

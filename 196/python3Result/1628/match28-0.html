@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>635_dhirpatel20.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>635_dhirpatel20.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def numSubmat(self, mat: List[List[int]]) -&gt; int:
+        rows = len(mat)
+        col = len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(mat[0])
+        tmat = [[0 for i in range(col)] for j in range(rows)]
+        for i in range(rows):
+            for j in range(col-1, -1, -1):
+                if mat[i][j] != 1:
+                    continue
+                if j != col - 1:
+                    tmat[i][j] += tmat[i][j+1]
+                tmat[i][j] += mat[i][j]
+        sol = 0
+        for j in range(col):
+            i = rows - 1
+            temp = []
+<A NAME="1"></A>            t = 0
+            while i &gt; -1:
+                count = 0
+<A NAME="2"></A>                while</B></FONT> len(temp) != 0 and temp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[-1][0] &gt; tmat[i][j]:
+                    t -= (temp[-1][1] + 1) * (temp[-1][0] - tmat[i][j])
+                    count += temp[-1][</B></FONT>1] + 1
+                    temp<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.pop(-1)
+                t += tmat[i][j]
+                sol += t
+                temp.append((tmat[i][j], count))
+                i -= 1
+        re</B></FONT>turn sol
+</PRE>
+
+</BODY>
+</HTML>

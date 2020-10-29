@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_huntersjm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int getLengthOfOptimalCompression(String s, int k) {
+        if (s.length() &lt;= k) {
+            return 0;
+        }
+<A NAME="0"></A>        char[] cs = s.toCharArray();
+        int[][][][] dp = new int[cs.length + 1][k + 1][26][101];
+        boolean[][][][] visit = new boolean[cs.length + 1][k + 1][26][101];
+        return <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>helper(cs, dp, visit, 0, k, 'a', 0);
+    }
+
+    private int helper(char[] cs, int[][][][] dp, boolean[][][][] visit, int p, int k, char alpha</B></FONT>, int size) {
+        if (p == cs.length) {
+            return 0;
+        }
+        if (visit[p][k][alpha - 'a'][size]) {
+            return dp[p][k][alpha - 'a'][size];
+        }
+        int ans = 100;
+
+        if (k &gt; 0) {
+            ans = Math.min(ans, helper(cs, dp, visit, p + 1, k - 1, alpha, size));
+        }
+        if (alpha == cs[p]) {
+            if (size &lt;2 || size == 9 || size == 99) {
+                ans = Math.min(ans, 1 + helper(cs, dp, visit, p + 1, k, alpha, size+1));
+            } else {
+                ans = Math.min(ans, helper(cs, dp, visit, p + 1, k, alpha, size + 1));
+            }
+        } else {
+            ans = Math.min(ans, 1 + helper(cs, dp, visit, p + 1, k, cs[p], 1));
+        }
+        dp[p][k][alpha - 'a'][size] = ans;
+        visit[p][k][alpha - 'a'][size] = true;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

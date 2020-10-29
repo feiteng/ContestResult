@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>305_milky_knight.cpp</TITLE>
+ <TITLE>112_jiayindeng.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,77 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>305_milky_knight.cpp</CENTER></H3><HR>
+<H3><CENTER>112_jiayindeng.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int maxn=1e5+5;
+class Solution {
 public:
-    int fa[100005],fb[100005];
-    int finda(int x){
-        if(fa[x] == x) return x; 
-        fa[x] = finda(fa[x]);
-        return finda(fa[x]);
-    }</B></FONT>
-    
-    int findb(int x){
-        if(fb[x] == x) return x; 
-        fb[x] = findb(fb[x]);
-        return findb(fb[x]);
+    vector&lt;int&gt; parent,parent1,parent2;
+    int find(int u,vector&lt;int&gt; &amp;v)
+    {
+        if(v[u]==u) return u;
+        return v[u]=find(v[u],v);
     }
-    
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e) {
-        for(int i=0;i&lt;=n;i++){
-<A NAME="1"></A>            fa[i] = fb[i] = i;
-        }
-        
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
-        for(int i=0;i&lt;e.size();i++){
-            if(e[i][0] == 3){
-                int fx = finda(e[i][1]);
-                int fy = finda(e[i][2]);
-                if(fx != fy){</B></FONT>
-                    cnt++;
-                    fa[fx] = fy;
-                }
-                
-                fx = findb(e[i][1]);
-                fy = findb(e[i][2]);
-<A NAME="2"></A>                if(fx != fy){
-                    fb[fx] = fy;
-                }
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-        
-        for(int i=0;i&lt;e.size();i++){
-            if(e[i][0] == 1){
-                int fx = finda(e[i][1]);
-                int fy = finda(e[i][2]);
-                if(fx != fy){</B></FONT>
-<A NAME="3"></A>                    cnt++;
-                    fa[fx] = fy;
-                }
-<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#3',2,'match3-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-        
-        for(int i=0;i&lt;e.size();i++){
-            if(e[i][0] == 2){
-                int fx = findb(e[i][1]);
-                int fy = findb(e[i][2]);
-                if(fx != fy){</B></FONT>
-                    cnt++;
-                    fb[fx] = fy;
-                }
+    void merge(int u,int v,vector&lt;int&gt; &amp;a)
+    {
+        int ru=find(u,a),rv=find(v,a);
+        if(ru==rv) return;
+        a[ru]=rv;
+    }
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        parent.resize(n+1);
+        parent1.resize(n+1);
+        parent2.resize(n+1);
+        for(int i=1;i&lt;=n;++i)
+            parent[i]=i;
+        int use=0;
+        for(int i=0;i&lt;edges.size();++i)
+            if(edges[i][0]==3)
+            {
+                if(find(edges[i][1],parent)==find(edges[i][2],parent)) continue;
+                merge(edges[i][1],edges[i][2],parent);
+                use++;
             }
-        }
-        int na = 0,nb = 0;
-        for(int i=1;i&lt;=n;i++){
-            if(fa[i] == i) na++;
-            if(fb[i] == i) nb++;
-        }
-        int ans = e.size() - cnt; 
-        if(na!=1 || nb!=1) return -1;
-        else return ans; 
+        parent1=parent;
+        parent2=parent;
+        for(int i=0;i&lt;edges.size();++i)
+            if(edges[i][0]==1)
+            {
+                if(find(edges[i][1],parent1)==find(edges[i][2],parent1)) continue;
+                merge(edges[i][1],edges[i][2],parent1);
+                use++;
+            }
+        int now=find(1,parent1);
+        for(int i=2;i&lt;=n;++i)
+            if(find(i,parent1)!=now)
+                return -1;
+        for(int i=0;i&lt;edges.size();++i)
+            if(edges[i][0]==2)
+            {
+                if(find(edges[i][1],parent2)==find(edges[i][2],parent2)) continue;
+                merge(edges[i][1],edges[i][2],parent2);
+                use++;
+            }
+        now=find(1,parent2);
+        for(int i=2;i&lt;=n;++i)
+            if(find(i,parent2)!=now)
+                return -1;
+        return edges.size()-use;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

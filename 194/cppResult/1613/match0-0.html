@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_chenhao4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>53_chenhao4.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; f;
+    int getf(int x) {
+        if(x != f[x])
+            f[x] = getf(f[x]);
+        return f[x];
+    }
+    set&lt;int&gt; used;
+    
+    
+    int mincost(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e, int ignore) {</B></FONT>
+<A NAME="1"></A>        f = vector&lt;int&gt;(n, 0);
+        for (int i = 0; i &lt; n; ++i) f[i] = i;
+        int m = e.size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int sz = 0;
+        int ret = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            if (i == ignore) continue;
+            int fa = getf(e[i][0]);</B></FONT>
+            int fb = getf(e[i][1]);
+            if (fa == fb) continue;
+            ret += e[i][2];
+            f[fb] = fa;
+            sz++;
+        }
+        
+        if (sz &lt; n - 1) return 1e9;
+        
+        return ret;
+    }
+    
+    int mincost2(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e, int use) {
+        f = vector&lt;int&gt;(n, 0);
+        for (int i = 0; i &lt; n; ++i) f[i] = i;
+        int m = e.size();
+
+        int ret = 0;
+        ret += e[use][2];
+        f[e[use][1]] = e[use][0];
+        
+        for (int i = 0; i &lt; m; ++i) {
+            int fa = getf(e[i][0]);
+            int fb = getf(e[i][1]);
+<A NAME="2"></A>            if (fa == fb) continue;
+            ret += e[i][2];
+            f[fb] = fa;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return ret;
+    }
+    
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m = edges.size();
+        for (int i = 0; i &lt; m; ++i) {
+            edges[i].push_back(i);
+        }</B></FONT>
+        sort(edges.begin(), edges.end(), [](vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b) {
+            return a[2] &lt; b[2];
+        });
+        
+        int cost = mincost(n, edges, -1);
+        used.clear();
+        vector&lt;vector&lt;int&gt;&gt; ans(2, vector&lt;int&gt;());
+        for (int i = 0; i &lt; m; ++i) {
+            if (cost &lt; mincost(n, edges, i)) {
+                ans[0].push_back(edges[i].back());
+            }
+            else if (cost == mincost2(n, edges, i)) {
+                ans[1].push_back(edges[i].back());
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

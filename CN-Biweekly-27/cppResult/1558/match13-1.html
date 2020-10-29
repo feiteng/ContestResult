@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_Asurudo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>218_Asurudo.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+#define _for(i,a,b) for(ll i = (a);i &lt; b;i ++)
+#define _rep(i,a,b) for(ll i = (a);i &gt; b;i --)
+#define INF 0x3f3f3f3f
+#define pb push_back
+#define lowbit(x) ((x)&amp;(-x))
+#define mod 1000000007
+#define maxn 1039
+
+class Solution
+{
+public:
+	int map[103][103];
+	vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites, vector&lt;vector&lt;int&gt;&gt;&amp; queries)
+<A NAME="0"></A>	{
+		memset(map,0x3f,sizeof(map));
+		_for(i,0,prerequisites.size())
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		{
+			map[prerequisites[i][0]][prerequisites[i][1]] = 1;
+		}
+		for(int k=0; k&lt;n; k++)
+<A NAME="1"></A>		{
+			for(int i=0; i&lt;n; i++)
+			{</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				for(int j=0; j&lt;n; j++)
+				{
+					if(map[i][j]&gt;map[i][k]+map[k][j] )
+					{
+						map[i][j]=map[i][k]+map[k][j];
+					}
+				}
+			}
+		}</B></FONT>
+		vector&lt;bool&gt; rnt;
+		_for(i,0,queries.size())
+		{
+			if(map[queries[i][0]][queries[i][1]]&lt;INF)
+				rnt.pb(true);
+			else
+				rnt.pb(false);
+		}
+		return rnt;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

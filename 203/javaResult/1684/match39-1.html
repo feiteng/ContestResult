@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>463_weiyanthor.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>463_weiyanthor.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#0',2,'match39-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int findLatestStep(int[] arr, int m) {
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        int cnt = 0;
+        int res = -1</B></FONT>;
+        int index = 1;
+        for (int a : arr) {
+            Integer floorKey = map.floorKey(a);
+            Integer ceilingKey = map.ceilingKey(a);
+            if (floorKey == null &amp;&amp; ceilingKey == null) {
+                map.put(a, a);
+                if (m == 1) {
+                    cnt++;
+                }
+            } else if (floorKey == null) {
+                if (ceilingKey == a + 1) {
+                    int value = map.get(ceilingKey);
+                    if (m - 1 == value - ceilingKey) {
+                        cnt--;
+                    }
+                    map.remove(ceilingKey);
+                    map.put(a, value);
+                    if (m - 1 == value - a) {
+                        cnt++;
+                    }
+                } else {
+                    map.put(a, a);
+                    if (m == 1) {
+                        cnt++;
+                    }
+                }
+            } else if (ceilingKey == null) {
+                int value = map.get(floorKey);
+                if (value == a - 1) {
+                    if (m - 1 == value - floorKey) {
+                        cnt--;
+                    }
+                    map.put(floorKey, a);
+                    if (m - 1 == a - floorKey) {
+                        cnt++;
+                    }
+                } else {
+                    map.put(a, a);
+                    if (m == 1) {
+                        cnt++;
+                    }
+                }
+            } else {
+<A NAME="1"></A>                int value1 = map.get(floorKey);
+                int value2 = map.get(ceilingKey);
+                if (value1 == a-1 &amp;&amp; ceilingKey == a+1) {
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#1',2,'match39-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (m - 1 == value1 - floorKey) {
+                        cnt--;
+                    }
+                    if (m - 1 == value2 - ceilingKey) {
+                        cnt--;
+                    }
+                    if (m - 1 == value2 - floorKey) {
+                        cnt++;
+                    }</B></FONT>
+                    map.remove(ceilingKey);
+                    map.put(floorKey, value2);
+                } else if (value1 == a-1) {
+                    if (m - 1 == value1 - floorKey) {
+                        cnt--;
+                    }
+                    map.put(floorKey, a);
+                    if (m - 1 == a - floorKey) {
+                        cnt++;
+                    }
+                } else if (ceilingKey == a+1) {
+                    if (m - 1 == value2 - ceilingKey) {
+                        cnt--;
+                    }
+                    map.remove(ceilingKey);
+                    map.put(a, value2);
+                    if (m - 1 == value2 - a) {
+                        cnt++;
+                    }
+                } else {
+                    map.put(a, a);
+                    if (m == 1) {
+                        cnt++;
+                    }
+<A NAME="2"></A>                }
+            }
+
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#2',2,'match39-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (cnt &gt; 0) {
+                res = index;
+            }
+            index++;
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

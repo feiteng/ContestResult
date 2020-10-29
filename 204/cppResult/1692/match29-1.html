@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>317_CBTX.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>317_CBTX.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int MAX = 1000000007;
+    void search(vector&lt;int&gt;&amp; nums,int begin,int end,int x,long long&amp; res,int l,vector&lt;vector&lt;int&gt;&gt;&amp;cnt){
+        if(begin&gt;end){
+            return;
+        }
+        res = (res*cnt[end-begin][x-begin])%MAX;
+        //cout &lt;&lt;res&lt;&lt;endl;
+        for(int i =l;i&lt;nums.size();i++){
+            if(nums[i]&lt;x &amp;&amp;nums[i]&gt;=begin){
+                search(nums,begin,x-1,nums[i],res,i,cnt);
+                break;
+            }
+        }
+        for(int i =l;i&lt;nums.size();i++){
+            if(nums[i]&gt;x&amp;&amp;nums[i]&lt;=end){
+                search(nums,x+1,end,nums[i],res,i,cnt);
+                break;
+            }
+<A NAME="0"></A>        }
+    }
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = nums.size();
+        vector&lt;vector&lt;int&gt;&gt; cnt(n+1,vector&lt;int&gt;(n+1,1));
+        for(int i =1;i&lt;=n;i++){
+            for(int j =1;j&lt;=i;j++){
+                if(i==j){
+                    cnt[i][j] = 1;
+                }
+                else{
+                    cnt[i][j] = (cnt[i-1][j]+cnt[i-1][j-1])%MAX;
+                }
+            }
+        }
+        long long res = 1;</B></FONT>
+        search(nums,1,n,nums[0],res,0,cnt);
+        return res-1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

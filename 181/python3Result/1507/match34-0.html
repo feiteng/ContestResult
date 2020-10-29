@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>483_cr_496352127.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>483_cr_496352127.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        self.m, self.n, self.res = len(grid), len(grid[0]), False
+        self.vis = [[0] * (self.n) for _ in range(self.m)]
+        
+        def inArea(x, y):
+            return x &gt;= 0 and x &lt; self.m and y &gt;= 0 and y &lt; self.n
+        
+        def bfs(startx, starty):
+            que = [[startx, starty]]
+            dirr = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+            self.vis[startx][starty] = 1
+            while que:
+                curx, cury = que.pop(0)
+                # print(&quot;curx=%d cury=%d&quot; % (curx,cury))
+                if curx == self.m - 1 and cury == self.n - 1:
+                    self.res = True
+                    break
+<A NAME="1"></A><A NAME="0"></A>                for i in range(4):
+                    nxtx, nxty = curx + dirr[i][0], cury + dirr[i][1]
+                    if inArea(nxtx, nxty) and self.vis[nxtx][nxty] == 0:
+                        if (i == 0 and (grid<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[curx][cury] == 2 or grid[curx][cury] == 5 or grid[curx][cury] == 6) and (grid[nxtx][nxty] == 2 or grid[nxtx][nxty] == 3 or grid[nxtx][nxty] == 4)) or (i == 1 and (grid[curx][cury] == 2 or grid[curx][cury] == 3 or grid[curx][cury] == 4) and (grid[nxtx][</B></FONT>nxty] == 2 or grid<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[nxtx][nxty] == 5 or grid[nxtx][nxty] == 6)) or (i == 2 and (grid[curx][cury] == 1 or grid[curx][cury] == 3 or grid[curx][cury] == 5) and (grid[nxtx][nxty] == 1 or grid[nxtx][nxty] == 4 or grid[nxtx][nxty] == 6)) or (i == 3 and (grid[curx][cury] == 1 or grid[curx][</B></FONT>cury] == 4 or grid[curx][cury] == 6) and (grid[nxtx][nxty] == 1 or grid[nxtx][nxty] == 3 or grid[nxtx][nxty] == 5)):
+                            self.vis[nxtx][nxty] = 1
+                            que.append([nxtx, nxty])
+                        
+        bfs(0, 0)
+        return self.res
+</PRE>
+
+</BODY>
+</HTML>

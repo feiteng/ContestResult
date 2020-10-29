@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>80_sleepybag.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>80_sleepybag.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        remain <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [[0 for j in range(len(pizza[0]) + 1)] for i in range(len(pizza) + 1)]
+        for i in range(len(pizza) - 1, -1, -1):
+            for j in range(len(pizza[0]) - 1, -1, -1):
+                remain[i][j] = remain[i + 1][j] + remain[i][j + 1] - remain[i + 1][</B></FONT>j + 1] + int(pizza[i][j] == 'A')
+
+        mod = int(1e9 + 7)
+        @functools.lru_cache(None)
+        def way(x, y, kk):
+<A NAME="1"></A>            if remain[x][y] == 0:
+                return 0
+            if kk == 0:
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return 1
+            ans = 0
+<A NAME="2"></A>            for xx in range(x + 1, len(pizza)):
+                if remain[x][y] - remain[xx][y] &gt; 0:
+                    ans += way(</B></FONT>xx, y, kk - 1)
+                    ans %<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= mod
+            for yy in range(y + 1, len(pizza[0])):
+                if remain[x][y] - remain[x][yy] &gt; 0:
+                    ans += way(</B></FONT>x, yy, kk - 1)
+                    ans %= mod
+            return ans
+        return way(0, 0, k - 1)
+</PRE>
+
+</BODY>
+</HTML>

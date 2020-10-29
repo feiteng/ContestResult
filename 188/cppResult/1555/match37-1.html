@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>152_dancooper.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>152_dancooper.cpp</CENTER></H3><HR>
+<PRE>
+template&lt;typename S, typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const pair&lt;S, T&gt; p) {
+    out &lt;&lt; &quot;(&quot; &lt;&lt; p.first &lt;&lt; &quot;,&quot; &lt;&lt; p.second &lt;&lt; &quot;)&quot;;
+    return out;
+}
+
+template&lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const vector&lt;T&gt;&amp; v) {
+    for (auto a: v)
+        out &lt;&lt; a &lt;&lt; &quot; &quot;;
+    return out;
+}
+
+template&lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const set&lt;T&gt;&amp; S) {
+    for (auto a: S)
+        cout &lt;&lt; a &lt;&lt; &quot; &quot;;
+    return out;
+}
+
+template&lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const multiset&lt;T&gt;&amp; S) {
+    for (auto a: S)
+        cout &lt;&lt; a &lt;&lt; &quot; &quot;;
+    return out;
+}
+
+template&lt;typename S, typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const map&lt;S, T&gt;&amp; M) {
+    for (auto m: M)
+        cout &lt;&lt; &quot;(&quot; &lt;&lt; m.first &lt;&lt; &quot;-&gt;&quot; &lt;&lt; m.second &lt;&lt; &quot;) &quot;;
+    return out;
+}
+
+template&lt;typename S, typename T&gt;
+pair&lt;S, T&gt; operator+(pair&lt;S, T&gt; a, pair&lt;S, T&gt; b) {
+    return make_pair(a.first + b.first, a.second + b.second);
+}
+
+template&lt;typename S, typename T&gt;
+pair&lt;S, T&gt; operator-(pair&lt;S, T&gt; a, pair&lt;S, T&gt; b) {
+    return make_pair(a.first - b.first, a.second - b.second);
+}
+
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;vector&lt;int&gt;&gt; prefix;
+    int mod = 1e9 + 7;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int dp[55][55][12];
+    
+    int query_sum_value(int x1, int y1, int x2, int y2) {
+        int ans = prefix[x2][y2];
+        if (x1)
+            ans -= prefix[x1-1][y2];
+        if (y1)
+            ans -= prefix[x2][y1-1];
+        if (x1 &amp;&amp; y1)
+            ans += prefix[x1-1][y1-1];
+        return ans;
+    }
+<A NAME="1"></A>    
+    int ways(vector&lt;string&gt;&amp; pizza, int max_cut) {</B></FONT>
+        int n = pizza.size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = pizza[0].size();
+        max_cut--;
+        prefix.resize(n);
+        for (int i = 0; i &lt; n; i++) {
+            prefix[i].assign(m, 0);
+            for (int j = 0; j &lt; m; j++) {
+                if (pizza[i][j] == 'A') {</B></FONT>
+                    prefix[i][j] = 1;
+                }
+            }
+        }
+        /*
+        for (int i = 0; i &lt; n; i++) {
+            cout &lt;&lt; &quot;prefix[&quot; &lt;&lt; i &lt;&lt; &quot;]: &quot; &lt;&lt; prefix[i] &lt;&lt; endl;
+        }
+        */
+<A NAME="2"></A>        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                if (i)
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#2',2,'match37-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    prefix[i][j] += prefix[i-1][j];
+            }
+        }
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                if (j)
+                    prefix[i][j] += prefix[i][j-1];</B></FONT>
+            }
+        }
+        /*
+        for (int i = 0; i &lt; n; i++) {
+            cout &lt;&lt; &quot;prefix[&quot; &lt;&lt; i &lt;&lt; &quot;]: &quot; &lt;&lt; prefix[i] &lt;&lt; endl;
+        }
+        */
+        memset(dp, 0, sizeof(dp));
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                if (query_sum_value(i, j, n - 1, m - 1)) {
+                    dp[i][j][0] = 1;
+<A NAME="3"></A>                }
+            }
+        }
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#3',2,'match37-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = n - 1; i &gt;= 0; i--) {
+            for (int j = m - 1; j &gt;= 0; j--) {
+                for (int k = 1; k &lt;= max_cut; k++) {
+                    for (int l = i + 1; l &lt; n; l++) {
+                        if (query_sum_value(i, j, l - 1, m - 1)) {</B></FONT>
+                            dp[i][j][k] += dp[l][j][k-1];
+                            if (dp[i][j][k] &gt;= mod)
+                                dp[i][j][k] -= mod;
+                        }
+                    }
+                    for (int l = j + 1; l &lt; m; l++) {
+                        if (query_sum_value(i, j, n - 1, l - 1)) {
+                            dp[i][j][k] += dp[i][l][k-1];
+                            if (dp[i][j][k] &gt;= mod)
+                                dp[i][j][k] -= mod;
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                for (int k = 0; k &lt;= max_cut; k++) {
+                    cout &lt;&lt; &quot;dp[&quot; &lt;&lt; i &lt;&lt; &quot;][&quot; &lt;&lt; j &lt;&lt; &quot;][&quot; &lt;&lt; k &lt;&lt; &quot;]: &quot; &lt;&lt; dp[i][j][k] &lt;&lt; endl;
+                }
+            }
+        }
+        */
+        return dp[0][0][max_cut];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

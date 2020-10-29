@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_ruiiiii.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>67_ruiiiii.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        rg = [[s.find(chr(i)), s.rfind(chr(i))] for i in range(97, 97 + 26)]
+        
+        for i in range(26):
+            if rg[i][0] &lt; 0: continue
+            checked = [False] * 26
+            checked[i] = True
+            l, u = rg[i]
+            tocheck = [j for j in range(26) if not checked[j] and chr(97 + j) in s[l:u + 1]]
+            while tocheck:
+                newl = min(min(rg[j][0] for j in tocheck), l)
+                newu = max(max(rg[j][1] for j in tocheck), u)
+                for j in tocheck: checked[j] = True
+                added = s[newl:l] + s[u+1:newu+1]
+                l, u = newl, newu
+                tocheck = [j for j in range(26) if not checked[j] and chr(97 + j) in added]
+<A NAME="0"></A>            rg[i] = [l, u]
+
+        rg = [[l, u] for l, u in rg if l &gt;= 0]
+        rg.sort(key=lambda x: (x[1], -x<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0]))
+
+        res, upper = [], -1
+        for l, u in rg:
+            if l &lt;= upper: continue
+            res.append(s[l:u+1])
+            upper = u
+        
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

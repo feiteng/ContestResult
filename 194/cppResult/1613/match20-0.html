@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54__lt_zyc-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>54__lt_zyc-2.cpp</CENTER></H3><HR>
+<PRE>
+int d[105][105];
+
+class Solution {
+public:
+    int prim(int n) {
+
+      vector&lt;int&gt; vis(n, 0), md(n, 1e9);
+      vis[0] = 1;
+      for (int i = 0; i &lt; n; i++) md[i] = d[0][i];
+<A NAME="0"></A>
+      int mst = 0;
+      for (int i = 0; i &lt; n - 1; i++) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int minn = 1e9, minn_idx = -1;
+        for (int j = 0; j &lt; n; j++) {
+          if (md[j] &lt; minn &amp;&amp; !vis[j]) {
+            minn = md[j];
+            minn_idx = j;
+          }
+        }
+        if (minn_idx == -1) return 1e9;
+        vis[minn_idx] = 1;
+        mst += minn;
+        for (int j = 0; j &lt; n; j++) {</B></FONT>
+          md[j] = min(md[j], d[minn_idx][j]);
+        }
+      }
+      return mst;
+    }
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e) {
+      int m = e.size();
+      vector&lt;vector&lt;int&gt;&gt; ans(2);
+        
+      for (int i = 0; i &lt; n; i++) {
+        for (int j = 0; j &lt; n; j++) {
+          d[i][j] = 1e9;
+        }
+      }
+      for (auto ee : e) {
+        d[ee[0]][ee[1]] = ee[2];
+        d[ee[1]][ee[0]] = ee[2];
+      }
+      int mst = prim(n);
+
+      for (int i = 0; i &lt; m; i++) {
+        int w = e[i][2];
+        d[e[i][0]][e[i][1]] = d[e[i][1]][e[i][0]] = 1e9;
+        if (prim(n) &gt; mst) {
+          ans[0].push_back(i);
+        } else {
+            d[e[i][0]][e[i][1]] = d[e[i][1]][e[i][0]] = w - 1;
+            if (prim(n) &lt; mst) {
+              ans[1].push_back(i);
+            }
+        }
+        d[e[i][0]][e[i][1]] = d[e[i][1]][e[i][0]] = w;
+      }
+      return ans; 
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>654_matchalatte.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>654_matchalatte.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        memo = {}
+        def dp(s, id, memo):
+            if id == len(s):
+                return 0
+            if id in memo:
+                return memo[id]
+            res = None
+            
+            for end in range(id+1, id+4):
+                if end &gt; len(s):
+                    break
+
+                cur = sum(s[id:end]) - dp(s, end, memo)
+<A NAME="0"></A>                if res == None:
+                    res = cur
+                else:
+                    res = max<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(res, cur)
+
+            memo[id]=res
+            return res
+        score = dp(stoneValue, 0, memo)
+
+        if score == 0:
+            return 'Tie'
+        if score &gt; 0:
+            return 'Alice'
+        re</B></FONT>turn'Bob'
+                
+</PRE>
+
+</BODY>
+</HTML>

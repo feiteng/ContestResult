@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>122_CyprienH.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>122_CyprienH.py</CENTER></H3><HR>
+<PRE>
+def bridges(graph: List[List[int]]):
+    &quot;&quot;&quot;
+    graph: directed graph, graph[u] = [v where u -&gt; v]
+    &quot;&quot;&quot;
+
+    n, time = len(graph), 0
+    disc, low = [0] * n, [0] * n
+    visited = [False] * n
+    ret = []
+
+    def dfs(u, parent):
+        nonlocal time
+
+        visited[u] = True
+        disc[u] = low[u] = time
+        time += 1
+        for v, idx, _ in graph[u]:
+            if not visited[v]:
+                dfs(v, u)
+                low[u] = min(low[u], low[v])
+                if low[v] &gt; disc[u]: ret.append(idx)
+            elif v != parent:
+                low[u] = min(low[u], low[v])
+
+    for i in range(n):
+        if not visited[i]: dfs(i, -1)
+    return ret
+
+<A NAME="0"></A>class UnionFindSet:
+    def __init__(self, n):
+        self.p = [i for i in range(n)]
+        self.rk =<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> [0] * n
+
+    def find(self, v):
+        if self.p[v] != v: self.p[v] = self.find(self.p[v])
+        return self.p[v]
+
+    def union(self, v1, v2):
+        p1 = self.find(v1)
+        p2 = self.find(v2)
+        if p1 == p2: return True
+        if self.rk[p1] &lt; self.rk[</B></FONT>p2]: p1, p2 = p2, p1
+        self.p[p2] = p1
+        self.rk[p1] += self.rk[p1] == self.rk[p2]
+        return False
+
+def MSTKruskal(n, e, k=-1):
+    # vertex: 0..n-1, e: list of [v1, v2, c] edge between v1 and v2 at cost c
+    e.sort(key=lambda i: i[3])
+    ufs = UnionFindSet(n)
+    MST = 0
+    for idx, v1, v2, c in e:
+        if k == idx: continue
+        if not ufs.union(v1, v2): MST += c
+    return MST
+
+def calc(n, e, s):
+    # vertex: 0..n-1, e: list of [v1, v2, c] edge between v1 and v2 at cost c
+    e.sort(key=lambda i: i[3])
+    ufs = UnionFindSet(n)
+    MST = 0
+    m = len(e)
+    cur = 0
+    while cur &lt; m:
+        new = m - 1
+        for i in range(cur, m):
+            if e[i][3] != e[cur][3]:
+                new = i - 1
+                break
+            idx, v1, v2, c = e[i]
+            if ufs.find(v1) != ufs.find(v2): s[e[i][0]] = True
+        
+        for i in range(cur, new + 1):
+            idx, v1, v2, c = e[i]
+            if not ufs.union(v1, v2):
+                MST += c
+        cur = new + 1
+    return MST
+
+class Solution:
+
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        g = [[] for _ in range(n)]
+        m = len(edges)
+        c = [False] * m
+        s = [False] * m
+        e = []
+        for i, (u, v, w) in enumerate(edges):
+            g[u].append((v, i, w))
+            g[v].append((u, i, w))
+            e.append((i, u, v, w))
+        bg = bridges(g)
+        for b in bg: c[b] = True
+        
+        MST = calc(n, e, s)
+        for i in range(m):
+            if MSTKruskal(n, e, i) != MST: c[i] = True
+        
+        ret = [[], []]
+        for i in range(m):
+            if c[i]: ret[0].append(i)
+            elif s[i]: ret[1].append(i)
+        return ret
+    
+</PRE>
+
+</BODY>
+</HTML>

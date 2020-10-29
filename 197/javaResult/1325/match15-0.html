@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_ydylwj23.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>484_ydylwj23.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        //build the graph
+        List&lt;Pair&lt;Integer, Double&gt;&gt;[] graph = new ArrayList[n]</B></FONT>;
+<A NAME="1"></A>        for (int i = 0; i &lt; n; ++i) {
+            graph[i] = new ArrayList&lt;&gt;();
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; edges.length; ++i) {
+            int from = edges[i][0];
+<A NAME="2"></A>            int to = edges[i][1];
+            graph[from].add(new Pair&lt;&gt;(to, succProb[i]));
+            graph[to].add(new</B></FONT> Pair&lt;&gt;(from, succProb[i]));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        //Dijkstra
+        PriorityQueue&lt;Pair&lt;Integer, Double&gt;&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; {
+                if (a.getValue() &lt; b.getValue()) {
+                    return 1;
+                } else if (a.getValue() &gt; b.getValue()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }</B></FONT>);
+        boolean[] visited = new boolean[n];
+        pq.add(new Pair&lt;&gt;(start, 1.0));
+        while (!pq.isEmpty()) {
+            Pair&lt;Integer, Double&gt; cur = pq.poll();
+            if (visited[cur.getKey()]) {
+                continue;
+            }
+            int node = cur.getKey();
+            double chance = cur.getValue();
+            visited[node] = true;
+            if (node == end) {
+<A NAME="3"></A>                return chance;
+            }
+<A NAME="4"></A>            //neighbors
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match15-1.html#3',3,'match15-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (var nei : graph[node]) {
+                if (!visited[nei.getKey()]) {
+                    pq.add(new Pair&lt;&gt;(nei.getKey(), <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match15-1.html#4',3,'match15-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nei.getValue().doubleValue</B></FONT>() * chance));
+                }
+            }
+        }
+        return 0.0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

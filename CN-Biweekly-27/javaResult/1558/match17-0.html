@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>206_ya-zhou-zhong-feng-ha-da-di.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>206_ya-zhou-zhong-feng-ha-da-di.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+      public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+        List&lt;Set&lt;Integer&gt;&gt; list = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new ArrayList&lt;&gt;();
+        for (int i = 0;i&lt;n;i++){
+            list.add(new HashSet&lt;&gt;());
+        }
+        for (int[] each : prerequisites){
+            list.get(each[1]).add(each[0]);
+        }</B></FONT>
+        boolean[] visited = new boolean[n];
+        for (int i = 0;i&lt;n;i++){
+<A NAME="1"></A>            if(visited[i]){
+                continue;
+            }
+            dfs(i,list,<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.get(i),visited);
+        }
+
+        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;(queries.length);
+        for (int[] eachQuery : queries){
+            res.add(list.get(eachQuery[1]).contains(eachQuery[0]));
+        }
+        return res;
+    }
+
+    private Set&lt;Integer&gt; dfs(int n</B></FONT>,List&lt;Set&lt;Integer&gt;&gt; list,Set&lt;Integer&gt; eachSet,boolean[] visited){
+        if(visited[n]){
+            return list.get(n);
+        }
+        
+        Set&lt;Integer&gt; cur = new HashSet&lt;&gt;();
+        for (int eachP : eachSet){
+            cur.add(eachP);
+            Set&lt;Integer&gt; p = list.get(eachP);
+            Set&lt;Integer&gt; pList =  dfs(eachP,list,p,visited);
+            cur.addAll(pList);
+        }
+
+        for (Integer eachP : cur){
+            eachSet.add(eachP);
+        }
+
+        visited[n] = true;
+        return cur;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

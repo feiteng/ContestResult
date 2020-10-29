@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>207_hcchiu.py</TITLE>
+ <TITLE>197_mkcmkc.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>207_hcchiu.py</CENTER></H3><HR>
+<H3><CENTER>197_mkcmkc.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import Counter
+
+class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        cache1 = collections.defaultdict<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(int)
-        for i in range(len(nums1)):
-            for j in range(i + 1, len(nums1)):
-<A NAME="1"></A>                cache1[nums1[i] * nums1[j]] +=</B></FONT> 1
-        
-        cache2 = collections.defaultdict(int)
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(len(nums2)):
+        output = 0
+        sq1 = Counter(map(lambda q: q*q, nums1))
+        sq2 = Counter(map(lambda q: q*q, nums2))
+        for i in range(len(nums2) - 1):
             for j in range(i + 1, len(nums2)):
-                cache2[nums2[i] * nums2[j]] += 1
-        
-        result = 0
-        for i in nums1:
-            result += cache2[i**2]
-        for i in nums2:
-            result += cache1[i**2]
-        re</B></FONT>turn result
+                output += sq1[nums2[i]*nums2[j]]
+ 
+        for i in range(len(nums1) - 1):
+            for j in range(i + 1, len(nums1)):
+                output += sq2[nums1[i]*nums1[j]]
+                
+        re</B></FONT>turn output
 </PRE>
 
 </BODY>

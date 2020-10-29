@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>764_elleryqueenhomels.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>764_elleryqueenhomels.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    private static final int[][] MOVES = {
+        {-1, 0}, {0, -1}, {1, 0}, {0, 1}
+    };
+
+    public int minimumEffortPath(int[][] heights) {
+        final int N = heights.length</B></FONT>;
+        final int M = heights[0].length;
+<A NAME="1"></A>        boolean[][] visited = new boolean[N][M];
+        Queue&lt;int[]&gt; minHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; a[2] - b[2]);
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>minHeap.offer(new int[] {0, 0, 0});
+<A NAME="2"></A>        while (!minHeap.isEmpty()) {
+            int[] curr = minHeap.poll</B></FONT>();
+
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (curr[0] == N - 1 &amp;&amp; curr[1] == M - 1) {
+                return curr[2];
+            }
+            if (visited[curr[0]][curr[1]]) {
+                continue;
+            }
+
+            visited[curr[0]][curr[1]] = true;
+            for (int[] move : MOVES) {
+                int x = curr[0] + move[0];
+                int y = curr[1] + move[1];
+                if (0 &lt;= x &amp;&amp; x &lt; N &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; M &amp;&amp; !visited[x][y]) {
+                    minHeap.offer(new int[] {
+                        x,
+                        y,
+                        Math.max(curr[2], Math.abs(heights[curr[0]][curr[1]] - heights[x][y]))
+                    });
+                }
+            }
+        }
+
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

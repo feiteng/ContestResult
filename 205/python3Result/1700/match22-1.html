@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>321_FromDihPout.py</TITLE>
+ <TITLE>169_wincss.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>321_FromDihPout.py</CENTER></H3><HR>
+<H3><CENTER>169_wincss.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-<A NAME="0"></A>        prev = 0
         ans = 0
-        for i in range(1, len(s)):
-            if s[i] == s<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[prev]:
-                if cost[prev] &lt; cost[i]:
-                    ans += cost[prev]
-                    prev = i
-                else:
-                    ans += cost[i]
-            else:
-                prev = i
+        n = len(s)
+        last = None
+        left = None
+        for i in range(n):
+            if s[i] != last:
+                if left is not None:
+                    m = 0
+                    #print('from', left, i)
+                    for j in range(left, i):
+                        ans += cost[j]
+                        m = max(cost[j], m)
+                    ans -= m
+                    #print('ans', ans, m)
+                last = s[i]
+                left = i
+        if left is None:
+            return ans
+        #print(left)
+        m = 0
+        for j in range(left, n):
+            ans += cost[j]
+            m = max(cost[j], m)
+        ans -= m
         re</B></FONT>turn ans
-                
 </PRE>
 
 </BODY>

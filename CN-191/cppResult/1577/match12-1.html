@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>55_SillyG.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>55_SillyG.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    double res=0;
+    double mu;
+    int k;
+    long long a[10];
+    long long h[10];
+    long long jiecheng[10];
+    void init(){
+        jiecheng[0] = 1;
+        for(long long i=1;i&lt;10;i++){
+            jiecheng[i] = jiecheng[i-1]*i;
+            cout&lt;&lt;jiecheng[i]&lt;&lt;endl;
+        }
+    }
+<A NAME="0"></A>    
+    double solve(long long p[]){
+        double gg = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;k;i++){
+            gg = gg*(1.0/(jiecheng[p[i]]));
+        }
+        for(int i=0;i&lt;k;i++){
+            gg = gg*(1.0/jiecheng[a[i]-p[i]]);
+        }
+        return gg;
+    }</B></FONT>
+    
+    void dfs(int x,int lef,int rig,int numlef,int numrig){
+        if(x&gt;=k){
+            if(numlef==numrig){
+                double tmp = solve(h);
+                //cout&lt;&lt;tmp&lt;&lt;endl;
+                if(lef==rig) res+=tmp;
+                mu+=tmp;
+            }
+            return;
+        }
+        for(int i=0;i&lt;=a[x];i++){
+            h[x] = i;
+            if(i==0){
+                dfs(x+1,lef,rig+1,numlef+i,numrig+a[x]-i);
+            }
+            else if(i==a[x]){
+                dfs(x+1,lef+1,rig,numlef+i,numrig+a[x]-i);
+            }
+            else dfs(x+1,lef+1,rig+1,numlef+i,numrig+a[x]-i);
+        }
+    }
+    double getProbability(vector&lt;int&gt;&amp; b) {
+        init();
+        k = b.size();
+        for(int i=0;i&lt;k;i++){
+            a[i] = b[i];
+        }
+        dfs(0,0,0,0,0);
+        cout&lt;&lt;res&lt;&lt;mu&lt;&lt;endl;
+        return res/mu;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

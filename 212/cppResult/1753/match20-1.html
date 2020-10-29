@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>616_hcseo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>616_hcseo.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>int dp[101][101];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int checked[101][101];
+int dr[4] = { 1,-1,0,0 };
+int dc[4] = { 0,0,1,-1 };
+
+#define abs(x) ((x)&gt;0?(x):-(x))
+#define outsidecheck (nextr &lt; 0 || nextr == rows || nextc &lt; 0 || nextc == columns )
+#define MAX(a,b) ((a)&gt;(b)?(a):(b))
+
+class Solution {
+public:
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {</B></FONT>
+        int rows = heights.size();
+        int columns = heights[0].size();
+        for (int r = 0; r &lt; rows; r++) {
+            for (int c = 0; c &lt; columns; c++) {
+                dp[r][c] = 0x7fffffff;
+            }
+        }
+        dp[0][0] = 0;
+        checked[0][0] = true;
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+        q.push(make_pair(0, 0));
+<A NAME="1"></A>        while (!q.empty()) {
+            pair&lt;int,int&gt; now = q.front();
+            q.pop();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; 4; i++) {
+                int nextr = now.first + dr[i];
+                int nextc = now.second + dc[i];
+                if (outsidecheck) continue;
+                int cost = abs(heights[nextr][nextc] - heights[now.first][now.second]);
+                if (dp[nextr][nextc] &gt; MAX(cost, dp[now.first][now.second])) {
+                    dp[nextr][nextc] = MAX(cost, dp[now.first][now.second]);
+                    q.push(make_pair(nextr, nextc));
+                }
+            }
+        }
+        return dp[rows - 1][columns - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

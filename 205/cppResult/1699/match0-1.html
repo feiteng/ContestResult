@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>66_ericlong.cpp</TITLE>
+ <TITLE>102_illenium-k.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>66_ericlong.cpp</CENTER></H3><HR>
+<H3><CENTER>102_illenium-k.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+#define ll long long
+#define rep(i,a,b) for(int i=a;i&lt;=b;i++)
+#define maxn 1000005
+<A NAME="0"></A>
+ll a[maxn],b[maxn];
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map &lt;ll,int&gt; p1,p2;
+
+class Solution {
 public:
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        map&lt;long long, int&gt; m;
-        for (int i = 0; i &lt; nums1.size(); i++) {
-            for (int j = 0; j &lt; i; j++) {
-                m[1LL*nums1[i]*nums1[j]]++;
-            }
-        }
-        int ans = 0;
-        for (int i = 0; i &lt; nums2.size(); i++) {
-            ans += m[1LL*nums2[i]*nums2[i]];
-        }
-        m.clear();
-        for (int i = 0; i &lt; nums2.size(); i++) {
-            for (int j = 0; j &lt; i; j++) {
-                m[1LL*nums2[i]*nums2[j]]++;
-            }
-        }
-        for (int i = 0; i &lt; nums1.size(); i++) {
-            ans += m[1LL*nums1[i]*nums1[i]];
-        }
+        for(int i=0;i&lt;nums1.size();i++) a[i+1]=nums1[i];
+        for(int i=0;i&lt;nums2.size();i++) b[i+1]=nums2[i];
+        int n=nums1.size(),m=nums2.size(); p1.clear(),p2.clear();
+        rep(i,1,n) p1[a[i]*a[i]]++;
+        rep(i,1,m) p2[b[i]*b[i]]++;
+        int ans=0;
+        rep(i,1,n) rep(j,i+1,n) ans+=p2[a[i]*a[j]];
+        rep(i,1,m) rep(j,i+1,m) ans+=p1[b[i]*b[j]];
         return ans;
     }
 };</B></FONT>

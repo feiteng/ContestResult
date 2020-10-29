@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>454_user3162s.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>454_user3162s.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        n = len(s)
+        inter = [[n, -1] for i in range(26)]
+        
+        for i in range(n):
+            idx = ord(s[i]) - ord('a')
+            if i &lt; inter[idx][0]:
+                inter[idx][0] = i
+            if i &gt; inter[idx][1]:
+                inter[idx][1] = i
+                
+        ninter = []
+        for i in range(26):
+            si, ei = inter[i]
+            if si == n:
+                continue
+            st, et = si, ei
+            si, ei = ei, ei
+            while si != st or et != ei:
+                stmp, etmp = si, ei
+                si, ei = st, et
+                for c in s[st:stmp]:
+                    idx = ord(c) - ord('a')
+                    if inter[idx][0] &lt; st:
+                        st = inter[idx][0]
+                    if inter[idx][1] &gt; et:
+                        et = inter[idx][1]
+                    
+                for c in s[etmp:et+1]:
+                    idx = ord(c) - ord('a')
+<A NAME="0"></A>                    if inter[idx][0] &lt; st:
+                        st = inter[idx][0]
+                    if inter[idx][1] &gt; et:
+                        et = inter[idx][<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>1]
+                        
+            ninter.append([st, et])
+            
+        ninter.sort(key = lambda x : x[</B></FONT>1])
+        #print(ninter)
+        sel = []
+<A NAME="1"></A>        for si, ei in ninter:
+            if not sel:
+                sel.append([si, ei])
+            elif si &gt; sel<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[-1][0]:
+                sel.append([si, ei])
+                
+        res = []
+        for si, ei in sel:
+            res.append(s[si:ei+1])
+            
+        re</B></FONT>turn res
+                    
+            
+            
+            
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

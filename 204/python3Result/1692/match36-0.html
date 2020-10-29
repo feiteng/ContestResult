@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_zhexuanxu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>367_zhexuanxu.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def numOfWays(self, nums: List[int]) -&gt; int:
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def dfs(sub_nums):
+            if len(sub_nums) &lt;= 2:
+                return 1
+            
+            root = sub_nums[0]
+            min_sub = []
+            max_sub = []
+            for num in sub_nums[1:]:
+                if num &lt; root:
+                    min_sub.append(num)
+                else:
+                    max_sub.append(num)
+            min_num = dfs(</B></FONT>min_sub)
+            max_num = dfs(max_sub)
+
+            return min_num * max_num * math.comb(len(min_sub) + len(max_sub), len(min_sub))
+        
+        return (dfs(nums) - 1) % (10 ** 9 + 7)
+                    
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

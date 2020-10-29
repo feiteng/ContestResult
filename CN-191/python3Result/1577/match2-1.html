@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_ghouyl-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_ghouyl-2.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getProbability(self, balls: 'List[int]') -&gt; float:
+        self.cnt=0
+        self.wanted=0
+        n=sum(balls)//2
+        def comb(x,y):
+            if y==0:return 1
+            ans=1 
+            for i in range(x,x-y,-1):
+                ans*=i
+            for i in range(1,y+1):
+                ans//=i
+            return ans
+        def search(idx,cur):
+            if idx==len(balls):
+                if sum(cur)!=n:
+                    return
+                tmp=1
+<A NAME="0"></A>                for i,c in enumerate(cur):
+                    tmp*=comb(balls[i],c)
+                self.cnt+=tmp
+                u1,u2<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=0,0
+                for i,c in enumerate(cur):
+                    if cur[i]!=0:
+                        u1+=1
+                    if balls[i]-cur[i]!=0:
+                        u2+=1
+                if</B></FONT> u1==u2:
+                    self.wanted+=tmp
+                return
+            for x in range( 0,min(balls[idx],n-sum(cur))+1 ):
+                cur.append(x)
+                search(idx+1,cur)
+                cur.pop()
+        search(0,[])
+        return self.wanted/self.cnt
+</PRE>
+
+</BODY>
+</HTML>

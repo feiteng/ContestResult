@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>310_Healer29.java</TITLE>
+ <TITLE>207_necoramen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,119 +15,86 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>310_Healer29.java</CENTER></H3><HR>
+<H3><CENTER>207_necoramen.java</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.Arrays;
+
 class Solution {
-    int id1[];
-    int sz1[];
-<A NAME="2"></A>    int id2[];
-    int sz2[];
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>id1=new int[n+1];
-        sz1=new int[n+1];
-        for(int i=1;i&lt;=n;i++){
-            id1[i]=i;
-            sz1[i]=1;
-        }</B></FONT>
-        id2=new int[n+1];
-        sz2=new int[n+1];
-        for(int i=1;i&lt;=n;i++){
-<A NAME="0"></A>            id2[i]=i;
-            sz2[i]=1;
-        }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ans=0;
-        for(int i=0;i&lt;edges.length;i++){
-            int typ=edges[i][0];
-            int u=edges[i][1];
-            int v=edges[i][2];
-            if(typ==3){</B></FONT>
-                if(root1(u)==root1(v) &amp;&amp; root2(u)==root2(v)){
-<A NAME="1"></A>                    ans++;
-                }else{
-                    union1(u,v);
-                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>union2(u,v);
-                }
+
+        UnionFind ufAlice = new UnionFind(n);
+        UnionFind ufBob = new UnionFind(n);
+
+        Arrays.sort(edges, (a, b) -&gt; b[0] - a[0]);
+
+        int minEdgeCnt = 0;
+
+        for (int[] edge : edges) {
+            int type = edge[0];
+            int v = edge[1] - 1, w = edge[2] - 1;
+            if (ufAlice.isUnited(v, w) &amp;&amp; ufBob.isUnited(v, w)) {
+                continue;
+            }
+
+            if (type == 3) {
+                ufAlice.unite(v, w);
+                ufBob.unite(v, w);
+                minEdgeCnt++;
+            } else if (type == 2 &amp;&amp; !ufBob.isUnited(v, w)) {
+                ufBob.unite(v, w);
+                minEdgeCnt++;
+            } else if (type == 1 &amp;&amp; !ufAlice.isUnited(v, w)) {
+                ufAlice.unite(v, w);
+                minEdgeCnt++;
             }
         }
-        for(int i=0;i&lt;edges.length;i++){
-            int typ=edges[i][0];
-            int u=edges[i][1];
-            int v=edges[i][2];
-            if(typ==1){
-                if(root1(u)==root1(v)){
-                    ans++;
-                }else{
-                    union1(u,v);
-                }
-            }else if(typ==2){
-                if(root2(u)==root2(v)){
-                    ans++;
-                }else{
-                    union2(u,v);
-                }
+        if (ufAlice.cap == 1 &amp;&amp; ufBob.cap == 1) {
+            return edges.length - minEdgeCnt;
+        } else {
+            return -1;
+        }
+
+    }
+
+    private static class UnionFind {
+        private int cap;
+        private int[] root;
+
+        private UnionFind(int cap) {
+            root = new int[cap];
+            this.cap = cap;
+            for (int i = 0; i &lt; root.length; i++) {
+                root[i] = i;
             }
-        }</B></FONT>
-        int c1=0,c2=0;
-        for(int i=1;i&lt;=n;i++){
-            if(id1[i]==i)
-                c1++;
         }
-        for(int i=1;i&lt;=n;i++){
-            if(id2[i]==i)
-                c2++;
+
+        private int find(int s) {
+            while (root[s] != s) {
+                root[s] = root[root[s]];
+                s = root[s];
+            }
+            return s;
         }
-        if(c1&gt;1 || c2&gt;1)return -1;
-        return ans;
-    }
-    void union1(int A,int B)
-<A NAME="4"></A>    {
-        int root_A = root1(A);
-        int root_B = root1(B);
-        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#4',2,'match10-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(sz1[root_A] &lt; sz1[root_B ])
-        {
-            id1[ root_A ] = id1[root_B];
-            sz1[root_B] += sz1[root_A];
+
+        private void unite(int s, int t) {
+            int rs = find(s);
+            int rt = find(t);
+            if (rs == rt) {
+                return;
+            }
+            root[rs] = rt;
+            cap--;
         }
-        else
-        {
-            id1[ root_B ] = id1[root_A];
-            sz1[root_A] += sz1[root_B];
-        }
-    }</B></FONT>
-    int root1(int i)
-    {
-<A NAME="3"></A>        while(id1[ i ] != i)
-        {
-            id1[ i ] = id1[ id1[ i ] ] ; 
-            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#3',2,'match10-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i = id1[ i ]; 
-        }
-        return i;
-    }
-    void union2(int A,int B)
-    {
-        int root_A = root2(A);
-        int root_B = root2(B);
-        if(sz2[root_A] &lt; sz2[root_B ])
-        {</B></FONT>
-            id2[ root_A ] = id2[root_B];
-            sz2[root_B] += sz2[root_A];
-        }
-        else
-        {
-            id2[ root_B ] = id2[root_A];
-            sz2[root_A] += sz2[root_B];
+
+        private boolean isUnited(int s, int t) {
+            return find(s) == find(t);
         }
     }
-    int root2(int i)
-    {
-        while(id2[ i ] != i)
-        {
-            id2[ i ] = id2[ id2[ i ] ] ; 
-            i = id2[ i ]; 
-        }
-        return i;
-    }
-}
+}</B></FONT>
+
+//12
+//[[3,1,2],[2,2,3],[3,1,4],[2,3,5],[1,2,6],[2,4,7],[3,3,8],[3,2,9],[2,1,10],[2,1,11],[1,11,12],[1,10,11],[2,5,9],[2,7,10],[2,4,12],[3,9,10],[1,6,9],[2,10,12],[1,2,5],[3,5,6],[1,7,11],[1,8,9],[1,1,11],[3,4,5],[1,5,9],[2,4,9],[1,8,11],[3,6,8],[1,8,10],[2,2,4],[2,3,8],[3,2,6],[3,10,11],[2,3,11],[3,5,9],[3,3,5],[2,6,11],[3,2,7],[1,5,11],[1,1,5],[2,9,10],[1,6,7],[3,2,3],[2,8,9],[3,2,8]]
+//32
 </PRE>
 
 </BODY>

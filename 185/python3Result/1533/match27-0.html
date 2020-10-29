@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>49_bpdolson.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>49_bpdolson.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict as dd
+
+class Solution:
+    def displayTable(self, orders: List[List[str]]) -&gt; List[List[str]]:
+        foods = set()
+        groups = dd(int)
+        tabs = set()
+        for cust, tab, food in orders:
+            foods.add(food)
+            groups[(tab, food)] += 1
+            tabs.add(int(tab))
+<A NAME="0"></A>        
+        sortedfoods = sorted(list(foods))
+        output = [[&quot;Table&quot;] + sortedfoods]
+        for table in sorted<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(tabs):
+            new_row = [str(table)]
+            for food in sortedfoods:
+                new_row.append(str(groups[(str(table), food)]))
+            output.append(new_row)
+        re</B></FONT>turn output
+        
+            
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>163_AleksQ.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>163_AleksQ.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int constrainedSubsetSum(vector&lt;int&gt;&amp; a, int k) {
+        int n = a.size();
+        deque&lt;pair&lt;int,int&gt;&gt; sums;
+        sums.emplace_back(a[0], 0);
+        int sumsBegin = 0;
+        int result = a[0];
+        for(int i=1; i&lt;n; i++) {
+            while(!sums.empty() &amp;&amp; i-sums.front().second&gt;k) sums.pop_front();
+            int newSum = a[i];
+            if(!sums.empty()) newSum = max(newSum, sums.front().first + a[i]);</B></FONT>
+            result = max(result, newSum);
+            while(!sums.empty() &amp;&amp; sums.back().first&lt;=newSum) sums.pop_back();
+            sums.emplace_back(newSum, i);
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

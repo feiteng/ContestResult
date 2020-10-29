@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>491_134631456.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>491_134631456.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int width = grid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; dp(width, vector&lt;int&gt;(width, -1));
+        dp[0][width - 1] = grid[0][0] + grid[0][width - 1];
+        
+        for (int i = 1; i &lt; grid.size(); ++i) {
+            vector&lt;vector&lt;int&gt;&gt; next(width, vector&lt;int&gt;(width, -1));
+            for (int robot1 = 0; robot1 &lt; width; ++robot1) {
+                for (int robot2 = 0; robot2 &lt; width; ++robot2) {
+                    if (dp[robot1][robot2] == -1) {
+                        continue;
+                    }
+                    for (int move_robot1 = -1; move_robot1 &lt;= 1; ++move_robot1) {
+<A NAME="1"></A>                        for (int move_robot2 = -1; move_robot2 &lt;= 1; ++move_robot2) {</B></FONT>
+                            int next_pos_robot1 = robot1 + move_robot1;
+                            int next_pos_robot2 = robot2 + move_robot2;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                            if (next_pos_robot1 &lt; 0 || next_pos_robot1 &gt;= width
+                                || next_pos_robot2 &lt; 0 || next_pos_robot2 &gt;= width) {
+                                continue;
+                            }
+                            if (next_pos_robot1 == next_pos_robot2) {
+                                next[next_pos_robot1][next_pos_robot2] = max(dp[robot1][robot2] + grid[i][next_pos_robot1], next[next_pos_robot1][next_pos_robot2]);
+                            } else {
+                                next[next_pos_robot1][next_pos_robot2] = max(dp[robot1][robot2] + grid[i][next_pos_robot1] + grid[i][next_pos_robot2], next[next_pos_robot1][next_pos_robot2]);
+                            }
+                        }
+                    }
+<A NAME="2"></A>                }
+            }</B></FONT>
+            swap(next, dp);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        int max_cnt = 0;
+        for (int i = 0; i &lt; width; ++i) {
+            for (int j = 0; j &lt; width; ++j) {
+                max_cnt = max(dp[i][j], max_cnt);
+            }
+        }
+        return max_cnt;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

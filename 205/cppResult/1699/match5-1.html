@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>169_arsenal591.cpp</TITLE>
+ <TITLE>106_inszva-2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>169_arsenal591.cpp</CENTER></H3><HR>
+<H3><CENTER>106_inszva-2.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-<A NAME="0"></A>        int n1 = nums1.size(), n2 = nums2.size();
-        int ret = 0;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;long long, int&gt; prod1, prod2;
-        for (int j = 0; j &lt; n1; j++) {
-            for (int k = j + 1; k &lt; n1; k++) {
-                long long prod = (long long)nums1[j] * (long long)nums1[k];
-                prod1[prod] += 1;
+    int solve(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
+        int ans = 0;
+        unordered_map&lt;int, int&gt; cnt;
+        for (int x: a) {
+            cnt.clear();
+            for (int i = 0; i &lt; b.size(); i++) {
+                if (x * 1ll * x % b[i] == 0 &amp;&amp; cnt.count(x * 1ll * x / b[i])) {
+                    ans += cnt[x * 1ll * x / b[i]];
+                }
+                cnt[b[i]]++;
             }
         }
-        for (int j = 0; j &lt; n2; j++) {
-            for (int k = j + 1; k &lt; n2; k++) {
-                long long prod = (long long)nums2[j] * (long long)nums2[k];
-                prod2[prod] += 1;
-<A NAME="1"></A>            }
-        }</B></FONT>
-        
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n1; i++) {
-            long long prod = (long long)nums1[i] * (long long)nums1[i];
-            ret += prod2[prod];
-        }
-        
-        for (int i = 0; i &lt; n2; i++) {
-            long long prod = (long long)nums2[i] * (long long)nums2[i];
-            ret += prod1[prod];
-        }
-        return ret;
+        return ans;
+    }
+    
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        return solve(nums1, nums2) + solve(nums2, nums1);
     }
 };</B></FONT>
 </PRE>

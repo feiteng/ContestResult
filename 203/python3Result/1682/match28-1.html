@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197_suibianfahui.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>197_suibianfahui.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def mostVisited(self, n: int, rounds: List[int]) -&gt; List[int]:
+        cnt = collections.defaultdict(int)
+        cnt[rounds[0]]+=1
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(1, len(rounds)):
+            s, e = rounds[i-1], rounds[i]
+            if s &lt; e:
+                for j in range(s+1,e+1):
+                    cnt[j]+=1
+            else:
+                for j in range(s+1, n+1):
+                    cnt[j]+=1
+<A NAME="1"></A>                for j in range(1, e+1):
+                    cnt[j]+=1</B></FONT>
+        mx = max(cnt.values())
+        res <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
+        for k in cnt:
+            if cnt[k] == mx:
+                res.append(k)
+        return sorted(r</B></FONT>es)
+</PRE>
+
+</BODY>
+</HTML>

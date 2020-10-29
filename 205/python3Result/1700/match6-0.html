@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>236_Siddhant_Khare.py</TITLE>
+ <TITLE>143_enzo64.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>236_Siddhant_Khare.py</CENTER></H3><HR>
+<H3><CENTER>143_enzo64.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
         
-        # lenght
+        ans = 0
+        
+        lst = '*'
         
         n = len(s)
-        j = 0
         
-        # in it answer
+        i = 0
         
-        ans = 0
-    
-        # new defs
-        
-        def cut(i, j):
-            tt = 0
+        while(i&lt;n):
             
-            # maximum array
-            
-            mx = cost[i]
-            
-            # range i to j
-            for k in range(i, j):
-                tt += cost[k]
-                mx = max(mx, cost[k])
-                
-                # exit
-                
-            return tt - mx
-    
-    # for looping
-    
-        for i in range(n):
-            
-            # cont
-            
-            if s[i] == s[j]: continue
-                
-                # answer
-                
-            ans += cut(j, i)
             j = i
-     # answer
-    
-        ans += cut(j, n)
-        
-        # exit
+            m = cost[i]
+            t = cost[i]
+            
+            while(j&lt;n-1 and s[j+1] == s[j]):
+                j += 1
+                m = max(m, cost[j])
+                t += cost[j]
+
+            if(i != j):
+                ans += t - m
+            
+            i = j + 1
         
         re</B></FONT>turn ans
+                    
+            
 </PRE>
 
 </BODY>

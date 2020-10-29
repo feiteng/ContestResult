@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_ChooJeremy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>217_ChooJeremy.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String stoneGameIII(int[] stoneValue) {
+<A NAME="0"></A>        int[] bobScores = new int[stoneValue.length];
+        int[] aliceScores = new int[stoneValue.length];
+        bobScores[stoneValue.length - 1] = stoneValue[stoneValue.length - 1];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>aliceScores[stoneValue.length - 1] = stoneValue[stoneValue.length - 1];
+        for(int i = stoneValue.length - 2; i &gt;=0; i--) {
+            //alice's best
+            int aliceBest = stoneValue[i] - bobScores[i+1];
+            if(i &lt; stoneValue.length - 2) {
+                int takeTwo = stoneValue[i] + stoneValue[i+1] - bobScores[i+2];
+                if</B></FONT>(takeTwo &gt; aliceBest) {
+                    aliceBest = takeTwo;
+                }
+                if(i &lt; stoneValue.length - 3) {
+                    int takeThree = stoneValue[i] + stoneValue[i+1] + stoneValue[i+2] - bobScores[i+3];
+                    if(takeThree &gt; aliceBest) {
+                        aliceBest = takeThree;
+                    }
+                } else {
+                    int takeThree = stoneValue[i] + stoneValue[i+1] + stoneValue[i+2];
+                    if(takeThree &gt; aliceBest) {
+                        aliceBest = takeThree;
+                    }
+                }
+            } else {
+                int takeTwo = stoneValue[i] + stoneValue[i+1];
+                if(takeTwo &gt; aliceBest) {
+                    aliceBest = takeTwo;
+                }
+            }
+            aliceScores[i] = aliceBest;
+            
+            int bobBest = stoneValue[i] - aliceScores[i+1];
+            if(i &lt; stoneValue.length - 2) {
+                int takeTwo = stoneValue[i] + stoneValue[i+1] - aliceScores[i+2];
+                if(takeTwo &gt; bobBest) {
+                    bobBest = takeTwo;
+                }
+                if(i &lt; stoneValue.length - 3) {
+                    int takeThree = stoneValue[i] + stoneValue[i+1] + stoneValue[i+2] - aliceScores[i+3];
+                    if(takeThree &gt; bobBest) {
+                        bobBest = takeThree;
+                    }
+                } else {
+                    int takeThree = stoneValue[i] + stoneValue[i+1] + stoneValue[i+2];
+                    if(takeThree &gt; bobBest) {
+                        bobBest = takeThree;
+                    }
+                }
+            } else {
+                int takeTwo = stoneValue[i] + stoneValue[i+1];
+<A NAME="1"></A>                if(takeTwo &gt; bobBest) {
+                    bobBest = takeTwo;
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            bobScores[i] = bobBest;
+        }
+        if(aliceScores[0] &gt; 0) {
+            return &quot;Alice&quot;;
+        } else if(aliceScores[0] == 0) {
+            return &quot;Tie&quot;;
+        } else {
+            return &quot;Bob&quot;;
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

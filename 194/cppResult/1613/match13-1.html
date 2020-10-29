@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_lucifer1004.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_lucifer1004.cpp</CENTER></H3><HR>
+<PRE>
+mt19937 mrand(random_device{}());
+int rnd(int x) { return mrand() % x; }
+
+class UnionFind {
+    int n;
+    vector&lt;int&gt; parent, size;
+
+public:
+    UnionFind(int n) {
+        this-&gt;n = n;
+        parent = vector&lt;int&gt;(n);
+        size = vector&lt;int&gt;(n, 1);
+        for (int i = 0; i &lt; n; ++i)
+            parent[i] = i;
+    }
+    
+    UnionFind(int n, vector&lt;int&gt; parent, vector&lt;int&gt; size) {
+        this-&gt;n = n;
+        this-&gt;parent = parent;
+<A NAME="0"></A>        this-&gt;size = size;
+    }
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int find(int idx) {
+        if (parent[idx] == idx)
+            return idx;
+        return parent[idx] = find(parent[idx]);
+    }
+
+    void connect(int a, int b) {
+        int fa = parent[a], fb = parent[b];
+        if (fa != fb) {</B></FONT>
+            if (size[fa] &gt; size[fb]) {
+                parent[fb] = fa;
+                size[fa] += size[fb];
+            } else {
+                parent[fa] = fb;
+                size[fb] += size[fa];
+            }
+        }
+    }
+    
+    bool is_connected(int a, int b) {
+        return find(a) == find(b);
+    }
+    
+    int components() {
+        vector&lt;bool&gt; is_root(n);
+        for (int i = 0; i &lt; n; ++i)
+            is_root[find(i)] = true;
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i)
+            ans += is_root[i];
+        return ans;
+    }
+    
+    UnionFind clone() {
+        return UnionFind(n, parent, size);
+    }
+};
+
+void do_shuffle(vector&lt;int&gt; &amp;a, vector&lt;pair&lt;int, int&gt;&gt; &amp;seqs) {
+    for (auto seq : seqs)
+        shuffle(a.begin() + seq.first, a.begin() + seq.second + 1, default_random_engine(mrand()));  
+}
+
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m = edges.size();
+        UnionFind f(n), g(n);
+        vector&lt;int&gt; order(m);
+        for (int i = 0; i &lt; m; ++i)
+            order[i] = i;
+        sort(order.begin(), order.end(), [&amp;](int i, int j){
+           return edges[i][2] &lt; edges[j][2]; 
+        });
+        vector&lt;pair&lt;int, int&gt;&gt; seqs;
+        int lo = 0, l = -1;
+        for (int i = 0; i &lt; m; ++i) {
+            if (edges[order[i]][2] &gt; lo) {
+                if (l != -1)
+                    seqs.emplace_back(l, i - 1);
+                l = i;
+                lo = edges[order[i]][2];
+            }
+        }
+        seqs.emplace_back(l, m - 1);
+        vector&lt;int&gt; in(m);
+        int times = 1000;
+        for (int i = 0; i &lt; times; ++i) {
+            vector&lt;int&gt; norder(order);
+            do_shuffle(norder, seqs);
+            UnionFind f(n);
+            for (int j : norder) {
+                int u = edges[j][0], v = edges[j][1];
+                if (!f.is_connected(u, v)) {
+                    in[j]++;
+                    f.connect(u, v);
+                }
+            }
+<A NAME="1"></A>        }
+        
+        vector&lt;int&gt; crit, non_crit;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; m; ++i) {
+            if (in[i] == times)
+                crit.emplace_back(i);
+            else if (in[i] &gt; 0)
+                non_crit.emplace_back(i);
+        }
+        return {crit, non_crit};
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

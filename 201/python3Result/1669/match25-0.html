@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>346_nhatdx.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>346_nhatdx.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+
+class Solution:
+    def minCost(self, n: int, cuts: List[int]) -&gt; int:
+        
+        m = len(cuts)
+<A NAME="0"></A>        
+        cuts += [0, n]
+        
+        cuts.sort<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>()
+        
+        # print (cuts)
+        
+        @lru_cache(None)
+        def cut(l, r):
+            
+            if l == r:
+                # print (l, r, cuts[l + 1] - cuts[l - 1])
+                return cuts[l + 1] - cuts[l - 1]
+            
+            maxv = min( cut(l + 1, r), cut(l, r - 1) )
+            
+            for j in range(l + 1, r):
+                
+                # print ('j', j)
+                
+                maxv = min(maxv, cut(l, j - 1) + cut(j + 1, r) )
+                
+                
+            # print (l, r, maxv, (cuts[r + 1] - cuts[l - 1]))
+                
+            return maxv + (cuts[r + 1] - cuts[l</B></FONT> - 1])
+        
+        ans = cut(1, m)
+        
+        return ans
+            
+            
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_liouzhou_101.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_liouzhou_101.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+using pii = pair&lt;int ,int&gt;;
+#define X first
+#define Y second
+
+struct undirected_graph
+{
+	int n;
+	vector&lt;pii&gt; edge;
+	undirected_graph (int n)
+	{
+		init(n);
+	}
+	void init(int n)
+	{
+		assert(n &gt;= 0);
+		this-&gt;n = n;
+	}
+	void addedge(int x, int y)
+	{
+		assert(1 &lt;= x &amp;&amp; x &lt;= n);
+		assert(1 &lt;= y &amp;&amp; y &lt;= n);
+		edge.push_back({x, y});
+	}
+};
+
+struct tree
+{
+	const static int K = 1; // for LCA
+	int n;
+	vector&lt;vector&lt;int&gt;&gt; v;
+	tree (const undirected_graph &amp;G)
+	{
+		n = G.n;
+		v = vector&lt;vector&lt;int&gt;&gt;(n+1);
+		for (auto e : G.edge)
+		{
+			int x = e.X, y = e.Y;
+			v[x].push_back(y);
+			v[y].push_back(x);
+		}
+	}
+	
+	vector&lt;int&gt; r;
+	int times;
+	vector&lt;int&gt; X, Y;
+	vector&lt;int&gt; dis;
+	vector&lt;array&lt;int, K&gt;&gt; pre;
+	void dfs(int x, int p)
+	{
+		X[x] = ++ times;
+		for (auto y : v[x])
+		{
+			if (y == p) continue;
+			dis[y] = dis[x]+1;
+			pre[y][0] = x;
+			dfs(y, x);
+		}
+		Y[x] = times;
+	}
+	void build_dfs_order(int root)
+	{
+		assert(1 &lt;= root &amp;&amp; root &lt;= n);
+<A NAME="0"></A>		r = vector&lt;int&gt;(n+1);
+		X = vector&lt;int&gt;(n+1);
+		Y = vector&lt;int&gt;(n+1);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		dis = vector&lt;int&gt;(n+1);
+		pre = vector&lt;array&lt;int, K&gt;&gt;(n+1);
+		times = 0;
+		dfs(root, 0);
+		for (int k = 1; k &lt; K; ++ k)
+			for (int i = 1; i &lt;= n; ++ i)</B></FONT>
+				pre[i][k] = pre[pre[i][k-1]][k-1];
+	}
+	
+	int getLCA(int x, int y)
+	{
+		assert(n &lt;= 1&lt;&lt;K);
+		if (dis[x] &lt; dis[y]) swap(x, y);
+		for (int k = K-1; k &gt;= 0; -- k)
+			if (dis[x]-dis[y] &gt;= 1&lt;&lt;k)
+				x = pre[x][k];
+		if (x == y) return x;
+		for (int k = K-1; k &gt;= 0; -- k)
+			if (pre[x][k] != pre[y][k])
+			{
+				x = pre[x][k];
+				y = pre[y][k];
+			}
+		return pre[x][0];
+	}
+};
+
+class Solution {
+public:
+    int tot;
+    map&lt;TreeNode*, int&gt; mp;
+    vector&lt;pair&lt;int, int&gt;&gt; edges;
+    void dfs(TreeNode* x)
+    {
+        if (!x) return;
+        mp[x] = ++tot;
+        dfs(x-&gt;left);
+        dfs(x-&gt;right);
+        if (x-&gt;left) edges.push_back({mp[x], mp[x-&gt;left]});
+        if (x-&gt;right) edges.push_back({mp[x], mp[x-&gt;right]});
+    }
+    int countPairs(TreeNode* root, int distance) {
+        tot = 0;
+        mp.clear();
+        edges.clear();
+        dfs(root);
+        undirected_graph G(tot);
+        for (auto [x, y] : edges) G.addedge(x, y);
+        tree T(G);
+        
+        int res = 0;
+        
+        for (auto [itx, x] : mp)
+        {
+            if (T.v[x].size() != 1) continue;
+            if (x == 1) continue;
+            
+            function&lt;void(int,int,int)&gt; go = [&amp;](int x, int pre, int d)
+            {
+                if (d &gt; distance) return;
+                if (d &gt; 0 &amp;&amp; T.v[x].size() == 1 &amp;&amp; x != 1) ++res;
+                for (auto y : T.v[x])
+                {
+                    if (y == pre) continue;
+                    go(y, x, d+1);
+                }
+            };
+            
+            go(x, -1, 0);
+        }
+        
+        return res/2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

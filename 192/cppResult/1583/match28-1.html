@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_Fr0benius.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>18_Fr0benius.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;climits&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+using namespace std;
+
+#define pb push_back
+#define fst first
+#define snd second
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+template&lt;typename T&gt; using min_queue=priority_queue&lt;T,vector&lt;T&gt;,greater&lt;T&gt;&gt;;
+
+const ll MOD=1e9+7;
+class Solution {
+public:
+  int dp[111][111][22];
+  int minCost(vector&lt;int&gt;&amp; h, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int tar) {
+<A NAME="0"></A>    memset(dp,63,sizeof dp);
+    int M=h.size();
+    int N=cost[0].size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int c=0;c&lt;N;c++) dp[0][0][c]=0;
+<A NAME="2"></A>    
+    for (int i=0;i&lt;M;i++) {
+      for (int j=1;j&lt;=tar;j++) {
+        if (h[i]==0) {</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+          for (int c=0;c&lt;N;c++) {
+            for (int d=0;d&lt;=N;d++) {
+              if (c==d) {
+                dp[i+1][j][c]=min(dp[i+1][j][c],dp[i][j][c]+cost[i][c]);
+              } else {
+                dp[i+1][j][c]=min(dp[i+1][j][c],dp[i][j-1][d]+cost[i][c]);
+<A NAME="1"></A>              }
+            }
+          }
+</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        } else {
+          int c=h[i]-1;
+          for (int d=0;d&lt;=N;d++) {
+            if (c==d) {
+              dp[i+1][j][c]=min(dp[i+1][j][c],dp[i][j][c]);
+            } else {
+              dp[i+1][j][c]=min(dp[i+1][j][c],dp[i][j-1][d]);
+            }
+<A NAME="3"></A>          }
+          
+        }</B></FONT>
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#3',2,'match28-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      }
+    }
+    int res=0x3f3f3f3f;
+    for (int c=0;c&lt;N;c++) res=min(res, dp[M][tar][c]);
+    if (res==0x3f3f3f3f) res = -1;
+    return res;
+  }
+};</B></FONT>
+
+</PRE>
+</BODY>
+</HTML>

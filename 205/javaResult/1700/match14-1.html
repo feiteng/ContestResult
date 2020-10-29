@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_wayne1116.java</TITLE>
+ <TITLE>113_yuhwu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>369_wayne1116.java</CENTER></H3><HR>
+<H3><CENTER>113_yuhwu.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        int prev=-1;
-        int total=0;
-        int maxValue=0;
-        int result=0;
-        for(int i=0; i&lt;s.length(); i++) {</B></FONT>
-            int curr=s.charAt(i);
-            if(prev!=curr) {
-                result+=total-maxValue;
-                prev=curr;
-                maxValue=cost[i];
-                total=cost[i];
-<A NAME="1"></A>            }
-            else{
-                total+=cost[i];
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>maxValue=Math.max(maxValue, cost[i]);
-            }
+        int max = 0;
+        int sum = 0;
+        int n = s.length();
+        if(n==1){
+            return 0;
         }
-        result+=total-maxValue;
-        
-        return result;
+        char prev = '*';
+        int curMax = 0;
+        for(int i=0; i&lt;n; i++){
+            char c = s.charAt(i);
+            if(c==prev){
+                curMax = Math.max(curMax, cost[i]);
+            }
+            else{
+                max += curMax;
+                curMax = cost[i];
+            }
+            prev = c;
+            sum += cost[i];
+        }
+        max += curMax;
+        // System.out.println(sum+&quot;,&quot;+max);
+        return sum-max;
     }
 }</B></FONT>
 </PRE>

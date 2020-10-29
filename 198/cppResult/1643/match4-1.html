@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_shahnirmit2503.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>486_shahnirmit2503.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int cnt[(int)(1e5)];
+    
+<A NAME="0"></A>    vector&lt;int&gt; dfs(int start,vector&lt;bool&gt; &amp;vis,vector&lt;vector&lt;int&gt;&gt; &amp;g,string &amp;labels,vector&lt;int&gt; &amp;res)
+    {
+        vis[start]=1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; freq(26,0);
+        freq[labels[start]-'a']++;
+        for(int i=0;i&lt;g[start].size();i++)
+        {
+            if(!vis[g[start][i]])
+            {
+                vector&lt;int&gt; temp=dfs(g[start][i],vis,g,labels,res);
+                
+                for(int j=0;j&lt;26;j++)
+                    freq[j]+=temp[j];
+            }
+        }
+        res[start]=freq[labels[start]-'a'];
+        return freq;
+    }
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, string labels) {
+        vector&lt;vector&lt;int&gt;&gt; adj(n+1);
+        for(int i=0;i&lt;edges.size();i++)
+        {
+             adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
+        }
+        vector&lt;int&gt; res(n,0);
+        vector&lt;bool&gt; vis(n+1,0);
+        dfs(0,vis,adj,labels,res);
+        return res;
+        
+    }   
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

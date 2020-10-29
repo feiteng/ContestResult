@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_ydylwj23.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>484_ydylwj23.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double[][] test_point = new double[][]{ { -1.0, 0.0 }, 
+                       { 0.0, 1.0 }, 
+                       { 1.0, 0.0 }, 
+<A NAME="0"></A>                       { 0.0, -1.0 }</B></FONT> };
+    public double getMinDistSum(int[][] positions) {
+        int n = positions.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double sumX = 0;
+        double sumY = 0;
+        for (var p : positions) {
+            sumX += (double)p[0];
+            sumY += (double)p[1];
+        }
+        double curX = sumX / n;
+        double curY = sumY / n;
+        double minimum_distance = getDistance</B></FONT>(positions, curX, curY);
+        
+        double test_distance = 1.0;
+        double lower_limit = 0.00000001;
+        int flag = 0;
+        while (test_distance &gt; lower_limit) { 
+  
+            flag = 0; 
+
+            // Loop for iterating over all 4 neighbours 
+            for (int i = 0; i &lt; 4; i++) { 
+
+                // Finding Neighbours done 
+                double newX = curX + test_distance * test_point[i][0];
+                double newY = curY + test_distance * test_point[i][1];
+
+<A NAME="2"></A>                // New sum of Euclidean distances 
+                // from the neighbor to the given 
+                // data points 
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double newd = getDistance(positions, newX, newY); 
+
+                if (newd &lt; minimum_distance) { 
+
+                    // Approximating and changing 
+                    // current_point 
+                    minimum_distance = newd; 
+                    curX = newX; 
+                    curY = newY; 
+                    flag = 1; 
+                    break; 
+                } 
+            } 
+
+            // This means none of the 4 neighbours 
+            // has the new minimum distance, hence 
+<A NAME="3"></A>            // we divide by 2 and reiterate while 
+            // loop for better approximation 
+            if</B></FONT> (flag == 0) 
+                test_distance /= 2<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; 
+        }
+        
+        return minimum_distance;
+    }
+    private double getDistance(int[][] positions, double curX, double curY) {
+        double distance = 0;
+        for (var p : positions) {
+            distance += Math.sqrt(Math.pow(p[0] - curX, 2) + Math.pow(p[1] - curY, 2));
+        }
+        return distance;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

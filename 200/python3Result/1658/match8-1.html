@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_PiscesDream.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>65_PiscesDream.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minSwaps(self, grid: List[List[int]]) -&gt; int:
+        n = len(grid)
+        end_z = []
+        for i in range(n):
+            cnt = 0
+            for j in range(n-1, -1, -1):
+                if grid[i][j] == 0:
+                    cnt += 1
+                else:    
+                    break
+            end_z.append(cnt)
+        
+        total_move = 0
+        for row_idx in range(</B></FONT>n):
+            print(end_z)
+            need = n-row_idx-1
+            
+            for pick in range(row_idx, n):
+                if end_z[pick] &gt;= need:
+                    found = pick
+                    break
+            else:        
+                return -1
+            
+            # print(found)
+            total_move += pick-row_idx
+            
+            end_z.insert(row_idx, end_z.pop(found))
+        return total_move      
+                    
+</PRE>
+
+</BODY>
+</HTML>

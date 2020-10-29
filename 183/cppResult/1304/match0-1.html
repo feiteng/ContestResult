@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_czfwd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>252_czfwd.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        auto cmp = [](pair&lt;int,char&gt;&amp;a,pair&lt;int,char&gt;&amp;b){
+            return a.first&lt;b.first;
+        };
+        priority_queue&lt;pair&lt;int,char&gt;, vector&lt;pair&lt;int,char&gt;&gt;, decltype(cmp)&gt; q(cmp);
+        if (a&gt;0)
+            q.push({a,'a'});
+        if (b&gt;0)
+            q.push({b,'b'});
+        if ( c&gt;0 )
+            q.push({c,'c'});
+        string res;
+        while( q.size()&gt;0 ){
+            int t = res.size();
+             vector&lt;pair&lt;int,char&gt;&gt; tmp;
+            auto cur = q.top(); q.pop();
+            if ( res.size()&gt;1 &amp;&amp; cur.second == res.back() &amp;&amp; (res[t-1]==res[t-2]) ){
+                tmp.push_back(cur);
+                if ( q.size()==0 ) break;
+                cur = q.top(); q.pop();
+            }
+            res += cur.second;
+            if (--cur.first&gt;0)
+                q.push(cur);
+            for(auto&amp;z:tmp)
+                q.push(z);
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>386_infinity730.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>386_infinity730.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxSum(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        p = 0
+        q = 0
+        a = 0
+        b = 0
+        while p != len(nums1) and q != len(nums2):
+            if nums1[p] &lt; nums2[q]:
+                a += nums1[p]
+                p += 1
+            elif nums1[p] &gt; nums2[q]:
+                b += nums2[q]
+                q += 1
+            else:
+                a = max(a, b) + nums1[p]
+                b = a
+                p += 1
+                q +=</B></FONT> 1
+        if p != len(nums1):
+            for i in range(p, len(nums1)):
+                a += nums1[i]
+        if q != len(nums2):
+            for i in range(q, len(nums2)):
+                b += nums2[i]
+        #print(a % 1000000007, b % 1000000007)
+        return max(a, b) % 1000000007
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>66_ericlong.cpp</TITLE>
+ <TITLE>140_maxd-3.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>66_ericlong.cpp</CENTER></H3><HR>
+<H3><CENTER>140_maxd-3.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>public:
-    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        map&lt;long long, int&gt; m;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; nums1.size(); i++) {
-            for (int j = 0; j &lt; i; j++) {
-                m[1LL*nums1[i]*nums1[j]]++;
-            }
-        }
+#include &lt;bits/stdc++.h&gt;
+<A NAME="0"></A>
+using namespace std;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numTriplets(vector&lt;int&gt; &amp;nums1, vector&lt;int&gt; &amp;nums2) {
+        map&lt;long long, int&gt; M;
+        for (int i = 0; i &lt; nums1.size(); i++)
+            for (int j = i + 1; j &lt; nums1.size(); j++)
+                M[(long long) nums1[i] * nums1[j]]++;
         int ans = 0;
-        for (int i = 0; i &lt; nums2.size(); i++) {
-            ans += m[1LL*nums2[i]*nums2[i]];
-        }
-        m.clear();
-        for (int i = 0; i &lt; nums2.size(); i++) {
-            for (int j = 0; j &lt; i; j++) {
-                m[1LL*nums2[i]*nums2[j]]++;
-            }
-        }
-        for (int i = 0; i &lt; nums1.size(); i++) {
-            ans += m[1LL*nums1[i]*nums1[i]];
-        }
+        for (int i : nums2)
+            ans += M[(long long) i * i];
+        swap(nums1, nums2);
+        M.clear();
+        for (int i = 0; i &lt; nums1.size(); i++)
+            for (int j = i + 1; j &lt; nums1.size(); j++)
+                M[(long long) nums1[i] * nums1[j]]++;
+        for (int i : nums2)
+            ans += M[(long long) i * i];
         return ans;
     }
 };</B></FONT>

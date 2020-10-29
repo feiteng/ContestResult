@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>232_coder_h.cpp</TITLE>
+ <TITLE>115_MohammedShoaib.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>232_coder_h.cpp</CENTER></H3><HR>
+<H3><CENTER>115_MohammedShoaib.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.length();
-        int ans = 0;
-        int l = 0, r = 0, mn, co;</B></FONT>
-        int tot = 0;
-        for (auto x:cost)tot += x;
-<A NAME="1"></A>        while(l&lt;n)
-        {
-        	r = l;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        	mn = 0;
-        	co = 0;
-        	while(r&lt;n &amp;&amp; s[r] == s[l])
-        	{
-        		mn = max(mn, cost[r]);
-        		co++;
-        		r++;
-        	}
-        	ans += mn;
-        	l = r;
-        }
-        return tot - ans;
-    }
+	int minCost(string s, vector&lt;int&gt;&amp; cost) {
+		int min_cost = 0, n = s.length();
+		for (int j, i = 0; i + 1 &lt; n; i++) {
+			if (s[i] != s[i + 1])
+				continue;
+			int mx = 0, sum = 0;
+			for (j = i; j &lt; n &amp;&amp; s[j] == s[i]; j++) {
+				sum += cost[j];
+				mx = max(cost[j], mx);
+			}
+			min_cost += sum - mx;
+			i = j - 1;
+		}
+		return min_cost;
+	}
 };</B></FONT>
 </PRE>
 </BODY>

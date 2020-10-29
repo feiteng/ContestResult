@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>98_insomniacat.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>98_insomniacat.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    //split char
+std::vector&lt;std::string&gt; split(const std::string&amp; input, const char&amp; regex) {
+	std::vector&lt;std::string&gt; out;
+	std::string i;
+	std::istringstream tokenStream(input);
+	while (std::getline(tokenStream, i, regex))
+	{
+		out.push_back(i);
+	}
+	// std::cout &lt;&lt; out.size();
+	return out;
+}
+public:
+    string arrangeWords(string text) {
+        if(text.empty()) return &quot;&quot;;
+<A NAME="0"></A>        text[0] = tolower(text[0]);
+        string ans;
+        vector&lt;string&gt; str_v = split(text, ' ');
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        stable_sort(str_v.begin(), str_v.end(), [](auto&amp; a, auto&amp; b) {
+           return a.size() &lt; b.size();
+        });
+        for(auto&amp; str : str_v) {
+            ans += str;
+            ans += &quot; &quot;;
+        }
+        ans.pop_back();
+        ans[0] = toupper(ans[0]);
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

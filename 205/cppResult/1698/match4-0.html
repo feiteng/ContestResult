@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>239_tyagivaibhav.cpp</TITLE>
+ <TITLE>107_inszva-2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>239_tyagivaibhav.cpp</CENTER></H3><HR>
+<H3><CENTER>107_inszva-2.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>#define fi first
+#define se second
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     string modifyString(string s) {
-        int n=s.size();
-        for(int i=0;i&lt;n;i++){
-            if(s[i]=='?'){
-                for(char j='a';j&lt;='z';j++){
-                    if((i==0||s[i-1]!=j)&amp;&amp;(i==n-1||s[i+1]!=j)){
-                        s[i]=j;
-                        break;
-                    }
+        vector&lt;pair&lt;int, int&gt;&gt; v;
+        int n = s.size();
+        int l = n+1, r = -1;
+        for (int i = 0; i &lt; n; i++) {
+            if (s[i] == '?') {
+                l = min(l, i);
+                r = max(r, i);
+            } else {
+                if (r &gt;= l) {
+                    v.emplace_back(l, r);
+                    l = n+1, r = -1;
                 }
+            }
+        }
+        if (r &gt;= l) {
+            v.emplace_back(l, r);
+        }
+        for (auto&amp; p: v) {
+            char lc = 0, rc = 0;
+            if (p.fi &gt; 0) lc = s[p.fi-1];
+            if (p.se &lt; n-1) rc = s[p.se+1];
+            vector&lt;char&gt; cs;
+            for (char c = 'a'; c &lt;= 'z'; c++) {
+                if (c != lc &amp;&amp; c != rc) 
+                    cs.emplace_back(c);
+            }
+            for (int i = p.fi; i &lt;= p.se; i++) {
+                s[i] = cs[i&amp;1];
             }
         }
         return s;

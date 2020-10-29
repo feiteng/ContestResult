@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>488_Fishingmaster.java</TITLE>
+ <TITLE>103_2499370956.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>488_Fishingmaster.java</CENTER></H3><HR>
+<H3><CENTER>103_2499370956.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; m1 = new HashMap&lt;&gt;();
-<A NAME="0"></A>        Map&lt;Long, Integer&gt; m2 = new HashMap&lt;&gt;();
-        int n = nums1.length;
-        int m = nums2.length;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
-            for (int j = i + 1; j &lt; n; j++) {
-                long p = (long)nums1[i] * nums1[j];
-                m1.put(p, m1.getOrDefault(p, 0) + 1);
+        int out = 0;
+        Map&lt;Long, Integer&gt; sq1 = sq(nums1);
+        Map&lt;Long, Integer&gt; sq2 = sq(nums2);
+        for (int i = 0; i &lt; nums1.length; i++) {
+            for (int j = i + 1; j &lt; nums1.length; j++) {
+                long k = ((long) nums1[i]) * nums1[j];
+                if (sq2.containsKey(k)) {
+                    out += sq2.getOrDefault(k, 0);
+                }
             }
         }
-        for (int i = 0; i &lt; m; i++) {
-            for (int j = i + 1; j &lt; m; j++) {
-                long p = (long)nums2[i] * nums2[j];
-                m2.put(p, m2.getOrDefault(p, 0) + 1);
-<A NAME="1"></A>            }
-        }</B></FONT>
-        int re = 0;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
-            long p = (long)nums1[i] * nums1[i];
-            re += m2.getOrDefault(p, 0);
+        for (int i = 0; i &lt; nums2.length; i++) {
+            for (int j = i + 1; j &lt; nums2.length; j++) {
+                long k = ((long) nums2[i]) * nums2[j];
+                if (sq1.containsKey(k)) {
+                    out += sq1.getOrDefault(k, 0);
+                }
+            }
         }
-        for (int i = 0; i &lt; m; i++) {
-            long p = (long)nums2[i] * nums2[i];
-            re += m1.getOrDefault(p, 0);
+        return out;
+    }
+
+    private Map&lt;Long, Integer&gt; sq(int[] a) {
+        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i : a) {
+            long k = ((long) i ) * i;
+            map.put(k, 1 + map.getOrDefault(k, 0));
         }
-        return re;
+        return map;
     }
 }</B></FONT>
 </PRE>

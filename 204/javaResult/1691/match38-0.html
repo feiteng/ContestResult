@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>598_sciops.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>598_sciops.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minDays(int[][] grid) {
+        int maxBrute = 0;
+        for(int i = 0; i &lt; grid.length; i++) {
+            for(int j = 0; j &lt; grid[0].length; j++) {
+                if(grid[i][j] == 1) {
+                    int aux = 0;
+                    if(i != 0 &amp;&amp; grid[i-1][j] == 1) aux++;
+                    if(i != grid.length - 1 &amp;&amp; grid[i+1][j] == 1) aux++;
+                    if(j != 0 &amp;&amp; grid[i][j-1] == 1) aux++;
+                    if(j != grid[0].length - 1 &amp;&amp; grid[i][j+1] == 1) aux++;
+                    if(aux &gt; maxBrute) maxBrute = aux;
+<A NAME="0"></A>                }
+            }
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(!checkConnection(grid)) return 0;
+        for(int i = 0; i &lt; grid.length; i++) {
+            for(int j = 0; j &lt; grid[0].length; j++) {
+                if(grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    if(!checkConnection(grid)) return 1;
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+<A NAME="1"></A>    }
+    
+    boolean checkConnection(int[][] grid) {
+        boolean[][] visited = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new boolean[grid.length][grid[0].length]</B></FONT>;
+        boolean isl = false;
+        for(int i = 0; i &lt; grid.length; i++) {
+            for(int j = 0; j &lt; grid[0].length; j++) {
+<A NAME="2"></A>                if(grid[i][j] == 1 &amp;&amp; !visited[i][j]) {</B></FONT>
+                    if(isl) return false;
+                    isl = true;
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match38-1.html#2',3,'match38-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>visit(grid, visited, i, j);
+                }
+            }
+        }
+        return true;
+    }
+    
+    void visit(int[][] grid, boolean[][] visited, int i, int j) {</B></FONT>
+        visited[i][j] = true;
+        if(i != 0 &amp;&amp; grid[i-1][j] != 0 &amp;&amp; !visited[i-1][j]) visit(grid, visited, i-1, j);
+        if(i != grid.length - 1 &amp;&amp; grid[i+1][j] != 0 &amp;&amp; !visited[i+1][j]) visit(grid, visited, i+1, j);
+        if(j != 0 &amp;&amp; grid[i][j-1] != 0 &amp;&amp; !visited[i][j-1]) visit(grid, visited, i, j-1);
+        if(j != grid[0].length - 1 &amp;&amp; grid[i][j+1] != 0 &amp;&amp; !visited[i][j+1]) visit(grid, visited, i, j+1);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

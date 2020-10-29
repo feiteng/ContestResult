@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_Sd-Invol.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>19_Sd-Invol.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int dp[2][55][2][2];
+    const int Q = 1e9 + 7;
+    void add(int &amp;A , int B) {
+        A += B;
+        if (A &gt;= Q) {
+            A -= Q;
+        }
+    }
+    
+    int findGoodStrings(int n, string s1, string s2, string evil) {</B></FONT>
+        if (s1 &gt; s2) return 0;
+        vector&lt;int&gt; f(55);
+        f[0] = f[1] = 0;
+        int m = evil.size();
+        for (int i = 1 ; i &lt; m ; ++ i) {
+            int j = f[i];
+            while (j &amp;&amp; evil[i] != evil[j])
+                j = f[j];
+            f[i + 1] = evil[i] == evil[j] ? j + 1 : 0;
+        }
+// for (int i = 0 , j = 0 ; t[i] ; ++ i) {
+//     while (j &amp;&amp; t[i] != s[j])
+//         j = f[j];
+//     j += (t[i] == s[j]);
+//     if (j == m)
+//         printf(&quot;%d\n&quot;, i - m + 1);
+// }
+        memset(dp , 0 , sizeof(dp));
+        int cur = 0 , nxt = 1;
+        dp[cur][0][0][0] = 1;
+        
+        for (int i = 0 ; i &lt; n ; ++ i) {
+            memset(dp[nxt] , 0 , sizeof(dp[nxt]));
+            
+            for (int j = 0 ; j &lt; m ; ++ j) {
+                for (int mask = 0 ; mask &lt; 4 ; ++ mask) {
+                    if (!dp[cur][j][mask &gt;&gt; 1][mask &amp; 1]) {
+                        continue;
+                    }
+                    int&amp; val = dp[cur][j][mask &gt;&gt; 1][mask &amp; 1];
+                    
+                    int l = 0 , r = 25;
+                    //printf(&quot;?? %d [%d %d]\n&quot; , mask, l , r);
+                    if (!(mask &gt;&gt; 1)) {
+                        cout &lt;&lt; &quot;!!!&quot; &lt;&lt; endl;
+                        l = max(l, s1[i] - 'a');
+                    }
+                    if (!(mask &amp; 1)) {
+                        cout &lt;&lt; 233 &lt;&lt; endl;
+                        r = min(r, s2[i] - 'a');
+                    }
+                   // cout &lt;&lt; s1[i] - 'a' &lt;&lt; ' ' &lt;&lt; s2[i] - 'a' &lt;&lt; endl;
+                   // printf(&quot;%d %d %d %d = %d : [%d %d]\n&quot; , i , j , mask &gt;&gt; 1 , mask &amp; 1 , val, l , r);
+                    
+                    for (int c = l ; c &lt;= r ; ++ c) {
+                        int k = j;
+                        while (k &amp;&amp; 'a' + c != evil[k]) {
+                            k = f[k];
+                        }
+                        k += (k &lt; m &amp;&amp; 'a' + c == evil[k]);
+                        
+                        if (k == m) {
+                            continue;
+                        }
+                        
+<A NAME="1"></A>                        int na = (mask &gt;&gt; 1) || (c &gt; s1[i] - 'a');
+                        int nb = (mask &amp; 1)  || (c &lt; s2[i] - 'a');
+                        add(dp[nxt][k][na][nb] , val);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }   
+                }
+            }
+            swap(cur , nxt);
+        }
+        int res = 0;
+        for (int i = 0 ; i &lt; m ; ++ i) {
+            for (int j = 0 ; j &lt; 4  ; ++ j) {</B></FONT>
+                add(res, dp[cur][i][j &gt;&gt; 1][j &amp; 1]);
+            }
+        }
+        return res;    
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

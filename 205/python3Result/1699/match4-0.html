@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>367_Coup_De_Grace.py</TITLE>
+ <TITLE>812_pvkhoi.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>367_Coup_De_Grace.py</CENTER></H3><HR>
+<H3><CENTER>812_pvkhoi.py</CENTER></H3><HR>
 <PRE>
-class Solution:
-<A NAME="0"></A>    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        nums1.sort()
-        nums2.sort()
-        num1s <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= Counter([x*x for x in nums1])
-        num2s = Counter([x*x for x in nums2])
-        res = 0
-        for i in range(len(nums1)):
-            for j in range(i + 1, len(nums1)):
-                res += num2s[nums1[i] * nums1[j]]
-        for i in range(len(nums2)):
-            for j in range(i + 1, len(nums2)):
-                res += num1s[nums2[i] * nums2[j]]
-        re</B></FONT>turn res
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        n = len(nums1)
+        m = len(nums2)
         
+        d1 = defaultdict(int)
+        for i in range(n):
+            for j in range(i+1, n):
+                  d1[nums1[i] * nums1[j]] += 1
+        d2 = defaultdict(int)
+        for i in range(m):
+            for j in range(i+1, m):
+                  d2[nums2[i] * nums2[j]] += 1
+        
+        res = 0
+        for i in range(n):
+            res += d2[nums1[i]**2]
+        for i in range(m):
+            res += d1[nums2[i]**2]
+        re</B></FONT>turn res
 </PRE>
 
 </BODY>

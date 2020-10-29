@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_afterjourney.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_afterjourney.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    int n, m ; 
+    static const int MAXN = 510 ; 
+    struct Edge { 
+        int l, r, c, nxt; 
+    } e[MAXN * MAXN * 6] ; 
+    int ecnt = 0 , hed[MAXN * MAXN]; 
+    void addedge(int l, int r, int c) {
+        ++ ecnt ;
+        e[ecnt].l = l, e[ecnt].r = r, e[ecnt].c = c, e[ecnt].nxt = hed[l], hed[l] = ecnt; 
+    }
+    vector&lt;pair&lt;int, int&gt; &gt; tmp ; 
+    int get(int x, int y) { 
+        return x * m + y ; 
+    }
+    vector&lt;vector&lt;int&gt; &gt; ans ; 
+    int fa[MAXN *MAXN] ; 
+    int findfa(int x) { return fa[x] == x ? x : fa[x] = findfa(fa[x]) ; }
+    int dis[MAXN * MAXN], inq[MAXN * MAXN] ; 
+    queue&lt;int&gt; q ; 
+    void SPFA() { 
+        int N = n * m;
+        memset(dis, -1, sizeof dis) ; 
+        inq[N] = 1 ; 
+        dis[N] = 0 ; 
+        q.push(N) ;
+        while (q.size()) {
+            int cur = q.front(); 
+            q.pop(); 
+            inq[cur] = 0 ; 
+            for (int i = hed[cur]; i; i = e[i].nxt) {
+                int to = e[i].r, toc = dis[cur] + e[i].c ; 
+                if (toc &gt; dis[to]) {
+                    dis[to] = toc ; 
+                    if (!inq[to]) {
+                        inq[to] = 1 ;
+                        q.push(to) ; 
+                    }
+                }
+            }
+        } 
+    }
+    vector&lt;pair&lt;int, pair&lt;int, int&gt;&gt; &gt; tmpSort ; 
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        n = matrix.size() ; 
+        m = matrix[0].size(); 
+        for (int i = 0 ; i &lt; n *m; i ++) fa[i] = i ;
+        for (int i = 0; i &lt; n; i ++) { 
+            tmp.clear() ; 
+            for (int j = 0; j &lt; m; j ++) {
+                tmp.push_back(make_pair(matrix[i][j], j)) ; 
+            }
+            sort(tmp.begin(), tmp.end()) ; 
+            for (int j = 0; j + 1 &lt; m; j ++) {
+                if (tmp[j].first == tmp[j + 1].first) {
+                    fa[findfa(get(i, tmp[j].second))] = findfa(get(i, tmp[j + 1].second)) ; 
+                }
+            }
+        }
+        for (int j = 0; j &lt; m; j ++) {
+            tmp.clear() ; 
+            for (int i = 0; i &lt; n; i ++) { 
+                tmp.push_back(make_pair(matrix[i][j], i)) ; 
+            }
+            sort(tmp.begin(), tmp.end()) ; 
+            for (int i = 0; i + 1 &lt; n; i ++) {
+                if (tmp[i].first == tmp[i + 1].first) {
+                    fa[findfa(get(tmp[i].second, j))] = findfa(get(tmp[i +1].second, j)) ; 
+                }
+<A NAME="0"></A>            }
+        } 
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i ++) { 
+            tmp.clear() ; 
+            for (int j = 0; j &lt; m; j ++) {
+                tmp.push_back(make_pair(matrix[i][j], j)) ; 
+            }
+            sort(tmp.begin(), tmp.end()) ; 
+            for (int j = 0; j + 1 &lt; m; j ++) {
+                if (tmp[j].first == tmp[j + 1].first) {
+                }
+                else addedge(findfa(get(i, tmp[j].second)), findfa(get(i, tmp[j + 1].second)), 1) ; 
+            }
+        }
+        for (int j = 0; j &lt; m; j ++) {
+            tmp.clear() ; 
+            for (int i = 0; i &lt; n; i ++) { 
+                tmp.push_back(make_pair(matrix[i][j], i)) ; 
+            }
+            sort(tmp.begin(), tmp.end()) ; 
+            for (int i = 0; i + 1 &lt; n; i ++) {
+                if (tmp[i].first == tmp[i + 1].first) {
+                }
+                else addedge(findfa(get(tmp[i].second, j)), findfa(get(tmp[i + 1].second, j)), 1) ; 
+            }
+        } 
+        
+        for (int i = 0; i &lt; n;i ++) for (int j = 0; j &lt; m; j ++)</B></FONT>
+            tmpSort.push_back(make_pair(matrix[i][j], make_pair(i, j))) ; 
+        sort(tmpSort.begin(), tmpSort.end()) ; 
+        for (int i = 0; i &lt; n * m; i ++) {
+            int cur = get(tmpSort[i].second.first, tmpSort[i].second.second) ; 
+            if (findfa(cur) != cur) continue ; 
+            for (int x = hed[cur]; x; x = e[x].nxt) {
+                dis[e[x].r] = max(dis[e[x].r], dis[cur] + e[x].c) ; 
+            }
+        }
+        
+        for (int i = 0; i &lt; n; i ++) {
+            vector&lt;int&gt; tmpans ; 
+            for (int j = 0; j &lt; m; j ++) {
+                tmpans.push_back(dis[findfa(get(i, j))] + 1) ; 
+                
+            }
+            ans.push_back(tmpans) ; 
+        }
+        return ans ; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

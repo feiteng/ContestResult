@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_stardustdl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_stardustdl.cpp</CENTER></H3><HR>
+<PRE>
+struct seg{
+    int s, t, v;
+};
+bool cmp(seg a,seg b)
+{
+	return a.t &lt; b.t;
+}
+
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        vector&lt;seg&gt; segs;
+<A NAME="0"></A>        vector&lt;int&gt; ans,mx;
+        int l = s.size();
+        int first[26], last[26];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;26;i++){
+            first[i] = l + 1;
+            last[i] = -1;
+        }
+        for(int i=0;i&lt;l;i++){
+            int ch = s[i]-'a';</B></FONT>
+            first[ch] = min(first[ch], i);
+            last[ch] = max(last[ch], i);
+        }
+        for(int i=0;i&lt;26;i++){
+            if(last[i] == -1) continue;
+            while(true){
+                int tf = first[i], tl = last[i];
+                for(int j=tf;j&lt;=tl;j++){
+                    int ch = s[j]-'a';
+                    first[i] = min(first[ch], first[i]);
+                    last[i] = max(last[ch], last[i]);
+                }
+                if(first[i] == tf &amp;&amp; last[i]== tl)
+                    break;
+            }
+        }
+        for(int i=0;i&lt;26;i++){
+            if(last[i] == -1) continue;
+            segs.push_back((seg){first[i],last[i],10000000 - (last[i]-first[i]+1)});
+            mx.push_back(0);
+            ans.push_back(-1);
+        }
+        sort(segs.begin(),segs.end(),cmp);
+        mx[0] = segs[0].v;
+        for(int i=1;i&lt;segs.size();i++){
+            printf(&quot;%d %d\n&quot;, segs[i].s, segs[i].t);
+            mx[i]=segs[i].v;
+            ans[i]=-1;
+            for(int j=i-1;j&gt;=0;j--){
+                if(segs[j].t &lt; segs[i].s){
+                    if((segs[i].v + mx[j]) &gt; mx[i]){
+                        mx[i] = segs[i].v + mx[j];
+                        ans[i] = j;
+                    }
+<A NAME="1"></A>                }
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int val = -1, pos = -1;
+        for(int i=0;i&lt;segs.size();i++){
+            if(mx[i]&gt;val){
+                val = mx[i];
+                pos = i;
+            }
+        }</B></FONT>
+        vector&lt;string&gt; result;
+        for(int i=pos;i!=-1;i=ans[i]){
+            seg &amp;g = segs[i];
+            result.push_back(s.substr(g.s, g.t-g.s+1));
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

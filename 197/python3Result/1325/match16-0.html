@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>385_dabien1.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>385_dabien1.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        # 状态 是 num,prob ,只有prob比当前的大才替换，否则不继续进行
+        # 用bfs做
+        d= defaultdict(list)
+        for i in range(len(edges)):
+            u,v = edges[i]
+            w = succProb[i]
+            d[u].append([v,w])
+            d[v].append([u,w])
+        root = [[</B></FONT>start,1]]
+        dp = [0]*n
+        dp[start]=1
+        while root:
+            # w是已经遍历的累积权重
+<A NAME="1"></A>            a,w = root.pop(0)
+            # u是下一个点的编号，v是下一条边的权重
+            for u,v in d[a]:
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if w*v &gt;dp[u]:
+                    dp[u] = w*v
+                    root.append([u,w*v])
+        return dp[e</B></FONT>nd]
+</PRE>
+
+</BODY>
+</HTML>

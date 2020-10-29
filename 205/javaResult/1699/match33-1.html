@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>309_fighting_for_flag.java</TITLE>
+ <TITLE>104_arignote.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>309_fighting_for_flag.java</CENTER></H3><HR>
+<H3><CENTER>104_arignote.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
     public int numTriplets(int[] nums1, int[] nums2) {
-        int res=0;
-        Map&lt;Long,Integer&gt; set1=new HashMap&lt;&gt;();
-<A NAME="2"></A>        for(int a:nums1)
-        {
-            Long n1=new Long(a);</B></FONT>
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long r=n1*n1;
-            set1.put(r,set1.getOrDefault(r,0)+1);
-        }
-        for(int i=0;i&lt;nums2.length;i++){
-            for(int j=i+1;j&lt;nums2.length;j++){
-                Long n1=new Long(nums2[i]);</B></FONT>
-                Long n2=new Long(nums2[j]);
-                long r=n1*n2;
-                res+=set1.getOrDefault(r,0);
+<A NAME="1"></A>        HashMap&lt;Long, Integer&gt; map1 = new HashMap&lt;&gt;(), map2 = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums1.length; i++) {
+            for (int j = i + 1; j &lt; nums1.length; j++) {</B></FONT>
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map1.put((long) nums1[i] * nums1[j], map1.getOrDefault((long) nums1[i] * nums1[j], 0) + 1);
+            }
+<A NAME="2"></A>        }
+        for (int i = 0; i &lt; nums2.length; i++) {
+            for (int j = i + 1; j &lt; nums2.length; j++) {</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map2.put((long) nums2[i] * nums2[j], map2.getOrDefault((long) nums2[i] * nums2[j], 0) + 1);
             }
         }
-        
-        Map&lt;Long,Integer&gt; set2=new HashMap&lt;&gt;();
-        for(int a:nums2)
-<A NAME="1"></A>        {
-            Long n1=new Long(a);
-            long r=n1*n1;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>set2.put(r,set2.getOrDefault(r,0)+1);
+        int count = 0;
+        for (long num : nums1) {
+            count += map2.getOrDefault(num * num, 0);
         }
-        for(int i=0;i&lt;nums1.length;i++){
-            for(int j=i+1;j&lt;nums1.length;j++){
-<A NAME="3"></A>                Long n1=new Long(nums1[i]);</B></FONT>
-                Long n2=new Long(nums1[j]);
-                long r=n1*n2;
-                res+=<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#3',2,'match33-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>set2.getOrDefault(r,0);
-            }
+        for (long num : nums2) {
+            count += map1.getOrDefault(num * num, 0);
         }
-        
-        return res;
+        return count;
     }
 }</B></FONT>
 </PRE>

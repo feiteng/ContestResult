@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>127_xunrui.py</TITLE>
+ <TITLE>148_lostleaf.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>127_xunrui.py</CENTER></H3><HR>
+<H3><CENTER>148_lostleaf.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        ans = 0
-        i = 0
-        while i&lt;len(s):
-            j = i+1
-            ss = cost[i]
-            maxs = cost[i]
-            while j&lt;len(s) and s[j] == s[i]:
-                ss +=</B></FONT> cost[j]
-                maxs = max(maxs,cost[j])
-                j += 1
-            if j&gt;i+1:
-                ans += ss - maxs
-            i = j
-        return ans
+        s = ' ' + s
+        cost = [0] + cost
+        l = len(s)
+        MAX = 1e100
+        f = [[MAX] * 27]
+        f[0][26] = 0
+        for i in range(1, l):
+            # remove
+            f.append(list(f[i - 1]))
+            for j in range(27):
+                if f[i][j] == MAX: continue
+                f[i][j] += cost[i]
+                
+            # keep i
+            k = ord(s[i]) - 97
+            for j in range(27):
+                if k != j and f[i - 1][j] &lt; MAX:
+                    f[i][k] = min(f[i][k], f[i - 1][j])
+        # print(f)
+        return min(f[l</B></FONT> - 1])
 </PRE>
 
 </BODY>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_ericzhang98.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_ericzhang98.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minNumberOfFrogs(self, croakOfFrogs: str) -&gt; int:
+        cnts = collections.Counter()
+        ans = 0
+        curr = 0
+        for c in croakOfFrogs:
+            # print(c)
+<A NAME="0"></A>            # print(cnts)
+            if c == 'c':
+                cnts['c'] += 1
+                curr <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>+= 1
+            elif c == 'r':
+                if cnts['c'] == 0: return -1
+                cnts['c'] -= 1
+                cnts['r'] += 1
+            elif c == 'o':
+                if cnts['r'] == 0: return -1
+                cnts['r'] -= 1
+                cnts['o'] += 1
+            elif c == 'a':
+                if cnts['o'] == 0: return -1
+                cnts['o'] -= 1
+                cnts['a'] += 1
+            elif c == 'k':
+                if cnts['a'] == 0: return -1
+                cnts['a'] -= 1
+                curr -</B></FONT>= 1
+            ans = max(curr, ans)
+                
+        print(cnts)
+        if cnts['c'] == cnts['r'] == cnts['o'] == cnts['a'] == 0:
+            return ans
+        else:
+            return -1
+</PRE>
+
+</BODY>
+</HTML>

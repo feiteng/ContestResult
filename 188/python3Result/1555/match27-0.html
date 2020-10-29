@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>633_bpnew.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>633_bpnew.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        r, c = len(pizza), len(pizza[0])
+        import collections
+        cn = collections.defaultdict(int)
+        for i in range(r):
+            for j in range(c):
+                cn[i, j] = -cn[i - 1, j - 1] + cn[i - 1, j] + cn[i, j - 1] + (pizza[i][j] == 'A')
+        mod = 10 ** 9 + 7
+        def cp(x1, y1, x2, y2):
+<A NAME="0"></A>            return cn[x2, y2] - cn[x2, y1 - 1] - cn[x1 - 1, y2] + cn[x1 - 1, y1 - 1]
+        @lru_cache(None)
+        def f(x1, y1, x2, y2, k):
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if k == 1:
+                return 1 if cp(x1, y1, x2, y2) &gt; 0 else 0
+            ans = 0
+            for i in range(x1 + 1, x2 + 1):
+                if cp(x1, y1, i - 1, y2) &gt; 0:
+                    ans += f(i, y1, x2, y2, k - 1)
+            for i in range(y1 + 1, y2 + 1):
+                if cp(x1, y1, x2, i - 1) &gt; 0:
+                    ans += f(x1, i, x2, y2, k - 1)
+            return ans % mod
+        return f(0</B></FONT>, 0, r - 1, c - 1, k)        
+</PRE>
+
+</BODY>
+</HTML>

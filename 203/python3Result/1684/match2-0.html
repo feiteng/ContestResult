@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>630_yuanhaowang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>630_yuanhaowang.py</CENTER></H3><HR>
+<PRE>
+class DSU:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.depth = [0 for i in range(n)]
+        self.size = [0 for i in range(n)]
+<A NAME="0"></A>        self.count = collections.defaultdict(int)
+    
+    def findParent(self, n):
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if self.parent[n] != n:
+            self.parent[n] = self.findParent(self.parent[n])
+        return self.parent[n]
+<A NAME="1"></A>
+    def union(self, x, y):
+        x_parent = self.findParent(</B></FONT>x)
+        y_parent = self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.findParent(y)
+        
+        if x_parent == y_parent:
+            return
+            
+        self.count[self.size[y_parent]] -= 1
+        self.count[self.size[x_parent]] -= 1
+        
+<A NAME="2"></A>        if self.depth[x_parent] &gt;= self.depth[y_parent]:
+            self.parent[y_parent] = x_parent
+            self.size[x_parent] += self.size[y_parent]
+            self.depth[</B></FONT>x_parent] += (self.depth[x_parent] == self<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.depth[y_parent])
+            
+            self.count[self.size[x_parent]] += 1
+            
+        else:
+            self.parent[x_parent] = y_parent
+<A NAME="3"></A>            self.size[</B></FONT>y_parent] += self.size[x_parent]
+            self.depth[y_parent] += 1
+            
+            self<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match2-1.html#3',3,'match2-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.count[self.size[y_parent]] += 1
+        
+        
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        last_step =</B></FONT> -1
+        bits = [0] * len(arr)
+        dsu = DSU(len(arr))
+        
+        for i in range(len(arr)):
+            idx = arr[i] - 1
+            bits[idx] = 1
+            
+            dsu.size[idx] = 1
+            dsu.count[1] += 1
+            
+            cur_size = 1
+            
+            if idx &gt; 0:
+                if bits[idx - 1]:
+                    dsu.union(idx-1, idx)
+            if idx &lt; len(arr) - 1:
+                if bits[idx + 1]:
+                    dsu.union(idx+1, idx)
+            if dsu.count[m] &gt; 0:
+                last_step = i+1
+            
+            # print(dsu.parent)
+            # print(dsu.size)
+            # print(dsu.count)
+            # print()
+        
+        return last_step
+        
+</PRE>
+
+</BODY>
+</HTML>

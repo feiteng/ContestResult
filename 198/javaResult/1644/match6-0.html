@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>571_yge2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>571_yge2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class D implements Comparable&lt;D&gt; {
+        int x, y;
+        Set&lt;Integer&gt; z;
+        boolean[] b;
+        boolean f;
+        public D(int xx, int yy, int zz) {
+            x = xx;
+            y = yy;
+            z = new HashSet&lt;&gt;();
+            z.add(zz);
+            b = new boolean[26];
+            f = true;
+        }
+        public int compareTo(D d) {
+            return x - d.x;
+        }
+        public void combine(D d) {
+            x = Math.min(x, d.x);
+            y = Math.max(y, d.y);
+            z.addAll(d.z);
+            f &amp;= d.f;
+            for (int i=0; i&lt;26; i++)
+                b[i] |= d.b[i];
+        }
+        public boolean contains(D d) {
+            for (int x : d.z)
+                if (b[x])
+                    return true;
+<A NAME="0"></A>            return false;
+        }
+    }
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        int[] a = new int[26];
+        int[] b = new int[26];
+        int n = s.length</B></FONT>();
+        for (int i=0; i&lt;26; i++) {
+<A NAME="1"></A>            a[i] = n+1;
+            b[i] = -1;
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0; i&lt;n; i++) {
+            int c = s.charAt(i) - 'a';
+            a[c] = Math.min(a[c], i);
+            b[c] = Math.max(b[c], i);
+        }
+        List&lt;D&gt; l = new ArrayList&lt;&gt;();
+        for (int i=0; i&lt;26; i++) {
+            if</B></FONT> (a[i] != n + 1 &amp;&amp; b[i] != -1)
+                l.add(new D(a[i], b[i], i));
+        }
+        for (D d : l) {
+            for (int i=d.x; i&lt;=d.y; i++)
+                d.b[s.charAt(i) - 'a'] = true;
+        }
+<A NAME="2"></A>        Collections.sort(l);
+        D cur = l.get(0);
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Stack&lt;D&gt; st = new Stack&lt;&gt;();
+        for (int i=1; i&lt;l.size(); i++) {
+            D next = l.get(i);
+            if</B></FONT> (next.x &gt; cur.y) {
+                if (cur.f)
+                    ans.add(s.substring(cur.x, cur.y+1));
+                if (!st.isEmpty()) {
+                    cur = st.pop();
+                    cur.f = false;
+                    i--;
+                } else {
+                    cur = next;
+                }
+            } else if (next.y &lt; cur.y &amp;&amp; !next.contains(cur)) {
+                st.push(cur);
+                cur = next;
+            } else {
+                cur.combine(next);
+                while (!st.isEmpty() &amp;&amp; (cur.y &gt; st.peek().y || cur.contains(st.peek()))) {
+                    cur.combine(st.pop());
+                }
+            }
+        }
+        if (cur.f)
+            ans.add(s.substring(cur.x, cur.y+1));
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

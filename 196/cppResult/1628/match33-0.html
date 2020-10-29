@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>375_janwei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>375_janwei.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numSubmat(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int NR = mat.size();
+        int NC = mat[0].size();
+        vector&lt;vector&lt;int&gt;&gt; longest(NR, vector&lt;int&gt;(NC));</B></FONT>
+        for(int i = 0; i &lt; NR; i++) {
+            int ones = 0;
+            for(int j = 0; j &lt; NC; j++) {
+                if(mat[i][j]) {
+                    ++ones;
+                } else {
+                    ones = 0;
+                }
+<A NAME="1"></A>                longest[i][j] = ones;
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
+<A NAME="2"></A>        for(int i = 0; i &lt; NR; i++) {
+            for(int j = 0; j &lt; NC; j++) {
+                if(mat[i][j]) {</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int minimum = 1e9;
+                    for(int k = i; k &gt;= 0; k--) {
+                        if(!mat[k][j]) {
+                            break;
+                        }
+                        minimum = min(minimum, longest[k][j]);
+                        ans += minimum;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>66_heshan1234.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>66_heshan1234.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[][] matrixRankTransform(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        Node[][] nodes = new Node[m][n];
+<A NAME="0"></A>        for(int i = 0; i &lt; m; ++i) {
+            for(int j = 0; j &lt; n; ++j) {
+                nodes[i][j] = new Node(i, j, matrix[i][j]);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        // row dependency.
+        for(int i = 0; i &lt; m; ++i) {
+            List&lt;Node&gt; row = new ArrayList&lt;&gt;();
+            for(int j = 0; j &lt; n; ++j) {
+                row.add</B></FONT>(nodes[i][j]);
+            }
+            Collections.sort(row, (a, b) -&gt; Integer.compare(a.value, b.value));
+            for(int j = 1; j &lt; n; ++j) {
+                Node p = row.get(j-1);
+<A NAME="1"></A>                Node current = row.get(j);
+                if (current.value &gt; p.value) {
+                    current.find().prev.add(p);
+                } else <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    current.union(p);
+                }
+            }
+        }
+        // col dependency.
+        for(int j = 0; j &lt; n; ++j) {
+            List&lt;Node&gt; col = new ArrayList&lt;&gt;();
+            for(int i = 0; i &lt; m; ++i) {
+                col.add</B></FONT>(nodes[i][j]);
+            }
+            Collections.sort(col, (a, b) -&gt; Integer.compare(a.value, b.value));
+            for(int i = 1; i &lt; m; ++i) {
+                Node p = col.get(i-1);
+                Node current = col.get(i);
+                if (current.value &gt; p.value) {
+                    current.find().prev.add(p);
+<A NAME="2"></A>                } else {
+                    current.union(p);
+                }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match3-1.html#2',3,'match3-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        // result.
+        int[][] result = new int[m][n];
+        for(int i = 0; i &lt; m; ++i) {
+            for(int j = 0; j &lt; n; ++j) {</B></FONT>
+                result[i][j] = nodes[i][j].find().getRank();
+            }
+        }
+        return result;
+    }
+    
+    static class Node {
+        
+        Node parent = this;
+        int size = 1;
+        
+        int x;
+        int y;
+        int value;
+<A NAME="3"></A>        int rank = -1;
+        Set&lt;Node&gt; prev = new HashSet&lt;&gt;();
+        
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match3-1.html#3',3,'match3-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Node(int x, int y, int value) {
+            this.x = x;
+            this.y = y;
+            this.value = value;
+        }
+        
+        Node find() {</B></FONT>
+            if (parent != this) {
+                parent = parent.find();
+            }
+<A NAME="4"></A>            return parent;
+        }
+        
+        void union(<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match3-1.html#4',3,'match3-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Node that) {
+            Node x = this.find();
+            Node y = that.find();
+            if (x == y) {
+                return;
+            }
+            if (x.size &lt; y.size) {</B></FONT>
+                Node tmp = x;
+                x = y;
+                y = tmp;
+            }
+            y.parent = x;
+            x.size += y.size;
+            x.prev.addAll(y.prev);
+        }
+        
+        int getRank() {
+            if (rank == -1) {
+                if (prev.isEmpty()) {
+                    rank = 1;
+                } else {
+                    int max = 0;
+                    for(Node node : prev) {
+                        max = Math.max(max, node.find().getRank());
+                    }
+                    rank = max + 1;
+                }
+            }
+            return rank;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

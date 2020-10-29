@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_DylanSmith.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>268_DylanSmith.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int kthSmallest(int[][] mat, int k) {
+        Queue&lt;Choice&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a.sum(m</B></FONT>at) - b.sum(mat));
+        Choice start = new Choice();
+<A NAME="1"></A>        start.indexes = new int[mat.length];
+        pq.offer(start);
+        HashSet&lt;String&gt; added = new HashSet&lt;&gt;();
+        added.add(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>start.toString());
+        for (int i = 0; i &lt; k - 1; i++) {
+            Choice c = pq.poll();
+            for (int j = 0; j &lt; mat.length; j++) {
+                if (c.indexes[j] &lt; mat[j].length - 1) {
+                    c.indexes[j]++;
+                    Choice c2 = new Choice()</B></FONT>;
+                    c2.indexes = Arrays.copyOf(c.indexes, mat.length);
+<A NAME="2"></A>                    c.indexes[j]--;
+                    if (!added.contains(c2.toString())) {
+                        pq.offer(c2);
+                        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>added.add(c2.toString());
+                    }
+                }
+            }
+        }
+        return pq.peek().sum</B></FONT>(mat);
+    }
+}
+class Choice {
+    int[] indexes;
+    public int sum(int[][] mat) {
+        int sum = 0;
+        for (int i = 0; i &lt; mat.length; i++) {
+            sum += mat[i][indexes[i]];
+        }
+        return sum;
+    }
+    public String toString() {
+        String res = &quot;&quot;;
+        for (int i : indexes) {
+            res += (char)(i + '0');
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

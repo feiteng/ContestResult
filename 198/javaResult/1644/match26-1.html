@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>409_YuhanWu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>409_YuhanWu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        int n = s.length();
+        int[][] range = new int[26][2];
+        int[][] preSum = new int[26][n];
+        for(int i=0; i&lt;26; i++){
+            range[i][0] = Integer.MAX_VALUE;
+            range[i][1] = Integer.MIN_VALUE;
+        }
+        for(int i=0; i&lt;n; i++){
+            char c = s.charAt(i);
+            range[c-'a'][0] = Math.min(range[c-'a'][0], i);
+            range[c-'a'][1] = Math.max(range[c-'a'][1], i);
+            if(i!=0){
+                for(int j=0; j&lt;26; j++){
+                    preSum[j][i] = preSum[j][i-1];
+                }
+            }
+            preSum[c-'a'][i]++;
+        }
+        // Arrays.sort(range, (a, b)-&gt;(b[1]-a[1]));
+<A NAME="0"></A>        List&lt;Integer&gt;[] graph = new List[26];
+        for(int i=0; i&lt;26; i++){
+            graph[i] = new ArrayList();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for(int i=0; i&lt;26; i++){
+            if(range[i][0]!=Integer.MAX_VALUE){
+                int lo = range[i][0];
+                int hi = range[i][1];
+                for(int j=0; j&lt;26; j++){
+                    if</B></FONT>(preSum[j][lo]!=preSum[j][hi]){
+                        graph[i].add(j);                    
+                    }
+                }
+            }
+        }
+        HashSet&lt;List&lt;Integer&gt;&gt; set = new HashSet();
+        for(int i=0; i&lt;26; i++){
+            if(range[i][0]!=Integer.MAX_VALUE){
+                set.add(buildSet(graph, i, new boolean[26], range));
+            }
+        }
+        List&lt;List&lt;Integer&gt;&gt; intervals = new ArrayList(set);
+        Collections.sort(intervals, (a,b)-&gt;(a.get(1)-b.get(1)));
+        // System.out.println(intervals);
+        List&lt;String&gt; res = new ArrayList();
+        int prevEnd = -1;
+<A NAME="2"></A>        for(List&lt;Integer&gt; interval : intervals){
+            if(interval.get(0)&gt;prevEnd){
+                prevEnd = interval.get(1);
+                res.add(s.substring(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>interval.get(0), interval.get(1)+1));
+            }
+        }
+        return res;
+    }</B></FONT>
+    
+    public List&lt;Integer&gt; buildSet(List&lt;Integer&gt;[] graph, int node, boolean[] visited, int[][] range){
+        int min = range[node][0];
+        int max = range[node][1];
+        visited[node] = true;
+<A NAME="1"></A>        for(int child: graph[node]){
+            if(!visited[child]){
+                List&lt;Integer&gt; childRes = buildSet(graph, child, visited, range);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>min = Math.min(min, childRes.get(0));
+                max = Math.max(max, childRes.get(1));
+            }
+        }</B></FONT>
+        List&lt;Integer&gt; res = new ArrayList();
+        res.add(min);
+        res.add(max);
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

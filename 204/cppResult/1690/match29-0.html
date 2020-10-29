@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>487_chenreddy0207.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>487_chenreddy0207.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int getMaxLen(vector&lt;int&gt;&amp; nums) {
+        
+        int n=nums.size();
+        
+        int prev_zero=-1;
+<A NAME="1"></A>        int num_of_negative=0;
+        int negative_pos=-2;</B></FONT>
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int max_len=0;
+        
+        for(int i=0;i&lt;n;i++)
+        {
+            if(nums[i]==0)
+            {
+                prev_zero=i;
+                num_of_negative=0;
+            }
+            else if(nums[i]&lt;0)</B></FONT>
+            {
+                num_of_negative++;
+            }
+            
+            if(negative_pos&lt;prev_zero and num_of_negative%2==1)     negative_pos=i;
+            
+            int len=i-prev_zero;
+            
+            //cout&lt;&lt;prev_zero&lt;&lt;&quot; &quot;&lt;&lt;num_of_negative&lt;&lt;&quot; &quot;&lt;&lt;len&lt;&lt;endl;
+            if(num_of_negative%2==0 and max_len&lt;len)     max_len=len;
+            //cout&lt;&lt;max_len&lt;&lt;endl;
+            
+            
+            if(negative_pos&lt;prev_zero)      continue;
+            
+            len=i-negative_pos;
+            
+            //cout&lt;&lt;negative_pos&lt;&lt;&quot; neg &quot;&lt;&lt;num_of_negative&lt;&lt;&quot; &quot;&lt;&lt;len&lt;&lt;endl;
+            if(num_of_negative%2==1 and max_len&lt;len)     max_len=len;
+            //cout&lt;&lt;max_len&lt;&lt;endl;
+            
+        }
+        //cout&lt;&lt;endl;
+        
+        return max_len;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

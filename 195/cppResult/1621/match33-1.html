@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>453_user8063k.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>453_user8063k.cpp</CENTER></H3><HR>
+<PRE>
+#define ll long long 
+<A NAME="0"></A>ll m=1e9+7;
+ll power(ll a,ll b)
+{
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    ll res=1;
+    while(b&gt;0)
+    {
+        if(b&amp;1) res=(res*a)%m;
+        b=b/2;
+        a=(a*a)%m;
+    }
+    return res;
+}
+class Solution {
+public:
+    int numSubseq(vector&lt;int&gt;&amp; a, int k) 
+    {
+        ll n=a.size(),ans=0;</B></FONT>
+        sort(a.begin(),a.end());
+        for(ll i=0;i&lt;a.size();i++) 
+        {
+            int x=k-a[i];
+            ll j=upper_bound(a.begin(),a.end(),x)-a.begin();
+            if(j-1&gt;=i) ans=(ans+power(2ll,j-1-i))%m;
+        }
+        return (int)ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

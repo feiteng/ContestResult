@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>213_Gaurav_8.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>213_Gaurav_8.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class TreeAncestor {
+
+    int[][] arr;
+    
+    public TreeAncestor(int n, int[] parent) {
+<A NAME="1"></A>        arr = new int[n][20];
+        for(int i = 0; i &lt; n; i++) {</B></FONT>
+            Arrays.fill(arr[i], -1);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>arr[i][0] = parent[i];
+<A NAME="2"></A>        }
+        for(int j = 1; j &lt; arr[0].length; j++) {
+            for(int i = 0; i &lt; parent.length; i++) {
+                if</B></FONT>(arr[i][j - 1] != -1) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    arr[i][j] = arr[arr[i][j - 1]][j - 1];
+                }
+            }
+        }
+    }
+    
+    public int getKthAncestor(int node, int k) {
+        for(int j = 17; j &gt;= 0 &amp;&amp; node != -1; j--) {
+            if(((k &gt;&gt; j) &amp; 1) == 1) {</B></FONT>
+                // System.out.println(node + &quot; &quot; + k);
+                node = arr[node][j];
+            }
+        }
+        return node;
+    }
+}
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor obj = new TreeAncestor(n, parent);
+ * int param_1 = obj.getKthAncestor(node,k);
+ */
+</PRE>
+
+</BODY>
+</HTML>

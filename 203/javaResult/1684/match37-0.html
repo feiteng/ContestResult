@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>298_iejepwy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>298_iejepwy.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.List;
+
+<A NAME="0"></A>class Solution {
+    public int findLatestStep(int[] arr, int m) {
+        int n=arr.length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;Integer&gt; list=new ArrayList&lt;&gt;(n);
+        list.add(0);
+        list.add(n+1);
+        if(n==m){
+            return n;
+        }
+        for(int i=n-1;i&gt;=0;i--){
+            int index=f</B></FONT>(list,arr[i]);
+<A NAME="1"></A>            if(list.get(index)-arr[i]-1==m){
+                return i;
+            }
+            if(arr[i]-list.get(index-1)-1==m)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                return i;
+            }
+            list.add(index,arr[i]);
+        }
+        return -1;
+    }</B></FONT>
+    int f(List&lt;Integer&gt; list,int v){
+        int l=0;
+        int r=list.size()-1;
+        while(l&lt;r){
+            int m=(l+r)/2;
+            if (v&lt;=list.get(m)){
+                r=m;
+            }else{
+                l=m+1;
+            }
+        }
+        return r;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

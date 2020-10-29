@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>388_je390.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>388_je390.py</CENTER></H3><HR>
+<PRE>
+class Solution(object):
+    def cherryPickup(self, grid):
+        &quot;&quot;&quot;
+<A NAME="0"></A>        :type grid: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        c <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(grid[0])  
+        dp = [[-float('inf') for v in range(c)] for u in range(c)]
+        dp[0][c-1] = grid[0][0] + grid[0][c-1]
+        
+        
+        for i in range(</B></FONT>1, len(grid)):
+            
+            prev = dp[::]
+            
+<A NAME="1"></A>            dp = [[-float('inf') for v in range(c)] for u in range(c)]
+            for u in range(c):
+                for v in range(c):
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for pu in [u-1, u, u+1]:
+                        for pv in [v-1,v,v+1]:
+                            if 0 &lt;= pu &lt; c and 0&lt;= pv &lt; c:
+                                dp[u][v] = max(dp[u][v], grid[i][u] + grid[i][</B></FONT>v] -(grid[i][v] if u == v else 0)+ prev[pu][pv])
+        return max([max(l) for l in dp])
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>666_mrtong_liu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>666_mrtong_liu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int stoneGameV(int[] s) {
+        int n = s.length;
+        int[] sum = new int[n];
+        int[][] dp = new int[n][n];
+        sum[0] = s[0];
+        for (int i = 1; i &lt; n; i++) {
+            sum[i] = sum[i - 1] + s[i];
+        }
+        for (int len = 1; len &lt; n; len++) {
+<A NAME="1"></A>            for (int l = 0; l + len &lt; n; l++) {</B></FONT>
+                int sumL = s[l], r = l + len, sumR = sum[r] - sum[l];
+                for (int m = l + 1; m &lt;= r; m++) {
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (sumL &gt; sumR) {
+                        dp[l][r] = Math.max(dp[l][r], dp[m][r] + sumR);
+<A NAME="2"></A>                    } else if (sumL &lt; sumR) {
+                        dp[l][r] = Math.max(dp[l][r], dp[l][m - 1] + sumL);
+                    } else {
+                        dp[l][r] = Math.max</B></FONT>(dp[l][r], <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(dp[l][m - 1], dp[m][r]) + sumL);
+                    }
+                    sumL += s[m];
+                    sumR -= s[m];
+                }
+            }
+        }
+        return dp[0][n - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

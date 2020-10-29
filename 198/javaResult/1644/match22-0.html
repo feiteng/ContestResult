@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>96_happyleetcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>96_happyleetcode.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int find(int i) {
+        if (i == par[i]) return i;
+        return par[i] = find(par[i]);
+    }
+    boolean union(int i, int j) {
+        int pi = find(i), pj = find(j);
+        if (pi == pj) return false;
+        par[pi] = pj;
+        st[pj] = Math.min(st[pi], st[pj]);
+        ed[pj] = Math.max(ed[pi], ed[pj]);
+        return true;
+    }
+    int[] par, st, ed;
+    List&lt;String&gt; res = new ArrayList&lt;&gt;();
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        st = new int[26];
+        ed = new int[26];
+        int l = s.length();
+        Arrays.fill(st, l);
+        char[] cs = s.toCharArray();
+        List&lt;Integer&gt;[] map = new List[26];
+        for (int i = 0; i &lt; 26; i++) map[i] = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; cs.length; i++) {
+            int idx = cs[i] - 'a';
+            map[idx].add(i);
+            st[idx] = Math.min(st[idx], i);
+            ed[idx] = Math.max(ed[idx], i);
+        }
+        
+        par = new int[26];
+        for (int i = 0; i &lt; 26; i++) 
+            par[i] = (st[i] == l) ? -1 : i;
+        for (int i = 0; i &lt; 26; i++) {
+            int ist = st[i], ied = ed[i];
+            if (st[i] == l) continue;
+            for (int j = 0; j &lt; 26; j++) {
+                if (i == j || st[j] == l) continue;
+                int jst = st[j], jed = ed[j];
+                if (ist &lt; jst &amp;&amp; ied &gt; jst &amp;&amp; ied &lt; jed) union(i, j);
+                else if (jst &lt; ist &amp;&amp; jed &gt; ist &amp;&amp; jed &lt; ied) union(i, j);
+                else if (ist &gt; jst &amp;&amp; ied &lt; jed) {
+                    List&lt;Integer&gt; tp = map[j];
+                    //System.out.println(i + &quot;,&quot; + j + &quot;:&quot; + tp);
+                    int from = Collections.binarySearch(tp, ist);
+                    int to = Collections.binarySearch(tp, ied);
+                    //System.out.println(from + &quot;,&quot; + to);
+                    if (from != to) union(i, j);
+                    // 
+                }
+                
+            }
+        }
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;((a,b)-&gt;Integer.compare(ed[a]-st[a], ed[b]-st[b]));
+<A NAME="0"></A>        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; 26; i++) {
+            if (par[i] == -1) continue;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int k = find(i);
+            if (set.add(k))
+<A NAME="1"></A>                pq.offer(k);
+        }
+        List&lt;Integer&gt; tmp = new</B></FONT> ArrayList&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!pq.isEmpty()) {
+            int k = pq.poll();
+            boolean overlap = false;
+            int from = st[k], to = ed[k];
+            for (int i</B></FONT> : tmp) {
+                if (to &lt; st[i] || from &gt; ed[i]) continue;
+                overlap = true;
+<A NAME="2"></A>                break;
+            }
+            if (!overlap) {
+                res.add(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>s.substring(st[k], ed[k] + 1));
+                tmp.add(k);
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

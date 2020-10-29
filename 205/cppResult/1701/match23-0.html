@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>555_rgkbitw.cpp</TITLE>
+ <TITLE>136_ryanhe312.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,86 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>555_rgkbitw.cpp</CENTER></H3><HR>
+<H3><CENTER>136_ryanhe312.cpp</CENTER></H3><HR>
 <PRE>
-class DSU{
-    int n;
-    vector&lt;int&gt; par, sz;
-    int comp;
-public:
-    DSU(int n1){
-        n = n1;
-        sz.assign(n, 1);
-        par.assign(n, 0);
-        for(int i=0; i&lt;n; ++i){
-            par[i] = i;
-        }
-        comp = n;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+	static int ufind(int x,vector&lt;int&gt;&amp; uset){
+	    if(uset[x]&lt;0) return x;
+	    else return  uset[x]=ufind(uset[x],uset);
+	}
+	
+	static void umerge(int x,int y,vector&lt;int&gt;&amp; uset){
+	    x=ufind(x,uset),y=ufind(y,uset);
+	    if(x==y) return;
+	    if(uset[x]&gt;uset[y]) swap(x,y);
+	    uset[x]+=uset[y],uset[y]=x;
     }
     
-    int root(int u){
-        if( par[u] == u ){ return u; }
-        return par[u] = root(par[u]);
+    static bool cmp(const vector&lt;int&gt;&amp;a,const vector&lt;int&gt;&amp;b){
+        return a[0]&gt;b[0];
     }
-    
-    bool unite(int a, int b){
-        int x = root(a);
-        int y = root(b);
-        if( x == y ){ return false; }
-        if( sz[y] &gt; sz[x] ){ swap(x, y); }
-        par[y] = x;
-        sz[x] += sz[y];
-        comp--;
-        return true;
-    }
-    int getComp(){
-        return comp;
-    }
-};
-class Solution {
+
 public:
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        ios::sync_with_stdio(false);
-        cin.tie(nullptr);
-<A NAME="0"></A>        
-        DSU ds(n), ds2(n);
-        int ans = 0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int a1 = 0, a2 = 0;
-        for(auto i : edges){
-            if( i[0] == 3 ){
-                int u = i[1]-1;
-                int v = i[2]-1;
-                if( ds.unite(u, v) == false ){
-                    ++ans;
-                }
-                if( ds2.unite(u, v) == false){
-                    // 
-                }
+        vector&lt;int&gt; uset1(n+1,-1);
+	    vector&lt;int&gt; uset2(n+1,-1);
+        
+        sort(edges.begin(),edges.end(),cmp);
+        int cnt=0,cnt1=0,cnt2=0;
+        for(auto e:edges){
+            if(e[0]==3){
+                int u1a=ufind(e[1],uset1),u1b=ufind(e[2],uset1);
+                int u2a=ufind(e[1],uset2),u2b=ufind(e[2],uset2);
+                if(u1a==u1b and u2a==u2b) continue;
+                cnt++,cnt1++,cnt2++;
+                umerge(u1a,u1b,uset1);
+                umerge(u2a,u2b,uset2);
+            }
+            else if(e[0]==1){
+                int u1a=ufind(e[1],uset1),u1b=ufind(e[2],uset1);
+                if(u1a==u1b) continue;
+                cnt++,cnt1++;
+                umerge(u1a,u1b,uset1);
+            }
+            else{
+                int u2a=ufind(e[1],uset2),u2b=ufind(e[2],uset2);
+                if(u2a==u2b) continue;
+                cnt++,cnt2++;
+                umerge(u2a,u2b,uset2);
             }
         }
-        for(auto i : edges){
-            if( i[0] == 1 ){
-                int u = i[1] - 1;
-                int v = i[2] - 1;
-                if( ds.unite(u, v) == false ){
-                    ++a1;
-<A NAME="1"></A>                }</B></FONT>
-            }
+        if(cnt1==n-1 and cnt2==n-1) {
+            return edges.size()-cnt;
         }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if( ds.getComp() != 1 ){ return -1; }
-        for(auto i : edges){
-            if( i[0] == 2 ){
-                int u = i[1] - 1;
-                int v = i[2] - 1;
-                if( ds2.unite(u, v) == false ){
-                    ++a2;
-                }</B></FONT>
-            }
+        else{
+            return -1;
         }
-        if( ds2.getComp() != 1 ){ return -1; }
-        return ans + a1 + a2;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

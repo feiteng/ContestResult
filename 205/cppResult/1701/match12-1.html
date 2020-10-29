@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>449_yajc.cpp</TITLE>
+ <TITLE>116_dibas1.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,84 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>449_yajc.cpp</CENTER></H3><HR>
+<H3><CENTER>116_dibas1.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int par(int u,vector&lt;int&gt; &amp;p){
+    if(u==p[u]) return u;
+     return p[u]=par(p[u],p);
+}
+void unite(int a,int b,vector&lt;int&gt; &amp;p,int &amp;ans,vector&lt;bool&gt; &amp;visa,vector&lt;bool&gt; &amp;visb){
+    visa[a]=1;
+    visb[b]=1;
+    visa[b]=1;
+    visb[a]=1;
+    a=par(a,p);
+    b=par(b,p);
+    if(a!=b) p[b]=a;
+    else ans++;
+}
 class Solution {
 public:
-    
-    int find (vector&lt;int&gt;  &amp;f, int p) {
-            if (f[p] != p) {
-                f[p] = find(f, f[p]);
-            }  
-        
-        return f[p];
-    }
-    void unite(vector&lt;int&gt;  &amp;f, int p, int q) {
-        int pp = find(f, p);
-        int pq = find(f, q);
-        
-        if (pp != pq) {
-            f[pq] = pp;
-            
-        }
-<A NAME="0"></A>    }
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector&lt;int&gt; fa(n + 1, 0);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; fb(n + 1, 0);
-        for (int i = 1 ;i &lt;=  n; ++i) fa[i] = i, fb[i] = i; 
-        int res = 0;
-        for(auto e : edges) {
-            if (e[0] == 3) {
-                int p = e[1], q = e[2];
-                int pp = find(fa, p);</B></FONT>
-<A NAME="1"></A>                int pq = find(fa, q);
-                if (pp != pq) {
-                     fa[pq] = pp;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    fb[pq] = pp;
-                } else {
-                    res += 1;
-                }
-                
-               
+        vector&lt;bool&gt; visa(n+1,0);
+        vector&lt;bool&gt; visb(n+1,0);
+        int ans=0;
+        vector&lt;int&gt; pa(n+1,0);
+        for(int i=0;i&lt;n;++i) pa[i+1]=i+1;
+        for(auto d:edges){
+            if(d[0]==3){
+                unite(d[1],d[2],pa,ans,visa,visb);
             }
         }
-        
-        for(auto e : edges) {
-            if (e[0] == 1) {
-                int p = e[1], q = e[2];</B></FONT>
-                int pp = find(fa, p);
-                int pq = find(fa, q);
-                if (pp != pq) {
-                     fa[pq] = pp;
-                } else {
-                    res += 1;
-                }
-            } else if (e[0] == 2) {
-<A NAME="2"></A>                int p = e[1], q = e[2];
-                int pp = find(fb, p);
-                int pq = find(fb, q);
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (pp != pq) {
-                     fb[pq] = pp;
-                } else {
-                    res += 1;
-                }
+        auto pb=pa;
+        for(auto d:edges){
+            if(d[0]==1){
+                unite(d[1],d[2],pa,ans,visa,visa);
             }
+            else if(d[0]==2) unite(d[1],d[2],pb,ans,visb,visb);
         }
-        int c1 = 0, c2 = 0;</B></FONT>
-        for (int i = 1;i &lt;= n; ++i) {
-            if (find(fa, i) == i) {
-                c1 += 1;
-            } 
-            
-            if (find(fb, i) == i) {
-                c2 += 1;
-            } 
-        }
-        
-        if (c1 != 1 or c2 != 1) return -1; 
-        return res;
+        for(int i=0;i&lt;n;++i) if(visa[i+1]==0||visb[i+1]==0) return -1;
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>563_ljr1226.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>563_ljr1226.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class point{
+        int loc;
+        double pos;
+        public point(int loc, double pos) {
+            this.loc = loc;
+            this.pos = pos;
+        }
+    }
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+<A NAME="1"></A>
+        PriorityQueue&lt;point&gt; pq = new PriorityQueue&lt;point&gt;((a,b)-&gt;(b.pos==a.pos?0:(b.pos&gt;a.pos?1:-1)));</B></FONT>
+        //Double[][] map = new Double[n][n];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>HashMap&lt;Integer,HashMap&lt;Integer,Double&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i=0;i&lt;edges.length;i++){
+            int[] e = edges[i];
+            map.putIfAbsent(e[0],new HashMap&lt;&gt;());
+<A NAME="2"></A>            map.putIfAbsent(e[1],new HashMap&lt;&gt;());
+            map.get</B></FONT>(e[0]).put(e[1],succProb[i]);
+            map.get(e[1]).put(e[0],succProb[i]);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match38-1.html#2',3,'match38-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+         //System.out.println(map);
+        HashSet&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        //set.add(start);
+        pq.add(new point(start,1.0));
+        while (!pq.isEmpty()){
+            point cur = pq.poll</B></FONT>();
+            //System.out.println(cur.loc+&quot;  pos==&quot;+ cur.pos);
+            set.add(cur.loc);
+            if (cur.loc == end) return cur.pos;
+            if (!map.containsKey(cur.loc)) continue;
+            for (int i: map.get(cur.loc).keySet()){
+                if (set.contains(i)) continue;
+                //set.add(i);
+                pq.add(new point(i,cur.pos*map.get(cur.loc).get(i)));
+                //System.out.println(i+&quot;   &quot;+cur.pos*map.get(cur.loc).get(i));
+            }
+        }
+        return 0;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

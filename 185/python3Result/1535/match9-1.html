@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>157_wjasonhuang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>157_wjasonhuang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numOfArrays(self, n: int, m: int, k: int) -&gt; int:
+        if k == 0: return 0
+<A NAME="0"></A>        # p[a][b][c] = a 1..n, b current max &gt;= a, c current cost
+        p = [[[0] * (k + 1) for _ in range(m + 1)] for _ in range(n)]
+        modu = 10 ** 9 + 7
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for b in range(1, m + 1):
+            p[0][b][1] = 1
+
+        for a in range(0, n - 1):
+            for b in range(1, m + 1):
+                for c in range(1, k + 1):
+<A NAME="1"></A>                    if p[a][b][c] &gt; 0:
+<A NAME="2"></A>                        p[a + 1][b][c] = (p[a + 1][b][c] + p[a][b][</B></FONT>c] * b) % modu
+                        if c == k: continue
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for d in range(b + 1, m + 1):
+                            p[a + 1][d][c + 1] = (p[a + 1][d][c + 1] + p[a][b][</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>c]) % modu
+
+        return sum([p[n - 1][b][k] for b in range(m</B></FONT> + 1)]) % modu
+</PRE>
+
+</BODY>
+</HTML>

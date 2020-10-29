@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>93_cheniyuan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>93_cheniyuan.java</CENTER></H3><HR>
+<PRE>
+
+public class Solution {
+    public int cherryPickup(int[][] grid) {
+        //dp[left][right][y] = dp[left - 1][right - 1] + y
+        int m = grid.length;
+<A NAME="0"></A>        int n = grid[0].length;
+        int[][][] dp = new int[n][n][m];
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = m - 1; i &gt;= 0; i--){
+            for(int left = 0; left &lt; n; left++){
+                for(int right = left; right &lt; n; right++){
+                    int res = left == right ? grid[i][left] : grid[i][left] + grid[i][right]</B></FONT>;
+
+                    if(i &lt; m - 1){
+                        int max = Integer.MIN_VALUE;
+                        for(int x = -1; x &lt;= 1; x++){
+<A NAME="1"></A>                            for(int y = -1; y &lt;= 1; y++){
+                                int nl = left+x;
+                                int nr = right+y;
+                                if(nl &lt;= nr &amp;&amp; nl &gt;= 0 &amp;&amp; nl &lt; n &amp;&amp; nr &gt;= 0 &amp;&amp; nr &lt; n)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                                    max = Math.max(dp[nl][nr][i + 1], max);
+                                }
+                            }
+                        }</B></FONT>
+                        res += max;
+                    }
+<A NAME="2"></A>
+                    dp[left][right][i] = res;
+                }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+
+        return dp[0][n - 1][0];
+<A NAME="3"></A>    }
+
+    public static void main(String[] args</B></FONT>) {
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new Solution().cherryPickup(new int[][]{{3,1,1},{2,5,1},{1,5,5},{2,1,1}});
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_jiayindeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_jiayindeng.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int m,n;
+    bool vis[310][310];
+    bool inBoard(int row,int col)
+    {
+        if(row&gt;=0&amp;&amp;row&lt;m&amp;&amp;col&gt;=0&amp;&amp;col&lt;n)
+            return true;
+        return false;
+    }
+    void dfs(int row,int col,vector&lt;vector&lt;int&gt;&gt;&amp; grid)
+    {
+<A NAME="0"></A>        if(grid[row][col]==1)
+        {
+            int nextRow=row;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int nextCol=col+1;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==1||grid[nextRow][nextCol]==3||grid[nextRow][nextCol]==5))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+            nextRow=row;
+            nextCol=col-1;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==1||grid[nextRow][nextCol]==4||grid[nextRow][nextCol]==6))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+        }
+<A NAME="1"></A>        else if(grid[row][col]==2)
+        {</B></FONT>
+            int nextRow=row-1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int nextCol=col;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==2||grid[nextRow][nextCol]==3||grid[nextRow][nextCol]==4))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+            nextRow=row+1;
+            nextCol=col;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==2||grid[nextRow][nextCol]==5||grid[nextRow][nextCol]==6))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+        }
+<A NAME="2"></A>        else if(grid[row][col]==3)
+        {</B></FONT>
+            int nextRow=row;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int nextCol=col-1;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==1||grid[nextRow][nextCol]==4||grid[nextRow][nextCol]==6))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+            nextRow=row+1;
+            nextCol=col;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==2||grid[nextRow][nextCol]==5||grid[nextRow][nextCol]==6))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+        }
+<A NAME="3"></A>        else if(grid[row][col]==4)
+        {</B></FONT>
+            int nextRow=row;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match7-1.html#3',3,'match7-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int nextCol=col+1;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==1||grid[nextRow][nextCol]==3||grid[nextRow][nextCol]==5))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+            nextRow=row+1;
+            nextCol=col;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==2||grid[nextRow][nextCol]==5||grid[nextRow][nextCol]==6))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+        }
+<A NAME="4"></A>        else if(grid[row][col]==5)
+        {</B></FONT>
+            int nextRow=row-1;
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match7-1.html#4',3,'match7-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int nextCol=col;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==2||grid[nextRow][nextCol]==3||grid[nextRow][nextCol]==4))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+            nextRow=row;
+            nextCol=col-1;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==1||grid[nextRow][nextCol]==4||grid[nextRow][nextCol]==6))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+        }
+<A NAME="5"></A>        else if(grid[row][col]==6)
+        {</B></FONT>
+            int nextRow=row-1;
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match7-1.html#5',3,'match7-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int nextCol=col;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==2||grid[nextRow][nextCol]==3||grid[nextRow][nextCol]==4))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+            nextRow=row;
+            nextCol=col+1;
+            if(inBoard(nextRow,nextCol)&amp;&amp;(!vis[nextRow][nextCol])&amp;&amp;
+               (grid[nextRow][nextCol]==1||grid[nextRow][nextCol]==3||grid[nextRow][nextCol]==5))
+            {
+                vis[nextRow][nextCol]=true;
+                dfs(nextRow,nextCol,grid);
+            }
+        }
+    }</B></FONT>
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        m=grid.size();
+        n=grid[0].size();
+        memset(vis,0,sizeof(vis));
+        vis[0][0]=true;
+        dfs(0,0,grid);
+        if(vis[m-1][n-1]) return true;
+        else return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

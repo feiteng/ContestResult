@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_cf_newbie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_cf_newbie.cpp</CENTER></H3><HR>
+<PRE>
+using ll = long long;
+const ll mod = 1e9 + 7;
+
+class Solution {
+public:
+    int numSubseq(vector&lt;int&gt;&amp; a, int target) {
+        ll res = 0;
+        sort(a.begin(), a.end());
+<A NAME="0"></A>        int n = a.size();
+        
+        vector&lt;ll&gt; pw2(n+2, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        pw2[0] = 1;
+        for (int i=1; i&lt;n+2; i++) {
+            pw2[i] = 2LL*pw2[i-1]%mod;
+        }
+        
+        for (int i=0,j=n-1; i&lt;n; i++) {
+            while (j&gt;=i &amp;&amp; a[i]+a[j]&gt;target) j--;
+            if (j&lt;i) break;
+
+            ll cur = pw2[j-i];</B></FONT>
+            // cout&lt;&lt;i&lt;&lt;&quot;: &quot;&lt;&lt;cur&lt;&lt;endl;
+            res += cur;
+            res %= mod;
+            
+        }
+        
+        res %= mod;
+        res += mod;
+        res %= mod;
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>178_13717680252.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>178_13717680252.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        rows,cols=len(matrix),len(matrix[0])
+        max_rows=[-1000000001]*rows
+        max_cols=</B></FONT>[-1000000001]*cols
+        cnt_rows=[0]*rows
+        cnt_cols=[0]*cols
+        unions=list(range(rows*cols))
+        res=[[1]*cols for _ in range(rows)]
+        temp=[]
+        unions=list(range(rows*cols))
+        def find(x):
+            if unions[x]!=x:
+<A NAME="1"></A>                unions[x]=find(unions[x])
+            return unions[x]
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(rows):
+            for j in range(cols):
+                temp.append((matrix[i][j],i,j))
+        temp.sort()
+        idx=</B></FONT>0
+        while idx&lt;len(temp):
+            right=idx
+            g_val=temp[idx][0]
+            while right&lt;len(temp) and temp[right][0]==g_val:
+                right+=1
+            row_members=collections.defaultdict(lambda:-1)
+            col_members=collections.defaultdict(lambda:-1)
+            rts=collections.defaultdict(list)
+            for i in range(idx,right):
+                val,a,b=temp[i]
+                if row_members[a]==-1:
+                    row_members[a]=b
+                if col_members[b]==-1:
+                    col_members[b]=a
+                rt1=find(a*cols+row_members[a])
+                rt2=find(col_members[b]*cols+b)
+                unions[rt1]=rt2
+            for i in range(idx,right):
+                val,a,b=temp[i]
+                if row_members[a]==-1:
+                    row_members[a]=b
+                if col_members[b]==-1:
+                    col_members[b]=a
+                rt1=find(a*cols+row_members[a])
+                rts[rt1].append((a,b,val))
+            for g,points in rts.items():
+                group_rank=0
+                for i,j,val in points:
+                    row_rank=cnt_rows[i]+1
+                    col_rank=cnt_cols[j]+1
+                    cur_rank=max(row_rank,col_rank)
+                    group_rank=max(group_rank,cur_rank)
+                for i,j,val in points:
+                    cnt_rows[i]=group_rank
+                    cnt_cols[j]=group_rank
+                    res[i][j]=group_rank
+            idx=right
+        return res
+                                        
+                                         
+            
+                                           
+                
+                                           
+        # for val,i,j in temp:
+        #     row_rank=cnt_rows[i] if max_rows[i]==val else cnt_rows[i]+1
+        #     col_rank=cnt_cols[j] if max_rows[j]==val else cnt_cols[j]+1
+        #     cur_rank=max(row_rank,col_rank)
+        
+        
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

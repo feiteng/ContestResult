@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>437_TianyouLi.py</TITLE>
+ <TITLE>170_wincss.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>437_TianyouLi.py</CENTER></H3><HR>
+<H3><CENTER>170_wincss.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        
         ans = 0
-<A NAME="0"></A>        lastidx = 0
-        for i,c in enumerate(s):
-            if i==0: continue
-            if c==s<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i-1]:
-                if cost[lastidx]&lt;=cost[i]:
-                    ans += cost[lastidx]
-                    lastidx = i
-                else:
-                    ans += cost[i]
-            else:
-                lastidx = i
-        
+        n = len(s)
+        last = None
+        left = None
+        for i in range(n):
+            if s[i] != last:
+                if left is not None:
+                    m = 0
+                    #print('from', left, i)
+                    for j in range(left, i):
+                        ans += cost[j]
+                        m = max(cost[j], m)
+                    ans -= m
+                    #print('ans', ans, m)
+                last = s[i]
+                left = i
+        if left is None:
+            return ans
+        #print(left)
+        m = 0
+        for j in range(left, n):
+            ans += cost[j]
+            m = max(cost[j], m)
+        ans -= m
         re</B></FONT>turn ans
 </PRE>
 

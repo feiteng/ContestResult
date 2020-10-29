@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>175_stostap.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>175_stostap.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; process(vector&lt;int&gt; c, vector&lt;int&gt; add, int k) {
+        vector&lt;int&gt; tmp;
+        for (int i = 0; i &lt; add.size(); i++) {
+            for (int j = 0; j &lt; c.size(); j++) {
+                tmp.push_back(c[j] + add[i]);
+            }
+        }
+        
+        sort(tmp.begin(), tmp.end());
+        int l = min((int)tmp.size(), k);</B></FONT>
+        tmp.resize(l);
+        
+        return tmp;
+    }
+    
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        int n = mat.size();
+        int m = mat[0].size();
+        vector&lt;int&gt; tmp;
+        tmp.push_back(0);
+        for (int i = n - 1; i &gt;= 0; i--) {
+            tmp = process(tmp, mat[i], k);
+        }
+        
+        return tmp[k-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

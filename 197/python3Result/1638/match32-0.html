@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>502_sw145.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>502_sw145.py</CENTER></H3><HR>
+<PRE>
+import numpy as np
+from numpy.linalg import norm as npnorm
+class Solution:
+    def getMinDistSum(self, positions: List[List[int]]) -&gt; float:
+        '''
+        sumX = 0 
+        sumY = 0
+        for x, y in positions:
+            sumX += x
+            sumY += y
+        avgX = sumX / len(positions)
+        avgY = sumY / len(positions)
+
+        def calculateDist(x1, y1, x2, y2):
+            return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+        sumD = 0
+        for x1, y1 in positions:
+            sumD += calculateDist(x1, y1, avgX, avgY)
+            
+        return sumD
+        '''
+        def calculateDist(x1, y1, x2, y2):
+            return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+        
+        if len(positions) == 1:
+            return 0
+        
+        sumX = 0 
+        sumY = 0
+        for x, y in positions:
+<A NAME="0"></A>            sumX += x
+            sumY += y
+        x = sumX / len(positions)
+        y = sumY / len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(positions)
+        #print(&quot;!!!&quot;, x, y)
+        c_pt_old = np.random.rand(2)
+        #c_pt_new = np.array([0,0])
+        c_pt_new = np.array([x,y])
+
+        while npnorm(c_pt_old - c_pt_new) &gt; 1e-7:
+            num   = 0
+            denom = 0
+            for i in range(len(positions)):
+                dist = npnorm(c_pt_new - positions[i])
+                if dist != 0:
+                    num   += positions[i] / dist
+                    denom += 1 / dist
+                #print(&quot;~~&quot;, dist, num, denom)
+            c_pt_old = c_pt_new
+            if denom != 0:
+                c_pt_new = num / denom
+            #print(&quot;~&quot;, c_pt_old, c_pt_new)
+
+        #print(c_pt_new)
+        avgX =</B></FONT> c_pt_new[0]
+        avgY = c_pt_new[1]
+        sumD = 0
+        for x1, y1 in positions:
+            sumD += calculateDist(x1, y1, avgX, avgY)
+        return  sumD
+</PRE>
+
+</BODY>
+</HTML>

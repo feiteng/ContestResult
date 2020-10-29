@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>653_Aghost.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>653_Aghost.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String makeGood(String s) {
+        
+        while(!s.equals(helper(s))){
+            s = helper(s);
+        }
+<A NAME="0"></A>        return s;
+    }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String helper(String s){
+        
+        Stack&lt;Character&gt; stk = new Stack&lt;&gt;();
+        for(char ch : s.toCharArray()){
+<A NAME="1"></A>            if (stk.isEmpty()){
+                stk.push(ch);
+            } else {
+                if</B></FONT> (stk.peek() != ch &amp;&amp; (Character.toLowerCase(stk.peek()) == ch || <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Character.toLowerCase(ch) == stk.peek())){
+                    stk.pop();
+                } else {
+                    stk.push(ch);
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!stk.isEmpty()){
+            sb.append(stk.pop());
+        }
+        return sb.reverse().toString</B></FONT>();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

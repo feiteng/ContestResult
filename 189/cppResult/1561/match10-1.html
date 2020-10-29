@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>152_yanghaomai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>152_yanghaomai.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    string arrangeWords(string text) {
+        if(text.empty())return &quot;&quot;;
+        vector&lt;string&gt; vs;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        text[0]=tolower(text[0]);
+        int last=0;
+        for(int i=0;i&lt;text.size();i++){
+            if(text[i]==' '){
+                vs.push_back(text.substr(last,i-last));
+                last=i+1;
+            }</B></FONT>
+        }
+<A NAME="1"></A>        vs.push_back(text.substr(last,text.size()-last));
+        stable_sort(vs.begin(),vs.end(),[](const string &amp;a,const string &amp;b){return a.size()&lt;b.size();});
+        string res;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;vs.size();i++){
+            res+=vs[i];
+            if(i!=vs.size()-1)res+=' ';
+        }
+        res[0]=toupper(res[0]);
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

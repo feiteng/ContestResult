@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>696_yuanzhendai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>696_yuanzhendai.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        # dp[i][c][t] is the min cost for houses for previous i houses ended with color c and the total target is t.
+        dp <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [
+            [
+                [float('inf')] * (m + 1)
+                for _ in range(n)
+            ]
+            for _ in range(m + 1)
+        ]
+        c = houses[0] - 1
+        if c == -1:
+            for c in range(n):
+                dp[1][c][1] = cost[0][</B></FONT>c]
+        else:
+            dp[1][c][1] = 0
+        
+<A NAME="1"></A>        for i in range(1, m):
+            c = houses[i] - 1
+            if c != -1:
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for prev_c in range(n):
+                    for prev_t in range(m):
+                        if c == prev_c:
+                            dp[i + 1][c][prev_t] = min(dp[i][c][prev_t], dp[i + 1][c][prev_t])
+                        else:
+                            dp[i + 1][c][prev_t + 1] = min(dp[i][prev_c][prev_t], dp[i + 1][c][prev_t + 1])
+            else:
+                for c in range(n):
+                    for prev_c in range(n):
+                        for prev_t in range(m):
+                            if c == prev_c:
+                                dp[i + 1][c][prev_t] = min(dp[i][c][prev_t] + cost[i][c], dp[i + 1][c][prev_t])
+                            else:
+                                dp[i + 1][c][prev_t + 1] = min(dp[i][prev_c][prev_t] + cost[i][c], dp[i + 1][c][prev_t + 1])
+
+        ans =</B></FONT> min([dp[m][c][target] for c in range(n)])
+        if ans == float('inf'):
+            return -1
+        return ans
+            
+</PRE>
+
+</BODY>
+</HTML>

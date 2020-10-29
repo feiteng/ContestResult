@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>389_A_Separated.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>389_A_Separated.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    class Edge {
+        int v;
+        double w;
+        Edge(int _v, double _w) {
+            v = _v;
+            w = _w;
+        }
+    }
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        List&lt;Edge&gt;[] g = new List[n]</B></FONT>;
+        for (int i = 0; i &lt; n; i++) g[i] = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+<A NAME="1"></A>            double w = succProb[i];
+            g[u].add(new Edge(v, w));
+            g[v].add(new Edge(u, w));
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="2"></A>        double[] d = new double[n];
+        d[start] = 1.0;
+        PriorityQueue&lt;Edge&gt; pq = new PriorityQueue&lt;Edge&gt;((a, b) -&gt; b</B></FONT>.w &gt; a.w ? 1 : b.w == a.w ? 0 : -1);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new Edge(start, 1.0));
+        while (!pq.isEmpty()) {
+            Edge e = pq.remove();
+            if (e.w != d[e.v]) continue;</B></FONT>
+<A NAME="3"></A>            for (Edge s : g[e.v]) {
+                if (d[e.v] * s.w &gt; d[s.v]) {
+                    d[s.v] = d[e.v] * s.w;
+                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new Edge(s.v, d[s.v]));
+                }
+            }
+        }
+        
+        return d[end];
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

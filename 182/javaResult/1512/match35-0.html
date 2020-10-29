@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_happyleetcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>484_happyleetcode.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UndergroundSystem {
+    Map&lt;String, int[]&gt; m = new HashMap&lt;&gt;();
+    Map&lt;Integer,String&gt; id2time = new HashMap&lt;&gt;();
+    public UndergroundSystem() {
+        
+    }
+<A NAME="1"></A>    
+    public void checkIn(int id, String stationName, int t) {
+        id2time.put</B></FONT>(id, stationName + &quot;,&quot; + t);
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public void checkOut(int id, String stationName, int t) {
+<A NAME="2"></A>        String s = id2time.get</B></FONT>(id);
+        String[] ss = s.split(&quot;,&quot;);
+        String key = ss[0] + &quot;,&quot; + stationName;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match35-1.html#2',3,'match35-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int cost = t - Integer.parseInt(ss[1]);
+        m.putIfAbsent(key, new int[2]);
+        int[] cur = m.get(key);
+        cur[0] += cost;
+        cur[1]++;
+    }
+    
+    public double getAverageTime(String startStation, String endStation) {
+        int[] cur = m.get(startStation + &quot;,&quot; + endStation);
+        System.out.println</B></FONT>(Arrays.toString(cur));
+        return ((double) cur[0]) / cur[1];
+    }
+}
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem obj = new UndergroundSystem();
+ * obj.checkIn(id,stationName,t);
+ * obj.checkOut(id,stationName,t);
+ * double param_3 = obj.getAverageTime(startStation,endStation);
+ */
+</PRE>
+
+</BODY>
+</HTML>

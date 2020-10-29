@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>613_nirvana_rsc.java</TITLE>
+ <TITLE>671_giggly.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>613_nirvana_rsc.java</CENTER></H3><HR>
+<H3><CENTER>671_giggly.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; squares1 = new HashMap&lt;&gt;();
-        Map&lt;Long, Integer&gt; squares2 = new HashMap&lt;&gt;();
-        for (int num : nums1) {</B></FONT>
-            squares1.merge((long) num * num, 1, Integer::sum);
-        }
-        for (int num : nums2) {
-<A NAME="1"></A>            squares2.merge((long) num * num, 1, Integer::sum);
-        }
         int res = 0;
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int curr = 0;
-        for (int i = 0; i &lt; nums1.length; i++) {
-            for (int j = i + 1; j &lt; nums1.length; j++) {
-                long prod = (long) nums1[i] * nums1[j];
-                if (squares2.containsKey(prod)) {
-                    res+= squares2.get(prod);
-                }
-            }
+        res += check(nums1, nums2);
+        res += check(nums2, nums1);
+        return res;
+    }
+    
+    private int check(int[]nums1, int[]nums2) {
+        int res = 0;
+        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int num : nums1) {
+            long tmp = ((long)num) * ((long)num);
+            map.put(tmp, map.getOrDefault(tmp, 0) + 1);
         }
-
         for (int i = 0; i &lt; nums2.length; i++) {
-            for (int j = i + 1; j &lt; nums2.length; j++) {
-                long prod = (long) nums2[i] * nums2[j];
-                if (squares1.containsKey(prod)) {
-                    res += squares1.get(prod);
+            for (int j = i+1; j &lt; nums2.length; j++) {
+                long tmp = ((long)nums2[i]) * ((long)nums2[j]);
+                if (map.containsKey(tmp)) {
+                    res += map.get(tmp);
                 }
             }
         }

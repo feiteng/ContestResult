@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_AndreZWei.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_AndreZWei.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+<A NAME="1"></A>        Map&lt;Integer, Map&lt;String, Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        Set&lt;String&gt; dishSet = new HashSet&lt;&gt;();
+        for (List&lt;String&gt; order: orders) {
+            Integer table = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Integer.parseInt(order.get(1))</B></FONT>;
+            String dish = order.get(2);
+            if (!map.containsKey(table)) {
+                map.put(table, new HashMap&lt;String, Integer&gt;());
+            }
+            map.get(table).put(dish, map.get</B></FONT>(table).getOrDefault(dish, 0) + 1);
+            dishSet.add(dish);
+        }
+        
+        List&lt;List&lt;String&gt;&gt; ans = new ArrayList&lt;&gt;();
+        List&lt;String&gt; header = new ArrayList&lt;&gt;();
+        List&lt;String&gt; dishes = new ArrayList&lt;&gt;(dishSet);
+        Collections.sort(dishes);
+        header.add(&quot;Table&quot;);
+        for (int i = 0; i &lt; dishes.size(); i++) {
+<A NAME="2"></A>            header.add(dishes.get(i));
+        }
+        ans.add(header);
+        List&lt;Integer&gt; tables = new ArrayList&lt;&gt;(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match37-1.html#2',3,'match37-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.keySet());
+        Collections.sort(tables);
+        for (Integer table: tables) {
+            List&lt;String&gt; list = new ArrayList&lt;&gt;();
+<A NAME="3"></A>            list.add(Integer.toString</B></FONT>(table));
+            Map&lt;String, Integer&gt; o = map.get(table);
+            for (int i = 0; i &lt; dishes.size(); i++) {
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match37-1.html#3',3,'match37-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.add(Integer.toString(o.getOrDefault(dishes.get(i), 0)));
+            }
+            ans.add(list);
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

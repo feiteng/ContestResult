@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>148_mhi_t.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>148_mhi_t.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int N;
+    int tree[1000000];
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void update(int idx) {
+      while (idx &lt;= N) {
+        tree[idx] ++;
+        idx += (idx &amp; -idx);
+      }
+    }
+    
+    int get(int idx) {
+        int sum = 0;
+      while (idx &gt; 0) {
+        sum += tree[idx];
+        idx -= (idx &amp; -idx);
+      }
+      return sum;
+    }
+    
+<A NAME="1"></A>    string minInteger(string num, int k) {
+        N = num.size();
+        map&lt;int, deque&lt;int&gt;&gt;oc;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; num.size(); ++i) {
+            oc[num[i]-'0'].push_back(i);
+            tree[i] = 0;
+        }
+        string ret;
+        for(int i = 0; i &lt; num.size(); ++i) {</B></FONT>
+            if(num[i] == '?') {
+                continue;
+            }
+            
+            int x = num[i]-'0', swapped = 0;
+            
+            for(int j = 0; j &lt; x; ++j) {
+                while(!oc[j].empty() &amp;&amp; oc[j].front() &lt;= i) oc[j].pop_front();
+                if(oc[j].empty()) {
+                    continue;
+                }
+                int pos = oc[j].front();
+                int dd = get(pos+1)-get(i);
+                int dis = pos-i-dd;
+                if(!oc[j].empty() &amp;&amp; dis &lt;= k) {
+                    ret += (char)('0'+j);
+                    num[pos] = '?';
+                    swapped = true;
+                    k -= dis;
+                    update(pos+1);
+                    oc[j].pop_front();
+                    break;
+                }
+            }
+            if(!swapped) {
+                ret += num[i];
+                update(i+1);
+                num[i] = '?';
+                while(!oc[num[i]].empty() &amp;&amp; oc[num[i]].front() &lt;= i) oc[num[i]].pop_front();
+            }
+            i -= swapped;
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>477_liu-xing-0923.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>477_liu-xing-0923.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxDotProduct(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        int[][] dp = new</B></FONT> int[m + 1][n + 1];
+        int[] minandmax1 = findminandmax(nums1);
+        int[] minandmax2 = findminandmax(nums2);
+        if (minandmax1[0] &lt; 0 &amp;&amp; minandmax1[1] &lt; 0) {
+            if (minandmax2[0] &gt; 0 &amp;&amp; minandmax2[1] &gt; 0) {
+                return minandmax1[1] * minandmax2[0];
+            }
+        } else if (minandmax1[0] &gt; 0 &amp;&amp; minandmax1[1] &gt; 0) {
+            if (minandmax2[0] &lt; 0 &amp;&amp; minandmax2[1] &lt; 0) {
+<A NAME="1"></A>                return minandmax1[0] * minandmax2[1];
+            }
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; m + 1; i++) {
+            for (int j = 1; j &lt; n + 1; j++) {
+                dp[i][j] = Math.max(Math.max(dp[i - 1][j - 1], dp[i - 1][j - 1] + nums1[i - 1] * nums2[j - 1]), Math.max(dp[i - 1][j], dp[i][j - 1]));
+            }
+        }
+        return dp[m][n];
+    }</B></FONT>
+    
+    private int[] findminandmax(int[] a) {
+        int[] minandmax = new int[2];
+        minandmax[0] = Integer.MAX_VALUE;
+        minandmax[1] = Integer.MIN_VALUE;
+        for (int i = 0; i &lt; a.length; i++) {
+            minandmax[0] = Math.min(minandmax[0], a[i]);
+            minandmax[1] = Math.max(minandmax[1], a[i]);
+        }
+        return minandmax;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

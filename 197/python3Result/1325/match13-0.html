@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>451_qingdu_river.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>451_qingdu_river.py</CENTER></H3><HR>
+<PRE>
+import heapq
+
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+#         f = collections.defaultdict(dict)
+#         for x, p in zip(edges,succProb):
+#             f[x[0]][x[1]] = p
+#             f[x[1]][x[0]] = p
+#         v = set()
+#         d = collections.defaultdict(float)
+        
+#         @lru_cache(None)
+#         def dfs(node,p):
+#             if node == end:
+#                 d[start] = max(d[start],p)
+#                 return 
+#             v.add(node)
+#             for x in f[node]:
+#                 if x not in v:
+#                     p1 = f[node][x]*p
+#                     if d[x] &lt; p1:
+#                         d[x] = p1
+#                         dfs(x,p1)
+#             v.remove(node)
+            
+#         dfs(start,1)
+#         return self.ret
+    
+        graph = collections.defaultdict(list)
+        for x,w in zip(edges,succProb):
+            f,t = x
+            graph[f].append((t,-w))
+<A NAME="0"></A>            graph[t].append((f,-w))
+        min_id,min_cities = 0,n
+        
+        pq <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [(-1,start)]
+        visited = set()
+        ret = 0
+        while pq:
+            dist,node = heapq.heappop(pq)
+            if node == end:
+                return -dist
+            visited.add(node)
+            for to,weight in graph[node]:
+                if to not in visited:
+                    heapq.heappush(pq,(-weight*dist,to))
+        re</B></FONT>turn 0
+        
+</PRE>
+
+</BODY>
+</HTML>

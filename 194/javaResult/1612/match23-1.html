@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_sggkjihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>200_sggkjihua.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] avoidFlood(int[] rains) {
+        int n = rains.length;
+<A NAME="0"></A>        int[] res = new int[n];
+        int[] emps = new int[n];
+        int empty = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; map = new HashMap();
+        TreeSet&lt;Integer&gt; set = new TreeSet();
+        int[] empties = new int[n+1];
+<A NAME="1"></A>        for(int i=0;i&lt;n;i++){</B></FONT>
+            int num = rains[i];
+            if(num&gt;0){
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(map.containsKey(num)){
+                    int index = map.get(num);
+                    Integer higher = set.higher(index);
+                    if(higher==null){
+                        return new int[0];
+                    }</B></FONT>
+                    set.remove(higher);
+<A NAME="2"></A>                    res[higher] = num;
+                }
+                res[i] = -1;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put(num, i);
+            }else{
+                set.add(i);
+            }
+        }
+        for(int e:set){
+            res[e] = 1;
+        }
+        return res;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

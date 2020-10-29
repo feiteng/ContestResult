@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>321_FromDihPout.py</TITLE>
+ <TITLE>110_dirtysalt.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>321_FromDihPout.py</CENTER></H3><HR>
+<H3><CENTER>110_dirtysalt.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        prev = 0
+        n = len(s)
+        j = 0
         ans = 0
-        for i in range(1, len(s)):
-            if s[i] == s[prev]:
-                if cost[prev] &lt; cost[i]:
-                    ans += cost[prev]
-                    prev =</B></FONT> i
-                else:
-                    ans += cost[i]
-            else:
-                prev = i
-        return ans
-                
+        
+        def cut(i, j):
+            tt = 0
+            mx = cost[i]
+            for k in range(i, j):
+                tt += cost[k]
+                mx = max(mx, cost[k])
+            return tt - mx
+        
+        for i in range(n):
+            if s[i] == s[j]: continue
+            ans += cut(j, i)
+            j = i
+        
+        ans += cut(j, n)
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

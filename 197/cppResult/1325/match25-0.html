@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>499_basselbakr.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>499_basselbakr.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+        queue&lt;int&gt; q;
+        vector&lt;bool&gt; in_queue(n);
+        
+        vector&lt;double&gt; best(n);
+        
+        vector&lt;vector&lt;pair&lt;int, double&gt;&gt;&gt; g(n);</B></FONT>
+        reverse(succProb.begin(), succProb.end());
+        for(auto const&amp; edge : edges) {
+            auto u = edge[0];
+            auto v = edge[1];
+            g[u].emplace_back(v, succProb.back());
+            g[v].emplace_back(u, succProb.back());
+            
+            succProb.pop_back();
+<A NAME="1"></A>        }
+        
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(q.emplace(start), in_queue[start] = true, best[start] = 1.0; q.size(); q.pop()) {
+            auto u = q.front();
+            in_queue[u] = false;
+            
+            for(auto [v, p] : g[u]) {
+                if(best[u] * p &gt; best[v]) {
+                    best[v] = best[u] * p;
+                    if(not in_queue[v]) {
+                        q.emplace(v);
+                        in_queue[v] = true;
+                    }
+                }                    
+            }
+        }
+        
+        return best[end];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

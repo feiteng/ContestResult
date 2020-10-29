@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>41_skywalkert.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>41_skywalkert.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string arrangeWords(string buf) {
+        int len = (int)buf.length();
+        vector&lt;string&gt; vec;
+        for(int i = 0, j; i &lt; len; i = j + 1) {
+            for(j = i; j &lt; len &amp;&amp; buf[j] != ' '; ++j);
+            vec.push_back(buf.substr(i, j - i));
+        }
+        char ch = vec[0][0];
+        vec[0][0] = ch - 'A' + 'a';
+        int n = (int)vec.size();
+        vector&lt;int&gt; ord;
+        for(int i = 0; i &lt; n; ++i)
+            ord.push_back(i);
+        sort(ord.begin(), ord.end(), [&amp;](int const &amp;u, int const &amp;v) {
+            int diff = (int)vec[u].length() - (int)vec[v].length();
+<A NAME="0"></A>            return diff &lt; 0 || (!diff &amp;&amp; u &lt; v);
+        });
+        string ret = &quot;&quot;;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; n; ++i) {
+            if(i &gt; 0)
+                ret += ' ';
+            ret += vec[ord[i]];
+        }
+        ret[0] = ret[0] - 'a' + 'A';
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

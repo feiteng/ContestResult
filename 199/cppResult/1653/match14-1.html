@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_ezoixx130.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>56_ezoixx130.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int tot=0,d;
+    
+    vector&lt;int&gt; dfs(TreeNode* u)
+    {
+        vector&lt;int&gt; ans(d+1);
+        if(u-&gt;left==NULL &amp;&amp; u-&gt;right==NULL)
+        {
+            ans[1]=1;
+            return ans;
+        }
+        vector&lt;int&gt; la,ra;
+        if(u-&gt;left!=NULL)la=dfs(u-&gt;left);
+        if(u-&gt;right!=NULL)ra=dfs(u-&gt;right);
+        if(!la.empty() &amp;&amp; !ra.empty())
+        {
+            for(int i=1;i&lt;=d;++i)
+<A NAME="0"></A>                for(int j=1;j&lt;=d-i;++j)
+                    tot+=la[i]*ra[j];
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;la.size();++i)ans[i]+=la[i];
+        for(int i=0;i&lt;ra.size();++i)ans[i]+=ra[i];
+        for(int i=ans.size()-1;i&gt;=1;--i)ans[i]=ans[i-1];</B></FONT>
+        return ans;
+    }
+    
+    int countPairs(TreeNode* root, int distance) {
+        d=distance;
+        dfs(root);
+        return tot;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

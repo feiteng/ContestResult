@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_de-wei-dao-qing-wa-da-san.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>486_de-wei-dao-qing-wa-da-san.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<A NAME="1"></A>	int d[7][2][2]{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ { 0,0 },{ 0,0 } },
+		{ { 0,-1 },{ 0,1 } },</B></FONT>
+<A NAME="2"></A><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ { -1,0 },{ 1,0 } },
+		{ { 0,-1 },{ 1,0 } },</B></FONT>
+		{ { 0,1 },{ 1,0 } },
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ { 0,-1 },{ -1,0 } },
+<A NAME="3"></A>		{ { 0,1 },{ -1,0 } }
+	};
+<A NAME="4"></A>	int ht[7][2][3]{</B></FONT>
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match22-1.html#3',3,'match22-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ { 0,0,0 },{ 0,0,0 } },
+<A NAME="5"></A>		{ { 1,4,6 },{ 1,3,5 } },</B></FONT>
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match22-1.html#4',3,'match22-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ { 2,3,4 },{ 2,5,6 } },
+		{ { 1,4,6 },{ 2,5,6 } },</B></FONT>
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match22-1.html#5',3,'match22-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		{ { 1,3,5 },{ 2,5,6 } },
+		{ { 1,4,6 },{ 2,3,4 } },</B></FONT>
+		{ { 1,3,5 },{ 2,3,4 } },
+	};
+	bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+		int m = grid.size(), n = grid[0].size();
+		vector&lt;bool&gt; isV(m*n, false);
+		queue&lt;int&gt; q;
+		q.push(0);
+		isV[0] == true;
+		while (!q.empty())
+		{
+			int cur = q.front();
+			q.pop();
+			int r = cur / n, c = cur%n;
+			if (r == m - 1 &amp;&amp; c == n - 1) return true;
+			for (int i = 0; i&lt;2; i++)
+			{
+				int newR = d[grid[r][c]][i][0] + r, newC = d[grid[r][c]][i][1] + c;
+				int temp = newR*n + newC;
+				if (newR &gt;= 0 &amp;&amp; newR&lt;m&amp;&amp;newC &gt;= 0 &amp;&amp; newC&lt;n&amp;&amp;isV[temp]==false)
+				{
+					for (int j = 0; j&lt;3; j++)
+					{
+						if (ht[grid[r][c]][i][j] == grid[newR][newC])
+						{
+							
+							q.push(temp);
+							isV[temp] = true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

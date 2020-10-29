@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>152_goldfish_hcy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>152_goldfish_hcy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        m, n = len(matrix), len(matrix[0])
+        answer = [[0 for j in range(</B></FONT>n)] for i in range(m)]
+        rows = [0 for i in range(m)]
+        cols = [0 for j in range(n)]
+        x = []
+        for i in range(m):
+            for j in range(n):
+                x.append((matrix[i][j], i, j))
+        x.sort()
+<A NAME="1"></A>        rowdict = [{} for i in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if matrix[i]<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[j] in rowdict[i]:
+                    rowdict[i][matrix[i][j]].append(j)
+                else:
+                    rowdict[i][matrix[i][</B></FONT>j]] = [j]
+<A NAME="2"></A>        coldict = [{} for j in range(n)]
+        for j in range(n):
+            for i in range(m):
+                if matrix[i]<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[j] in coldict[j]:
+                    coldict[j][matrix[i][j]].append(i)
+                else:
+                    coldict[j][matrix[i][</B></FONT>j]] = [i]
+                    
+                    
+        for val, i, j in x:
+            if answer[i][j]:
+                continue
+            a, b = {i}, {j}
+            cands = [(i, j)]
+            have = {(i, j)}
+            while cands:
+                candsnext = []
+                for i, j in cands:
+                    for c in coldict[j][val]:
+                        if (c, j) in have:
+                            continue
+                        have.add((c, j))
+                        candsnext.append((c, j))
+                        a.add(c)
+                    for d in rowdict[i][val]:
+                        if (i, d) in have:
+                            continue
+                        have.add((i, d))
+                        candsnext.append((i, d))
+                        b.add(d)
+                cands = candsnext
+            e = 0
+            for i in a:
+                e = max(e, rows[i])
+            for j in b:
+                e = max(e, cols[j])
+            e += 1
+            for i in a:
+                rows[i] = e
+            for j in b:
+                cols[j] = e
+            for i, j in have:
+                answer[i][j] = e
+            
+            
+        return answer
+</PRE>
+
+</BODY>
+</HTML>

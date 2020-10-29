@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>110_janwei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>110_janwei.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        // dp[i][j][k] = minimal cost to paint first i houses with j neighbourhoods and prev color is k
+        const int INF = 2e9;</B></FONT>
+<A NAME="1"></A>        const int MMAX = 105;
+        const int NMAX = 25;
+        int dp[MMAX][MMAX][NMAX];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int len = 1; len &lt;= m; len++) {
+            for(int nei = 1; nei &lt;= target; nei++) {
+                for(int col = 1; col &lt;= n; col++) {</B></FONT>
+                    dp[len][nei][col] = INF;
+                }
+            }
+        }
+        if(houses[0] != 0) {
+            dp[1][1][houses[0]] = 0;
+        } else {
+            for(int col = 1; col &lt;= n; col++) {
+                dp[1][1][col] = cost[0][col-1];
+            }
+        }
+        for(int len = 1; len &lt; m; len++) {
+            for(int nei = 1; nei &lt;= target; nei++) {
+                for(int col = 1; col &lt;= n; col++) {
+                    int here = dp[len][nei][col];
+                    if(here == INF) {
+                        continue;
+                    }
+<A NAME="2"></A>                    // this is a valid state
+                    if(houses[len] != 0) {
+                        // no choice
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        int&amp; _dp = dp[len+1][nei + (col != houses[len])][houses[len]];
+                        _dp = min(_dp, here); // no cost
+                    } else {
+                        for(int ccol = 1; ccol &lt;= n; ccol++) {
+                            int&amp; _dp = dp[len+1][nei + (col != ccol)][ccol];
+                            _dp = min(_dp, here + cost[len][ccol-1]);
+                        }
+                    }
+                }
+            }
+        }
+        int ans = INF;
+        for(int col = 1; col &lt;= n; col++) {</B></FONT>
+            ans = min(ans, dp[m][target][col]);
+        }
+        if(ans == INF) {
+            ans = -1;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

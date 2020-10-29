@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>159_fuhuoyeyou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>159_fuhuoyeyou.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;string&gt; getFolderNames(vector&lt;string&gt;&amp; names) {
+        set&lt;string&gt; st;
+        map&lt;string, int&gt; number;
+        vector&lt;string&gt; ans;
+        for (string s : names) {
+            if (st.find(s) == st.end()) {
+                ans.push_back(s);
+                st.insert(s);
+                number[s] = 0;
+            } else {
+                while (true) {
+                    number[s]++;
+                    string newstr = s + &quot;(&quot; + to_string(number[s]) + &quot;)&quot;;
+                    if (st.find(newstr) == st.end()) {
+                        st.insert(newstr);
+                        ans.push_back(newstr);
+                        break;
+                    }
+                }
+            }
+        }
+            
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

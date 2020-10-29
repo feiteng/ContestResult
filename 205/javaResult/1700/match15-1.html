@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_wayne1116.java</TITLE>
+ <TITLE>258_s3m7.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>369_wayne1116.java</CENTER></H3><HR>
+<H3><CENTER>258_s3m7.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int minCost(String s, int[] cost) {
-        int prev=-1;
-        int total=0;
-        int maxValue=0;
-        int result=0;
-        for(int i=0; i&lt;s.length(); i++) {</B></FONT>
-            int curr=s.charAt(i);
-<A NAME="1"></A>            if(prev!=curr) {
-                result+=total-maxValue;
-                prev=curr;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>maxValue=cost[i];
-                total=cost[i];
+    public int minCost(String S, int[] cost) {
+        int l = 0, r = 0, c = 0;
+        while (r &lt; S.length()) {
+            int max = Integer.MIN_VALUE;
+            int sum = 0;
+            while (r &lt; S.length() &amp;&amp; S.charAt(l) == S.charAt(r)) {
+                sum += cost[r];
+                max = Math.max(max, cost[r++]);
             }
-            else{
-                total+=cost[i];
-                maxValue=Math.max(maxValue, cost[i]);
-            }
-        }</B></FONT>
-        result+=total-maxValue;
-        
-        return result;
+            if (r - l &gt; 1) c += sum - max;
+            l = r;
+        }
+        return c;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>497_Wei_YN_.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>497_Wei_YN_.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        List&lt;Integer&gt;[] node = new List[n];
+        for (int i = 0; i &lt; n; i++) {
+            node[i] = new</B></FONT> ArrayList&lt;&gt;();
+        }
+        for (int i = 0; i &lt; edges.length; i++) {
+            node[edges[i][0]].add(i);
+            node[edges[i][1]].add(i);
+        }
+<A NAME="1"></A>        double[] rate = new double[n];
+        rate[start] = 1.0;
+        Queue&lt;Integer&gt; queue = new ArrayDeque&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue.offer(start);
+        while (!queue.isEmpty()) {
+            int now = queue.poll();
+            for (int edgeIndex : node[now]) {
+<A NAME="2"></A>                int next = edges[edgeIndex][0] == now ? edges[edgeIndex][1] : edges[edgeIndex][0]</B></FONT>;
+                double nextRate = rate[now] * succProb[edgeIndex];
+                if (nextRate &gt; rate[next]) {
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>rate[next] = nextRate;
+                    queue.offer(next);
+                }
+            }
+        }
+        return rate[end];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

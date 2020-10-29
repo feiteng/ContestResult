@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>88_yrclamb.java</TITLE>
+ <TITLE>251_x372p.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>88_yrclamb.java</CENTER></H3><HR>
+<H3><CENTER>251_x372p.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int minCost(String s, int[] cost) {
         int ans = 0;
-        
-        int combo = 1;
-        int curSum = cost[0];
-        int curMax = cost[0];
-        
-        for(int i = 1; i &lt; s.length(); i++){
-            if(s.charAt</B></FONT>(i) == s.charAt(i-1)){
-                combo++;
-                curMax = Math.max(curMax, cost[i]);
-                curSum += cost[i];
+        int i = 0;
+        while(i &lt; s.length()) {
+            int j = i;
+            while(j &lt; s.length() &amp;&amp; s.charAt(j) == s.charAt(i)) {
+                j++;
             }
-            else{
-                if(combo &gt; 1)
-                    ans += (curSum - curMax);
-<A NAME="1"></A>                curSum = cost[i];
-                curMax = cost[i];
-                combo = 1;
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            if (i != j-1) {
+                int max = cost[i];
+                int total = 0;
+                for (int k = i; k &lt; j; k++) {
+                    total += cost[k];
+                    max = Math.max(max, cost[k]);
+                }
+                total -= max;
+                ans += total;
+                i = j;
+            } else {
+                i++;
+            }
         }
-        if(combo &gt; 1)
-            ans += (curSum - curMax);
         return ans;
-        
     }
 }</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>444_fiveface.py</TITLE>
+ <TITLE>209_morphism.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>444_fiveface.py</CENTER></H3><HR>
+<H3><CENTER>209_morphism.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def modifyString(self, s: str) -&gt; str:
-        N = len(s)
-<A NAME="0"></A>        res = list(s)
-        for i in range(N):
-            if res[i] == '?':
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for j in range(26):
-                    ch = chr(ord('a') + j)
-                    if (i == 0 or res[i-1] != ch) and (i &gt;= N-1 or res[i+1] != ch):
-                        res[i] = ch
-                        break
-        return ''.join(r</B></FONT>es)
-        
-        
+        n = len(s)
+        def find_not(vec):
+            for a in string.ascii_lowercase:
+                if a not in vec:
+                    return a
+            return '*'
+        answer = ''
+        for i in range(n):
+            c = s[i]
+            if c != '?':
+                answer += c
+                continue
+            vec = []
+            if i &gt; 0:
+                vec.append(answer[-1])
+            if i &lt; n - 1 and s[i+1] != '?':
+                vec.append(s[i+1])
+            answer += find_not(vec)
+        re</B></FONT>turn answer
 </PRE>
 
 </BODY>

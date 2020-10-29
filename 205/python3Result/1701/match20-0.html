@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>603_hectorilles.py</TITLE>
+ <TITLE>172_sshang.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>603_hectorilles.py</CENTER></H3><HR>
+<H3><CENTER>172_sshang.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UnionFind():
-    def __init__(self, n):
-        self.label = list(range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n))
-        self.sz = [1] * n
-        
-    def find(self, p):
-        while p != self.label[p]:
-            self.label[p] = self.label[self.label[p]]
-            p = self.label[p]
-        return p
-<A NAME="1"></A>    
-    def union(self, p, q):
-        proot, qroot = self.find(</B></FONT>p), self.find(q)
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if self.sz[proot] &gt;= self.sz[qroot]:
-            self.label[qroot] = proot
-            self.sz[proot] += self.sz[qroot]
-        else:
-            self.label[proot] = qroot
-            self.sz[qroot] += self.sz[</B></FONT>proot]
-    
-    def size(self, p):
-        return self.sz[self.find(p)]
-
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from collections import defaultdict
 class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        &quot;&quot;&quot;
-        MST, union find?
         
-        construct uf based on type 3
-        try type 1 and type2 separate
-        for a type:
-          pick from all edges to achieve reachability
-        &quot;&quot;&quot;
+        d = defaultdict(list)
+        for t, u, v in edges:
+            d[t].append((u - 1, v - 1))
+            
+        bob, alice = list(range(n)), list(range(n))
         
-        def mst(uf, edges):
-            result = 0
-            for a, b in edges:
-                if uf.find(a - 1) == uf.find(b - 1):
-                    continue
-                uf.union(a - 1, b - 1)
-                result += 1
-            if uf.size(0) != n:
-                return -1
-            return result
-        
-        def commonUf(edges):
-            uf = UnionFind(n)
-            edgesNeeded = 0
-            for a, b in edges:
-                if uf.find(a - 1) == uf.find(b - 1):
-                    continue
-                uf.union(a - 1, b - 1)
-                edgesNeeded += 1
-            return uf, edgesNeeded
-        
-        commonEdges = [(edge[1], edge[2]) for edge in edges if edge[0] == 3]
-        
-        uf1, commonEdgesNeeded = commonUf(commonEdges)
-        mst1 = mst(uf1, [(edge[1], edge[2]) for edge in edges if edge[0] == 1])
-        uf2, _ = commonUf(commonEdges)
-        mst2 = mst(uf2, [(edge[1], edge[2]) for edge in edges if edge[0] == 2])
-        
-        if mst1 == -1 or mst2 == -1:
-            return -1
-        return len(edges) - commonEdgesNeeded - mst1 - mst2
-        
+        def find(x, is_bob):
+            if is_bob:
+                if x != bob[x]:
+                    bob[x] = find(bob[x], is_bob)
+                return bob[x]
+            else:
+                if x != alice[x]:
+                    alice[x] = find(alice[x], is_bob)
+                return alice[x]
+            
+        res = 0
+        for t in [3, 2, 1]:
+            for u, v in d[t]:
+                if t == 3:
+                    rootu, rootv = find(u, True), find(v, True)
+                    if rootu != rootv:
+                        bob[rootu] = rootv
+                        alice[rootu] = rootv
+                        res += 1
+                elif t == 1:
+                    rootu, rootv = find(u, False), find(v, False)
+                    if rootu != rootv:
+                        alice[rootu] = rootv
+                        res += 1
+                else:
+                    rootu, rootv = find(u, True), find(v, True)
+                    if rootu != rootv:
+                        bob[rootu] = rootv
+                        res += 1
+                        
+        root_bob, root_alice = find(0, True), find(0, False)
+        if all(find(num, True) == root_bob for num in bob) and all(find(num, False) == root_alice for num in alice):
+            return len(edges) - res
+        else:
+            ret</B></FONT>urn -1
 </PRE>
 
 </BODY>

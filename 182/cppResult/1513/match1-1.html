@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_arknave.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_arknave.cpp</CENTER></H3><HR>
+<PRE>
+constexpr int MOD = 1e9 + 7;
+class Solution {
+public:
+    int dp[505][2][2][55];
+    int trans[55][30];
+    
+    bool matches(const string&amp; s, int len, int i) {
+        // acab
+        bool valid = true;
+        for (int j = 0; j &lt; len; ++j) {
+<A NAME="0"></A>            valid &amp;= s[j] == s[i - len + j];
+        }
+        return valid;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+        int m = evil.size();
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; 26; ++j) {</B></FONT>
+                // trans[i][j] longest prefix of evil which is also a suffix of trans[:i] + j
+                if (evil[i] == 'a' + j) {
+                    trans[i][j] = i + 1;
+                } else {
+                    // acaba
+                    for (int len = i; len &gt; 0; --len) {
+                        if (evil[len - 1] != 'a' + j) continue;
+                        bool valid = matches(evil, len - 1, i);
+                        if (valid) {
+                            trans[i][j] = len;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // dp state:
+        // len
+        // greater or eq to s1 so far
+<A NAME="1"></A>        // less or eq to s2 so far
+        // number of chars of evil
+        memset(dp, 0, sizeof(dp));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][0][0] = 1;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; 2; ++j) {
+                for (int k = 0; k &lt; 2; ++k) {
+                    for (int l = 0; l &lt; m; ++l) {</B></FONT>
+                        if (!dp[i][j][k][l]) continue;
+
+                        for (char c = 'a'; c &lt;= 'z'; ++c) {
+                            bool valid_lo = j or i &gt;= s1.size() or c &gt;= s1[i];
+                            bool valid_hi = k or i &gt;= s2.size() or c &lt;= s2[i];
+                            bool valid_evil = l + 1 &lt; m or c != evil.back();
+                            if (!valid_lo or !valid_hi or !valid_evil) continue;
+                            
+                            int nj = j or i &gt;= s1.size() or c &gt; s1[i];
+                            int nk = k or i &gt;= s2.size() or c &lt; s2[i];
+                            int nl = trans[l][c - 'a'];
+
+                            int&amp; nxt = dp[i + 1][nj][nk][nl];
+<A NAME="2"></A>                            nxt += dp[i][j][k][l];
+                            if (nxt &gt;= MOD)
+                                nxt -= MOD;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+                }
+            }
+        }
+        
+        int ans = 0;
+        for (int j = 0; j &lt; 2; ++j) {
+            for (int k = 0; k &lt; 2; ++k) {
+                for (int l = 0; l &lt; m; ++l) {</B></FONT>
+                    ans += dp[n][j][k][l];
+                    if (ans &gt;= MOD)
+                        ans -= MOD;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

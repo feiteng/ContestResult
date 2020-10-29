@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_zac4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+<A NAME="1"></A>        int[] ans = new int[n];
+        List&lt;Integer&gt;[] adjList = new List[n]</B></FONT>;
+        char[] lbls = labels.toCharArray();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; n; i++) {
+            adjList[i] = new ArrayList();
+        }
+        for (int[] e : edges) {</B></FONT>
+            int u = e[0], v = e[1];
+            adjList[u].add(v);
+            adjList[v].add(u);
+<A NAME="2"></A>        }
+        boolean[] visited = new boolean[n];
+        dfs(0, ans, adjList, visited, lbls);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans;
+    }
+    
+    private int[] dfs(int node, int[] ans, List&lt;Integer&gt;[] adjList, boolean[] visited, char[] lbls) {</B></FONT>
+        char cur = lbls[node];
+<A NAME="3"></A>        visited[node] = true;
+        int[] count = new int[26];
+        count[cur - 'a']++;
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match28-1.html#3',3,'match28-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int neigh : adjList[node]) {
+            if (visited[neigh]) {
+                continue;
+            }
+            int[] sub = dfs(neigh, ans, adjList, visited, lbls);
+            for (int i = 0; i &lt; 26; i++) {
+                count[i] += sub[i];
+            }
+        }</B></FONT>
+        ans[node] = count[cur - 'a'];
+        return count;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

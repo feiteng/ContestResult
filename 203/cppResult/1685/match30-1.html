@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_netcon.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>431_netcon.cpp</CENTER></H3><HR>
+<PRE>
+int sum[1024];
+int dp[1024][1024];
+
+
+class Solution {
+public:
+    vector&lt;int&gt; stones;
+    
+    int dfs(int left, int right) {
+        
+        if (dp[left][right] != -1) {
+            return dp[left][right];
+        }
+        
+        if (left &gt;= right) {
+<A NAME="1"></A>            return dp[left][right] = 0;
+        }
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res = 0;
+        for (int i = left; i &lt; right; i++) {
+            int ls = sum[i] - sum[left - 1];
+            int rs = sum[right] - sum[i];
+
+            if (ls &lt; rs) {
+                res = max(res, ls + dfs(left, i));
+            } else if (ls &gt; rs) {
+                res = max(res, rs + dfs(i + 1, right));
+            } else {</B></FONT>
+                int v = max(ls + dfs(left, i), rs + dfs(i + 1, right));
+                res = max(res, v);
+            }
+        }
+        return dp[left][right] = res;
+    }
+<A NAME="0"></A>    
+    int stoneGameV(vector&lt;int&gt;&amp; stoneValue) {
+        int len = stoneValue.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        stones = vector&lt;int&gt;();
+        stones.push_back(0);
+        sum[0] = 0;
+        for (int i = 1; i &lt;= len; i++) {
+            stones.push_back(stoneValue[i - 1]);
+            sum[i] = sum[i - 1] + stoneValue[i - 1];
+        }
+        
+        for (int i = 0; i &lt;= len; i++) {
+            for (int j = 0; j &lt;= len; j++) {</B></FONT>
+                dp[i][j] = -1;
+            }
+        }
+        
+        return dfs(1, len);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

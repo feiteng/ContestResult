@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>203_Marmaduke.cpp</TITLE>
+ <TITLE>116_dibas1.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>203_Marmaduke.cpp</CENTER></H3><HR>
+<H3><CENTER>116_dibas1.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int i = 0;
-        int N = s.length();
-        int total = 0;
-        while(i &lt; N)
-        {</B></FONT>
-<A NAME="1"></A>            char c = s[i];
-            int j = i;
-            long long int sum = 0;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int m = -1;
-            while(j &lt; N &amp;&amp; s[j] == c)
-            {
-                sum += cost[j];
-                m = max(cost[j], m);
-                j++;
+        int ans=0,mn=INT_MAX,tot=0;
+        for(int i=0;i+1&lt;s.size();++i){
+            if(s[i]==s[i+1]){
+                mn=cost[i];
+                tot=cost[i];
+                while(i+1&lt;=s.size()&amp;&amp;s[i]==s[i+1]){
+                    mn=max(mn,cost[i+1]);
+                    tot+=cost[i+1];
+                    i++;
+                }
+                ans+=(tot-mn);
+                
+               // cout&lt;&lt;ans&lt;&lt;&quot; &quot;;
             }
-            i = j;
-            total += (sum - m);
         }
-        
-        return total;
+      //  cout&lt;&lt;endl;
+        return ans;
     }
 };</B></FONT>
 </PRE>

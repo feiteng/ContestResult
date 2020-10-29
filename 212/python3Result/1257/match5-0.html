@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_bigmiaomiao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>164_bigmiaomiao.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+<A NAME="0"></A>        dp=[]
+        m=len(matrix)
+        n=len(matrix[0])
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(m):
+            for j in range(n):
+                dp.append((matrix[i][j],i,j))
+        dp.sort()
+        ans=[[-1 for j in range(</B></FONT>n)] for i in range(m)]
+        maxi=[[0,-10**9-1] for i in range(m)]
+        maxj=[[0,-10**9-1] for j in range(n)]
+        idx=0
+        while(idx&lt;len(dp)):
+            nowidx=idx
+            val,i,j=dp[idx]
+            nowarr=[]
+            while(nowidx&lt;len(dp) and dp[nowidx][0]==val):
+                val_temp,i,j=dp[nowidx]
+                current=-1
+<A NAME="1"></A>                if val==maxi[i][1]:
+                    current=max(current,maxi[i][0])
+                else:
+                    current=max(current,maxi<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][0]+1)
+            
+                if val==maxj[j][1]:
+                    current=max(current,maxj[j][0])
+                else:
+                    current=max(current,maxj[j][0]+1)
+                nowarr.</B></FONT>append((current,val,i,j))
+                nowidx=nowidx+1
+            bfs_visited=[-1 for bfs_i in range(len(nowarr))]
+            bfs_dici={}
+            bfs_dicj={}
+            for bfs_i in range(len(nowarr)):
+                current,val,i,j=nowarr[bfs_i]
+                try:
+                    bfs_dici[i]
+                except:
+                    bfs_dici[i]=[]
+                try:
+                    bfs_dicj[j]
+                except:
+                    bfs_dicj[j]=[]
+                bfs_dici[i].append(bfs_i)
+                bfs_dicj[j].append(bfs_i)
+            for temp in range(len(nowarr)):
+                if bfs_visited[temp]==-1:
+                    current,val,i,j=nowarr[temp]
+                    bfs_visited[temp]=1
+                    bfs_arr=[temp]
+                    start=0
+                    end=1
+                    while(start&lt;end):
+                        bfs_temp=bfs_arr[start]
+                        _,val,i,j=nowarr[bfs_temp]
+                        current=max(current,nowarr[bfs_temp][0])
+                        start=start+1
+                        for bfs_next in bfs_dici[i]:
+                            if bfs_visited[bfs_next]==-1:
+                                bfs_arr.append(bfs_next)
+                                bfs_visited[bfs_next]=1
+                                end=end+1
+                        for bfs_next in bfs_dicj[j]:
+                            if bfs_visited[bfs_next]==-1:
+                                bfs_arr.append(bfs_next)
+                                bfs_visited[bfs_next]=1
+                                end=end+1
+                    for bfs_temp in bfs_arr:
+                        _,val,i,j=nowarr[bfs_temp]
+                        
+                        ans[i][j]=current
+                        maxi[i][0]=current
+                        maxi[i][1]=val
+                        maxj[j][0]=current
+                        maxj[j][1]=val
+                
+                
+            idx=nowidx
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

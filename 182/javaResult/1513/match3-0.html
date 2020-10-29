@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+    	int mod = 1000000007;
+	    public int findGoodStrings(int n, String s1, String s2, String evil) {
+<A NAME="0"></A>	    	int[] mp = mpTable(evil.toCharArray());
+	    	long ret = count(s2.toCharArray(), n, mp, evil.toCharArray()) - count(s1.toCharArray(), n, mp, evil.toCharArray()) + mod;
+	    	if(s1.indexOf(evil) &lt; 0)ret++;
+	    	return (in<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>t)(ret%mod);
+//	    	int p = 0;
+//	    	for(int i = 0;i &lt; haystack.length;i++){
+//	    		while(p &gt;= 0 &amp;&amp; needle[p] != haystack[i])p = kmp[p];
+//	    		if(++p == needle.length){
+//	    			out.println(i-needle.length+1);
+//	    			p = kmp[p];
+//	    		}
+
+	    }
+	    
+	    long count(char[] s, int n, int[] mp, char[] needle)
+	    {</B></FONT>
+	    	int m = mp.length-1;
+	    	long[] dp = new long[m];
+	    	dp[0] = 1;
+	    	int edge = 0;
+	    	for(int i = 0;i &lt; n;i++){
+	    		long[] ndp = new long[m];
+	    		for(int j = 0;j &lt; m;j++){
+	    			for(int k = 0;k &lt; 26;k++){
+	    				int p = j;
+	    	    		while(p &gt;= 0 &amp;&amp; needle[p]-'a' != k){
+	    	    			p = mp[p];
+	    	    		}
+	    	    		if(++p &lt; needle.length){
+	    	    			ndp[p] += dp[j];
+	    	    			if(ndp[p] &gt;= mod)ndp[p] -= mod;
+	    	    		}
+	    			}
+	    		}
+	    		if(edge != needle.length){
+		    		for(int k = 0;k &lt; s[i]-'a';k++){
+	    				int p = edge;
+	    	    		while(p &gt;= 0 &amp;&amp; needle[p]-'a' != k){
+	    	    			p = mp[p];
+	    	    		}
+	    	    		if(++p &lt; needle.length){
+	    	    			ndp[p] += 1;
+	    	    			if(ndp[p] &gt;= mod)ndp[p] -= mod;
+	    	    		}
+		    		}
+		    		
+    				int p = edge;
+    	    		while(p &gt;= 0 &amp;&amp; needle[p] != s[i]){
+    	    			p = mp[p];
+    	    		}
+    	    		++p;
+    	    		edge = p;
+	    		}
+	    		
+	    		dp = ndp;
+	    	}
+	    	
+	    	long ret = 0;
+	    	if(edge != needle.length)ret++;
+	    	for(long v : dp)ret += v;
+	    	return ret%mod;
+	    }
+	    
+		public int[] mpTable(char[] str)
+		{
+			int n = str.length;
+			int[] mp = new int[n+1];
+			mp[0] = -1;
+			for(int i = 1, j = 0;i &lt; n;i++){
+				while(j &gt;= 0 &amp;&amp; str[i] != str[j])j = mp[j];
+				mp[i+1] = ++j;
+			}
+			return mp;
+		}
+
+	}	
+</PRE>
+
+</BODY>
+</HTML>

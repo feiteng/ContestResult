@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>120_MesbahTanvir.cpp</TITLE>
+ <TITLE>110_cathy009.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>120_MesbahTanvir.cpp</CENTER></H3><HR>
+<H3><CENTER>110_cathy009.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind {
+   public:
+    explicit UnionFind(int size) : parent_(size) {
+        iota(parent_.begin(), parent_.end(), 0);
+    }
+
+    int Find(int a) {
+        if (parent_[a] != a) {
+            parent_[a] = Find(parent_[a]);
+        }
+        return parent_[a];
+    }
+
+    void Union(int a, int b) { parent_[Find(a)] = Find(b); }
+
+    bool TryUnion(int a, int b) {
+        int pa = Find(a), pb = Find(b);
+        if (pa == pb) return false;
+        parent_[pa] = pb;
+        return true;
+    }
+    
+    bool IsConnected() {
+        unordered_set&lt;int&gt; ps;
+        for (int i = 0; i &lt; parent_.size(); ++i) ps.emplace(Find(i));
+        return ps.size() == 1;
+    }
+
+   private:
+    vector&lt;int&gt; parent_;
+};
+
 class Solution {
 public:
-    int get_pr(int n, vector &lt; int &gt; &amp;p){
-        //cout &lt;&lt; p[n] &lt;&lt;&quot; &quot;&lt;&lt;n&lt;&lt;endl;
-        if(p[n]==n) return n;
-        return p[n] = get_pr(p[n], p);
-    }
-    void merge(int n, int m, vector&lt;int&gt;&amp;p){
-        int p1 = get_pr(n, p);
-        int p2 = get_pr(m, p);
-        p[p1]=p2;
-    }
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-<A NAME="0"></A>        vector &lt; int &gt; pr, one, two;
-        pr.resize(n+2);
-        for(int i =1; i &lt;= n; i ++){
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            pr[i] = i;
+        UnionFind a(n), b(n);
+        int num_removes = 0;
+        for (auto&amp; e : edges) {
+            --e[1], --e[2];
         }
-        int take = 0;
-        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==3){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, pr)!=get_pr(v, pr)){
-                    take++;</B></FONT>
-                    merge(u, v, pr);
-                }
-            }
-<A NAME="2"></A>        }
-        one = pr;
-        two = pr;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==1){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, one)!=get_pr(v, one)){
-                    take++;</B></FONT>
-                    merge(u, v, one);
-                }
-<A NAME="1"></A>            }
-            if(edges[i][0]==2){
-                int u = edges[i][1];
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int v = edges[i][2];
-                if(get_pr(u, two)!=get_pr(v, two)){
-                    take++;
-                    merge(u, v, two);
-                }
-            }
-            
-        }
-        for(int i =1; i &lt;= n ; i ++){
-            if(i!=1){</B></FONT>
-                if(get_pr(i, one)!=get_pr(i-1, one)){
-                    return -1;
-                }
-                
-                if(get_pr(i, two)!=get_pr(i-1, two)){
-                    return -1;
-                }
+        for (auto&amp; e : edges) {
+            if (e[0] == 3) {
+                auto x = a.TryUnion(e[1], e[2]);
+                auto y = b.TryUnion(e[1], e[2]);
+                if (!x &amp;&amp; !y) ++num_removes;
             }
         }
-        return edges.size()-take;
-        
-        
+        for (auto&amp; e : edges) {
+            if (e[0] == 1) {
+                if (!a.TryUnion(e[1], e[2])) ++num_removes;
+            } else if (e[0] == 2) {
+                if (!b.TryUnion(e[1], e[2])) ++num_removes;
+            }
+        }
+        return a.IsConnected() &amp;&amp; b.IsConnected() ? num_removes : -1;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

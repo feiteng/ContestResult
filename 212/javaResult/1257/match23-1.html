@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>153_payall4u.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>153_payall4u.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+class Solution {
+    public int[][] matrixRankTransform(int[][] matrix) {
+        int[][] ans = new int[matrix.length][matrix[0].length];
+<A NAME="0"></A>        List&lt;int[]&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; matrix.length; i++) {
+            for (int j = 0; j &lt; matrix[i].length; j++) {
+                list.add(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[]{matrix[i][j], i, j});
+            }
+        }
+        Collections.sort(list, (a, b) -&gt; (a[0] -</B></FONT> b[0]));
+        for (int[] tri : list) {
+            int rank = 0;
+            int val = tri[0], x = tri[1], y = tri[2];
+            for (int i = 0; i &lt; matrix[0].length; i++) {
+                if (i == y) continue;
+                if (val == matrix[x][i]) rank = Math.max(rank, ans[x][i] - 1);
+                else rank = Math.max(rank, ans[x][i]);
+            }
+            for (int j = 0; j &lt; matrix.length; j++) {
+                if (j == x) continue;
+                if (val == matrix[j][y]) rank = Math.max(rank, ans[j][y] - 1);
+                else rank = Math.max(rank, ans[j][y]);
+            }
+            ans[x][y] = rank + 1;
+
+            change(ans, matrix, x, y);
+        }
+<A NAME="1"></A>        return ans;
+    }
+
+    public void change(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] ans, int[][] matrix, int x, int y) {
+<A NAME="2"></A>        for (int i = 0; i &lt; matrix[0].length; i++) {
+            if (matrix[x][y] == matrix[x][i] &amp;&amp; ans[x][i] != 0 &amp;&amp; ans[x][y] != ans[x][i]) {
+                a</B></FONT>ns[x][i] = ans[x][y];
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>change(ans, matrix, x, i);
+            }
+        }
+        for (int j = 0; j &lt; matrix.length; j++) {
+            if (matrix[x][y] == matrix[j][y] &amp;&amp; ans[j][y] != 0 &amp;&amp; ans[x][y] != ans[j][y]) {
+                a</B></FONT>ns[j][y] = ans[x][y];
+                change(ans, matrix, j, y);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

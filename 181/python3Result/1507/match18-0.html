@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>458_sukeyzhou.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>458_sukeyzhou.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+<A NAME="1"></A>        maps = {1: [(0,-1),(0,1)], 2: [(-1,0),(1,0)], 3: [(0,-1),(1,0)], 4: [(1,0),(0,1)], 5: [(-1,0),(0,-1)], 6: [(-1,0),(0,1)] }
+        R, C =</B></FONT> len(grid), len(grid[0])
+        queue = collections.deque([(0, 0)])
+        seen = set([(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>0,0)])
+        while queue:
+            x, y = queue.popleft()
+            if x == R-1 and y == C-1:
+                return True
+            for i, j in maps[grid[x][y]]:
+                m, n = i+x, j+y
+                if</B></FONT> 0 &lt;= m &lt; R and 0 &lt;= n &lt; C and (m, n) not in seen:
+                    for a,b in maps[grid[m][n]]:
+                        if 0 &lt;= a+m &lt; R and 0 &lt;= b+n &lt; C:
+                            if a+m == x and b+n == y:
+                                queue.append((m, n))
+                                seen.add((m,n))
+                                break
+        return False
+                
+</PRE>
+
+</BODY>
+</HTML>

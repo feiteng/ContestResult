@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>575_MaidaWu.py</TITLE>
+ <TITLE>235_Siddhant_Khare.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,121 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>575_MaidaWu.py</CENTER></H3><HR>
+<H3><CENTER>235_Siddhant_Khare.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        edges.sort(reverse=True)
-        Alice_father={}
-        Bob_father={}
-        for i in range(1,n+1):
-            Alice_father[i]=i
-            Bob_father[i]=i
-        Aliceunion_times=[0]
-<A NAME="0"></A>        Bobunion_times=[0]
-        used_edges=0
-        for i in range(len(edges)):
-            t,n1,n2=edges[i][0],edges[i][1],edges[i]<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[2]
-            if t==3:
-                if self.find(n1,Alice_father)!=self.find(n2,Alice_father)\
-                or self.find(n1,Bob_father)!=self.find(n2,Bob_father):
-                    used_edges+=1
-                    self.union(n1,n2,Alice_father,Aliceunion_times)
-                    self.union(n1,n2,Bob_father,Bobunion_times)
-            elif t==2:
-                if self.find(n1,Bob_father)!=self.find(n2,Bob_father):
-                    used_edges+=1
-                    self.union(n1,n2,Bob_father,Bobunion_times)
-            elif t==1:
-                if self.find(n1,Alice_father)!=self.find(n2,Alice_father):
-                    used_edges+=1
-                    self.union(n1</B></FONT>,n2,Alice_father,Aliceunion_times)
-                    
-        if Bobunion_times[0]!=n-1 or Aliceunion_times[0]!=n-1:
-            return -1
-        return len(edges)-used_edges
-                    
-                    
+        
+        # DP 
+        
+        A = [0] * (n + 1)
+        B = [0] * (n + 1)
+        
+        # merging
+        
+        def merge(fu, x, y):
+            if x == y: return
+            fu[x] = y
+        
+        # parent function and x
+        
+        def parent(fu, x):
+            p = x
             
-                    
-                    
-                    
+            # while loop
+            
+            while fu[p] != 0:
+                p = fu[p]
         
+        # while loop
         
-    
-    
-    def find(self,a,node_father):
-        tmp_a=a
-        while node_father[a]!=a:
-            a=node_father[a]
-        while tmp_a!=a:
-            tmp_father=node_father[tmp_a]
-            node_father[tmp_a]=a
-            tmp_a=tmp_father
-        return a
-    
-    
-    def union(self,a,b,node_father,merge_times):
-        a_father,b_father=self.find(a,node_father), self.find(b,node_father)
-        if a_father!=b_father:
-            merge_times[0]+=1
-            node_father[a_father]=b_father
+            while x != p:
+                x2 = fu[x]
+                fu[x] = p
+                x = x2
+                
+                # exit
+                
+            return p
+
+        edges = [tuple(x) for x in edges]
+        
+        # sorting
+        edges.sort(reverse=True)
+        c = 0
+        
+        # for looping
+        
+        for t, x, y in edges:
+            if t == 3:
+                
+                # p1 p2 p3 p4
+                
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                p3 = parent(B, x)
+                p4 = parent(B, y)
+                
+                # if loop
+                
+                if (p1 != p2) or (p3 != p4):
+                    c += 1
+                    
+                    # merge
+                    
+                    merge(A, p1, p2)
+                    merge(B, p3, p4)
+            
+            # else if 
+            
+            elif t == 1:
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                
+                # if loop
+                if p1 != p2:
+                    c += 1
+                    
+                    # exit
+                    
+                    merge(A, p1, p2)
+                
+                # else condition
+                
+            else:
+                p1 = parent(B, x)
+                p2 = parent(B, y)
+                
+                # if looping
+                
+                if p1 != p2:
+                    c += 1
+                    merge(B, p1, p2)
+        
+         # p0
+        p0 = parent(A, 1)
+        p1 = parent(B, 1)
+        
+        # for looping
+        
+        for i in range(1, n + 1):
+            p = parent(A, i)
+            
+            # -1
+            
+            if p != p0: return -1
+            p = parent(B, i)
+            
+            # -1
+            if p != p1: return -1
+        
+        # answer
+        
+        ans = len(edges) - c
+        
+        # exit answer
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

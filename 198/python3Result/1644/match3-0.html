@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>540_joshua1989.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>540_joshua1989.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict, deque
+<A NAME="0"></A>from heapq import heappush, heappop
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        aux = defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        for i, c in enumerate(s):
+            aux[c].append(i)
+        valid = {}
+        for c in aux:
+            l, r, seen = aux[c][0], aux[c][</B></FONT>-1], {c}
+            while True:
+                overlap = {
+                    z for z, idx in aux.items() 
+                    if any(l &lt;= j &lt;= r for j in idx)
+                } - seen
+                if not overlap: break
+                seen |= overlap
+                l = min(l, min(aux[z][0] for z in overlap))
+                r = max(r, max(aux[z][-1] for z in overlap))
+            valid[c] = (l, r)
+        
+        pq = []
+        for c, (l, r) in valid.items():
+            heappush(pq, (r, r - l + 1, c))
+        chars, L, cur_l, end = set(), math.inf, 0, -1
+        while pq:
+            cur, l, c = heappop(pq)
+            if valid[c][0] &gt; end:
+                cur_l += l
+                end = cur
+                chars.add(c)
+        return [s[valid[c][0]:valid[c][-1] + 1] for c in chars]
+</PRE>
+
+</BODY>
+</HTML>

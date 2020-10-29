@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>113_tonyli0000.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>113_tonyli0000.cpp</CENTER></H3><HR>
+<PRE>
+class UndergroundSystem {
+<A NAME="0"></A>public:
+    map&lt;pair&lt;string, string&gt;, pair&lt;int, int&gt;&gt;all;
+    map&lt;int, pair&lt;string,int&gt;&gt;curr;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    UndergroundSystem() {
+        all.clear();
+    }
+
+    void checkIn(int id, string stationName, int t) {
+        curr[id] = { stationName,t };
+    }
+
+    void checkOut(int id, string stationName, int t) {</B></FONT>
+<A NAME="1"></A>        string x = curr[id].first;
+        int y = curr[id].second;
+        curr.erase(id);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        all[{x, stationName}].first += (t - y);
+        all[{x, stationName}].second++;
+    }
+
+    double getAverageTime(string startStation, string endStation) {
+        return 1.0 * all[{startStation, endStation}].first / all[{startStation, endStation}].second;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

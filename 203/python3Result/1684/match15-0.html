@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>671_ars0.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>671_ars0.py</CENTER></H3><HR>
+<PRE>
+class DSU:
+<A NAME="0"></A>    def __init__(self, n):
+        self.r = collections.defaultdict(int)
+        self.p = collections.defaultdict(int)
+        self.s = collections.defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(int)
+        self.scount = collections.defaultdict(int)
+    
+    def find(self, x):
+        if self.p[x] != x:
+            self.p[x] = self.find(self.p[x])
+        return self.p[x]
+    
+    def union(self, x, y):
+        px = self.find(x)
+        py = self.find(y)
+        
+<A NAME="1"></A>        if</B></FONT> self.r[px] &gt; self.r[py]:
+            self.p[py] = px
+            self.scount[self.s[py]] -= 1
+            self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.scount[self.s[px]] -= 1
+            self.s[px] += self.s[py]
+            self.s[py] = 0
+            self.scount[self.s[</B></FONT>px]] += 1
+            
+        if self.r[px] &lt; self.r[py]:
+            self.p[px] = py
+            self.scount[self.s[py]] -= 1
+            self.scount[self.s[px]] -= 1
+            self.s[py] += self.s[px]
+            self.s[px] = 0
+            self.scount[self.s[py]] += 1
+<A NAME="2"></A>        else:
+            self.p[py] = px
+            self.scount[self.s[py]] -= 1
+            self<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.scount[self.s[px]] -= 1
+            self.r[px] += 1
+            self.s[px] += self.s[py]
+            self.s[py] = 0
+            self.scount[self.s[px]] += 1
+
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        dsu =</B></FONT> DSU(len(arr))
+        seen = set()
+        ret = -1
+        for i in range(len(arr)):
+            dsu.p[arr[i]] = arr[i]
+            dsu.s[arr[i]] = 1
+            dsu.r[arr[i]] = 0
+            dsu.scount[1] += 1
+            if arr[i] + 1 in seen:
+                dsu.union(arr[i], arr[i] + 1)
+            if arr[i] - 1 in seen:
+                dsu.union(arr[i], arr[i] - 1)
+                
+            if dsu.scount[m] &gt; 0:
+                ret = max(ret, i)
+            seen.add(arr[i])
+            
+        return ret + 1 if ret != -1 else -1
+
+        
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

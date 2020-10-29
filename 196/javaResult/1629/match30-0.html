@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>230_mingwandowski.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>230_mingwandowski.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String minInteger(String num, int k) {
+        int nextDigit = 0;
+        char[] c = num.toCharArray();
+        while(nextDigit &lt; c.length - 1 &amp;&amp; k &gt; 0) {
+            int min = c[nextDigit];
+            int minIndex = nextDigit;
+            for(int i = nextDigit + 1; i &lt; c.length; i++) {
+                if(c[i] &lt; min) {
+                    min = c[i];
+                    minIndex = i;
+                }
+            }
+            if(minIndex - nextDigit &lt;= k) {
+                putToNextDigit(c, minIndex, nextDigit);
+                k -= minIndex - nextDigit;
+                nextDigit++;
+            } else {
+                return best(c, nextDigit, k);
+            }
+        }
+        return result(c);
+    }
+<A NAME="0"></A>    
+    private String best(char[] c, int nextDigit, int k) {
+        while(k &gt; 0) {
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int min = c[nextDigit];
+            int minIndex = nextDigit;
+            for(int i = nextDigit + 1; i &lt;= nextDigit + k; i++) {
+                if(c[i] &lt; min) {
+                    min = c[i];
+                    minIndex = i;
+                }
+            }
+            putToNextDigit(c, minIndex, nextDigit);
+            k -= minIndex - nextDigit;
+            nextDigit++;
+        }
+        return</B></FONT> result(c);
+    }
+    
+    private String result(char[] c) {
+        StringBuilder sb = new StringBuilder();
+        for(char ch : c) {
+<A NAME="1"></A>            sb.append(ch);
+        }
+        return sb.toString();
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private void putToNextDigit(char[] c, int minIndex, int nextDigit) {
+        char tmp = c[minIndex];
+        for(int i = minIndex - 1; i &gt;= nextDigit; i--) {
+            c[i + 1] = c[i];
+        }
+        c[nextDigit] = tmp;
+    }
+}</B></FONT>
+/*
+num = &quot;4321&quot;, k = 4
+4312
+4132
+1432
+1342
+*/
+</PRE>
+
+</BODY>
+</HTML>

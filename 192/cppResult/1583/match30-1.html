@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>456_mei-qian-chi-bai-cai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>456_mei-qian-chi-bai-cai.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[110][22][110];
+<A NAME="0"></A>    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        memset(dp,0x3f3f3f3f,sizeof(dp));
+        dp[0][0][0]=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int hi=1;hi&lt;=m;hi++){
+            if(houses[hi-1]==0){
+                for(int ni=1;ni&lt;=n;ni++){
+                    //
+<A NAME="1"></A>                     for(int pni=0;pni&lt;=n;pni++){
+                        for(int pki=0;pki&lt;=target;pki++){
+                            int ki=pki+(ni!=pni);</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            dp[hi][ni][ki]=min(dp[hi][ni][ki], dp[hi-1][pni][pki]+cost[hi-1][ni-1]);
+                        }
+                    }
+                }
+<A NAME="2"></A>            }else{
+                for(int pni=0;pni&lt;=n;pni++){
+                    for(int pki=0;pki&lt;=target;pki++){</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        int ki=pki+(houses[hi-1]!=pni);
+                        dp[hi][houses[hi-1]][ki]=min(dp[hi][houses[hi-1]][ki], dp[hi-1][pni][pki]);
+                    }
+                }
+            }
+        }
+        
+        // for(int hi=0;hi&lt;=m;hi++){
+        //     cout&lt;&lt;endl&lt;&lt;endl&lt;&lt;endl;
+        //     for(int ni=0;ni&lt;=n;ni++){
+        //         for(int pki=0;pki&lt;=target;pki++){
+        //             cout&lt;&lt;dp[hi][ni][pki]&lt;&lt;&quot; &quot;;
+        //         }
+        //         cout&lt;&lt;endl;
+        //     }   
+        // }
+        
+    
+        int ans=0x3f3f3f3f;
+        for(int ni=1;ni&lt;=n;ni++){
+            ans=min(ans,dp[m][ni][target]);
+        }
+        if(ans==0x3f3f3f3f)return -1;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

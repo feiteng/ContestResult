@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>23_noxe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>23_noxe.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    #define mod 1000000007
+    char es[55];
+    int f[505][2][2][51];
+    int fail[55], len;
+    void buildF(char *p) {
+      for (int i = 1, j = fail[0] = -1; i &lt; len; ++i) {
+        while (~j &amp;&amp; p[i] != p[j + 1]) j = fail[j];
+        fail[i] = j += p[i] == p[j + 1];
+      }
+    }
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+        len = evil.length();
+<A NAME="2"></A>        for (int i = 0; i &lt; len; ++i) es[i] = evil[i]; es[len] = 0;
+        buildF(es);
+        
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B><A NAME="0"></A>        for (int i = 0; i &lt;= n; ++i) for (int j = 0; j &lt; 2; ++j) for (int k = 0; k &lt; 2; ++k) for (int l = 0; l &lt; 2; ++l) </B></FONT>
+            f[i][j][k][l] = 0;
+        f[0][1][1][0] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; ++i) 
+            for (int j = 0; j &lt; 2; ++j) 
+                for (int k = 0; k &lt; 2; ++k) 
+                    for (int l = 0; l &lt;= len; ++l) {</B></FONT>
+                        if (f[i][j][k][l] != 0) {
+                            for (char ch = 'a'; ch &lt;= 'z'; ++ch) {
+                                if (j == 1 &amp;&amp; ch &lt; s1[i]) continue;
+                                if (k == 1 &amp;&amp; ch &gt; s2[i]) continue;
+                                int tj = (j == 1 &amp;&amp; ch == s1[i]);
+                                int tk = (k == 1 &amp;&amp; ch == s2[i]);
+                                int tl = l - 1;
+                                while (~tl &amp;&amp; ch != es[tl + 1]) tl = fail[tl];
+                                if (ch == es[tl + 1]) ++tl;
+                                if (tl == len - 1) continue;
+                                tl += 1;
+<A NAME="1"></A>                                f[i + 1][tj][tk][tl] += f[i][j][k][l];
+                                f[i + 1][tj][tk][tl] %= mod;
+                            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+        int ans = 0;
+        for (int i = 0; i &lt; 2; ++i) for (int j = 0; j &lt; 2; ++j) for (int k = 0; k &lt;= len; ++k) {</B></FONT>
+            ans += f[n][i][j][k];
+            ans %= mod;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

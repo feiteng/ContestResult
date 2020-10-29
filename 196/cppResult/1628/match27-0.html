@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>732_vijayjat93.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>732_vijayjat93.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int r,c;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void prefix(vector&lt;vector&lt;int&gt;&gt;&amp; dp, vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        for (int i=0; i&lt;r; i++) {
+            for (int j=c-1; j &gt;= 0; j--) {
+                if (!mat[i][j]) continue;
+                if (j != (c-1))
+                    dp[i][j] += dp[i][j+1];
+                dp[i][j] += (int)mat[i][j];
+            }       
+        }
+    }
+<A NAME="1"></A>    int numSubmat(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {</B></FONT>
+        r = mat.size();
+        c = mat[0].size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; dp(r , vector&lt;int&gt;(c,0));
+        prefix(dp,mat);
+        int ans = 0;
+        
+        for(int j=0; j&lt;c; j++) {
+            
+            int i = r-1;
+            stack&lt;pair&lt;int,int&gt;&gt; st;
+            int to_sum = 0;
+            
+            while (i&gt;=0) {
+                int c = 0;
+                while ( !st.empty() and st.top().first &gt; dp[i][j]) {
+                    to_sum -= (st.top().second + 1) * (st.top().first - dp[i][j]);
+                    c += st.top().second + 1;
+                    st.pop();
+                }
+                
+                to_sum += dp[i][j];
+                ans += to_sum;
+                st.push({dp[i][j] , c});
+                i--;
+            }
+            
+        }
+        
+        return ans;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

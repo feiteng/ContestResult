@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>476_smoon1989.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>476_smoon1989.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        mod = 10 ** 9 + 7
+        n, m = len(pizza), len(pizza[0])
+        matrix = [[0 for _ in range(m)] for _ in range(n)]
+        for i in range(n):
+<A NAME="0"></A>            for j in range(m):
+                if pizza[i][j] == 'A':
+                    matrix[i][j] = 1
+        presum = [[0 for _ in range(m + 1)] for _ in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                presum[i][j] = presum[i][j - 1] + matrix[i - 1][</B></FONT>j - 1]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                presum[i][j] += presum[i - 1][j]
+        memo = dict()
+        
+        def helper(r, c, kk):
+            if (r, c, kk) in memo:
+                return memo[(r, c, kk)]
+            if (n - r) + (m - c) &lt; kk:
+                memo[(r, c, kk)] = 0
+                return 0
+            if kk == 1:
+                if presum[-1][-1] - presum[r][-1] - presum[-1][c] + presum[r][c] &gt; 0:
+                    memo[(r, c, kk)] = 1
+                else:
+<A NAME="1"></A>                    memo[(r, c, kk)] = 0
+                #print(presum)
+                #print(r, c, kk, memo[(r, c, kk)])
+                return memo<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[(r, c, kk)]
+            res = 0
+            for i in range(r + 1, n):
+                if presum[i][-1] - presum[r][-1] - presum[i][c] + presum[r][c] &gt; 0:
+                    res += helper(i, c, kk - 1)
+            for j in range(c + 1, m):
+                if presum[-1][j] - presum[-1][c] - presum[r][j] + presum[r][c] &gt; 0:
+                    res += helper(r</B></FONT>, j, kk - 1)
+            res %= mod
+            memo[(r, c, kk)] = res
+            #print(memo)
+            return res
+        
+        return helper(0, 0, k)
+</PRE>
+
+</BODY>
+</HTML>

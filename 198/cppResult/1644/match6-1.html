@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_RadianceSheep.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10_RadianceSheep.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        int n = static_cast&lt;int&gt;(s.size());
+        vector&lt;int&gt; first(26, -1), last(26, -1);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; ++i) {
+            int index = s[i] - 'a';
+            if (first[index] == -1) {
+                first[index] = i;
+            }
+            last[index] = i;
+        }
+        vector&lt;vector&lt;bool&gt;&gt; has(26, vector&lt;bool&gt;(26));
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            int index = s[i] - 'a';
+            for (int j = 0; j &lt; 26; ++j) {
+                if (first[j] != -1 &amp;&amp; first[j] &lt;= i &amp;&amp; i &lt;= last[j]) {
+                    has[j][index] = true;
+                }
+            }
+        }
+        for (int k = 0; k &lt; 26; ++k) {
+            for (int i = 0; i &lt; 26; ++i) {
+                if (first[i] == -1) {
+                    continue;
+                }
+                for (int j = 0; j &lt; 26; ++j) {
+                    if (i != j &amp;&amp; has[i][j]) {
+                        first[i] = min(first[i], first[j]);
+                        last[i] = max(last[i], last[j]);
+                    }
+                }
+            }
+        }
+        vector&lt;pair&lt;int, int&gt;&gt; intervals;
+        for (int i = 0; i &lt; 26; ++i) {
+            if (first[i] != -1) {
+                intervals.push_back({first[i], last[i]});
+            }
+        }
+        int m = static_cast&lt;int&gt;(intervals.size());
+        sort(intervals.begin(), intervals.end(), [&amp;](const pair&lt;int, int&gt;&amp; a, const pair&lt;int, int&gt;&amp; b) {
+<A NAME="1"></A>            return a.second - a.first &lt; b.second - b.first;
+        });
+        vector&lt;string&gt; results;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; m; ++i) {
+            bool valid = true;
+            for (int j = 0; j &lt; i; ++j) {
+                if (intervals[i].first &lt;= intervals[j].first &amp;&amp; intervals[j].first &lt;= intervals[i].second) {</B></FONT>
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid) {
+                results.push_back(s.substr(intervals[i].first, intervals[i].second - intervals[i].first + 1));
+            }
+        }
+        return results;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

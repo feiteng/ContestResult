@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>382_pkucoin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>382_pkucoin.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    vector&lt;int&gt; ans;
+    vector&lt;vector&lt;int&gt;&gt; sons;
+    vector&lt;int&gt; visited;
+<A NAME="0"></A>    vector&lt;int&gt; dfsHelper(int idx, int n, string&amp; labels) {
+        vector&lt;int&gt; ret(26, 0);
+        ret[labels[idx] - 'a'] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        visited[idx] = 1;
+        for (int i : sons[idx]) {
+            if (visited[i]) continue;
+            vector&lt;int&gt; cnt = dfsHelper(i, n, labels);
+            for (int j = 0; j &lt; 26; j++) {
+                ret[j] += cnt[j];
+            }
+        }
+        ans[idx] = ret[labels[idx] - 'a'];
+        return ret;
+    }
+public:
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, string labels) {
+        visited = vector&lt;int&gt;(n, 0);
+        ans.resize(n);
+        sons.resize(n);
+        for (auto&amp; e : edges) {
+            sons[e[0]].push_back(e[1]);
+            sons[e[1]].push_back(e[0]);
+        }</B></FONT>
+        dfsHelper(0, n, labels);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>473_ddmike.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>473_ddmike.cpp</CENTER></H3><HR>
+<PRE>
+const int MAX_INF = 1000000007;
+int f[52][52][12];
+<A NAME="0"></A>class Solution {
+public:
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int m = pizza.size(), n = pizza[0].length();
+        vector&lt;vector&lt;int&gt;&gt; apple_count(m + 1, vector&lt;int&gt;(n + 1, 0));
+        for (int i = 0; i &lt; m; ++i)
+        {
+            for (int j = 0; j &lt; n; ++j)
+            {
+                apple_count[i + 1][j + 1] = apple_count[i + 1][j] + apple_count[i][j + 1] - apple_count[i][j];</B></FONT>
+                if (pizza[i][j] == 'A')
+                {
+                    apple_count[i + 1][j + 1] += 1;
+                }
+            }
+<A NAME="1"></A>        }
+        memset(f, 0, sizeof(f));
+        f[0][0][0] = 1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int z = 1; z &lt;= k; ++z)
+        {
+           for (int i = 0; i &lt;= m; ++i)
+<A NAME="2"></A>            {
+                for (int j = 0; j &lt;= n; ++j)
+                {</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    for (int cut = i + 1; cut &lt; m; ++cut)
+                    {
+                        if (apple_count[cut][n] - apple_count[i][n] - apple_count[cut][j] + apple_count[i][j] &gt; 0)
+                        f[cut][j][z] = (f[cut][j][z] + f[i][j][z - 1]) % MAX_INF;
+                    }
+
+                    for (int cutj = j + 1; cutj &lt;= n; ++cutj)
+                    {
+                        if (apple_count[m][cutj] - apple_count[m][j] - apple_count[i][cutj] + apple_count[i][j] &gt; 0)
+                        f[i][cutj][z] = (f[i][cutj][z] + f[i][j][z - 1]) % MAX_INF;
+                    }</B></FONT>
+                }
+            }         
+        }
+// for (int z = 1; z &lt;= k; ++z)
+//         {
+//            for (int i = 0; i &lt;= m; ++i)
+//             {
+//                 for (int j = 0; j &lt;= n; ++j)
+//                 {
+//                     cout &lt;&lt; f[i][j][z] &lt;&lt; ' ';
+//                 }
+//                cout &lt;&lt; endl;
+//            }
+//     cout &lt;&lt; endl;
+// }
+        int ans = 0; 
+        for (int i = 0; i &lt; m; ++i)
+        {
+            ans = (ans + f[i][n][k]) % MAX_INF;
+        }
+        for (int j = 0; j &lt; n; ++j)
+        {
+            ans = (ans + f[m][j][k]) % MAX_INF;
+        }
+        ans = (ans + f[m][n][k]) % MAX_INF;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

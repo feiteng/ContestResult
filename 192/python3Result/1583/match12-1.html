@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221__-owo-_.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>221__-owo-_.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        # dp(i, prev, groupsLeft)
+<A NAME="0"></A>        @lru_cache(None)
+        def dp(i, prev, groupsLeft):
+            if i == m:
+                r<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn 0 if groupsLeft == 0 else inf
+            if houses[i]:
+                # already painted
+                if houses[i] == prev:
+                    return dp(i+1, houses[i], groupsLeft)
+                else:
+<A NAME="1"></A>                    return dp(i+1, houses[i], groupsLeft-1)
+            # try painting all colors
+            ret =</B></FONT> inf
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for col in range(1, n+1):
+                if col == prev:
+                    ret = min(ret, dp(i+1, col, groupsLeft) + cost[i][col-1])
+                else:
+                    ret = min(ret, dp(i+1, col, groupsLeft-1) + cost[i][col-1])
+            # print(i, prev, groupsLeft, ret)
+            return ret
+        ret = dp(0, None, target)
+        return</B></FONT> ret if ret != inf else -1
+</PRE>
+
+</BODY>
+</HTML>

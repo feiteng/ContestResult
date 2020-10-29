@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>10_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+	    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
+	    	
+	    	int m = edges.length;
+	        for(int i = 0;i &lt; m;i++){
+	        	edges[i] = Arrays.copyOf(edges[i], 4);
+	        	edges[i][3] = i;
+	        }
+	        DJSet ds = new DJSet(n);
+	        Arrays.sort(edges, new Comparator&lt;int[]&gt;() {
+				public int compare(int[] a, int[] b) {
+					return a[2] - b[2];
+				}
+			});
+	        List&lt;Integer&gt; cri = new ArrayList&lt;&gt;();
+	        List&lt;Integer&gt; pcri = new ArrayList&lt;&gt;();
+	        
+	        int[][] mst = new int[m][];
+	        int p = 0;
+	        for(int i = 0;i &lt; m;){
+	        	int j = i;
+	        	while(j &lt; m &amp;&amp; edges[i][2] == edges[j][2]){
+	        		j++;
+	        	}
+	        	
+	        	for(int k = i;k &lt; j;k++){
+<A NAME="0"></A>	        		if(!ds.equiv(edges[k][0], edges[k][1])){
+	        			mst[p++] = edges[k];
+	        		}
+	        	}<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	        	
+	        	Set&lt;Integer&gt; ids = findCycle(mst, p, n);
+	        	for(int k = i;k &lt; j;k++){
+	        		if(!ds.equiv(edges[k][0], edges[k][1])){</B></FONT>
+	        			if(ids.contains(edges[k][3])){
+	        				pcri.add(edges[k][3]);
+	        			}else{
+	        				cri.add(edges[k][3]);
+	        			}
+	        		}
+	        	}
+	        	for(int k = i;k &lt; j;k++){
+        			ds.union(edges[k][0], edges[k][1]);
+	        	}
+	        	
+	        	i = j;
+	        }
+	        List&lt;List&lt;Integer&gt;&gt; ret = new ArrayList&lt;&gt;();
+	        ret.add(cri);
+	        ret.add(pcri);
+	        return ret;
+	    }
+	    
+	    public Set&lt;Integer&gt; findCycle(int[][] es, int p, int n)
+	    {
+	    	int[] from = new int[p];
+	    	int[] to = new int[p];
+	    	int[] ws = new int[p];
+	    	for(int i = 0;i &lt; p;i++){
+	    		from[i] = es[i][0];
+	    		to[i] = es[i][1];
+	    		ws[i] = es[i][3];
+	    	}
+	    	
+	    	boolean[] ved = new boolean[n];
+	    	int[][][] g = packWU(n, from, to, ws);
+	    	int[] par = new int[n];
+	    	int[] pw = new int[n];
+	    	Arrays.fill(par, -1);
+	    	for(int i = 0;i &lt; n;i++){
+	    		if(!ved[i])dfs(i, -1, g, ved, par, pw);
+	    	}
+	    	Set&lt;Integer&gt; ret = new HashSet&lt;&gt;();
+	    	for(int i = 0;i &lt; p;i++){
+	    		int[] e = es[i];
+	    		if(par[e[0]] == e[1] || par[e[1]] == e[0]){
+	    		}else{
+	    			int lca = lcanaive(e[0], e[1], par);
+	    			if(lca != -1){
+	    				ret.add(e[3]);
+	    				for(int x = e[0]; x != lca;x = par[x]){
+	    					ret.add(pw[x]);
+	    				}
+	    				for(int x = e[1]; x != lca;x = par[x]){
+<A NAME="1"></A>	    					ret.add(pw[x]);
+	    				}
+	    			}
+	    		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	    	}
+	    	return ret;
+	    }
+	    
+		public int lcanaive(int x, int y, int[] par)</B></FONT>
+<A NAME="2"></A>		{
+			Set&lt;Integer&gt; ancs = new HashSet&lt;&gt;();
+			for(int z = y;z != -1;z = par[z])ancs.add(z);
+			for(int z = x;z != -1;z = par[z])if(ancs.contains(z))return z;<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			return -1;
+		}
+
+	    
+	    void dfs(int cur, int pre, int[][][] g, boolean[] ved, int[]</B></FONT> par, int[] pw)
+	    {
+	    	ved[cur] = true;
+	    	for(int[] e : g[cur]){
+	    		if(e[0] == pre)continue;
+	    		if(ved[e[0]])continue;
+	    		par[e[0]] = cur;
+	    		pw[e[0]] = e[1];
+	    		dfs(e[0], cur, g, ved, par, pw);
+	    	}
+	    }
+	    
+	    public int[][][] packWU(int n, int[] from, int[] to, int[] w) {
+			int[][][] g = new int[n][][];
+			int[] p = new int[n];
+			for (int f : from)
+				p[f]++;
+			for (int t : to)
+				p[t]++;
+			for (int i = 0; i &lt; n; i++)
+				g[i] = new int[p[i]][2];
+			for (int i = 0; i &lt; from.length; i++) {
+				--p[from[i]];
+				g[from[i]][p[from[i]]][0] = to[i];
+				g[from[i]][p[from[i]]][1] = w[i];
+				--p[to[i]];
+				g[to[i]][p[to[i]]][0] = from[i];
+				g[to[i]][p[to[i]]][1] = w[i];
+			}
+			return g;
+		}
+
+	    
+	    public class DJSet {
+			public int[] upper;
+
+			public DJSet(int n) {
+				upper = new int[n];
+				Arrays.fill(upper, -1);
+<A NAME="3"></A>			}
+
+			public int root(int x) {
+				return upper[x] &lt; 0 ? x : (upper[x] = root(upper[x]));<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			}
+
+			public boolean equiv(int x, int y) {
+				return root(x) == root(y);
+			}
+
+			public boolean union(int x, int y) {</B></FONT>
+				x = root(x);
+				y = root(y);
+				if (x != y) {
+					if (upper[y] &lt; upper[x]) {
+						int d = x;
+						x = y;
+						y = d;
+					}
+					upper[x] += upper[y];
+					upper[y] = x;
+				}
+				return x == y;
+			}
+
+			public int count() {
+				int ct = 0;
+				for (int u : upper)
+					if (u &lt; 0)
+						ct++;
+				return ct;
+			}
+		}
+
+	}	
+</PRE>
+
+</BODY>
+</HTML>

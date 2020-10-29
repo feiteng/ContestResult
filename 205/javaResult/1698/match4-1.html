@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>322_elvinyang.java</TITLE>
+ <TITLE>152_hiromi_ayase.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>322_elvinyang.java</CENTER></H3><HR>
+<H3><CENTER>152_hiromi_ayase.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public String modifyString(String s) {
-        char[] arr = s.toCharArray();
-        for (int i = 0; i &lt; arr.length; i++) {
-            if (arr[i] == '?') {
-                for (char j = 'a'; j &lt;= 'z'; j++) {
-                    if</B></FONT> (i &gt; 0 &amp;&amp; arr[i - 1] == j) continue;
-<A NAME="1"></A>                    if (i &lt; arr.length - 1 &amp;&amp; arr[i + 1] == j) continue;
-                    arr[i] = j;
-                    break;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            }
+  public static void main(String[] args) {
+
+  }
+
+  public String modifyString(String s) {
+    char[] ret = s.toCharArray();
+    int n = ret.length;
+    for (int i = 0; i &lt; n; i++) {
+      char pre = i == 0 ? 0 : ret[i-1];
+      char nex = i == n - 1 ? 0 : ret[i+1];
+
+      if (ret[i] == '?') {
+        for (int j = 0; j &lt; 26; j++) {
+          char c = (char) (j + 'a');
+          if (c != pre &amp;&amp; c != nex) {
+            ret[i] = c;
+            break;
+          }
         }
-        return new String(arr);
+      }
     }
+    return new String(ret);
+  }
 }</B></FONT>
 </PRE>
 

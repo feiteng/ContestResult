@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>166_rickettsdinner630.py</TITLE>
+ <TITLE>131_keyurpotdar.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>166_rickettsdinner630.py</CENTER></H3><HR>
+<H3><CENTER>131_keyurpotdar.py</CENTER></H3><HR>
 <PRE>
-import collections
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        n1 = collections.Counter([x ** 2 for x in nums1])
-        n2 = collections.Counter<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>([x ** 2 for x in nums2])
-        ans = 0
-        for i in range(len(nums1)):
-            for j in range(i + 1, len(nums1)):
-               ans += n2[nums1[i] * nums1[j]]
-            
-        for i in range(len(nums2)):
-            for j in range(i + 1, len(nums2)):
-               ans += n1[nums2[i] * nums2[j]]
-        re</B></FONT>turn ans
+        p1, p2 = collections.Counter(), collections.Counter()
+        n1, n2 = len(nums1), len(nums2)
+        for i in range(n1):
+            for j in range(i + 1, n1):
+                p1[nums1[i] * nums1[j]] += 1
+        for i in range(n2):
+            for j in range(i + 1, n2):
+                p2[nums2[i] * nums2[j]] += 1
+        # print(p1, p2)
+        res = 0
+        for a in nums1:
+            res += p2[a * a]
+        for a in nums2:
+            res += p1[a * a]
+        re</B></FONT>turn res
 </PRE>
 
 </BODY>

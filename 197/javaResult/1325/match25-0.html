@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>669_korolev.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>669_korolev.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        List&lt;List&lt;Edge&gt;&gt; g= new ArrayList&lt;&gt;();
+        for (int i =0; i&lt;n;i++) {
+            g.add(new ArrayList&lt;&gt;());
+<A NAME="1"></A>        }
+        for (int i =0;i&lt;edges.length;i++) {
+            int[] edge = edges[i]</B></FONT>;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>g.get(edge[0]).add(new Edge(edge[1], succProb[i]));
+<A NAME="2"></A>            g.get(edge[1]).add(new Edge(edge[0], succProb[i]));
+        }
+        Double[] probs = new Double[n+1];</B></FONT>
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;Edge&gt; heap = new PriorityQueue&lt;Edge&gt;(
+                (info1, info2) -&gt; -Double.compare(info1.prob, info2.prob));
+        heap.offer(new Edge(start, 1));
+
+        while (!heap.isEmpty()) {
+            Edge info = heap.poll</B></FONT>();
+            double p = info.prob;
+            int node = info.to;
+            if (probs[node]!=null) {
+                continue;
+            }
+            probs[node] = p;
+            //if (dist.containsKey(node)) continue;
+            //dist.put(node, d
+            for (Edge edge: g.get(node)) {
+                int nei = edge.to;
+                double prob = probs[node] * edge.prob;
+                System.out.println(nei+&quot;:&quot;+prob);
+                if (probs[nei]==null) {
+                    heap.offer(new Edge(nei, prob));
+                }
+                //if (!dist.containsKey(nei))
+                //    heap.offer(new int[]{d+d2, nei});
+            }
+        }
+        if (probs[end] == null)
+            return 0;
+        return probs[end];
+<A NAME="3"></A>        
+    }
+    
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match25-1.html#3',3,'match25-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Edge {
+        int to;
+        double prob;
+        Edge(int to, double prob) {
+            this.to=to;
+            this.prob = prob;
+        }
+    }</B></FONT>
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

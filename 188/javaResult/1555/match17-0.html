@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_iavanish.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>212_iavanish.java</CENTER></H3><HR>
+<PRE>
+import java.util.Arrays;
+<A NAME="0"></A>
+class Solution {
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int ways(String[] pizza, int k) {
+        int m = pizza.length;
+        int n = pizza[0].length();
+        int[][] p = new</B></FONT> int[m][n];
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                p[i][j] = (i != 0 ? p[i - 1][j] : 0) + (j != 0 ? p[i][j - 1] : 0) - (i != 0 &amp;&amp; j != 0 ? p[i - 1][j - 1] : 0);
+                if (pizza[i].charAt(j) == 'A') {
+                    p[i][j]++;
+                }
+<A NAME="1"></A>            }
+        }
+
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long[][][][][] dp = new long[m][n][m][n][k];
+        for (int i = 0; i &lt; m; i++) {
+<A NAME="2"></A>            for (int j = 0; j &lt; n; j++) {
+                for (int l = 0; l &lt; m; l++) {
+                    for (int o = 0; o &lt; n; o++) {</B></FONT>
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Arrays.fill(dp[i][j][l][o], -1);
+                    }
+                }
+            }
+        }
+        
+        return (int) ways(p, 0, 0, m - 1, n - 1, k - 1, dp);
+    }</B></FONT>
+<A NAME="3"></A>
+    private long mod = 1_000_000_007;
+
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private long ways(int[][] pizza, int leftR, int leftC, int rightR, int rightC, int k, long[][][][][] dp) {
+        if (k == 0) {
+            return 1;
+        }</B></FONT>
+        
+        if (dp[leftR][leftC][rightR][rightC][k] != -1) {
+            return dp[leftR][leftC][rightR][rightC][k];
+        }
+
+        long ways = 0;
+<A NAME="4"></A>
+        for (int i = leftR + 1; i &lt;= rightR; i++) {
+            if (countPizza(pizza, leftR, leftC, i - 1, rightC) &gt; 0 &amp;&amp; countPizza(pizza, i, leftC, rightR, rightC) &gt; 0) {
+                ways += <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match17-1.html#4',3,'match17-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ways(pizza, i, leftC, rightR, rightC, k - 1, dp);
+                ways %= mod;
+            }
+        }
+<A NAME="5"></A>
+        for (int i = leftC + 1; i &lt;= rightC; i++) {
+            if</B></FONT> (countPizza(pizza, leftR, leftC, rightR, i - 1) &gt; 0 &amp;&amp; countPizza(pizza, leftR, i, rightR, rightC) &gt; 0) {
+                ways += <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match17-1.html#5',3,'match17-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ways(pizza, leftR, i, rightR, rightC, k - 1, dp);
+                ways %= mod;
+            }
+        }
+
+        dp[leftR][leftC][rightR][rightC][k] = ways;
+        return ways;
+    }</B></FONT>
+
+    private int countPizza(int[][] pizza, int leftR, int leftC, int rightR, int rightC) {
+        return pizza[rightR][rightC] -
+                (leftR != 0 ? pizza[leftR - 1][rightC] : 0) -
+                (leftC != 0 ? pizza[rightR][leftC - 1] : 0) +
+                (leftR != 0 &amp;&amp; leftC != 0 ? pizza[leftR - 1][leftC - 1] : 0);
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>532_manthanpatel_14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>532_manthanpatel_14.cpp</CENTER></H3><HR>
+<PRE>
+vector&lt;pair&lt;string,int&gt;&gt; javab;
+vector&lt;int&gt; f(26,0);
+vector&lt;int&gt; fi(26,-1);
+vector&lt;int&gt; la(26,-1);
+
+bool abc(pair&lt;string,int&gt; a,pair&lt;string,int&gt; b)
+{
+  
+        return a.second+a.first.length()&lt;b.second+b.first.length();
+   
+}
+
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        javab.clear(); 
+        for(int i=0;i&lt;26;i++)
+         {
+             f[i]=0;
+             fi[i]=-1;
+             la[i]=-1;
+         }
+        int n=s.length();
+        for(int i=0;i&lt;n;i++)
+        {
+            
+            la[s[i]-'a']=i;
+            f[s[i]-'a']++;
+            if(fi[s[i]-'a']==-1)
+                fi[s[i]-'a']=i;
+        }
+        string s1;
+        for(int i=0;i&lt;26;i++)
+        {
+            if(fi[i]!=-1)
+            {   s1.clear();
+                
+<A NAME="0"></A>                int mini=la[i];
+                int j;
+             int o=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for(j=fi[i];j&lt;=mini;j++)
+                {
+                    if(fi[s[j]-'a']&lt;fi[i])
+                    {   o=1;
+                        break;
+                    }
+                    s1.push_back(s[j]);
+                    mini=max(mini,la[s[j]-'a']);
+                }
+                if(o==0 || j==mini+1)
+                javab.push_back({s1,fi[i]});
+            }
+        }
+        sort(javab.begin(),javab.end(),abc);
+        
+        for(int i=0;i&lt;(int)javab.size();i++)</B></FONT>
+        {
+            if(javab[i].first==&quot;&quot;)
+                break;
+        }
+<A NAME="1"></A>        
+        vector&lt;string&gt; javab2;
+        javab2.push_back(javab[0].first);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int p1=javab[0].second+javab[0].first.length()-1;
+        int cd=0;
+        for(int i=1;i&lt;javab.size();i++)
+        {
+            int o1=javab[i].second;
+            int r2=javab[i].second+javab[i].first.length()-1;
+            
+            if(o1&gt;p1)
+            {
+                javab2.push_back(javab[i].first);
+                p1=r2;
+            }</B></FONT>
+            else
+            cd=1;
+        }
+        return javab2;        
+    }
+        
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_xh286286.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>37_xh286286.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF {
+public:
+	vector&lt;int&gt; fa;
+	vector&lt;int&gt; sz;
+	int n;
+	int comp_cnt;
+
+public:
+	UF(int _n) : n(_n), comp_cnt(_n), fa(_n), sz(_n, 1) {
+		iota(fa.begin(), fa.end(), 0);
+	}
+
+	int findset(int x) {
+		return fa[x] == x ? x : fa[x] = findset(fa[x]);
+	}</B></FONT>
+
+	bool same(int x, int y) { return findset(x) == findset(y); }
+
+	bool findAndUnite(int x, int y) {
+		int x0 = findset(x);
+		int y0 = findset(y);
+		if (x0 != y0) {
+			unite(x0, y0);
+			return true;
+		}
+		return false;
+	}
+protected:
+	void unite(int x, int y) {
+		if (sz[x] &lt; sz[y]) {
+			swap(x, y);
+		}
+		fa[y] = x;
+		sz[x] += sz[y];
+		--comp_cnt;
+<A NAME="1"></A>	}
+};
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int zi[510][510];
+class Solution {
+public:
+	vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+		int n = matrix.size();
+		int m = matrix[0].size();
+		for (int i = 0; i&lt;n; ++i) for (int j = 0; j&lt;m; ++j) {</B></FONT>
+			zi[i][j] = i * m + j;
+		}
+		UF uf(n*m);
+		auto connect = [&amp;](vector&lt;int&gt; a, vector&lt;int&gt; b) {
+			int k = a.size();
+			map&lt;int, vector&lt;int&gt; &gt; zm;
+			for (int i = 0; i&lt;k; ++i) {
+				zm[a[i]].push_back(b[i]);
+			}
+			for (const auto &amp; x : zm) {
+				auto z = x.second;
+				for (int i = 1; i&lt;z.size(); ++i) {
+					uf.findAndUnite(z[0], z[i]);
+				}
+			}
+		};
+
+		for (int i = 0; i&lt;n; ++i) {
+			vector&lt;int&gt; a, b;
+			for (int j = 0; j&lt;m; ++j) {
+				a.push_back(matrix[i][j]);
+				b.push_back(zi[i][j]);
+			}
+			connect(a, b);
+		}
+		for (int j = 0; j&lt;m; ++j) {
+			vector&lt;int&gt; a, b;
+			for (int i = 0; i&lt;n; ++i) {
+				a.push_back(matrix[i][j]);
+				b.push_back(zi[i][j]);
+			}
+			connect(a, b);
+		}
+
+		int tot = n*m;
+		vector&lt;vector&lt;int&gt;&gt; zg(tot);
+		using pii = pair&lt;int, int&gt;;
+		auto adde = [&amp;](vector&lt;pii&gt; z) {
+			int k = z.size();
+			sort(z.begin(), z.end());
+<A NAME="3"></A>			for (int i = 1; i&lt;k; ++i) {
+				if (z[i - 1].second == z[i].second) continue;
+				zg[z[i - 1].second].push_back(z[i ].second);
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			}
+		};
+<A NAME="2"></A>		for (int i = 0; i&lt;n; ++i) {
+			vector&lt;pii&gt; a;
+			for (int j = 0; j&lt;m; ++j) {</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				a.push_back({ matrix[i][j], uf.findset(zi[i][j]) });
+			}
+			adde(a);
+		}
+		for (int j = 0; j&lt;m; ++j) {
+			vector&lt;pii&gt; a;
+			for (int i = 0; i&lt;n; ++i) {</B></FONT>
+				a.push_back({ matrix[i][j], uf.findset(zi[i][j]) });
+			}
+			adde(a);
+		}
+		vector&lt;int&gt; zc;
+		for (int i = 0; i&lt;tot; ++i) {
+			if (uf.findset(i) == i) zc.push_back(i);
+		}
+		vector&lt;int&gt; zin(tot);
+		for (int v : zc) {
+			for (int u : zg[v]) zin[u]++;
+		}
+		vector&lt;int&gt; zn;
+		vector&lt;int&gt; zy(tot);
+		for (int v : zc) if (zin[v] == 0) {
+			zn.push_back(v);
+			zy[v] = 1;
+		}
+		int head = 0;
+		while (head&lt;zn.size()) {
+			int now = zn[head++];
+			for (int v : zg[now]) {
+				--zin[v];
+				zy[v] = max(zy[v], zy[now] + 1);
+				if (zin[v] == 0) zn.push_back(v);
+			}
+		}
+		vector&lt;vector&lt;int&gt;&gt; zr = matrix;
+		for (int i = 0; i&lt;n; ++i) for (int j = 0; j&lt;m; ++j) {
+			int t = uf.findset(zi[i][j]);
+			zr[i][j] = zy[t];
+		}
+		return zr;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

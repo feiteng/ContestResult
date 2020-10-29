@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>148_delphih.py</TITLE>
+ <TITLE>165_rickettsdinner630.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>148_delphih.py</CENTER></H3><HR>
+<H3><CENTER>165_rickettsdinner630.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UnionFind:
-    def __init__(self, n):
-        self.id = list(range(n))
-        self.sz, self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.count = [1] * n, n
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def flood(i, neighbor, visited):
+    visited[i] = True
+    for n in neighbor[i]:
+        if not visited[n]:
+            flood(n, neighbor, visited)
+    return visited
 
-    def find(self, p):
-        if self.id[p] != p: self.id[p] = self.find(self.id[p])
-        return self.id[p]
-    
-<A NAME="1"></A>    def union(self, p, q):
-        i, j = self.find(p), self.find(q)
-        if i == j: r</B></FONT>eturn False
-        if self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.sz[i] &lt; self.sz[j]:
-            self.id[i] = j; self.sz[j] += self.sz[</B></FONT>i]
-        else:
-            self.id[j] = i; self.sz[i] += self.sz[j]
-        self.count -= 1
-        return True
-        
-    def compare(self, p, q):
-        return self.find(p) == self.find(q)
-    
-    def copy(self):
-        uf2 = UnionFind(len(self.id))
-        uf2.id, uf2.sz, uf2.count = self.id.copy(), self.sz.copy(), self.count
-        return uf2
-        
 class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        uf = UnionFind(n)
-        ans = 0
-        for t, u, v in edges:
-            if t != 3: continue
-            if not uf.union(u-1, v-1): ans += 1
-        uf1, uf2 = uf.copy(), uf.copy()
-        for t, u, v in edges:
-            if t == 1:
-                if not uf1.union(u-1, v-1): ans += 1
-            elif t == 2:
-                if not uf2.union(u-1, v-1): ans += 1
-        return ans if uf1.count == 1 and uf2.count == 1 else -1
+        conn = [set([1]), set([1])]
+        count = 0
+        neighbor = [[set() for _ in range(n + 1)] for _ in range(4)]
+        for (t, i, j) in edges:
+            neighbor[t][i].add(j)
+            neighbor[t][j].add(i)
+            if t == 3:
+                
+                neighbor[1][i].add(j)
+                neighbor[1][j].add(i)
+                
+                neighbor[2][i].add(j)
+                neighbor[2][j].add(i)
+                
+        if sum(flood(1, neighbor[1], [False for _ in range(n + 1)])) != n:
+            return -1
+        if sum(flood(1, neighbor[2], [False for _ in range(n + 1)])) != n:
+            return -1
+        visited = [False for _ in range(n + 1)]
+        block = 0
+        for i in range(1, n + 1):
+            if not visited[i]:
+                b = flood(i, neighbor[3], visited)
+                block += 1
+                
+        return len(edges) - sum(v</B></FONT>isited) + block - (block - 1) * 2
+        
 </PRE>
 
 </BODY>

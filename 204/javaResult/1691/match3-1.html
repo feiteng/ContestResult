@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>581_bozh2345.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>581_bozh2345.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int[][] dirs = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
+    pri</B></FONT>vate void dfs(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] grid,int i,int j){
+        grid[i][j] = 2;
+        for (int[] d : dirs) {
+            int ni = i + d[0],nj = j + d[1];
+            if(ni &gt;= 0 &amp;&amp; ni &lt; grid.length &amp;&amp; nj &gt;= 0 &amp;&amp; nj &lt; grid[0].length &amp;&amp; grid[ni][nj] == 1){
+                dfs(grid,ni,nj);
+            }
+        }
+    }
+<A NAME="2"></A>
+    private int cnt(int[][] grid){
+        int cnt = 0</B></FONT>;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[i].length; j++) {
+                if(grid[i][j] == 1){
+                    cnt++;
+                    dfs(grid,i,j);
+                }</B></FONT>
+            }
+        }
+<A NAME="3"></A>
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                if(grid[i][j] == 2) grid[i][j] = 1<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#3',2,'match3-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        return cnt;
+    }
+
+    public int minDays(int[][] grid) {
+        int cnt = cnt(grid);
+        if(cnt != 1) return 0;
+
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+<A NAME="4"></A>                if(grid[i][j] == 1){
+                    g</B></FONT>rid[i][j] = 0;
+                    int nc = cnt(grid);
+                    if(nc != 1) <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#4',2,'match3-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return 1;
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

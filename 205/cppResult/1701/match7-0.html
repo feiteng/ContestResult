@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>516_z71258847.cpp</TITLE>
+ <TITLE>123_xyz_zhzho.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,72 +15,101 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>516_z71258847.cpp</CENTER></H3><HR>
+<H3><CENTER>123_xyz_zhzho.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int find(int x, vector&lt;int&gt; &amp;father){
-        if (father[x]!=x) {
-            int u=find(father[x], father);
-<A NAME="0"></A>            father[x]=u;
-        }
-        return father[x];
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
     
-    void unions(int x, int y, vector&lt;int&gt; &amp;father){
-        int fx = find(x, father);
-        int fy = find(y, father);
-        father[fx]=fy;
+    int f[100010];
+    
+    int fa[100010];
+    int fb[100010];
+    
+    
+    int Find(int x) {
+        if (f[x] == x) return x;
+       else return f[x] = Find(f[x]);
+    }
+    
+    int FindA(int x) {
+        if (fa[x] == x) return x;
+       else return fa[x] = FindA(fa[x]);
+    }
+    
+    int FindB(int x) {
+       if (fb[x] == x) return x;
+       else return fb[x] = FindB(fb[x]);
     }
     
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector&lt;int&gt; fa, fb;
-<A NAME="1"></A>        for (int i=0; i&lt;=n; i++){</B></FONT>
-            fa.push_back(i);
-            fb.push_back(i);
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
-        int ans=0;
-        for (int i=0; i&lt;edges.size(); i++){
-            if (edges[i][0]==3){
-                int x=edges[i][1];
-                int y=edges[i][2];
-                if (find(x, fa)!=find(y, fa)){</B></FONT>
-                    unions(x, y, fa);
-                    unions(x, y, fb);
-                }
-                else ans++;
-<A NAME="2"></A>            }
+        for(int i = 1; i &lt;= n; i ++) {
+            f[i] = i;
         }
         
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0; i&lt;edges.size(); i++){
-            if (edges[i][0]==1){
-                int x=edges[i][1];
-                int y=edges[i][2];
-                if (find(x, fa)!=find(y, fa)){</B></FONT>
-                    unions(x, y, fa);
+        int ans = 0;
+        
+        int g = n;
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 3) {
+                int x = Find(edges[i][1]);
+                int y = Find(edges[i][2]);
+                if(x==y) {
+                    ans++;
+                    continue;
                 }
-                else ans++;
-            }
-            else if (edges[i][0]==2){
-                int x=edges[i][1];
-                int y=edges[i][2];
-                if (find(x, fb)!=find(y, fb)){
-                    unions(x, y, fb);
-                }
-                else ans++;
+                
+                f[x]=y;
+                g--;
             }
         }
         
-        int ra=find(1, fa);
-        int rb=find(1, fb);
         
-        for (int i=2; i&lt;=n; i++){
-            if (find(i, fa)!=ra) return -1;
-            if (find(i, fb)!=rb) return -1;
+        for(int i = 1; i &lt;= n; i ++) {
+            fa[i]=f[i];
+            fb[i]=f[i];
         }
+        
+        
+        int ga = g;
+        int gb = g;
+        
+        
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 1) {
+                int x = FindA(edges[i][1]);
+                int y = FindA(edges[i][2]);
+                if(x==y) {
+                    ans++;
+                    continue;
+                }
+                
+                fa[x]=y;
+                ga--;
+            }
+        }
+        
+        if(ga != 1) return -1;
+        
+        
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 2) {
+                int x = FindB(edges[i][1]);
+                int y = FindB(edges[i][2]);
+                if(x==y) {
+                    ans++;
+                    continue;
+                }
+                
+                fb[x]=y;
+                gb--;
+            }
+        }
+        
+          if(gb != 1) return -1;
+        
         return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>610_hao102.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>610_hao102.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String stoneGameIII(int[] stone) {
+        int n = stone.length;
+        Integer[] cache = new Integer[n];
+        int ans = helper(stone, 0, cache);
+<A NAME="0"></A>        if (ans &gt; 0) return &quot;Alice&quot;;
+        else if (ans &lt; 0) return &quot;Bob&quot;;
+        else return &quot;Tie&quot;;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private int helper(int[] stone, int idx, Integer[] cache) {
+        if (idx &gt;= stone.length) return 0;
+        if (cache[idx] != null) return cache[idx];
+        int sum = 0;
+        int score = Integer.MIN_VALUE;
+        for (int i = idx; i &lt;= Math.min(stone.length - 1, idx + 2); i++) {
+            sum += stone[i];
+            score = Math.max(score, sum - helper(stone, i+1, cache));
+        }</B></FONT>
+        cache[idx] = score;
+        return score;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

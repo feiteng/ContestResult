@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_aparichit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>131_aparichit.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    #define F first
+<A NAME="0"></A>    #define S second
+<A NAME="1"></A>    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        // Lft Rgt Up Dwn
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; aft = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; can = {{1, 1, 0, 0}, {0, 0, 1, 1}, {1, 0, 0, 1}, {0, 1, 0, 1}, {1, 0, 1, 0}, {0, 1, 1, 0}};
+        vector&lt;vector&lt;int&gt;&gt; frm = {{1, 1, 0, 0}, {0, 0, 1, 1}, {1, 0, 0, 1}, {0, 1, 0, 1}, {1, 0, 1, 0}, {0, 1, 1, 0}};</B></FONT>
+        vector&lt;int&gt; where = {1, 0, 3, 2};
+        
+        int n = grid.size();
+        int m = grid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; vis(n, vector&lt;int&gt;(m));
+        queue&lt;vector&lt;int&gt;&gt; q;
+        q.push({0, 0});
+        vis[0][0] = true;
+        while (!q.empty()) {
+            int r = q.front()[0], c = q.front()[1];
+            q.pop();
+            
+            // cout &lt;&lt; r &lt;&lt; &quot; &quot; &lt;&lt; c &lt;&lt; endl;
+            int cur = grid[r][c] - 1;
+            for (int j = 0; j &lt; 4; j ++) {
+                if (can[cur][j]) {
+                    int _r = r+aft[j][0], _c = c+aft[j][1];
+                    bool valid = (_r &gt;= 0 &amp;&amp; _r &lt; n &amp;&amp; _c &gt;= 0 &amp;&amp; _c &lt; m);
+                    if (!valid || vis[_r][_c]) continue;
+                    
+                    // cout &lt;&lt; &quot;:: &quot; &lt;&lt; _r &lt;&lt; &quot; &quot; &lt;&lt; _c &lt;&lt; &quot; &quot; &lt;&lt; grid[_r][_c]-1 &lt;&lt; &quot; &quot; &lt;&lt; where[j] &lt;&lt; &quot; &quot; &lt;&lt; frm[grid[_r][_c]-1][where[j]] &lt;&lt; endl;
+                    int to = grid[_r][_c] - 1;
+                    if (!frm[to][where[j]]) continue;
+                    
+                    vis[_r][_c] = 1;
+                    q.push({_r, _c});
+                }
+            }
+        }
+        return vis[n-1][m-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

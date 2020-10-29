@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>119_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>119_necoramen.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+
+class Solution {
+
+    private static final int MOD = 1_000_000_007;
+    HashMap&lt;List&lt;Integer&gt;, Integer&gt; map;
+    int[][] dp;
+
+    public int numOfWays(int[] arr) {
+
+        map = new HashMap&lt;&gt;();
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        dp = new int[arr.length][arr.length];
+        for (int n : arr) {
+            list.add(n);
+        }
+        int ans = count(list) - 1;
+        if (ans &lt; 0) {
+            ans += MOD;
+        }
+        return ans;
+    }
+
+    private int count(List&lt;Integer&gt; list) {
+        if (list.size() &lt; 3) {
+            return 1;
+        }
+<A NAME="0"></A>        list = normalize(list);
+        if (map.containsKey(list)) {
+            return map.get(list);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int head = list.get(0);
+
+        List&lt;Integer&gt; smaller = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; larger = new ArrayList&lt;&gt;();
+        for (int n : list) {
+            if (n &lt; head) {
+                smaller.add(n);
+            } else if (n &gt; head) {
+                larger.add(n);
+            }
+        }
+
+
+        long leftCnt = count(smaller);
+        long rightCnt = count(larger);
+<A NAME="1"></A>        long ans = leftCnt * rightCnt % MOD;
+        ans *= arrange(smaller.size</B></FONT>(), larger.size());
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return (int) (ans % MOD);
+    }
+
+<A NAME="2"></A>    private long arrange(int i, int j) {
+        if (i &gt; j) {
+            return</B></FONT> arrange(j, i);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if (i == 0) {
+            return 1;
+        }
+
+        if (dp[i][j] &gt; 0) {
+            return</B></FONT> dp[i][j];
+        }
+
+        int ans = 0;
+
+        ans += arrange(i - 1, j);
+        ans %= MOD;
+        ans += arrange(i, j - 1);
+        ans %= MOD;
+
+
+        dp[i][j] = ans;
+        return ans;
+
+    }
+
+    private List&lt;Integer&gt; normalize(List&lt;Integer&gt; list) {
+        int[] arr = new int[list.size()];
+        for (int i = 0; i &lt; arr.length; i++) {
+            arr[i] = list.get(i);
+        }
+        Arrays.sort(arr);
+        HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int n : arr) {
+            map.put(n, map.size());
+        }
+
+        List&lt;Integer&gt; newList = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; list.size(); i++) {
+            newList.add(map.get(list.get(i)));
+        }
+        return newList;
+    }
+}
+
+
+//   a   bcd
+//
+</PRE>
+
+</BODY>
+</HTML>

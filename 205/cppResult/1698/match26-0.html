@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>558_wbin2333.cpp</TITLE>
+ <TITLE>328_jianfeng4.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>558_wbin2333.cpp</CENTER></H3><HR>
+<H3><CENTER>328_jianfeng4.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     string modifyString(string s) {
-<A NAME="1"></A>        int n = s.size();
-        for (int i = 0; i &lt; n; i++) {
+        int n = s.length();
+        for (int i=0; i&lt;n; i++) {
             if (s[i] == '?') {
-                for (int j = 0; j &lt; 26; j++) {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-                    if (i &gt; 0 &amp;&amp; 'a' + j == s[i-1] || i &lt; n - 1 &amp;&amp; 'a' + j == s[i + 1]) {
-                        continue;
+                for (char c = 'a'; c &lt;= 'z'; c++) {
+                    if ((i == 0 || s[i-1] != c) &amp;&amp; (i == n-1 || s[i+1] != c)) {
+                        s[i] = c;
+                        break;
                     }
-                    
-                    s[i] = 'a' + j;
-                    break;
-                }                
+                }
             }
         }
         

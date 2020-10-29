@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>613_zhao-zi-ji.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>613_zhao-zi-ji.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int constrainedSubsetSum(vector&lt;int&gt;&amp; nums, int k) {
+        int n=nums.size();
+        deque&lt;pair&lt;int,int&gt;&gt; rec;
+        int ans = nums[0];
+        for(int i=0;i&lt;n;i++){</B></FONT>
+            ans = max(ans,nums[i]);
+            
+            while(!rec.empty()&amp;&amp;i-rec.front().first&gt;k)
+                rec.pop_front();
+            int x = 0;
+            if(!rec.empty())x=rec.front().second;
+            x = max(nums[i],x+nums[i]);
+            while(!rec.empty()&amp;&amp;x&gt;rec.back().second){
+                rec.pop_back();
+            }
+            rec.push_back(make_pair(i,x));
+            // interval++;
+            ans=max(ans,rec.back().second);
+            
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

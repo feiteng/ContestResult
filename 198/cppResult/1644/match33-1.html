@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>549_im0qianqian.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>549_im0qianqian.cpp</CENTER></H3><HR>
+<PRE>
+typedef pair&lt;int, int&gt; P;
+const int maxn = 1e5 + 10;
+const int mod = 1e9 + 7;
+const double eps = 1e-8;
+
+P point[26];
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+<A NAME="0"></A>        for (int i = 0; i &lt; 26; i++) {
+            point[i] = P(INT_MAX, INT_MIN);
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int len = s.length();
+        for (int i = 0; i &lt; len; i++) {
+            point[s[i] - 'a'].first = min(point[s[i] - 'a'].first, i);
+            point[s[i] - 'a'].second = max(point[s[i] - 'a'].second, i);
+        }
+        for (int _ = 0; _ &lt; 5; _++) {</B></FONT>
+            for (int i = 0; i &lt; 26; i++) {
+                if (point[i].first == INT_MAX)
+                    continue;
+                int left = INT_MAX;
+                int right = INT_MIN;
+                for (int j = point[i].first + 1; j &lt; point[i].second; j++) {
+                    left = min(point[s[j] - 'a'].first, left);
+                    right = max(point[s[j] - 'a'].second, right);
+                }
+                point[i].first = min(point[i].first, left);
+                point[i].second = max(point[i].second, right);
+            }
+        }
+        // for (int i = 0; i &lt; 26; i++) {
+        //     cout &lt;&lt; point[i].first &lt;&lt; &quot; &quot; &lt;&lt; point[i].second &lt;&lt; endl;
+        // }
+        vector&lt;P&gt; cnt;
+        for (int i = 0; i &lt; 26; i++) {
+            if (point[i].first == INT_MAX || point[i].second == INT_MIN)
+                continue;
+            bool flag = true;
+            for (int j = 0; j &lt; 26; j++) {
+                if (i == j || point[j].first == INT_MAX)
+                    continue;
+                if (point[i].first &lt; point[j].first &amp;&amp;
+                    point[i].second &gt; point[j].second) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                cnt.push_back(point[i]);
+            }
+        }
+        sort(cnt.begin(), cnt.end(), [&amp;](const P &amp;x, const P &amp;y) {
+            if (x.first == y.first) {
+                return x.second &gt; y.second;
+            }
+            return x.first &lt; y.first;
+        });
+        vector&lt;P&gt; tmp;
+        auto last = cnt[0];
+        tmp.push_back(last);
+        for (auto s : cnt) {
+            if (s == last) {
+                continue;
+            } else {
+                last = s;
+                tmp.push_back(s);
+            }
+        }
+        cnt = tmp;
+        len = cnt.size();
+        // for (int i = 0; i &lt; len; i++) {
+        //     cout &lt;&lt; cnt[i].first &lt;&lt; &quot; &quot; &lt;&lt; cnt[i].second &lt;&lt; endl;
+        // }
+        int pre[26] = {0}, dp[26] = {0}, ansmax = 0, ansi = -1;
+        int madlen[26];
+        fill(madlen, madlen + 26, INT_MAX);
+        for (int i = len - 1; i &gt;= 0; i--) {
+            int maxi = i, maxs = 0, maxadlen = INT_MAX;
+            for (int j = i + 1; j &lt; len; j++) {
+                if (cnt[j].first &gt; cnt[i].second &amp;&amp; dp[j] &gt; maxs) {
+                    maxs = dp[j];
+                }
+            }
+            for (int j = i + 1; j &lt; len; j++) {
+                if (cnt[j].first &gt; cnt[i].second &amp;&amp; dp[j] == maxs &amp;&amp;
+                    madlen[j] &lt; maxadlen) {
+                    maxi = j;
+                    maxadlen = madlen[j];
+                }
+            }
+            pre[i] = maxi;
+            dp[i] = maxs + 1;
+            if (maxadlen == INT_MAX)
+                madlen[i] = cnt[i].second - cnt[i].first + 1;
+            else {
+                madlen[i] = maxadlen + cnt[i].second - cnt[i].first + 1;
+            }
+            // cout &lt;&lt; &quot;--&gt; &quot; &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; maxi &lt;&lt; &quot; &quot; &lt;&lt; maxs &lt;&lt; &quot; &quot; &lt;&lt;
+<A NAME="1"></A>            // pre[i]
+            //      &lt;&lt; &quot; &quot; &lt;&lt; dp[i] &lt;&lt; &quot; &quot; &lt;&lt; madlen[i] &lt;&lt; endl;
+            if (dp[i] &gt; ansmax) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                ansmax = dp[i];
+            }
+        }
+        int maxadlen = INT_MAX;
+        for (int i = 0; i &lt; len; i++) {
+            if (dp[i] == ansmax &amp;&amp; madlen[i] &lt; maxadlen) {
+                ansi = i;
+                maxadlen = madlen[i];
+            }
+        }</B></FONT>
+        // cout &lt;&lt; ansmax &lt;&lt; &quot; &quot; &lt;&lt; maxadlen &lt;&lt; &quot; &quot; &lt;&lt; cnt[ansi].first &lt;&lt; &quot; &quot;
+        //      &lt;&lt; cnt[ansi].second &lt;&lt; endl;
+        vector&lt;string&gt; ans;
+        while (true) {
+            ans.push_back(s.substr(cnt[ansi].first,
+                                   cnt[ansi].second - cnt[ansi].first + 1));
+            if (ansi == pre[ansi]) {
+                break;
+            }
+            ansi = pre[ansi];
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

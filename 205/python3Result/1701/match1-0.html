@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>532_Dwang0629.py</TITLE>
+ <TITLE>236_Siddhant_Khare.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,61 +15,121 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>532_Dwang0629.py</CENTER></H3><HR>
+<H3><CENTER>236_Siddhant_Khare.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class DSU:
-    def __init__(self, n):
-        self.p = list(range(n + 1))
-        self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.isolated_nodes = n
-        
-    def find(self, x):
-        if x != self.p[x]:
-            self.p[x] = self.find(self.p[x])
-        return self.p[x]
-    
-    def union(self, x, y):
-        xr = self.find(</B></FONT>x)
-        yr = self.find(y)
-        
-        if xr != yr:
-            self.isolated_nodes -= 1
-            
-        self.p[xr] = yr
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        #keep two union for Bob and Alice
-        #add edges to the dsu, if the two nodes are already in a union, we can delete the edge
-        #always add type3 first
-        edges.sort(reverse = True)
         
-        dsuA = DSU(n)
-        dsuB = DSU(n)
-        res = 0
-<A NAME="1"></A>        for [t, n1, n2] in edges:
-            if t == 3:
-                #handle Alice
-                if dsuA.find(n1) == dsuA.find(n2) and dsuB<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.find(n1) == dsuB.find(n2):
-                    #don't add the edge
-                    res += 1
-                else:
-                    dsuA.union(n1, n2)
-                    dsuB.union(n1, n2)
-            elif t == 1:
-                #Alice
-                if dsuA.find(n1) == dsuA.find(n2):
-                    res += 1
-                else:
-                    dsuA.union(n1, n2)
-            else:
-                if dsuB.find(n1) == dsuB.find(n2):
-                    res += 1
-                else:
-                    dsuB.union(n1, n2)
-                    
-        return res if dsuA.isolated_nodes == 1 and dsuB.i</B></FONT>solated_nodes == 1 else -1
+        # DP 
+        
+        A = [0] * (n + 1)
+        B = [0] * (n + 1)
+        
+        # merging
+        
+        def merge(fu, x, y):
+            if x == y: return
+            fu[x] = y
+        
+        # parent function and x
+        
+        def parent(fu, x):
+            p = x
+            
+            # while loop
+            
+            while fu[p] != 0:
+                p = fu[p]
+        
+        # while loop
+        
+            while x != p:
+                x2 = fu[x]
+                fu[x] = p
+                x = x2
                 
+                # exit
+                
+            return p
+
+        edges = [tuple(x) for x in edges]
         
+        # sorting
+        edges.sort(reverse=True)
+        c = 0
+        
+        # for looping
+        
+        for t, x, y in edges:
+            if t == 3:
+                
+                # p1 p2 p3 p4
+                
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                p3 = parent(B, x)
+                p4 = parent(B, y)
+                
+                # if loop
+                
+                if (p1 != p2) or (p3 != p4):
+                    c += 1
+                    
+                    # merge
+                    
+                    merge(A, p1, p2)
+                    merge(B, p3, p4)
+            
+            # else if 
+            
+            elif t == 1:
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                
+                # if loop
+                if p1 != p2:
+                    c += 1
+                    
+                    # exit
+                    
+                    merge(A, p1, p2)
+                
+                # else condition
+                
+            else:
+                p1 = parent(B, x)
+                p2 = parent(B, y)
+                
+                # if looping
+                
+                if p1 != p2:
+                    c += 1
+                    merge(B, p1, p2)
+        
+         # p0
+        p0 = parent(A, 1)
+        p1 = parent(B, 1)
+        
+        # for looping
+        
+        for i in range(1, n + 1):
+            p = parent(A, i)
+            
+            # -1
+            
+            if p != p0: return -1
+            p = parent(B, i)
+            
+            # -1
+            if p != p1: return -1
+        
+        # answer
+        
+        ans = len(edges) - c
+        
+        # exit answer
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>137_xiaok0707.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>137_xiaok0707.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+<A NAME="0"></A>class Solution {
+public:
+    int cnt[10];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int ans=0;
+
+    void dfs(TreeNode* rt){
+        cnt[rt-&gt;val]+=1;
+<A NAME="1"></A>        if(!rt-&gt;left &amp;&amp; !rt-&gt;right){
+            int odd=0;   
+            for(int i=0;i&lt;10;++i) if(cnt[i]&amp;1) ++odd;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(odd&lt;=1) ++ans;
+        }
+        else{
+            if(rt-&gt;left) dfs(rt-&gt;left);
+            if(rt-&gt;right) dfs(rt-&gt;right);
+        }
+        cnt[rt-&gt;val]-=1;
+    }
+
+    int pseudoPalindromicPaths (TreeNode* root) {</B></FONT>
+        ans=0;
+        memset(cnt,0,sizeof(cnt));
+        if(root) dfs(root);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>195_and1p1.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>195_and1p1.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    
+    def minInteger(self, num: str, k: int) -&gt; str:
+        def ismin(i, array, K):
+            if (K + 1) &lt; len(array):
+                m=K+1
+            else:
+                m=len(array)
+<A NAME="0"></A>            if array[i] == min(array[0:m]):
+                return True
+            else:
+                r<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn False
+
+        def new_trans_k(array, index_min, k):
+            for i in range(k):
+                t = array[index_min]
+                array[index_min] = array[index_min - 1]
+                array[index_min - 1] = t
+                index_min -= 1
+            r</B></FONT>eturn array
+
+<A NAME="1"></A>
+
+        def trans(array, K):
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(len(array)):
+                if ismin(i, array, K):
+                    continue
+                else:
+                    if (i + K)&lt;len(array):
+                        m=i + K + 1
+                    else:
+                        m=len(array)
+                    m_num = min(array[i:m])
+                    index_min = array[i:m].index(m_num) + i
+                    c = index_min - i
+                    K = K - c
+                    array = new_trans_k(array, index_min, c)
+                    if K==0:
+                        break
+            return</B></FONT> array
+    
+        n = len(num)
+        if k &gt;= n*(n-1):
+            return &quot;&quot;.join(sorted(num))
+
+        return &quot;&quot;.join(trans(list(num), k))
+        
+    
+
+            
+</PRE>
+
+</BODY>
+</HTML>

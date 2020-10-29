@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>325_freshcode-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>325_freshcode-2.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minInteger(self, num: str, k: int) -&gt; str:
+        if k &gt; len(num)*(len(num)-1):
+            return ''.join(sorted(list(num)))
+        def isbig(i, array, K):
+            if (K+1)&lt;len(array):
+                if array[i] == min(array[0:K+1]):
+                    return True
+                else:
+                    return False
+            else:
+<A NAME="0"></A>                if array[i] == min(array[0:]):
+                    return True
+                else:
+                    ret<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>urn False
+        def new_trans_k(array,index_max,k):
+            for i in range(k):
+                t = array[index_max]
+                array[index_max] = array[index_max-1]
+                array[index_max - 1] = t
+                index_max -= 1
+            return array
+        array = list(</B></FONT>num)
+        K = k
+        for i in range(len(array)):
+            # 当前值不是最大值，要和后面的最大值交换
+            if isbig(i, array, K):
+                continue
+            # m是可以最远交换到的坐标的下一个，因为后面要用到列表切片
+            else:
+                if (i + K)&lt;len(array):
+                    m=i + K + 1
+                else:
+                    m=len(array)
+                max_num = min(array[i:m])
+<A NAME="1"></A>                index_min = array[i:m].index(max_num) + i
+                # c是实际交换的次数
+                c = index_min - i
+                K <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= K - c
+                array = new_trans_k(array, index_min, c)
+                if K==0:
+                    break
+        
+        return ''.join(a</B></FONT>rray)
+</PRE>
+
+</BODY>
+</HTML>

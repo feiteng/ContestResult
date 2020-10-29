@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>300_happyleetcode.java</TITLE>
+ <TITLE>208_KKKXY.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>300_happyleetcode.java</CENTER></H3><HR>
+<H3><CENTER>208_KKKXY.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String modifyString(String s) {
-<A NAME="1"></A>        char[] cs = s.toCharArray();
-        for (int i = 0; i &lt; cs.length; i++) {
-            if</B></FONT> (cs[i] != '?') continue;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (char j = 'a'; j &lt;= 'z'; j++) {
-                if (i &gt; 0 &amp;&amp; j == cs[i - 1]) continue;
-                if (i &lt; cs.length - 1 &amp;&amp; j == cs[i + 1]) continue;
-                cs[i] = j;
-                break;
+        char[] ss = s.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; ss.length; i++) {
+            if (ss[i] != '?') sb.append(ss[i]);
+            else {
+                for (int j = 0; j &lt; 26; j++) {
+                    char c = (char)('a' + j);
+                    if (i &gt; 0 &amp;&amp; c == ss[i-1]) continue;
+                    if (i &lt; ss.length - 1 &amp;&amp; c == ss[i+1]) continue;
+                    sb.append(c);
+                    ss[i] = c;
+                    break;
+                }
             }
-        }</B></FONT>
-        return new String(cs);
+        }
+        return sb.toString();
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

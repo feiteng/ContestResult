@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>415_Anonymous_User.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>415_Anonymous_User.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+  
+    private static final double THRESHOLD = 0.0000001;
+    
+    private int[][] DIRS = new int[][]{{0,1},{1,0},{-1,0},{0,-1}};
+
+    public double getMinDistSum(int[][] positions) {
+        
+        double x = 0;
+        double y = 0</B></FONT>;
+        for (int[] pos : positions) {
+            x += pos[0];
+            y += pos[1];
+        }
+        x /= positions.length;
+        y /= positions.length;
+        
+<A NAME="1"></A>        float dist = 1;
+        double minDistSum = computeDistSum(positions, x, y);
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (dist &gt; THRESHOLD) {
+            boolean hasBetterPosition = false;
+            for (int[] dir : DIRS) {
+                double nextX = x + dist*dir[0];
+                double nextY = y + dist*dir[1];
+                double distSum = computeDistSum(positions, nextX, nextY);
+                if (distSum &lt; minDistSum) {
+                    minDistSum = distSum;
+<A NAME="2"></A>                    hasBetterPosition = true;
+                    x = nextX;
+                    y</B></FONT> = nextY;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            if (!hasBetterPosition) {
+                    dist /= 2;
+            }
+        }
+        return minDistSum;
+        
+        // geometric mean or median then calculate teh diff
+    }
+    
+    private double computeDistSum(int[][] positions, double x, double y) {
+        double distSum = 0;
+        for (int[] pos : positions) {
+            double dx = x - pos[0];
+            double dy = y - pos[1];
+            distSum += Math.sqrt(dx*dx + dy*dy);
+        }
+        return distSum;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

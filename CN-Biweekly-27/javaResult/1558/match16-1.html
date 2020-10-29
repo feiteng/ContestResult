@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>132_levyjeng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>132_levyjeng.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+   LinkedList&lt;Integer&gt;[] lists;
+	Set&lt;Integer&gt;[] memo;
+
+	public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+		memo = new HashSet[n];
+		lists = new Lin</B></FONT>kedList[n];
+		List&lt;Boolean&gt; ans = new ArrayList&lt;&gt;();
+		for (int i = 0; i &lt; n; i++) {
+<A NAME="1"></A>			lists[i] = new LinkedList&lt;&gt;();
+		}
+		for (int[] temp : prerequisites) {
+			lists[temp[1]].add(te<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>mp[0]);
+		}
+<A NAME="2"></A>		for (int i = 0; i &lt; n; i++) {
+			getSub(i);
+		}</B></FONT>
+		for (int[] tem<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>p : queries) {
+			ans.add(getSub(temp[1]).contains(temp[0]));
+		}
+		return ans;
+
+	}
+
+	Set&lt;Integer&gt; getSub(int p) {
+		if (memo[p] != null) {</B></FONT>
+			return memo[p];
+		}
+		memo[p] = new HashSet&lt;&gt;();
+		memo[p].add(p);
+		for (int s : lists[p]) {
+			memo[p].addAll(getSub(s));
+		}
+		return memo[p];
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

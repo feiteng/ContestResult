@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>378_bhas_gurr.java</TITLE>
+ <TITLE>202_Neymars.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,112 +15,105 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>378_bhas_gurr.java</CENTER></H3><HR>
+<H3><CENTER>202_Neymars.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+    private int ans;
+    private int[] f1;
+    private int[] f2;
+
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UnionFind alice = new UnionFind(n);
-        UnionFind bob = new UnionFind(n);
-        
-        int total = 0</B></FONT>;
-        for (int[] edge: edges) {
-            int type = edge[0];
-            int a = edge[1];
-            int b = edge[2];
-            
-            if(type == 3) {
-                int aap = alice.getParent(a);
-                int abp = alice.getParent(b);
-                int bap = bob.getParent(a);
-                int bbp = bob.getParent(b);
-                if(aap == abp &amp;&amp; bap == bbp) {
-                    total++;
-                } 
-                
-                if(aap != abp) {
-                    alice.merge(a, b);
-                }
-<A NAME="1"></A>                
-                if(bap != bbp) {
-                    bob.merge(a, b);
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+        f1 = new int[n + 1];
+        f2 = new int[n + 1];
+
+        int m = edges.length;
+        int size1 = 0, size2 = 0, size3 = 0;
+
+        for (int i = 0; i &lt;= n; i++)
+            f1[i] = f2[i] = i;
+
+        for (int i = 0; i &lt; m; i++) {
+            if (edges[i][0] == 1) size1++;
+            else if (edges[i][0] == 2) size2++;
+            else size3++;
+        }
+
+        int len1 = 0, len2 = 0, len3 = 0;
+        int[][] edges1 = new int[size1][2];
+        int[][] edges2 = new int[size2][2];
+        int[][] edges3 = new int[size3][2];
+
+        for (int i = 0; i &lt; m; i++) {
+            if (edges[i][0] == 1) {
+                edges1[len1][0] = edges[i][1];
+                edges1[len1++][1] = edges[i][2];
+            } else if (edges[i][0] == 2) {
+                edges2[len2][0] = edges[i][1];
+                edges2[len2++][1] = edges[i][2];
+            } else {
+                edges3[len3][0] = edges[i][1];
+                edges3[len3++][1] = edges[i][2];
             }
         }
-        
-        for (int[] edge: edges) {</B></FONT>
-            int type = edge[0];
-            int a = edge[1];
-            int b = edge[2];
-        
-            if (type == 1) {
-                    if(alice.getParent(a) == alice.getParent(b)) {
-<A NAME="2"></A>                        total++;
-                    } else {
-                        alice.merge(a, b);
-                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-                } else if (type == 2) {
-                    if(bob.getParent(a) == bob.getParent(b)) {</B></FONT>
-                        total++;
-                    } else {
-                        bob.merge(a, b);
-                    }
-                } 
+
+        work(3, edges3);
+        work(1, edges1);
+        work(2, edges2);
+
+        int last1 = f1[find1(1)], last2 = f2[find2(1)];
+
+        //System.out.println(ans);
+
+        for (int i = 1; i &lt;= n; i++) {
+            int t1 = f1[find1(i)];
+            int t2 = f2[find2(i)];
+            if (t1 != last1 || t2 != last2)
+                return -1;
         }
-        
-        
-        return check(alice, n) &amp;&amp; check(bob, n) ? total : -1;
-        
+
+        return m - ans;
+
     }
-    
-<A NAME="3"></A>    private boolean check(UnionFind f, int n) {
-        int parent = f.getParent(1);
-        for (int i = 2; i &lt;= n; i++) {
-            if (<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match11-1.html#3',3,'match11-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>f.getParent(i) != parent) {
-                return false;
+
+    private void work(int id, int[][] edges) {
+
+        int n = edges.length;
+
+        for (int i = 0; i &lt; n; i++) {
+            int t1 = find1(edges[i][0]);
+            int t2 = find1(edges[i][1]);
+            int t3 = find2(edges[i][0]);
+            int t4 = find2(edges[i][1]);
+            if (id == 1 &amp;&amp; f1[t1] != t2) {
+                ans++;
+                f1[t1] = t2;
             }
-        }
-        return true;
-    }
-    
-    class UnionFind {
-        int n;
-        int[] parent;
-        int size[];
-        UnionFind(int n) {
-            this.n = n;    
-            parent = new int[n + 1];
-            size = new int[n + 1];
-            
-<A NAME="4"></A>            for (int i = 1; i &lt; n ;i++) {
-                p</B></FONT>arent[i] = i;
-                size[i] = 1;
-            <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match11-1.html#4',3,'match11-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        }
-<A NAME="5"></A>        
-        public int getParent(int n) {
-            while(parent[n] != n) {</B></FONT>
-                <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match11-1.html#5',3,'match11-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n = parent[n];
+            if (id == 2 &amp;&amp; f2[t3] != t4) {
+                ans++;
+                f2[t3] = t4;
             }
-            
-            return n;
-        }
-        
-        public void merge(int a, int b) {
-            int aP = getParent(a);
-            int bP = getParent(b);
-            
-            if</B></FONT> (aP != bP) {
-                if (size[aP] &gt;= size[bP]) {
-                    size[aP] += size[bP];
-                    parent[bP] = aP;
-                } else {
-                    size[bP] += size[aP];
-                    parent[aP] = bP;
-                }
+            if (id == 3 &amp;&amp; (f1[t1] != t2 || f2[t3] != t4)) {
+                ans++;
+                f1[t1] = t2;
+                f2[t3] = t4;
             }
         }
     }
-}
+
+    private int find1(int x) {
+        if (f1[x] == x)
+            return x;
+        return f1[x] = find1(f1[x]);
+    }
+
+    private int find2(int x) {
+        if (f2[x] == x)
+            return x;
+        return f2[x] = find2(f2[x]);
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

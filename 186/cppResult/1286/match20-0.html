@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_mirosuaf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>34_mirosuaf.cpp</CENTER></H3><HR>
+<PRE>
+//BEGIN
+
+
+typedef long long LL;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;vector&lt;int&gt;&gt; VII;
+static const int INF = 1000000000;
+static const int P = 1000000007;
+
+#define REP(i,n) for(int i=0;i&lt;(n);i++)
+#define FOR(i,a,b) for(int i=(a);i&lt;=(b);i++)
+<A NAME="0"></A>#define FORD(i,a,b) for(int i=(a);i&gt;=(b);i--)
+#define FOREACH(i,c) for(__typeof((c).begin())i = (c).begin();i!=(c).end(); ++i)
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+  int constrainedSubsetSum(vector&lt;int&gt;&amp; nums, int k) {
+    int best = nums[0];
+    map&lt;int, int&gt; r;
+    r[best]++;
+    vector&lt;int&gt; sum(nums.size());</B></FONT>
+<A NAME="1"></A>    sum[0] = best;
+    FOR(i, 1, nums.size() - 1) {
+      int v = max(0, r.rbegin()-&gt;first);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      sum[i] = v + nums[i];
+      best = max(best, sum[i]);
+      r[sum[i]]++;
+      if (i - k &gt;= 0) {
+        r[sum[i - k]]--;
+        if (r[sum[i - k]] == 0) {
+          r.erase(sum[i - k]);
+        }
+      }
+    }
+    return best;
+  }
+};</B></FONT>
+
+
+//FINISH
+</PRE>
+</BODY>
+</HTML>

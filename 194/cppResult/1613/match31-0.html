@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>153_ykx_akks.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>153_ykx_akks.cpp</CENTER></H3><HR>
+<PRE>
+class Edge {
+public:
+	int s, t, next;
+	int idx, w;
+	Edge(int _s, int _t, int _next, int _idx = 0, int _w = 0): s(_s), t(_t), next(_next), w(_w), idx(_idx) {}
+};
+
+bool cmp(const Edge &amp;a, const Edge &amp;b) {
+    return a.w &lt; b.w;
+}
+
+class Graph {
+public:
+	vector&lt;Edge&gt; e;
+	vector&lt;int&gt; h;
+	int n, m;
+	int edgeN;
+
+	// vector&lt;int&gt; low, dfn;
+	// vector&lt;bool&gt; onStack;
+	// vector&lt;vector&lt;int&gt; &gt; scc;
+	// vector&lt;int&gt; sccStack;
+	// vector&lt;int&gt; sccVertexIndex;
+	// int sccIndex, sccCount;
+	vector&lt;bool&gt; vis;
+    vector&lt;vector&lt;int&gt; &gt; a;
+    
+    vector&lt;int&gt; tin, low;
+    vector&lt;int&gt; eIdx;
+    int timer;
+
+	Graph(int _n): n(_n) {
+		e.clear();
+		h = vector&lt;int&gt;(n, -1);
+		edgeN = 0;
+        a = vector&lt;vector&lt;int&gt; &gt;(n);
+        for (int i = 0; i &lt; n; ++i) {
+            a[i] = vector&lt;int&gt;(n, 0);
+        }
+	}
+
+	void addEdge(int s, int t, int idx) {
+		e.push_back(Edge(s, t, h[s], idx));
+		h[s] = edgeN++;
+        a[s][t] += 1;
+	}
+    
+    vector&lt;int&gt; getBridgeIdx() {
+        // cout &lt;&lt; &quot;begin&quot; &lt;&lt; endl;
+        timer = 0;
+        vis = vector&lt;bool&gt;(n, false);
+        tin = vector&lt;int&gt;(n, -1);
+        low = vector&lt;int&gt;(n, -1);
+        eIdx.clear();
+        for (int i = 0; i &lt; n; ++i) {
+            if (!vis[i]) {
+                dfs(i);
+            }
+        }
+        // cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;
+        return eIdx;
+    }
+    
+    void dfs(int v, int pp = -1) {
+        vis[v] = true;
+        tin[v] = low[v] = timer++;
+        for (int p = h[v]; p != -1; p = e[p].next) {
+            int to = e[p].t;
+            if (to == pp) {
+                continue;
+            }
+            if (vis[to]) {
+                low[v] = min(low[v], tin[to]);
+            } else {
+                dfs(to, v);
+                low[v] = min(low[v], low[to]);
+                if (low[to] &gt; tin[v]) {
+                    if (a[e[p].s][e[p].t] == 1) {
+                        eIdx.push_back(e[p].idx);
+                    }
+                }
+            }
+        }
+    }
+    
+//     void dfs(int v, int p = -1) {
+//     visited[v] = true;
+//     tin[v] = low[v] = timer++;
+//     for (int to : adj[v]) {
+//         if (to == p) continue;
+//         if (visited[to]) {
+//             low[v] = min(low[v], tin[to]);
+//         } else {
+//             dfs(to, v);
+//             low[v] = min(low[v], low[to]);
+//             if (low[to] &gt; tin[v])
+//                 IS_BRIDGE(v, to);
+//         }
+//     }
+// }
+
+// 	bool hasLoop() {
+// 		vector&lt;int&gt; deg(n, 0);
+// 		for (int i = 0; i &lt; edgeN; ++i) {
+// 			deg[e[i].t] += 1;
+// 		}
+// 		queue&lt;int&gt; q;
+// 		for (int i = 0; i &lt; n; ++i) {
+// 			if (!deg[i]) {
+// 				q.push(i);
+// 			}
+// 		}
+// 		int count = 0;
+// 		while (!q.empty()) {
+// 			int u = q.front();
+// 			// cout &lt;&lt; u &lt;&lt; endl;
+// 			q.pop();
+// 			count += 1;
+// 			for (int p = h[u]; p != -1; p = e[p].next) {
+// 				--deg[e[p].t];
+// 				if (!deg[e[p].t]) {
+// 					q.push(e[p].t);
+// 				}
+// 			}
+// 		}
+// 		return (count &lt; n);
+// 	}
+// 	void tarjanDFS(int u) {
+// 		dfn[u] = sccIndex++;
+// 		low[u] = dfn[u];
+// 		sccStack.push_back(u);
+// 		onStack[u] = true;
+
+// 		for (int p = h[u]; p != -1; p = e[p].next) {
+// 			int v = e[p].t;
+// 			if (dfn[v] == -1) {
+// 				tarjanDFS(v);
+// 				low[u] = min(low[u], low[v]);
+// 			} else {
+// 				if (onStack[v]) {
+// 					low[u] = min(low[u], dfn[v]);
+// 				}
+// 			}
+// 		}
+
+// 		if (dfn[u] == low[u]) {
+// 			scc.push_back(vector&lt;int&gt;()); // index: sccCount
+// 			int v = sccStack.back();
+// 			scc[sccCount].push_back(v);
+// 			onStack[v] = false;
+// 			sccStack.pop_back();
+// 			sccVertexIndex[v] = sccCount;
+// 			while (sccStack.size() &gt; 0 &amp;&amp; v != u) {
+// 				v = sccStack.back();
+// 				scc[sccCount].push_back(v);
+// 				onStack[v] = false;
+// 				sccStack.pop_back();
+// 				sccVertexIndex[v] = sccCount;
+// 			}
+
+// 			sccCount += 1;
+// 		}
+// 	}
+//     void getStronglyConnectedComponents() {
+// 		low = vector&lt;int&gt;(n, -1);
+// 		dfn = vector&lt;int&gt;(n, -1);
+// 		onStack = vector&lt;bool&gt;(n, false);
+// 		sccVertexIndex = vector&lt;int&gt;(n, -1);
+// 		sccStack.clear();
+// 		scc.clear();
+// 		sccIndex = 0;
+// 		sccCount = 0;
+// 		for (int i = 0; i &lt; n; ++i) {
+// 			if (dfn[i] == -1) {
+// 				tarjanDFS(i);
+// 			}
+// 		}
+//     }
+};
+class Solution {
+public:
+    vector&lt;int&gt; f;
+    int gf(int x) {
+        if (f[x] == x) {
+            return x;
+        }
+        return (f[x] = gf(f[x]));
+    }
+    void combine(int a, int b) {
+        f[gf(a)] = gf(b);
+    }
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;Edge&gt; e;
+        e.clear();
+        int en = edges.size();
+        // cout &lt;&lt; en &lt;&lt; endl;
+        for (int i = 0; i &lt; edges.size(); ++i) {
+            auto edge = edges[i];
+            int u = edge[0];
+            int v = edge[1];
+            e.push_back(Edge(u, v, -1, i, edge[2]));
+        }
+        f = vector&lt;int&gt;(n, 0);
+        for (int i = 0; i &lt; n; ++i) {
+            f[i] = i;
+        }
+        sort(e.begin(), e.end(), cmp);
+        int cur = 0;
+        // vector&lt;int&gt; tmpf;
+        vector&lt;int&gt; ce(0), pce(0);
+        vector&lt;bool&gt; isEdge(en, false);
+        while (cur &lt; en) {
+            int w = e[cur].w;
+            // cout &lt;&lt; &quot;w = &quot; &lt;&lt; w &lt;&lt; endl;
+            int beg = cur;
+            while (cur &lt; en &amp;&amp; e[cur].w == w) {
+                ++cur;
+            }
+            // cout &lt;&lt; &quot;cur = &quot; &lt;&lt; cur &lt;&lt; endl;
+            
+            set&lt;int&gt; fs;
+            fs.clear();
+            for (int i = beg; i &lt; cur; ++i) {
+                int u = gf(e[i].s);
+                int v = gf(e[i].t);
+                // printf(&quot;u = %d, v = %d\n&quot;, u, v);
+                fs.insert(u);
+                fs.insert(v);
+            }
+            // cout &lt;&lt; &quot;here 1&quot; &lt;&lt; endl;
+            vector&lt;int&gt; mp(n, -1);
+            int cc = 0;
+            for (auto it = fs.begin(); it != fs.end(); ++it) {
+                mp[*it] = cc++;
+            }
+<A NAME="0"></A>            // cout &lt;&lt; &quot;here 2&quot; &lt;&lt; endl;
+            
+            Graph g(cc);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = beg; i &lt; cur; ++i) {
+                // cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+                int u = mp[gf(e[i].s)];
+                int v = mp[gf(e[i].t)];
+                // cout &lt;&lt; &quot;u = &quot; &lt;&lt; u &lt;&lt; &quot;, v = &quot; &lt;&lt; v &lt;&lt; endl;
+                g.addEdge(u, v, i);
+                g.addEdge(v, u, i);
+                
+                // printf(&quot;u = %d, v = %d\n&quot;, u, v);
+            }
+            // cout &lt;&lt; &quot;here 3&quot; &lt;&lt; endl;
+            vector&lt;int&gt; bIdx = g.getBridgeIdx();</B></FONT>
+            // cout &lt;&lt; &quot;bridge: &quot;;
+            // for (int i = 0; i &lt; bIdx.size(); ++i) {
+            //     cout &lt;&lt; bIdx[i] &lt;&lt; ' ';
+            // }
+            // cout &lt;&lt; endl;
+            set&lt;int&gt; bSet;
+<A NAME="1"></A>            bSet.clear();
+            for (int i = 0; i &lt; bIdx.size(); ++i) {
+                bSet.insert(bIdx[i]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            for (int i = beg; i &lt; cur; ++i) {
+                int u = gf(e[i].s);
+                int v = gf(e[i].t);
+                if (gf(u) != gf(v)) {
+                    if (bSet.find(i) != bSet.end()) {
+                        ce.push_back(e[i].idx);
+                    } else {</B></FONT>
+                        pce.push_back(e[i].idx);
+                    }
+                }
+<A NAME="2"></A>            }
+            // cout &lt;&lt; &quot;here 4&quot; &lt;&lt; endl;
+            
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = beg; i &lt; cur; ++i) {
+                int u = e[i].s;
+                int v = e[i].t;
+                if (gf(u) != gf(v)) {
+                    // printf(&quot;(%d, %d)\n&quot;, u, v);
+                    combine(u, v);
+                }</B></FONT>
+            }
+            
+            // [beg, cur) has the same weight
+            // each of them can be chosen if they connect two sites not in same set
+            // must be chosen if cannot be connected by others
+            
+            // cout &lt;&lt; &quot;go next step &quot; &lt;&lt; endl;
+        }
+        vector&lt;vector&lt;int&gt; &gt; res(0);
+        res.push_back(ce);
+        res.push_back(pce);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

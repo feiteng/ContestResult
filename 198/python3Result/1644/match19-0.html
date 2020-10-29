@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>468_YuranN.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>468_YuranN.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxNumOfSubstrings(self, str7: str) -&gt; List[str]:
+        start = [-1] * 26
+        end = [-1] * 26
+        for i, c in enumerate(str7):
+            o = ord(c) - ord('a')
+            if start[o] == -1:
+                start[o] = i
+            end[o] = i
+        
+        strs =</B></FONT> {}
+        for i, (s, e) in enumerate(zip(start, end)):
+            if s != -1:
+                strs[chr(i + ord('a'))] = (s, e)
+        # print(strs)
+        strs2 = []
+        for k, (s, e) in strs.items():
+            m1, m2 = s, e
+            chars = list(str7[s:e + 1])
+            while chars:
+                c = chars.pop()
+                if strs[c][0] &lt; m1:
+                    chars = list(str7[strs[c][0]:m1]) + chars
+                    m1 = strs[c][0]
+                if strs[c][1] &gt; m2:
+                    chars = chars + list(str7[m2 + 1:strs[c][1] + 1])
+                    m2 = strs[c][1]
+            strs[k] = (m1, m2)
+            strs2.append((m2 - m1, m1, m2))
+        # print(strs2)
+        strs2.sort()
+        # print(strs2)
+        res = []
+        ints = []
+        for l, s, e in strs2:
+            for m1, m2 in ints:
+                if s &lt;= m1 &lt;= e or s &lt;= m2 &lt;= e:
+                    break
+            else:
+                res.append(str7[s:e + 1])
+                m1 = min(m1, s)
+                m2 = max(m2, e)
+            ints.append([s, e])
+        return res
+</PRE>
+
+</BODY>
+</HTML>

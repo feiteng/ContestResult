@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>458_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>458_huntersjm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.Arrays;
+
+class Solution {
+    public int numSubseq(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] nums, int target) {
+        Arrays.sort(nums);
+        if (nums[0] + nums[0] &gt; target) {
+            return 0;
+        }</B></FONT>
+        int[] pow = new int[nums.length];
+        pow(pow);
+        int l = 0;
+        int r = nums.length - 1;
+        while (nums[l] + nums[r] &gt; target) {
+            r--;
+        }
+        int ans = pow[r];
+        for (l=1; l &lt;= r; l++) {
+            while (l &lt;= r &amp;&amp; nums[l] + nums[r] &gt; target) {
+                r--;
+<A NAME="1"></A>            }
+            if (l &lt;= r) {
+                ans = (ans + pow[r - l]) % 1_000_000_007;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return ans;
+<A NAME="2"></A>    }
+
+    private void pow(int[] n</B></FONT>) {
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n[0]=1;
+        for (int i = 1; i &lt; n.length; i++) {
+            n[i] = (n[i-1] &lt;&lt; 1) % 1_000_000_007;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

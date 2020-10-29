@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>647_nirvana_rsc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>647_nirvana_rsc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int n) {
+//        Deque&lt;Integer&gt; q = new ArrayDeque&lt;&gt;();
+//        q.offerLast(n);
+//        HashSet&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+//        for (int level = 0; !q.isEmpty(); level++) {
+//            for (int size = q.size(); size &gt; 0; size--) {
+//                Integer curr = q.removeFirst();
+//                if (curr == 0) {
+//                    return level + 1;
+//                }
+//                q.offerLast(curr - 1);
+//                if (curr % 2 == 0) {
+//                    q.offerLast(curr / 2);
+//                }
+//                if (curr % 3 == 0) {
+//                    q.offerLast(curr / 3);
+//                }
+//            }
+//        }
+//        return -1;
+        return dfs(n, new HashMap&lt;&gt;());
+    }
+
+    private static int dfs(int n, Map&lt;Integer,Integer&gt; dp) {
+        if (n == 0) {
+            return -1;
+        }
+        if (dp.containsKey(n)) {
+            return dp.get(n);
+        }
+        int res = 1 + Math.min(n % 2 + dfs(n / 2, dp), n % 3 + dfs(n / 3, dp));
+        dp.put</B></FONT>(n, res);
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

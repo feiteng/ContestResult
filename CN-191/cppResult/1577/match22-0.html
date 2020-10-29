@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_wayuze.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_wayuze.cpp</CENTER></H3><HR>
+<PRE>
+
+class Solution 
+{
+public:
+	long long C(int n, int m)
+	{
+		long long a=1, b=1;
+		for (int i = 1; i &lt;= m; i++)
+		{
+			a *= (n - i + 1);
+			b *= i;
+<A NAME="0"></A>		}
+		return a / b;
+	}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	double cnt(vector&lt;int&gt;&amp;a)
+	{
+		int sum = 0;
+		int n = a.size();
+		for (int i = 0; i &lt; n; i++)
+			sum += a[i];
+		double ret = 1;
+		for (int i = 0; i &lt; n; i++)
+		{</B></FONT>
+			ret *= C(sum, a[i]);
+			sum -= a[i];
+		}
+		return ret;
+	}
+	double getProbability(vector&lt;int&gt;&amp; balls) 
+	{
+		vector&lt;int&gt;current(balls.size(), 0);
+		vector&lt;vector&lt;int&gt;&gt;valids;
+		dfs(balls, 0, 0, 0, current, valids);
+		double a = cnt(balls);
+		double b = 0;
+		for (int i = 0; i &lt; valids.size(); i++)
+		{
+			double c = cnt(valids[i]);
+			vector&lt;int&gt;D;
+			for (int j = 0; j &lt; balls.size(); j++)
+				D.push_back(balls[j] - valids[i][j]);
+			double d = cnt(D);
+			b += c * d;
+		}
+		return 1.0*b / a;
+	}
+	void dfs(vector&lt;int&gt;&amp;balls, int k, int dc, int dn,vector&lt;int&gt;&amp;current, vector&lt;vector&lt;int&gt;&gt;&amp;valids)
+	{
+		if (k == balls.size())
+		{
+			if(dc==0&amp;&amp;dn==0)
+				valids.push_back(current);
+			return;
+		}
+		if (abs(dc) &gt; balls.size() - k)
+			return;
+		for (int i = 0; i &lt;= balls[k]; i++)
+		{
+			current[k] = i;
+			if (i == 0)
+				dfs(balls, k + 1, dc - 1, dn - balls[k], current, valids);
+			else if (i == balls[k])
+				dfs(balls, k + 1, dc + 1, dn + balls[k], current, valids);
+			else
+				dfs(balls, k + 1, dc, dn + 2 * i - balls[k], current, valids);
+		}
+	}
+};
+</PRE>
+</BODY>
+</HTML>

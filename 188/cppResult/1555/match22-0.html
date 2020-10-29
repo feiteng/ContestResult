@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>95_wifiii.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>95_wifiii.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[52][52][11];
+    char g[55][55];
+    int sum[55][55];
+    int n,m;
+    static const int mod = 1e9+7;
+    inline int get(int i1,int j1,int i2,int j2) {
+        return sum[j1][j2] - sum[i1-1][j2] - sum[j1][i2-1] + sum[i1-1][i2-1];
+    }
+    int dfs(int i1,int j1,int i2,int j2,int k) {
+<A NAME="0"></A>        if(k == 0) return 1;
+        if(i1 == j1 &amp;&amp; i2 == j2) return 0;
+        if(dp[i1][i2][k] != -1) return dp[i1][i2][k];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long ret=0;
+        for(int i=i1;i&lt;j1;++i) {
+            if(get(i1,i,i2,j2) &gt; 0 &amp;&amp; get(i+1,j1,i2,j2) &gt; 0) {
+                ret += dfs(i+1,j1,i2,j2,k-1);
+                ret %= mod;
+            }
+        }
+        for(int i=i2;i&lt;j2;++i) {
+            if(get(i1,j1,i2,i) &gt; 0 &amp;&amp; get(i1,j1,i+1,j2) &gt; 0) {
+                ret += dfs(i1,j1,i+1,j2,k-1);
+                ret %= mod;
+            }
+        }</B></FONT>
+        return dp[i1][i2][k]=ret%mod;
+    }
+<A NAME="1"></A>    int ways(vector&lt;string&gt;&amp; a, int k) {
+        memset(dp,-1,sizeof(dp));
+        n=a.size(),m=a[0].size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1;i&lt;=n;++i) {
+            for(int j=1;j&lt;=m;++j) {
+                sum[i][j] = sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1] + (a[i-1][j-1] == 'A'); 
+            }
+        }
+        return dfs(1,n,1,m,k-1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

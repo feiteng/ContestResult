@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>711_NaughtyMonkey.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>711_NaughtyMonkey.java</CENTER></H3><HR>
+<PRE>
+class TreeAncestor {
+    
+<A NAME="0"></A>    private int[] parent;
+    private int[][] depth;
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public TreeAncestor(int n, int[] parent) {
+        this.parent = parent;
+<A NAME="1"></A>        this.depth = new int[n][2];
+        int max = 0;
+        for (int i=0; i&lt;n; i++) {</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>this.depth[i][0] = getDepth(i);
+        }
+    }
+    
+    private int getDepth(int i) {
+        if (this.parent[i] == -1)
+            return 0;
+        
+        if (this.depth[i][0] != 0)
+            return this.depth[i][0];
+        
+        return  1+getDepth(this.parent[i]);
+    }
+    
+    public int getKthAncestor(int node, int k) {
+        if (k&gt;this.depth[node][0])
+            return -1;
+        if</B></FONT> (k == this.depth[node][0])
+            return 0;
+        if (k == 1)
+            return this.parent[node];
+        if (k == 0)
+            return node;
+        
+        if (k&gt;this.depth[node][0]/2) {
+            if (this.depth[node][1] == 0)
+                this.depth[node][1] = getKthAncestor(node, this.depth[node][0]/2);
+            
+            return getKthAncestor(this.depth[node][1], k-this.depth[node][0]/2);
+        }
+        
+        return getKthAncestor(this.parent[this.parent[node]], k-2);
+    }
+}
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor obj = new TreeAncestor(n, parent);
+ * int param_1 = obj.getKthAncestor(node,k);
+ */
+</PRE>
+
+</BODY>
+</HTML>

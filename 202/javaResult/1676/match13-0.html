@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>343_bob-116.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>343_bob-116.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int n) {
+        Map&lt;Integer, Integer&gt; memo = new HashMap&lt;&gt;();
+        return minDaysHelper(n, memo);
+    }
+
+    private int minDaysHelper(int n, Map&lt;Integer, Integer&gt; memo) {
+        if (n == 0) {
+            return 0;
+        }
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        }
+        int ans = n;
+        if (n % 3 == 0) {
+            ans = Math.min(ans, minDaysHelper(n / 3, memo) + 1);
+        } else {
+            ans = Math.min(ans, minDaysHelper(n - 1, memo) + 1);
+        }
+        if (n % 2 == 0) {
+            ans = Math.min(ans, minDaysHelper(n / 2, memo) + 1);
+        } else {
+            ans = Math.min(ans, minDaysHelper(n - 1, memo) + 1);
+        }
+        memo.put(n, ans);
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>551_tuogy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>551_tuogy.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minDays(int nn) {
+        queue&lt;int&gt; bfs, bfs_next;
+        bfs.push(nn);
+        unordered_set&lt;int&gt; vis;
+<A NAME="1"></A>        vis.insert(nn);
+        int step = 0;
+        while (true) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            while (!bfs.empty()) {
+                int n = bfs.front(); bfs.pop();
+                if (n == 0) return step;
+                if (vis.find(n - 1) == vis.end()) {
+                    vis.insert(n - 1); bfs_next.push(n - 1);
+                }
+                if (n % 2 == 0 &amp;&amp; vis.find(n / 2) == vis.end()) {
+                    vis.insert(n / 2); bfs_next.push(n / 2);
+                }
+                if (n % 3 == 0 &amp;&amp; vis.find(n / 3) == vis.end()) {
+                    vis.insert(n / 3); bfs_next.push(n / 3);
+                }
+            }</B></FONT>
+            step++, bfs.swap(bfs_next);
+        }
+        return INT_MAX;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

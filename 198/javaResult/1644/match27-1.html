@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>410_user7688S.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>410_user7688S.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        int n = s.length();
+        int start[] = new int[206];
+        Arrays.fill(start,-1);
+        int end[] = new int[206];
+        for(int i = 0; i&lt;n; i++){
+            char c = s.charAt(i);
+            if(start[c] == -1) start[c] = i;
+            end[c] = i;
+        }
+        for(char c = 'a'; c&lt;='z'; c++){
+            int x = start[c], y = end[c];
+            if(x==-1) continue;
+            for(int i = x; i&lt;y; i++){
+                char ch = s.charAt(i);
+<A NAME="1"></A>                if(start[ch]&lt;x){
+                    int temp = x;
+                    x = start[ch];
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int j = temp-1;j &gt;= x; j--){
+                        y = Math.max(y, end[s.charAt(j)]);
+                        x = Math.min(x, start[s.charAt(j)]);
+                    }</B></FONT>
+                }
+                y = Math.max(y, end[s.charAt(i)]);
+            }
+            end[c] = y;
+            for(int i = y; i&gt;=x; i--){
+                x = Math.min(x, start[s.charAt(i)]);
+            }
+            start[c] = x;
+        }
+        for(char c = 'a'; c&lt;='z'; c++){
+            //if(start[c]!=-1)
+            //System.out.println(c+ &quot; &quot; + start[c] +&quot; &quot;+ end[c]);
+        }
+        ArrayList&lt;Character&gt; ans = new ArrayList&lt;&gt;();
+        for(int i = 1; i&lt;=26; i++){
+            char temp = '0';
+            int min = n+1;
+            for(char c = 'a'; c&lt;='z'; c++){
+                //System.out.println(start[c]);
+                if(ans.contains(c) || start[c]==-1) continue;
+                int val = end[c] - start[c] + 1;
+                if(val &lt; min){
+                    min = val;
+                    temp = c;
+                }
+            }
+            if(temp!='0')
+            ans.add(temp);
+        }
+<A NAME="0"></A>        //System.out.println(ans);
+        ArrayList&lt;Character&gt; fa = new ArrayList&lt;&gt;();
+        for(char c : ans){
+            if(check(fa,c, start, end)) fa.add(c)<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        List&lt;String&gt; faa = new ArrayList&lt;String&gt;();
+        for(char c : fa){
+            faa.add(s.substring(start[c],end[c]+1));
+        }
+        return faa;
+    }
+    boolean check(ArrayList&lt;Character&gt; fa, char c</B></FONT>, int[] start, int[] end){
+        for(char ch : fa){
+            if(!(start[c] &gt; end[ch] || end[c] &lt; start[ch])) return false; 
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

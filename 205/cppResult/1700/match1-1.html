@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>359_xariniov9.cpp</TITLE>
+ <TITLE>101_Kaizyn.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>359_xariniov9.cpp</CENTER></H3><HR>
+<H3><CENTER>101_Kaizyn.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int i=0;
-        int j = 0;
-        int ans = 0;
-<A NAME="1"></A>        while(i &lt; s.length()) {
-            int curCost = cost[i];
-            int cur = cost[i];</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            j = i+1;
-            while(j &lt; s.length() &amp;&amp; s[i] == s[j]) {
-                curCost = max(curCost, cost[j]);
-                cur += cost[j];
-                j++;
+        int n = s.size(), res = 0;
+        /*
+        vector&lt;int&gt; sum(n+1, 0);
+        for (int i = 1; i &lt;= n; ++i) sum[i] = sum[i-1]+cost[i-1];
+        */
+        for (int i = 0, j; i &lt; n; i = j) {
+            int maxv = cost[i], sumv = cost[i];
+            for (j = i+1; j &lt; n; ++j) {
+                if (s[i] != s[j]) break;
+                sumv += cost[j];
+                maxv = max(maxv, cost[j]);
             }
-            i = j;
-            ans += (cur - curCost);
+            res += sumv-maxv;
         }
-        return ans;
+        return res;
     }
 };</B></FONT>
 </PRE>

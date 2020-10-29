@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>101_flyman3046.java</TITLE>
+ <TITLE>181_kasperyang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>101_flyman3046.java</CENTER></H3><HR>
+<H3><CENTER>181_kasperyang.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int minCost(String s, int[] cost) {
+    public int minCost(String ss, int[] cost) {
+        char[] s = ss.toCharArray();
+        int n = cost.length;
+        int sum = cost[0];
+        int max = cost[0];
         int res = 0;
-        int start = 0;
-        while (start &lt; s.length()) {
-            int end = start;
-            while (end &lt; s.length() &amp;&amp; s.charAt(end) == s.charAt(start)) {
-                end++;
+        
+        for (int i = 1; i &lt; n; i++) {
+            if (s[i] == s[i - 1]) {
+                sum += cost[i];
+                max = Math.max(max, cost[i]);
+            } else {
+                res += sum - max;
+                
+                sum = cost[i];
+                max = cost[i];
             }
-
-            if (end - start &gt; 1) {
-                int tmpS = 0;
-                int tmpM = 0;
-                for (int i = start; i &lt; end; i++) {
-                    tmpS += cost[i];
-                    tmpM = Math.max(tmpM, cost[i]);
-                }</B></FONT>
-                res += tmpS - tmpM;
-            }
-
-            start = end;
         }
+        
+        res += sum - max;
+        
         return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

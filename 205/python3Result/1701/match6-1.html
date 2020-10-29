@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>440_Nan-Do.py</TITLE>
+ <TITLE>142_enzo64.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,66 +15,78 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>440_Nan-Do.py</CENTER></H3><HR>
+<H3><CENTER>142_enzo64.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UFS:
-    def __init__(self, n):
-        self.array = list(range(n+1))
-        self.groups = n
-        
-    def find(self, x):
-        if self.array[x] != x:
-            self.array[x] = self.find(self.array[x])
-            
-        return self.array[x]
-    
-    def union(self, x, y):
-        a = self.find(x)
-        b = self.find(y)
-        
-        if a != b:
-            self.</B></FONT>array[a] = b
-            self.groups -= 1
-            return False
-        
-        return True
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        alice = UFS(n)
-        bob = UFS(n)
         
-        both_edges, alice_edges, bob_edges = [], [], []
-        for type, orig, dest in edges:
-            if type == 1:
-                alice_edges.append((orig, dest))
-            elif type == 2:
-                bob_edges.append((orig, dest))
-            else:
-                both_edges.append((orig, dest))
-                
-        to_remove = 0
+        f = [i for i in range(n)]
         
-        for orig, dest in both_edges:
-            r = bob.union(orig, dest)
-            s = alice.union(orig, dest)
+        def gf(i):
+            if(f[i] == i):
+                return i
+            ff = gf(f[i])
+            f[i] = ff
+            return ff
+        
+        def blk():
+            r = 0
+            for i in range(n):
+                if(f[i] == i):
+                    r += 1
+            return r
+        
+        r3 = 0
+        
+        for i in range(len(edges)):
+            edges[i][1] -= 1
+            edges[i][2] -= 1
+        
+        for tu in edges:
+            if(tu[0] == 3):
+                x, y = gf(tu[1]), gf(tu[2])
+                if(x == y):
+                    r3 += 1
+                else:
+                    f[x] = y
+        
+        r1 = 0
+        
+        for tu in edges:
+            if(tu[0] == 1):
+                x, y = gf(tu[1]), gf(tu[2])
+                if(x == y):
+                    r1 += 1
+                else:
+                    f[x] = y
+        
+        if(blk() != 1):
+            return -1
+        
+        for i in range(n):
+            f[i] = i
+        for tu in edges:
+            if(tu[0] == 3):
+                x,y = gf(tu[1]), gf(tu[2])
+                f[x] = y
+        
+        r2 = 0
+        
+        for tu in edges:
+            if(tu[0] == 2):
+                x, y = gf(tu[1]), gf(tu[2])
+                if(x == y):
+                    r2 += 1
+                else:
+                    f[x] = y
+        
+        
+        if(blk() != 1):
+            return -1        
+        
+        re</B></FONT>turn r1 + r2 + r3
+        
             
-            if r or s:
-                to_remove += 1
-                
-        for orig, dest in alice_edges:
-            if alice.union(orig, dest):
-                to_remove += 1
-                
-        for orig, dest in bob_edges:
-            if bob.union(orig, dest):
-                to_remove += 1
-                
-        if bob.groups &gt; 1 or alice.groups &gt; 1:
-            return -1 
-        
-        return to_remove
-        
 </PRE>
 
 </BODY>

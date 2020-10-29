@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>631_abhishek9560.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>631_abhishek9560.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    void findPrefixCount(vector&lt;vector&lt;int&gt;&gt; &amp;p_arr, vector&lt;vector&lt;int&gt;&gt; &amp;arr) 
+{ 
+        int n=arr[0].size();
+        int m=arr.size();
+    for (int i = 0; i &lt; m; i++) { 
+        for (int j = n - 1; j &gt;= 0; j--) { 
+  
+            if (!arr[i][j]) 
+                continue; 
+  
+            if (j != n - 1) 
+<A NAME="1"></A>                p_arr[i][j] += p_arr[i][j + 1]; 
+  
+            p_arr[i][j] += (int)arr[i][j]; </B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        } 
+    } 
+} 
+  
+// Function to count the number of 
+// sub-matrices with all 1s 
+int matrixAllOne(vector&lt;vector&lt;int&gt;&gt; &amp;arr) 
+{ 
+    int n=arr[0].size();
+    int m=arr.size();
+    // Array to store required prefix count of 
+    // 1s from right to left for boolean array 
+    vector&lt;vector&lt;int&gt;&gt; p_arr(m,vector&lt;int&gt;(n,0)); 
+  
+    findPrefixCount(p_arr, arr); 
+  
+    // variable to store the final answer 
+    int ans = 0; 
+  
+    /*  Loop to evaluate each column of 
+        the prefix matrix uniquely. 
+        For each index of a column we will try to 
+        determine the number of sub-matrices 
+        starting from that index 
+        and has all 1s */
+    for (int j = 0; j &lt; n; j++) { 
+  
+        int i = m - 1; 
+  
+        /*  Stack to store elements and the count 
+            of the numbers they popped 
+              
+            First part of pair will be the 
+            value of inserted element. 
+            Second part will be the count 
+            of the number of elements pushed 
+            before with a greater value */
+        stack&lt;pair&lt;int, int&gt; &gt; q; 
+  
+        // variable to store the number of 
+        // submatrices with all 1s 
+        int to_sum = 0; 
+  
+        while (i &gt;= 0) { 
+  
+            int c = 0; 
+  
+            while (q.size() != 0 and q.top().first &gt; p_arr[i][j]) { 
+  
+                to_sum -= (q.top().second + 1) *  
+                            (q.top().first - p_arr[i][j]); 
+  
+                c += q.top().second + 1; 
+                q.pop(); 
+            } 
+  
+            to_sum += p_arr[i][j]; 
+  
+            ans += to_sum; 
+  
+            q.push({ p_arr[i][j], c }); 
+  
+            i--; 
+        } 
+    } 
+  
+    return ans; 
+} </B></FONT>
+    int numSubmat(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        return matrixAllOne(mat);
+       
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>419_an8888ha.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>419_an8888ha.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        runningCount = collections.defaultdict(int)
+        result = -1
+        startMap,endMap = {},{}
+        for event,index in enumerate(arr):
+            leftPosition = index - 1
+            rightPosition = index + 1
+            start,end = index,index
+            if leftPosition in endMap:
+                leftStart,leftEnd = endMap[leftPosition]
+                start = leftStart
+                del endMap[leftEnd]
+                del startMap[leftStart]
+                runningCount[leftEnd-leftStart+1] -= 1
+                
+            if rightPosition in startMap:
+                rightStart,rightEnd = startMap[rightPosition]
+                end = rightEnd
+                del startMap[rightStart]
+<A NAME="0"></A>                del endMap[rightEnd]
+                runningCount[rightEnd-rightStart+1] -= 1
+            
+            startMap<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[start] = (start,end)
+            endMap[end] = (start,end)
+            runningCount[end-start+1] += 1
+            if runningCount[m] != 0:
+                result = event + 1
+        re</B></FONT>turn result
+        
+        
+            
+                
+                
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

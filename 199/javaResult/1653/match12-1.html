@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_llaki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_llaki.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int countPairs(TreeNode root, int distance) {
+        List&lt;TreeNode&gt; leafs = new ArrayList&lt;&gt;();
+        findLeafs(root, leafs);
+        Map&lt;TreeNode, TreeNode[]&gt; map = new HashMap&lt;&gt;();
+        precompute(root, null, map);
+        int ans = 0;
+        for (int i = 0; i &lt; leafs.size(); i++) {
+            for (int j = i + 1; j &lt; leafs.size(); j++) {
+                if (getDist(leafs.get(i), leafs.get(j), map) &lt;= distance) {
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private int getDist(TreeNode a, TreeNode b, Map&lt;TreeNode, TreeNode[]&gt; map) {
+        TreeNode[] par1 = map.get(a), par2 = map.get(b);
+        for (int d = 1; d &lt;= 10; d++) {
+            if (par1[d] == null) break;
+            TreeNode par = par1[d];
+            for (int e = 0; e &lt;= 10 - d; e++) {
+                if (par.equals(par2[e])) {
+                    return d + e;
+                }
+            }
+        }
+        return 10000000;
+    }
+
+    private void precompute(TreeNode node, TreeNode prev, Map&lt;TreeNode, TreeNode[]&gt; map) {
+        if (node == null) return;
+        TreeNode[] parents = new TreeNode[11];
+        map.put(node, parents);
+        parents[0] = node;
+        if (prev != null) {
+            for (int d = 1; d &lt;= 10; d++) {
+<A NAME="0"></A>                parents[d] = map.get(prev)[d - 1];
+            }
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>precompute(node.left, node, map);
+        precompute(node.right, node, map);
+    }
+
+    private void findLeafs(TreeNode root, List&lt;TreeNode&gt; leafs) {
+        if</B></FONT> (root == null) return;
+        if (root.left == null &amp;&amp; root.right == null) {
+            leafs.add(root);
+            return;
+        }
+        findLeafs(root.left, leafs);
+        findLeafs(root.right, leafs);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

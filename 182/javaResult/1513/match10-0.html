@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long[][] results;
+    long[][] rnmx;
+    long[][] rnmn;
+    long[][] rfl;
+    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; el;
+    
+    public int findGoodStrings(int n, String s1, String s2, String evil) {</B></FONT>
+        int m = evil.length();
+        results = new long[n][m];
+        rnmx = new long[n][m];
+        rnmn = new long[n][m];
+        rfl = new long[n][m];
+        el = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; m; ++i) {
+            el.add(new ArrayList&lt;&gt;());
+            for (int j = 0; j &lt;= i; ++j) {
+                if (evil.substring(0,i+1).endsWith(evil.substring(0,j+1))) {
+                    el.get(i).add(j);
+                }
+            }
+        }
+        return (int)fgsh(n,m,s1,s2,evil,0,0);
+    }
+    
+    public long fgsh(int n, int m, String s1, String s2, String evil, int a, int b) {
+        if (b==m)
+            return 0;
+        if (a==n)
+            return 1;
+        if (s1.equals(&quot;&quot;)&amp;&amp;s2.equals(&quot;&quot;)&amp;&amp;rfl[a][b]&gt;0)
+            return rfl[a][b];
+        if (s1.equals(&quot;&quot;)&amp;&amp;!s2.equals(&quot;&quot;)&amp;&amp;rnmn[a][b]&gt;0)
+            return rnmn[a][b];
+        if (!s1.equals(&quot;&quot;)&amp;&amp;s2.equals(&quot;&quot;)&amp;&amp;rnmx[a][b]&gt;0)
+            return rnmx[a][b];
+        if (!s1.equals(&quot;&quot;)&amp;&amp;!s2.equals(&quot;&quot;)&amp;&amp;results[a][b]&gt;0)
+            return results[a][b];
+        long ans = 0;
+        char c1 = s1.equals(&quot;&quot;)?'a':s1.charAt(a);
+        char c2 = s2.equals(&quot;&quot;)?'z':s2.charAt(a);
+        for (char c = c1; c &lt;= c2; c++) {
+            int lastEvil = evil.charAt(0)==c?1:0;
+            if (b &gt; 0) {
+                for (int i : el.get(b-1)) {
+                    //System.out.println(c+&quot; &quot;+b+&quot; &quot;+i);
+                    if (evil.charAt(i+1)==c)
+                        lastEvil = i+2;
+                }
+            }
+            ans += fgsh(n,m,c==c1?s1:&quot;&quot;,c==c2?s2:&quot;&quot;,evil,a+1,lastEvil);
+            ans %= 1000000007;
+            if (s1.equals(&quot;&quot;)&amp;&amp;s2.equals(&quot;&quot;))
+                rfl[a][b] = ans;
+            if (s1.equals(&quot;&quot;)&amp;&amp;!s2.equals(&quot;&quot;))
+                rnmn[a][b] = ans;
+            if (!s1.equals(&quot;&quot;)&amp;&amp;s2.equals(&quot;&quot;))
+                rnmx[a][b] = ans;
+            if (!s1.equals(&quot;&quot;)&amp;&amp;!s2.equals(&quot;&quot;))
+                results[a][b] = ans;
+        }
+        return ans%1000000007;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

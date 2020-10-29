@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>553_fnwjkm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>553_fnwjkm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;Boolean&gt; checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        int m = nums.length, n = l.length;
+        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0;i &lt; n;i++) {
+            int[] A = Arrays.copyOfRange(nums, l[i], r[i] + 1);
+            Arrays.sort(A);
+            int d = A[1] - A[0];
+            boolean flag = true;
+            for (int j = 2;j &lt; A.length;j++) {
+                if (A[j] - A[j - 1] != d) {
+                    flag = false;
+                    break;
+                }
+            }
+            res.add(flag);
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

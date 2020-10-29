@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>187_baydashkin.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>187_baydashkin.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>from collections import defaultdict
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        n = len(matrix)
+        m = len(matrix[0])
+        ranks =</B></FONT> [[0] * m for _ in range(n)]
+        idx_by_val = defaultdict(list)
+        all_values = []
+        for i in range(n):
+            for j in range(m):
+                val = matrix[i][j]
+                idx_by_val[val].append((i, j))
+                all_values.append(val)
+                
+        max_by_row = [0] * n
+        max_by_col = [0] * m
+        all_values = sorted(list(set(all_values)))
+        for val in all_values:
+            changed = True
+            while changed:
+                changed = False
+                for i, j in idx_by_val[val]:
+                    r = max(max_by_row[i], max_by_col[j])
+                    if r &gt; max_by_row[i] or r &gt; max_by_col[j]:
+                        max_by_row[i] = r
+                        max_by_col[j] = r
+<A NAME="1"></A>                        changed = True
+                
+            for i, j in idx_by_val[val]:
+                ranks[i][j] <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= max(max_by_row[i], max_by_col[j]) + 1
+            for i, j in idx_by_val[val]:
+                max_by_row[i] = max_by_col[j] = ranks[</B></FONT>i][j]
+        
+        return ranks
+        
+</PRE>
+
+</BODY>
+</HTML>

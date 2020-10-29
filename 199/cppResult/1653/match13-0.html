@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>80_vivek_shah98.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>80_vivek_shah98.cpp</CENTER></H3><HR>
+<PRE>
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+   int ans = 0;
+   int distance = 0;
+   vector&lt;int&gt; dfs(TreeNode* root, int depth){
+      if (root == NULL){
+         return {};
+      }
+      if (!root-&gt;left and !root-&gt;right){
+<A NAME="0"></A>         return {depth};
+      }
+      vector&lt;int&gt; L = dfs(root-&gt;left, depth+1);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      vector&lt;int&gt; R = dfs(root-&gt;right, depth+1);
+         
+//       for(auto it: L){
+//          cout&lt;&lt;it&lt;&lt;endl;
+//       }
+
+//       cout&lt;&lt;&quot;right : &quot; &lt;&lt; endl;
+//       for(auto it: R){
+//          cout&lt;&lt;it&lt;&lt;endl;
+//       }
+
+      for (int i = 0; i &lt; (int)(L.size()); ++i)
+      {
+         for (int j = 0; j &lt; (int)(R.size()); ++j)
+         {</B></FONT>
+            ans += (L[i] - depth + R[j] - depth) &lt;= distance;
+         }
+      }
+    
+
+      for(auto it: R){
+         L.push_back(it);
+      }
+    
+      return L;
+   }
+
+    int countPairs(TreeNode* root, int distance) {
+      this-&gt;distance = distance;
+      ans = 0;
+        dfs(root, 0);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>228_samk522.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>228_samk522.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def numOfWays(self, nums: List[int]) -&gt; int:
+        
+        def nChoosem(n, m):
+            return math.factorial(n) // (math.factorial(m) * math<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.factorial(n - m))
+        
+        def helper(a):
+            if len(a) &lt;= 1:
+                return 1
+            left, right = [], []
+            for i in range(1, len(a)):
+                if a[i] &lt; a[0]:
+                    left.append(a[i])
+                else:
+                    right.append(a[i])
+            lres =</B></FONT> helper(left)
+            rres = helper(right)
+            if len(left) == 0:
+                return rres
+            elif len(right) == 0:
+                return lres
+            else:
+                holes = len(left) + len(right)
+                fills = len(right)
+                fillpatterns = nChoosem(holes, fills) 
+                return (lres * rres * fillpatterns) % (10 ** 9 + 7)
+        return (helper(nums) - 1) % (10 ** 9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

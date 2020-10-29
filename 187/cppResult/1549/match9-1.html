@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_wzc1995.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_wzc1995.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int longestSubarray(vector&lt;int&gt;&amp; nums, int limit) {
+        int n = nums.size();
+        deque&lt;int&gt; m1, m2;
+        
+        int ans = 0;
+        for (int i = 0, j = 0; i &lt; n; i++) {
+            while (!m1.empty() &amp;&amp; nums[i] &gt;= nums[m1.back()])</B></FONT>
+                m1.pop_back();
+            
+            m1.push_back(i);
+            
+            while (!m2.empty() &amp;&amp; nums[i] &lt;= nums[m2.back()])
+                m2.pop_back();
+            
+            m2.push_back(i);
+            
+            while (!m1.empty() &amp;&amp; !m2.empty() &amp;&amp; nums[m1.front()] - nums[m2.front()] &gt; limit) {
+                j++;
+                while (!m1.empty() &amp;&amp; m1.front() &lt; j)
+                    m1.pop_front();
+                
+                while (!m2.empty() &amp;&amp; m2.front() &lt; j)
+                    m2.pop_front();
+            }
+            
+            ans = max(ans, i - j + 1);
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

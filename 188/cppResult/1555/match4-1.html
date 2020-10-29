@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_RadianceSheep.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>52_RadianceSheep.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+        const int MOD = 1e9 + 7;
+        int n = static_cast&lt;int&gt;(pizza.size());
+        int m = static_cast&lt;int&gt;(pizza[0].size());
+        vector&lt;vector&lt;int&gt;&gt; sums(n + 1, vector&lt;int&gt;(m + 1));
+        for (int i = 1; i &lt;= n; ++i) {
+            for (int j = 1; j &lt;= m; ++j) {
+                if (pizza[i - 1][j - 1] == 'A') {
+<A NAME="1"></A>                    sums[i][j] = 1;
+                }
+                sums[i][j] += sums[i][j - 1];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        for (int i = 1; i &lt;= n; ++i) {
+            for (int j = 1; j &lt;= m; ++j) {
+                sums[i][j] += sums[i - 1][j];
+            }
+<A NAME="2"></A>        }</B></FONT>
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(n, vector&lt;vector&lt;int&gt;&gt;(m, vector&lt;int&gt;(k)));
+        dp[0][0][0] = 1;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                for (int l = i + 1; l &lt; n; ++l) {
+                    if (hasApple(sums, i, l, j, m) &amp;&amp; hasApple(sums, l, n, j, m)) {
+                        for (int t = 1; t &lt; k; ++t) {
+                            (dp[l][j][t] += dp[i][j][t - 1]) %= MOD;
+                        }
+                    }
+                }
+                for (int l = j + 1; l &lt; m; ++l) {
+                    if (hasApple(sums, i, n, j, l) &amp;&amp; hasApple(sums, i, n, l, m)) {
+                        for (int t = 1; t &lt; k; ++t) {
+                            (dp[i][l][t] += dp[i][j][t - 1]) %= MOD;
+                        }
+                    }
+<A NAME="0"></A>                }</B></FONT>
+            }
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int sum = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                (sum += dp[i][j][k - 1]) %= MOD;</B></FONT>
+            }
+        }
+        return sum;
+    }
+    
+private:
+    bool hasApple(vector&lt;vector&lt;int&gt;&gt;&amp; sums, int u, int d, int l, int r) {
+        return sums[d][r] - sums[d][l] - sums[u][r] + sums[u][l] &gt; 0;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

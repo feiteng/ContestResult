@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197_Akshay184.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>197_Akshay184.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    bool solve(vector&lt;int&gt;&amp; bloomDay, int m, int k, int mid)
+    {
+        int n = bloomDay.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int prv = 0;
+        for(int i = 0; i &lt; n; i++)
+        {
+            if(bloomDay[i] &lt;= mid)
+            {
+                prv++;
+            }
+            else
+            {
+                prv = 0;
+            }
+            if(prv &gt;= k)
+            {
+                m--;
+                prv -= k;
+            }
+        }
+<A NAME="1"></A>        return m &lt;= 0;
+    }</B></FONT>
+public:
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int minDays(vector&lt;int&gt;&amp; bloomDay, int m, int k) {
+        int n = bloomDay.size();
+        if(n == 0 or (m * k) &gt; n)
+        {
+            return -1;
+        }
+        int start = 1, end = 1000000000;</B></FONT>
+        int sol = -1;
+<A NAME="2"></A>        while(start &lt;= end)
+        {
+            int mid = (start + end) / 2;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool can = solve(bloomDay, m, k, mid);
+            if(can)
+            {
+                sol = mid;
+                end = mid - 1;
+            }
+            else
+            {
+                start = mid + 1;
+            }
+        }
+        return sol;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

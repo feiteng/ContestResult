@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>188_weak-chicken.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>188_weak-chicken.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGameV(self, s: List[int]) -&gt; int:
+<A NAME="0"></A>        n=len(s)
+        pre=[0]
+        for i in range(n):
+            pre.append(pre[-1]+s<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i])
+        #print(pre)
+        @lru_cache(None)
+        def dp(l,r):
+            if l==r:
+                return 0
+            res=0
+            for i in range(l,r):
+                lc=pre[i+1]-pre[l]
+                rc=pre[r+1]-pre[i+1]
+                if lc&gt;rc:
+                    res=max(res,rc+dp(i+1,r))
+                elif lc&lt;rc:
+                    res=max(lc+dp(l,i),res)
+                else:
+                    res=max(res,lc+max(dp(l,i),dp(i+1,r)))
+            return res
+        return dp(0</B></FONT>,n-1)
+</PRE>
+
+</BODY>
+</HTML>

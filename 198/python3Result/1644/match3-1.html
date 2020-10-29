@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>452_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>452_wxy9018.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        pos = collections.defaultdict<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(list)
+        for i, c in enumerate(s):
+            pos[c].append(i)
+                
+        #print(pos)
+        
+        intervals = []
+        for key in pos:
+            start, end = pos[key][0], pos[key][</B></FONT>-1]
+            flag = True
+            while flag:
+                flag = False
+                for char in 'abcdefghijklmnopqrstuvwxyz':
+                    if char in pos:
+                        index = bisect.bisect(pos[char], start)
+                        if index &lt; len(pos[char]) and pos[char][index] &lt; end:
+                            if pos[char][0] &lt; start or pos[char][-1] &gt; end:
+                                flag = True
+                            start, end = min(start, pos[char][0]), max(end, pos[char][-1])
+            intervals.append([start, end])
+
+        '''
+        print(intervals)
+        
+        temp = []
+        for start, end in intervals:
+            if not temp or start &gt;= temp[-1][1]:
+                temp.append([start, end])
+            elif temp[-1][1] &gt;= end:
+                # find if there is a character overlap with s[start:end+1]
+                char = s[temp[-1][0]]
+                p = bisect.bisect(pos[char], start)
+                print([start, end], char, p, temp)
+                if pos[char][p] &gt; end: 
+                    # if the shorter interval doesn't contain overlap char, we don't need the longer interval. otherwise do nothing
+                    temp.pop()
+                    temp.append([start, end])
+            else: # must union
+                temp[-1][1] = end
+                
+        intervals = temp
+        '''
+        intervals.sort(key = lambda x: [x[1], x[0]]) #(key = lambda x: [x[1], x[0]])
+        '''
+        temp = []
+        for a, b in intervals:
+            if not temp or temp[-1][1] &lt; a:
+                temp.append([a, b])
+                
+        print(temp)
+        '''
+        
+        #print(intervals)
+        
+        res = []
+        for start, end in intervals:
+            if not res or res[-1][1] &lt;= start:
+                res.append([start, end])
+        
+        ans = []
+        for start, end in res:
+            ans.append(s[start:end+1])
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>542_yunpingwang13.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>542_yunpingwang13.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private static final int MOD = 1000000007;
+
+    public int ways(String[] pizza, int k) {
+        int rows = pizza.length;
+        if (rows == 0) {
+            return 0;
+<A NAME="0"></A>        }
+        int cols = pizza[0].length();
+        int[][][] dp = new int[rows][cols][k];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] verSum = new int[rows+1][cols+1];
+        int[][] totSum = new int[rows][cols+1];
+        for (int j = cols-1;j&gt;=0;j--) {
+            for (int i = rows-1;i&gt;=0;i--) {</B></FONT>
+                verSum[i][j] = verSum[i+1][j] + (pizza[i].charAt(j) == 'A' ? 1 : 0);
+            }
+        }
+<A NAME="1"></A>        for (int i = rows-1;i&gt;=0;i--) {
+            for (int j = cols-1;j&gt;=0;j--) {
+                totSum[i][j] = verSum[i][j] + totSum[i][j+1];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        for (int i = 0;i&lt;rows;i++) {
+<A NAME="2"></A>            for (int j = 0;j&lt;cols;j++) {
+                for (int k2 = 0;k2&lt;k;k2++) {</B></FONT>
+                    dp[i][j][k2] = -1;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        int result = find(dp, totSum, k, 0, 0);
+        return result;
+    }
+    
+<A NAME="3"></A>    public int find(int[][][] dp, int[][] totSum, int k, int height, int width</B></FONT>) {
+        if (k == 1) {
+            return totSum[height][width] &gt; 0 ? 1 : 0;
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match34-1.html#3',3,'match34-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        if (dp[height][width][k-1] != -1) {
+            return dp[height][width][k-1];
+        }
+<A NAME="4"></A>        int result = 0;
+        for (int i = height;i&lt;dp.length-1;i++) {
+            if</B></FONT>(totSum[height][width] - totSum[i+1][width] &gt; 0) {
+                result = (result + <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match34-1.html#4',3,'match34-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>find(dp, totSum, k-1, i + 1, width)) % MOD;
+            }
+<A NAME="5"></A>        }
+        for (int j = width;j&lt;dp[0].length-1;j++) {
+            if</B></FONT>(totSum[height][width] - totSum[height][j+1] &gt; 0) {
+                result = (result + <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match34-1.html#5',3,'match34-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>find(dp, totSum, k-1, height, j+1)) % MOD;
+            }
+        }
+        dp[height][width][k-1] = result;
+        return result;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

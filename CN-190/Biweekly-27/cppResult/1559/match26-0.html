@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>917_alanlius.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>917_alanlius.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int dp[71][71][71];
+public:
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<A NAME="0"></A>        memset(dp,0,sizeof(dp));
+        int rn = grid.size();
+        int cn = grid[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dp[1][1][cn] = grid[0][0] + grid[0][cn-1];
+        for(int i1=2;i1&lt;=rn;i1++)
+        {
+            for(int j1=1;j1&lt;=min(i1,cn);j1++)
+            {
+                for(int j2=cn;j2&gt;=max(1,cn-i1+1);j2--)
+                {
+                    int val;</B></FONT>
+<A NAME="1"></A>                    if(j1==j2)
+                        val = grid[i1-1][j1-1];
+                    else
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                        val = grid[i1-1][j1-1] + grid[i1-1][j2-1];
+                    for(int os1=-1;os1&lt;=1;os1++)
+                    {
+                        if(j1+os1==0||j1+os1&gt;cn)
+                            continue;
+                        for(int os2=-1;os2&lt;=1;os2++)
+                        {
+                            if(j2+os2==0||j2+os2&gt;cn)
+                                continue;
+<A NAME="2"></A>                            dp[i1][j1][j2] = max(dp[i1][j1][j2],dp[i1-1][j1+os1][j2+os2]+val);
+                        }
+                    }</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        int maxx = 0;
+        for(int j1=1;j1&lt;=cn;j1++)
+        {
+            for(int j2=1;j2&lt;=cn;j2++)
+            {
+                maxx = max(dp[rn][j1][j2],maxx);
+            }
+        }
+        return maxx;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

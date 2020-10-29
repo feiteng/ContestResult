@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>126_seraph1212.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>126_seraph1212.py</CENTER></H3><HR>
+<PRE>
+def find(p, uf):
+    if uf[p] == p:
+        return p
+    uf[p] = find(uf[p], uf)
+    return uf[p]
+
+def union(p1, p2, uf):
+    pp1 = find(p1, uf)
+    pp2 = find(p2, uf)
+    if pp1 == pp2:
+        return
+    uf[pp1] = pp2
+
+def gao(vps):
+    ps = [vp[1] for vp in vps]
+    uf = {p : p for p in ps}
+    rd = {}
+    cd = {}
+    for p in ps:
+        if p[0] not in rd:
+            rd[p[0]] = []
+        if p[1] not in cd:
+            cd[p[1]] = []
+        rd[p[0]].append(p)
+        cd[p[1]].append(p)
+    for val in rd.values():
+        for v in val:
+            union(val[0], v, uf)
+    for val in cd.values():
+        for v in val:
+            union(val[0], v, uf)
+
+    ans = {}
+    for vp in vps:
+        rt = find(vp[1], uf)
+<A NAME="0"></A>        ans[rt] = max(vp[0], ans.get(rt, 0))
+    return [(ans[find(vp[1], uf)], vp[1])for vp in vps]
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        n, m = len(matrix), len(matrix[0])
+        d = {}
+        for i in range(n):
+            for j in range(m):
+                v = matrix[i][j]
+                if v not in d:
+                    d[v] =</B></FONT> []
+                d[v].append((i, j))
+        vals = sorted([v for v in d.keys()])
+        
+        rmax = [0] * n
+        cmax = [0] * m
+        ans = [[0 for j in range(m)] for i in range(n)]
+        for v in vals:
+            pts = gao([(max(rmax[pt[0]], cmax[pt[1]]) + 1, pt) for pt in d[v]]) ## return list of (vals, pt)
+            for pt in pts:
+                x, y, val = pt[1][0], pt[1][1], pt[0]
+                rmax[x] = max(rmax[x], val)
+                cmax[y] = max(cmax[y], val)
+                ans[x][y] = val
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

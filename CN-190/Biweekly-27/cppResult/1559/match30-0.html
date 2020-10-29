@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>777_prvnagr.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>777_prvnagr.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    int getVal(vector &lt;vector &lt;vector &lt;int&gt;&gt;&gt; &amp;dp, int row,  int col1, int col2){
+        int result = -1;
+        int cols = dp[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = -1; i &lt;=1; ++i){
+            for(int j = -1; j &lt;=1; ++j){
+                if(col1 + i &lt; 0 || col1 + i &gt;=cols || col2 + j &lt; 0 || col2 + j &gt;=cols )
+                    continue;
+                result = max(result, dp[row][col1+i][col2+j]);
+            }
+        }</B></FONT>
+        return result;
+    }
+public:
+<A NAME="1"></A>    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int rows = grid.size(), cols = grid[0].size();
+        vector &lt;vector &lt;vector &lt;int&gt;&gt;&gt; dp(rows, vector &lt;vector &lt;int&gt;&gt;(cols, vector &lt;int&gt;(cols, -1)));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dp[0][0][cols - 1] = grid[0][0] + grid[0][cols - 1];
+        for(int i = 1; i &lt; rows; ++i){
+            for(int c1 = 0; c1 &lt; cols; ++c1){
+                for(int c2 = 0; c2 &lt; cols; ++c2){
+<A NAME="2"></A>                    int val = getVal(dp, i-1, c1, c2);</B></FONT>
+                    if(val == -1)
+                        continue;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    dp[i][c1][c2] = val + grid[i][c1] + grid[i][c2];
+                    if(c1 == c2)
+                        dp[i][c1][c2] -= grid[i][c1];
+                }
+            }
+        }
+        int result = 0;
+        for(int i = 0; i &lt; cols; ++i){
+            for(int j = 0; j &lt; cols; ++j){
+                result = max(result, dp[rows - 1][i][j]);
+            }
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

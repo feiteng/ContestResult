@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>266_orangesTA.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>266_orangesTA.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; g;
+<A NAME="2"></A>    int n;
+    int m;
+    vector&lt;vector&lt;int&gt;&gt; dp;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;pair&lt;int,int&gt;&gt; moves = {{-1,0},{1,0},{0,-1},{0,1}};</B></FONT>
+    
+<A NAME="0"></A>    void bfs() {
+        dp[0][0] = 0;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        queue&lt;pair&lt;int,int&gt;&gt; q;
+        q.push({0,0});
+        
+        while (!q.empty()) {
+            auto cur = q.front();
+            q.pop();
+            int x = cur.first;
+<A NAME="1"></A>            int y = cur.second;</B></FONT>
+            // cout &lt;&lt; &quot;\n&quot;;
+            // cout &lt;&lt; &quot;(x,y) = &quot; &lt;&lt; x &lt;&lt; &quot;, &quot; &lt;&lt; y &lt;&lt; &quot;\n&quot;;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (auto move: moves) {
+                int dx = x + move.first;
+                int dy = y + move.second;
+                // cout &lt;&lt; &quot;(dx,dy) = &quot; &lt;&lt; dx &lt;&lt; &quot;, &quot; &lt;&lt; dy &lt;&lt; &quot;\n&quot;;
+                if (dx &lt; 0 || dx &gt;= n) continue;
+                if (dy &lt; 0 || dy &gt;= m) continue;
+                int val = max(dp[x][y], abs(g[x][y]-g[dx][dy]));</B></FONT>
+                if (val &lt; dp[dx][dy]) {
+                    dp[dx][dy] = val;
+                    q.push({dx,dy});
+                }
+            }
+        }
+        
+    }
+    
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {
+        g = heights;
+        n = (int)g.size();
+        m = (int)g[0].size();
+        
+        dp.assign(n, vector&lt;int&gt;(m,1e9));
+        
+        bfs();
+        
+        return dp[n-1][m-1];
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

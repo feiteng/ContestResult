@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>727_astrowu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>727_astrowu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        priority_queue&lt;pair&lt;int, char&gt;&gt; q;
+        if (a) q.push({a, 'a'});
+        if (b) q.push({b, 'b'});
+        if (c) q.push({c, 'c'});
+        
+        string res;
+        while(!q.empty())
+        {
+            auto t = q.top(); q.pop();
+            if (t.first == 0) break;</B></FONT>
+            else if (t.first == 1) 
+                res += string(t.first, t.second);
+            else if (t.first == 2) 
+            {
+                if (res.size() &amp;&amp; res.back() == t.second)
+                {
+                    res += string(1, t.second);
+                    t.first--;
+                    q.push(t);
+                }
+                else
+                    res += string(t.first, t.second);
+            }
+            else if (t.first &gt;= 3)
+            {
+                if (!q.empty())
+                {
+                    auto t2 = q.top(); q.pop();
+                    if (res.size() &amp;&amp; res.back() == t.second)
+                    {
+                        res += string(1, t.second) + string(1, t2.second);
+                        t.first--;
+                        t2.first--;
+                    }
+                    else
+                    {
+                        res += string(2, t.second) + string(1, t2.second);
+                        t.first -= 2;
+                        t2.first -= 1;
+                    }
+                    q.push(t);
+                    if (t2.first &gt; 0) q.push(t2);
+                }
+                else
+                {
+                    res += string(2, t.second);
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

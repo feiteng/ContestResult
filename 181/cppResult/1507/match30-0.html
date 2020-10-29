@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_pruvi007.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>176_pruvi007.cpp</CENTER></H3><HR>
+<PRE>
+bool down(int x)
+{
+    return x==2 or x==3 or x==4;
+}
+bool up(int x)
+{
+    return x==2 or x==5 or x==6;
+}
+bool left(int x)
+{
+    return x==1 or x==3 or x==5;
+}
+bool right(int x)
+{
+    return x==1 or x==4 or x==6;
+}
+
+class Solution {
+public:
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int dx[] = {0,0,1,-1};
+        int dy[] = {1,-1,0,0};
+        int n = grid.size();
+        int m = grid[0].size();
+        bool vis[n][m];
+        memset(vis,false,sizeof(vis));
+        queue&lt; pair&lt;int,int&gt; &gt; q;
+        q.push({0,0});
+        vis[0][0] = true;
+        while(!q.empty())
+        {
+            pair&lt;int,int&gt; x = q.front();
+            q.pop();
+            if(x.first==n-1 and x.second==m-1)
+                return true;
+<A NAME="0"></A>            int d = grid[x.first][x.second];
+            // cout &lt;&lt; d &lt;&lt; &quot; &quot;; 
+            if( down(d) )
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            {
+                
+                int nx = x.first+1;
+                int ny = x.second;
+                if( nx&gt;=0 and nx&lt;n and ny&gt;=0 and ny&lt;m and vis[nx][ny]==false )
+                {
+                    int des = grid[nx][ny];
+                    if(up(des))
+                    {
+                        q.push({nx,ny});
+                        vis[nx][ny] = true;
+                    }
+                }
+<A NAME="1"></A>                
+            }</B></FONT>
+            if(up(d) )
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            {
+                int nx = x.first-1;
+                int ny = x.second;
+                if( nx&gt;=0 and nx&lt;n and ny&gt;=0 and ny&lt;m and vis[nx][ny]==false )
+                {
+                    int des = grid[nx][ny];
+                    if(down(des))
+                    {
+                        q.push({nx,ny});
+                        vis[nx][ny] = true;
+                    }
+                }
+<A NAME="2"></A>                
+            }</B></FONT>
+            if( left(d) )
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            {
+                int nx = x.first;
+                int ny = x.second-1;
+                if( nx&gt;=0 and nx&lt;n and ny&gt;=0 and ny&lt;m and vis[nx][ny]==false )
+                {
+                    int des = grid[nx][ny];
+                    if(right(des))
+                    {
+                        q.push({nx,ny});
+                        vis[nx][ny] = true;
+                    }
+                }
+<A NAME="3"></A>           
+            }</B></FONT>
+            if( right(d) )
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match30-1.html#3',3,'match30-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            {
+                int nx = x.first;
+                int ny = x.second+1;
+                 if( nx&gt;=0 and nx&lt;n and ny&gt;=0 and ny&lt;m and vis[nx][ny]==false )
+                 {
+                      int des = grid[nx][ny];
+                if(left(des))
+                {
+                    q.push({nx,ny});
+                    vis[nx][ny] = true;
+                }
+                 }
+               
+            }
+            
+        }</B></FONT>
+        // cout &lt;&lt; endl;
+        return false;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

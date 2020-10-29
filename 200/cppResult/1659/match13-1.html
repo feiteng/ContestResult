@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_moonkey.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>327_moonkey.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int maxSum(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+    long long  left = 0, right = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int n1 = nums1.size(), n2 = nums2.size();
+    int l = 0, r = 0;
+    while ((l &lt; n1) &amp;&amp; (r &lt; n2)) {
+        if (nums1[l] &lt; nums2[r]) {
+            left += nums1[l];
+            l++;
+        }
+        else if (nums1[l] &gt; nums2[r]) {
+            right += nums2[r];
+            r++;
+<A NAME="1"></A>        }
+        else {</B></FONT>
+            long long  mid = max(left, right) + nums1[l];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            left = mid;
+            right = mid;
+            l++;
+            r++;
+        }
+    }
+    while (l &lt; n1) {
+        left += nums1[l];
+        l++;
+    }
+    while (r &lt; n2) {
+        right += nums2[r];
+        r++;
+    }</B></FONT>
+    long long ans;
+    if (left&gt; right) ans=left;
+        else ans=right;
+    ans%=1000000007;
+    return ans;
+}
+};
+</PRE>
+</BODY>
+</HTML>

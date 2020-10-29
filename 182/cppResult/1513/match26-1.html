@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_ychzhou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>34_ychzhou.cpp</CENTER></H3><HR>
+<PRE>
+
+#define LL long long
+LL mod = 1e9 + 7;
+
+LL dp[505][100][2];
+class Solution {
+<A NAME="0"></A>public:
+    void make_fail(string s, vector&lt;int&gt;&amp; fail) {
+      int n = s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      fail = vector&lt;int&gt;(n, 0);
+      for(int i = 2, j = 0; i &lt; n; i++) {
+        while(j != 0 &amp;&amp; s[j + 1] != s[i]) {
+          j = fail[j];
+        }
+        if(s[j + 1] == s[i]) {
+          j += 1;
+        }
+        fail[i] = j;
+      }
+    }</B></FONT>
+    LL find(string s, string t, bool inc) {
+      int n = s.size();
+      int m = t.size();
+
+      vector&lt;int&gt; fail;
+      t = &quot; &quot; + t;
+      make_fail(t, fail);
+      for(int i = 0; i &lt;= n; i++) {
+        for(int j = 0; j &lt;= m; j++) {
+          dp[i][j][0] = dp[i][j][1] = 0;
+        }
+      }
+      dp[0][0][1] = 1;
+<A NAME="1"></A>      for(int i = 0; i &lt; n; i++) {
+        for(int j = 0; j &lt; m; j++) {
+          int ch = s[i] - 'a';
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>          for(int k = 0; k &lt; 26; k++) {
+            int nj = j;
+            while(nj != 0 &amp;&amp; t[nj + 1] - 'a' != k) {
+              nj = fail[nj];
+            }
+            if(t[nj + 1] - 'a' == k) {
+              nj += 1;
+            }</B></FONT>
+
+
+            if(k == ch) {
+              dp[i + 1][nj][1] += dp[i][j][1];
+              dp[i + 1][nj][1] %= mod;
+            }
+            if(k &lt; ch) {
+              dp[i + 1][nj][0] += dp[i][j][1];
+              dp[i + 1][nj][0] %= mod;
+            }
+            dp[i + 1][nj][0] += dp[i][j][0];
+            dp[i + 1][nj][0] %= mod;
+          }
+        }
+      }
+
+      LL ans = 0;
+      for(int i = 0; i &lt; m; i++) {
+        ans += dp[n][i][0] + dp[n][i][1];
+        ans %= mod;
+      }
+      if(!inc &amp;&amp; s.find(t.substr(1, m)) == s.npos) {
+        ans -= 1;
+      }
+      return ans;
+    }
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+      LL ans = find(s2, evil, 1) - find(s1, evil, 0);
+      ans = (ans % mod + mod) % mod;
+      return ans;
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

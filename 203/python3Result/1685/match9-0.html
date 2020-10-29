@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_POTR127.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>484_POTR127.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def stoneGameV(self, stoneValue: List[int]) -&gt; int:
+        prefix_sum = [0]
+        for stone in stoneValue:
+            prefix_sum.append(prefix_sum[-1] + stone)
+        @lru_cache(None)
+        def helper(i, j):
+            if i == j:
+                return 0
+            result = 0
+            for k in range(i + 1, j + 1):
+                sum_left = prefix_sum[k] - prefix_sum[i]
+                sum_right = prefix_sum[j + 1] - prefix_sum[k]
+                if sum_left == sum_right:
+                    curr = sum_left + max(</B></FONT>helper(i, k - 1), helper(k, j))
+<A NAME="1"></A>                elif sum_left &lt; sum_right:
+                    curr = sum_left + helper(i, k - 1)
+                else:
+                    curr = sum_right + helper<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(k, j)
+                result = max(result, curr)
+            return result
+        return helper(0, len(s</B></FONT>toneValue) - 1)
+</PRE>
+
+</BODY>
+</HTML>

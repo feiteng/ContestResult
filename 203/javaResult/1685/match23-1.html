@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>568_zzq-_-.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>568_zzq-_-.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int stoneGameV(int[] stoneValue) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n = stoneValue.length;
+        int[] sum = new int[n + 1];
+        for (int i = 1; i &lt;= n; ++i) sum[i] = sum[i - 1] + stoneValue[i - 1];
+        int[][] f = new int[n + 1][n + 1];
+        for (int len = 2; len &lt;= n; ++len) {
+            for (int i = 1, j = i + len - 1; j &lt;= n; ++i, ++j) {
+                for (int k = i; k &lt; j; ++k) {
+                    int sl = sum[k] - sum[i - 1], sr = sum[j] - sum[k];
+                    if(sl&lt;=sr){
+                        f[i][j]=Math.max(f[i][j],sl+f[i][k]);
+                    }
+                    if(sr&lt;=sl){
+                        f[i][j]=Math.max(f[i][j],sr+f[k+1][j]);
+                    }
+                }
+            }
+        }
+        return f[1][n];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

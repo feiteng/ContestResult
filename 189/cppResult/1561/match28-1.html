@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>348_lfwzc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>348_lfwzc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string arrangeWords(string text) {
+        vector&lt;string&gt; words;
+        words.emplace_back();
+        for (auto c: text) {
+            if (c == ' ')words.emplace_back();
+            else {
+                if (c &gt;= 'A' &amp;&amp; c &lt;= 'Z') c = c - 'A' + 'a';
+                words.back().push_back(c);
+<A NAME="0"></A>            }
+        }
+        stable_sort(words.begin(), words.end(),
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    [](const string &amp;word1, const string &amp;word2) -&gt; bool {
+                        return word1.size() &lt; word2.size();
+                    });
+        string result;
+        for (auto &amp;word:words) {
+            result += word;
+            result += ' ';
+        }
+        result.pop_back();
+        result[0] = result[0] - 'a' + 'A';
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>626_mazw-2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>626_mazw-2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int stoneGameV(int[] stoneValue) {
+        if (stoneValue == null || stoneValue.length &lt;= 1) return 0;
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n = stoneValue.length;
+        int[] preSum = new int[n + 1];
+        for (int i = 1; i &lt;=n; i++) preSum[i] = preSum[i - 1] +  stoneValue[i - 1];
+        int[][] dp = new int[n][n];
+        
+        for (int len = 2; len &lt;= n; len++) {
+            for (int left = 0, right = left + len - 1; right &lt; n; left++, right++) {
+                // 切分为[left, split]与(split, right]
+                for (int split = left; split &lt; right; split++) {
+                    int lSum = preSum[split + 1] - preSum[left], rSum = preSum[right + 1] - preSum[split + 1];
+                    if (lSum &lt;= rSum) {
+                        dp[left][right] = Math.max(dp[left][right], lSum + dp[left][split]);
+                    }
+                    if (rSum &lt;= lSum) {
+                        dp[left][right] = Math.max(dp[left][right], rSum + dp[split + 1][right]);
+                    }
+                }
+            }
+        }
+        return dp[0][n - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

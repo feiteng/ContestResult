@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>124_bryanrpanjinata.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>124_bryanrpanjinata.cpp</CENTER></H3><HR>
+<PRE>
+const int MOD = 1e9 + 7;
+
+<A NAME="0"></A>class Solution {
+private:
+    int add(int x, int y) {return (x+y) % MOD;}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int sub(int x, int y) {return add(x+MOD, -y);}
+    int mul(int x, int y) {return (x*1ll*y) % MOD;}
+    int bp(int x, int y) {
+        int ans = 1;
+        while (y) {
+            if (y&amp;1) ans = mul(ans, x);
+            x = mul(x, x);
+            y &gt;&gt;= 1;
+        }
+        return ans;
+    }
+    
+public:
+    int numSubseq(vector&lt;int&gt;&amp; a, int k) {
+        sort(a.begin(), a.end());
+        int n = a.size();
+        int ans = 0;</B></FONT>
+        for (int i=0; i&lt;n; i++) {
+            int j = upper_bound(a.begin(), a.end(), k-a[i]) - a.begin() - 1;
+            if (j &lt; i) break;
+            ans = add(ans, bp(2, j-i));
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

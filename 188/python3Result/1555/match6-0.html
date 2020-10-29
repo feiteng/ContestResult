@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>713_JerryJin2905.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>713_JerryJin2905.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        M = 10 ** 9 + 7
+        pizza = [list(p) for p in pizza]
+        
+<A NAME="0"></A>        # print(pizza)
+        
+        rows = len(pizza)
+        cols = len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(pizza[0])
+        
+        prefix = [[0] * (cols + 1) for _ in range(rows + 1)]
+                
+        for i in range(rows):
+            for j in range(cols):
+                prefix[i + 1][j + 1] = prefix[i + 1][j] + (pizza[i][</B></FONT>j] == 'A')
+        
+        for j in range(cols):
+            for i in range(rows):
+                prefix[i + 1][j + 1] += prefix[i][j + 1]
+        
+        for row in prefix:
+            print(row)
+        
+        @lru_cache(None)
+        def dfs(i, j, k):
+            if k == 0:
+<A NAME="1"></A>                return 1 if (prefix[rows][cols] + prefix[i][j] - prefix[rows][j] - prefix[i][cols]) &gt; 0 else 0
+            
+            if prefix[rows][cols] + prefix[i][j] - prefix[rows][j] - prefix[i][cols] &lt;= k:
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return 0
+            
+<A NAME="2"></A>            ans = 0
+            for i0 in range(i + 1, rows):
+                if (prefix[i0][cols] + prefix[i][j] - prefix[i][cols] - prefix[i0][</B></FONT>j]) &gt; 0:
+                    ans = (ans + dfs<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(i0, j, k - 1)) % M
+            
+            for j0 in range(j + 1, cols):
+                if (prefix[rows][j0] + prefix[i][j] - prefix[i][j0] - prefix[rows][</B></FONT>j]) &gt; 0:
+                    ans = (ans + dfs(i, j0, k - 1)) % M
+                    
+            return ans
+        
+        return dfs(0, 0, k - 1)
+</PRE>
+
+</BODY>
+</HTML>

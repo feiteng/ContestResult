@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>379_DDrice.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>379_DDrice.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#include&lt;iostream&gt;
+using namespace std;
+
+class Solution {
+public:
+    int a[300005];
+<A NAME="0"></A>    std::vector&lt;int&gt;pos[15];
+    int c[300005];
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void change(int p,int v,int n){
+        while(p&lt;=n){
+            c[p] += v;
+            p += (p&amp;-p);
+        }
+    }
+    
+    int ask(int p){
+        int res = 0;
+        while(p!=0){
+            res += c[p];
+            p -= (p&amp;-p);
+        }
+        return res;
+    }
+    
+    string minInteger(string num, int k) {
+        string res = &quot;&quot;;
+        int n = num.size();</B></FONT>
+        for(int i = 1; i &lt;= n; i++){ 
+            a[i] = (num[i-1]-'0');
+            change(i,1,n);
+        }
+<A NAME="1"></A>        for(int i = n; i &gt;= 1; i--){
+            int u = a[i];
+            pos[u].push_back(i);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        for(int i = 0; i &lt; n; i++){
+            int find = -1;
+            for(int j = 0; j &lt;= 9; j++){
+                if(pos[j].size()!=0){</B></FONT>
+                    int pp = pos[j][pos[j].size()-1];
+                    if(ask(pp-1)&lt;=k){
+                        find = pp;
+                        break;
+                    }
+                }
+            }
+            int u = a[find];
+            res.push_back(u+'0');
+            pos[u].pop_back();
+            k -= ask(find-1);
+            change(find,-1,n);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

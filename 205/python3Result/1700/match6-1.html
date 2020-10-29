@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>110_dirtysalt.py</TITLE>
+ <TITLE>142_enzo64.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>110_dirtysalt.py</CENTER></H3><HR>
+<H3><CENTER>142_enzo64.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        n = len(s)
-        j = 0
+        
         ans = 0
         
-        def cut(i, j):
-            tt = 0
-            mx = cost[i]
-            for k in range(i, j):
-                tt += cost[k]
-                mx = max(mx, cost[k])
-            return tt - mx
+        lst = '*'
         
-        for i in range(n):
-            if s[i] == s[j]: continue
-            ans += cut(j, i)
+        n = len(s)
+        
+        i = 0
+        
+        while(i&lt;n):
+            
             j = i
+            m = cost[i]
+            t = cost[i]
+            
+            while(j&lt;n-1 and s[j+1] == s[j]):
+                j += 1
+                m = max(m, cost[j])
+                t += cost[j]
+
+            if(i != j):
+                ans += t - m
+            
+            i = j + 1
         
-        ans += cut(j, n)
         re</B></FONT>turn ans
+                    
+            
 </PRE>
 
 </BODY>

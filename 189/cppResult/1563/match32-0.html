@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_YoungForest.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>484_YoungForest.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    using Point = complex&lt;double&gt;;
+<A NAME="0"></A>    const static int MAX_POINTS = 104;
+
+    Point arr[MAX_POINTS]; 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    double dis[MAX_POINTS][MAX_POINTS]; 
+
+    int getPointsInside(int i, double r, int n) 
+    { 
+        vector&lt;pair&lt;double, bool&gt; &gt; angles; 
+
+        for (int j=0; j&lt;n; j++) 
+        { 
+            if (i != j &amp;&amp; dis[i][j] &lt;= 2*r) 
+            { 
+                double B =  acos(dis[i][j]/(2*r)); 
+                double A = arg(arr[j]-arr[i]); 
+                double alpha = A-B; 
+                double beta = A+B; 
+                angles.push_back(make_pair(alpha, true)); 
+                angles.push_back(make_pair(beta, false)); 
+            } 
+        } 
+        sort(angles.begin(), angles.end()); 
+        int count = 1, res = 1; 
+        vector&lt;pair&lt;double, bool&gt; &gt;::iterator it; 
+        for (it=angles.begin(); it!=angles.end(); ++it) 
+        { 
+            if ((*it).second) 
+                count++; 
+            else
+<A NAME="1"></A>                count--; </B></FONT>
+
+            if (count &gt; res) 
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                res = count; 
+        } 
+
+        return res; 
+    } 
+    int maxPoints(int n, int r) 
+    { 
+        for (int i=0; i&lt;n-1; i++) 
+            for (int j=i+1; j&lt;n; j++) 
+                dis[i][j] = dis[j][i] = abs(arr[i]-arr[j]); 
+        int ans = 0; 
+        for (int i=0; i&lt;n; i++) 
+            ans = max(ans, getPointsInside(i, r, n));
+        return ans; 
+    } </B></FONT>
+    bool contain(const int x0, const int y0, const int radius, const int x, const int y) {
+        return radius * radius &gt;= (x - x0) * (x - x0) + (y-y0) * (y-y0);
+    }
+    int maxPoints(const vector&lt;vector&lt;int&gt;&gt;&amp; points, int r, int x0, int y0) {
+        int ans = 0;
+        for (const auto&amp; v : points) {
+            if (contain(x0, y0, r, v[0], v[1])) ++ans;
+<A NAME="2"></A>        }
+        return ans;
+    }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
+    int numPoints(vector&lt;vector&lt;int&gt;&gt;&amp; points, int r) {
+        for (int i = 0; i &lt; points.size(); ++i) {
+            arr[i] = Point(points[i][0], points[i][1]);
+        }
+        int ans = maxPoints(points.size(), r);</B></FONT>
+        for (int i = 0; i &lt; points.size(); ++i) {
+            for (int j = i + 1; j &lt; points.size(); ++j) {
+                const vector&lt;int&gt;&amp; a = points[i];
+                const vector&lt;int&gt;&amp; b = points[j];
+                ans = max(ans, maxPoints(points, r, (a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0)); 
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

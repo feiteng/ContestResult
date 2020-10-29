@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>326_Sakamono.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>326_Sakamono.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minInteger(self, num: str, k: int) -&gt; str:
+        
+        idxs = [deque() for _ in range(10)]
+        for i, digit in enumerate(num):
+            idxs[ord(digit) - ord('0')].append(i)
+            
+        def ascending():
+            max_idx = 0
+            for l in idxs:
+                if l and max_idx &gt; l[0]: return False
+                if l: max_idx = l[-1]
+            return True
+        
+        ans = ''
+        seen = []
+        while k and not ascending():
+            for i, l in enumerate(idxs):
+                if l:
+                    idx = bisect.bisect_left(seen, l[0])
+                    if l[0] - idx &lt;= k:
+                        ans += chr(ord('0') + i)
+<A NAME="0"></A>                        bisect.insort(seen, l[0])
+                        k -= l[0] - idx
+                        idxs[i].popleft()
+                        br<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eak
+                        
+        remain = [(idx, i) for i, l in enumerate(idxs) for idx in l]
+        return ans + ''.join([chr(</B></FONT>ord('0') + i) for _, i in sorted(remain)])
+</PRE>
+
+</BODY>
+</HTML>

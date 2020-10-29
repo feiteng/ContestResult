@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>342_tianxind.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>342_tianxind.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+     int[][][] dp;
+
+    public int cherryPickup(int[][] a) {
+        int m = a.length;
+        int n = a[0].length;
+        dp = new int[m][n][n];
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+<A NAME="0"></A>                Arrays.fill(dp[i][j], -1);
+            }
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return dom(a, 0, 0, a[0].length - 1);
+    }
+<A NAME="1"></A>
+    int[] dirs = {0, 1, -1};
+
+    pri</B></FONT>vate int dom(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] a, int r, int c1, int c2) {
+        int m = a.length;
+        int n = a[0].length;
+        if (c1 == c2 || c1 &lt; 0 || c1 &gt;= n || c2 &lt; 0 || c2 &gt;= n) {
+            return Integer.MIN_VALUE;
+        }
+        if (r == m) {
+            return 0;
+        }</B></FONT>
+        if (dp[r][c1][c2] != -1) {
+<A NAME="2"></A>            return dp[r][c1][c2];
+        }
+        int max = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int curpick = a[r][c1] + a[r][c2];
+        for (int d1 : dirs) {
+            for (int d2 : dirs) {
+                int nc1 = c1 + d1;
+<A NAME="3"></A>                int nc2 = c2 + d2</B></FONT>;
+                int cur = dom(a, r + 1, nc1, nc2);
+                max = Math.max(max, cur);
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        dp[r][c1][c2] = curpick + max;
+        return  dp[r][c1][c2];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>271_CyprienH.py</TITLE>
+ <TITLE>131_keyurpotdar.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,82 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>271_CyprienH.py</CENTER></H3><HR>
+<H3><CENTER>131_keyurpotdar.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UnionFindSet:
-    def __init__(self, n):
-        self.p = [i for i in range(n)]
-        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.rk = [1] * n
-    
-    def find(self, v):
-        if self.p[v] != v: self.p[v] = self.find(self.p[v])
-        return self.p[v]
-    
-    def union(self, v1, v2):
-<A NAME="1"></A>        p1 = self.find(</B></FONT>v1)
-        p2 = self.find(v2)
-        if p1 == p2: return True
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if self.rk[p1] &lt; self.rk[p2]: p1, p2 = p2, p1
-        self.p[p2] = p1
-        self.rk[p1] += self.rk[</B></FONT>p2]
-        return False
-    
-    def count(self, u):
-        return self.rk[self.find(u)]
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        ret = 0
-        ufs1, ufs2 = UnionFindSet(n + 1), UnionFindSet(n + 1)
-        for t, u, v in edges:
-            if t == 3:
-                f = False
-                if not ufs1.union(u, v): f = True
-                if not ufs2.union(u, v): f = True
-                if f: ret += 1
+        a, b = collections.defaultdict(list), collections.defaultdict(list)
+        t1, t2, t3 = [], [], []
+        
         for t, u, v in edges:
             if t == 1:
-                if not ufs1.union(u, v): ret += 1
-            if t == 2:
-                if not ufs2.union(u, v): ret += 1
-        if ufs1.count(1) != n or ufs2.count(1) != n: return -1
-        return len(edges) - ret
+                a[u].append((v, 0))
+                a[v].append((u, 0))
+                t1.append((u, v))
+            elif t == 2:
+                b[u].append((v, 0))
+                b[v].append((u, 0))
+                t2.append((u, v))
+            else:
+                a[u].append((v, 1))
+                a[v].append((u, 1))
+                b[u].append((v, 1))
+                b[v].append((u, 1))
+                t3.append((u, v))
+        
+        def dfs(i, g, seen):
+            seen.add(i)
+            for j, _ in g[i]:
+                if j not in seen:
+                    dfs(j, g, seen)
+        
+        aseen, bseen = set(), set()
+        dfs(1, a, aseen)
+        dfs(1, b, bseen)
+        if len(aseen) &lt; n or len(bseen) &lt; n:
+            return -1
+        
+        p1, p2 = list(range(n + 1)), list(range(n + 1))
+        s1, s2 = [1] * (n + 1), [1] * (n + 1)
+        inc = 0
+        
+        def find(parent, i): 
+            if parent[i] != i: 
+                parent[i] = find(parent, parent[i])
+            return parent[i]
+
+        def union(parent, size, x, y): 
+            i = find(parent, x) 
+            j = find(parent, y)
+            if size[i] &lt; size[j]: 
+                parent[i] = j
+                size[j] += size[i]
+            else: 
+                parent[j] = i 
+                size[i] += size[j]
+        
+        for u, v in t3:
+            i, j = find(p1, u), find(p1, v)
+            if i == j: continue
+            union(p1, s1, i, j)
+            inc += 1
+            # union(p2, s2, i, j)
+        p2, s2 = p1[:], s1[:]
+        
+        
+        for u, v in t1:
+            i, j = find(p1, u), find(p1, v)
+            if i == j: continue
+            union(p1, s1, i, j)
+            inc += 1
+        
+        for u, v in t2:
+            i, j = find(p2, u), find(p2, v)
+            if i == j: continue
+            union(p2, s2, i, j)
+            inc += 1
+        
+        return len(e</B></FONT>dges) - inc
 </PRE>
 
 </BODY>

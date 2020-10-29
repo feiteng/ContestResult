@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>621_wannacry89.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>621_wannacry89.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+<A NAME="0"></A>
+class Solution {
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class CharRemaining {
+        char c;
+        int count;
+<A NAME="1"></A>        CharRemaining(char c, int count) { this.c=c; this.count=count; }
+    }</B></FONT>
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public String longestDiverseString(int a, int b, int c) {
+
+        PriorityQueue&lt;CharRemaining&gt; que = new PriorityQueue&lt;&gt;((x,y)-&gt; -x.count + y.count);
+        if (a &gt; 0) {
+            que.add(new CharRemaining('a', a));
+        }
+        if (b &gt; 0) {
+            que.add(new CharRemaining('b', b));
+        }
+        if (c &gt; 0) {
+            que.add(new CharRemaining('c', c));
+        }
+
+        char[] builder = new char[a+b+c];</B></FONT>
+        int pos = 0; // filling next
+
+        while (!que.isEmpty()) {
+            CharRemaining most = que.poll();
+            if (pos &lt; 2) {
+                builder[pos++] = most.c;
+                most.count--;
+                if (most.count &gt; 0) { que.add(most); }
+            }
+            else {
+
+                // Check that it's legal.
+                if (builder[pos-1] == most.c &amp;&amp; builder[pos-2] == most.c) {
+                    // Illegal case.
+                    if (que.isEmpty()) {
+                        break; // no way to build string any more.
+                    }
+                    // Otherwise have another thing we can use.
+                    CharRemaining secondMost = que.poll();
+                    builder[pos++] = secondMost.c;
+                    secondMost.count--;
+                    if (secondMost.count &gt; 0) { que.add(secondMost); }
+                    que.add(most);
+                }
+                else { // Legal case.
+                    builder[pos++] = most.c;
+                    most.count--;
+                    if (most.count &gt; 0) { que.add(most); }
+                }
+            }
+        }
+        StringBuilder sbuilder = new StringBuilder();
+        for (int p = 0; p &lt; pos; p++) {
+            sbuilder.append(builder[p]);
+        }
+        return sbuilder.toString();
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

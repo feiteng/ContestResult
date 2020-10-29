@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>550_jian-liao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>550_jian-liao.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+<A NAME="3"></A>	int dirs[4][2] = { {1,0},{-1,0},{0,1},{0,-1} };
+	int len1;
+	int len2;</B></FONT>
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int minDays(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+		len1 = grid.size();
+		len2 = grid[0].size();
+		if (depart(grid)) return 0;
+		for (int i = 0; i &lt; len1; ++i) {
+			for (int j = 0; j &lt; len2; ++j) {
+				if (grid[i][j] == 1) {</B></FONT>
+					auto tmp = grid;
+					tmp[i][j] = 0;
+					if (depart(tmp)) return 1;
+				}
+			}
+		}
+		return 2;
+<A NAME="1"></A>	}
+	bool depart(const vector&lt;vector&lt;int&gt;&gt;&amp; G) {
+		auto visit = G;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		int flag = 0;
+		for (int i = 0; i &lt; len1; ++i) {
+			for (int j = 0; j &lt; len2; ++j) {
+				if (visit[i][j] == 1) {</B></FONT>
+					if (flag == 0) {
+<A NAME="2"></A>						dfs(i, j, visit);
+						++flag;
+					}
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>					else {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	void dfs(int i,int j,vector&lt;vector&lt;int&gt;&gt;&amp; V) {
+		V[i][j] = 0;
+		for (auto P : dirs) {</B></FONT>
+			int ni = i + P[0];
+			int nj = j + P[1];
+			if (ni &gt;= 0 &amp;&amp; ni &lt; len1 &amp;&amp; nj &gt;= 0 &amp;&amp; nj &lt; len2 &amp;&amp; V[ni][nj] == 1) dfs(ni, nj, V);
+		}
+	}
+};
+</PRE>
+</BODY>
+</HTML>

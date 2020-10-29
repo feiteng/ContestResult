@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>402_ruiiya.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>402_ruiiya.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(target+1,vector&lt;vector&lt;int&gt;&gt;(m+1,vector&lt;int&gt;(n+1,1e9)));
+        for(int j = 1;j &lt;= n;j++) dp[1][0][j] = 0;
+        for(int i = 1;i &lt;= m;i++) if(houses[i-1] == 0)</B></FONT>
+            for(int j = 1;j &lt;= n;j++){
+                dp[1][i][j] = dp[1][i-1][j] + cost[i-1][j-1];
+            }
+<A NAME="1"></A>            else{
+                dp[1][i][houses[i-1]] = dp[1][i-1][houses[i-1]];
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 2;i &lt;= target;i++){
+            for(int j = i;j &lt;= m;j++) if(houses[j-1] == 0){
+                for(int c = 1;c &lt;= n;c++){
+                    dp[i][j][c] = dp[i][j-1][c] + cost[j-1][c-1];
+                    for(int k = 1;k &lt;= n;k++) if(k != c){
+                        dp[i][j][c] = min(dp[i-1][j-1][k] + cost[j-1][c-1],dp[i][j][c]);
+                    }
+                }
+            }else{
+                dp[i][j][houses[j-1]] = dp[i][j-1][houses[j-1]];
+                for(int k = 1;k &lt;= n;k++) if(k != houses[j-1]){
+                        dp[i][j][houses[j-1]] = min(dp[i-1][j-1][k],dp[i][j][houses[j-1]]);
+                }
+            }
+        }
+        int ans = *min_element(dp[target][m].begin()+1,dp[target][m].end());
+        return (ans &gt;= 1e9 ? -1 : ans);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

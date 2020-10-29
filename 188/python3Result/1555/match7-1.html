@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>448_yanqd0.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>448_yanqd0.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+
+<A NAME="0"></A>MOD = 10**9 + 7
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        self.pizza = pizza
+        self.height = len(pizza)
+        self.width = len(pizza[</B></FONT>0])
+
+        return self.helper(k, 0, 0)
+
+    @lru_cache(maxsize=None)
+    def helper(self, k, row, col):
+        if k &lt; 1:
+            return 0
+<A NAME="1"></A>        if k == 1:
+            if self.good(row, self.height, col, self.width):
+                return 1
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return 0
+
+        count = 0
+        for i in range(row + 1, self.height):
+            if self.good(row, i, col, self.width):
+                count += self.helper(k - 1, i, col)
+        for i in range(col + 1, self.width):
+            if self.good(row, self.height, col, i):
+                count += self.helper(k - 1, row, i)
+        return count % MOD
+
+    @lru_cache(maxsize=None)
+    def good(self, rs, re, cs, ce):
+        for i in range(rs, re):
+            for j in range(cs, ce):
+                if self.pizza[i][j] == 'A':
+                    return True
+        ret</B></FONT>urn False
+</PRE>
+
+</BODY>
+</HTML>

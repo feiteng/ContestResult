@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>364_rign-LR7Rq2TRuq.cpp</TITLE>
+ <TITLE>149_tongtongac.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,80 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>364_rign-LR7Rq2TRuq.cpp</CENTER></H3><HR>
+<H3><CENTER>149_tongtongac.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+typedef pair&lt;ll,ll&gt; pll;
+
+
 class Solution {
 public:
-    int fa[100005];
-    int get(int x){
-        if(x==fa[x]) return x;
-        return fa[x]=get(fa[x]);
+	int N;
+	vector&lt;int&gt; ps;
+	vector&lt;vector&lt;int&gt;&gt; es1, es2, es3;
+
+	int find(int u, vector&lt;int&gt;&amp; ps){
+		if(ps[u] == u) return u;
+		int p = find(ps[u], ps);
+		ps[u] = p;
+		return p;
+	}
+
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+		N = n;
+		es1.clear(); es2.clear(); es3.clear();
+		for(vector&lt;int&gt; &amp;e : edges){
+			int t = e[0], u = e[1], v = e[2];
+			if(t == 1) es1.push_back(e);
+			if(t == 2) es2.push_back(e);
+			if(t == 3) es3.push_back(e);
+		}
+		ps = vector&lt;int&gt;(N+1, 0);
+		for(int u=1; u&lt;=N; u++){
+			ps[u] = u;
+		}
+
+		int ans1 = 0, ans2 = 0, ans3 = 0;
+		for(vector&lt;int&gt; e : es3){
+			int u = e[1], v = e[2];
+			int pu = find(u, ps), pv = find(v, ps);
+			if(pu == pv){
+				ans3++; continue;
+			}
+			ps[pu] = pv;
+		}
+
+		vector&lt;int&gt; ps0 = ps;
+		for(vector&lt;int&gt; e : es1){
+			int u = e[1], v = e[2];
+			int pu = find(u, ps), pv = find(v, ps);
+			if(pu == pv){
+				ans1++; continue;
+			}
+			ps[pu] = pv;
+		}
+		int en = (int)(es1.size() + es3.size()) - ans3 - ans1;
+		if(en &lt; n - 1) return -1;
+
+		ps = ps0;
+		for(vector&lt;int&gt; e : es2){
+			int u = e[1], v = e[2];
+			int pu = find(u, ps), pv = find(v, ps);
+			if(pu == pv){
+				ans2++; continue;
+			}
+			ps[pu] = pv;
+		}
+		en = (int)(es2.size() + es3.size()) - ans3 - ans2;
+		if(en &lt; n - 1) return -1;
+		return ans3 + ans2 + ans1;
     }
-    void merge(int x,int y){
-        fa[get(x)]=get(y);
-    }
-<A NAME="0"></A>    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        int ans=0;
-        bool flag=true;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i&lt;=n;i++) fa[i]=i;
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==3){
-                if(get(edges[i][1])==get(edges[i][2]))ans++;
-                else merge(edges[i][1],edges[i][2]);
-            }
-        }
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==1){
-                if(get(edges[i][1])==get(edges[i][2])) ans++;
-                else merge(edges[i][1],edges[i][2]);
-            }
-        }
-        for(int i=1;i&lt;=n;i++) if(get(1)!=get(i)) flag=false;</B></FONT>
-        for(int i=1;i&lt;=n;i++) fa[i]=i;
-        for(int i=0;i&lt;edges.size();i++){
-<A NAME="1"></A>            if(edges[i][0]==3){
-                merge(edges[i][1],edges[i][2]);
-            }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==2){
-                if(get(edges[i][1])==get(edges[i][2])) ans++;
-                else merge(edges[i][1],edges[i][2]);
-            }
-        }
-        for(int i=1;i&lt;=n;i++) if(get(1)!=get(i)) flag=false;</B></FONT>
-        if(flag==false) return -1;
-        return ans;
-    }
-};
+};</B></FONT>
+
 </PRE>
 </BODY>
 </HTML>

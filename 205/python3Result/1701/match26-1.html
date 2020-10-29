@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>50_tungmai.py</TITLE>
+ <TITLE>151_kuro10.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,67 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>50_tungmai.py</CENTER></H3><HR>
+<H3><CENTER>151_kuro10.py</CENTER></H3><HR>
 <PRE>
-class Solution:
-  def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-    uf1 = UF(n)  
-    uf2 = UF(n)
-    res = 0
-    edges.sort(reverse=True)
-<A NAME="0"></A>    for ty, u, v in edges:
-      u -= 1
-      v -= 1
-      <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if ty == 3:
-        ru = uf1.find(u)
-        rv = uf1.find(v)
-        if ru == rv:
-          res += 1
-        else:
-<A NAME="1"></A>          uf1.union(u, v)
-          uf2.union(</B></FONT>u, v)
-      elif ty == 1:
-        ru <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= uf1.find(u)
-        rv = uf1.find(v)
-        if ru == rv:
-          res += 1
-        else:
-          uf1.union(u, v)
-      else:
-        ru = uf2.find(u)
-        rv = uf2.find(v)
-        if ru == rv:
-          res += 1
-        else:
-          uf2.union(u, v)
-    c1, c2 =</B></FONT> uf1.size(), uf2.size()
-    if c1 == n and c2 == n:
-      return res
-    return -1
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        typed_edges = [[], [], []]
+        for t, u, v in edges:
+            typed_edges[t-1].append((u-1,v-1))
+            
+        # add type 2 through union find (discard if already unioned, ans += 1)
         
-class UF:
-  def __init__(self, n):
-    self.parent, self.count = [i for i in range(n)], n*[1]
-  def find(self, i):
-    root = self.parent[i]
-    while root != self.parent[root]: root = self.parent[root]
-    while self.parent[i] != root: i, self.parent[i] = self.parent[i], root
-    return root
-  def union(self, i, j):
-    root_i = self.find(i)
-    root_j = self.find(j)
-    if root_i == root_j: return
-    if self.count[root_i] &lt; self.count[root_j]: 
-      self.parent[root_i] = root_j
-      self.count[root_j] += self.count[root_i]
-    else:
-      self.parent[root_j] = root_i
-      self.count[root_i] += self.count[root_j]
-      
-  def size(self):
-    return max(self.count)
-      
-      
+        def find_parent(i, uf):
+            if uf[i][0] != i:
+                uf[i] = find_parent(uf[i][0], uf)
+            return uf[i]
+        
+        def union(i1, i2, uf):
+            p1, s1 = find_parent(i1, uf)
+            p2, s2 = find_parent(i2, uf)
+            if p1 == p2:
+                return 1
+            if s1 &gt;= s2:
+                uf[p2][0] = p1
+                uf[p1][1] += s2
+            else:
+                uf[p1][0] = p2
+                uf[p2][1] += s1
+            return 0
+        
+        ans = 0
+        uf0 = {i:[i,1] for i in range(n)}
+        
+        ans = 0
+        # start from type 3 unions, duplicate to type 0, 1
+        for v1, v2 in typed_edges[2]:
+            ans += union(v1, v2, uf0)
+        
+        uf1 = copy.deepcopy(uf0)
+        
+        
+        # add type 0 (discard if already unioned, ans += 1)
+        # if largest_size &lt; n: return -1
+        for v1, v2 in typed_edges[0]:
+            ans += union(v1, v2, uf0)
+        
+        if max([s for _, s in uf0.values()]) &lt; n:
+            return -1
+
+        
+        # add type 1 (discard if already unioned, ans += 1)
+        # if largest_size &lt; n: return -1
+        for v1, v2 in typed_edges[1]:
+            ans += union(v1, v2, uf1)
+        
+        if max([s for _, s in uf1.values()]) &lt; n:
+            return -1
+
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

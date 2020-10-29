@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_shua-ti-shi-wo-bian-qiang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_shua-ti-shi-wo-bian-qiang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        from collections import defaultdict as dc
+        n = len(matrix)
+        m = len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(matrix[0])
+        dic = dc(list)
+        for i in range(n):
+            for j in range(m):
+                dic[matrix[i][j]].append((i, j))
+        row =</B></FONT> [1]*n
+        line = [1]*m
+        ans = [[0]*m for _ in range(n)]
+
+        def sol(g):
+            val = 1
+            for q in g:
+                if row[q[0]] &gt; val:
+                    val = row[q[0]]
+                if line[q[1]] &gt; val:
+                    val = line[q[1]]
+            for q in g:
+                ans[q[0]][q[1]] = val
+                row[q[0]] = val+1
+                line[q[1]] = val+1
+
+        def solve(keys):
+            dr = dc(list)
+            dl = dc(list)
+            vis = [0]*len(keys)
+            for q in range(len(keys)):
+                dr[keys[q][0]].append(q)
+                dl[keys[q][1]].append(q)
+            for q in range(len(keys)):
+                if not vis[q]:
+                    vis[q] = 1
+                    cg = [q]
+                    st = [keys[q]]
+                    while st:
+                        cx, cy = st.pop()
+                        for p in dr[cx]:
+                            if not vis[p]:
+                                cg.append(p)
+                                vis[p] = 1
+                                st.append(keys[p])
+                        for p in dl[cy]:
+                            if not vis[p]:
+                                cg.append(p)
+                                vis[p] = 1
+                                st.append(keys[p])
+                    sol([keys[q]for q in cg])
+
+        for i in sorted(dic):
+            solve(dic[i])
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

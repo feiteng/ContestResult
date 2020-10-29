@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>627_bird_14.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>627_bird_14.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    private int[][] step = {{0,1},{1,0},{0,-1},{-1,0}};
+
+    pri</B></FONT>vate void bfs(int[][] ma, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean vis[][], int x,int  y) {
+        vis[x][y] = true;
+        for (int i=0;i&lt;4;i++) {
+            int xx = x + step[i][0], yy = y+step[i][1];
+            if (xx &gt; -1 &amp;&amp; yy &gt; -1 &amp;&amp; xx &lt; ma.length &amp;&amp; yy &lt;ma[xx].length &amp;&amp; ma[xx][yy]== 1&amp;&amp;!vis[xx][yy]){
+                bfs(ma,vis,xx,yy);
+            }
+        }
+    }
+
+    private int getNum(int[][] ma) {
+        boolean[][] vis = new boolean[ma.length][]</B></FONT>;
+        for (int i=0;i&lt;ma.length;i++) {
+<A NAME="2"></A>            vis[i] = new boolean[ma[i].length];
+        }
+        int result = 0;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match3-1.html#2',3,'match3-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0;i&lt;ma.length;i++) {
+            for(int j=0;j&lt;ma[i].length;j++) {
+<A NAME="3"></A>                if (ma[i][j]&gt;0&amp;&amp; !vis[i][j]) {
+                    result++;
+                    bfs(ma,vis,i,j);
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match3-1.html#3',3,'match3-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}</B></FONT>
+            }
+        }
+        return result;
+    }
+
+    public int minDays(int[][] grid) {
+        int now = getNum(grid);
+        if (now !=1)return 0;
+        for (int i=0;i&lt;grid.length;i++){
+<A NAME="4"></A>            for(int j=0;j&lt;grid[i].length;j++) {
+                if (grid[i][j]==1) {
+                    g</B></FONT>rid[i][j]=0;
+                    if (getNum(grid)!=1)<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match3-1.html#4',3,'match3-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return 1;
+                    grid[i][j]=1;
+                }
+            }
+        }
+        return 2;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

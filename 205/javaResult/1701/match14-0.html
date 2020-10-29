@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>553_sakuragi1111.java</TITLE>
+ <TITLE>292_terranw.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,110 +15,71 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>553_sakuragi1111.java</CENTER></H3><HR>
+<H3><CENTER>292_terranw.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int ans = 0;
-        UF ufa = new UF(n);
-        UF ufb = new UF(n);
-        
-        List&lt;int[]&gt; A = new ArrayList&lt;&gt;();
-        List&lt;int[]&gt; B = new ArrayList&lt;&gt;();
-        List&lt;int[]&gt; C = new ArrayList&lt;&gt;();
-        
-        for (int[] e : edges){
-            if (e[0] == 3) {
-                C.add(e);
-            } else if (e[0] == 1) {
-                A.add(e);
-            } else {
-                B.add(e);
-<A NAME="0"></A>            }
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    private int ans, n, m;
+    private int[] par;
+    private int[][] es;
+    
+    private int getRoot(int now) {
+        int rt = par[now];
+        while (par[rt] != rt) {
+            rt = par[rt];
         }
-        
-        for (int[] e : C) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if (ufa.connected(e[1],e[2]) &amp;&amp; ufb.connected(e[1],e[2])) {
-                ans++;
-            } else {
-                ufa.union(e[1],e[2]);
-                ufb.union(e[1],e[2]);
-<A NAME="1"></A>            }
-        }</B></FONT>
-        
-        for (int[] e : A) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if (ufa.connected(e[1],e[2])) {
-                ans++;
-            }else {
-                ufa.union(e[1],e[2]);
-<A NAME="2"></A>            }
-        }</B></FONT>
-        
-        for (int[] e : B) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if (ufb.connected(e[1],e[2])) {
-                ans++;
-            } else {
-                ufb.union(e[1],e[2]);
-            }
-        }</B></FONT>
-
-        return ufa.count == 1 &amp;&amp; ufb.count == 1 ? ans : -1;
+        int tmp;
+        while (now != rt) {
+            tmp = par[now];
+            par[now] = rt;
+            now = tmp;
+        }
+        return rt;
     }
     
-    public static class UF {
+    private boolean proc(int val) {
+        for (int i = 1; i &lt;= n; ++i) par[i] = i;
+        int rt1, rt2;
+        for (int i = 0; i &lt; m; ++i) if (es[i][0] == 3) {
+            rt1 = getRoot(es[i][1]);
+            rt2 = getRoot(es[i][2]);
+            if (rt1 != rt2) {
+                par[rt1] = rt2;
+            }
+            else {
+                if (val == 1) ++ans;
+            }
+        }
         
-        private int[] id;
-        private int[] weight;
-        private int count;
-
-        public UF(int N) {
-            id = new int[N+1];
-            weight = new int[N+1];
-            for (int i = 0; i &lt;= N; i++) {
-                // 每个点最初与自己相连
-<A NAME="3"></A>                id[i] = i;
-                weight[i] = 1;
+        for (int i = 0; i &lt; m; ++i) if (es[i][0] == val) {
+            rt1 = getRoot(es[i][1]);
+            rt2 = getRoot(es[i][2]);
+            if (rt1 != rt2) {
+                par[rt1] = rt2;
             }
-            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>count = N;
-        }
-
-        public boolean connected(int p, int q) {
-            return find(p) == find(q);
-        }</B></FONT>
-
-        public int count() {
-            return this.count;
-        }
-
-        // 找到p所在component的标识符
-        public int find(int p) {
-            int old = p;
-            while (id[p] != p)
-                p = id[p];
-<A NAME="4"></A>            // 路径压缩，将所有的叶直接连在根上
-            while (id[old] != old) {
-                int t = old;
-                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match14-1.html#4',3,'match14-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>old = id[old];
-                id[t] = p;
+            else {
+                ++ans;
             }
-            return p;
         }
-
-        // quick union的结果会形成一片森林
-        public void union(int p, int q) {
-            int pRoot = find(p);
-            int qRoot = find(q);
-            if</B></FONT> (weight[pRoot] &lt; weight[qRoot]) {
-                id[pRoot] = qRoot;
-                weight[qRoot] += weight[pRoot];
-            } else {
-                id[qRoot] = pRoot;
-                weight[pRoot] += weight[qRoot];
-            }
-            --count;
+        
+        rt1 = getRoot(1);
+        for (int i = 2; i &lt;= n; ++i) {
+            if (getRoot(i) != rt1) return false;
         }
+        return true;
     }
-}
+    
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        this.n = n;
+        this.es = edges;
+        this.ans = 0;
+        this.m = es.length;
+        this.par = new int[n + 1];
+        if (!proc(1)) return -1;
+        if (!proc(2)) return -1;
+        
+        return ans;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

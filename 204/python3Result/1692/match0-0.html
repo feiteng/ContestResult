@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>542_joshualian1989.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>542_joshualian1989.py</CENTER></H3><HR>
+<PRE>
+def binom(n,r):
+<A NAME="0"></A>    f = math.factorial
+    return f(n) // f(r) // f(n-r)
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = self.right = None
+
+def add_node(node, x):
+    if x &lt; node.val:
+        if node.left is None:
+            node.left = TreeNode(x)
+        else:
+            add_node(node.left, x)
+    elif x &gt; node.val:
+        if node.right is None:
+            node.right = TreeNode(x)
+        else:
+            add_node(node.right, x)
+            
+<A NAME="1"></A>        
+class Solution:
+    def numOfWays(self, nums: List[</B></FONT>int]) -&gt; int:
+        root <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= TreeNode(nums[0])
+        for x in nums[1:]:
+            add_node(root, x)
+            
+        def helper(node):
+            if node is None: return 0, 1
+            cl, nl = helper(node.left)
+            cr, nr = helper(node.right)
+            c = cl + cr + 1
+            n = binom(</B></FONT>cl + cr, cl) * nl * nr
+            return c, n
+        return (helper(root)[1] - 1) % int(1e9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

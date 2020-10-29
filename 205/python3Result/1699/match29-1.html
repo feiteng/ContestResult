@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>152_kuro10.py</TITLE>
+ <TITLE>105_JerryJin2905.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>152_kuro10.py</CENTER></H3><HR>
+<H3><CENTER>105_JerryJin2905.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-<A NAME="0"></A>        nums1_sq, nums2_sq = collections.Counter(), collections.Counter()
-        for n1 in nums1:
-            nums1_sq[n1 ** 2] += 1
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for n2 in nums2:
-            nums2_sq[n2 ** 2] += 1
         ans = 0
-        
-        for i in range(len(nums1)):
-            for j in range(i+1, len(nums1)):
-                ans += nums2_sq[nums1[i] * nums1[j]]
-            
+        prod1 = defaultdict(int)
         for i in range(len(nums2)):
-            for j in range(i+1, len(nums2)):
-                ans += nums1_sq[nums2[i] * nums2[j]]
+            for j in range(i + 1, len(nums2)):
+                prod1[nums2[i] * nums2[j]] += 1
         
+        for num in nums1:
+            ans += prod1[num * num]
+        
+        prod2 = defaultdict(int)
+        for i in range(len(nums1)):
+            for j in range(i + 1, len(nums1)):
+                prod2[nums1[i] * nums1[j]] += 1
+        
+        for num in nums2:
+            ans += prod2[num * num]
         re</B></FONT>turn ans
 </PRE>
 

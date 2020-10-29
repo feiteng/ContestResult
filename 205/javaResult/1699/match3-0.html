@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>549_rexue70.java</TITLE>
+ <TITLE>154_huntersjm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>549_rexue70.java</CENTER></H3><HR>
+<H3><CENTER>154_huntersjm.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        int res = 0;
-        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
-<A NAME="1"></A>        for (int num : nums1) {
-            Long prodKey = Long.valueOf(num) * Long.valueOf</B></FONT>(num);
-            map.put(prodKey, map.getOrDefault(prodKey, 0) + 1);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        // System.out.println(map.toString());
-<A NAME="2"></A>        for (int i = 0; i &lt; nums2.length; i++) {
-            for (int j  = i + 1; j &lt; nums2.length; j++) {
-                Long prodKey = Long.valueOf(nums2[i]) * Long.valueOf(nums2[j])</B></FONT>;
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match3-1.html#2',3,'match3-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (map.containsKey(prodKey)) {
-                    res += map.get(prodKey);
+        return help(nums1, nums2) + help(nums2, nums1);
+    }
+
+    private int help(int[] nums1, int[] nums2) {
+        int ans = 0;
+        for (int i : nums1) {
+            long v = i;
+            v *= v;
+            Map&lt;Integer, Integer&gt; m = new HashMap&lt;&gt;();
+            for (int i1 : nums2) {
+                if (v % i1 == 0) {
+                    ans += m.getOrDefault((int) (v / i1), 0);
+                    m.put(i1, m.getOrDefault(i1, 0) + 1);
                 }
             }
         }
-        // System.out.println(res);
-        Map&lt;Long, Integer&gt; map2 = new HashMap&lt;&gt;();
-<A NAME="3"></A>        for (int num : nums2) {
-            Long prodKey = Long.valueOf(num) * Long.valueOf</B></FONT>(num);
-            map2.put(prodKey, map2.getOrDefault(prodKey, 0) + 1);
-        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match3-1.html#3',3,'match3-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        // System.out.println(map2.toString());
-        for (int i = 0; i &lt; nums1.length; i++) {
-<A NAME="4"></A>            for (int j  = i + 1; j &lt; nums1.length; j++) {
-                Long prodKey = Long.valueOf(nums1[i]) * Long.valueOf(nums1[j])</B></FONT>;
-                // System.out.println(prodKey);
-                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match3-1.html#4',3,'match3-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (map2.containsKey(prodKey)) {
-                    res += map2.get(prodKey);
-                }
-            }
-        }
-        return res;
+        return ans;
     }
 }</B></FONT>
 </PRE>

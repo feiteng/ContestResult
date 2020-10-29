@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>615_adityagaydhani.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>615_adityagaydhani.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+#         def dfs(node, prob, visited):
+#             if node == end:
+#                 self.ans = max(self.ans, prob)
+#                 return
+            
+#             if prob &lt; self.ans:
+#                 return
+            
+#             for nei, p in d[node]:
+#                 if not visited[nei]:
+#                     visited[nei] = True
+#                     dfs(nei, prob*p, visited[:])
+            
+#         self.ans = 0
+#         d = defaultdict(list)
+#         for i in range(len(edges)):
+#             d[edges[i][0]].append((edges[i][1], succProb[i]))
+#             d[edges[i][1]].append((edges[i][0], succProb[i]))
+        
+#         visited = [False]*n
+#         visited[start] = True
+#         dfs(start, 1, visited)
+#         return self.ans
+        
+        d = defaultdict(list)
+        for i in range(len(edges)):
+            d[edges[i][0]].append((edges[i][1], succProb[i]))
+            d[edges[i][1]].append((edges[i][0], succProb[i]))
+            
+        H = [(-1, start)]
+        shortest_dist = dict(</B></FONT>)
+        
+        while H:
+            prob, node = heapq.heappop(H)
+            prob = -prob
+            if node not in shortest_dist:
+                shortest_dist[node] = prob
+                for nei, p in d[node]:
+                    if nei not in shortest_dist:
+                        heapq.heappush(H, (-prob*p, nei))
+        return shortest_dist.get(end, 0)
+    
+#         graph = defaultdict(list)
+#         for u, v, w in times:
+#             graph[u].append((v, w))
+        
+#         H = [(0, K)]
+#         shortest_dist = dict()
+        
+#         while H:
+#             dist, node = heapq.heappop(H)
+#             if node not in shortest_dist:
+#                 shortest_dist[node] = dist
+#                 for v, w in graph[node]:
+#                     if v not in shortest_dist:
+#                         heapq.heappush(H, (dist+w, v))
+        
+#         return max(shortest_dist.values()) if len(shortest_dist) == N else -1
+</PRE>
+
+</BODY>
+</HTML>

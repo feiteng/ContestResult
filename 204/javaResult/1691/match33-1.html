@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>615_zhui-feng-hun-zi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>615_zhui-feng-hun-zi.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+   public int minDays(int[][] grid) {
+        int countOne = 0;
+        for(int i=0;i&lt;grid.length;++i){
+            for(int j=0;j&lt;grid[i].length;++j){
+                if(grid[i][j]==1)
+                    countOne++;
+            }
+        }
+        if(countOne==0)
+<A NAME="0"></A>            return 0;
+        if(countOne==1)
+            return 1;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int numIsland = countIsland(grid);
+        if(numIsland&gt;1)
+            return 0;
+        for(int i=0;i&lt;grid.length;++i){
+            for(int j=0;j&lt;grid[i].length;++j){
+                if(grid[i][j]==1){
+                    grid[i][j]=0;
+                    if(countIsland(grid)&gt;1)
+                        return 1;
+                    grid[i][j]=1;
+                }
+            }
+        }
+        return 2;
+
+    }
+    private int[][] cloneGrid(int[][] grid){
+        int[][] newGrid = new int[grid.length][grid[0].length]</B></FONT>;
+        for(int i=0;i&lt;grid.length;++i){
+            newGrid[i] = grid[i].clone();
+        }
+        return newGrid;
+    }
+    private int countIsland(int[][] grid){
+<A NAME="1"></A>        int counter = 0;
+        int[][] newGird = cloneGrid(grid);
+        int[][] dir4 = {{0,1},{0,-1},{1,0},{-1,0}};
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;grid.length;++i){
+            for(int j=0;j&lt;grid[i].length;++j){
+                if(newGird[i][j]==1){
+                    counter++;
+                    if(counter&gt;1)
+                        return 2;
+                    dfsIsland(newGird,dir4,i,j);
+                }
+            }
+        }
+        return counter;
+    }
+    private void dfsIsland(int[][] grid,int[][] dir4, int x,int y){
+        if(x&lt;0||x&gt;=grid.length||y&lt;0||y&gt;=grid[x].length||grid[x][y]==0)
+            return;</B></FONT>
+        grid[x][y]=0;
+        for(int i=0;i&lt;4;++i){
+            int newx = x+dir4[i][0];
+            int newy = y+dir4[i][1];
+            dfsIsland(grid,dir4,newx,newy);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

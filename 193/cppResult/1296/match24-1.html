@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_zizhong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>218_zizhong.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class TreeAncestor {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    TreeAncestor(int n_, vector&lt;int&gt;&amp; parent) {
+        n = n_;
+        f.assign(K, vector&lt;int&gt;(n, -1));
+        for(int i = 0; i &lt; n; i++) {
+            f[0][i] = parent[i];
+        }
+<A NAME="1"></A>        for(int d = 1; d &lt; K; d++) {
+            for(int i = 0; i &lt; n; i++) {
+                if (f[d-1][i] == -1) continue;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                f[d][i] = f[d-1][f[d-1][i]];
+            }
+        }
+    }
+    
+    int getKthAncestor(int v, int k) {
+        int ret = v;
+        for(int j = K - 1; ret &gt;= 0 &amp;&amp; j &gt;= 0; j--) {
+            if ((1&lt;&lt;j) &amp; k) {
+                ret = f[j][ret];</B></FONT>
+            }
+        }
+        return ret;
+    }
+    vector&lt;vector&lt;int&gt;&gt; f;
+    int K = 16;
+    int n;
+};
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor* obj = new TreeAncestor(n, parent);
+ * int param_1 = obj-&gt;getKthAncestor(node,k);
+ */
+</PRE>
+</BODY>
+</HTML>

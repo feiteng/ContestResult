@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>410_Necctor.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>410_Necctor.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        unordered_map&lt;int, vector&lt;pair&lt;int, double&gt;&gt;&gt; g;
+        for (int i = 0; i &lt; edges.size(); i++) {    
+            int a = edges[i][0], b = edges[i][1];
+            double c = succProb[i];
+            g[a].push_back({b, c});
+            g[b].push_back({a, c});
+        }
+        
+        vector&lt;double&gt; dp(n, 0);
+        dp[start] = 1.0;
+        queue&lt;int&gt; qu;
+        qu.push(start);
+        while (!qu.empty()) {
+            int curr = qu.front(); qu.pop();
+            for (auto p : g[curr]) {
+                int next = p.first;
+                double prob = p.second;
+                //if (dp[next] != 0 &amp;&amp; dp[curr] * prob &lt;= dp[next]) continue;
+                if (dp[curr] * prob &lt;= dp[next]) continue;</B></FONT>
+                dp[next] = dp[curr] * prob;
+                qu.push(next);
+            }
+        }
+        
+        return dp[end];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

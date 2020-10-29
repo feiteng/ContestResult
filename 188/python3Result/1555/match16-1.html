@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>159_hialvin.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>159_hialvin.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        m = len(pizza)
+        n = len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(pizza[0])
+        apples = [[0]*(n+1) for _ in range(m+1)]
+        for i in range(m):
+            for j in range(n):
+                apples[i+1][j+1] = apples[i][j+1] + apples[i+1][j] - apples[i][j] + (pizza[i][j</B></FONT>] == 'A')
+        MOD = 10**9 + 7
+        # print(apples)
+        @functools.lru_cache(None)
+        def helper(start_row, start_col, left_cut):
+            if left_cut == 0:
+<A NAME="1"></A>                return int(apples[m][n] + apples[start_row][start_col] - apples[m][start_col] - apples[start_row][n] &gt; 0)
+            res = 0
+            for i in range(start_row, m-1):
+                if apples[i+1][n] + apples[start_row][start_col] - apples<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i+1][start_col] - apples[start_row][n] &gt; 0:
+                    res += helper(i+1, start_col, left_cut - 1)
+            for j in range(start_col, n-1):
+                if apples[m][j+1] + apples[start_row][</B></FONT>start_col] - apples[m][start_col] - apples[start_row][j+1] &gt; 0:
+                    res += helper(start_row, j + 1, left_cut - 1)
+                    
+            return res % MOD
+        
+        return helper(0, 0, k - 1)
+</PRE>
+
+</BODY>
+</HTML>

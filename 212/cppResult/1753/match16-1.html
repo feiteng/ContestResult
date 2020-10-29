@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_bry_rp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>284_bry_rp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A>#define pii pair&lt;int,int&gt;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int dir[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};</B></FONT>
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        int n = a.size();
+        int m = a[0].size();
+        vector&lt;vector&lt;int&gt;&gt; dist(n, vector&lt;int&gt;(m, 1e6));</B></FONT>
+        vector&lt;vector&lt;bool&gt;&gt; vis(n, vector&lt;bool&gt;(m));
+        priority_queue&lt;pair&lt;int,pii&gt;, vector&lt;pair&lt;int,pii&gt;&gt;, greater&lt;pair&lt;int,pii&gt;&gt;&gt; pq;
+        pq.push({0, {0, 0}});
+        dist[0][0] = 0;
+        while (!pq.empty()) {
+            int cx = pq.top().second.first;
+            int cy = pq.top().second.second;
+            pq.pop();
+            if (vis[cx][cy]) continue;
+            vis[cx][cy] = 1;
+<A NAME="2"></A>            if (cx == n-1 &amp;&amp; cy == m-1) {
+                return dist[cx][cy];
+            }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int d=0; d&lt;4; d++) {
+                int x = cx + dir[d][0];
+                int y = cy + dir[d][1];
+                if (x&lt;0 || x&gt;=n || y&lt;0 || y&gt;=m) continue;
+                int nxt = max(abs(a[x][y]-a[cx][cy]), dist[cx][cy]);
+                if (nxt &lt; dist[x][y]) {</B></FONT>
+                    pq.push({nxt, {x, y}});
+                    dist[x][y] = nxt;
+                }
+            }
+        }
+        return 1e6;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

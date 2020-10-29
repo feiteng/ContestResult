@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_jtjl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>34_jtjl.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int ans = 0;
+    std::vector&lt;int&gt; dfs(TreeNode* u, int dis) {
+        vector&lt;int&gt; res, l, r;
+        if (u-&gt;left == nullptr &amp;&amp; u-&gt;right == nullptr) {
+            res.push_back(1);
+            return res;
+        }
+        if (u-&gt;left) {
+            l = dfs(u-&gt;left, dis);
+        }
+        if (u-&gt;right) {
+<A NAME="0"></A>            r = dfs(u-&gt;right, dis);
+        }
+        res.assign(max(l.size(), r.size()) + 1, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; l.size() &amp;&amp; i &lt; dis; i++) {
+            for (int j = 0; j &lt; r.size() &amp;&amp; j &lt; dis; j++) {
+                if (i + j + 2 &lt;= dis) {
+                    ans += l[i] * r[j];
+                }
+            }
+        }
+        for (int i = 0; i &lt; l.size(); i++) {
+            res[i + 1] += l[i];</B></FONT>
+        }
+        for (int i = 0; i &lt; r.size(); i++) {
+            res[i + 1] += r[i];
+        }
+        return res;
+    }
+    int countPairs(TreeNode* root, int distance) {
+        ans = 0;
+        dfs(root, distance);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

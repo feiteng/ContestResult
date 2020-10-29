@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>263_WindQAQ.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>263_WindQAQ.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    vector&lt;int&gt; kSmallestPairs(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2, int k) {
+        if (nums1.empty() || nums2.empty()) return {};
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        auto cmp = [&amp;](pair&lt;int, int&gt; x, pair&lt;int, int&gt; y) {
+            return nums1[x.first] + nums2[x.second] &gt; nums1[y.first] + nums2[y.second];
+        };
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, decltype(cmp)&gt; pq(cmp);
+<A NAME="1"></A>        pq.emplace(0, 0);
+        
+        vector&lt;int&gt; ret;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (k-- &gt; 0 &amp;&amp; !pq.empty()) {
+            auto x = pq.top();
+            pq.pop();
+            ret.push_back(nums1[x.first] + nums2[x.second]);
+            
+            if (x.first + 1 &lt; nums1.size()) pq.emplace(x.first + 1, x.second);
+            if (x.first == 0 &amp;&amp; x.second + 1 &lt; nums2.size()) pq.emplace(x.first, x.second + 1);
+        }
+
+        return ret;
+    }
+
+    
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {</B></FONT>
+        while (mat.size() &gt;= 2) {
+            auto t = kSmallestPairs(mat[mat.size() - 1], mat[mat.size() - 2], k);
+            mat.pop_back();
+            mat.pop_back();
+            mat.push_back(t);
+        }
+        
+        return mat[0][k - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

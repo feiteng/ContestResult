@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_tangentyh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>360_tangentyh.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int stoneGameV(int[] stoneValue) {
+        int n = stoneValue.length;
+<A NAME="1"></A>        int[] preSum = new int[n + 1];
+        for (int i = 1</B></FONT>; i &lt; preSum.length; ++i) {
+            preSum[i] = preSum[i - 1] + stoneValue[i - 1];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int[][] dp = new int[n][n + 1];
+<A NAME="2"></A>        return dfs(stoneValue, 0, n, dp, preSum);
+    }
+    private static int dfs(int[] sv, int start, int end, int[][] memo, int[] preSum) {
+        if (end - start &lt; 2) return</B></FONT> 0<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        if (memo[start][end] != 0) return memo[start][end];
+        int m = 0;
+        for (int i = start; i &lt; end; ++i) {
+            int l = preSum[i + 1] - preSum[start];
+            int r = preSum[end] - preSum[i + 1];
+            if (l &lt; r) {
+                m = Math.max(m, l + dfs(sv, start, i + 1, memo, preSum));
+            }
+            else if (l &gt; r) {
+                m = Math.max(m, r + dfs(sv, i + 1, end, memo, preSum));
+            }
+            else {
+                m = Math.max(m, l + Math.max(dfs(sv, start, i + 1, memo, preSum), dfs(sv, i + 1, end, memo, preSum)));
+            }
+        }</B></FONT>
+        return memo[start][end] = m;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>143_Akatsuki_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>143_Akatsuki_.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    static const int maxn = 80;
+<A NAME="0"></A>    int dp[maxn][maxn][maxn];
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        memset(dp, -1, sizeof(dp));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = grid.size(), m = grid[0].size();
+        dp[0][0][m-1] = grid[0][0]+grid[0][m-1];
+        for(int i = 0; i &lt; n-1; i++) {
+            for(int u = 0; u &lt; m; u++) {
+                for(int v = u+1; v &lt; m; v++) {
+<A NAME="1"></A>                    for(int s = -1; s &lt;= 1; s++) {
+                        for(int t = -1; t &lt;= 1; t++) {
+                            if(u+s &gt;= 0 &amp;&amp; u+s &lt; m &amp;&amp; v+t &gt;= 0 &amp;&amp; v+t &lt; m &amp;&amp; u+s &lt; v+t &amp;&amp; dp[i][u][v] != -1) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                                dp[i+1][u+s][v+t] = max(dp[i+1][u+s][v+t], dp[i][u][v]+grid[i+1][u+s]+grid[i+1][v+t]);
+                                // printf(&quot;dp[%d][%d][%d]=%d\n&quot;, i+1, u+s, v+t, dp[i+1][u+s][v+t]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for(int i = 0; i &lt; m; i++) {
+            for(int j = i+1; j &lt; m; j++) {
+                ans = max(ans, dp[n-1][i][j]);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

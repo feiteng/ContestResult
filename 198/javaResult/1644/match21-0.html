@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>458_volodymyr_k.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>458_volodymyr_k.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        int[] start = new int[26];
+        int[] end = new int[26];
+        
+        Arrays.fill(start, -1);
+        Arrays.fill(end, -1);
+        
+        int n = s.length();
+        for (int i = 0; i &lt; n; i++) {
+            int k = s.charAt(i) - 'a';
+            if</B></FONT> (start[k] == -1) {
+                start[k] = i;
+            }
+            end[k] = i;
+        }
+        
+        for (int i = 0; i &lt; 26; i++) {
+            if (start[i] == -1) continue;
+
+            Union u = new Union(26);
+            for (int st = start[i], en = end[i], j = st; j &lt; en;) {
+                int ind = s.charAt(j) - 'a';
+                if (u.union(i, ind)) {
+                    st = Math.min(st, start[ind]);
+                    en = Math.max(en, end[ind]);
+                    j = st;
+                } else {
+                    j++;
+                }
+<A NAME="1"></A>            }
+
+            for (int j = 0; j &lt; 26; j++) {
+                if (start[j] != -1 &amp;&amp; u.getParent(i) == u.getParent(j)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    start[i] = Math.min(start[i], start[j]);
+                    end[i] = Math.max(end[i], end[j]);
+                }
+            }
+        }</B></FONT>
+
+        
+        List&lt;int[]&gt; res = new ArrayList&lt;&gt;();
+        int pos = -1, len = -1;
+        do {
+            pos = -1;
+            len = -1;
+            
+            for (int i = 0; i &lt; 26; i++) {
+                if (start[i] != -1 &amp;&amp; (len == -1 || len &gt; end[i] - start[i])) {
+                    len = end[i] - start[i];
+                    pos = i;
+                }
+            }
+            
+            if (len != -1) {
+                boolean ok = true;
+                for (int[] prev : res) {
+                    if (!(prev[1] &lt; start[pos] || prev[0] &gt; end[pos])) {
+                        ok = false;
+                        break;
+                    }
+                }
+                
+                if (ok) {
+                    res.add(new int[] {start[pos], end[pos]});
+                }
+                
+                start[pos] = end[pos] = -1;
+            }
+        } while (len != -1);
+<A NAME="2"></A>        
+        List&lt;String&gt; list = new ArrayList&lt;&gt;(res.size());
+        for (int[] r : res) {
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.add(s.substring(r[0], r[1] + 1));
+        }
+        
+        return list;
+    }
+    
+    static class Union {
+        private int[] parents</B></FONT>;
+
+        public Union(int n) {
+            parents = new int[n];
+            for (int i = 0; i &lt; n; i++) parents[i] = i;
+        }
+
+        private int getParent(int v) {
+            if (parents[v] != v) parents[v] = getParent(parents[v]);
+            return parents[v];
+        }
+
+        private boolean union(int i1, int i2) {
+            int p1 = getParent(i1), p2 = getParent(i2);
+            if (p1 == p2) return false;
+
+            parents[p1] = p2;
+            return true;
+        }
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

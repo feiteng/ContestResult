@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_uwi.java</TITLE>
+ <TITLE>254_mcy4ever.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>3_uwi.java</CENTER></H3><HR>
+<H3><CENTER>254_mcy4ever.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>	class S<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>olution {
-	    public String modifyString(String S) {
-	        char[] s = S.toCharArray();
-	        for(int i = 0;i &lt; s.length;i++){
-	        	if(s[i] == '?'){
-	        		for(int j = 0;j &lt; 26;j++){</B></FONT>
-	        			char x = (char)('a'+j);
-	        			if(i-1 &gt;= 0 &amp;&amp; x == s[i-1])continue;
-<A NAME="1"></A>	        			if(i+1 &lt; s.length &amp;&amp; x == s[i+1])continue;
-	        			s[i] = x;
-	        			break;
-	        		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-	        	}
-	        }
-	        return new String(s);
-	    }
-	}	</B></FONT>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String modifyString(String s) {
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        while (index &lt; s.length()) {
+            if (s.charAt(index) != '?') {
+                sb.append(s.charAt(index++));
+            } else {
+                int next = index;
+                while (next + 1 &lt; s.length() &amp;&amp; s.charAt(next + 1) == '?') next++;
+                char[] c = new char[2];
+                char l = index == 0 ? '?' : s.charAt(index - 1);
+                char r = next == s.length() - 1 ? '?' : s.charAt(next + 1);
+                c[0] = 'a';
+                while (c[0] == l || c[0] == r) c[0] = (char)(c[0] + 1);
+                c[1] = (char) (c[0] + 1);
+                while (c[1] == l || c[1] == r) c[1] = (char) (c[1] + 1);
+                for (int i = index ; i &lt;= next ; i++) {
+                    sb.append(c[(i - index) % 2]);
+                }
+                index = next + 1;
+            }
+        }
+        return sb.toString();
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

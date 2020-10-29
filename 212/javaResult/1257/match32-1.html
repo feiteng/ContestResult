@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>129_ayaphis.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>129_ayaphis.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+class Solution {
+<A NAME="0"></A>    public int[][] matrixRankTransform(int[][] matrix) {
+        int[][] ans = new int[matrix.length][matrix[0].length];
+        int[] rows = new int[matrix.length];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] cols = new int[matrix[0].length];
+        TreeMap&lt;Integer, ArrayList&lt;int[]&gt;&gt; map = new TreeMap&lt;&gt;();
+        for (int i = 0; i &lt; matrix.length; i++) {
+            for (int j = 0; j &lt; matrix[i].length; j++) {
+                map.putIfAbsent(matrix[i][j], new</B></FONT> ArrayList&lt;&gt;());
+                map.get(matrix[i][j]).add(new int[]{i, j});
+            }
+        }
+        for (ArrayList&lt;int[]&gt; list : map.values()) {
+            int[] nodes = new int[list.size()];
+            for (int i = 0; i &lt; list.size(); i++) {
+                nodes[i] = i;
+                for (int j = 0; j &lt; i; j++) {
+                    if (list.get(i)[0] == list.get(j)[0] || list.get(i)[1] == list.get(j)[1]) {
+                        union(nodes, i, j);
+                    }
+                }
+            }
+            int[] val = new int[list.size()];
+            for (int i = 0; i &lt; list.size(); i++) {
+                int[] arr = list.get(i);
+<A NAME="1"></A>                int x = arr[0], y = arr[1];
+                val[find(nodes, i)] = Math.max(val[find(nodes, i)], Math.max(cols[y], rows[x]) + 1);
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; list.size(); i++) {
+<A NAME="2"></A>                int[] arr = list.get(i);
+                int x = arr[0], y = arr[1];
+                int v = val[find</B></FONT>(nodes, i)];
+                ans[x][y] = cols[y] = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rows[x] = v;                
+            }
+        }
+        return ans;
+    }
+
+    private int find(int[] nodes, int i</B></FONT>) {
+        if (nodes[i] != i) {
+            nodes[i] = find(nodes, nodes[i]);
+        }
+        return nodes[i];
+    }
+
+    private void union(int[] nodes, int a, int b) {
+        nodes[find(nodes, a)] = find(nodes, b);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

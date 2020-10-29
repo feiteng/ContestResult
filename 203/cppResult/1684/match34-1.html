@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>322_Mark_89.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>322_Mark_89.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int findLatestStep(vector&lt;int&gt;&amp; arr, int m) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; str(arr.size(), 0);
+        int count = 0;
+        int result = -1;
+        for (int round = 0; round &lt; arr.size(); ++round) {
+            int index = arr[round] - 1;
+            str[index] = 1;
+            if (index &gt; 0 &amp;&amp; str[index - 1] &gt; 0 &amp;&amp; (arr[round] == arr.size() || str[index + 1] == 0)) {</B></FONT>
+                int prev_length = str[index - 1];
+                int new_length = prev_length + 1;
+                if (prev_length == m) {
+                    --count;
+                }
+                if (new_length == m) {
+                    ++count;
+                }
+                str[index - prev_length] = new_length;
+                str[index] = new_length;
+            } else if (arr[round] &lt; arr.size() &amp;&amp; str[index + 1] &gt; 0 &amp;&amp; (index == 0 || str[index - 1] == 0)) {
+                int prev_length = str[index + 1];
+                int new_length = prev_length + 1;
+                if (prev_length == m) {
+                    --count;
+                }
+                if (new_length == m) {
+                    ++count;
+                }
+                str[index + prev_length] = new_length;
+                str[index] = new_length;
+            } else if (index &gt; 0 &amp;&amp; str[index - 1] &gt; 0 &amp;&amp; arr[round] &lt; arr.size() &amp;&amp; str[index + 1] &gt; 0) {
+                int prev_length1 = str[index - 1];
+<A NAME="1"></A>                int prev_length2 = str[index + 1];
+                int new_length = prev_length1 + prev_length2 + 1;
+                if (prev_length1 == m) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    --count;
+                }
+                if (prev_length2 == m) {
+                    --count;
+                }
+                if (new_length == m) {
+                    ++count;
+                }
+                str[index - prev_length1] = new_length;
+                str[index + prev_length2] = new_length;</B></FONT>
+                str[index] = new_length;
+            } else {
+                if (m == 1) {
+                    ++count;
+                }
+            }
+            if (count &gt; 0) {
+                result = round + 1;
+            }
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

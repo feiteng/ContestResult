@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_yuhsiangliu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>141_yuhsiangliu.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UnionFind:
+    def __init__(self, n):
+        self.root = list(range(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n))
+
+    def find(self, i):
+        if i!=self.root[i]:
+            self.root[i] = self.find(self.root[i])
+        return self.root[i]
+
+    def</B></FONT> union(self, i, j):
+        i, j = self.find(i), self.find(j)
+        if i==j:
+            return False
+<A NAME="1"></A>        elif i&lt;j:
+            i, j = j, i
+        self.root[i] = j
+        r<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn True
+
+<A NAME="2"></A>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        m, n = len(matrix), len(matrix[0])
+        coor =</B></FONT> collections.defaultdict<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        for i in range(m):
+            for j in range(n):
+                coor[matrix[i][j]].append((i,</B></FONT>j))
+        
+        def helper(pos):
+            N = len(pos)
+            if N&lt;=1:
+                return [pos]
+            UF = UnionFind(N+m+n)
+            for i,p in enumerate(pos):
+                UF.union(i,N+p[0])
+                UF.union(i,N+m+p[1])
+            res = collections.defaultdict(list)
+            for i,t in enumerate(pos):
+                res[UF.find(i)].append(t)
+            return list(res.values())
+        
+        ans = [[0]*n for _ in range(m)]
+        row, col = [0]*m, [0]*n
+        for v in sorted(coor):
+            if len(coor[v])==1:
+                i,j = coor[v][0]
+                rank = max(row[i],col[j])+1
+                ans[i][j] = rank
+                row[i] = rank
+                col[j] = rank
+                continue
+            for subset in helper(coor[v]):
+                rank = 0
+                for i,j in subset:
+                    rank = max(rank, row[i], col[j])
+                rank += 1
+                for i,j in subset:
+                    ans[i][j] = rank
+                    row[i] = rank
+                    col[j] = rank
+        return ans
+        
+                
+</PRE>
+
+</BODY>
+</HTML>

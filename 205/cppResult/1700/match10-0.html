@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>582_interviewrecipes.cpp</TITLE>
+ <TITLE>118_fallleaves01.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>582_interviewrecipes.cpp</CENTER></H3><HR>
+<H3><CENTER>118_fallleaves01.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.size();
-        int i = 0;
-        int ans = 0;
-<A NAME="1"></A>        while (i&lt;n) {
-            int j=i;
-            int sum = 0;</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int maxi = 0;
-            while (j &lt; n &amp;&amp; s[i] == s[j]) {
-                sum += cost[j];
-                maxi = max(maxi, cost[j]);
-                j++;
-            }
-            ans += (sum-maxi);
-            i = j;
+        int n=s.length();
+        int f[n][26];
+        if (!n) return 0;
+        for (int i=0;i&lt;26;i++)
+        {
+            if (i==s[0]-'a') f[0][i]=0;
+            else f[0][i]=cost[0];
         }
+        for (int i=1;i&lt;n;i++)
+        {
+            int mn=1e9+7;
+            for (int j=0;j&lt;26;j++)
+                f[i][j]=f[i-1][j]+cost[i];
+            for (int j=0;j&lt;26;j++)
+            {
+                if (s[i]-'a'==j) f[i][j]=min(f[i][j],mn);
+                mn=min(mn,f[i-1][j]);
+            }
+            mn=1e9+7;
+            for (int j=25;j&gt;=0;j--)
+            {
+                if (s[i]-'a'==j) f[i][j]=min(f[i][j],mn);
+                mn=min(mn,f[i-1][j]);
+            }
+        }
+        int ans=1e9+7;
+        for (int i=0;i&lt;26;i++)
+            ans=min(ans,f[n-1][i]);
         return ans;
     }
 };</B></FONT>

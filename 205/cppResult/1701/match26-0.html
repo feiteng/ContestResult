@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>262_aashi_patel.cpp</TITLE>
+ <TITLE>130_vieta.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,90 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>262_aashi_patel.cpp</CENTER></H3><HR>
+<H3><CENTER>130_vieta.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int find_set(int parent[],int v)
-{
-    if(v == parent[v])
-        return v;
-    return parent[v] = find_set(parent,parent[v]);
-}
-void union_set(int parent[],int a,int b)
-{</B></FONT>
-    a = find_set(parent,a);
-    b = find_set(parent,b);
-    if(a != b)
-        parent[b] = a;
-}
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        int parent1[n+1];
-<A NAME="1"></A>        int parent2[n+1];
-        for(int i=1;i&lt;=n;i++)
-            parent1[i] = parent2[i] = i;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
-        for(int i=0;i&lt;edges.size();i++)
-        {
-            if(edges[i][0] == 3)
-            {
-                int t1 = find_set(parent1,edges[i][1]);
-                int t2 = find_set(parent1,edges[i][2]);
-                if(t1 != t2)
-                {</B></FONT>
-                    union_set(parent1,edges[i][2],edges[i][1]);
-                    union_set(parent2,edges[i][2],edges[i][1]);
-                }
-                else
-<A NAME="2"></A>                    ans++;
-            }
-        }
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;edges.size();i++)
-        {
-            if(edges[i][0] == 1)
-            {
-                int t1 = find_set(parent1,edges[i][1]);
-                int t2 = find_set(parent1,edges[i][2]);
-                if(t1 != t2)
-                {</B></FONT>
-                    union_set(parent1,edges[i][2],edges[i][1]);
-                }
-                else
-                    ans++;
-            }
-            else if(edges[i][0] == 2)
-            {
-                int t1 = find_set(parent2,edges[i][1]);
-                int t2 = find_set(parent2,edges[i][2]);
-                if(t1 != t2)
-                {
-                    union_set(parent2,edges[i][2],edges[i][1]);
-                }
-                else
-                    ans++;
-            }
-        }
-        int par1 = find_set(parent1,1);
-        for(int i=1;i&lt;=n;i++)
-        {
-            int t = find_set(parent1,i);
-            //cout &lt;&lt; t &lt;&lt; &quot;\n&quot;;
-            if(t != par1)
-                return -1;
-        }
-        //cout &lt;&lt; &quot;--------\n&quot;;
-        int par2 = find_set(parent2,1);
-        for(int i=1;i&lt;=n;i++)
-        {
-            int t = find_set(parent2,i);
-            //cout &lt;&lt; t &lt;&lt; &quot;\n&quot;;
-            if(t != par2)
-                return -1;
-        }
-        //cout &lt;&lt; &quot;--------\n&quot;;
-        return ans;
+    int fnd (vector&lt;int&gt;&amp; cur, int x) {
+        int px = cur[x];
+        if (px != x) cur[px] = fnd(cur, px);
+        return cur[x] = cur[px];
     }
-};
+    int unn (vector&lt;int&gt;&amp; cur, vector&lt;int&gt;&amp; rnk, int x, int y) {
+        // cout &lt;&lt; x &lt;&lt;&quot; &quot;&lt;&lt; y&lt;&lt;&quot;\n&quot;;
+        int px = fnd(cur,x);
+        int py = fnd(cur,y);
+        if (px == py) return 0;
+        if (rnk[px] &lt; rnk[py]) swap(px,py);
+        if (rnk[px] == rnk[py]) rnk[px]++;
+        cur[py] = px;
+        return 1;
+    }
+    int ps(vector&lt;int&gt;&amp; cur, vector&lt;int&gt;&amp; rnk, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int ty, int n) {
+        // cout &lt;&lt; &quot;now &quot;&lt;&lt;ty&lt;&lt;&quot;\n&quot;;
+        int sd=0;
+        for (auto e : edges) {
+            if (e[0] != ty) continue;
+            sd +=unn(cur,rnk,cur[e[1]-1],cur[e[2]-1]);
+        }
+        return sd;
+    }
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;int&gt; cur1(n, 0), rnk1(n, 0);
+        for (int i = 0; i &lt; n; i++) {
+            cur1[i] = i;
+            rnk1[i] = 1;
+        }
+        vector&lt;int&gt; cur2, rnk2;
+        int sh = ps(cur1,rnk1,edges,3,n);
+        // cout&lt;&lt;sh&lt;&lt;&quot;\n&quot;;
+        cur2 = cur1;
+        rnk2 = rnk1;
+        int lf = ps(cur1,rnk1,edges,1,n);
+        int rf = ps(cur2,rnk2,edges,2,n);
+        // cout &lt;&lt; lf &lt;&lt;&quot; &quot;&lt;&lt; rf&lt;&lt;&quot;\n&quot;;
+        if (lf + sh != n-1 || rf + sh != n-1) return -1;
+        return edges.size() - (2 * (n - 1) - sh);
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

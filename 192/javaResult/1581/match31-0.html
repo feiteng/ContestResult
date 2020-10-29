@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>616_william5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>616_william5.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class Solution {
+  public static void main(String args[]) {
+<A NAME="0"></A>    Solution sol = new Solution();
+    System.out.println(Arrays.toString(sol.getStrongest(new int[] {-7, 22, 17, 3}, 2)));
+  }
+  <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int[] getStrongest(int[] arr, int k) {
+    Arrays.sort(arr);
+    final int median = arr[(arr.length - 1) / 2];
+    ArrayList&lt;Integer&gt; values = new ArrayList&lt;&gt;();
+    for (int a : arr) {
+      values.add(a);
+    }
+    
+    values.sort((x, y) -&gt; {</B></FONT>
+      // strongest is furthest from median.
+      int distX = Math.abs(x - median);
+      int distY = Math.abs(y - median);
+      if (distX != distY) {
+        return distY - distX;
+<A NAME="1"></A>      }
+      return y - x;
+    });
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>System.out.println(values);
+    
+    int[] ret = new int[k];
+    for (int i = 0; i &lt; k; i++) {
+      ret[i] = values.get(i);
+    }
+    return ret;
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

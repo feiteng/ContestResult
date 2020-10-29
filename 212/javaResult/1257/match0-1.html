@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>28_tian-tang-6.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>28_tian-tang-6.java</CENTER></H3><HR>
+<PRE>
+
+
+<A NAME="0"></A>import java.util.ArrayList;
+import java.util.List;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
+    public int[][] matrixRankTransform(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        Node[][] nodes = new Node[n][m];
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                nodes[i][j] = new</B></FONT> Node();
+                nodes[i][j].val = mat[i][j];
+            }
+        }
+<A NAME="1"></A>        List&lt;Node&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            list.clear();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; m; j++) {
+                list.add(nodes[i][j]);
+            }
+            list.sort((a, b) -&gt; Integer.compare(a.val, b.val));
+            for (int j = 1; j &lt; m; j++) {
+                Node prev = list.get(j - 1);
+                Node cur = list.get(j);
+                if(cur.val == prev.val){
+                    Node.merge</B></FONT>(cur, prev);
+                    continue;
+                }
+                cur.adj.add(new Edge(prev));
+            }
+<A NAME="2"></A>        }
+        for (int i = 0; i &lt; m; i++) {
+            list.clear();
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; n; j++) {
+                list.add(nodes[j][i]);
+            }
+            list.sort((a, b) -&gt; Integer.compare(a.val, b.val));
+            for (int j = 1; j &lt; n; j++) {
+                Node prev = list.get(j - 1);
+                Node cur = list.get(j);
+                if(cur.val == prev.val){
+                    Node.merge</B></FONT>(cur, prev);
+                    continue;
+                }
+                cur.adj.add(new Edge(prev));
+            }
+        }
+        for(Node[] row : nodes){
+            for(Node node : row){
+                if(node.find() == node){
+<A NAME="3"></A>                    continue;
+                }
+                node.find().adj.addAll(node.adj);
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#3',2,'match0-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        int[][] ans = new int[n][m];
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                ans[i][j] = find</B></FONT>(nodes[i][j]);
+            }
+        }
+        return ans;
+    }
+
+    public int find(Node node) {
+        node = node.find();
+        if (node.ans == -1) {
+            node.ans = 1;
+            for (Edge e : node.adj) {
+                node.ans = Math.max(node.ans, find(e.to) + 1);
+            }
+        }
+        return node.ans;
+    }
+}
+
+class Edge {
+    Node to;
+    int d;
+
+    public Edge(Node to) {
+        this.to = to;
+    }
+}
+
+class Node {
+    int val;
+    int ans = -1;
+    List&lt;Edge&gt; adj = new ArrayList&lt;&gt;();
+    
+    Node p = this;
+    int rank = 0;
+    public Node find(){
+        return p.p == p ? p : (p = p.find());
+    }
+    public static void merge(Node a, Node b){
+        a = a.find();
+        b = b.find();
+        if(a == b){
+            return;
+        }
+        if(a.rank == b.rank){
+            a.rank++;
+        }
+        if(a.rank &lt; b.rank){
+            a.p = b;
+        }else{
+            b.p = a;
+        }
+    }
+}
+
+</PRE>
+
+</BODY>
+</HTML>

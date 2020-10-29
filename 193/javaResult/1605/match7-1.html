@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>315_masterbios.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>315_masterbios.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minDays(int[] roses, int n, int k) {
+    if (roses == null || k == 0 || n == 0) return 0;
+        if (n * k &gt; roses.length) return -1;
+        int l = Integer.MAX_VALUE, r = Integer.MIN_VALUE;
+        for (int vals : roses) {
+            l = Math.min(l, vals);
+            r = Math.max(r, vals);
+        }
+        while (l &lt;= r) {
+            int mid = l + (r - l) / 2;
+            if (isValid</B></FONT>(roses, mid, k, n)) {
+<A NAME="1"></A>                r = mid - 1;
+            } else {
+                l = mid + 1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return l;
+    }
+
+    public boolean isValid(int roses[], int day, int size, int count) {
+        int cursize = 0, curcount = 0;
+        for (int val : roses) {
+            if (val &lt;= day) cursize++;
+            else cursize = 0;
+            if (cursize == size) { cursize = 0; curcount++; }
+            if (curcount == count) return true;
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

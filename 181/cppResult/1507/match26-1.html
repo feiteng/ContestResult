@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_y119777.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="1"></A>public:
+ bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+    int n = g.size(), m = g[0].size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; p = {
+    	{0, 1, 0, 1},
+    	{1, 0, 1, 0},
+    	{0, 0, 1, 1},
+    	{0, 1, 1, 0},
+    	{1, 0, 0, 1},
+    	{1, 1, 0, 0}
+    };
+    vector&lt;vector&lt;int&gt;&gt; pp = {
+    	{-1, 0}, {0, 1}, {1, 0}, {0, -1}</B></FONT>
+    };
+<A NAME="0"></A>    auto ok = [&amp;](int x, int y) {
+    	return x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m;
+    };
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    map&lt;int, int&gt; ma = {
+    	{0, 2},
+    	{1, 3},
+    	{2, 0},
+    	{3, 1}
+    };</B></FONT>
+    vector&lt;vector&lt;int&gt;&gt; a(n, vector&lt;int&gt;(m));
+    a[0][0] = 1;
+    typedef pair&lt;int, int&gt; pii;
+    queue&lt;pii&gt; q;
+    q.push({0, 0});
+    while(!q.empty()) {
+    	int x = q.front().first, y = q.front().second;
+        //cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+    	q.pop();
+    	for (int i = 0; i &lt; 4; i++) {
+    		if(p[g[x][y] - 1][i] == 0) continue;
+    		int ux = x + pp[i][0], uy = y + pp[i][1];
+    		if(ok(ux, uy) &amp;&amp; !a[ux][uy] &amp;&amp; p[g[ux][uy] - 1][ma[i] ]) {
+    			a[ux][uy] = 1;
+    			q.push({ux, uy});
+    		}
+    	}
+    }
+    return a[n - 1][m - 1];
+}
+};
+</PRE>
+</BODY>
+</HTML>

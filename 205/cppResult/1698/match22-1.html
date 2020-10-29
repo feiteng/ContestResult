@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>281_donghy-2.cpp</TITLE>
+ <TITLE>120_lichunzhu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,17 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>281_donghy-2.cpp</CENTER></H3><HR>
+<H3><CENTER>120_lichunzhu.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     string modifyString(string s) {
-        for (int i = 0; i &lt; s.length(); i++) {
+        int n = s.size(), i, j;
+        for (i = 0; i &lt; n; i++) {
             if (s[i] == '?') {
-                for (char c = 'a'; c &lt;= 'z'; c++) {
-                    if (i &gt; 0 &amp;&amp; s[i - 1] == c || i &lt; s.length() - 1 &amp;&amp; s[i + 1] == c) continue;
-                    s[i] = c;
-                    break;
+                set&lt;char&gt;S;
+                if (i &gt;= 1) {
+                    S.insert(s[i-1]);
+                }
+                if (i &lt; n - 1 &amp;&amp; s[i+1] != '?') {
+                    S.insert(s[i+1]);
+                }
+                for (j = 0; j &lt; 26; j++) {
+                    char t = 'a' + j;
+                    if (!S.count(t)) {
+                        s[i] = t;
+                        break;
+                    }
                 }
             }
         }

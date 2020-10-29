@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_wyj20154348.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>25_wyj20154348.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int numOfArrays(int n, int m, int k) {
+<A NAME="0"></A>        const long long mod = 1e9+7;
+        using ll = long long;
+        ll dp[60][110][60];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        memset(dp,0,sizeof(dp));
+        for (int j=1;j&lt;=m;j++){
+            dp[1][j][1]=1;
+        }
+        for (int i=2;i&lt;=n;i++){
+            for (int j=1;j&lt;=m;j++){
+                for (int k_=1;k_&lt;=k;k_++){
+                    for (int now=1;now&lt;=m;now++){</B></FONT>
+                        if (now&gt;j){
+                            dp[i][now][k_+1]=(dp[i][now][k_+1]+dp[i-1][j][k_])%mod;
+                        }
+                        else{
+<A NAME="1"></A>                            dp[i][j][k_]=(dp[i][j][k_]+dp[i-1][j][k_])%mod;
+                        }
+                    }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        ll res = 0;
+        for (int j=1;j&lt;=m;j++){
+            res=(res+dp[n][j][k])%mod;
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

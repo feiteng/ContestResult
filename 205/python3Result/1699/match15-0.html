@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>83_browles.py</TITLE>
+ <TITLE>198_mkcmkc.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>83_browles.py</CENTER></H3><HR>
+<H3><CENTER>198_mkcmkc.py</CENTER></H3><HR>
 <PRE>
-from collections import defaultdict
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from collections import Counter
+
+class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        m1 = defaultdict(int)
-        m2 = defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(int)
-<A NAME="1"></A>        for i in range(len(nums1)):
-            for j in range(i+1, len(nums1)):
-                m1[nums1[i]*nums1[j]] +=</B></FONT> 1
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(len(nums2)):
-            for j in range(i+1, len(nums2)):
-                m2[nums2[i]*nums2[j]] += 1
-        result = 0                
-        for n in nums1:
-            result += m2[n*n]
-        for n in nums2:
-            result += m1[n*n]
-        re</B></FONT>turn result            
-        
+        output = 0
+        sq1 = Counter(map(lambda q: q*q, nums1))
+        sq2 = Counter(map(lambda q: q*q, nums2))
+        for i in range(len(nums2) - 1):
+            for j in range(i + 1, len(nums2)):
+                output += sq1[nums2[i]*nums2[j]]
+ 
+        for i in range(len(nums1) - 1):
+            for j in range(i + 1, len(nums1)):
+                output += sq2[nums1[i]*nums1[j]]
+                
+        re</B></FONT>turn output
 </PRE>
 
 </BODY>

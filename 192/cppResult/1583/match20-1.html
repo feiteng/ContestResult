@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_superj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_superj.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[105][25][105],INF=0x3f3f3f3f;//第i个房子，颜色是j，一个k个街区
+    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        memset(dp,0x3f,sizeof(dp));
+        if (houses[0]==0) {
+            for (int j=1; j&lt;=n; j++) {
+                dp[1][j][1]=cost[0][j-1];
+<A NAME="0"></A>            }
+        } else {
+            dp[1][houses[0]][1]=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        for (int i=2; i&lt;=m; i++) {  //100
+            if (houses[i-1]==0) {
+                for (int j=1; j&lt;=n; j++) { //20,上一个房子的颜色
+<A NAME="1"></A>                    for (int k=1; k&lt;=n; k++)  { //20
+                        for (int c=1; c&lt;=target; c++) {
+                            if (dp[i-1][j][c]==INF) continue;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            if (k==j) dp[i][k][c]=min(dp[i][k][c],dp[i-1][j][c]+cost[i-1][k-1]);
+                            else dp[i][k][c+1]=min(dp[i][k][c+1],dp[i-1][j][c]+cost[i-1][k-1]);
+                        }
+                    }
+                }
+            } else {
+<A NAME="2"></A>                for (int j=1; j&lt;=n; j++) {
+                    for (int c=1; c&lt;=target; c++) {
+                        if (dp[i-1][j][c]==INF) continue;</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        if (houses[i-1]==j) dp[i][houses[i-1]][c]=min(dp[i][houses[i-1]][c],dp[i-1][j][c]);
+                        else dp[i][houses[i-1]][c+1]=min(dp[i][houses[i-1]][c+1],dp[i-1][j][c]);
+                    }
+                }
+            }
+        }
+        int res=INF;
+        for (int i=1; i&lt;=n; i++) res=min(res,dp[m][i][target]);
+        if (res==INF) res=-1;
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

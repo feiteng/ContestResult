@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>306_ye15.py</TITLE>
+ <TITLE>128_nthistle.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,134 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>306_ye15.py</CENTER></H3><HR>
+<H3><CENTER>128_nthistle.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UnionFind:
-    def __init__(self, n):
-        self.parent = list(range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n))
-        self.rank = [1]*n
-        self.count = n
-        
-    def find(self, p):
-        if p != self.parent[p]: 
-            self.parent[p] = self.find(self.parent[p])
-        return self.parent[p]
-    
-    def union(self, p, q):
-        prt, qrt = self.find(p), self.find(q)
-        if prt == qrt: return 
-        self.count -= 1
-        if self.rank[prt] &gt; self.rank[</B></FONT>qrt]: prt, qrt = qrt, prt
-        self.parent[prt] = qrt
-        self.rank[qrt] += self.rank[prt]
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import defaultdict
 
-        
+# UNION FIND IMPLEMENTATION BORROWED FROM 
+class UF:
+    def __init__(self, N):
+        self._id = list(range(N))
+        self._count = N
+        self._rank = [0] * N
+
+    def find(self, p):
+        id = self._id
+        while p != id[p]:
+            p = id[p] = id[id[p]]   # Path compression using halving.
+        return p
+
+    def count(self):
+        return self._count
+
+    def connected(self, p, q):
+        return self.find(p) == self.find(q)
+
+    def union(self, p, q):
+        id = self._id
+        rank = self._rank
+
+        i = self.find(p)
+        j = self.find(q)
+        if i == j:
+            return
+
+        self._count -= 1
+        if rank[i] &lt; rank[j]:
+            id[i] = j
+        elif rank[i] &gt; rank[j]:
+            id[j] = i
+        else:
+            id[j] = i
+            rank[i] += 1
+
+
 class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        ufa = UnionFind(n) # for Alice
-        ufb = UnionFind(n) # for Bob
+        # first check connectivity
+        max_remove = 0
+        seen = set()
+        # 1 = a, 2 = b, 3 = ab
+        c_adj = {i : set() for i in range(1,n+1)} # common
+        b_adj = {i : set() for i in range(1,n+1)} # bob
+        a_adj = {i : set() for i in range(1,n+1)} # alice
+        for t, u, v in edges:
+            if t == 3:
+                c_adj[u].add(v)
+                c_adj[v].add(u)
         
-        ans = 0
+        # first, make sure each connected common component has (n-1) edges
+        c_components = {i : -1 for i in range(1,n+1)}
+        seen = {i:False for i in range(1,n+1)}
+        def component_dfs(adj, cur, c_components, cid):
+            c_components[cur] = cid
+            for a in adj[cur]:
+                if c_components[a] != cid:
+                    component_dfs(adj, a, c_components, cid)
+        for i in range(1,n+1):
+            if c_components[i] == -1:
+                component_dfs(c_adj, i, c_components, i)
+        # now we have components set
+        c_mapping = {i : [] for i in c_components.values() if i != -1}
+        for v in c_components:
+            if c_components[v] != -1:
+                c_mapping[c_components[v]].append(v)
+        #print(&quot;COMPONENT MAPPING IS&quot;,c_mapping)
+        for comp in c_mapping:
+            #print(&quot;COMPONENT&quot;,comp)
+            # find total number of edges in this block
+            deg_sum = 0
+            n_v = len(c_mapping[comp])
+            for p in c_mapping[comp]:
+                deg_sum += len(c_adj[p])
+            #print(&quot;DEG SUM IS&quot;,deg_sum)
+            #print(&quot;N V IS&quot;,n_v)
+            total_edges = deg_sum // 2
+            max_remove += total_edges - (n_v - 1) # remove all but n-1 edges
+        #print(&quot;MAX REMOVE:&quot;,max_remove)
         
-        edges.sort(reverse=True) 
-        for t, u, v in edges: 
-            u -= 1
-            v -= 1
-            if t == 3: # Alice &amp; Bob
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: 
-                    ufa.union(u, v)
-                    ufb.union(u, v)
-            elif t == 2: # Bob only
-                if ufb.find(u) == ufb.find(v): ans += 1
-                else: ufb.union(u, v)
-            else: # Alice only
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: ufa.union(u, v)
-                    
-        return ans if ufa.count == 1 and ufb.count == 1 else -1
+        uf_a = UF(n+1)
+        uf_b = UF(n+1)
+        
+        for comp in c_mapping:
+            res = c_mapping[comp]
+            for v1, v2 in zip(res, res[1:]):
+                uf_a.union(v1, v2)
+                uf_b.union(v1, v2)
+        
+        for t, u, v in edges:
+            if t == 1:
+                if uf_a.connected(u, v):
+                    max_remove += 1
+                else:
+                    a_adj[u].add(v)
+                    a_adj[v].add(u)
+                    uf_a.union(u, v)
+            elif t == 2:
+                if uf_b.connected(u, v):
+                    max_remove += 1
+                else:
+                    b_adj[u].add(v)
+                    b_adj[v].add(u)
+                    uf_b.union(u, v)
+        # check alice reachability
+        def dfs(valid_gs, cur, seen):
+            for g in valid_gs:
+                for adj in g[cur]:
+                    if not seen[adj]:
+                        seen[adj] = True
+                        dfs(valid_gs, adj, seen)
+        seen_a = {i : False for i in range(1,n+1)}
+        dfs((a_adj, c_adj), 1, seen_a)
+        if not all(seen_a[i] for i in range(1,n+1)):
+            return -1
+        seen_b = {i : False for i in range(1,n+1)}
+        dfs((b_adj, c_adj), 1, seen_b)
+        if not all(seen_b[i] for i in range(1,n+1)):
+            return -1
+        re</B></FONT>turn max_remove
+        
+        
 </PRE>
 
 </BODY>

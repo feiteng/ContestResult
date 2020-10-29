@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>431_shiridisaiprasad.py</TITLE>
+ <TITLE>158_X_Chen6.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>431_shiridisaiprasad.py</CENTER></H3><HR>
+<H3><CENTER>158_X_Chen6.py</CENTER></H3><HR>
 <PRE>
-import collections 
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        counts1 = collections.Counter(i*i for i in nums1)
-        counts2 = collections.Counter<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(i*i for i in nums2)
-        ans = 0 
-        for i in range(0, len(nums1)):
+        s1 = collections.defaultdict(int)
+        for num in nums1:
+            s1[num**2] += 1
+            
+        s2 = collections.defaultdict(int)
+        for num in nums2:
+            s2[num**2] += 1
+        
+        ans = 0
+        for i in range(len(nums1)):
             for j in range(i+1, len(nums1)):
-                ans += counts2[nums1[i]*nums1[j]] 
-        for i in range(0, len(nums2)):
+                ans += s2[nums1[i] * nums1[j]]
+        
+        for i in range(len(nums2)):
             for j in range(i+1, len(nums2)):
-                ans += counts1[nums2[i]*nums2[j]]
-        re</B></FONT>turn ans 
+                ans += s1[nums2[i] * nums2[j]]
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_tongtongac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_tongtongac.cpp</CENTER></H3><HR>
+<PRE>
+class Solution
+{
+<A NAME="0"></A>public:
+    vector&lt;vector&lt;int&gt;&gt; g;
+    int R, C;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int ds[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    int count(){</B></FONT>
+        int ans = 0;
+        for(int i=0; i&lt;R; i++){
+            for(int j=0; j&lt;C; j++){
+                if(g[i][j] &gt; 0) ans++;
+            }
+        }
+        return ans;
+    }
+
+    void set1(){
+        for(int i=0; i&lt;R; i++){
+            for(int j=0; j&lt;C; j++){
+                if(g[i][j] &gt; 0){
+                    g[i][j] = 1;
+                }
+            }
+<A NAME="1"></A>        }
+    }
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool isone(){
+        set1();
+        int color = 1;
+        for (int i = 0; i &lt; R; i++)
+        {
+            for (int j = 0; j &lt; C; j++)
+            {
+<A NAME="2"></A>                if (g[i][j] == 1)
+                {
+                    dfs(i, j, ++color);</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        return color == 2;
+        
+    }
+
+    void dfs(int r, int c, int color)
+    {
+        g[r][c] = color;
+        for (int d = 0; d &lt; 4; d++)
+        {
+            int rr = r + ds[d][0], cc = c + ds[d][1];</B></FONT>
+            if (rr &gt;= 0 &amp;&amp; rr &lt; R &amp;&amp; cc &gt;= 0 &amp;&amp; cc &lt; C &amp;&amp; g[rr][cc] == 1)
+            {
+                dfs(rr, cc, color);
+            }
+        }
+    }
+
+    int minDays(vector&lt;vector&lt;int&gt;&gt; &amp;grid)
+    {
+        g = grid;
+        R = grid.size();
+        C = grid[0].size();
+<A NAME="3"></A>        int cnt = count();
+
+        if(!isone()) return 0;
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(cnt &lt;= 2) return cnt;
+
+        for (int i = 0; i &lt; R; i++)
+        {
+            for (int j = 0; j &lt; C; j++)
+            {
+                if (g[i][j] &gt; 0)
+                {
+                    g[i][j] = 0;
+                    if(!isone()) return 1;</B></FONT>
+                    g[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

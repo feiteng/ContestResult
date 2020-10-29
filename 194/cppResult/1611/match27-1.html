@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>136_ShidaLei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>136_ShidaLei.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+ public:
+  vector&lt;string&gt; getFolderNames(vector&lt;string&gt;&amp; names) {
+<A NAME="0"></A>    unordered_map&lt;string, int&gt; used;
+    int n = names.size();
+    vector&lt;string&gt; res(n);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; n; i++) {
+      if (used.find(names[i]) == used.end()) {
+        res[i] = names[i];
+        used[names[i]] = 0;
+      } else {
+        int suffix = used[names[i]] + 1;
+        while (true) {
+          string suffix_name = names[i] + &quot;(&quot; + to_string(suffix) + &quot;)&quot;;
+          if (used.find(suffix_name) == used.end()) {
+            res[i] = suffix_name;
+            used[names[i]] = suffix;   
+            used[suffix_name] = 0;
+            break;
+          }
+          suffix++;
+        }
+      }
+    }
+    return res;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>653_45821A.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>653_45821A.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numSubmat(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        vector&lt;vector&lt;int&gt;&gt; right = mat, down = mat;
+        for (int i = mat.size() - 1; i &gt;= 0; --i) {
+            for (int j = mat[0].size() - 1; j &gt;= 0; --j) {
+                if (mat[i][j] == 1) {</B></FONT>
+                    right[i][j] = j == mat[0].size() - 1 ? 1 : (right[i][j + 1] + 1);
+                    down[i][j] = i == mat.size() - 1 ? 1 : (down[i + 1][j] + 1);
+                } else {
+<A NAME="1"></A>                    right[i][j] = 0;
+                    down[i][j] = 0;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        int result = 0;
+        for (int i = 0; i != mat.size(); ++i) {
+            for (int j = 0; j != mat[0].size(); ++j) {
+                int accWidth = right[i][j];
+                for (int di = 0; di != down[i][j]; ++di) {
+                    result += (accWidth = min(right[i + di][j], accWidth));
+          //          cout &lt;&lt; i &lt;&lt; &quot;, &quot; &lt;&lt; j &lt;&lt; &quot; with &quot; &lt;&lt; di &lt;&lt; &quot; has &quot; &lt;&lt; accWidth &lt;&lt; '\n';
+                }
+            }
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

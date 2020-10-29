@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_tian-tang-6.java</TITLE>
+ <TITLE>209_KKKXY.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>34_tian-tang-6.java</CENTER></H3><HR>
+<H3><CENTER>209_KKKXY.java</CENTER></H3><HR>
 <PRE>
-
-<A NAME="0"></A>
-import java.util.*;
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        return count(nums1, nums2) + count(nums2, nums1);
-    }
-
-    public int count(int[] a, int[] b) {
-        Map&lt;Long, Integer&gt; cnt = new HashMap&lt;&gt;();
-        for (int x : a) {
-            long x2 = (long) x * x;
-            cnt.put(x2, cnt.getOrDefault(x2, 0) + 1);
+        Map&lt;Integer, Integer&gt; map1 = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; map2 = new HashMap&lt;&gt;();
+        for (int a : nums1) {
+            map1.put(a, map1.getOrDefault(a, 0) + 1);
         }
-        int ans = 0;
-        for (int i = 0; i &lt; b.length; i++) {
-            for (int j = i + 1; j &lt; b.length; j++) {
-                ans += cnt.getOrDefault((long) b[i] * b[j], 0);
+        for (int a : nums2) {
+            map2.put(a, map2.getOrDefault(a, 0) + 1);
+        }
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int sol = 0;
+        sol += count(nums1, nums2, map2);
+        sol += count(nums2, nums1, map1);
+        return sol;
+    }
+    
+    public int count(int[] ar1, int[] ar2, Map&lt;Integer, Integer&gt; map) {
+        int sol = 0;
+        for (int i = 0; i &lt; ar1.length; i++) {
+            long cur = (long)ar1[i] * ar1[i];
+            for (int j = 0; j &lt; ar2.length &amp;&amp; (long)ar2[j] * ar2[j] &lt;= cur; j++) {
+                if (cur % ar2[j] != 0) continue;
+                if (j &gt; 0 &amp;&amp; ar2[j] == ar2[j-1]) continue;
+                int k = (int)(cur / ar2[j]);
+                if (!map.containsKey(k)) continue;
+                if (k == ar2[j]) {
+                    int n = map.get(k);
+                    sol += n * (n - 1) / 2;
+                } else {
+                    sol += map.get(ar2[j]) * map.get(k);
+                }
             }
         }
-        return ans;
-    }</B></FONT>
-}
+        return sol;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

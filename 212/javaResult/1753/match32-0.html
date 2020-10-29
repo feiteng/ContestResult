@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>932_lizhelongs.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>932_lizhelongs.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+    public int minimumEffortPath(int[][] A) {
+        int a = A.length;
+        int b = A[0].length;
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((x,y)-&gt;x[2]-y[2]);</B></FONT>
+        pq.add(new int[]{0,0,0});
+        int[][] visited = new int[a][b];
+        for(int i = 0; i &lt; a; i++){
+            Arrays.fill(visited[i], Integer.MAX_VALUE);
+        }
+        while(!pq.isEmpty()){
+            int[] e = pq.poll();
+<A NAME="1"></A>            if(e[0] == a-1 &amp;&amp; e[1] == b-1){
+                return e[2];
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int[] dir: dirs){
+                int x = e[0]+dir[0];
+                int y = e[1] + dir[1];
+                if(x &gt;= 0 &amp;&amp; y &gt;=0 &amp;&amp; x &lt; a &amp;&amp; y &lt; b){
+                    int newMin = Math.max(e[2], Math.abs(A[x][y]-A[e[0]][e[1]]));
+<A NAME="2"></A>                    if(newMin &lt; visited[x][y]){
+                        visited[x][y] = newMin;
+                        pq.add</B></FONT>(new int[]{x,y,newMin});
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+        return -1;
+        // int[][] dp = new int[a][b];
+        // for(int i = 0; i &lt; a; i++){
+        //     Arrays.fill(dp[i], Integer.MAX_VALUE);
+        // }
+        // dp[0][0] = 0;
+        // for(int i = 0; i &lt; a; i++){
+        //     for(int j = 0; j &lt; b; j++){
+        //         int cur = A[i][j];
+        //         if(i &gt; 0){
+        //             dp[i][j] = Math.min(dp[i][j], dp[i-1][j] + Math.abs(cur-A[i-1][j]));
+        //         }
+        //         if(j &gt; 0){
+        //             dp[i][j] = Math.min(dp[i][j], dp[i][j-1] + Math.abs(cur-A[i][j-1]));
+        //         }
+        //         if(i &lt; a){}
+        //     }
+        // }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

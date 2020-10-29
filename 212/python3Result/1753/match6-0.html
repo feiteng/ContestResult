@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>561_mufeng321.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>561_mufeng321.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def minimumEffortPath(self, heights: List[List[int]]) -&gt; int:
+        if not heights or not heights[0]:
+            return 0
+        n, m <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(heights), len(heights[0])
+        hq = [(0, 0, 0)] # effor, x, y
+        visited = set()
+        while hq:
+<A NAME="1"></A>            effort, r, c = heapq.heappop(hq)
+            if</B></FONT> (r, c) == (n - 1, m - 1):
+                return effort
+            elif (<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>r, c) in visited:
+                continue
+<A NAME="2"></A>            visited.add((r, c))
+            for row, col in [(r+1, c), (r-1, c), (r, c+1), (r, c-1)]:
+                if</B></FONT> 0 &lt;= row &lt; n and 0 &lt;= col &lt; m and (row, col) not in visited:
+                    new_effort <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= max(abs(heights[r][c] - heights[row][col]), effort)
+                    heapq.heappush(hq, (new</B></FONT>_effort, row, col))
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

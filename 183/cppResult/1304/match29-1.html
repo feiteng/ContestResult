@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_varun32.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_varun32.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>
+public:
+    string longestDiverseString(int a, int b, int c) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string ans = &quot;&quot;;
+        vector&lt;int&gt; cnt = {a,b,c}; 
+        while(ans.length() &lt; a+b+c) {
+            int index = -1;
+            int  val = 0;
+            for(int i = 0; i&lt;=2; i++){
+                if(   !((ans.length()&gt;=2) &amp;&amp; (ans.back() == 'a'+i)
+                  &amp;&amp; (ans[ans.length()-2] == ans.back()) ) ){
+                    if(val &lt; cnt[i])
+                    {
+                        val = cnt[i];</B></FONT>
+                        index = i;
+                    }
+                }
+            }
+            //cout &lt;&lt; ans &lt;&lt; &quot; &quot; &lt;&lt; index &lt;&lt; endl;
+            if(index == -1)
+                return ans;
+            ans+='a'+index;
+            --cnt[index];
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

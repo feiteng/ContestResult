@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>324_DestyFog.java</TITLE>
+ <TITLE>100_flyman3046.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>324_DestyFog.java</CENTER></H3><HR>
+<H3><CENTER>100_flyman3046.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; set1 = new HashMap&lt;&gt;();
-        Map&lt;Long, Integer&gt; set2 = new HashMap&lt;&gt;();
-        
-        putSquare(nums1, set1);
-        putSquare(nums2, set2);
-        
-        int sum = 0;
-        sum += calculate(set1, nums2);
-        sum += calculate(set2, nums1);
-        
-        return sum;
+        return helper(nums1, nums2) + helper(nums2, nums1);
     }
-    
-    void putSquare(int[] nums, Map&lt;Long, Integer&gt; set) {
-        for (int i : nums) {</B></FONT>
-<A NAME="1"></A>            long n = (long)i * (long)i;
-            set.putIfAbsent(n, 0);
-            set.put(n, set.get(n) + 1);
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    }
-    
-    int calculate(Map&lt;Long, Integer&gt; set, int[] nums) {
-<A NAME="2"></A>        int sum = 0;
-        for (int i = 0; i &lt; nums.length - 1; i++) {</B></FONT>
-            for (int j = i + 1; j &lt; nums.length; j++) {
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long n = (long)nums[i] * (long)nums[j];
-                if (set.containsKey(n)) {
-                    sum += set.get(n);
-                }
-            }</B></FONT>
+
+    int helper(int[] nums1, int[] nums2) {
+        int res = 0;
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        Map&lt;Long, Integer&gt; hm = new HashMap&lt;&gt;();
+        for (int v : nums2) {
+            hm.put(1L * v * v, hm.getOrDefault(1L * v * v, 0) + 1);
         }
-        
-        return sum;
+        for (int j = 0; j &lt; n1; j++) {
+            for (int k = j + 1; k &lt; n1; k++) {
+                long mul = 1L * nums1[j] * nums1[k];
+                res += hm.getOrDefault(mul, 0);
+            }
+        }
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

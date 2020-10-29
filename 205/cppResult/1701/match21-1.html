@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>137_linjiale-b.cpp</TITLE>
+ <TITLE>137_astroash.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,94 +15,102 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>137_linjiale-b.cpp</CENTER></H3><HR>
+<H3><CENTER>137_astroash.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF {
 public:
-    int fathera[100005];
-    int fatherb[100005];
-    int getfathera(int x)
-    {
-<A NAME="0"></A>        //cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;fathera[x]&lt;&lt;endl;
-        if(x==fathera[x])
-            return x;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return fathera[x]=getfathera(fathera[x]);
+    vector&lt;int&gt; parent;
+    int numComponents;
+    unordered_map&lt;int, bool&gt; mp;
+    int size;
+
+    UF(int n) {
+        parent.resize(n + 1, -1);
+        numComponents = n;
+        size = 0;
     }
-    int getfatherb(int x)
-    {
-        if(x==fatherb[x])
-            return x;
-        return fatherb[x]=getfatherb(fatherb[x]);
-    }
-    void mergea(int x,int y)
-    {</B></FONT>
-        int tmpa = getfathera(x);
-        //cout&lt;&lt;&quot;!&quot;&lt;&lt;x&lt;&lt;endl;
-        int tmpb = getfathera(y);
-       // cout&lt;&lt;&quot;!!&quot;&lt;&lt;y&lt;&lt;endl;
-        fathera[tmpa] = tmpb;
-       // cout&lt;&lt;&quot;!!!&quot;&lt;&lt;getfathera(x)&lt;&lt;&quot; &quot;&lt;&lt;getfathera(y)&lt;&lt;endl;
-    }
-    void mergeb(int x,int y)
-    {
-        int tmpa = getfatherb(x);
-        int tmpb = getfatherb(y);
-        fatherb[tmpa] = tmpb;
-    }
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        for(int i=1;i&lt;=n;i++)
-<A NAME="1"></A>        {
-            fathera[i]=i;
-            fatherb[i]=i;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        int len = edges.size();
-        int ans = 0;
-        for(int i=0;i&lt;len;i++)
-        {
-            if(edges[i][0]==3)
-            {
-                int tmpa = getfathera(edges[i][1]);
-                int tmpb = getfathera(edges[i][2]);
-                if(tmpa==tmpb)
-                    ans++;
-                else{</B></FONT>
-                    mergea(tmpa,tmpb);
-                    mergeb(tmpa,tmpb);
-                    //cout&lt;&lt;getfathera(tmpa)&lt;&lt;&quot; &quot;&lt;&lt;getfathera(tmpb)&lt;&lt;endl;
-<A NAME="2"></A>                }
-            }
+
+    int find(int x) {
+        int root = x;
+        while(parent[root] &gt; 0) {
+            root = parent[root];
         }
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;len;i++)
-        {
-            if(edges[i][0]==1)
-            {
-                int tmpa = getfathera(edges[i][1]);
-                int tmpb = getfathera(edges[i][2]);
-                if(tmpa==tmpb)
-                    ans++;
-                else{</B></FONT>
-                    mergea(tmpa,tmpb);
-                }
-            }
-            if(edges[i][0]==2)
-            {
-                int tmpa = getfatherb(edges[i][1]);
-                int tmpb = getfatherb(edges[i][2]);
-                if(tmpa==tmpb)
-                    ans++;
-                else{
-                    mergeb(tmpa,tmpb);
-                }
-            }
+
+        // Path Compression
+        while(parent[x] &gt; 0) {
+            int next = parent[x];
+            parent[x] = root;
+            x = next;
         }
-        int tmpa = getfathera(1);
-        int tmpb = getfatherb(1);
-        for(int i=1;i&lt;n;i++)
-            if(getfathera(i)!=tmpa|| getfatherb(i)!=tmpb)
-                return -1;
-        return ans;
+
+        return root;
+    }
+
+    bool unionz(int x, int y) {
+        int root1 = find(x);
+        int root2 = find(y);
+
+        if(root1 == root2)
+            return false;
+        
+        if(!mp[x]) {
+            size++;
+            mp[x] = true;
+        }
+        if(!mp[y]) {
+            size++;
+            mp[y] = true;
+        }
+        
+
+        if(parent[root1] &lt; parent[root2]) {
+            parent[root1] += parent[root2];
+            parent[root2] = root1;
+        } else {
+            parent[root2] += parent[root1];
+            parent[root1] = root2;
+        }
+
+        numComponents--;
+        return true;
     }
 };
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        UF ufAlice(n), ufBob(n);
+        int both, alice, bob;
+        both = alice = bob = 0;
+        
+        int sz = edges.size();
+        
+        for(vector&lt;int&gt; edge : edges) {
+            if(edge[0] == 3) {
+                if(ufAlice.unionz(edge[1], edge[2])) {
+                    ufBob.unionz(edge[1], edge[2]);
+                    both++;
+                }
+            }
+        }
+        
+        for(vector&lt;int&gt; edge : edges) {
+            if(edge[0] == 1) {
+                if(ufAlice.unionz(edge[1], edge[2]))
+                    alice++;
+            }
+            else if(edge[0] == 2) {
+                if(ufBob.unionz(edge[1], edge[2]))
+                    bob++;
+            }
+        }
+        
+        if(ufAlice.size != n || ufBob.size != n)
+            return -1;
+        
+        return sz - (alice + bob + both);
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>690_xyzzzzzzzz.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>690_xyzzzzzzzz.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution(object):
+    def cherryPickup(self, grid):
+        &quot;&quot;&quot;
+        :type grid: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        memo = {}
+        
+        def pick(x, y1, y2):
+            if (x, y1, y2) in memo:
+                return memo[(x, y1, y2)]
+            if x &gt;= len(</B></FONT>grid):
+                return 0
+            cur = 0
+            for yy1 in [y1 + 1, y1, y1 - 1]:
+                for yy2 in [y2+1, y2, y2 - 1]:
+                    if 0 &lt;= yy1 &lt; len(grid[0]) and 0 &lt;= yy2 &lt; len(grid[0]):
+                        cur = max(cur, pick(x+1, yy1, yy2))
+            memo[(x, y1, y2)] = cur
+            if y1 != y2:
+                memo[(x, y1, y2)] +=  grid[x][y1]
+            memo[(x, y1, y2)] += grid[x][y2]           
+            return memo[(x, y1, y2)]
+        
+        pick(0, 0, len(grid[0])-1)
+        return memo[(0, 0, len(grid[0])-1)]
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

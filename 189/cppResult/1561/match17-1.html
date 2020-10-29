@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>569_jainor.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>569_jainor.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string arrangeWords(string text) {
+        text[0] = tolower(text[0]);
+        stringstream ss(text);
+        int p = 0;
+        string tmp;
+        vector&lt; pair&lt;int, pair&lt;int,string&gt; &gt; &gt; T;
+<A NAME="0"></A>        while( ss &gt;&gt; tmp ){
+            T.push_back({tmp.size(), {p,tmp}});
+            ++p;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        string ans;
+        sort(T.begin(),T.end());
+        bool first = true;
+        for(auto &amp;x:T){
+            if( first )
+                x.second.second[0] = toupper(x.second.second[0]);
+            else 
+                ans += &quot; &quot;;
+            first = false;
+            ans+= x.second.second;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

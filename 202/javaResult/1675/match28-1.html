@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>492_guoyihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>492_guoyihua.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxDistance(int[] arr, int k) {
+        Arrays.sort(arr);
+        
+        int result = 0;
+        int n = arr.length;
+        
+        int l = 0, r = arr[n-1];
+        
+        while (l &lt;= r) {
+            int mid = (l + r) / 2;
+            
+            if (check(arr, mid, k)) {
+                result = Math.max(result, mid);
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+        
+        return result;
+    }
+<A NAME="1"></A>    
+    private boolean check(int[] arr, int mid, int k</B></FONT>) {
+        int n = arr.length;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int curr = arr[0], cnt = 1;
+        for (int i = 1; i &lt; n; i++) {
+            if (arr[i] - curr &gt;= mid) {
+                curr = arr[i];
+                cnt++;
+                
+                if (cnt == k) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

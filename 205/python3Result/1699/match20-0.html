@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>431_shiridisaiprasad.py</TITLE>
+ <TITLE>170_wincss.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>431_shiridisaiprasad.py</CENTER></H3><HR>
+<H3><CENTER>170_wincss.py</CENTER></H3><HR>
 <PRE>
-import collections 
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        counts1 = collections.Counter(i*i for i in nums1)
-        counts2 = collections.Counter<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(i*i for i in nums2)
-        ans = 0 
-        for i in range(0, len(nums1)):
-            for j in range(i+1, len(nums1)):
-                ans += counts2[nums1[i]*nums1[j]] 
-        for i in range(0, len(nums2)):
-            for j in range(i+1, len(nums2)):
-                ans += counts1[nums2[i]*nums2[j]]
-        re</B></FONT>turn ans 
+        l1 = len(nums1)
+        l2 = len(nums2)
+        n1 = {}
+        n2 = {}
+        for i in range(l1):
+            n1.setdefault(nums1[i], []).append(i)
+        for i in range(l2):
+            n2.setdefault(nums2[i], []).append(i)
+        ans = 0
+        for i in n1:
+            si = i * i
+            for j in n2:
+                if si % j != 0 or si // j not in n2:
+                    continue
+                for x in n2[j]:
+                    for y in n2[si // j]:
+                        #print(1, x, y)
+                        if x &lt; y:
+                            ans += len(n1[i])
+        for i in n2:
+            si = i * i
+            for j in n1:
+                if si % j != 0 or si // j not in n1:
+                    continue
+                for x in n1[j]:
+                    for y in n1[si // j]:
+                        #print(2, x, y)
+                        if x &lt; y:
+                            ans += len(n2[i])
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

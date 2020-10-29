@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>306_ye15.py</TITLE>
+ <TITLE>110_dirtysalt.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,67 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>306_ye15.py</CENTER></H3><HR>
+<H3><CENTER>110_dirtysalt.py</CENTER></H3><HR>
 <PRE>
-class UnionFind:
-<A NAME="0"></A>    def __init__(self, n):
-        self.parent = list(range(n))
-        self.rank = [1]*n
-        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.count = n
-        
-    def find(self, p):
-        if p != self.parent[p]: 
-            self.parent[p] = self.find(self.parent[p])
-        return self.parent[p]
-    
-    def union(self, p, q):
-        prt, qrt = self.find(</B></FONT>p), self.find(q)
-        if prt == qrt: return 
-        self.count -= 1
-        if self.rank[prt] &gt; self.rank[qrt]: prt, qrt = qrt, prt
-        self.parent[prt] = qrt
-        self.rank[qrt] += self.rank[prt]
-
-        
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        ufa = UnionFind(n) # for Alice
-        ufb = UnionFind(n) # for Bob
+        A = [0] * (n+1)
+        B = [0] * (n+1)
         
-        ans = 0
+        def merge(fu, x, y):
+            if x == y: return
+            fu[x] = y
         
-        edges.sort(reverse=True) 
-        for t, u, v in edges: 
-<A NAME="1"></A>            u -= 1
-            v -= 1
-            if t == 3: # Alice &amp; Bob
-                if ufa<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.find(u) == ufa.find(v): ans += 1
-                else: 
-                    ufa.union(u, v)
-                    ufb.union(u, v)
-            elif t == 2: # Bob only
-                if ufb.find(u) == ufb.find(v): ans += 1
-                else: ufb.union(u, v)
-            else: # Alice only
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: ufa.union(u, v)
-                    
-        return ans if ufa.count == 1 and ufb.c</B></FONT>ount == 1 else -1
+        def parent(fu, x):
+            p = x
+            while fu[p] != 0:
+                p = fu[p]
+            
+            while x != p:
+                x2 = fu[x]
+                fu[x] = p
+                x = x2
+            return p
+        
+        edges = [tuple(x) for x in edges]
+        edges.sort(reverse = True)
+        c = 0
+        for t, x, y in edges:
+            if t == 3:
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                p3 = parent(B, x)
+                p4 = parent(B, y)
+                if (p1 != p2) or (p3 != p4):
+                    c += 1
+                    merge(A, p1, p2)
+                    merge(B, p3, p4)
+            
+            elif t == 1:
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                if p1 != p2:
+                    c += 1
+                    merge(A, p1, p2)
+            
+            else:
+                p1 = parent(B, x)
+                p2 = parent(B, y)
+                if p1 != p2:
+                    c += 1
+                    merge(B, p1, p2)
+            
+        p0 = parent(A, 1)
+        p1 = parent(B, 1)
+        for i in range(1, n+1):
+            p = parent(A, i)
+            if p != p0: return -1
+            p = parent(B, i)
+            if p != p1: return -1
+            
+        ans = len(edges) - c
+        re</B></FONT>turn ans
+        
 </PRE>
 
 </BODY>

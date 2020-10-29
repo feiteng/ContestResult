@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>271_fanstyle.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>271_fanstyle.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+     public int minDays(int[] bloomDay, int m, int k) {
+        if(bloomDay.length / m &lt; k) return -1;
+
+<A NAME="1"></A>        int[] copy = new int[bloomDay.length]</B></FONT>;
+        System.arraycopy(bloomDay, 0, copy, 0, bloomDay.length);
+        Arrays.sort(copy);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int l = 0, r = copy.length - 1;
+        while (l &lt; r) {
+            int mid = (l + r) &gt;&gt;&gt; 1;
+            if (checkmid(bloomDay, copy[mid], k) &lt; m) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+<A NAME="2"></A>        return</B></FONT> copy[l];
+    }
+
+    private int checkmid(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] bloomDay, int level, int k) {
+        int counter = 0;
+        int bouquets = 0;
+<A NAME="3"></A>        for(int i = 0; i &lt; bloomDay.length; i++) {
+            if(bloomDay[i] &lt;= level) {</B></FONT>
+                counter++;
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
+                bouquets += counter/k;
+                counter = 0;
+            }
+        }
+        bouquets += counter/k; // the last piece
+        return bouquets;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

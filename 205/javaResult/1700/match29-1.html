@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>309_fighting_for_flag.java</TITLE>
+ <TITLE>208_KKKXY.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>309_fighting_for_flag.java</CENTER></H3><HR>
+<H3><CENTER>208_KKKXY.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        Stack&lt;Integer&gt; stack=new Stack&lt;&gt;();
-        int res=0;
-        for(int i=0;i&lt;s.length();i++){
-            if(!stack.isEmpty()&amp;&amp;s.charAt(stack.peek())==s.charAt(i)){</B></FONT>
-                if(cost[stack.peek()]&lt;cost[i]){
-                    res+=cost[stack.peek()];
-                    stack.pop();
-                    stack.push(i);
+        int sol = 0;
+        int ct = 1;
+        int max = cost[0];
+        int tot = cost[0];
+        for (int i = 1; i &lt;= s.length(); i++) {
+            if (i &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i-1)) {
+                ct++;
+                tot += cost[i];
+                max = Math.max(max, cost[i]);
+            } else {
+                if (ct &gt; 1) {
+                    sol += tot - max;
                 }
-<A NAME="1"></A>                else {
-                    res+=cost[i];
+                if (i != s.length()) {
+                    max = cost[i];
+                    tot = cost[i];
+                    ct = 1;
                 }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else stack.push(i);
+            }
         }
-        return res;
+        return sol;
     }
 }</B></FONT>
 </PRE>

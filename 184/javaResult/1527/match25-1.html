@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>430_kdang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>430_kdang.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int gm(int c1, int c2, int c3) {
+        return (c1 &lt;&lt; 4) | (c2 &lt;&lt; 2) | c3;
+    }
+<A NAME="0"></A>    public boolean check(int c1, int c2, int c3, int d1, int d2, int d3) {
+        return (c1 != c2 &amp;&amp; c2 != c3 &amp;&amp; d1 != d2 &amp;&amp; d2 != d3 &amp;&amp; c1 != d1 &amp;&amp; c2 != d2 &amp;&amp; c3 != d3);
+    }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int numOfWays(int n) {
+        int MV = 1000000007;
+        int[][] f = new int[2][43];
+        for (int i = 0; i &lt;= 2; ++i) {
+            for (int j = 0; j &lt;= 2; ++j) {
+<A NAME="1"></A>                for (int k = 0; k &lt;= 2; ++k) {</B></FONT>
+                    if (i != j &amp;&amp; j != k)
+                        f[0][gm(i, j, k)] = 1;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        for (int i = 1; i &lt; n; ++i) {
+            for (int c1 = 0; c1 &lt;= 2; ++c1) {
+                for (int c2 = 0; c2 &lt;= 2; ++c2) {
+<A NAME="2"></A>                    for (int c3 = 0; c3 &lt;= 2; ++c3) {</B></FONT>
+                        int mc = gm(c1, c2, c3);
+                        f[i % 2][mc] = 0;
+                        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int d1 = 0; d1 &lt;= 2; ++d1) {
+                            for (int d2 = 0; d2 &lt;= 2; ++d2) {
+                                for (int d3 = 0; d3 &lt;= 2; ++d3) {
+<A NAME="3"></A>                                    if</B></FONT> (check(c1, c2, c3, d1, d2, d3)) {
+                                        f[i % 2][mc] += f[(i + 1) % 2][gm(d1, d2, d3)];
+                                        if (f[i % 2][mc] &gt;= MV) f[i % 2][mc] -= MV;
+                                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        int s = 0;
+        for (int c1 = 0; c1 &lt;= 2; ++c1) {
+            for (int c2 = 0; c2 &lt;= 2; ++c2) {
+                for (int c3 = 0; c3 &lt;= 2; ++c3) {</B></FONT>
+<A NAME="4"></A>                    int mc = gm(c1, c2, c3);
+                    s += f[(n - 1) % 2][mc];
+                    if (s &gt; MV) s -= MV;
+                <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#4',2,'match25-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return s;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

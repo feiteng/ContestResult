@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>206_rajdetroja.cpp</TITLE>
+ <TITLE>117_fallleaves01.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>206_rajdetroja.cpp</CENTER></H3><HR>
+<H3><CENTER>117_fallleaves01.cpp</CENTER></H3><HR>
 <PRE>
-#define ll long long
-class Solution {
-<A NAME="0"></A>public:
-    int numTriplets(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = a.size();
-        int m = b.size();
-        
-        map&lt;ll,ll&gt; x,y;
-        
-        for(int i=0;i&lt;n;i++){
-            for(int j=i+1;j&lt;n;j++){
-                x[(ll)a[i]*a[j]]++;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    static const int N=1e5+5;
+    int cnt1[N],cnt2[N];
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        int l1=nums1.size(),l2=nums2.size(),ans=0;
+        for (int i=0;i&lt;l1;i++) ++cnt1[nums1[i]];
+        for (int i=0;i&lt;l2;i++) ++cnt2[nums2[i]];
+        for (int i=0;i&lt;l1;i++)
+            for (int j=i+1;j&lt;l1;j++)
+            {
+                long long sq=sqrt(1ll*nums1[i]*nums1[j]);
+                if (sq&lt;N&amp;&amp;sq*sq==1ll*nums1[i]*nums1[j])
+                    ans+=cnt2[sq];
             }
-        }
-        
-        for(int i=0;i&lt;m;i++){
-            for(int j=i+1;j&lt;m;j++){
-                y[(ll)b[i]*b[j]]++;
+        for (int i=0;i&lt;l2;i++)
+            for (int j=i+1;j&lt;l2;j++)
+            {
+                long long sq=sqrt(1ll*nums2[i]*nums2[j]);
+                if (sq&lt;N&amp;&amp;sq*sq==1ll*nums2[i]*nums2[j])
+                    ans+=cnt1[sq];
             }
-        }
-        
-        ll ans = 0;
-        
-        for(int i=0;i&lt;n;i++){
-            ans += y[(ll)a[i]*a[i]];
-        }
-        
-        for(int j=0;j&lt;m;j++){
-            ans += x[(ll)b[j]*b[j]];
-        }
-        
         return ans;
-        
     }
 };</B></FONT>
 </PRE>

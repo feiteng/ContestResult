@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>684_majestyhao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>684_majestyhao.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getMinDistSum(self, positions: List[List[int]]) -&gt; float:
+        dirs = [[0, -1e-4], [0, 1e-4], [-1e-4, 0], [1e-4, 0]]
+        def dist(pos, x, y):
+<A NAME="0"></A>            res = 0
+            for p in pos:
+                res += sqrt((p[0] - x) ** 2 + (p[1] - y) ** 2)
+            r<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn res
+        x, y = 0, 0
+        for p in positions:
+            x += p[0]
+            y += p[1]
+        x /= len(positions)
+        y /= len(positions)
+        
+        # start by finding the sum of distances to the center of gravity
+        d = dist(positions, x, y);
+
+        # our step value, chosen by experimentation
+        step = 100;
+
+        # done is used to keep track of updates: if none of the neighbors of the current
+        # point that are *step* steps away improve the solution, then *step* is too big
+        # and we need to look closer to the current point, so we must half *step*.
+        done =</B></FONT> 0;
+        eps = 1e-5
+        t = 0
+        # while we still need a more precise answer
+        while step &gt; eps: 
+            done = 0
+<A NAME="1"></A>            for di in dirs:
+                # check the neighbors in all 4 directions.
+                nx = x + step * di[0];
+                ny = y + step * di<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[1];
+
+                # find the sum of distances to each neighbor
+                t = dist(positions, nx, ny);
+
+                # if a neighbor offers a better sum of distances
+                if  t &lt; d:
+                #update the current minimum
+                    d = t;
+                    x = nx;
+                    y = ny;
+
+                    # an improvement has been made, so
+                    # don't half step in the next iteration, because we might need
+                    # to jump the same amount again
+                    done = 1;
+                    break    
+
+            # half the step size, because no update has been made, so we might have
+            # jumped too much, and now we need to head back some.
+            if not done: 
+                step /= 2
+        re</B></FONT>turn t
+    
+        
+</PRE>
+
+</BODY>
+</HTML>

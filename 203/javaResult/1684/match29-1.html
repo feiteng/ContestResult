@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>592_carolinebear.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>592_carolinebear.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int findLatestStep(int[] arr, int m) {
+<A NAME="1"></A>        Map&lt;Integer, Node&gt; start = new HashMap&lt;&gt;();
+        Map&lt;Integer, Node&gt; end = new HashMap&lt;&gt;();
+        int res = -1</B></FONT>;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count = 0;
+        for(int i = 0; i &lt; arr.length; i++){
+            int s = arr[i];
+            int e = arr[i];
+            int val = 1;
+            if(end.containsKey(arr[i] - 1)){</B></FONT>
+                val += end.get(arr[i] - 1).val;
+                s = end.get(arr[i] - 1).start;
+                if (end.get(arr[i] - 1).val == m){
+                    count--;
+                }
+                end.remove(arr[i] - 1);
+            }
+            if(start.containsKey(arr[i] + 1)){
+                val += start.get(arr[i] + 1).val;
+                e = start.get(arr[i] + 1).end;
+                if (start.get(arr[i] + 1).val == m){
+                    count--;
+                }
+                start.remove(arr[i] + 1);
+            }
+            Node node = new Node(s, e, val);
+            start.put(s, node);
+            end.put(e, node);
+<A NAME="2"></A>            if (val == m){
+                count++;
+            }
+            if(count &gt; 0)<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res = i + 1;
+            }
+        }
+        return res;
+    }
+}
+
+class Node{
+    int start;
+    int end;
+    int val;
+    public Node(int start, int end, int val){
+        this.start = start;
+        this.end = end;
+        this.val = val;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

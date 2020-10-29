@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>93_zanj0.cpp</TITLE>
+ <TITLE>103_illenium-k.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>93_zanj0.cpp</CENTER></H3><HR>
+<H3><CENTER>103_illenium-k.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>#define maxn 1000005
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int p[maxn];
+
+class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int ret = 0;
-        int i = 0;
-        int n = s.size();
-        while(i &lt; n){
-            int sum = cost[i];
-            int maxVal = cost[i];
-            int j = i + 1;
-            while(j &lt; n &amp;&amp; s[i] == s[j]){
-                sum += cost[j];
-                maxVal = max(maxVal, cost[j]);
-                j++;
+        string t=&quot;&quot;; t+=s[0]; p[0]=0; int ans=0,ed=0;
+        for(int i=1;i&lt;s.length();i++)
+        {
+            if(s[i]==t[ed])
+            {
+                if(cost[p[ed]]&gt;cost[i])
+                {
+                    ans+=cost[i];
+                }
+                
+                else
+                {
+                    ans+=cost[p[ed]];
+                    p[ed]=i;
+                }
             }
             
-                ret += (sum - maxVal);
-            
-            i = j;
+            else t+=s[i],ed++,p[ed]=i;
         }
-        return ret;
+        return ans;
     }
 };</B></FONT>
 </PRE>

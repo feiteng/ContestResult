@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>154_nagabhushan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>154_nagabhushan.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private int[] id;
+    
+    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] e) {
+        id = new int[n];
+        for(int i=0; i&lt;n; i++) id[i] = i;
+        
+        int mst = 0;
+        
+        int[][] edges = new int[e.length][3];
+        
+        for(int i=0; i&lt;e.length; i++) {
+            edges[i] = new int[]{e[i][0], e[i][1], e[i][2], i};
+        }
+        
+        Arrays.sort(edges, (p, q)-&gt;(p[2]-q[2]));
+        
+        int comps = n;
+        
+        
+        for(int[] edge: edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            
+            if (connected(u, v)) continue;
+            
+            union(u, v);
+            
+            mst+=w;
+            
+            comps--;
+            
+        }
+        
+        System.out.println(mst);
+        
+        if (comps!=1) return new ArrayList&lt;&gt;();
+        
+<A NAME="3"></A>        List&lt;Integer&gt; ans1 = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; ans2 = new ArrayList&lt;&gt;();
+        
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#3',2,'match35-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int[] edge1: edges) {
+            for(int i=0; i&lt;n; i++) {
+                id[i] = i;
+            }</B></FONT>
+            int u1 = edge1[0];
+            int v1 = edge1[1];
+            int w1 = edge1[2];
+            
+            union(u1, v1);
+            
+            
+            int cmst = w1;
+            comps = n-1;
+            
+            for(int[] edge2: edges) {
+                int u2 = edge2[0];
+                int v2 = edge2[1];
+                int w2 = edge2[2];
+                
+                // if (u2==u1 &amp;&amp; v2==v1) continue;
+
+                if (connected(u2, v2)) continue;
+
+                union(u2, v2);
+                comps--;
+
+                cmst+=w2;
+
+            }
+            
+            if (cmst!=mst || comps!=1) continue;
+            
+            cmst = 0;
+            comps = n;
+            
+            
+            for(int i=0; i&lt;n; i++) {
+                id[i] = i;
+            }
+            
+            for(int[] edge2: edges) {
+                int u2 = edge2[0];
+                int v2 = edge2[1];
+                int w2 = edge2[2];
+                
+                if (u2==u1 &amp;&amp; v2==v1) continue;
+
+                if (connected(u2, v2)) continue;
+
+                union(u2, v2);
+
+                cmst+=w2;
+                comps--;
+
+            }
+            
+//             if (edge1[3]==3) {
+//                 System.out.println(comps+&quot; --- &quot;+cmst);
+//             }
+<A NAME="2"></A>            
+//             System.out.println(u1+&quot; &quot;+v1+&quot; &quot;+comps+&quot; &quot;+cmst);
+            
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (comps==1 &amp;&amp; cmst==mst) {
+                ans1.add(edge1[3]);
+            } else {
+                
+                ans2.add(edge1[3]);
+            }
+            
+            // if (comps!=1  cmst!=mst) {
+            //     ans1.add(edge1[3]);
+            // } else {
+            //     ans2.add(edge1[3]);
+            // }
+            
+        }</B></FONT>
+        
+        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;&gt;();
+        
+        ans.add(ans2);
+        ans.add(ans1);
+        
+        return ans;
+        
+    }
+    
+    private int root(int u) {
+        while(u!=id[u]) {
+<A NAME="0"></A>            id[u] = id[id[u]];
+            u = id[u];
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return u;
+    }
+    
+<A NAME="1"></A>    private void union(int u, int v) {
+        int p = root(u);
+        int q = root</B></FONT>(v);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>id[p] = q;
+    }
+    
+    private boolean connected(int u, int v) {
+        return root</B></FONT>(u)==root(v);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

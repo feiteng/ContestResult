@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>260_anhpp.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>260_anhpp.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int [] res;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char[] label;
+    ArrayList&lt;Integer&gt; [] neigh;
+    boolean[] visited;
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+        label = labels.toCharArray();
+        res = new int[n];
+<A NAME="1"></A>        neigh = new</B></FONT> ArrayList[n];
+        visited = new boolean[n];
+        visited[0] = true;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; n; i++)
+            neigh[i] = new ArrayList();
+        for(int [] edge : edges)
+        {
+            neigh[edge[0]].add(edge[1]);
+            neigh[edge[1]].add(edge[0]);
+        }        
+        dfs(0);
+        return res;
+    }
+    int[] dfs(int node</B></FONT>){
+        int[] cnt = new int[26];
+        cnt[label[node] - 'a']++;
+        for(int child : neigh[node])
+<A NAME="2"></A>        {
+            if(visited[child]) continue;
+            visited[child] = true;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] tmp = dfs(child);
+            for(int j = 0; j &lt; 26; j++)
+                cnt[j] += tmp[j];
+        }
+        res[node] = cnt[label[node] - 'a'];
+        return cnt;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>526_sevenbunny.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>526_sevenbunny.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def constrainedSubsetSum(self, nums: List[int], k: int) -&gt; int:
+        # keep a queue that tracks max
+        dp = [-float('inf')] * len(nums)
+<A NAME="0"></A>        dp[-1] = nums[-1]
+        q = deque([(dp[-1], len(nums)-1)])
+        for i in range(len(nums)-1)[::-1]:
+            dp[i] = max(nums[i], q[0][0]+nums<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i])
+            while q and q[-1][0] &lt; dp[i]:
+                q.pop()
+            q.append((dp[i],i))
+            if q[0][1] - i == k:
+                q.popleft()
+        return max(</B></FONT>dp)
+    
+    def constrainedSubsetSum2(self, nums: List[int], k: int) -&gt; int:
+        dic = {}
+        def backtrack(i, currIdx):
+            if i == len(nums):
+                return 0
+            ret = -float('inf')
+            # use
+            if nums[i]-1 in dic and currIdx - dic[nums[i]-1] &gt; k:
+                pass
+            else:
+                dic[nums[i]] = currIdx
+                ret = max(ret, nums[i] + backtrack(i+1, currIdx+1))
+                del dic[nums[i]]
+            ret = max(ret, backtrack(i+1, currIdx))
+            return ret
+        return backtrack(0, 0)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>255_nicmit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>255_nicmit.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        priority_queue&lt; pair&lt;int, char&gt; &gt; pq;
+        if(a &gt; 0)
+            pq.push({a, 'a'});
+        if(b &gt; 0)
+            pq.push({b, 'b'});
+        if(c &gt; 0)
+            pq.push({c, 'c'});
+        string s;
+        while(!pq.empty())
+        {
+            auto p = pq.top();
+            pq.pop();
+            if(s.size() &gt;= 2 &amp;&amp; s[s.size() - 1] == p.second &amp;&amp; s[s.size() - 2] == p.second)</B></FONT>
+            {
+                if(!pq.empty())
+                {
+                    auto p2 = pq.top();
+                    pq.pop();
+                    s.push_back(p2.second);
+                    p2.first -= 1;
+                    if(p2.first &gt; 0)
+                        pq.push(p2);
+                }
+                else
+                    break;
+            }
+            s.push_back(p.second);
+            p.first -= 1;
+            if(p.first &gt; 0)
+                pq.push(p);
+        }
+        return s;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

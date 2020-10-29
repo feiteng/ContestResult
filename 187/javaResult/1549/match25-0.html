@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>83_Final20.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>83_Final20.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        TreeMap&lt;Integer, Integer&gt; valToFreq = new TreeMap&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int slow = 0;
+        int maxLen = 0;
+        
+        for (int fast = 0; fast &lt; nums.length; fast++) {
+            // 1. add fast
+            valToFreq.put(nums[fast], valToFreq.getOrDefault(nums[fast], 0) + 1);
+            
+            // 2. move slow
+            while (Math.abs(valToFreq.lastKey() - valToFreq.firstKey()) &gt; limit &amp;&amp; slow &lt;= fast) {
+                valToFreq.put(nums[slow], valToFreq.get</B></FONT>(nums[slow]) - 1);
+                if (valToFreq.get(nums[slow]) == 0) {
+<A NAME="1"></A>                    valToFreq.remove(nums[slow]);
+                }
+                slow++;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            
+            // 3. update result
+            maxLen = Math.max(maxLen, fast - slow + 1);
+        }
+        
+        return maxLen;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

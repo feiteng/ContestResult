@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>407_garrett9.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>407_garrett9.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    Integer [][] dp;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public String stoneGameIII(int[] stones) {
+        int n = stones.length;
+        int [] pre = new int[n];
+        pre[0] = stones[0];
+        for(int i = 1; i &lt; n; i++){</B></FONT>
+<A NAME="1"></A>            pre[i] = pre[i - 1] + stones[i];
+        }
+        dp = new Integer[n][2];
+        int total = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>solve(0, stones, pre, true);
+        if(total == 0){
+            return &quot;Tie&quot;;
+        }else if(total &gt; 0){
+            return &quot;Alice&quot;;
+        }else{
+            return &quot;Bob&quot;;
+        }
+    }</B></FONT>
+    public int solve(int index, int [] stones, int [] pre, boolean alice){
+        if(index == stones.length){
+            return 0;
+        }
+        int loc = alice == true ? 0 : 1;
+        if(dp[index][loc] != null){
+            return dp[index][loc];
+        }
+        if(alice){
+            int level = solve(index + 1, stones, pre, !alice) + getVal(index, index, pre);
+            for(int i = index + 1; i &lt; stones.length &amp;&amp; i &lt; index + 3; i++){
+                level = Math.max(level, solve(i + 1, stones, pre, !alice) + getVal(index, i, pre));
+            }
+            dp[index][loc] = level;
+            return level;
+        }else{
+            int level = solve(index + 1, stones, pre, !alice) - getVal(index, index, pre);
+            for(int i = index + 1; i &lt; stones.length &amp;&amp; i &lt; index + 3; i++){
+                level = Math.min(level, solve(i + 1, stones, pre, !alice) - getVal(index, i, pre));
+            }
+            dp[index][loc] = level;
+            return level;
+        }
+    }
+    public int getVal(int l, int r, int [] pre){
+        if(l == 0){
+            return pre[r];
+        }else{
+            return pre[r] - pre[l - 1];
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

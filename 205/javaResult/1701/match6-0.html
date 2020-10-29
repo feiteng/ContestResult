@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>347_xtdong1001.java</TITLE>
+ <TITLE>220_HenryLee4.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,84 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>347_xtdong1001.java</CENTER></H3><HR>
+<H3><CENTER>220_HenryLee4.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    int[] parents;
-    int count;
-    public int maxNumEdgesToRemove(int n, int[][] edges) {
-<A NAME="0"></A>        int res = 0;
-        parents = new int[n];
-        count = n;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; n; i++) {
-            parents[i] = i;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+  private int[] parents, ranks;
+
+  public int maxNumEdgesToRemove(int n, int[][] edges) {
+    Arrays.sort(edges, new Comparator&lt;int[]&gt;() {
+      @Override
+      public int compare(int[] a, int[] b) {
+        if (a[0] == 3) {
+          return -1;
+        } else if (b[0] == 3) {
+          return 1;
+        } else {
+          return 0;
         }
-        
-        for(int[] edge : edges) {
-            if(edge[0] == 3) {
-                if(!union(edge[1]-1, edge[2]-1))
-                    res++;
-            }
-        }</B></FONT>
-        
-        int[] parentsTmp = new int[n];
-        int countTmp = count;
-        
-        for(int i = 0; i &lt; n; i++) {
-<A NAME="1"></A>            parentsTmp[i] = parents[i];
+      }
+    });
+    int tmp = maxNumEdgesToRemove(n, edges, 1);
+    if(tmp == -1){
+      return -1;
+    }
+    int res = tmp;
+    tmp = maxNumEdgesToRemove(n, edges, 2);
+    if(tmp == -1){
+      return -1;
+    }
+    return res + tmp;
+  }
+
+  private int maxNumEdgesToRemove(int n, int[][] edges, int type) {
+    parents = new int[n + 1];
+    for (int i = 0; i &lt;= n; i++) {
+      parents[i] = i;
+    }
+    ranks = new int[n + 1];
+    int res = 0;
+    for (int[] edge : edges) {
+      if (edge[0] != 3 - type &amp;&amp; !union(edge[1], edge[2])) {
+        if(edge[0] != 3 || type == 1) {
+          res++;
         }
-        
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int[] edge : edges) {
-            if(edge[0] == 1) {
-                if(!union(edge[1]-1, edge[2]-1))
-                    res++;
-            }
-        }</B></FONT>
-        if(count != 1)
-            return -1;
-        
-<A NAME="2"></A>        
-        parents = parentsTmp;
-        count = countTmp;
-        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int[] edge : edges) {
-            if(edge[0] == 2) {
-                if(!union(edge[1]-1, edge[2]-1))
-                    res++;
-            }
-        }</B></FONT>
-        if(count != 1)
-            return -1;
-        
-        return res;
+      }
     }
-    
-    private int find(int p) {
-        if(p != parents[p])
-            parents[p] = find(parents[p]);
-<A NAME="3"></A>        return parents[p];
+    int par = find(1);
+    for(int i = 1; i &lt;= n ; i++){
+      if(find(i) != par){
+        return -1;
+      }
     }
-    
-    private boolean union(<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match6-1.html#3',3,'match6-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int p, int q) {
-        int rootp = find(p);
-        int rootq = find(q);
-        
-        if(rootp == rootq)
-            return false;
-        
-        parents[rootp] = rootq;
-        count--;
-        return true;
+    return res;
+  }
+
+  private boolean union(int u, int v) {
+    int pu = find(u);
+    int pv = find(v);
+    if (pu == pv) {
+      return false;
     }
+    if (ranks[pu] &lt; ranks[pv]) {
+      parents[pu] = pv;
+      ranks[pv] += ranks[pu];
+    } else {
+      parents[pv] = pu;
+      ranks[pu] += ranks[v];
+    }
+    if (ranks[pu] == ranks[pv]) {
+      ranks[pu]++;
+    }
+    return true;
+  }
+
+  private int find(int u) {
+    if (parents[u] != u) {
+      parents[u] = find(parents[u]);
+    }
+    return parents[u];
+  }
 }</B></FONT>
 </PRE>
 

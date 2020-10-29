@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>85_cszclin.cpp</TITLE>
+ <TITLE>130_vieta.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>85_cszclin.cpp</CENTER></H3><HR>
+<H3><CENTER>130_vieta.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-<A NAME="0"></A>    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        unordered_map&lt;long long int, int&gt; um1, um2;
-        int n1 = nums1.size(), n2 = nums2.size();
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long int base = 1;
-        for (int i = 0; i &lt; n1; i++) {
-            for (int j = i + 1; j &lt; n1; j++) {
-                
-                um1[base * nums1[i] * nums1[j]]++;
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        unordered_map&lt;long long,long long&gt; s1,m1,m2,s2;
+        for (int i = 0; i &lt; nums1.size(); i++) {
+            s1[(long long)nums1[i]*nums1[i]]++;
+        }
+        for (int i = 0; i &lt; nums2.size(); i++) {
+            s2[(long long)nums2[i]*nums2[i]]++;
+        }
+        int res = 0;
+        for (int i = 0; i &lt; nums1.size(); i++) {
+            for (int j = i + 1; j &lt; nums1.size(); j++) {
+                res += s2[(long long)nums1[i] * nums1[j]];
             }
         }
-        for (int i = 0; i &lt; n2; i++) {
-            for (int j = i + 1; j &lt; n2; j++) {
-<A NAME="1"></A>                um2[base * nums2[i] * nums2[j]]++;
+        for (int i = 0; i &lt; nums2.size(); i++) {
+            for (int j = i + 1; j &lt; nums2.size(); j++) {
+                res += s1[(long long)nums2[i] * nums2[j]];
             }
-        }</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
-        for (int i = 0; i &lt; n1; i++) {
-            res += um2[base * nums1[i] * nums1[i]];
-        }
-        for (int i = 0; i &lt; n2; i++) {
-            res += um1[base * nums2[i] * nums2[i]];
         }
         return res;
     }

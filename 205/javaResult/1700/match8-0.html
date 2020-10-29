@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>188_aureole999.java</TITLE>
+ <TITLE>202_Neymars.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>188_aureole999.java</CENTER></H3><HR>
+<H3><CENTER>202_Neymars.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int minCost(String s, int[] cost) {
-        char[] ch = s.toCharArray();
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>char prev = '0';
-        int max = 0;
-        int sum = 0;
-        int res = 0;
-        for (int i = 0; i &lt; ch.length; i++) {
-            if (ch[i] == prev) {
-                sum += cost[i];
-                max = Math.max(max, cost[i]);
-            } else {
-                res += sum - max;
-                max = cost[i];
-                sum = max;
-            }
-            prev = ch[i];
+
+        int ans = 0;
+        int n = s.length();
+        Stack&lt;Integer&gt; st = new Stack&lt;&gt;();
+
+        for (int i = 0; i &lt; n; i++) {
+            if (!st.isEmpty() &amp;&amp; s.charAt(st.peek()) == s.charAt(i)) {
+                int index = st.pop();
+                ans += Math.min(cost[index], cost[i]);
+                if (cost[index] &lt; cost[i]) index = i;
+                st.add(index);
+            } else
+                st.add(i);
         }
-        res += sum - max;
-        return res;
+
+        return ans;
     }
 }</B></FONT>
 </PRE>

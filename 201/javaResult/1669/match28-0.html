@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private static final int INF = 987654321;
+    
+    public int minCost(int n, int[] cuts) {
+        final int N = cuts.length + 2;
+        final int[] A = new int[N];
+        System.arraycopy(cuts, 0, A, 0, cuts.length);
+<A NAME="0"></A>        A[N - 1] = n;
+        Arrays.sort(A);
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] best = new int[N][N];
+        for (int i = 0; i &lt; N; ++i) {
+            Arrays.fill(best[i], INF);
+        }
+        for (int i = 0; i + 1 &lt; N; ++i) {
+            best[i][i + 1] = 0;
+        }
+        for (int sz = 2; sz &lt; N; ++sz) {
+            for (int i = 0; i + sz &lt; N; ++i) {
+<A NAME="1"></A>                int k = i + sz;
+                for (int j = i + 1; j &lt; k; ++j) {</B></FONT>
+                    int c = A[k] - A[i];
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>best[i][k] = Math.min(best[i][k], c + best[i][j] + best[j][k]);
+                }
+            }
+        }
+        return best[0][N - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

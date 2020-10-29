@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_lzl124631x.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_lzl124631x.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>unsigned long long power(unsigned long long x, 
+                         int y, int p) 
+{ 
+    unsigned long long res = 1; // Initialize result 
+  
+    x = x % p; // Update x if it is more than or 
+    // equal to p 
+  
+    while (y &gt; 0) { 
+        // If y is odd, multiply x with result 
+        if (y &amp; 1) 
+            res = (res * x) % p; 
+  
+        // y must be even now 
+        y = y &gt;&gt; 1; // y = y/2 
+        x = (x * x) % p; 
+    } 
+    return res; 
+} 
+  
+// Returns n^(-1) mod p 
+unsigned long long modInverse(unsigned long long n, int p) 
+{ 
+    return power(n, p - 2, p); 
+} 
+  
+// Returns nCr % p using Fermat's little 
+// theorem. 
+unsigned long long nCrModPFermat(unsigned long long n, 
+                                 int r, int p) 
+{ 
+    // Base case 
+    if (r == 0) 
+        return 1; 
+  
+    // Fill factorial array so that we 
+    // can find all factorial of r, n 
+    // and n-r 
+    unsigned long long fac[n + 1]; 
+    fac[0] = 1; 
+    for (int i = 1; i &lt;= n; i++) 
+        fac[i] = (fac[i - 1] * i) % p; 
+  
+    return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p; 
+} </B></FONT>
+class Solution {
+    long long mod = 1e9 + 7;
+    long long fact(int a) {
+        long long ans = 1;
+        for (int i = 2; i &lt;= a; ++i) ans = ans * i % mod;
+        return ans;
+    }
+    long long count(int a, int b) {
+        return nCrModPFermat(b, a, mod);
+    }
+    long long dfs(vector&lt;int&gt; &amp;A)  {
+        if (A.size() &lt;= 1) return 1;
+        int root = A[0];
+        vector&lt;int&gt; left, right;
+        for (int i = 1; i &lt; A.size(); ++i) {
+            if (A[i] &lt; root) left.push_back(A[i]);
+            else right.push_back(A[i]);
+        }
+        return (count(left.size(), A.size() - 1) * dfs(left)) % mod * dfs(right) % mod;
+    }
+public:
+    int numOfWays(vector&lt;int&gt;&amp; A) {
+        return dfs(A) - 1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

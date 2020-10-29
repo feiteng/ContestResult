@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>461_faii.py</TITLE>
+ <TITLE>112_atf.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>461_faii.py</CENTER></H3><HR>
+<H3><CENTER>112_atf.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A>
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def makeRepeat(arr):
+    repeat = [[arr[0], 0]]
+    for x in arr:
+        if x == repeat[-1][0]:
+            repeat[-1][1] += 1
+        else:
+            repeat.append([x, 1])
+    return repeat
+
+ 
+class RangeQuery:
+    def __init__(self, data, func=min):
+        self.func = func
+        self._data = _data = [list(data)]
+        i, n = 1, len(_data[0])
+        while 2 * i &lt;= n:
+            prev = _data[-1]
+            _data.append([func(prev[j], prev[j + i]) for j in range(n - 2 * i + 1)])
+            i &lt;&lt;= 1
+
+    def query(self, start, stop):
+        &quot;&quot;&quot;func of data[start, stop)&quot;&quot;&quot;
+        depth = (stop - start).bit_length() - 1
+        return self.func(self._data[depth][start], self._data[depth][stop - (1 &lt;&lt; depth)])
+
+
 class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-<A NAME="0"></A>        stack = []
-        res = 0
-        for i, c in enumerate(s):
-            if stack and s<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[stack[-1]] == c:
-                if cost[stack[-1]] &gt; cost[i]: # use lesser
-                    res += cost[i]
-                else:
-                    res += cost[stack[-1]]
-                    stack.pop()
-                    stack.append(i)
-            else:
-                stack.append(i)
         
-        re</B></FONT>turn res
-                
+        rmq = RangeQuery(cost, max)
+        repeats = makeRepeat(s)
+        index = 0
+        notUsed = 0
+        for c, count in repeats:
+            notUsed += rmq.query(index, index + count)
+            index += count
+        return sum(c</B></FONT>ost) - notUsed
             
-        
 </PRE>
 
 </BODY>

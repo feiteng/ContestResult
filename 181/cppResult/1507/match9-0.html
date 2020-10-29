@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_cf_newbie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_cf_newbie.cpp</CENTER></H3><HR>
+<PRE>
+// 1 which means a street connecting the left cell and the right cell.
+// 2 which means a street connecting the upper cell and the lower cell.
+// 3 which means a street connecting the left cell and the lower cell.
+// 4 which means a street connecting the right cell and the lower cell.
+// 5 which means a street connecting the left cell and the upper cell.
+// 6 which means a street connecting the right cell and the upper cell.
+
+class Solution {
+    vector&lt;vector&lt;bool&gt;&gt; viz;
+    vector&lt;vector&lt;int&gt;&gt; g;
+    int N; int M;
+    bool dfs(int x, int y) {
+        int n=N;
+        int m=M;
+        if (x==N-1 &amp;&amp; y==M-1) return true;
+        if (x&lt;0 ||y&lt;0||x&gt;=N||y&gt;=M || viz[x][y]) return false;
+<A NAME="0"></A>        viz[x][y]=true;
+        if (g[x][y]==1) {
+            //right
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (y+1&lt;m &amp;&amp; (g[x][y+1]==1||g[x][y+1]==3||g[x][y+1]==5)) {
+                if (dfs(x,y+1)) return true;
+            }
+            //left
+            if (y-1&gt;=0 &amp;&amp; (g[x][y-1]==1||g[x][y-1]==4||g[x][y-1]==6)) {
+                if (dfs(x,y-1)) return true;
+<A NAME="1"></A>            }
+        } else if (g[x][y]==2) {
+            //down
+            if (x+1&lt;n &amp;&amp; (g[x+1][y]==2||g[x+1][y]==5||g[x+1][y]==6)) {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                if (dfs(x+1,y)) return true;
+            }
+            //up
+            if (x-1&gt;=0 &amp;&amp; (g[x-1][y]==2||g[x-1][y]==3||g[x-1][y]==4)) {
+                if (dfs(x-1,y)) return true;
+<A NAME="2"></A>            }
+        } else if (g[x][y]==3) { // 3 which means a street connecting the left cell and the lower cell.</B></FONT>
+            //left
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (y-1&gt;=0 &amp;&amp; (g[x][y-1]==1||g[x][y-1]==4||g[x][y-1]==6)) {
+                if (dfs(x,y-1)) return true;
+            }
+            //down
+            if (x+1&lt;n &amp;&amp; (g[x+1][y]==2||g[x+1][y]==5||g[x+1][y]==6)) {
+                if (dfs(x+1,y)) return true;
+            }
+        } else if (g[x][y]==4) { // 4 which means a street connecting the right cell and the lower cell.
+            //right
+            if (y+1&lt;m &amp;&amp; (g[x][y+1]==1||g[x][y+1]==3||g[x][y+1]==5)) {</B></FONT>
+                if (dfs(x,y+1)) return true;
+            }
+            //down
+            if (x+1&lt;n &amp;&amp; (g[x+1][y]==2||g[x+1][y]==5||g[x+1][y]==6)) {
+                if (dfs(x+1,y)) return true;
+<A NAME="3"></A>            }
+        } else if (g[x][y]==5) { // 5 which means a street connecting the left cell and the upper cell.
+            //left
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (y-1&gt;=0 &amp;&amp; (g[x][y-1]==1||g[x][y-1]==4||g[x][y-1]==6)) {
+                if (dfs(x,y-1)) return true;
+            }
+            //up
+            if (x-1&gt;=0 &amp;&amp; (g[x-1][y]==2||g[x-1][y]==3||g[x-1][y]==4)) {
+                if (dfs(x-1,y)) return true;
+<A NAME="4"></A>            }
+        } else if (g[x][y]==6) { // 6 which means a street connecting the right cell and the upper cell.
+            //right
+            if (y+1&lt;m &amp;&amp; (g[x][y+1]==1||g[x][y+1]==3||g[x][y+1]==5)) {</B></FONT><FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match9-1.html#4',3,'match9-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                if (dfs(x,y+1)) return true;
+            }
+            //up
+            if (x-1&gt;=0 &amp;&amp; (g[x-1][y]==2||g[x-1][y]==3||g[x-1][y]==4)) {
+                if (dfs(x-1,y)) return true;
+            }
+        }
+        return false;
+    }</B></FONT>
+public:
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        g = grid;
+        int n = grid.size();
+        int m = grid[0].size();
+        N=n; M=m;
+        viz.resize(n);
+        for (auto&amp; p: viz) p.resize(m, false);
+
+        return dfs(0,0);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

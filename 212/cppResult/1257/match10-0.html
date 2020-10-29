@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>50_akigeor.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>50_akigeor.cpp</CENTER></H3><HR>
+<PRE>
+int f[501 * 501];
+int fat(int x) {
+    if (f[x] == x) return x;
+    return f[x] = fat(f[x]);
+}
+void join(int x, int y) {
+    f[fat(x)] = fat(y);
+}
+int n, m, ans[501 * 501], deg[501 * 501];
+vector&lt;int&gt; g[501 * 501];
+int code(int x, int y) {
+    return x * m + y;
+}
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        n = a.size(), m = a[0].size();
+        map&lt;int, vector&lt;int&gt;&gt; pos;
+        auto b = a;
+        vector&lt;pair&lt;int, int&gt;&gt; edges;
+<A NAME="0"></A>        for (int i = 0; i &lt; n; ++ i) {
+            for (int j = 0; j &lt; m; ++ j) {
+                f[code(i, j)] = code(i, j);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        for (int i = 0; i &lt; n; ++ i) {
+            vector&lt;pair&lt;int, int&gt;&gt; p;
+            for (int j = 0; j &lt; m; ++ j) {</B></FONT>
+                b[i][j] = 0;
+                p.push_back(make_pair(a[i][j], j));
+            }
+            sort(p.begin(), p.end());
+            int l = 0;
+            for (int j = 0; j &lt; m; j = l) {
+                l = j;
+                while (l &lt; m &amp;&amp; p[j].first == p[l].first) l ++;
+                if (j) {
+                    edges.push_back(make_pair(code(i, p[j - 1].second), code(i, p[j].second)));
+<A NAME="1"></A>                }
+                for (int k = j; k &lt; l; ++ k) {
+                    join(code(i, p[j].second), code(i, p[k].second));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        for (int j = 0; j &lt; m; ++ j) {
+            vector&lt;pair&lt;int, int&gt;&gt; p;
+            for (int i = 0; i &lt; n; ++ i) {
+                p.push_back(make_pair(a[i][j], i));
+            }</B></FONT>
+            sort(p.begin(), p.end());
+            int l = 0;
+            for (int i = 0; i &lt; n; i = l) {
+                l = i;
+                while (l &lt; n &amp;&amp; p[i].first == p[l].first) l ++;
+                if (i) {
+                    edges.push_back(make_pair(code(p[i - 1].second, j), code(p[i].second, j)));
+                }
+                for (int k = i; k &lt; l; ++ k) {
+                    join(code(p[i].second, j), code(p[k].second, j));
+                }
+            }
+        }
+        for (int i = 0; i &lt; n * m; ++ i) {
+            g[i].clear();
+            deg[i] = 0;
+            ans[i] = 0;
+        }
+        for (auto e : edges) {
+            int u = fat(e.first);
+            int v = fat(e.second);
+            if (u != v) {
+<A NAME="2"></A>                // printf(&quot;%d -&gt; %d\n&quot;, u, v);
+                g[u].push_back(v);
+                deg[v] ++;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        queue&lt;int&gt; q;
+        for (int i = 0; i &lt; n * m; ++ i) {
+            if (f[i] == i &amp;&amp; deg[i] == 0) {
+                q.push(i);
+                ans[i] = 1;
+                // printf(&quot;0=%d\n&quot;, i);
+<A NAME="3"></A>            }
+        }</B></FONT>
+        int cnt = 1;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            for (int v : g[u]) {
+                deg[v] --;
+                ans[v] = max(ans[v], ans[u] + 1);
+                if (deg[v] == 0) {
+                    q.push(v);
+<A NAME="4"></A>                }
+            }
+        }</B></FONT>
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match10-1.html#4',3,'match10-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++ i) {
+            for (int j = 0; j &lt; m; ++ j) {
+                b[i][j] = ans[fat(code(i, j))];
+            }
+        }
+        return b;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

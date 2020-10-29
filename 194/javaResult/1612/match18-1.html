@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>202_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>202_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int[] avoidFlood(int[] rains) {
+        final int N = rains.length;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TreeSet&lt;Integer&gt; saves = new TreeSet&lt;&gt;();
+        HashMap&lt;Integer, Integer&gt; full = new HashMap&lt;&gt;();
+        int[] ans = new int[N];
+        for (int i = 0; i &lt; N; ++i) {
+<A NAME="1"></A>            if (rains[i] == 0) {</B></FONT>
+                saves.add(i);
+            } else {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (full.containsKey(rains[i])) {
+                    int previous = full.get(rains[i]);
+                    Integer day = saves.higher(previous);
+                    if (day == null) {
+                        return new int[0];
+                    }</B></FONT>
+                    ans[day] = rains[i];
+                    saves.remove(day);
+<A NAME="2"></A>                }
+                full.put(rains[i], i);
+                ans[i] = -1;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        for (int d : saves) {
+            ans[d] = 1;
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_nthistle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_nthistle.py</CENTER></H3><HR>
+<PRE>
+class UF:
+    def __init__(self, n):
+        self.parents = {i : i for i in range(n)}
+<A NAME="0"></A>        
+    def find(self, i):
+        if i == self.parents[i]:
+            return self.parents[<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i]
+        self.parents[i] = self.find(self.parents[i])
+        return self.parents[i]
+    
+    def merge(self, a, b):
+        ap = self.find(a)
+        bp = self.find(b)
+        self.parents[bp] = ap
+
+
+class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        m = len(matrix)
+        n = len(matrix[0])
+        t = [[matrix[</B></FONT>j][i] for j in range(m)] for i in range(n)]
+        node_lookup = {}
+        cur_node = 0
+        
+        def dfs(i,j,c):
+            node_lookup[i,j] = c
+#             for k in range(m):
+#                 if k == i:
+#                     continue
+#                 # nx = i+dx
+#                 nx = k
+#                 ny = j
+#                 if matrix[nx][ny] == matrix[i][j] and (nx,ny) not in node_lookup:
+#                     dfs(nx,ny,c)
+                    
+#             for k in range(n):
+#                 if k == j:
+#                     continue
+#                 nx = i
+#                 ny = k
+#                 if matrix[nx][ny] == matrix[i][j] and (nx,ny) not in node_lookup:
+#                     dfs(nx,ny,c)
+    
+        for i in range(m):
+            for j in range(n):
+                if (i,j) not in node_lookup:
+                    dfs(i,j,cur_node)
+                    cur_node += 1
+        
+        uf = UF(cur_node)
+                    
+        for i in range(m):
+            row = {}
+            for j in range(n):
+                if matrix[i][j] in row:
+                    uf.merge(row[matrix[i][j]], node_lookup[i,j])
+                    # merged[node_lookup[i,j]] = row[matrix[i][j]]
+                    #node_lookup[i,j] = row[matrix[i][j]]
+                else:
+                    row[matrix[i][j]] = node_lookup[i,j]
+                    
+        for j in range(n):
+            col = {}
+            for i in range(m):
+                if matrix[i][j] in col:
+                    uf.merge(col[matrix[i][j]], node_lookup[i,j])
+                    # merged[node_lookup[i,j]] = col[matrix[i][j]]
+                    #node_lookup[i,j] = col[matrix[i][j]]
+                else:
+                    col[matrix[i][j]] = node_lookup[i,j]
+        
+        for i in range(m):
+            for j in range(n):
+                node_lookup[i,j] = uf.find(node_lookup[i,j])
+        
+        graph = defaultdict(list)
+        def add_edge(p, d):
+            graph[p].append(d)
+                
+        for i in range(m):
+            row = matrix[i][:]
+            idxs = sorted(range(n), key = lambda idx : row[idx])
+            prev = 0
+            cur = 0
+            while cur &lt; len(idxs):
+                while cur &lt; len(idxs) and row[idxs[cur]] == row[idxs[prev]]:
+                    cur += 1
+                if cur &gt;= len(idxs):
+                    break
+                # add edge from prev to cur
+                add_edge(node_lookup[i,idxs[prev]], node_lookup[i,idxs[cur]])
+                prev = cur
+                
+        for j in range(n):
+            col = t[j][:]
+            idxs = sorted(range(m), key = lambda idx : col[idx])
+            prev = 0
+            cur = 0
+            while cur &lt; len(idxs):
+                while cur &lt; len(idxs) and col[idxs[cur]] == col[idxs[prev]]:
+                    cur += 1
+                if cur &gt;= len(idxs):
+                    break
+                # add edge from prev to cur
+                add_edge(node_lookup[idxs[prev],j], node_lookup[idxs[cur],j])
+                prev = cur
+        
+        seen = set()
+        r = []
+        # now toposort
+        def visit(v):
+            if v in seen:
+                return
+            for nv in graph[v]:
+                visit(nv)
+            seen.add(v)
+            r.append(v)
+            
+        for v in node_lookup.values():
+            if v not in seen:
+                visit(v)
+        
+        r = r[::-1]
+        
+        graph_r = defaultdict(list)
+        for v in graph:
+            for nv in graph[v]:
+                graph_r[nv].append(v)
+        
+        values = {}
+        for v in r:
+            cv = max([0] + [values[pv] for pv in graph_r[v]]) + 1
+            values[v] = cv
+        
+        out = [[values[node_lookup[i,j]] for j in range(n)] for i in range(m)]
+        return out
+            
+</PRE>
+
+</BODY>
+</HTML>

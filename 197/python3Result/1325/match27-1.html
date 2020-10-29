@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>575_abhilash20.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>575_abhilash20.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+import heapq as pq
+class Solution:
+    def dfs(self, curr, par, graph, cw, mind):
+        # print('curr', curr)
+        if mind[curr] &gt; cw: return
+        mind[curr] = cw
+        for ne,nw in graph[curr]:
+            if ne == par: continue
+            if mind[ne] &lt; cw * nw:
+<A NAME="0"></A>                self.dfs(ne, curr, graph, cw * nw, mind)
+        
+        
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        graph = defaultdict(list)
+        for (s,d),p in zip(edges, succProb):
+            graph[s].append((d,p))
+            graph[d].append((s,p))
+        
+        mind = defaultdict(float)
+        q = []
+        pq.</B></FONT>heappush(q, (-1, start))
+        while q:
+            # print('q', q)
+            currw, currn = pq.heappop(q)
+<A NAME="1"></A>            currw *= -1
+            # if currn == end: return currw
+            if mind[currn] &gt; currw: continue
+            else: mind[currn] =<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> currw
+            for ne,nw in graph[currn]:
+                if mind[ne] &lt; currw * nw:
+                    pq.heappush(q, (-currw * nw, ne))
+        
+        return</B></FONT> mind[end]
+</PRE>
+
+</BODY>
+</HTML>

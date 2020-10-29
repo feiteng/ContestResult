@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>718_adayxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>718_adayxiang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    int m, n;
+    long long visited2[51][51][11] = {0};
+    long long visited1[51][51][11] = {0};
+    long long MOD = 1e9 + 7;
+    int total = 0;
+public:
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+        m = pizza.size(), n = pizza[0].size();
+        return helper(pizza, 0, k, 0, 0);
+    }
+<A NAME="0"></A>    
+    long long helper(vector&lt;string&gt;&amp; pizza, int index, int k, int curX, int curY)
+    {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(index == k - 1) 
+        {
+            for(int i = curX; i &lt; m; ++i)
+            {
+                for(int j = curY; j &lt; n; ++j)
+                {
+                    if(pizza[i][j] == 'A') return 1;
+                }
+            }</B></FONT>
+            return 0;
+<A NAME="1"></A>        }
+        if(curX &gt;= m || curY &gt;= n) return 0;
+        if(visited1[curX][curY][index] != 0) return visited2[curX][curY][index];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long res = 0;
+        bool tmp1 = false;
+        for(int i = curX; i &lt; m - 1; ++i)
+        {
+            for(int j = curY; j &lt; n; ++j)
+            {
+                if(pizza[i][j] == 'A' || tmp1)
+                {
+                    res = (res + helper(pizza, index + 1, k, i + 1, curY)) % MOD;</B></FONT>
+<A NAME="2"></A>                    tmp1 = true;
+                    break;
+                }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        
+        //horizontal
+        bool tmp2 = false;
+        for(int j = curY; j &lt; n - 1; ++j)
+        {
+            for(int i = curX; i &lt; m; ++i)
+            {
+                if(pizza[i][j] == 'A' || tmp2)
+                {
+                    tmp2 = true;</B></FONT>
+                    res = (res + helper(pizza, index + 1, k, curX, j + 1)) % MOD;
+                    break;
+                }
+            }
+        }
+        visited1[curX][curY][index] = 1;
+        return visited2[curX][curY][index] = res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

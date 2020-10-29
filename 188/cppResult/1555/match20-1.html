@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>255_hahaha.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>255_hahaha.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int MOD = 1000000007;
+    int DFS(const vector&lt;string&gt;&amp; pizza, const int x, const int y, const int k, vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;&amp; dp) {
+//        cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; k &lt;&lt; endl;
+        if (dp[x][y][k] != -1) {
+            return dp[x][y][k];
+        }
+<A NAME="0"></A>        int r = pizza.size();
+        int c = pizza[0].size();
+        dp[x][y][k] = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (k == 1) {
+            for (int i = x; i &lt; r; ++i) {
+                for (int j = y; j &lt; c; ++j) {
+                    if (pizza[i][j] == 'A') {</B></FONT>
+                        dp[x][y][k] = 1;
+                        return dp[x][y][k];
+                    }
+<A NAME="2"></A>                }
+            }
+            return dp[x][y][k];
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        bool flag = false;
+        for (int i = x; i &lt; r; ++i) {
+            if (!flag) {
+                for (int j = y; j &lt; c; ++j) {
+                    if (pizza[i][j] == 'A') {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (flag) {</B></FONT>
+                if (i+1 &lt; r) {
+                    dp[x][y][k] += DFS(pizza, i+1, y, k-1, dp);
+                    dp[x][y][k] %= MOD;
+<A NAME="1"></A>                }
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        flag = false;
+        for (int j = y; j &lt; c; ++j) {
+            if (!flag) {
+                for (int i = x; i &lt; r; ++i) {
+                    if (pizza[i][j] == 'A') {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (flag) {</B></FONT>
+                if (j+1 &lt; c) {
+                    dp[x][y][k] += DFS(pizza, x, j+1, k-1, dp);
+                    dp[x][y][k] %= MOD;
+                }
+            }
+        }        
+//        cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; k &lt;&lt; ' ' &lt;&lt; dp[x][y][k] &lt;&lt; endl;
+        return dp[x][y][k];
+    }
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+        int r = pizza.size();
+        int c = pizza[0].size();
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(r, vector&lt;vector&lt;int&gt;&gt;(c, vector&lt;int&gt;(k+1, -1)));
+        return DFS(pizza, 0, 0, k, dp);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

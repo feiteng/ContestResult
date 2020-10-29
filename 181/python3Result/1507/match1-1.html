@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_hanyong201308.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>203_hanyong201308.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        m, n = len(grid), len(grid[0])
+        dx, dy = [1, -1, 0, 0], [0, 0, 1, -1]
+        vis =</B></FONT> set()
+        queue = collections.deque()
+        queue.appendleft((0, 0))
+        vis.add((0, 0))
+        
+        while queue:
+            cur = queue.pop()
+            if cur == (m - 1, n - 1):
+                return True
+            for k in range(4):
+<A NAME="1"></A>                p, q = cur[0] + dx[k], cur[1] + dy[k]
+                if not (0 &lt;= p &lt; m and 0 &lt;= q &lt; n): continue
+                if (p, q) in vis: continue
+                val = grid[cur[0]]<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[cur[1]]
+                if val in [2, 3, 4] and dx[k] == 1 and grid[p][q] in [2, 5, 6]:
+                    queue.appendleft((p, q))
+                    vis.add((p, q))
+                if val in [1, 3, 5] and dy[k] == -1 and grid[p][q] in [4, 6, 1]:
+                    queue.appendleft((p, q))
+                    vis.add((p, q))
+                if val in [2, 6, 5] and dx[k] == -1 and grid[p][q] in [2, 3, 4]:
+                    queue.appendleft((p, q))
+                    vis.add((p, q))
+                if val in [1, 4, 6] and dy[k] == 1 and grid[p][q] in [1, 3, 5]:
+                    queue.appendleft((p, q))
+                    vis.add((p</B></FONT>, q))
+        return False
+                    
+</PRE>
+
+</BODY>
+</HTML>

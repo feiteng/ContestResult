@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>120_william5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>120_william5.java</CENTER></H3><HR>
+<PRE>
+import java.util.HashMap;
+import java.util.HashSet;
+<A NAME="0"></A>
+class Solution {
+  public int minDays(int[][] grid) {
+    if (countIslands(grid) != 1) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+      return 0;
+    }
+    
+    for (int i = 0; i &lt; grid.length; i++) {
+      for (int j = 0; j &lt; grid[i].length; j++) {
+        if (grid[i][j] == 1) {
+          grid[i][j] = 0;
+          if (countIslands(grid) != 1) {
+            return 1;
+          }
+          grid[i][j] = 1;
+        }
+      }
+    }
+    return 2;
+  }
+  
+<A NAME="1"></A>  public int countIslands(int[][] grid) {
+    HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; visited = new HashMap&lt;&gt;()</B></FONT>;
+    int count = 0;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; grid.length; i++) {
+      for (int j = 0; j &lt; grid[i].length; j++) {
+        if (grid[i][j] == 1) {
+          visited.put</B></FONT>(i, visited.getOrDefault(i, new HashSet&lt;&gt;()));
+          if (!visited.get(i).contains(j)) {
+<A NAME="2"></A>            count++;
+            dfs(grid, i, j, visited);
+          }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+      }
+    }
+    
+    return count;
+  }</B></FONT>
+<A NAME="3"></A>  
+  static int[] dx = {-1, 0, 1, 0};
+  static int[] dy = {0, 1, 0, -1};
+  <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#3',2,'match11-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public void dfs(int[][] grid, int x, int y, HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; visited) {
+    if (x &lt; 0 || x &gt;= grid.length || y &lt; 0 || y &gt;= grid[0].length || grid[x][y] == 0) {
+      return;
+    }</B></FONT>
+    visited.put(x, visited.getOrDefault(x, new HashSet&lt;&gt;()));
+    if (visited.get(x).contains(y)) {
+<A NAME="4"></A>      return;
+    }
+    visited.get(x).add(y);
+    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#4',2,'match11-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; dx.length; i++) {
+      dfs(grid, x + dx[i], y + dy[i], visited);
+    }
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

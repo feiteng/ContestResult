@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>612_KT13.java</TITLE>
+ <TITLE>221_ToffeeLu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,124 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>612_KT13.java</CENTER></H3><HR>
+<H3><CENTER>221_ToffeeLu.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    
-    int find(int i, int parent[]){
-<A NAME="0"></A>        while(i!=parent[i]) {
-            i = parent[i];
-        }
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return i;
-    }
-    
-    void union(int x, int y, int parent[]) {
-        parent[x] = y; 
-    }</B></FONT>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int parent[] = new int[n];
-        for (int i = 0;i&lt;n;i++){
-            parent[i] = i;
+        int res = 0;
+        Map&lt;String, Integer&gt; type3 = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; edges.length; i++){
+            if(edges[i][0] == 3){
+                type3.put(edges[i][1] + &quot;,&quot; + edges[i][2], i);
+            }
         }
-        int ans = 0;
-<A NAME="1"></A>        int e1 = 0;
-        for (int i = 0;i&lt;edges.length;i++){
-            if (edges[i][0] == 3) {
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int x = find(edges[i][1]-1,parent);
-                int y = find(edges[i][2]-1,parent);
-                if (x == y) {
-                    ans++;
-                } else {
-                    union(x,y,parent);
-                    e1++;
+        Set&lt;Integer&gt; type2 = new HashSet&lt;&gt;();
+        Set&lt;Integer&gt; type1 = new HashSet&lt;&gt;();
+        for(int i = 0; i &lt; edges.length; i++){
+            String key = edges[i][1] + &quot;,&quot; + edges[i][2];
+            if(edges[i][0] == 1){
+                if(!type3.containsKey(key)){
+                    type1.add(i);
                 }
-            }</B></FONT>
-<A NAME="2"></A>        }
-        int temp[] = new int[n];
-        for (int i = 0;i&lt;n;i++){
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>temp[i] = parent[i];
-        }
-<A NAME="3"></A>        int e2 = e1;
-        for (int i = 0;i&lt;edges.length;i++){
-            if (edges[i][0] == 1) {</B></FONT>
-                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match28-1.html#3',3,'match28-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int x = find(edges[i][1]-1,parent);
-                int y = find(edges[i][2]-1,parent);
-                if (x == y) {
-                    ans++;
-                } else {
-                    union(x,y,parent);
-                    e1++;
+                else{
+                    res++;
                 }
-            }</B></FONT>
-<A NAME="4"></A>        }
-        for (int i = 0;i&lt;edges.length;i++){
-            if (edges[i][0] == 2) {
-                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match28-1.html#4',3,'match28-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int x = find(edges[i][1]-1,temp);
-                int y = find(edges[i][2]-1,temp);
-                if (x == y) {
-                    ans++;
-                } else {
-                    union</B></FONT>(x,y,temp);
-                    e2++;
+            }
+            else if(edges[i][0] == 2){
+                if(!type3.containsKey(key)){
+                    type2.add(i);
+                }
+                else{
+                    res++;
                 }
             }
         }
-        if (e1 != n-1 || e2 != n-1) {
-            return -1;
+        
+        int[] parent = new int[n+1];
+        init(parent);
+        for(int i : type3.values()){
+            int a = edges[i][1];
+            int b = edges[i][2];
+            if(find(parent, a) != find(parent, b)){
+                union(parent, a, b);
+            }
+            else{
+                res++;
+            }
         }
-        return ans;
+        
+        int[] parent1 = new int[n+1];
+        init(parent1);
+        for(int i = 0; i &lt;= n; i++){
+            parent1[i] = parent[i];
+        }
+        for(int i : type1){
+            int a = edges[i][1];
+            int b = edges[i][2];
+            if(find(parent1, a) != find(parent1, b)){
+                union(parent1, a, b);
+            }
+            else{
+                res++;
+            }
+        }
+        
+        int[] parent2 = new int[n+1];
+        init(parent2);
+        for(int i = 0; i &lt;= n; i++){
+            parent2[i] = parent[i];
+        }
+        for(int i : type2){
+            int a = edges[i][1];
+            int b = edges[i][2];
+            if(find(parent2, a) != find(parent2, b)){
+                union(parent2, a, b);
+            }
+            else{
+                res++;
+            }
+        }
+        
+        int prev1 = find(parent1, 1);
+        for(int i = 2; i &lt;= n; i++){
+           if(find(parent1, i) != prev1){
+               return -1;
+           } 
+        }
+        
+        int prev2 = find(parent2, 1);
+        for(int i = 2; i &lt;= n; i++){
+           if(find(parent2, i) != prev2){
+               return -1;
+           } 
+        }
+        
+        return res;
     }
-}
+    
+    public void init(int[] parent){
+        for(int i = 0; i &lt; parent.length; i++){
+            parent[i] = i;
+        }
+    }
+    
+    public void union(int[] parent, int a, int b){
+        int pa = find(parent, a);
+        int pb = find(parent, b);
+        if(pa != pb){
+            parent[pa] = pb;
+        }
+    }
+    
+    public int find(int[] parent, int k){
+        if(k != parent[k]){
+            parent[k] = find(parent, parent[k]);
+        }
+        return parent[k];
+    }
+    
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_garrett9.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>172_garrett9.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] avoidFlood(int[] rains) {
+        int n = rains.length;
+        int [] ans = new int[n];
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;Integer, Integer&gt;();
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        for(int i = 0; i &lt; n; i++){</B></FONT>
+            int elem = rains[i];
+            if(elem == 0){
+<A NAME="1"></A>                ans[i] = -2;
+                set.add(i);
+            }else{
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(map.containsKey(elem)){
+                    Integer last = map.get(elem);
+                    Integer prev = set.higher(last);
+                    if(prev == null || prev &lt; last){
+                        return new int[]{};
+                    }
+                    ans[prev] = elem;
+                    set.remove(prev);
+                }
+                map.put</B></FONT>(elem, i);
+                ans[i] = -1;
+            }
+<A NAME="2"></A>        }
+        for(int i = 0; i &lt; n; i++){
+            if(ans[i] == -2){
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ans[i] = 1;
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>254_modmath.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>254_modmath.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -&gt; int:
+        rmax, rmin = collections.deque(), collections.deque<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>()
+        start, ans = 0, 0
+        for i,x in enumerate(nums):
+            while rmax and nums[rmax[-1]]&lt;=x:
+                rmax.pop()
+            rmax.append(i)
+            while rmin and nums[rmin[-1]]&gt;=x:
+                rmin.pop()
+            rmin.append(i)
+            while rmax and rmin and nums[rmax[0]]-nums[rmin[0]]&gt;limit:
+                if rmax[0]==start:
+                    rmax.popleft()
+                if rmin[0]==start:
+                    rmin.popleft()
+                start += 1
+            ans = max(i-start+1, ans)
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

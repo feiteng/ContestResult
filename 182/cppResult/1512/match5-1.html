@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_lucifer1004.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>151_lucifer1004.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UndergroundSystem {
+    map&lt;pair&lt;string, string&gt;, int&gt; cnt, sum;
+    unordered_map&lt;int, pair&lt;string, int&gt;&gt; dict;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    UndergroundSystem() {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        dict[id] = {stationName, t};
+<A NAME="1"></A>    }
+    
+    void checkOut(int id, string stationName, int t) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        auto [last, lt] = dict[id];
+        cnt[{last, stationName}]++;
+        sum[{last, stationName}] += t - lt;
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        return (double) sum[{startStation, endStation}] / cnt[{startStation, endStation}];
+    }
+};</B></FONT>
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj-&gt;checkIn(id,stationName,t);
+ * obj-&gt;checkOut(id,stationName,t);
+ * double param_3 = obj-&gt;getAverageTime(startStation,endStation);
+ */
+</PRE>
+</BODY>
+</HTML>

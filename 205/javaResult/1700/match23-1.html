@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>525_heshan1234.java</TITLE>
+ <TITLE>225_pranavgupta194.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>525_heshan1234.java</CENTER></H3><HR>
+<H3><CENTER>225_pranavgupta194.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        char[] chars = s.toCharArray();
-        int n = chars.length;
-        int result = 0;
-        for(int i = 0; i &lt; n; ) {
-            int j = i</B></FONT>;
-            while(j &lt; n &amp;&amp; chars[i] == chars[j]) {
-                ++j;
+        int cost1 = 0;
+        int n = s.length();
+        for(int i = 0;i&lt;n;i++){
+            int max = cost[i];
+            int c = s.charAt(i);
+            int sum = cost[i];int j = i+1;
+            for( ;j&lt;n&amp;&amp;s.charAt(j)==c;j++){
+                max = Math.max(max,cost[j]);
+                sum += cost[j];
             }
-            if (j - i &gt; 1) {
-                int sum = 0;
-<A NAME="1"></A>                int max = 0;
-                for(int x = i; x &lt; j; ++x) {
-                    sum += cost[x];
-                    max = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.max(max, cost[x]);
-                }
-                result += sum - max;
-            }
-            i = j;
+            i = j-1;
+            cost1 += sum - max;
         }
-        return result;
+        return cost1;
     }
 }</B></FONT>
 </PRE>

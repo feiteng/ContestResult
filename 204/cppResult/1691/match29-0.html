@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>661_linmiaomiao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>661_linmiaomiao.cpp</CENTER></H3><HR>
+<PRE>
+int dirx[] = {0,0,1,-1};
+int diry[] = {-1,1,0,0};
+class Solution {
+<A NAME="0"></A>public:
+    int n,m;
+    vector&lt; vector&lt;int&gt; &gt; copy;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void dfs(int i,int j){
+        if(copy[i][j] == 0) return ;
+        copy[i][j] = 0;
+        for(int k=0;k&lt;4;k++){
+            if(i + dirx[k] &gt;= 0 &amp;&amp; i + dirx[k] &lt; n &amp;&amp;  j + diry[k] &gt;= 0 &amp;&amp; j + diry[k] &lt; m){</B></FONT>
+                dfs(i + dirx[k],j + diry[k]);
+            }
+        }
+        return ;
+<A NAME="1"></A>    }
+    int minDays(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        n = grid.size(), m = grid[0].size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        copy = grid;
+<A NAME="2"></A>        int ct = 0;
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;m;j++){
+                if(copy[i][j] != 0) ct++,dfs(i,j);</B></FONT><FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            }
+        }
+        if(ct &gt; 1) return 0;
+        for(int i=0;i&lt;n;i++){
+<A NAME="3"></A>            for(int j=0;j&lt;m;j++){
+                if(grid[i][j] == 0) continue;</B></FONT>
+                copy = grid;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match29-1.html#3',3,'match29-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                copy[i][j] = 0;
+                ct = 0;
+                for(int k=0;k&lt;n;k++){
+                    for(int l=0;l&lt;m;l++){</B></FONT>
+                         if(copy[k][l] != 0) ct++,dfs(k,l);                        
+                    }
+                }
+                if(ct &gt; 1) return 1;
+            }
+        }
+        return 2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

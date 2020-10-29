@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>66_java14.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>66_java14.java</CENTER></H3><HR>
+<PRE>
+import java.math.*;
+class Solution {
+       BigDecimal tot = BigDecimal.valueOf(0);
+    void go(int ii,int v[],int[] balls,int used){
+
+        if(used==0){
+            int ct =0;int ct1=0;
+           // int y = 0;
+            for(int i=0;i&lt;v.length;++i){
+              //  y += v[i];
+                if(v[i]&gt;0) ct++;
+                if(balls[i]-v[i]&gt;0) ct1++;
+            }
+            if(ct1!=ct) return;
+            //if(y!=s/2) return;
+
+            BigDecimal c1 = p[s/2];
+            BigDecimal c2 = p[s/2];
+            for(int i=0;i&lt;v.length;++i){
+                if(v[i]&gt;0){
+                    c1 = c1.divide(p[v[i]]);
+                }
+                if(balls[i]-v[i]&gt;0){
+                    c2 = c2.divide(p[balls[i]-v[i]],6,RoundingMode.CEILING);
+                }
+            }
+            tot = tot.add(c1.multiply(c2));
+
+
+            return;
+        }
+        if(ii==v.length) return;
+
+
+        for(int j=0;j&lt;=balls[ii];++j){
+            v[ii] += j;used -= j;
+            go(ii+1,v,balls,used);
+            v[ii] -=j;used  += j;
+        }
+
+    }
+
+    BigDecimal p[] = new BigDecimal[50];
+    int s = 0;
+    public double getProbability(int[] balls) {
+
+        int k  =balls.length;
+        for(int u:balls)s += u;
+        p[0] = BigDecimal.valueOf(1);
+        for(int i=1;i&lt;=s;++i){
+            p[i] = p[i-1].multiply(BigDecimal.valueOf(i));
+        }
+
+        go(0,new int[balls.length],balls,s/2);
+<A NAME="0"></A>
+        BigDecimal z = p[s];
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int v:balls){
+            z = z.divide(p[v]);
+        }
+        tot = tot.divide</B></FONT>(z,6,RoundingMode.CEILING);
+        String me = tot.toString();
+       return  Double.parseDouble(me);
+
+
+
+
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

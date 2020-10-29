@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_ldd123456.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_ldd123456.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    double ans=0;
+    double lo[50];
+    double getlog(vector&lt;int&gt;&amp; balls){
+        int n=balls.size();
+        int sum=0;
+        for(int i=0;i&lt;balls.size();i++)
+            sum+=balls[i];
+        double res=0;; 
+        for(int i=0;i&lt;balls.size();i++)
+        {
+            int x=balls[i];
+            /*if(x!=0){
+                for(int j=1;j&lt;=x;j++){
+                    res-=log(j);
+                }
+            }*/
+            res-=lo[x];
+        }
+        //for(int j=1;j&lt;=sum;j++)
+        //    res+=log(j);
+        res+=lo[sum];
+        return res;
+    }
+    bool pd(vector&lt;int&gt;&amp;l,vector&lt;int&gt;&amp;r){
+        int sum1=0;
+        int sum2=0;
+        int tot1=0;
+        int tot2=0;
+        for(int i=0;i&lt;l.size();i++){
+            sum1+=l[i];
+            if(l[i]&gt;0) tot1+=1;
+        }
+        for(int i=0;i&lt;r.size();i++){
+            sum2+=r[i];
+            if(r[i]&gt;0) tot2+=1;
+        }
+        if(sum1==sum2&amp;&amp;tot1==tot2) return true;
+        else return false;
+    }
+    void printff(vector&lt;int&gt;&amp; l){
+        for(int i=0;i&lt;l.size();i++)
+            std::cout&lt;&lt;l[i]&lt;&lt;&quot; &quot;;
+        std::cout&lt;&lt;endl;
+    }
+    void dfs(int pos,vector&lt;int&gt;&amp;l,vector&lt;int&gt;&amp;r,vector&lt;int&gt;&amp; balls,double x){
+        if(pos==balls.size()){
+            //printff(l);
+            //std::cout&lt;&lt;&quot;------&quot;&lt;&lt;endl;
+            //    printff(r);
+<A NAME="0"></A>            if(pd(l,r)){
+                
+                ans+=exp(getlog(l)+getlog(r)-x);}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return;
+        }
+        for(int i=0;i&lt;=balls[pos];i++){
+            l.push_back(i);
+            r.push_back(balls[pos]-i);
+            dfs(pos+1,l,r,balls,x);
+            l.pop_back();
+            r.pop_back();
+        }
+    }
+    double getProbability(vector&lt;int&gt;&amp; balls) {</B></FONT>
+        int n=balls.size();
+        lo[1]=0;
+        for(int i=2;i&lt;=48;i++){
+            lo[i]=lo[i-1]+log(i);
+        }
+        vector&lt;int&gt; l;
+        vector&lt;int&gt; r;
+        double x=getlog(balls);
+        //std::cout&lt;&lt;x&lt;&lt;endl;
+        dfs(0,l,r,balls,x);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

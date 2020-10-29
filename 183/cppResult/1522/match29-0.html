@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>728_chaoqin-li.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>728_chaoqin-li.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string stoneGameIII(vector&lt;int&gt;&amp; stoneValue) {
+        int n = stoneValue.size();
+        vector&lt;int&gt; dp1(n, INT_MIN);
+        vector&lt;int&gt; dp2(n, INT_MAX);
+        dp1.push_back(0), dp2.push_back(0);
+<A NAME="0"></A>        dp1[n - 1] = stoneValue[n - 1];
+        dp2[n - 1] = -stoneValue[n - 1];
+        for (int i = n - 2; i &gt;= 0; i--) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = i; j &lt; i + 3 &amp;&amp; j &lt; n; j++) {
+                int mys = 0;
+                for (int k = i; k &lt;= j; k++) mys += stoneValue[k];
+                dp1[i] = max(dp1[i], dp2[j + 1] + mys);</B></FONT>
+<A NAME="1"></A>            }
+            for (int j = i; j &lt; i + 3 &amp;&amp; j &lt; n; j++) {
+                int mys = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int k = i; k &lt;= j; k++) mys += stoneValue[k];
+                dp2[i] = min(dp2[i], dp1[j + 1] - mys);
+            }
+        }
+        if (dp1[0] == 0) return &quot;Tie&quot;;
+        else if (dp1[0] &gt; 0) return &quot;Alice&quot;;
+        else return &quot;Bob&quot;;       
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

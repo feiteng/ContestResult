@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>419_ddoudle.py</TITLE>
+ <TITLE>127_xunrui.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>419_ddoudle.py</CENTER></H3><HR>
+<H3><CENTER>127_xunrui.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
-    def numTriplets(self, A: List[int], B: List[int]) -&gt; int:
-        res = 0
-        d = defaultdict(int)
-        for i in range(len(A)):
-            for j in range(i+1, len(A)):
-                d[A[i]*A[j]] += 1
-        for n in B:
-<A NAME="1"></A>            res += d[n**2]
-            
-        A, B =</B></FONT> B, A
-        d = defaultdict<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(int)
-        for i in range(len(A)):
-            for j in range(i+1, len(A)):
-                d[A[i]*A[j]] += 1
-        for n in B:
-            res += d[n**2]
-        re</B></FONT>turn res
-        
+    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        cnt1 = Counter(nums1)
+        cnt2 = Counter(nums2)
+        ans = 0
+        ans += self.check(cnt1,cnt2)
+        ans += self.check(cnt2,cnt1)
+        return ans
+    
+    def check(self,cnt1,cnt2):
+        ans = 0
+        for x in cnt1:
+            for y in cnt2:
+                if x*x % y != 0:
+                    continue
+                z = x*x // y
+                if y == z:
+                    ans += cnt1[x]*(cnt2[y]-1)*(cnt2[y])//2
+                elif y &lt; z:
+                    ans += cnt1[x]*cnt2[y]*cnt2[z]
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

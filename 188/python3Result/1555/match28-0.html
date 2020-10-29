@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>372_hcchiu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>372_hcchiu.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        MOD = 10**9 + 7
+        
+        cache = list()
+        for row in pizza:
+            tmp = list()
+            for i in row:
+                if i == 'A':
+                    tmp.append(1)
+                else:
+                    tmp.append(0)
+            cache.append(tmp)
+        row_count = len(cache)
+        col_count = len(cache[0])
+        
+<A NAME="0"></A>        for i in range(col_count-1)[::-1]:
+            cache[-1][i] += cache[-1][i+1]
+        for i in range(row_count-1)[::-1]:
+            cache[i][-1] += cache<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i+1][-1]
+        for i in range(row_count-1)[::-1]:
+            for j in range(col_count-1)[::-1]:
+                cache[i][j] = cache[i][j] + cache[i+1][j] + cache[i][j+1] - cache[i+1][j+1]
+
+        @lru_cache(None)
+        def helper(i, j, k):
+            if</B></FONT> k == 1:
+<A NAME="1"></A>                if cache[i][j] &gt; 0:
+                    return 1
+                else:
+                    re<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>turn 0
+            result = 0
+            for x in range(i+1, row_count):
+                if cache[i][j] - cache[x][j] &gt; 0:
+                    result += helper(x, j, k-1)
+            for y in range(j+1, col_count):
+                if cache[i][j] - cache[i][y] &gt; 0:
+                    result += helper(i, y, k-1)
+            re</B></FONT>turn result
+        
+        return helper(0, 0, k) % MOD
+</PRE>
+
+</BODY>
+</HTML>

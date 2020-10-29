@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>488_Fishingmaster.java</TITLE>
+ <TITLE>105_arignote.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>488_Fishingmaster.java</CENTER></H3><HR>
+<H3><CENTER>105_arignote.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
     public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; m1 = new HashMap&lt;&gt;();
-        Map&lt;Long, Integer&gt; m2 = new HashMap&lt;&gt;();
-        int n = nums1.length;
-        int m = nums2.length;
-        for (int i = 0; i &lt; n; i++) {
-            for (int j = i + 1; j &lt; n; j++) {
-                long p = (long)nums1[i] * nums1[j];
-                m1.put(p, m1.getOrDefault(p, 0) + 1);
+        HashMap&lt;Long, Integer&gt; map1 = new HashMap&lt;&gt;(), map2 = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums1.length; i++) {
+            for (int j = i + 1; j &lt; nums1.length; j++) {
+                map1.put((long) nums1[i] * nums1[j], map1.getOrDefault((long) nums1[i] * nums1[j], 0) + 1);
             }
         }
-        for (int i = 0; i &lt; m; i++) {
-            for (int j = i + 1; j &lt; m; j++) {
-                long p = (long)nums2[i] * nums2[j];
-                m2.put(p, m2.getOrDefault(p, 0) + 1);
+        for (int i = 0; i &lt; nums2.length; i++) {
+            for (int j = i + 1; j &lt; nums2.length; j++) {
+                map2.put((long) nums2[i] * nums2[j], map2.getOrDefault((long) nums2[i] * nums2[j], 0) + 1);
             }
         }
-        int re = 0;
-        for (int i = 0; i &lt; n; i++) {
-            long p = (long)nums1[i] * nums1[i];
-            re += m2.getOrDefault(p, 0);
+        int count = 0;
+        for (long num : nums1) {
+            count += map2.getOrDefault(num * num, 0);
         }
-        for (int i = 0; i &lt; m; i++) {
-            long p = (long)nums2[i] * nums2[i];
-            re += m1.getOrDefault(p, 0);
+        for (long num : nums2) {
+            count += map1.getOrDefault(num * num, 0);
         }
-        return re;
+        return count;
     }
 }</B></FONT>
 </PRE>

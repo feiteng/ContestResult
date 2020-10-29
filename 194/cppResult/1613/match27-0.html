@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>57_gao-bie-xian-yu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>57_gao-bie-xian-yu.cpp</CENTER></H3><HR>
+<PRE>
+typedef pair&lt;int,int&gt; pii;
+vector&lt;vector&lt;int&gt;&gt; edge;
+bool cmp(int x,int y) {
+    return edge[x][2]&lt;edge[y][2];
+<A NAME="0"></A>}
+class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int m,id[10005],f[105],table[10005],dep[105];
+    pii fa[105];
+    vector&lt;pii&gt; G[105];
+    int F(int x) {
+        return x==f[x]?x:f[x]=F(f[x]);
+    }
+    void U(int x,int y) {
+        f[F(x)]=F(y);</B></FONT>
+    }
+    void dfs(int u,int ff,int depth) {
+        //printf(&quot;u=%d ff=%d\n&quot;,u,ff);
+        dep[u]=depth;
+        for (int i=0;i&lt;(int)G[u].size();++i) {
+            int v=G[u][i].first;
+            if (v==ff) continue;
+            fa[v]=pii(u,G[u][i].second);
+            dfs(v,u,depth+1);
+        }
+    }
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+<A NAME="1"></A>        m=edges.size();
+        for (int i=0;i&lt;n;++i) f[i]=i;
+        for (int i=0;i&lt;m;++i) id[i]=i,table[i]=0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        edge=edges;
+        sort(id,id+m,cmp);
+        for (int i=0;i&lt;m;++i) {
+            int u=edges[id[i]][0];
+            int v=edges[id[i]][1];
+            if (F(u)!=F(v)) {
+                U(u,v);
+                //printf(&quot;u=%d v=%d\n&quot;,u,v);
+                G[u].push_back(pii(v,id[i]));
+                G[v].push_back(pii(u,id[i]));
+                table[id[i]]=2;
+                //printf(&quot;id=%d\n&quot;,id[i]);
+            }
+        }</B></FONT>
+        dfs(0,-1,0);
+        //for (int i=0;i&lt;n;++i) printf(&quot;dep[%d]=%d\n&quot;,i,dep[i]);
+        for (int i=0;i&lt;m;++i) {
+            if (table[id[i]]) continue;
+            int u=edges[id[i]][0];
+            int v=edges[id[i]][1];
+            int w=edges[id[i]][2];
+            if (dep[u]&lt;dep[v]) swap(u,v);
+            //if (id[i]==5) {
+            //    printf(&quot;u=%d v=%d depu=%d depv=%d w=%d\n&quot;,u,v,dep[u],dep[v],w);
+            //}
+            int mmax=0;
+            while (dep[u]&gt;dep[v]) {
+                int x=fa[u].second;
+                mmax=max(mmax,edges[x][2]);
+                if (edges[x][2]&gt;=w)
+                    table[x]=1;
+                u=fa[u].first;
+                //if (id[i]==5) {
+                //    printf(&quot;u=%d mmax=%d\n&quot;,u,mmax);
+                //}
+            }
+            //if (id[i]==5) {
+            //    printf(&quot;u=%d v=%d w=%d\n&quot;,u,v,w);
+            //}
+            while (u!=v) {
+                int x=fa[u].second;
+                mmax=max(mmax,edges[x][2]);
+                int y=fa[v].second;
+                mmax=max(mmax,edges[y][2]);
+                if (edges[x][2]&gt;=w)
+                    table[x]=1;
+                if (edges[y][2]&gt;=w)
+                    table[y]=1;
+                u=fa[u].first;
+                v=fa[v].first;
+                //if (id[i]==5) {
+                //    printf(&quot;u=%d v=%d mmax=%d\n&quot;,u,v,mmax);
+                //}
+            }
+            if (mmax&gt;=w) table[id[i]]=1;
+            //if (id[i]==5) {
+            //    printf(&quot;mmax=%d u=%d v=%d w=%d\n&quot;,mmax,u,v,w);
+            //}
+        }
+        vector&lt;int&gt; v1,v2;
+        vector&lt;vector&lt;int&gt;&gt; ret;
+        for (int i=0;i&lt;m;++i) {
+            if (table[i]==1) v2.push_back(i);
+            if (table[i]==2) v1.push_back(i);
+        }
+        ret.push_back(v1);
+        ret.push_back(v2);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>233__-owo-_.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>233__-owo-_.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>sys.setrecursionlimit(10**9)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def stoneGameV(self, stoneValue: List[int]) -&gt; int:
+        pre = [0]
+        for num in stoneValue:
+            pre.append(pre[-1]+num)
+        # print(pre)
+        @lru_cache(None)
+        def dp(left,right):
+            if left==right:
+                return 0
+            # print(left,right)
+            # do the max split
+            # pick the one that makes them evenish
+            # m is last one on left
+            # l,r=left,right-1
+            # pick,best=-1,inf # absdiff
+            # goal = (pre[right+1]-pre[left])/2
+            # while l&lt;=r:
+            #     # print(l,r)
+            #     m=l+(r-l)//2
+            #     # val of left?
+            #     left_val = pre[m+1]-pre[l]
+            #     diff = left_val-goal
+            #     if abs(diff)&lt;best:
+            #         best=diff
+            #         pick=m
+            #     if diff==0:
+            #         break
+            #     if diff&lt;0:
+            #         l=m+1
+            #     else:
+            #         r=m-1
+            # pk = pick
+            # # print(pick)
+            # # have pick
+            ret = -inf
+            for pick in range(left,right):
+                # if not left&lt;=pick&lt;right:
+                #     continue
+                # print(pick)
+                left_val,right_val = pre[pick+1]-pre[left], pre[right+1]-pre[pick+1]
+                # print(left_val,right_val)
+                if left_val==right_val:
+                    ret = max(ret,max(</B></FONT>dp(left,pick),dp(pick+1,right))+left_val)
+<A NAME="1"></A>                elif left_val&lt;right_val:
+                    ret = max(ret,dp(left,pick)+left_val)
+                else:
+                    ret = max<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(ret,dp(pick+1,right)+right_val)
+            return ret
+        return dp(0,len(s</B></FONT>toneValue)-1)
+</PRE>
+
+</BODY>
+</HTML>

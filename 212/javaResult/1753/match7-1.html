@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>441_zexi-li.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>441_zexi-li.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>final int[][] direction = new int[][] {{1,0}, {-1,0}, {0, 1}, {0, -1}</B></FONT>};
+    public int minimumEffortPath(int[][] heights) {
+<A NAME="0"></A>        Deque&lt;int[]&gt; que = new ArrayDeque&lt;&gt;();
+        int row = heights.length;
+        int column = heights[0].length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] count = new int[row][column];
+        for (int i = 0; i &lt; row; i++) {
+            Arrays.fill(count[i], Integer.MAX_VALUE);
+        }
+        
+<A NAME="2"></A>        c</B></FONT>ount[0][0] = 0;
+        
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>que.add(new int[] {0, 0});
+<A NAME="3"></A>        
+        while (!que.isEmpty()) {
+            int[] now = que.pollFirst</B></FONT>();
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#3',2,'match7-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int[] dir : direction) {
+                int newX = now[0] + dir[0];
+<A NAME="4"></A>                int newY = now[1] + dir[1];
+                
+                if (newX &gt;= 0 &amp;&amp; newX &lt; row &amp;&amp; newY &gt;= 0 &amp;&amp; newY &lt; column) {
+                    int t = Math.max</B></FONT>(count[now[0]][now[1]], <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#4',2,'match7-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.abs(heights[now[0]][now[1]] - heights[newX][newY]));
+                    if (t &lt; count[newX][newY]) {
+                        count[newX][newY] = t;
+                        que.add(new int[] {newX, newY});
+                    }
+                }
+            }
+        }
+        
+        return count[row - 1][column - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

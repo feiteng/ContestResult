@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_yanghaomai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>151_yanghaomai.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class BrowserHistory {
+public:
+    vector&lt;string&gt; lq;
+    int ind;
+    BrowserHistory(string homepage) {
+        lq.push_back(homepage);
+        ind=0;
+    }
+    
+    void visit(string url) {
+        lq.erase(lq.begin()+ind+1,lq.end());
+        lq.push_back(url);
+        ++ind;
+    }
+    
+    string back(int steps) {
+        int sp=min(steps,ind);
+        ind-=sp;
+        return lq[ind];
+    }
+    
+    string forward(int steps) {
+        int sp=min(steps,(int)lq.size()-1-ind);
+        ind+=sp;
+        return lq[ind];
+    }
+};</B></FONT>
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj-&gt;visit(url);
+ * string param_2 = obj-&gt;back(steps);
+ * string param_3 = obj-&gt;forward(steps);
+ */
+</PRE>
+</BODY>
+</HTML>

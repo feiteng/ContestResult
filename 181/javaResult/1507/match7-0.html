@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_CHEN0426.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>179_CHEN0426.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean hasValidPath(int[][] grid) {
+        HashSet&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        
+        Queue&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        
+        q.offer(new int[]{0, 0});
+        
+        while (q.size() &gt; 0) {
+            int[] data = q.poll();
+            int key = data[0] * grid[0].length + data[1];
+            if (visited.contains(key)) {
+                continue;
+            }
+            visited.add(key);
+            
+            if (data[0] == grid.length - 1 &amp;&amp; data[1] == grid[0].length - 1) {
+                return true;
+            }
+            
+            if (grid[data[0]][data[1]] == 1) {
+<A NAME="0"></A>                int row1 = data[0];
+                int col1 = data[1] - 1;
+                
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 1 || grid[row1][col1] == 4 || grid[row1][col1] == 6)) {
+                    q.offer(new int[]{row1, col1});
+                }</B></FONT>
+                
+<A NAME="1"></A>                row1 = data[0];
+                col1 = data[1] + 1;
+                
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 1 || grid[row1][col1] == 3 || grid[row1][col1] == 5)) {
+                    q.offer(new int[]{row1, col1});
+                }
+            } else if (grid[data[0]][data[1]] == 2) {</B></FONT>
+<A NAME="2"></A>                int row1 = data[0] - 1;
+                int col1 = data[1];
+                
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 2 || grid[row1][col1] == 4 || grid[row1][col1] == 3)) {
+                    q.offer(new int[]{row1, col1});
+                }</B></FONT>
+                
+<A NAME="3"></A>                row1 = data[0] + 1;
+                col1 = data[1];
+                
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match7-1.html#3',3,'match7-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 2 || grid[row1][col1] == 5 || grid[row1][col1] == 6)) {
+                    q.offer(new int[]{row1, col1});
+                }
+            } else if (grid[data[0]][data[1]] == 3) {</B></FONT>
+<A NAME="4"></A>                int row1 = data[0];
+                int col1 = data[1] - 1;
+                
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match7-1.html#4',3,'match7-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 1 || grid[row1][col1] == 4 || grid[row1][col1] == 6)) {
+                    q.offer(new int[]{row1, col1});
+                }</B></FONT>
+                
+<A NAME="5"></A>                row1 = data[0] + 1;
+                col1 = data[1];
+                
+                <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match7-1.html#5',3,'match7-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 2 || grid[row1][col1] == 5 || grid[row1][col1] == 6)) {
+                    q.offer(new int[]{row1, col1});
+                }
+            } else if (grid[data[0]][data[1]] == 4) {</B></FONT>
+<A NAME="6"></A>                int row1 = data[0];
+                int col1 = data[1] + 1;
+                
+                <FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match7-1.html#6',3,'match7-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 1 || grid[row1][col1] == 3 || grid[row1][col1] == 5)) {
+                    q.offer(new int[]{row1, col1});
+                }</B></FONT>
+                
+<A NAME="7"></A>                row1 = data[0] + 1;
+                col1 = data[1];
+                
+                <FONT color="#c58917"><A HREF="javascript:ZweiFrames('match7-1.html#7',3,'match7-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 2 || grid[row1][col1] == 5 || grid[row1][col1] == 6)) {
+                    q.offer(new int[]{row1, col1});
+                }
+            } else if (grid[data[0]][data[1]] == 5) {</B></FONT>
+<A NAME="8"></A>                int row1 = data[0];
+                int col1 = data[1] - 1;
+                
+                <FONT color="#bce954"><A HREF="javascript:ZweiFrames('match7-1.html#8',3,'match7-top.html#8',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 1 || grid[row1][col1] == 4 || grid[row1][col1] == 6)) {
+                    q.offer(new int[]{row1, col1});
+                }</B></FONT>
+                
+<A NAME="9"></A>                row1 = data[0] - 1;
+                col1 = data[1];
+                
+                <FONT color="#f88017"><A HREF="javascript:ZweiFrames('match7-1.html#9',3,'match7-top.html#9',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 2 || grid[row1][col1] == 4 || grid[row1][col1] == 3)) {
+                    q.offer(new int[]{row1, col1});
+                }
+            } else if (grid[data[0]][data[1]] == 6) {</B></FONT>
+<A NAME="10"></A>                int row1 = data[0] - 1;
+                int col1 = data[1];
+                
+                <FONT color="#b041ff"><A HREF="javascript:ZweiFrames('match7-1.html#10',3,'match7-top.html#10',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 2 || grid[row1][col1] == 4 || grid[row1][col1] == 3)) {
+                    q.offer(new int[]{row1, col1});
+                }</B></FONT>
+                
+<A NAME="11"></A>                row1 = data[0];
+                col1 = data[1] + 1;
+                
+                <FONT color="#571b7e"><A HREF="javascript:ZweiFrames('match7-1.html#11',3,'match7-top.html#11',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (helper(row1, col1, grid) &amp;&amp; (grid[row1][col1] == 1 || grid[row1][col1] == 3 || grid[row1][col1] == 5)) {
+                    q.offer(new int[]{row1, col1});
+                }
+            }
+        }</B></FONT>
+        return false;
+    }
+    
+    private boolean helper(int r, int c, int[][] grid) {
+        if (r &gt;= 0 &amp;&amp; c &gt;= 0 &amp;&amp; r &lt; grid.length &amp;&amp; c &lt; grid[0].length) {
+            return true;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_scut_dell.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_scut_dell.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    
+    int a[40000];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void init(int n) {
+        for (int i = 0;i &lt;= n;i++) {
+            a[i] = 0;
+        }
+    }
+    int lowbit(int x) {</B></FONT>
+        return x &amp; (-x);
+    }
+    void add(int x, int v) {
+        while (x &lt;= 30000) {
+            a[x] += v;
+            x += lowbit(x);
+        }
+    }
+    int sum(int x) {
+        int ret = 0;
+        while (x != 0) {
+            ret += a[x];
+            x -= lowbit(x);
+        }
+        return ret;
+    }
+    
+    string minInteger(string num, int k) {
+        init(num.size());
+        string ret = &quot;&quot;;
+<A NAME="1"></A>        vector&lt;int&gt; data[10];
+        int next[10];
+        memset(next, 0, sizeof(next));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0;i &lt; num.size();i++) {
+            data[num[i] - '0'].push_back(i);
+<A NAME="2"></A>        }
+        for (int i = 0;i &lt; num.size();i++) {
+            int start = 0;</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j = start;j &lt; 10;j++) {
+                if (next[j] == data[j].size()) {
+                    continue;
+                }
+                int p = data[j][next[j]];
+                if (k &gt;= p + sum(p + 1) - i) {
+                    k -= p + sum(p + 1) - i;</B></FONT>
+                    next[j]++;
+                    ret.push_back(char('0' + j));
+                    add(1, 1);
+                    add(p + 1, -1);
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

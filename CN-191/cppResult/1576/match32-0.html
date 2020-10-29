@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_donghy-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>33_donghy-2.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; connections) {
+        auto es = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;{});
+        auto res = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;{});
+        for (auto &amp;p: connections) {
+            es[p[0]].push_back(p[1]);
+<A NAME="0"></A>            res[p[1]].push_back(p[0]);
+        }
+        auto q = deque&lt;int&gt;{0};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        auto visited = vector&lt;int&gt;(n, 0);
+        visited[0] = 1;
+        int ans = 0;
+        while (!q.empty()) {
+            int s = q.front();
+            q.pop_front();
+            for (auto t: es[s]) {
+                if (!visited[t]) {</B></FONT>
+                    q.push_back(t);
+                    visited[t] = 1;
+                    ans ++;
+                }
+            }
+            for (auto t: res[s]) {
+                if (!visited[t]) {
+                    q.push_back(t);
+                    visited[t] = 1;
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>107_blacksea3_nju.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>107_blacksea3_nju.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string reformat(string s) {
+        string num;
+        string let;
+        for (auto&amp; iters : s) {
+            if (iters &lt;= '9' &amp;&amp; iters &gt;= '0') {
+                num.push_back(iters);
+            }
+            else {
+                let.push_back(iters);
+            }
+        }
+
+        int nSize = num.size();
+        int lSize = let.size();
+        if (abs(nSize - lSize) &gt; 1) {
+<A NAME="0"></A>            return &quot;&quot;;
+        }
+        else {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (nSize &gt; lSize) {
+                string ret;
+                for (int index = 0; index &lt; lSize; ++index) {
+                    ret.push_back(num[index]);
+                    ret.push_back(let[index]);
+                }
+                ret.push_back(num[nSize - 1]);
+                return ret;
+            }
+            else if (lSize &gt; nSize) {
+                string ret;
+                for (int index = 0; index &lt; nSize; ++index) {
+                    ret.push_back(let[index]);
+                    ret.push_back(num[index]);
+                }
+                ret.push_back(let[lSize - 1]);
+                return ret;
+            }
+            else {
+                string ret;
+                for (int index = 0; index &lt; nSize; ++index) {
+                    ret.push_back(let[index]);
+                    ret.push_back(num[index]);
+                }
+                return ret;
+            }
+        }
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_PizzaLovers007.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>234_PizzaLovers007.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int t = 0;
+    public int minTime(int n, int[][] edges, List&lt;Boolean&gt; hasApple) {
+<A NAME="1"></A>        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; adjList = new ArrayList&lt;&gt;();
+        for (int i = 0</B></FONT>; i &lt; n; i++) {
+            adjList.add(new ArrayList&lt;&gt;());
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int[] e : edges) {
+            adjList.get(e[0]).add(e[1]);
+            adjList.get(e[1]).add(e[0]);
+        }
+        // System.out.println(adjList);
+        boolean[] visited = new boolean[n];
+        dfs(0, 0, hasApple, adjList, visited);
+        return t*2;
+    }
+    
+    public boolean dfs(int curr, int d, List&lt;Boolean&gt; hasApple, ArrayList&lt;ArrayList&lt;Integer&gt;&gt; adjList</B></FONT>, boolean[] visited) {
+        if (visited[curr]) {
+            return false;
+        }
+        visited[curr] = true;
+        boolean under = hasApple.get(curr);
+        for (int other : adjList.get(curr)) {
+            if (dfs(other, d+1, hasApple, adjList, visited)) {
+                under = true;
+                t++;
+            }
+        }
+        return under;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

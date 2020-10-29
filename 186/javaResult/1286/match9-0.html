@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>602_chuongk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>602_chuongk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int constrainedSubsetSum(int[] nums, int k) {
+        int n = nums.length;
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a,b) -&gt; {</B></FONT>
+            if (a[0] == b[0]) {
+                return a[1] - b[1];
+            }
+            return b[0] - a[0];
+        });
+        pq.add(new int[]{nums[0], 0});
+<A NAME="1"></A>        int best = nums[0];
+        for (int i = 1; i &lt; n; ++i) {
+            int val = nums[i];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int minIdx = i - k;
+            while (pq.size() &gt; 0 &amp;&amp; pq.peek()[1] &lt; minIdx) {
+                pq.poll();
+            }
+            if (!pq.isEmpty</B></FONT>() &amp;&amp; pq.peek()[0] &gt; 0) {
+                val += pq.peek()[0];
+                // System.out.println(&quot;i: &quot; + i + &quot; pq.peek()[0]: &quot; + pq.peek()[0] + &quot; val: &quot; + val);
+            }
+            pq.add(new int[]{val, i});
+            best = Math.max(best, val);
+        }
+        return best;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

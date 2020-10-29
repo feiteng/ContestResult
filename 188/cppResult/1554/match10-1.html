@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_Arpan_Bhowmik.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>486_Arpan_Bhowmik.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int sz[100005],ans;
+    vector&lt;int&gt;ad[100005];
+    
+<A NAME="0"></A>    void dfs(int src, int pre, vector&lt;bool&gt;&amp; apple)
+    {
+        sz[src]=(apple[src]==true);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int v: ad[src])
+        {
+            if(v==pre) continue;
+            dfs(v,src,apple);
+            sz[src]+=sz[v];
+        }
+    }
+    
+    void func(int src, int pre)
+    {
+        for(int v: ad[src])
+        {
+            if(v==pre) continue;
+            if(sz[v])
+            {
+                ans++;
+                func(v,src);
+                ans++;
+            }
+        }
+        
+    }
+    int minTime(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;bool&gt;&amp; hasApple) {</B></FONT>
+        for(int i=0; i&lt;edges.size(); i++)
+        {
+            ad[edges[i][0]].push_back(edges[i][1]);
+            ad[edges[i][1]].push_back(edges[i][0]);
+        }
+        dfs(0,-1,hasApple);
+        ans=0;
+        func(0,-1);
+        for(int i=0; i&lt;=n; i++) ad[i].clear();
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

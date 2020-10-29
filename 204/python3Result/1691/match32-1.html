@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>228_samk522.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>228_samk522.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minDays(self, grid: List[List[int]]) -&gt; int:
+        
+        n = len(grid)
+        m = len(grid[0])
+        
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        def isCell(t):
+            if t[0] &gt;= 0 and t[0] &lt; n and t[1] &gt;= 0 and t[1] &lt; m:
+                return True
+            return False
+        
+        
+        
+        def getv(g, i, j):
+            v = set((i, j))
+            q = collections.deque([(i, j)])
+            while q:
+                thisi, thisj = q.popleft()
+<A NAME="0"></A>                for dd in directions:
+                    ii = thisi + dd[0]
+                    jj = thisj + dd[1]
+                    if isCell((<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ii, jj)):
+                        if g[ii][jj] == 1 and (ii, jj) not in v:
+                            v.add((ii, jj))
+                            q.append((i</B></FONT>i, jj))
+            return v
+        
+        def isConnected(g):
+            v = set()
+            for i in range(n):
+                for j in range(m):
+                    if g[i][j] == 1:
+                        if (i, j) not in v:
+                            if len(v) &gt; 0:
+                                return False
+                            else:
+<A NAME="1"></A>                                v = getv(g, i, j)
+            return True
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if not isConnected(grid):
+            return 0
+        
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1:
+                    grid[i][j] = 0
+                    if not isConnected(grid):
+                        return 1
+                    grid[i][j] = 1
+        re</B></FONT>turn 2
+</PRE>
+
+</BODY>
+</HTML>

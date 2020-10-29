@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>387_kakamm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>387_kakamm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public class Range {
+       public  int startIndex;
+        public int endIndex;
+        
+        
+        public Range (int start) {
+            this.startIndex = start;
+            this.endIndex = start;
+        }
+        
+        public Range (int start, int end) {
+            this.startIndex = start;
+            this.endIndex = end;
+        }
+    }
+    
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        HashMap&lt;Character, Range&gt; map = new HashMap&lt;&gt;();
+        char[] array = s.toCharArray();
+        for(int i = 0; i &lt; array.length; i++) {
+            if (!map.containsKey(array[i])) {
+                map.put(array[i], new Range(i));
+            } else{
+                map.get(array[i]).endIndex = i;
+            }
+        }
+        
+        HashMap&lt;Integer, List&lt;String&gt;&gt; memo = new HashMap&lt;&gt;(); //maxi
+        
+        int maxNum = 0;
+        
+        List&lt;String&gt; result = null;
+        
+        for (int i = 0; i &lt; array.length; i++) {
+            travel(i, s, array, map, memo);
+        }
+        
+        for(List&lt;String&gt; value: memo.values()) {
+            int size = value.size();
+            if (size &gt; maxNum) {
+                maxNum = size;
+                result = value;
+            } else if (size == maxNum &amp;&amp; computeLength(value) &lt; computeLength(result)){
+                result = value;
+                
+<A NAME="2"></A>            }
+        }
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return result;
+        
+    }
+    
+    private int computeLength(List&lt;String&gt; strings) {
+        int result = 0;
+        for(String str: strings) {
+            result += str.length();
+        }
+        
+<A NAME="0"></A>        return result;
+    }</B></FONT>
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private List&lt;String&gt; travel (int start, String s, char[] array, HashMap&lt;Character, Range&gt; map, HashMap&lt;Integer, List&lt;String&gt;&gt; memo) {
+        
+        if (start &gt;= array.length) {
+            return new ArrayList&lt;&gt;();
+        }</B></FONT>
+        
+        if (memo.containsKey(start)) {
+            return memo.get(start);
+        }
+        
+        int originalStart = map.get(array[start]).startIndex;
+        
+        if (originalStart &lt; start) {
+            memo.put(start, new ArrayList&lt;&gt;());
+            return memo.get(start);
+        }
+        
+        int last = map.get(array[start]).endIndex;
+        
+        int i = start + 1;
+        
+        while (i &lt; last) {
+            if (map.get(array[i]).startIndex &lt; start) {
+                 memo.put(start, new ArrayList&lt;&gt;());
+                return memo.get(start);
+            } 
+            
+            if (map.get(array[i]).endIndex &gt; last) {
+                last = map.get(array[i]).endIndex;
+            }
+            i++;
+        }
+        
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        result.add(s.substring(start, last + 1));
+        
+        
+        
+        List&lt;String&gt; next = new ArrayList&lt;&gt;();
+        int maxNum = 0;
+        
+        for(int j = last + 1; j &lt; array.length; j++) {
+            List&lt;String&gt; nextCandidate =  travel(j, s, array, map, memo);
+            
+            
+            int size = nextCandidate.size();
+<A NAME="1"></A>            if (size &gt; maxNum) {
+                maxNum = size;
+                next = nextCandidate;
+            } else if (size == maxNum &amp;&amp; <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>computeLength(nextCandidate) &lt; computeLength(next)){
+                next = nextCandidate;
+                
+            }
+            
+           
+        }
+            
+           
+        result.addAll</B></FONT>(next);
+        
+        memo.put(start, result);
+        
+       // System.out.println(&quot;start: &quot; + start + &quot;;&quot; + Arrays.toString(result.toArray()));
+        
+        return result;
+        
+    }
+    
+    
+   
+}
+</PRE>
+
+</BODY>
+</HTML>

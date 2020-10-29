@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>572_acxiao-ba-wang.cpp</TITLE>
+ <TITLE>124_polonez.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,87 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>572_acxiao-ba-wang.cpp</CENTER></H3><HR>
+<H3><CENTER>124_polonez.cpp</CENTER></H3><HR>
 <PRE>
-class Solution
-{
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    //vector&lt;pair&lt;int,int&gt; &gt; e[100005];
+    //int vis[100005];
+    pair&lt;int,pair&lt;int,int&gt; &gt; a[100005];
+    int f1[100005],f2[100005];
 public:
-    static const int N=1e5+5;
-    int fat1[N],fat2[N];
-    int find1(int x)
+    /*
+    void dfs(int x, int bad, int id)
     {
-        return fat1[x]==x?x:fat1[x]=find1(fat1[x]);
-    }
-    int find2(int x)
-    {
-        return fat2[x]==x?x:fat2[x]=find2(fat2[x]);
-    }
-    struct node
-    {
-        int type,u,v;
-        bool operator&lt;(const node &amp;b)const
+        vis[x]=id;
+        for (auto y:e[x])
         {
-            if(type==b.type)
-                return u&lt;b.u;
-            int flag=0;
-            if(type==3)
-                flag=1;
-            return flag;
+            if (vis[y.first] &lt; id &amp;&amp; y.second != bad)
+                dfs(y.first, bad, id);
         }
-    };
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges)
-    {
-        int len=edges.size();
-        vector&lt;node&gt;vec;
-        for(auto it:edges)
-<A NAME="1"></A>            vec.push_back({it[0],it[1],it[2]});
-        sort(vec.begin(),vec.end());
-        int sum=0,sum1=0,sum2=0;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i&lt;=n;i++)
-            fat1[i]=fat2[i]=i;
-        for(auto it:vec)
-        {
-           // cout&lt;&lt;it.type&lt;&lt;&quot; + &quot;&lt;&lt;it.u&lt;&lt;&quot; &quot;&lt;&lt;it.v&lt;&lt;endl;
-            if(it.type==3)
-            {
-                int tx=find1(it.u);
-                int ty=find1(it.v);
-                if(tx!=ty)
-                {
-                    fat1[tx]=ty;
-                    fat2[tx]=ty;</B></FONT>
-<A NAME="2"></A>                    sum++;
-                }
-            }
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(it.type==1)
-            {
-                int tx=find1(it.u);
-                int ty=find1(it.v);
-                if(tx!=ty)
-                {
-                    fat1[tx]=ty;
-<A NAME="0"></A>                    sum1++;
-                }
-            }</B></FONT>
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(it.type==2)
-            {
-                int tx=find2(it.u);
-                int ty=find2(it.v);
-                if(tx!=ty)
-                {
-                    fat2[tx]=ty;
-                    sum2++;
-                }
-            }
-        }</B></FONT>
-          //  cout&lt;&lt;sum&lt;&lt;&quot; &quot;&lt;&lt;sum1&lt;&lt;&quot; &quot;&lt;&lt;sum2&lt;&lt;endl;
-        if(sum+sum1==n-1&amp;&amp;sum+sum2==n-1)
-            return (int)edges.size()-sum-sum1-sum2;
-        else
-            return -1;
-
     }
-};
+    bool check(int n, int id)
+    {
+        for (int i = 1; i &lt;= n; i ++)
+            if (vis[i]&lt;id) return false;
+        return true;
+    }
+    */
+    int findset(int *f, int x)
+    {
+        if (!f[x]) return x;
+        f[x] = findset(f, f[x]);
+        return f[x];
+    }
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m = edges.size();
+        for (int i = 0; i &lt; m; i ++)
+        {
+            int w = edges[i][0], u = edges[i][1], v = edges[i][2];
+            if (w==3) w = 0;
+            /*
+            e[u].push_back(make_pair(v,w));
+            e[v].push_back(make_pair(u,w));
+            */
+            a[i] = make_pair(w, make_pair(u,v));
+        }
+        /*
+        int id=1;
+        dfs(1,1,1);
+        if (!check(n, id)) return -1;
+        ++ id;
+        dfs(1,2,id);
+        if (!check(n, id)) return -1;
+        */
+        sort(a,a+m);
+        int ca = n, cb = n, ret = 0;
+        for (int i = 0; i &lt; m; i ++)
+        {
+            pair&lt;int,pair&lt;int,int&gt; &gt; x = a[i];
+            int need = 1;
+            if (x.first != 1)
+            {
+                int p = findset(f1, x.second.first), q = findset(f1, x.second.second);
+                //printf(&quot;%d %d %d %d %d\n&quot;, x.first, x.second.first, x.second.second, p,q);
+                if (p != q)
+                {
+                    if (rand() % 2) f1[p]=q; else f1[q]=p;
+                    need = 0;
+                    ca --;
+                }
+            }
+            if (x.first != 2)
+            {
+                int p = findset(f2, x.second.first), q = findset(f2, x.second.second);
+                                //printf(&quot;%d %d %d %d %d\n&quot;, x.first, x.second.first, x.second.second, p,q);
+
+                if (p != q)
+                {
+                    if (rand() % 2) f2[p]=q; else f2[q]=p;
+                    need = 0;
+                    cb --;
+                }                
+            }
+            ret += need;
+        }
+        //printf(&quot;\n&quot;);
+        if (ca &gt; 1 || cb &gt; 1) return -1;
+        else return ret;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

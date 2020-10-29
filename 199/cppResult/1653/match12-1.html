@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_pedrohlf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>46_pedrohlf.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    int dist, ans;
+    
+<A NAME="0"></A>    vector&lt;int&gt; dfs(TreeNode* v) {
+        if(v == nullptr) return vector&lt;int&gt;();
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(v-&gt;left == nullptr &amp;&amp; v-&gt;right == nullptr) {
+            return {1};
+        }
+        
+        vector&lt;int&gt; l = dfs(v-&gt;left);
+        vector&lt;int&gt; r = dfs(v-&gt;right);
+        
+        for(int ul : l)</B></FONT>
+            for(int ur : r) {
+                if(ul+ur &lt;= dist) ans++;
+            }
+        
+        for(int ur : r) l.push_back(ur);
+        
+        for(int&amp; ul : l) ul++;
+        
+        return l;
+    }
+    
+public:
+    int countPairs(TreeNode* root, int distance) {
+        dist = distance;
+        ans = 0;
+        dfs(root);
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

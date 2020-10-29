@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_tylerwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_tylerwang.cpp</CENTER></H3><HR>
+<PRE>
+// Author: Tyler Wang
+
+template &lt;class C&gt;
+constexpr auto ssize(const C&amp; c)
+    -&gt; std::common_type_t&lt;std::ptrdiff_t,
+                          std::make_signed_t&lt;decltype(c.size())&gt;&gt; {
+  return (std::common_type_t&lt;std::ptrdiff_t,
+                             std::make_signed_t&lt;decltype(c.size())&gt;&gt;)c.size();
+}
+
+template &lt;class T, std::ptrdiff_t N&gt;
+constexpr std::ptrdiff_t ssize(const T (&amp;)[N]) noexcept {
+  return N;
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, bool&gt; has_single_bit(
+    T x) noexcept {
+  return x != 0 &amp;&amp; (x &amp; (x - 1)) == 0;
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, int&gt; countl_zero(
+    T x) noexcept {
+  if constexpr (sizeof(T) &lt;= sizeof(unsigned)) {
+    return __builtin_clz(x) - (std::numeric_limits&lt;unsigned&gt;::digits -
+                               std::numeric_limits&lt;T&gt;::digits);
+  } else if constexpr (sizeof(T) &lt;= sizeof(unsigned long)) {
+    return __builtin_clzl(x) - (std::numeric_limits&lt;unsigned long&gt;::digits -
+                                std::numeric_limits&lt;T&gt;::digits);
+  } else {
+    static_assert(sizeof(T) &lt;= sizeof(unsigned long long));
+    return __builtin_clzll(x) -
+           (std::numeric_limits&lt;unsigned long long&gt;::digits -
+            std::numeric_limits&lt;T&gt;::digits);
+  }
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, int&gt; countr_zero(
+    T x) noexcept {
+  if constexpr (sizeof(T) &lt;= sizeof(unsigned)) {
+    return __builtin_ctz(x);
+  } else if constexpr (sizeof(T) &lt;= sizeof(unsigned long)) {
+    return __builtin_ctzl(x);
+  } else {
+    static_assert(sizeof(T) &lt;= sizeof(unsigned long long));
+    return __builtin_ctzll(x);
+  }
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, int&gt; popcount(T x) noexcept {
+  if constexpr (sizeof(T) &lt;= sizeof(unsigned)) {
+    return __builtin_popcount(x);
+  } else if constexpr (sizeof(T) &lt;= sizeof(unsigned long long)) {
+    return __builtin_popcountl(x);
+  } else {
+    static_assert(sizeof(T) &lt;= sizeof(unsigned long long));
+    return __builtin_popcountll(x);
+  }
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, T&gt; bit_width(T x) noexcept {
+  return (T)(std::numeric_limits&lt;T&gt;::digits - countl_zero(x));
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, T&gt; bit_ceil(T x) noexcept {
+  return (T)(x &lt;= 1 ? 1 : (T)1 &lt;&lt; bit_width((T)(x - 1)));
+}
+
+template &lt;typename T&gt;
+constexpr std::enable_if_t&lt;std::is_unsigned_v&lt;T&gt;, T&gt; bit_floor(T x) noexcept {
+  return (T)(x == 0 ? 0 : (T)1 &lt;&lt; (bit_width(x) - 1));
+}
+
+template &lt;class Fun&gt;
+class y_combinator_result {
+ public:
+  template &lt;class T&gt;
+  explicit y_combinator_result(T&amp;&amp; fun) : fun_(std::forward&lt;T&gt;(fun)) {}
+
+  template &lt;class... Args&gt;
+  decltype(auto) operator()(Args&amp;&amp;... args) {
+    return fun_(std::ref(*this), std::forward&lt;Args&gt;(args)...);
+  }
+
+ private:
+  Fun fun_;
+};
+
+template &lt;class Fun&gt;
+decltype(auto) y_combinator(Fun&amp;&amp; fun) {
+  return y_combinator_result&lt;std::decay_t&lt;Fun&gt;&gt;(std::forward&lt;Fun&gt;(fun));
+}
+
+template &lt;typename T&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::optional&lt;T&gt;&amp; opt) {
+  return opt ? os &lt;&lt; *opt : os &lt;&lt; &quot;nullopt&quot;;
+}
+
+template &lt;typename T1, typename T2&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::pair&lt;T1, T2&gt;&amp; p) {
+  return os &lt;&lt; '{' &lt;&lt; p.first &lt;&lt; &quot;, &quot; &lt;&lt; p.second &lt;&lt; '}';
+}
+
+template &lt;typename Container,
+          std::enable_if_t&lt;!std::is_convertible_v&lt;Container, std::string_view&gt;,
+                           typename Container::const_iterator&gt;* = nullptr&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const Container&amp; c) {
+  os &lt;&lt; '{';
+  for (auto it = c.begin(); it != c.end(); ++it) {
+    if (it != c.begin()) {
+      os &lt;&lt; &quot;, &quot;;
+    }
+    os &lt;&lt; *it;
+  }
+  return os &lt;&lt; '}';
+}
+
+template &lt;typename T, typename Container&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, std::stack&lt;T, Container&gt; s) {
+  std::vector&lt;T&gt; v(s.size());
+  for (auto it = v.rbegin(); it != v.rend(); ++it) {
+    *it = s.top();
+    s.pop();
+  }
+  return os &lt;&lt; v;
+}
+
+template &lt;typename T, typename Container&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, std::queue&lt;T, Container&gt; q) {
+  os &lt;&lt; '{';
+  if (!q.empty()) {
+    os &lt;&lt; q.front();
+    q.pop();
+    while (!q.empty()) {
+      os &lt;&lt; &quot;, &quot; &lt;&lt; q.front();
+      q.pop();
+    }
+  }
+  return os &lt;&lt; '}';
+}
+
+template &lt;typename T, typename Container, typename Compare&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os,
+                         std::priority_queue&lt;T, Container, Compare&gt; pq) {
+  os &lt;&lt; '{';
+  if (!pq.empty()) {
+    os &lt;&lt; pq.top();
+    pq.pop();
+    while (!pq.empty()) {
+      os &lt;&lt; &quot;, &quot; &lt;&lt; pq.top();
+      pq.pop();
+    }
+  }
+  return os &lt;&lt; '}';
+}
+
+namespace detail {
+
+template &lt;int I, typename... Ts&gt;
+void tuple_print(std::ostream&amp; os, const std::tuple&lt;Ts...&gt;&amp; t) {
+  static_assert(0 &lt;= I &amp;&amp; I &lt;= sizeof...(Ts));
+  if constexpr (I != sizeof...(Ts)) {
+    if constexpr (I != 0) {
+      os &lt;&lt; &quot;, &quot;;
+    }
+    os &lt;&lt; std::get&lt;I&gt;(t);
+    tuple_print&lt;I + 1&gt;(os, t);
+  }
+}
+
+}  // namespace detail
+
+template &lt;typename... Ts&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::tuple&lt;Ts...&gt;&amp; t) {
+  os &lt;&lt; '{';
+  detail::tuple_print&lt;0&gt;(os, t);
+  return os &lt;&lt; '}';
+}
+
+namespace detail {
+
+template &lt;typename T1, typename... Ts&gt;
+void debug_print(std::string_view keys, const T1&amp; val1, const Ts&amp;... vals) {
+  if constexpr (sizeof...(Ts) == 0) {
+    std::cout &lt;&lt; keys &lt;&lt; &quot; = &quot; &lt;&lt; val1 &lt;&lt; std::endl;
+  } else {
+    for (int i = 0, paren = 0; i &lt; (int)keys.size(); ++i) {
+      if (keys[i] == '(' || keys[i] == '{') {
+        ++paren;
+      } else if (keys[i] == ')' || keys[i] == '}') {
+        --paren;
+      } else if (keys[i] == ',' &amp;&amp; paren == 0) {
+        std::cout &lt;&lt; keys.substr(0, i) &lt;&lt; &quot; = &quot; &lt;&lt; val1 &lt;&lt; ',';
+        return debug_print(keys.substr(i + 1), vals...);
+      }
+    }
+  }
+}
+
+template &lt;typename... Ts&gt;
+void debug_print(int line, const Ts&amp;... keyvals) {
+  if constexpr (sizeof...(Ts) &lt;= 1) {
+    std::cout &lt;&lt; &quot;  &quot; &lt;&lt; line &lt;&lt; &quot; |&quot; &lt;&lt; std::endl;
+  } else {
+    std::cout &lt;&lt; &quot;  &quot; &lt;&lt; line &lt;&lt; &quot; | &quot;;
+    debug_print(keyvals...);
+  }
+}
+
+}  // namespace detail
+
+#if defined(__GNUC__) &amp;&amp; __GNUC__ &gt;= 8
+#define debug(...) \
+  detail::debug_print(__LINE__, #__VA_ARGS__ __VA_OPT__(, ) __VA_ARGS__)
+#else
+#define debug(...) detail::debug_print(__LINE__, #__VA_ARGS__, __VA_ARGS__)
+#endif
+
+<A NAME="0"></A>class Solution {
+ public:
+  int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int n = grid.size(), m = grid[0].size();
+    vector&lt;vector&lt;int&gt;&gt; dp(m, vector&lt;int&gt;(m, -1));
+    dp[0][m - 1] = grid[0][0] + grid[0][m - 1];
+    for (int i = 1; i &lt; n; ++i) {
+      vector&lt;vector&lt;int&gt;&gt; next_dp(m, vector&lt;int&gt;(m, -1));
+      for (int j1 = 0; j1 &lt; m; ++j1) {
+        for (int j2 = 0; j2 &lt; m; ++j2) {
+          if (dp[j1][j2] == -1) {
+            continue;
+<A NAME="1"></A>          }
+          for (int nj1 = j1 - 1; nj1 &lt;= j1 + 1; ++nj1) {
+            for (int nj2 = j2 - 1; nj2 &lt;= j2 + 1; ++nj2) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>              if (nj1 &lt; 0 || nj1 &gt;= m || nj2 &lt; 0 || nj2 &gt;= m) {
+                continue;
+              }
+              if (nj1 == nj2) {
+                next_dp[nj1][nj2] =
+                    max(next_dp[nj1][nj2], dp[j1][j2] + grid[i][nj1]);
+              } else {
+                next_dp[nj1][nj2] =
+                    max(next_dp[nj1][nj2],
+                        dp[j1][j2] + grid[i][nj1] + grid[i][nj2]);
+              }
+            }
+          }
+<A NAME="2"></A>        }
+      }</B></FONT>
+      dp = move(next_dp);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    int ans = 0;
+    for (int i = 0; i &lt; m; ++i) {
+      for (int j = 0; j &lt; m; ++j) {
+        ans = max(ans, dp[i][j]);
+      }
+    }
+    return ans;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

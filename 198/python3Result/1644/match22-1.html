@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>137_n2hawk.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>137_n2hawk.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        t = [[-1,-1,set()] for i in range(26)]
+        for i in range(len(s)):
+            x = ord(s[i]) - ord('a')
+            if t[x][0] == -1: t[x][0] = i
+            t[x][1] = i
+        for i in range(len(s)):
+            for j in range(26):
+                if i &gt;= t[j][0] and i &lt;= t[j][1]:
+                    t[j][2].add(s[i])
+        while True:
+            flag = False
+            for i in range(26):
+                while True:
+<A NAME="0"></A>                    tmp = t[i][2]
+                    for c in tmp:
+                        x = ord(c)-ord('a')
+                        t<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][0] = min(t[i][0], t[x][0])
+                        t[i][1] = max(t[i][1], t[x][</B></FONT>1])
+                        t[i][2] = tmp.union(t[x][2])
+                    if len(tmp) == len(t[i][2]): break
+<A NAME="1"></A>                    else: flag = True
+            if flag == False: break
+        t.sort()
+        ans <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
+        for i in range(26):
+            if t[i][0] == -1: continue
+            if i == 25 or t[i][1] &lt; t[i+1][0]:
+                ans.</B></FONT>append(s[t[i][0]:t[i][1]+1])
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

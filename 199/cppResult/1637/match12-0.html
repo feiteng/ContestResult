@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_737.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_737.cpp</CENTER></H3><HR>
+<PRE>
+const int N=1&lt;&lt;7;
+class Solution {
+public:
+    int dp[2][N][27][N];
+    int lst;
+    int sum(string s)
+    {
+        int n=s.size(),ret=0;
+        for(int l=0,r=0;l&lt;n;l=r)
+        {
+            while(r&lt;n&amp;&amp;s[r]==s[l])++r;
+            ret++;
+            lst=r-l;
+            if(r-l==1) continue;
+            else if(r-l&lt;10) ++ret;
+            else if(r-l&lt;100) ret+=2;
+            else ret+=3;
+        }
+        return ret;
+    }
+    void upd(int &amp;x,int y)
+    {
+        if(x==-1) x=y;
+        else x=min(x,y);
+    }
+    int getLengthOfOptimalCompression(string s, int k) {
+        int n=s.size();
+        if(n==k) return 0;
+        int inf=1&lt;&lt;30;
+        memset(dp,-1,sizeof(dp));
+        dp[0][0][26][0]=0;
+        int now=1;
+        for(int i=1;i&lt;=n;++i,now^=1)
+        {
+<A NAME="0"></A>            memset(dp[now],-1,sizeof(dp[now]));
+            int t=sum(s.substr(0,i));
+            dp[now][0][s[i-1]-'a'][lst]=t;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int ch=s[i-1]-'a';
+            for(int j=1;j&lt;=min(i,k);++j)
+                for(int c=0;c&lt;=26;++c)
+                    for(int l=0;l&lt;=i;++l)
+                    {</B></FONT>
+                        int pd=dp[now^1][j-1][c][l];
+                        if(~pd) {
+                            upd(dp[now][j][c][l],pd);
+                        }
+                        if(j==i) continue;
+                        pd=dp[now^1][j][c][l];
+                        if(~pd)
+<A NAME="1"></A>                        {
+                            int nd=pd,nl;
+                            if(c==ch) nl=l+1,nd+=(l==1)||(l==9)||(l==99);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                            else nl=1,nd+=1;
+                            upd(dp[now][j][ch][nl],nd);
+                        }
+                    }
+        }
+        int ans=-1;
+        for(int i=0;i&lt;=26;++i)
+            for(int j=0;j&lt;N;++j)</B></FONT>
+            {
+                if(~dp[n&amp;1][k][i][j])
+                    upd(ans,dp[n&amp;1][k][i][j]);
+            }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

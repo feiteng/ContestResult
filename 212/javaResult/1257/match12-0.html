@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_scut_dell.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>64_scut_dell.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Point {
+    public int x, y;
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }</B></FONT>
+}
+
+class Solution {
+<A NAME="1"></A>    private int make(int x, int y, int m) {
+        return x * m + y;
+    }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int[][] matrixRankTransform(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+
+        Map&lt;Integer, List&lt;Point&gt;&gt; map = new TreeMap&lt;&gt;();
+        for (int i = 0;i &lt; n;i++) {
+            for (int j = 0;j &lt; m;j++) {</B></FONT>
+                Point point = new Point(i, j);
+                map.compute(matrix[i][j], (k, v) -&gt; {
+                    if (v == null) {
+                        v = new ArrayList&lt;&gt;();
+                    }
+                    v.add(point);
+                    return v;
+                });
+            }
+        }
+
+        int[][] ret = new int[n][m];
+        boolean[][] flag = new boolean[n][m];
+
+        for (int i = 0;i &lt; n;i++) {
+            for (int j = 0;j &lt; m;j++) {
+                flag[i][j] = false;
+            }
+        }
+
+        int[] nowRow = new int[n];
+        int[] nowCol = new int[m];
+<A NAME="2"></A>        Arrays.fill(nowRow, 0);
+        Arrays.fill(nowCol, 0);
+
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (Map.Entry&lt;Integer, List&lt;Point&gt;&gt; entry: map.entrySet()) {
+            Map&lt;Integer, List&lt;Point&gt;&gt; row = new HashMap&lt;&gt;();
+            Map&lt;Integer, List&lt;Point&gt;&gt; col = new HashMap&lt;&gt;();
+            for (Point point: entry.getValue()) {
+                row.compute</B></FONT>(point.x, (k, v) -&gt; {
+                    if (v == null) {
+                        v = new ArrayList&lt;&gt;();
+                    }
+                    v.add(point);
+                    return v;
+                });
+                col.compute(point.y, (k, v) -&gt; {
+                    if (v == null) {
+                        v = new ArrayList&lt;&gt;();
+                    }
+                    v.add(point);
+                    return v;
+                });
+            }
+
+            for (Point point: entry.getValue()) {
+                if (flag[point.x][point.y]) {
+                    continue;
+                }
+
+                List&lt;Point&gt; queue = new ArrayList&lt;&gt;();
+                queue.add(point);
+                flag[point.x][point.y] = true;
+                int now = 0;
+                for (int i = 0;i &lt; queue.size();i++) {
+                    Point p = queue.get(i);
+                    now = Math.max(now, nowRow[p.x] + 1);
+                    now = Math.max(now, nowCol[p.y] + 1);
+                    flag[point.x][point.y] = true;
+                    for (Point next: row.get(p.x)) {
+                        if (!flag[next.x][next.y]) {
+                            queue.add(next);
+                            flag[next.x][next.y] = true;
+                        }
+                    }
+                    for (Point next: col.get(p.y)) {
+                        if (!flag[next.x][next.y]) {
+                            queue.add(next);
+                            flag[next.x][next.y] = true;
+                        }
+                    }
+                }
+
+                for (Point p: queue) {
+<A NAME="3"></A>                    ret[p.x][p.y] = now;
+                    nowRow[p.x] = now;
+                    nowCol[p.y] = now;
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match12-1.html#3',3,'match12-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+
+        return ret;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

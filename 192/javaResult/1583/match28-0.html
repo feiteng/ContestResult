@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>714_jaewonjo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>714_jaewonjo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int INF = 1_000_001;
+    int[] houses;
+    int[][] cost;
+    int m;
+    int n;
+    Integer[][][] memo;
+    
+    public int minCost(int[] houses, int[][] cost, int m, int n, int target) {
+        this.houses = houses;
+        this.cost = cost;
+        this.m = m;
+<A NAME="1"></A>        this.n = n;
+        t</B></FONT>his.memo = new Integer[m][m + 1][n + 1];
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int ans = dp(0, target, 0);
+        return ans &gt;= INF ? -1 : ans;
+    }
+<A NAME="2"></A>    
+    int dp(int i, int t, int p) {
+        if (t &lt; 0) return INF;
+        if</B></FONT> (i &gt;= m) return t == 0 ? 0 : INF<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        if (memo[i][t][p] != null) return memo[i][t][p];
+        
+        int ans = INF;
+        if (houses[i] &gt; 0) {
+            if (houses[i] == p) {
+                ans = Math.min(ans, dp(i + 1, t, p));
+            } else {
+                ans = Math.min(ans, dp(i + 1, t - 1, houses[i]));
+            }
+        } else {
+            for (int j = 0; j &lt; n; j++) {</B></FONT>
+                int color = j + 1;
+                if (p == color) ans = Math.min(ans, cost[i][j] + dp(i + 1, t, p));
+                else ans = Math.min(ans, cost[i][j] + dp(i + 1, t - 1, color));
+            }
+        }
+        
+        memo[i][t][p] = ans;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>294_hongyunyan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>294_hongyunyan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxVowels(string s, int k) {
+        vector&lt;int&gt; count(s.size()+1, 0);
+        for (int i = 0; i &lt; s.size(); i++)
+        {
+            if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')
+            {
+                count[i+1] = count[i] + 1;
+            }
+            else 
+            {
+                count[i+1] = count[i];
+            }
+        }
+        
+        int max_value = -1;
+        for (int j = 1; j &lt; s.size() - k + 2; j++)
+        {</B></FONT>
+            if (count[j+k-1] - count[j-1] &gt; max_value) max_value = count[j+k-1] - count[j-1];
+        }
+        return max_value;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

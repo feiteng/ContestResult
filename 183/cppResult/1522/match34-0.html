@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>704_shibapops.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>704_shibapops.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    long long key(int player, int turn) {
+        // 0 = alice, 1 = bob
+        return turn * 2 + player;
+    }
+    
+    string stoneGameIII(vector&lt;int&gt;&amp; stoneValue) {
+        
+        unordered_map&lt;long long, int&gt; dp;
+        int s = (int)stoneValue.size();
+        
+<A NAME="0"></A>        dp[key(0, stoneValue.size() - 1)] = stoneValue[stoneValue.size() - 1];
+        dp[key(1, stoneValue.size() - 1)] = -stoneValue[stoneValue.size() - 1];
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int t = s - 2; t &gt;= 0 &amp;&amp; t + 5 &gt;= s; t--) {
+            int abest = INT_MIN;
+            int running = 0;
+            for (int i = 0; i &lt; 3 &amp;&amp; i + t &lt; stoneValue.size(); i++) {
+                running += stoneValue[i + t];
+                int getFromTurn = running;</B></FONT>
+                if (i + t + 1 &gt;= stoneValue.size()) {
+                    abest = max(running, abest);
+                    break;
+                }
+                int remaining = dp[key(1, i + t + 1)];
+                abest = max(remaining+getFromTurn, abest);
+            }
+            
+            dp[key(0, t)] = abest;
+            
+            int bbest = INT_MIN;
+            running = 0;
+            for (int i = 0; i &lt; 3 &amp;&amp; i + t &lt; stoneValue.size(); i++) {
+                running += stoneValue[i + t];
+                int getFromTurn = running;
+                if (i + t + 1 &gt;= stoneValue.size()) {
+                    bbest = max(running, bbest);
+                    break;
+                }
+                int remaining = -dp[key(0, i + t + 1)];
+                bbest = max(remaining+getFromTurn, bbest);
+            }
+            
+            dp[key(1, t)] = -bbest;
+            
+        }
+        
+        for (int t = s - 6; t &gt;= 0; t--) {
+            int abest = INT_MIN;
+            int running = 0;
+            for (int i = 0; i &lt; 3; i++) {
+                running += stoneValue[i + t];
+                int getFromTurn = running;
+                int remaining = dp[key(1, i + t + 1)];
+                abest = max(remaining+getFromTurn, abest);
+            }
+            
+            dp[key(0, t)] = abest;
+            
+            int bbest = INT_MIN;
+            running = 0;
+            for (int i = 0; i &lt; 3; i++) {
+                running += stoneValue[i + t];
+                int getFromTurn = running;
+                int remaining = -dp[key(0, i + t + 1)];
+                bbest = max(remaining+getFromTurn, bbest);
+            }
+            
+            dp[key(1, t)] = -bbest;
+            
+        }
+<A NAME="1"></A>        
+        int res = dp[key(0,0)];
+        //cout &lt;&lt; res.first &lt;&lt; &quot; &quot; &lt;&lt; res.second &lt;&lt; endl;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (res == 0) {
+            return &quot;Tie&quot;;
+        } else if (res &gt; 0) {
+            return &quot;Alice&quot;;
+        } else {
+            return &quot;Bob&quot;;
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

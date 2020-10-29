@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_yuxiangmusic.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>179_yuxiangmusic.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minTime(int n, int[][] edges, List&lt;Boolean&gt; hasApple) {
+        List&lt;List&lt;Integer&gt;&gt; tree = new ArrayList&lt;&gt;(n);
+        for (int i = 0; i &lt; n; i++) {
+            tree.add(new</B></FONT> ArrayList&lt;&gt;());
+        }
+<A NAME="1"></A>        for (int[] edge : edges) {
+            tree.get(edge[0]).add(edge[1]);
+        }
+        return <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>count(tree, hasApple, 0);
+    }
+    
+    private int count(List&lt;List&lt;Integer&gt;&gt; tree, List&lt;Boolean&gt; hasApple, int root) {
+        int count = 0;
+        for (int child : tree.get</B></FONT>(root)) {
+            int subcount = count(tree, hasApple, child);
+            if (subcount &gt; 0) {
+                count += subcount + 2;
+            } else if (hasApple.get(child)) {
+                count += 2;
+            }
+        }
+        return count;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

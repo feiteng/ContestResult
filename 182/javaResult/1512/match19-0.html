@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_uwi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>	class U<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ndergroundSystem {
+		Map&lt;String, Integer&gt; num = new HashMap&lt;&gt;();
+		Map&lt;String, Long&gt; sum = new HashMap&lt;&gt;();
+		Map&lt;Integer, String&gt; sta = new HashMap&lt;&gt;();
+		Map&lt;Integer, Integer&gt; ts = new HashMap&lt;&gt;();
+
+	    public UndergroundSystem() {
+	        
+	    }
+	    
+	    public void checkIn(int id, String stationName, int t) {
+	        sta.put(id, stationName);
+	        ts.put(id, t);
+	    }
+	    
+	    public void checkOut(int id, String stationName, int t) {
+	        String code = sta.get(id) + &quot;*&quot; + stationName;
+	        int cha = t - ts.get(id);
+	        sta.remove(id);
+	        ts.remove(id);</B></FONT>
+	        if(!num.containsKey(code)){
+	        	num.put(code, 0);
+	        }
+	        num.put(code, num.get(code) + 1);
+<A NAME="1"></A>	        if(!sum.containsKey(code)){
+	        	sum.put(code, 0L);
+	        }
+	        sum.put<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(code, sum.get(code) + cha);
+	    }
+	    
+	    public double getAverageTime(String startStation, String endStation) {
+	        String code = startStation + &quot;*&quot; + endStation;
+	        double x = sum.get(code);
+	        return x / num.get(code);
+	    }
+	}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

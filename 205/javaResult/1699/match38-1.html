@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221_ToffeeLu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>221_ToffeeLu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+        int res = 0;
+<A NAME="1"></A>        Map&lt;Long, Integer&gt; square1 = new HashMap&lt;&gt;();
+        for(int num : nums1){</B></FONT>
+            long p = (long)num * num;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>square1.put(p, square1.getOrDefault(p, 0) + 1);
+        }
+        for(int j = 0; j &lt; nums2.length; j++){
+            for(int k = j + 1; k &lt; nums2.length; k++){
+                long p = (long)nums2[j] * nums2[k];
+                if(square1.containsKey(p)){
+                    res += square1.get(p);
+                }
+            }
+        }
+        
+<A NAME="2"></A>        Map&lt;Long, Integer&gt; square2 = new HashMap&lt;&gt;();
+        for(int num : nums2){</B></FONT>
+            long p = (long)num * num;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#2',2,'match38-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>square2.put(p, square2.getOrDefault(p, 0) + 1);
+        }
+        for(int j = 0; j &lt; nums1.length; j++){
+            for(int k = j + 1; k &lt; nums1.length; k++){
+                long p = (long)nums1[j] * nums1[k];
+                if(square2.containsKey(p)){
+                    res += square2.get(p);
+                }
+            }
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

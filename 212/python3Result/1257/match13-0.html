@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_angel30818.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>52_angel30818.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        R, C = len(matrix), len(matrix[0])
+        maxxRval = [-sys.</B></FONT>maxsize]*R
+        maxxRrank = [0]*R 
+        maxxCval = [-sys.maxsize]*R
+        maxxCrank = [0]*R 
+
+        info = []
+        for r in range(R):
+            for c in range(C):
+                info.append([matrix[r][c], r, c])
+        heapq.heapify(info)
+        Rank = [[0]*C for _ in range(R)]
+        
+        while info:
+            # get everything with the same value!
+            curr = info[0][0]
+            pos = []
+            while info and info[0][0] == curr:
+                val, r, c = heapq.heappop(info)
+                pos.append((r,c))
+            
+            # use a disjoint set to perform the operation for each parent node
+            parents = {}
+<A NAME="1"></A>            def find(p):
+                if p not in parents:
+                    parents[p] = p
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if parents[p] != p:
+                    parents[p] = find(parents[p])
+                return parents[p]
+
+            def union(p, q):
+                i,j = find(p), find(</B></FONT>q)
+                if i != j:
+                    parents[i] = j
+
+            def isconnected(p,q):
+                return find(p) == find(q)
+            
+            graphR = collections.defaultdict(list)
+            graphC = collections.defaultdict(list)
+            for r, c in pos:
+                graphR[r].append((r,c))
+                graphC[c].append((r,c))
+            
+            for r in graphR:
+                for nxt in range(1, len(graphR[r])):
+                    union(graphR[r][0], graphR[r][nxt])
+            
+            for c in graphC:
+                for nxt in range(1, len(graphC[c])):
+                    union(graphC[c][0], graphC[c][nxt])
+            
+            groups = collections.defaultdict(list)
+            
+            for r, c in pos:
+                groups[find((r,c))].append((r,c))
+            
+            for ancestor in groups:
+                # iterate through all r and cs
+                maxrank = 0
+                for r, c in groups[ancestor]:
+                    maxrank = max(maxrank, maxxRrank[r] + 1)
+                    maxrank = max(maxrank, maxxCrank[c] + 1)
+
+                # now update them all
+                for r, c in groups[ancestor]:
+                    maxxRrank[r] = maxxCrank[c] = maxrank            
+                    Rank[r][c] = maxrank
+        return Rank
+            
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

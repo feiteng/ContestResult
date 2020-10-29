@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>27_Bench0310.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>27_Bench0310.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool vertical(int u,int d)
+{
+    return ((u==2||u==3||u==4)&amp;&amp;(d==2||d==5||d==6));
+}
+
+bool horizontal(int l,int r)
+{
+    return ((l==1||l==4||l==6)&amp;&amp;(r==1||r==3||r==5));
+}
+
+<A NAME="0"></A>bool in(int r,int c,int n,int m)
+{
+    return (0&lt;=r&amp;&amp;r&lt;n&amp;&amp;0&lt;=c&amp;&amp;c&lt;m);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid)
+{
+    int n=grid.size();
+    int m=grid[0].size();
+    queue&lt;pair&lt;int,int&gt;&gt; q;
+    q.push({0,0});
+    vector&lt;vector&lt;bool&gt;&gt; v(n,vector&lt;bool&gt;(m,0));
+    v[0][0]=1;
+    while(!q.empty())
+    {
+<A NAME="1"></A>        int r,c;</B></FONT>
+        tie(r,c)=q.front();
+        q.pop();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(in(r,c+1,n,m)&amp;&amp;v[r][c+1]==0&amp;&amp;horizontal(grid[r][c],grid[r][c+1])) //right
+        {
+            v[r][c+1]=1;
+            q.push({r,c+1});
+        }
+        if(in(r-1,c,n,m)&amp;&amp;v[r-1][c]==0&amp;&amp;vertical(grid[r-1][c],grid[r][c])) //up
+        {
+            v[r-1][c]=1;
+            q.push({r-1,c});
+        }
+        if(in(r,c-1,n,m)&amp;&amp;v[r][c-1]==0&amp;&amp;horizontal(grid[r][c-1],grid[r][c])) //left
+        {
+            v[r][c-1]=1;
+            q.push({r,c-1});
+        }
+        if(in(r+1,c,n,m)&amp;&amp;v[r+1][c]==0&amp;&amp;vertical(grid[r][c],grid[r+1][c])) //down
+        {
+            v[r+1][c]=1;
+            q.push({r+1,c});
+        }
+    }</B></FONT>
+    return v[n-1][m-1];
+}
+};
+</PRE>
+</BODY>
+</HTML>

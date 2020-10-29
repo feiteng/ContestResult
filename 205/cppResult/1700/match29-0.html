@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>509_Bediver.cpp</TITLE>
+ <TITLE>99_OTTFF.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>509_Bediver.cpp</CENTER></H3><HR>
+<H3><CENTER>99_OTTFF.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.length();
-        int ans = 0;
-        for (int i = 0; i &lt; n-1; ++i) {
-            if (s[i] == s[i+1]) {
-                int start = i, end = i+1;</B></FONT>
-<A NAME="1"></A>                while (end &lt; n &amp;&amp; s[start]==s[end]) ++end;
-                --end;
-                int sum = 0, m = 0;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int j = start; j &lt;= end; ++j) {
-                    sum += cost[j];
-                    m = max(m, cost[j]);
-                }
-                ans += (sum - m);
-                i = end;
+        int ans=0;
+        int n=s.length();
+        char pre='#';
+        int cnt=0;
+        int mx=0;
+        for(int i=0;i&lt;n;i++)
+        {
+            if(s[i]!=pre)
+            {
+                pre=s[i];
+                mx=cost[i];
+                continue;
+            }
+            ans+=cost[i];
+            if(cost[i]&gt;mx)
+            {
+                ans=ans+mx-cost[i];
+                mx=cost[i];
             }
         }
         return ans;

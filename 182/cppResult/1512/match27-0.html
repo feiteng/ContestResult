@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_ahmedalaaz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>64_ahmedalaaz.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UndergroundSystem {
+public:
+    map&lt;pair&lt;string, string&gt;, pair&lt;int, int &gt; &gt; m;
+     map&lt;int, pair&lt;int,string&gt; &gt; rem;
+    UndergroundSystem() {
+
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        rem[id] = {t, stationName};
+<A NAME="1"></A>    }
+    
+    void checkOut(int id, string stationName, int t) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        pair&lt;int, string&gt; curr = rem[id];
+        int diff = t- curr.first;
+        m[{curr.second, stationName}].first += diff;
+        m[{curr.second, stationName}].second ++;
+    
+    }
+    
+    double getAverageTime(string startStation, string endStation) {</B></FONT>
+        pair&lt;int, int&gt; x = m[{startStation, endStation}];
+        return 1.0*x.first / x.second;
+    }
+};
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj-&gt;checkIn(id,stationName,t);
+ * obj-&gt;checkOut(id,stationName,t);
+ * double param_3 = obj-&gt;getAverageTime(startStation,endStation);
+ */
+</PRE>
+</BODY>
+</HTML>

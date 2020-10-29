@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>220_HenryLee4.java</TITLE>
+ <TITLE>153_huntersjm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>220_HenryLee4.java</CENTER></H3><HR>
+<H3><CENTER>153_huntersjm.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
-<A NAME="0"></A>        int n = s.length();
-        char[] chars = s.toCharArray();
-        int res = 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0 ; i &lt; n ; i++){
-<A NAME="1"></A>            if(!stack.isEmpty() &amp;&amp; chars[stack.peek()] == chars[i]){
-                if(cost[stack.peek()] &lt; cost[i]){</B></FONT>
-                    res += cost[stack.peek()];
-                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>stack.pop();
-                    stack.push(i);
-                } else {
-                    res += cost[i];
-                }
-            } else {
-                stack.push(i);
+        char[] cs = s.toCharArray();
+        char last = '0';
+        int f = 0;
+        int ans = 0;
+        for (int i = 0; i &lt; cs.length; i++) {
+            if (cs[i] != last) {
+                ans += help(cost, f, i - 1);
+                last = cs[i];
+                f=i;
+            }
+
+            if (i == cs.length - 1) {
+                ans += help(cost, f, i);
             }
         }
-        return res;
+        return ans;
+    }
+
+    private int help(int[] cost, int f, int t) {
+        int ans = 0;
+        int m = 0;
+        while (f &lt;= t) {
+            ans += cost[f];
+            m = Math.max(cost[f], m);
+            f++;
+        }
+        return ans - m;
     }
 }</B></FONT>
 </PRE>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_wayuze.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>63_wayuze.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution 
+{
+public:
+	int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; connections) 
+	{
+		vector&lt;vector&lt;int&gt;&gt;es(n);
+		vector&lt;bool&gt;vis(n, false);
+		for (int i = 0; i &lt; n - 1; i++)
+		{
+			es[connections[i][0]].push_back(connections[i][1]);
+			es[connections[i][1]].push_back(-connections[i][0]);
+		}</B></FONT>
+		return dfs(es, vis, 0);
+	}
+	int dfs(vector&lt;vector&lt;int&gt;&gt;&amp;es, vector&lt;bool&gt;&amp;vis, int root)
+	{
+		int ret = 0;
+		vis[root] = true;
+		for (int i = 0; i &lt; es[root].size(); i++)
+		{
+			int t = es[root][i];
+			if (vis[abs(t)] == true)
+				continue;
+			if (t &gt; 0)
+				ret++;
+			ret += dfs(es, vis, abs(t));
+		}
+		return ret;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

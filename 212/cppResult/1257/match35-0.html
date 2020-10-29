@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_qwertier.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_qwertier.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    #define INF (1&lt;&lt;30)
+    int findset(int x, vector&lt;int&gt;&amp; pa) {
+        if (pa[x] != x)
+            pa[x] = findset(pa[x], pa);
+        return pa[x];
+    }
+    void join(int x, int y, vector&lt;int&gt;&amp; pa) {
+        x = findset(x, pa);
+        y = findset(y, pa);
+        pa[x] = y;
+    }
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        //per row
+        int m = matrix.size(), n = matrix[0].size();
+<A NAME="0"></A>        map&lt;int, vector&lt;pair&lt;int, int&gt;&gt;&gt; p;
+        vector&lt;int&gt; pa(m*n), rank(n*m), rank_row(m), rank_col(n);
+        vector&lt;vector&lt;int&gt;&gt; ans(matrix);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; m*n; i++)
+            pa[i] = i;
+        for (int i = 0; i &lt; m; i++) {
+            unordered_map&lt;int, int&gt; lst;
+<A NAME="1"></A>            for (int j = 0; j &lt; n; j++) {
+                p[matrix[i][j]].push_back(make_pair(i, j));
+                if (lst.count(matrix[i][j])) {
+                    int lp = lst[matrix[i][j]];</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                    join(i*n+lp, i*n+j, pa);
+                }
+                lst[matrix[i][j]] = j;
+            }
+        }
+        for (int j = 0; j &lt; n; j++) {
+            unordered_map&lt;int, int&gt; lst;
+            for (int i = 0; i &lt; m; i++) {
+                if (lst.count(matrix[i][j])) {
+                    int lp = lst[matrix[i][j]];</B></FONT>
+                    join(lp*n+j, i*n+j, pa);
+                }
+                lst[matrix[i][j]] = i;
+            }
+        }
+        for (auto item : p) {
+            vector&lt;pair&lt;int, int&gt;&gt; &amp;ps = item.second;
+            for (int i = 0; i &lt; ps.size(); i++) {
+                int r = max(rank_row[ps[i].first], rank_col[ps[i].second])+1;
+                int root = findset(ps[i].first*n+ps[i].second, pa);
+                rank[root] = max(rank[root], r);
+            }
+            unordered_set&lt;int&gt; vis_row, vis_col;
+            for (int i = 0; i &lt; ps.size(); i++) {
+                int root = findset(ps[i].first*n+ps[i].second, pa);
+                ans[ps[i].first][ps[i].second] = rank[root];
+                if (!vis_row.count(ps[i].first)) {
+                    rank_row[ps[i].first] = rank[root];
+                    vis_row.insert(ps[i].first);
+                }
+                if (!vis_col.count(ps[i].second)) {
+                    rank_col[ps[i].second] = rank[root];
+                    vis_col.insert(ps[i].second);
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

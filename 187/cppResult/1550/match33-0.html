@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>583_sangwanritvik2299.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>583_sangwanritvik2299.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt;m;
+    int k;
+    vector&lt;pair&lt;int, int&gt;&gt; kSmallestPairs(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+<A NAME="0"></A>        vector&lt;pair&lt;int,int&gt;&gt; result;
+        if (nums1.empty() || nums2.empty() || k &lt;= 0)
+            return result;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        auto comp = [&amp;nums1, &amp;nums2](pair&lt;int, int&gt; a, pair&lt;int, int&gt; b) {
+            return nums1[a.first] + nums2[a.second] &gt; nums1[b.first] + nums2[b.second];};
+<A NAME="1"></A>        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, decltype(comp)&gt; min_heap(comp);
+        min_heap.emplace(0, 0);
+        int K=k;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(K-- &gt; 0 &amp;&amp; min_heap.size())
+        {
+            auto idx_pair = min_heap.top(); min_heap.pop();
+            result.emplace_back(nums1[idx_pair.first], nums2[idx_pair.second]);
+            if (idx_pair.first + 1 &lt; nums1.size())
+                min_heap.emplace(idx_pair.first + 1, idx_pair.second);
+            if (idx_pair.first == 0 &amp;&amp; idx_pair.second + 1 &lt; nums2.size())
+                min_heap.emplace(idx_pair.first, idx_pair.second + 1);
+        }
+        return result;
+    }
+    vector&lt;int&gt;find(int start,int end)
+    {</B></FONT>
+        if(start==end)
+        {
+            return m[start];
+        }
+        else
+            if(start&lt;end)
+            {
+                int mid=(end+start)/2;
+                vector&lt;int&gt;v1=find(start,mid);
+                vector&lt;int&gt;v2=find(mid+1,end);
+                vector&lt;pair&lt;int,int&gt;&gt;a=kSmallestPairs(v1,v2);
+                vector&lt;int&gt;ans;
+                for(int i=0;i&lt;a.size();i++)
+                    ans.push_back(a[i].first+a[i].second);
+                return ans;
+            }
+        else
+        {
+            vector&lt;int&gt;v;
+            return v;
+        }
+    }
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int K) {
+        m=mat;
+        k=K;
+        int n=mat.size(),m=mat[0].size();
+        vector&lt;int&gt;v=find(0,n-1);
+        return v[k-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>242_flyingpenguin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>242_flyingpenguin.java</CENTER></H3><HR>
+<PRE>
+class UndergroundSystem {
+
+        Map&lt;String, Integer&gt; cost = new HashMap&lt;&gt;();
+        Map&lt;String, Integer&gt; times = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; pendingstart = new HashMap&lt;&gt;();
+        Map&lt;Integer, String&gt; pendingstation = new HashMap&lt;&gt;();
+<A NAME="0"></A>
+        public UndergroundSystem() {
+
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        public void checkIn(int id, String stationName, int t) {
+            pendingstart.put(id, t);
+            pendingstation.put(id, stationName);
+        }
+
+        public void checkOut(int id, String endStation, int t) {
+            int start = pendingstart.get(id);
+            String startstation = pendingstation.get(id);
+            pendingstart.remove(id);
+            pendingstation.remove(id);
+            String code = startstation + &quot;-&gt;&quot; + endStation;
+            int newcost = t - start;
+            cost.put(code, cost.getOrDefault(code, 0) + newcost);
+            times.put(code, times.getOrDefault(code, 0) + 1);
+        }
+
+        public double getAverageTime(String startStation, String endStation) {
+            String code = startStation + &quot;-&gt;&quot; + endStation;
+            int co = cost.getOrDefault(code, 0);
+            int t = times.getOrDefault(code, 0);
+            return co * 1.0 / t;
+        }
+    }</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

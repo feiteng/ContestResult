@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>516_z71258847.cpp</TITLE>
+ <TITLE>136_ryanhe312.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>516_z71258847.cpp</CENTER></H3><HR>
+<H3><CENTER>136_ryanhe312.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int f[100005][27];
-    
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n=s.length();
-        for (int i=0; i&lt;n; i++)
-            for (int j=0; j&lt;27; j++)
-                f[i][j]=1e9+7;
-        f[0][s[0]-'a']=0;
-        f[0][26]=cost[0];
-        // for (int j=0; j&lt;3; j++){
-        //     cout &lt;&lt; f[0][j] &lt;&lt; &quot; &quot;;
-        // }
-        // cout &lt;&lt; f[0][26] &lt;&lt; endl;
-        for (int i=1; i&lt;n; i++){
-            int cur=s[i]-'a';
-            // cout &lt;&lt; s[i]-'a' &lt;&lt; endl;
-            for (int j=0; j&lt;27; j++){
-                f[i][j]=min(f[i][j], f[i-1][j]+cost[i]);</B></FONT>
-            }
-            for (int j=0; j&lt;27; j++){
-<A NAME="1"></A>                if (j!=cur){
-                    f[i][cur]=min(f[i][cur], f[i-1][j]);
+        int ans=0,n=s.size();
+        for(int i=0;i&lt;n-1;i++){
+            if(s[i]==s[i+1]){
+                int j=i;
+                while(j&lt;n-1 and s[j]==s[j+1]){
+                    j++;
                 }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
-            // for (int j=0; j&lt;3; j++){
-            //     cout &lt;&lt; f[i][j] &lt;&lt; &quot; &quot;;
-            // }
-            // cout &lt;&lt; f[i][26] &lt;&lt; endl;
+                int ma=0,sum=0;
+                for(int k=i;k&lt;=j;k++){
+                    sum+=cost[k];
+                    ma=max(ma,cost[k]);
+                }
+                ans+=sum-ma;
+                i=j;
+            }
         }
-        
-        int ans=1e9+7;
-        for (int j=0; j&lt;26; j++) ans=min(ans, f[n-1][j]);
         return ans;
     }
 };</B></FONT>

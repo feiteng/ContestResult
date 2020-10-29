@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>35_Dymonchyk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>35_Dymonchyk.cpp</CENTER></H3><HR>
+<PRE>
+struct Edge {
+    int a, b, w, ind;
+};
+
+bool cmp(const Edge &amp;a, const Edge &amp;b) {
+    return a.w &lt; b.w;
+}
+
+bool eq(const Edge &amp;a, const Edge &amp;b) {
+    return a.a == b.a &amp;&amp; a.b == b.b;
+}
+
+int color[105];
+
+int repr(int x) {
+    return x == color[x] ? x : (color[x] = repr(color[x]));
+}
+
+void join(int a, int b) {
+<A NAME="0"></A>    color[repr(a)] = repr(b);
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int getWithout(vector&lt;Edge&gt; &amp;all, Edge e) {
+    for (int i = 0; i &lt; 100; ++i)
+        color[i] = i;
+    
+    int cost = 0;
+    for (int i = 0 ; i &lt; all.size(); ++i) {
+        if (eq(all[i], e)) continue;</B></FONT>
+        
+        if (repr(all[i].a) != repr(all[i].b)) {
+            cost += all[i].w;
+            join(all[i].a, all[i].b);
+        }
+    }
+    
+    for (int i = 0; i &lt; all.size(); ++i) {
+        if (repr(all[i].a) != repr(all[i].b)) return 1e+9;
+    }
+    
+<A NAME="1"></A>    return cost;
+}
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int getWith(vector&lt;Edge&gt; all, Edge e) {
+    for (int i = 0; i &lt; 100; ++i)
+        color[i] = i;
+    
+    int cost = e.w;
+    join(e.a, e.b);
+    for (int i = 0 ; i &lt; all.size(); ++i) {
+        if (eq(all[i], e)) continue;</B></FONT>
+        
+        if (repr(all[i].a) != repr(all[i].b)) {
+            cost += all[i].w;
+            join(all[i].a, all[i].b);
+        }
+    }
+    return cost;
+}
+
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;Edge&gt; all;
+        for (int i = 0; i &lt; edges.size(); ++i) {
+            all.push_back(Edge{edges[i][0], edges[i][1], edges[i][2], i});
+        }
+        sort(all.begin(), all.end(), &amp;cmp);
+        
+        int mn = getWithout(all, Edge{-1, -1, -1, -1});
+        //cout &lt;&lt; mn &lt;&lt; endl;
+        
+        vector&lt;vector&lt;int&gt;&gt; ans(2);
+        for (int i = 0; i &lt; all.size(); ++i) {
+            int cur = getWithout(all, all[i]);
+            if (cur &gt; mn) {
+                ans[0].push_back(all[i].ind);
+            } else {
+                cur = getWith(all, all[i]);
+                if (cur == mn) ans[1].push_back(all[i].ind);
+            }
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

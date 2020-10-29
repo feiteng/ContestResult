@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_wxy9018.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        parents <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= {}
+
+        def find(p): 
+            if p not in parents:
+                parents[p] = p
+            if parents[p] != p:
+                parents[p] = find(parents[p])
+            return parents[p]
+
+        def union(p, q):
+            i, j = find(p), find(</B></FONT>q)
+            parents[j] = i
+
+        def connected(p, q):
+            return find(p) == find(q)
+        
+        
+        R, C = len(matrix), len(matrix[0])
+        res = [[0] * C for _ in range(R)]
+        
+        rank_row = [0] * R # the current max rank of each row and col
+        rank_col = [0] * C
+        
+        values = collections.defaultdict(list)
+        for r in range(R):
+            for c in range(C):
+                values[matrix[r][c]].append([r, c])
+        
+        keys = sorted(values.keys())
+        
+        for i in keys:
+            parents = {}
+            for r, c in values[i]:
+                union((r, c), (r, -1))
+                union((r, c), (-1, c))
+<A NAME="1"></A>            
+            roots = collections.defaultdict(list)
+            for r, c in values[i]:
+                roots<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[find((r, c))].append((r, c))
+            
+            for root in roots:
+                rnk = 0
+                for r, c in roots[root]:
+                    rnk = max(</B></FONT>rnk, max(rank_row[r], rank_col[c]) + 1)
+            
+                for r, c in roots[root]:
+                    res[r][c] = rnk
+                    rank_row[r] = rnk
+                    rank_col[c] = rnk
+        
+        return res
+            
+</PRE>
+
+</BODY>
+</HTML>

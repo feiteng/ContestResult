@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>546_elleryqueenhomels.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>546_elleryqueenhomels.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCost(int[] houses, int[][] cost, final int M, final int N, final int target) {
+        int[][][] dp = new int[M][N][M + 1];
+        for (int i = 0; i &lt; M; ++i) {
+            for (int j = 0; j &lt; N; ++j) {
+                for (int k = 0; k &lt;= M; ++k) {
+                    dp[i][j][k] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        if (houses[0] == 0) {
+            for (int j = 0; j &lt; N; ++j) {
+                dp[0][j][1] = cost[0][j];
+            }
+        } else {
+            dp[0][houses[0] - 1][1] = 0;
+        }
+        for (int i = 1; i &lt; M; ++i) {
+            if (houses[i] == 0) {
+                for (int j = 0; j &lt; N; ++j) {
+                    for (int k = 1; k &lt;= M; ++k) {</B></FONT>
+                        for (int c = 0; c &lt; N; ++c) {
+                            if (j == c) {
+                                if (dp[i - 1][c][k] != Integer.MAX_VALUE) {
+                                    dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][c][k] + cost[i][j]);
+                                }
+                            } else {
+                                if (dp[i - 1][c][k - 1] != Integer.MAX_VALUE) {
+<A NAME="1"></A>                                    dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][c][k - 1] + cost[i][j]);
+                                }
+                            }
+                        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                    }
+                }
+            } else {</B></FONT>
+                int j = houses[i] - 1;
+                for (int k = 1; k &lt;= M; ++k) {
+                    for (int c = 0; c &lt; N; ++c) {
+                        if (j == c) {
+                            dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][c][k]);
+<A NAME="2"></A>                        } else {
+                            dp[i][j][k] = Math.min(dp[i][j][k], dp[i - 1][c][k - 1]);
+                        }
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+
+        int minCost = Integer.MAX_VALUE;
+        for (int j = 0; j &lt; N; ++j) {
+            minCost = Math.min(minCost, dp[M - 1][j][target]);
+        }
+
+        return minCost == Integer.MAX_VALUE ? -1 : minCost;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

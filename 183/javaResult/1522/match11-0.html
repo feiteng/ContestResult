@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_2499370956.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String stoneGameIII(int[] stoneValue) {
+        int[] sum = new int[stoneValue.length + 1];
+        for (int i = stoneValue.length - 1; i &gt;= 0; i--) {
+            sum[i] = sum[i + 1] + stoneValue[i];
+<A NAME="0"></A>        }
+        int a = max(stoneValue, sum, 0, new HashMap&lt;&gt;());
+        int b = sum[0] - a;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (a &gt; b) {
+            return &quot;Alice&quot;;
+        } else if (a == b) {
+            return &quot;Tie&quot;;
+        } else {
+            return &quot;Bob&quot;;
+        }
+    }
+
+    private int max(int[] stoneValue, int[] sum, int start, Map&lt;Integer, Integer&gt; cache) {
+        if (start &gt;= stoneValue.length) {
+            return 0;
+<A NAME="1"></A>        }
+        if</B></FONT> (cache.containsKey(start)) {
+            return cache.get(start);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        int value = stoneValue[start] + sum[start + 1] - max(stoneValue, sum, start + 1, cache);
+        if (start + 1 &lt; stoneValue.length) {
+            value = Math.max(value, stoneValue[start] + stoneValue[start + 1] + sum[start + 2] - max(stoneValue, sum, start + 2, cache));
+        }
+        if (start + 2 &lt; stoneValue.length) {
+            value = Math.max(value, stoneValue[start] + stoneValue[start + 1] + stoneValue[start + 2] + sum[start + 3] - max(stoneValue, sum, start + 3, cache));
+        }</B></FONT>
+        cache.put(start, value);
+        return value;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

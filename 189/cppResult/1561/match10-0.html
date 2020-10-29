@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>372_Abdelfattah_Mohamed.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>372_Abdelfattah_Mohamed.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool static compareInterval(pair&lt;string, int&gt; s1, pair&lt;string, int&gt; s2) { 
+        if((s1.first.size() &lt; s2.first.size())) return true;
+        else if((s1.first.size() == s2.first.size())) return s1.second &lt; s2.second;
+        return false;
+    }
+    
+    string arrangeWords(string text) {
+<A NAME="0"></A>        int n = text.size();
+        vector&lt;pair&lt;string, int&gt;&gt; vec;
+        string temp = &quot;&quot;;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        text[0] += ('a' - 'A');
+        int x = 0;
+        for(int i = 0; i &lt; n; i++) {
+            if(text[i] == ' ') vec.push_back({temp, x++}), temp = &quot;&quot;;</B></FONT>
+            else temp += text[i];
+        }
+        vec.push_back({temp, x});
+        
+        sort(vec.begin(), vec.end(), compareInterval);
+<A NAME="1"></A>        
+        string ans = &quot;&quot;;
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; vec.size(); i++) {
+            ans += vec[i].first;
+            if(i &lt; vec.size() - 1) ans += &quot; &quot;;
+        } 
+        
+        ans[0] -= ('a' - 'A');
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

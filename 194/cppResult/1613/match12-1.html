@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>146_tonyli0000.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>146_tonyli0000.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+	vector&lt;int&gt;p;
+	int getroot(int x) {
+		if (p[x] == x)return x;
+		return p[x] = getroot(p[x]);
+	}
+	void join(int x, int y) {</B></FONT>
+		int a = getroot(x), b = getroot(y);
+		if (a == b)return;
+		p[a]=b;
+	}
+	long long h(long long x, long long y, long long z) {
+		return x * 1001LL * 1001LL + y * 1001LL + z;
+	}
+
+	int solve(vector&lt;vector&lt;int&gt;&gt;&amp; edges,int n,int bad,int need) {
+		for (int j = 0; j &lt; n; j++)p[j] = j;
+		int ret = 0;
+		if (need != -1) {
+			join(edges[need][1], edges[need][2]);
+			ret += edges[need][0];
+		}
+		for (int i = 0; i &lt; edges.size(); i++) {
+			if (i == bad)continue;
+			if (i == need)continue;
+			if (getroot(edges[i][1]) == getroot(edges[i][2]))continue;
+			join(edges[i][1], edges[i][2]);
+			ret += edges[i][0];
+		}
+		return ret;
+	}
+	vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+		vector&lt;int&gt;a,b;
+
+		map&lt;long long, int&gt;index;
+		for (int i = 0; i &lt; edges.size(); i++) {
+			swap(edges[i][0],edges[i][1]);
+			swap(edges[i][0], edges[i][2]);
+			index[h(edges[i][0], edges[i][1], edges[i][2])] = i;
+		}
+		sort(edges.begin(), edges.end());
+		p.resize(n);
+<A NAME="1"></A>		int m = edges.size();
+
+		int cost = solve(edges, n, -1,-1);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i &lt; m; i++) {
+			if (cost != solve(edges, n, i,-1))a.push_back(index[h(edges[i][0], edges[i][1], edges[i][2])]);
+			else if(cost==solve(edges,n,-1,i))b.push_back(index[h(edges[i][0], edges[i][1], edges[i][2])]);
+		}
+		//for (int i = 0; i &lt; m; i++) {
+			//
+		//}
+		return { a,b };
+	}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

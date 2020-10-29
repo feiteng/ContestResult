@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>378_bhas_gurr.java</TITLE>
+ <TITLE>208_necoramen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,112 +15,86 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>378_bhas_gurr.java</CENTER></H3><HR>
+<H3><CENTER>208_necoramen.java</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.Arrays;
+
 class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-<A NAME="0"></A>        UnionFind alice = new UnionFind(n);
-        UnionFind bob = new UnionFind(n);
-        
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int total = 0;
-        for (int[] edge: edges) {
+
+        UnionFind ufAlice = new UnionFind(n);
+        UnionFind ufBob = new UnionFind(n);
+
+        Arrays.sort(edges, (a, b) -&gt; b[0] - a[0]);
+
+        int minEdgeCnt = 0;
+
+        for (int[] edge : edges) {
             int type = edge[0];
-            int a = edge[1];
-            int b = edge[2];
-            
-            if(type == 3) {</B></FONT>
-                int aap = alice.getParent(a);
-                int abp = alice.getParent(b);
-                int bap = bob.getParent(a);
-                int bbp = bob.getParent(b);
-                if(aap == abp &amp;&amp; bap == bbp) {
-                    total++;
-                } 
-                
-                if(aap != abp) {
-                    alice.merge(a, b);
-<A NAME="1"></A>                }
-                
-                if(bap != bbp) {
-                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>bob.merge(a, b);
-                }
+            int v = edge[1] - 1, w = edge[2] - 1;
+            if (ufAlice.isUnited(v, w) &amp;&amp; ufBob.isUnited(v, w)) {
+                continue;
+            }
+
+            if (type == 3) {
+                ufAlice.unite(v, w);
+                ufBob.unite(v, w);
+                minEdgeCnt++;
+            } else if (type == 2 &amp;&amp; !ufBob.isUnited(v, w)) {
+                ufBob.unite(v, w);
+                minEdgeCnt++;
+            } else if (type == 1 &amp;&amp; !ufAlice.isUnited(v, w)) {
+                ufAlice.unite(v, w);
+                minEdgeCnt++;
             }
         }
-        
-        for (int[] edge: edges) {
-            int type = edge[0];
-            int a = edge[1];
-            int b = edge[2];
-        
-            if (type == 1) {
-                    if(alice.getParent(a) == alice.getParent(b)) {
-                        total++;
-                    } else {
-                        alice.merge(a, b);
-                    }
-                } else if (type == 2) {
-                    if(bob.getParent(a) == bob.getParent(b)) {
-                        total++;
-                    } else {
-                        bob.merge(a, b);
-                    }
-                } 
-        }</B></FONT>
-        
-        
-        return check(alice, n) &amp;&amp; check(bob, n) ? total : -1;
-        
+        if (ufAlice.cap == 1 &amp;&amp; ufBob.cap == 1) {
+            return edges.length - minEdgeCnt;
+        } else {
+            return -1;
+        }
+
     }
-    
-    private boolean check(UnionFind f, int n) {
-        int parent = f.getParent(1);
-        for (int i = 2; i &lt;= n; i++) {
-            if (f.getParent(i) != parent) {
-                return false;
+
+    private static class UnionFind {
+        private int cap;
+        private int[] root;
+
+        private UnionFind(int cap) {
+            root = new int[cap];
+            this.cap = cap;
+            for (int i = 0; i &lt; root.length; i++) {
+                root[i] = i;
             }
         }
-        return true;
-    }
-    
-    class UnionFind {
-        int n;
-        int[] parent;
-<A NAME="2"></A>        int size[];
-        UnionFind(int n) {
-            this.n = n;    
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>parent = new int[n + 1];
-            size = new int[n + 1];
-            
-            for (int i = 1; i &lt; n ;i++) {
-                parent[i] = i;
-                size[i] = 1;
-            }</B></FONT>
-        }
-<A NAME="3"></A>        
-        public int getParent(int n) {
-            while(parent[n] != n) {
-                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n = parent[n];
+
+        private int find(int s) {
+            while (root[s] != s) {
+                root[s] = root[root[s]];
+                s = root[s];
             }
-            
-            return n;
+            return s;
         }
-        
-        public void merge(int a, int b) {
-            int aP = getParent(a);
-<A NAME="4"></A>            int bP = getParent(b);
-            
-            if (aP != bP) {</B></FONT>
-                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match10-1.html#4',3,'match10-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (size[aP] &gt;= size[bP]) {
-                    size[aP] += size[bP];
-                    parent[bP] = aP;
-                } else {
-                    size[bP] += size[aP];
-                    parent[aP] = bP;
-                }
-            }</B></FONT>
+
+        private void unite(int s, int t) {
+            int rs = find(s);
+            int rt = find(t);
+            if (rs == rt) {
+                return;
+            }
+            root[rs] = rt;
+            cap--;
+        }
+
+        private boolean isUnited(int s, int t) {
+            return find(s) == find(t);
         }
     }
-}
+}</B></FONT>
+
+//12
+//[[3,1,2],[2,2,3],[3,1,4],[2,3,5],[1,2,6],[2,4,7],[3,3,8],[3,2,9],[2,1,10],[2,1,11],[1,11,12],[1,10,11],[2,5,9],[2,7,10],[2,4,12],[3,9,10],[1,6,9],[2,10,12],[1,2,5],[3,5,6],[1,7,11],[1,8,9],[1,1,11],[3,4,5],[1,5,9],[2,4,9],[1,8,11],[3,6,8],[1,8,10],[2,2,4],[2,3,8],[3,2,6],[3,10,11],[2,3,11],[3,5,9],[3,3,5],[2,6,11],[3,2,7],[1,5,11],[1,1,5],[2,9,10],[1,6,7],[3,2,3],[2,8,9],[3,2,8]]
+//32
 </PRE>
 
 </BODY>

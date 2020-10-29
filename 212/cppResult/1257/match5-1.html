@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>197_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  int N;
+  int M;
+  vector&lt;vector&lt;int&gt;&gt; G;
+  vector&lt;int&gt; indeg;
+  vector&lt;int&gt; ans;
+  int id(int x, int y) {
+    return find(x*M+y);
+  }
+  vector&lt;int&gt; P;
+  int find(int x) {
+    return P[x] == x? x: (P[x] = find(P[x]));
+  }
+  
+  vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+    G.clear();
+<A NAME="0"></A>    indeg.clear();
+    ans.clear();
+    N = matrix.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    M = matrix[0].size();
+    G.resize(N*M);
+    indeg.resize(N*M);
+    ans.resize(N*M);
+    P.resize(N*M);
+    for (int i = 0; i &lt; N*M; i++) P[i] = i;
+    for (int i = 0; i &lt; N; i++) {
+      map&lt;int, vector&lt;int&gt;&gt; MM;
+      for (int j = 0; j &lt; M; j++) MM[matrix[i][j]].push_back(i*M+j);
+      for (auto [k, v]: MM) {</B></FONT>
+        for (int i = 1; i &lt; v.size(); i++) {
+<A NAME="1"></A>          int px = find(v[i]);
+          int py = find(v[i-1]);
+          if (px != py) P[px] = py;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+      }
+    }
+    for (int i = 0; i &lt; M; i++) {
+      map&lt;int, vector&lt;int&gt;&gt; MM;
+      for (int j = 0; j &lt; N; j++) MM[matrix[j][i]].push_back(j*M+i);
+      for (auto [k, v]: MM) {</B></FONT>
+        for (int i = 1; i &lt; v.size(); i++) {
+<A NAME="2"></A>          int px = find(v[i]);
+          int py = find(v[i-1]);
+          if (px != py) P[px] = py;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+      }
+    }
+    for (int i = 0; i &lt; N; i++) {
+      map&lt;int, vector&lt;int&gt;&gt; MM;
+      for (int j = 0; j &lt; M; j++) MM[matrix[i][j]].push_back(id(i, j));
+      for (auto it = MM.begin(), it1 = it; it != MM.end(); it++) {</B></FONT>
+<A NAME="3"></A>        if (it1 == it) continue;
+        for (auto s: it1-&gt;second)  for (auto t: it-&gt;second)  G[s].push_back(t);
+        it1 = it;
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#3',2,'match5-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      }
+    }
+    for (int i = 0; i &lt; M; i++) {
+      map&lt;int, vector&lt;int&gt;&gt; MM;
+      for (int j = 0; j &lt; N; j++) MM[matrix[j][i]].push_back(id(j, i));
+      for (auto it = MM.begin(), it1 = it; it != MM.end(); it++) {</B></FONT>
+        if (it1 == it) continue;
+        for (auto s: it1-&gt;second)  for (auto t: it-&gt;second)  G[s].push_back(t);
+        it1 = it;
+      }
+    }
+    for (int i = 0; i &lt; M*N; i++) {
+      for ( auto t: G[i]) indeg[t]++;
+    }
+    queue&lt;int&gt; Q;
+    for (int i = 0; i &lt; N*M; i++) if (indeg[i] == 0) {
+      Q.push(i);
+      ans[i] = 1;
+    }
+    while (Q.size()) {
+      auto s = Q.front(); Q.pop();
+    //  cout &lt;&lt; &quot;# &quot; &lt;&lt; s/M &lt;&lt; &quot; &quot; &lt;&lt; s % M &lt;&lt; &quot;:&quot; &lt;&lt; ans[s] &lt;&lt; endl;
+      for (auto t: G[s]) {
+        ans[t] = max(ans[t], ans[s]+1);
+     //   cout &lt;&lt; &quot; &quot; &lt;&lt; t/M &lt;&lt; &quot; &quot; &lt;&lt; t % M &lt;&lt; &quot;:&quot; &lt;&lt; ans[t] &lt;&lt; endl;
+        if (--indeg[t] == 0)  Q.push(t);
+<A NAME="4"></A>      }
+    }
+    vector&lt;vector&lt;int&gt;&gt; ans2(N, vector&lt;int&gt;(M));
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#4',2,'match5-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; N; i++) {
+      for(int j = 0; j &lt; M; j++) ans2[i][j] = ans[id(i, j)];
+    }
+    return ans2;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

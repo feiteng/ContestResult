@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>114_YuhanWu.java</TITLE>
+ <TITLE>249_abhigyankole.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>114_YuhanWu.java</CENTER></H3><HR>
+<H3><CENTER>249_abhigyankole.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        HashMap&lt;Long, Integer&gt; s1 = new HashMap();
-<A NAME="1"></A>        HashMap&lt;Long, Integer&gt; s2 = new HashMap();
-        int n1 = nums1.length;
-        int n2 = nums2.length;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0; i&lt;n1; i++){
-            for(int j=i+1; j&lt;n1; j++){
-                long cur = (long)nums1[i]*nums1[j];
-<A NAME="0"></A>                s1.put(cur, s1.getOrDefault(cur, 0)+1);
-            }
-        }</B></FONT>
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0; i&lt;n2; i++){
-            for(int j=i+1; j&lt;n2; j++){
-                long cur = (long)nums2[i]*nums2[j];
-                s2.put(cur, s2.getOrDefault(cur, 0)+1);
+        HashMap&lt;Long,Long&gt; map1=new HashMap&lt;&gt;();
+        HashMap&lt;Long,Long&gt; map2=new HashMap&lt;&gt;();
+        
+        for(int i:nums1)
+        {
+            map1.put((long)((long)i*(long)i),map1.getOrDefault((long)((long)i*(long)i),0L)+1);
+        }
+        for(int i:nums2)
+        {
+            map2.put((long)((long)i*(long)i),map2.getOrDefault((long)((long)i*(long)i),0L)+1);
+        }
+        int cnt=0;
+        for(int i=0;i&lt;nums1.length;i++)
+        {
+            for(int j=i+1;j&lt;nums1.length;j++)
+            {
+                if(map2.containsKey((long)((long)nums1[i]*(long)nums1[j])))
+                {
+                    cnt+=map2.get((long)((long)nums1[i]*(long)nums1[j]));
+                }
             }
         }
-        int res = 0;
-<A NAME="2"></A>        for(int num : nums1){
-            res+=s2.getOrDefault((long)num*num, 0);
-        }</B></FONT>
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int num : nums2){
-            res+=s1.getOrDefault((long)num*num, 0);
+        
+        for(int i=0;i&lt;nums2.length;i++)
+        {
+            for(int j=i+1;j&lt;nums2.length;j++)
+            {
+                if(map1.containsKey((long)((long)nums2[i]*(long)nums2[j])))
+                {
+                    cnt+=map1.get((long)((long)nums2[i]*(long)nums2[j]));
+                }
+            }
         }
-        return res;
+        return cnt;
     }
 }</B></FONT>
 </PRE>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_joshualian1989.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_joshualian1989.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import numpy as np
+class Solution:
+    def numPoints(self, points: List[List[int]], r: int) -&gt; int:
+        def helper(i):
+            angles = []
+<A NAME="1"></A>            for j in range(n):
+                if i == j or dist[(i, j)] &gt; 2 * r: c</B></FONT>ontinue
+                B = np.arccos(dist[(i, j)] / (2 * r))
+                dx <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= points[j][0] - points[i][0]
+                dy = points[j][1] - points[i][1]
+<A NAME="2"></A>                A = np.angle(dx + 1j * dy)
+                alpha, beta = A - B, A + B
+                angles.append((alpha, True))
+                angles.</B></FONT>append((<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>beta, False))
+            angles.sort(key=lambda x: (x[0], not x[1]))
+            curr, max_cnt = 1, 1
+            for _, b in angles:
+                curr += 1 if b else -1
+                max_cnt = max(max_cnt, curr)
+            return max_cnt
+        
+        dist, n = {}, len(points)
+        for i, (x1, y1) in enumerate(points):
+            for j, (x2, y2) in enumerate(points[i + 1:], i + 1):
+                dist[(j, i)] = dist[(i, j)] = np.sqrt((x2 - x1) **2 + (y2 - y1) ** 2)
+        return max(helper(i) for i in range(n</B></FONT>))
+</PRE>
+
+</BODY>
+</HTML>

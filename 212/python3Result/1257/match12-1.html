@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_please_AC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>179_please_AC.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        heap = []
+<A NAME="0"></A>        n = len(matrix)
+        m = len(matrix[0])
+        res = [[0] * m for _ in range(n)]
+        row <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [0] * n
+        col = [0] * m
+        
+        for i in range(n):
+            for j in range(m):
+                heapq.heappush(heap, (matrix[i][j</B></FONT>], i, j))
+        
+        while heap:
+            cur = heap[0][0]
+            curl = []
+            
+            while heap and heap[0][0] == cur:
+                curl.append((heap[0][1], heap[0][2]))
+                heapq.heappop(heap)
+            
+            f = {}
+            mm = collections.defaultdict(int)
+<A NAME="1"></A>            def find(a):
+                if a not in f:
+                    f[a] = a
+                    r<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn a
+                if f[a] != a:
+                    f[a] = find(f[a])
+                return f[a]
+            def merge(a, b):
+                fa = find(</B></FONT>a)
+                fb = find(b)
+                f[fa] = fb
+                mm[a] = max(max(row[a], col[b - n]) + 1, mm[a])
+                mm[b] = max(max(row[a], col[b - n]) + 1, mm[b])
+                mm[a] = max(mm[a], mm[b])
+                mm[b] = max(mm[a], mm[b])
+                mm[fb] = max(mm[fb], mm[a], mm[fa])
+                mm[fa] = max(mm[fa], mm[a], mm[fb])
+            
+            for i, j in curl:
+                merge(i, j + n)
+            
+            
+            for i, j in curl:
+                res[i][j] = max(mm[find(i)], mm[find(j + n)])
+                row[i] = max(res[i][j], row[i])
+                col[j] = max(res[i][j], col[j])
+            
+
+        
+        return res
+            
+</PRE>
+
+</BODY>
+</HTML>

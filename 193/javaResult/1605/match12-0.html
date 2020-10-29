@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>425_luo122174088.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>425_luo122174088.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int[] bloom, int m, int k) {
+        int n = bloom.length;
+        if(m * k &gt; n){
+            return -1;
+        }
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for(int a : bloom){
+            min = Math.min(min, a);
+            max = Math.max(max, a);
+        }
+        int left = min;
+        int right = max;
+        while(left &lt;= right){
+            int mid = left + (right - left) / 2;
+            if(canMake(bloom, m, k, mid)){
+                right = mid - 1;
+            }else{
+<A NAME="1"></A>                left = mid + 1;
+            }
+        }</B></FONT>
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return right + 1;
+    }
+    
+    private boolean canMake(int[] bloom, int m, int k, int days){
+        int count = 0;
+        int len = 0;
+        for(int i = 0;i&lt;bloom.length;i++){
+            if(bloom[i] &lt;= days){
+<A NAME="2"></A>                if(++len == k){
+                    count++;
+                    len = 0;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}</B></FONT>
+            }else{
+                len = 0;
+            }
+        }
+        return count &gt;= m;
+    }
+    
+}</B></FONT>
+
+</PRE>
+
+</BODY>
+</HTML>

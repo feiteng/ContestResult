@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>324_DestyFog.java</TITLE>
+ <TITLE>188_aureole999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,100 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>324_DestyFog.java</CENTER></H3><HR>
+<H3><CENTER>188_aureole999.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>UnionFind uf1 = new UnionFind(n);
-        UnionFind uf2 = new UnionFind(n);
-        int count = 0;
+        int l = edges.length;
         
-        for (int[] edge : edges) {
-            int type = edge[0];
-<A NAME="1"></A>            int from = edge[1] - 1;
-            int to = edge[2] - 1;
-            if (type == 3) {
-                if (uf1.find</B></FONT>(from, to)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                    //System.out.println(&quot;type 3, from : &quot; + from + &quot; to&quot; + to);
-                    count++;
-                } else {
-                    uf1.union(from, to);
-                    uf2.union(from, to);
-                }
-            }</B></FONT>
+        int[] g = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            g[i] = i;
+        }
+        int res = 0;
+        for (int[] edge: edges) {
+            if (edge[0] == 3) {
+                if (!join(g, edge[1]-1, edge[2]-1)) res++;
+            }
         }
         
-        for (int[] edge : edges) {
-<A NAME="2"></A>            int type = edge[0];
-            int from = edge[1] - 1;
-            int to = edge[2] - 1;
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (type == 1) {
-                if (uf1.find(from, to)) {
-                    //System.out.println(&quot;type 1, from : &quot; + from + &quot; to&quot; + to);
-                    count++;
-                } else {
-                    uf1.union(from, to);
-<A NAME="3"></A>                }
-            }</B></FONT> 
-            
-            if (type == 2) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match12-1.html#3',3,'match12-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                if (uf2.find(from, to)) {
-                    //System.out.println(&quot;type 2, from : &quot; + from + &quot; to&quot; + to);
-                    count++;
-                } else {
-                    uf2.union(from, to);
-                }
-            }</B></FONT>
+        int[] gb = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            gb[i] = g[i];
         }
         
-        if (uf1.findComponentNum() == uf2.findComponentNum() &amp;&amp; uf2.findComponentNum() == 1) {
-            return count;
+        for (int[] edge: edges) {
+            if (edge[0] == 1) {
+                if (!join(g, edge[1]-1, edge[2]-1)) res++;
+            }
         }
-        return -1;
         
+        for (int[] edge: edges) {
+            if (edge[0] == 2) {
+                if (!join(gb, edge[1]-1, edge[2]-1)) res++;
+            }
+        }
+        
+        
+        for (int i = 1; i &lt; n; i++) {
+            if (find(g, i) != find(g, i-1)) return -1;
+            if (find(gb, i) != find(gb, i-1)) return -1;
+        }
+        return res;
     }
     
-    class UnionFind {
-	
-        int[] nums;
 
-        public UnionFind(int n) {
-            nums = new int[n];
-            for (int i = 0; i &lt; n; i++) {
-                nums[i] = i;
-            }
+    
+    private int find(int[] g, int a) {
+        while (g[a] != a) {
+            g[a] = g[g[a]];
+            a = g[a];
         }
-        public void union(int x, int y) {
-<A NAME="4"></A>            int rootX = findRoot(x);
-            int rootY = findRoot(y);
-            nums[rootX] = rootY;
-        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match12-1.html#4',3,'match12-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        public int findRoot(int a) {
-            int root = a;
-            while (nums[root] != root) {
-                root = nums[root];
-            }
-<A NAME="5"></A>            //put all child to be the child of root
-            while (a != root) {</B></FONT>
-                int tmp = nums[a];
-                <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match12-1.html#5',3,'match12-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nums[a] = root;
-                a = tmp;
-            }
-            return root;
-        }
-        public boolean find(int x, int y) {</B></FONT>
-            return findRoot(x) == findRoot(y);
-        }
-
-        public int findComponentNum() {
-            Set&lt;Integer&gt; set = new HashSet&lt;Integer&gt;();
-            for (int i = 0; i &lt; nums.length; i++) {
-                set.add(findRoot(i));
-            }
-            return set.size();
-        }
+        return a;
     }
-}
+    
+    private boolean join(int[] g, int a, int b) {
+        int ra = find(g, a);
+        int rb = find(g, b);
+        if (ra == rb) return false;
+        g[rb] = ra;
+        return true;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

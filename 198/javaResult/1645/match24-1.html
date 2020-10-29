@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_elvinyang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>223_elvinyang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution
+{
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void addStat(int[][] stat, int n)
+    {
+        for (int i = 0; i &lt; stat[0].length; i++)
+        {
+            stat[(n &gt;&gt; i) &amp; 1][i]++;
+        }
+    }
+
+    private void subStat(int[][] stat, int n)
+    {
+        for (int i = 0; i &lt; stat[0].length; i++)
+        {
+            stat[(n &gt;&gt; i) &amp; 1][i]--;
+<A NAME="0"></A>        }
+    }</B></FONT>
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int getNum(int[][] stat)
+    {
+        int res = 0;
+        for (int i = stat[0].length - 1; i &gt;= 0; i--)
+        {
+            res &lt;&lt;= 1;
+            if (stat[0][i] == 0 &amp;&amp; stat[1][i] &gt; 0) res |= 1;
+        }
+        return res;
+    }</B></FONT>
+
+    public int closestToTarget(int[] arr, int target)
+    {
+        int ans = Integer.MAX_VALUE;
+        int[][] stat = new int[2][29];
+        for (int s = 0, e = 0; s &lt; arr.length &amp;&amp;  e &lt; arr.length; e++)
+        {
+            addStat(stat, arr[e]);
+            int x = getNum(stat);
+            ans = Math.min(ans, Math.abs(x - target));
+            while (x &lt; target &amp;&amp; s &lt;= e)
+            {
+                subStat(stat, arr[s++]);
+                x = getNum(stat);
+                ans = Math.min(ans, Math.abs(x - target));
+            }
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

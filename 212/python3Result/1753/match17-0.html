@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_please_AC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>179_please_AC.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -&gt; int:
+<A NAME="0"></A>        l = 0
+        r = 10 ** 6
+        n = len(heights)
+        m = len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(heights[0])
+        
+        def check(mid):
+            seen = set()
+            seen.add((0, 0))
+            bfs = [(0, 0)]
+            
+<A NAME="1"></A>            while bfs:
+                nbfs =</B></FONT> []
+                for i, j in bfs:
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if i == n - 1 and j == m - 1:
+                        return True
+                    for ni, nj in ((i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)):
+                        if 0 &lt;= ni &lt; n and 0 &lt;= nj &lt; m and (ni, nj) not in seen and abs(heights[ni][nj] - heights[i][j]) &lt;= mid:
+                            nbfs.append([ni, nj])
+                            seen.add((ni</B></FONT>, nj))
+                bfs = nbfs[:]
+            
+            return False
+        
+        while l &lt; r:
+            mid = (l + r) // 2
+            if check(mid):
+                r = mid
+            else:
+                l = mid + 1
+        
+        return l
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>221_ToffeeLu.java</TITLE>
+ <TITLE>152_hiromi_ayase.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>221_ToffeeLu.java</CENTER></H3><HR>
+<H3><CENTER>152_hiromi_ayase.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public int numTriplets(int[] nums1, int[] nums2) {
-        int res = 0;
-        Map&lt;Long, Integer&gt; square1 = new HashMap&lt;&gt;();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int num : nums1){
-            long p = (long)num * num;
-            square1.put(p, square1.getOrDefault(p, 0) + 1);
-        }
-        for(int j = 0; j &lt; nums2.length; j++){
-            for(int k = j + 1; k &lt; nums2.length; k++){
-                long p = (long)nums2[j] * nums2[k];
-                if(square1.containsKey(p)){
-                    res += square1.get(p);
-                }
-<A NAME="1"></A>            }
-        }</B></FONT>
-        
-        Map&lt;Long, Integer&gt; square2 = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new HashMap&lt;&gt;();
-        for(int num : nums2){
-            long p = (long)num * num;
-            square2.put(p, square2.getOrDefault(p, 0) + 1);
-        }
-        for(int j = 0; j &lt; nums1.length; j++){
-            for(int k = j + 1; k &lt; nums1.length; k++){
-                long p = (long)nums1[j] * nums1[k];
-                if(square2.containsKey(p)){
-                    res += square2.get(p);
-                }
-            }
-        }
-        
-        return res;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class Solution {
+  public int numTriplets(int[] nums1, int[] nums2) {
+    int n = nums1.length;
+    int m = nums2.length;
+
+    Map&lt;Long, Integer&gt; set1 = new HashMap&lt;&gt;();
+    Map&lt;Long, Integer&gt; set2 = new HashMap&lt;&gt;();
+    for (int v : nums1) {
+      long x = (long) v * v;
+      set1.putIfAbsent(x, 0);
+      set1.put(x, set1.get(x) + 1);
     }
+    for (int v : nums2) {
+      long x = (long) v * v;
+      set2.putIfAbsent(x, 0);
+      set2.put(x, set2.get(x) + 1);
+    }
+
+    int ret = 0;
+    for (int j = 0; j &lt; n; j++) {
+      for (int k = j + 1; k &lt; n; k++) {
+        long x = nums1[j];
+        long y = nums1[k];
+        if (set2.containsKey(x * y)) {
+          ret+= set2.get(x * y);
+        }
+      }
+    }
+    for (int j = 0; j &lt; m; j++) {
+      for (int k = j + 1; k &lt; m; k++) {
+        long x = nums2[j];
+        long y = nums2[k];
+        if (set1.containsKey(x * y)) {
+          ret+= set1.get(x * y);
+        }
+      }
+    }
+    return ret;
+  }
 }</B></FONT>
 </PRE>
 

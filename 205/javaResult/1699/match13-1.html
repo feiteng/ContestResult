@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>490_jie-9i.java</TITLE>
+ <TITLE>181_kasperyang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,88 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>490_jie-9i.java</CENTER></H3><HR>
+<H3><CENTER>181_kasperyang.java</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A>class Solution {
-    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count(int[] num, int[] target) {
-        int ans = 0;
-        HashMap&lt;Long, Integer&gt; cnt = new HashMap&lt;&gt;();
-        for (int j : target) {
-            long x = 1L * j * j;
-            cnt.put(x, cnt.getOrDefault(x, 0) + 1);
-        }
-        for (int i = 0; i &lt; num.length; i++) {
-            for (int j = 0; j &lt; i; j++) {
-                long x = 1L * num[i] * num[j];
-                ans += cnt.getOrDefault(x, 0);
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int cnt = 0;
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        for (int i = 0; i &lt; n1; i++) {
+            long prod = (long) nums1[i] * nums1[i];
+            // if (i == 0) {
+            //     System.out.println(prod);
+            // }
+            for (int j = 0; j &lt; n2; j++) {
+                if ((long) nums2[j] * nums2[j] &gt; prod) break;
+                if (prod % nums2[j] == 0) {
+                    long val = (prod / nums2[j]);
+                    int l = bsl(nums2, j + 1, n2 - 1, val);
+                    int r = bsr(nums2, j + 1, n2 - 1, val);
+                    // if (i == 0) {
+                    //     System.out.println(i + &quot; &quot; + l + &quot; &quot; + r + &quot; &quot; + val + &quot; &quot; + j);
+                    // }
+                    if (l &gt; 0 &amp;&amp; r &gt; 0) {
+                        cnt += r - l + 1;
+                    }
+                }
             }
         }
-<A NAME="0"></A>        return ans;
-    }</B></FONT>
-
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int numTriplets(int[] nums1, int[] nums2) {
-        return count(nums1, nums2) + count(nums2, nums1);
-    }</B></FONT>
-}
+        
+        for (int j = 0; j &lt; n2; j++) {
+            long prod = (long) nums2[j] * nums2[j];
+            for (int i = 0; i &lt; n1; i++) {
+                if ((long) nums1[i] * nums1[i] &gt; prod) break;
+                if (prod % nums1[i] == 0) {
+                    long val = (prod / nums1[i]);
+                    int l = bsl(nums1, i + 1, n1 - 1, val);
+                    int r = bsr(nums1, i + 1, n1 - 1, val);
+                    if (l &gt; 0 &amp;&amp; r &gt; 0) {
+                        cnt += r - l + 1;
+                    }
+                }
+            }
+        }
+        
+        return cnt;
+    }
+    
+    int bsl(int[] arr, int l, int r, long t) {
+        if (l &gt; r) return -1;
+        int m;
+        while (l + 1 &lt; r) {
+            m = l + (r - l) / 2;
+            if (arr[m] &lt; t) {
+                l = m;
+            } else {
+                r = m;
+            }
+        }
+        
+        if (arr[l] == t) return l;
+        if (arr[r] == t) return r;
+        return -1;
+    }
+    
+    int bsr(int[] arr, int l, int r, long t) {
+        if (l &gt; r) return -1;
+        int m;
+        while (l + 1 &lt; r) {
+            m = l + (r - l) / 2;
+            if (arr[m] &gt; t) {
+                r = m;
+            } else {
+                l = m;
+            }
+        }
+        
+        if (arr[r] == t) return r;
+        if (arr[l] == t) return l;
+        return -1;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

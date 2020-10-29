@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>23_foorest.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>23_foorest.cpp</CENTER></H3><HR>
+<PRE>
+
+typedef vector&lt;int&gt; VI;
+typedef pair&lt;int, int&gt; PI;
+typedef vector&lt;PI&gt; VPI;
+
+#define FOR(i,a,n) for (int i = (a); i &lt; (n); ++i)
+#define FORE(i,a,n) for (int i = (a); i &lt;= (n); ++i)
+#define FORD(i,a,b) for (int i = (a); i &gt;= (b); --i)
+#define REP(i,n) FOR(i,0,n)
+#define REPE(i,n) FORE(i,0,n)
+#define LL long long
+#define FIR(n) REP(i,n)
+#define FJR(n) REP(j,n)
+#define ALL(v) v.begin(), v.end()
+
+#define FI FIR(n)
+#define FJ FJR(n)
+#define FR(i,a) FOR(i,a,n)
+#define REPN(i) REP(i,n)
+
+#define GI(n) scanf(&quot;%d&quot;, &amp;n)
+<A NAME="0"></A>#define GI2(n,m) scanf(&quot;%d %d&quot;, &amp;n, &amp;m)
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+	int findLatestStep(vector&lt;int&gt;&amp; v, int m) {
+		int n = v.size(); 
+		VI len(n);
+		VI lf(n, -1), rt(n, -1);
+		map&lt;int, int&gt; f;
+<A NAME="1"></A>		int res = -1;</B></FONT>
+		int st = 1;
+		for (int p : v) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			--p;
+			
+			int t1 = p, t2 = p;
+			if (p &amp;&amp; lf[p-1] &gt;= 0) {
+				--f[p - 1 - lf[p - 1]+ 1];
+				t1 = lf[p - 1];
+			}
+			if (p+1 &lt; n &amp;&amp; rt[p+1] &gt;= 0) {
+				--f[rt[p + 1] - (p+1) + 1];
+				t2 = rt[p + 1];
+			}
+			++f[t2-t1+1];</B></FONT>
+
+			if (f[m])
+				res = st;
+			
+			lf[t2] = t1;
+			rt[t1] = t2;
+			++st;
+		}
+
+		return res;
+	}
+};
+
+</PRE>
+</BODY>
+</HTML>

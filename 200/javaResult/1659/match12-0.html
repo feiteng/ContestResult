@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>706_rickon-7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>706_rickon-7.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private int DIV = 1000000007;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int maxSum(int[] nums1, int[] nums2) {
+        long[] dp1 = new long[nums1.length + 1];
+        long[] dp2 = new long[nums2.length + 1];
+        int p1 = 0;
+<A NAME="1"></A>        int p2 = 0</B></FONT>;
+        dp1[0] = 0;
+        dp2[0] = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (p1 &lt; nums1.length &amp;&amp; p2 &lt; nums2.length) {
+            if (nums1[p1] &lt; nums2[p2]) {
+                dp1[p1 + 1] = (dp1[p1] + nums1[p1]);
+                p1++;
+            } else if (nums1[p1] &gt; nums2[p2]){
+                dp2[p2 + 1] = (dp2[p2] + nums2[p2]);
+                p2++;
+            } else {</B></FONT>
+                dp1[p1 + 1] = (Math.max((dp1[p1] + nums1[p1]), (dp2[p2] + nums2[p2])));
+<A NAME="2"></A>                dp2[p2 + 1] = (Math.max(dp1[p1] + nums1[p1], dp2[p2] + nums2[p2]));
+                p1++;
+                p2++;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        while (p1 &lt; nums1.length) {
+            dp1[p1 + 1] = (dp1[p1] + nums1[p1]);
+            p1++;
+        }
+        while (p2 &lt; nums2.length) {
+            dp2[p2 + 1] = (dp2[p2] + nums2[p2]);
+            p2++;
+        }
+        return (int)(Math.max(dp1[nums1.length], dp2[nums2.length]) % DIV);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

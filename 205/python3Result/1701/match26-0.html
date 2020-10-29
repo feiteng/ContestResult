@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>611_dafeii.py</TITLE>
+ <TITLE>152_kuro10.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,58 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>611_dafeii.py</CENTER></H3><HR>
+<H3><CENTER>152_kuro10.py</CENTER></H3><HR>
 <PRE>
-class UF:
-    def __init__(self, n):
-        self.p = [i for i in range(n+1)]
-    
-    def find(self, a):
-        if self.p[a] != a:
-            self.p[a] = self.find(self.p[a])
-        return self.p[a]
-    
-    def union(self, a, b):
-        self.p[a] = self.p[b]
-
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        uf_alice = UF(n)
-<A NAME="0"></A>        uf_bob = UF(n)
-        delete_num = 0
-        for label, u, v in edges:
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if label == 3:
-                pu = uf_alice.find(u)
-                pv = uf_alice.find(v)
-                if pu == pv:
-                    delete_num += 1
-                else:
-                    uf_alice.union(pu, pv)
-<A NAME="1"></A>                    uf_bob.union(</B></FONT>pu, pv)
-        for label, u, v in edges:
-            if label == 1:
-                pu <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= uf_alice.find(u)
-                pv = uf_alice.find(v)
-                if pu == pv:
-                    delete_num += 1
-                else:
-                    uf_alice.union(pu, pv)
-            elif label == 2:
-                pu = uf_bob.find(u)
-                pv = uf_bob.find(v)
-                if pu == pv:
-                    delete_num += 1
-                else:
-                    uf_bob.union(pu, pv)
-        alice_ps =</B></FONT> set([uf_alice.find(i) for i in range(1, n+1)])
-        bob_ps = set([uf_bob.find(i) for i in range(1, n+1)])
-        if len(alice_ps) != 1 or len(bob_ps) != 1:
+        typed_edges = [[], [], []]
+        for t, u, v in edges:
+            typed_edges[t-1].append((u-1,v-1))
+            
+        # add type 2 through union find (discard if already unioned, ans += 1)
+        
+        def find_parent(i, uf):
+            if uf[i][0] != i:
+                uf[i] = find_parent(uf[i][0], uf)
+            return uf[i]
+        
+        def union(i1, i2, uf):
+            p1, s1 = find_parent(i1, uf)
+            p2, s2 = find_parent(i2, uf)
+            if p1 == p2:
+                return 1
+            if s1 &gt;= s2:
+                uf[p2][0] = p1
+                uf[p1][1] += s2
+            else:
+                uf[p1][0] = p2
+                uf[p2][1] += s1
+            return 0
+        
+        ans = 0
+        uf0 = {i:[i,1] for i in range(n)}
+        
+        ans = 0
+        # start from type 3 unions, duplicate to type 0, 1
+        for v1, v2 in typed_edges[2]:
+            ans += union(v1, v2, uf0)
+        
+        uf1 = copy.deepcopy(uf0)
+        
+        
+        # add type 0 (discard if already unioned, ans += 1)
+        # if largest_size &lt; n: return -1
+        for v1, v2 in typed_edges[0]:
+            ans += union(v1, v2, uf0)
+        
+        if max([s for _, s in uf0.values()]) &lt; n:
             return -1
-        return delete_num
-                    
-                
-                    
+
+        
+        # add type 1 (discard if already unioned, ans += 1)
+        # if largest_size &lt; n: return -1
+        for v1, v2 in typed_edges[1]:
+            ans += union(v1, v2, uf1)
+        
+        if max([s for _, s in uf1.values()]) &lt; n:
+            return -1
+
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

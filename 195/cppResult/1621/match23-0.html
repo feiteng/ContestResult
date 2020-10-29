@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>615_0xFFFFFFFF.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>615_0xFFFFFFFF.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numSubseq(vector&lt;int&gt;&amp; nums, int target) {
+        int n = nums.size();
+        int mod = 1e9 + 7;
+        sort(nums.begin(), nums.end());
+        vector&lt;int&gt; pre(n + 1, 1);</B></FONT>
+        for (int i = 1; i &lt;= n; ++i) {
+<A NAME="1"></A>            pre[i] = pre[i - 1] * 2;
+            pre[i] %= mod;
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            int p = upper_bound(nums.begin(), nums.end(), target - nums[i]) - nums.begin();
+            int len = p - i - 1;
+            if (len &lt; 0) continue;</B></FONT>
+            if (len == 0 &amp;&amp; nums[i] * 2 &gt; target) continue;
+            res += pre[len];
+            res %= mod;
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numSubmat(int[][] mat) {
+        final int N = mat.length;
+        final int M = mat[0].length;
+        final int[][] sum = new int[N + 1][M + 1];
+        for (int r = 0; r &lt; N; ++r) {
+            for (int c = 0; c &lt; M; ++c) {
+                sum[r + 1][c + 1] = mat[r][c] + sum[r + 1][c] + sum[r][c + 1] - sum[r][c];
+            }
+        }
+        int ans = 0;
+        for (int r0 = 0; r0 &lt; N; ++r0) {
+            for (int c0 = 0; c0 &lt; M; ++c0) {
+                for (int rf = r0 + 1; rf &lt;= N; ++rf) {
+                    for (int cf = c0 + 1; cf &lt;= M; ++cf) {
+                        int want = (rf - r0) * (cf - c0);
+                        int count = sum[rf][cf] - sum[rf][c0] - sum[r0][cf] + sum[r0][c0];
+                        if (want == count) {
+<A NAME="1"></A>                            ++ans;
+                        }</B></FONT> else {
+                            break;
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

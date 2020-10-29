@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>562_AwesomeOppapa.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>562_AwesomeOppapa.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    
+    
+    public int numPoints(int[][] points, int R) {
+        int n = points.length;
+        double r = (double) R;
+        double eps = 1e-8;
+        double[][] ps = new double[n][2];
+        for (int i = 0; i &lt; n; i++) {
+            ps[i][0] = (double) points[i][0];
+<A NAME="0"></A>            ps[i][1] = (double) points[i][1];
+        }
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 1;
+        
+        for (int i = 0; i &lt; n; i++) {
+<A NAME="1"></A>			for (int j = i + 1; j &lt; n; j++) {
+				if (dist(ps[i], ps[j]) &gt; 2.0*r) {</B></FONT>
+                    continue;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+				double[] center = getCircleCenter(ps[i], ps[j], r);
+				int cnt = 0;
+				for (int k = 0; k &lt; n; k++) {
+                    if (dist(center, ps[k]) &lt; 1.0 * r + eps) {
+                        cnt++;
+                    }
+                }	
+				res = Math.max(res,cnt);
+			}
+		}
+        
+<A NAME="2"></A>        return res;
+    }
+    
+    private double[] getCircleCenter(double[] p1, double[] p2, double r</B></FONT>) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+	    double[] mid = new double[] {(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2};
+	    double angle = Math.atan2(p1[0] - p2[0], p2[1] - p1[1]);
+	    double d = Math.sqrt(r * r - Math.pow(dist(p1, mid), 2));
+	    return new double[] {mid[0] + d * Math.cos(angle), mid[1] + d * Math.sin(angle)};
+    }
+    
+    private double dist(double[] p1, double[] p2</B></FONT>) {
+        return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

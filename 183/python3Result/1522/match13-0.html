@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>354_fighting_rex.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>354_fighting_rex.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        n=len(stoneValue)
+        res=[1]*n
+        totals=[0]*n
+        v=stoneValue[::-1]
+        s=0
+        for i in range(n):
+            s+=v[i]
+            totals[i]=s
+        points=[0]*n
+        points[0]=totals[0]
+        if n&gt;1:
+<A NAME="0"></A>            points[1]=max(v[0],0)+v[1]
+        if n&gt;2:
+            points[2]=max(totals[2],totals[2]-points[0],v[2]+totals[1]-points[1])
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(3,n):
+            points[i]=max(v[i]+totals[i-1]-points[i-1],v[i]+v[i-1]+totals[i-2]-points[i-2],v[i]+v[i-1]+v[i-2]+totals[i-3]-points[i-3])
+        #print (points)
+        if points[n-1]&gt;totals[</B></FONT>n-1]/2:
+            return 'Alice'
+        elif points[n-1]&lt;totals[n-1]/2:
+            return 'Bob'
+        else:
+            return 'Tie'
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_acst.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_acst.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def edit(self, r, c, matrix, res, x, y, m, n):
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(m):
+            if matrix[i][y] == matrix[x][y] and res[i][y] &lt; c[y][0]:
+<A NAME="1"></A>                res[i][y] = c[y][</B></FONT>0]
+                if r[i][0] &lt; res[i][y]:
+                    r[i] = (res[i][y], matrix[x][y])
+                    self.edit(r<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>, c, matrix, res, i, y, m, n)
+        for j in range(n):
+            if matrix[x][j] == matrix[x][y] and res[x][j] &lt; r[x][0]:
+                res[x][j] = r[x][</B></FONT>0]
+                if c[j][0] &lt; res[x][j]:
+                    c[j] = (res[x][j], matrix[x][y])
+                    self.edit(r, c, matrix, res, x, j, m, n)
+
+    def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        m = len(matrix)
+        n = len(matrix[0])
+        nums = []
+        for i, t in enumerate(matrix):
+            for j, x in enumerate(t):
+                nums.append((x, i, j))
+        nums.sort()
+        lo = nums[0][0] - 1
+        r = [(0, lo) for _ in range(m)]
+        c = [(0, lo) for _ in range(n)]
+        res = [[0 for _ in range(n)] for _ in range(m)]
+        for x, i, j in nums:
+            a = r[i][0] + 1 if x &gt; r[i][1] else r[i][0]
+            b = c[j][0] + 1 if x &gt; c[j][1] else c[j][0]
+            res[i][j] = max(a, b)
+            needEdit = False
+            if (x == r[i][1] and res[i][j] &gt; r[i][0]) or (x == c[j][1] and res[i][j] &gt; c[j][0]):
+                needEdit = True
+            r[i] = (res[i][j], x)
+            c[j] = (res[i][j], x)
+            if needEdit:
+                self.edit(r, c, matrix, res, i, j, m, n)
+        return res
+</PRE>
+
+</BODY>
+</HTML>

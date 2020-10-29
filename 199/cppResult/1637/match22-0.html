@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>50_suzyzhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>50_suzyzhang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int f[102][102][28];
+public:
+    int getLengthOfOptimalCompression(string s, int k) {
+        int n = s.length();
+<A NAME="0"></A>        if (k &gt;= n)
+            return 0;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = n, m = n-k;
+        
+<A NAME="1"></A>        for (int i = 0; i &lt;= n; ++i)
+            for (int j = 0; j &lt;= n; ++j)
+                // f[i][j] = INT_MAX / 2;
+                for (int t = 0; t &lt; 26; ++t)</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                    f[i][j][t] = INT_MAX / 2;
+        
+        for (int t = 0; t &lt; 26; ++t)
+            f[0][0][t] = 0;
+        
+        // f[0][0] = 0;
+        
+        for (int i = 1; i &lt;= n; ++i) {
+            for (int j = 1; j &lt;= i; ++j) {
+                for (int t = 0; t &lt; 26; ++t) {</B></FONT>
+                    f[i][j][t] = f[i-1][j][t];
+                    
+                    if (t == s[i-1] - 'a') {
+                        int cnt = 0;
+                        for (int p = i-1; p &gt;= 0; --p) {
+                            if (s[p] == s[i-1])
+                                ++cnt;
+                            
+                            if (cnt &gt; j || p &lt; j-cnt)
+                                break;
+                            
+                            if (cnt == j) {
+                                f[i][j][t] = min(f[i][j][t], 1 + getlen(cnt));
+                                continue;
+                            }
+                            
+                            for (int q = 0; q &lt; 26; ++q)
+                                if (q != t) {
+                                    // printf(&quot;%d %d %d %d\n&quot;, j, cnt, p, q);
+                                    f[i][j][t] = min(f[i][j][t], f[p][j-cnt][q] + 1 + getlen(cnt));
+                                }
+                                    
+                        }
+                    }
+                    
+                    if (j &gt;= m)
+                        ans = min(ans, f[i][j][t]);
+                    // if (ans == 0)
+                    // printf(&quot;%d %d %d: %d\n&quot;, i, j, t, f[i][j][t]);
+                }
+            }
+        }
+        return ans;
+    }
+    
+    int getlen(int x) {
+        if (x == 1)
+            return 0;
+        if (x == 100)
+            return 3;
+        if (x &lt; 10)
+            return 1;
+        return 2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

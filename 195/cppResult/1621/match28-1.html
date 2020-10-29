@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>134_cai-ji-58.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>134_cai-ji-58.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    const int mod = 1e9 + 7;
+    long long qmi(int t)
+    {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        long long v = 2, ans = 1;
+        while(t &gt; 0)
+        {
+            if(t &amp; 1)ans = ans*v%mod;
+            t = t/2;
+            v = v*v%mod;
+        }
+        
+        return ans;
+    }
+    
+public:
+    int numSubseq(vector&lt;int&gt;&amp; nums, int target) {
+        
+        sort(nums.begin(), nums.end());
+        
+        int ans = 0;
+        for(int i = 0; i &lt; nums.size(); ++i)
+        {</B></FONT>
+            int a = nums[i];
+            int k = upper_bound(nums.begin(), nums.end(), target - a) - nums.begin();
+            if(k &lt; i)break;
+            if(k == i)
+            {
+                if(nums[i] + nums[i] &lt;= target)++ans;
+                break;
+            }
+            // printf(&quot;%d\t%d\n&quot;, nums[i], nums[k]);
+            
+            ans = (ans + qmi(k - i - 1))%mod;
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

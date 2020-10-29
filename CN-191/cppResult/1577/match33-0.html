@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_superj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>53_superj.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    double dp[7][7][7][7][7][7][7][7];
+    int idx[10];
+    double C[50][50];
+    int ball[10];
+    void calc(double&amp; fenzi, double&amp; fenmu, int sz) {
+        int res=0,res1=0,cnt1=0,cnt2=0;
+        for (int i=0; i&lt;8; i++) {
+            res+=(idx[i]&gt;0);
+            cnt1+=idx[i];
+            res1+=(ball[i]-idx[i]&gt;0);
+            cnt2+=(ball[i]-idx[i]);
+        }
+        double sum=1,sum1=1;
+        int sz1=sz;
+        if (cnt1==cnt2) {
+            for (int i=0; i&lt;8; i++) {
+                sum*=C[sz][idx[i]];
+                sum1*=C[sz1][ball[i]-idx[i]];
+                sz1-=(ball[i]-idx[i]);
+<A NAME="0"></A>                sz-=idx[i];
+            }
+            fenmu+=sum*sum1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (res==res1) fenzi+=sum*sum1;
+        }
+    }
+    double getProbability(vector&lt;int&gt;&amp; balls) {
+        C[0][0]=1;
+        for (int i=0; i&lt;50; i++) C[i][0]=1;
+        for (int i=1; i&lt;50; i++) {</B></FONT>
+            for (int j=1; j&lt;=i; j++) {
+                C[i][j]=C[i-1][j-1]+C[i-1][j];
+            }
+        }
+        while (balls.size()&lt;8) balls.push_back(0);
+        int cnt=0;
+        for (int i=0; i&lt;balls.size(); i++) ball[i]=balls[i],cnt+=balls[i];
+        cnt/=2;
+        double fenzi=0,fenmu=0;
+        dp[0][0][0][0][0][0][0][0]=1;
+        for (idx[0]=0; idx[0]&lt;7; idx[0]++) {
+            if (idx[0]&gt;balls[0]) continue;
+            if (idx[0]&gt;cnt) continue;
+            for (idx[1]=0; idx[1]&lt;7; idx[1]++) {
+                if (idx[0]+idx[1]&gt;cnt) continue;
+                if (idx[1]&gt;balls[1]) continue;
+                for (idx[2]=0; idx[2]&lt;7; idx[2]++) {
+                    if (idx[0]+idx[1]+idx[2]&gt;cnt) continue;
+                    if (idx[2]&gt;balls[2]) continue;
+                    for (idx[3]=0; idx[3]&lt;7; idx[3]++) {
+                        if (idx[0]+idx[1]+idx[2]+idx[3]&gt;cnt) continue;
+                        if (idx[3]&gt;balls[3]) continue;
+                        for (idx[4]=0; idx[4]&lt;7; idx[4]++) {
+                            if (idx[0]+idx[1]+idx[2]+idx[3]+idx[4]&gt;cnt) continue;
+                            if (idx[4]&gt;balls[4]) continue;
+                            for (idx[5]=0; idx[5]&lt;7; idx[5]++) {
+                                if (idx[0]+idx[1]+idx[2]+idx[3]+idx[4]+idx[5]&gt;cnt) continue;
+                                if (idx[5]&gt;balls[5]) continue;
+                                for (idx[6]=0; idx[6]&lt;7; idx[6]++) {
+                                    if (idx[0]+idx[1]+idx[2]+idx[3]+idx[4]+idx[5]+idx[6]&gt;cnt) continue;
+                                    if (idx[6]&gt;balls[6]) continue;
+                                    for (idx[7]=0; idx[7]&lt;7; idx[7]++) {
+                                        if (idx[0]+idx[1]+idx[2]+idx[3]+idx[4]+idx[5]+idx[6]+idx[7]&gt;cnt) continue;
+                                        if (idx[7]&gt;balls[7]) continue;
+                                        for (int s=0; s&lt;8; s++) {
+                                                double tem=dp[idx[0]][idx[1]][idx[2]][idx[3]][idx[4]][idx[5]][idx[6]][idx[7]];
+                                                idx[s]--;
+                                                if (idx[s]&gt;=0) 
+                                                    tem+=dp[idx[0]][idx[1]][idx[2]][idx[3]][idx[4]][idx[5]][idx[6]][idx[7]];
+                                                idx[s]++;
+                                                dp[idx[0]][idx[1]][idx[2]][idx[3]][idx[4]][idx[5]][idx[6]][idx[7]]=tem;
+                                         //       if (tem==1) cout&lt;&lt;idx[0]&lt;&lt;idx[1]&lt;&lt;idx[2]&lt;&lt;idx[3]&lt;&lt;idx[4]&lt;&lt;idx[5]&lt;&lt;idx[6]&lt;&lt;idx[7]&lt;&lt;endl;
+//                                                if (idx[0]==1&amp;&amp;(!idx[2]&amp;&amp;!idx[3]&amp;&amp;!idx[4]&amp;&amp;!idx[5]&amp;&amp;!idx[6]&amp;&amp;!idx[7])) cout&lt;&lt;tem&lt;&lt;endl;
+                                            
+                                        }
+                                        calc(fenzi,fenmu,cnt);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return fenzi/fenmu;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

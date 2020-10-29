@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>335_nilgonc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>335_nilgonc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxNonOverlapping(vector&lt;int&gt;&amp; nums, int target) {
+      int n = nums.size();
+<A NAME="1"></A>      vector&lt;int&gt; DP(n+1);
+      unordered_map&lt;int, int&gt; pos;
+      int subsum = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      pos[0] = -1;
+      for (int i=0; i&lt;n; ++i) {
+        DP[i+1] = DP[i];
+        subsum += nums[i];
+        if (pos.count(subsum-target)) {
+          int j = pos[subsum - target];
+          // cout&lt;&lt;j&lt;&lt;&quot;\t&quot;&lt;&lt;i&lt;&lt;&quot;\t&quot;&lt;&lt;subsum&lt;&lt;endl;
+          DP[i+1] = max(DP[i+1], DP[j+1]+1);
+        }
+        pos[subsum] = i;
+      }
+      
+      return DP.back();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

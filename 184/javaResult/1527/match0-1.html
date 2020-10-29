@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>324_zacw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>324_zacw.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numOfWays(int n) {
+        int MOD = 1_000_000_007;
+        int[][] dp = new int[n][400]; // R: 1, Y: 2, G: 3
+        int[] comb = {121, 123, 131, 132,
+                      212, 213, 232, 231,
+                      312, 313, 323, 321};
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap();
+        for (int c : comb) {
+            dp[0][c] = 1;
+            List&lt;Integer&gt; list = new ArrayList();
+            for (int x : comb) {
+                if (compatible(c, x)) {
+                    list.add(x);
+                }
+            }
+            map.put(c, list);
+        }
+        for (int i = 1; i &lt; n; i++) {
+            for (int c : comb) {
+                for (int p : map.get(c)) {
+                    dp[i][c] += dp[i - 1][p];
+                    dp[i][c] %= MOD;
+                }
+            }
+        }
+        
+        int res = 0;
+        for (int d : dp[n - 1]) {
+            res += d;
+            res %= MOD;
+        }
+        return res;
+    }
+    
+    private boolean compatible(int n1, int n2) {
+        if (n1 == n2) {
+            return false;
+        }
+        while (n1 &gt; 0) {
+            if (n1 % 10 == n2 % 10) {
+                return false;
+            } else {
+                n1 /= 10;
+                n2 /= 10;
+            }
+        }
+        return true;
+    }
+    
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

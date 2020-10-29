@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_YuhanWu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_YuhanWu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCost(int[] houses, int[][] cost, int m, int n, int target) {
+        int[][][] dp = new</B></FONT> int[m][n][target+1];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int[][] matrix : dp){
+            for(int[] row : matrix){
+                Arrays.fill(row, Integer.MAX_VALUE);
+            }
+        }
+        
+        if(houses[0]!=0){</B></FONT>
+            dp[0][houses[0]-1][1] = 0;
+        }
+        else{
+            for(int c=0; c&lt;n; c++){
+                dp[0][c][1] = cost[0][c];
+            }            
+        }
+<A NAME="2"></A>        
+        for(int h=1; h&lt;m; h++){
+            if(houses[h]!=0){
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int pc=0; pc&lt;n; pc++){
+                    for(int pt=1; pt&lt;=target; pt++){
+                        if(dp[h-1][pc][pt]!=Integer.MAX_VALUE){
+                            int curt = pc==houses[h]-1 ? pt : pt+1;
+                            if(curt&lt;=target){
+                                dp[h][houses[h]-1][curt] = Math.min(dp[h][houses[h]-1][curt], dp[h-1][pc][pt]);
+                            }
+                        }
+                    }
+                }                
+            }
+            else{
+                for(int c=0; c&lt;n; c++){
+                    for(int pc=0; pc&lt;n; pc++){
+                        for(int pt=1; pt&lt;=target; pt++){
+                            if(dp[h-1][pc][pt]!=Integer.MAX_VALUE){
+                                int curt = pc==c ? pt : pt+1;
+                                if(curt&lt;=target){
+                                    dp[h][c][curt] = Math.min(dp[h][c][curt], dp[h-1][pc][pt]+cost[h][c]);
+                                }
+                            }
+                        }
+                    }
+                }               
+            }
+        }
+        
+        int res = Integer.MAX_VALUE;
+        for(int c=0; c&lt;n; c++){
+            res = Math.min(res, dp[m-1][c][target]);
+        }</B></FONT>
+        return res==Integer.MAX_VALUE ? -1 : res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

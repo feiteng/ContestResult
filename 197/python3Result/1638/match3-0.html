@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>598_Chrisify.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>598_Chrisify.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import numpy as np
+from scipy.optimize import minimize
+from scipy.spatial.distance import cdist
+
+def geometric_median(points, method='auto', options={}):
+    &quot;&quot;&quot;
+    Calculates the geometric median of an array of points.
+    method specifies which algorithm to use:
+        * 'auto' -- uses a heuristic to pick an algorithm
+        * 'minimize' -- scipy.optimize the sum of distances
+        * 'weiszfeld' -- Weiszfeld's algorithm
+    &quot;&quot;&quot;
+
+    points = np.asarray(points)
+
+    if len(points.shape) == 1:
+        # geometric_median((0, 0)) has too much potential for error.
+        # Did the user intend a single 2D point or two scalars?
+        # Use np.median if you meant the latter.
+        raise ValueError(&quot;Expected 2D array&quot;)
+
+    if method == 'auto':
+        if points.shape[1] &gt; 2:
+            # weiszfeld tends to converge faster in higher dimensions
+            method = 'weiszfeld'
+        else:
+            method = 'minimize'
+
+    return _methods[method](points, options)
+
+
+def minimize_method(points, options={}):
+    &quot;&quot;&quot;
+    Geometric median as a convex optimization problem.
+    &quot;&quot;&quot;
+
+    # objective function
+    def aggregate_distance(x):
+        return cdist([x], points).sum()
+
+    # initial guess: centroid
+    centroid = points.mean(axis=0)
+
+    optimize_result = minimize(aggregate_distance, centroid, method='COBYLA')
+
+    return optimize_result.x
+
+
+def weiszfeld_method(points, options={}):
+    &quot;&quot;&quot;
+    Weiszfeld's algorithm as described on Wikipedia.
+    &quot;&quot;&quot;
+
+    default_options = {'maxiter': 10000, 'tol': 1e-10}
+    default_options.update(options)
+    options = default_options
+
+    def distance_func(x):
+        return cdist([x], points)
+
+    # initial guess: centroid
+    guess = points.mean(axis=0)
+
+    iters = 0
+
+    while iters &lt; options['maxiter']:
+        distances = distance_func(guess).T
+
+        # catch divide by zero
+        # TODO: Wikipedia cites how to deal with distance 0
+        distances = np.where(distances == 0, 1, distances)
+
+        guess_next = (points/distances).sum(axis=0) / (1./distances).sum(axis=0)
+
+        guess_movement = np.sqrt(((guess - guess_next)**2).sum())
+
+        guess = guess_next
+
+        if guess_movement &lt;= options['tol']:
+            break
+
+        iters += 1
+
+    return guess
+
+
+_methods = {
+    'minimize': minimize_method,
+    'weiszfeld': weiszfeld_method,
+}
+    
+class Solution:
+    
+    def getMinDistSum(self, positions: List[List[</B></FONT>int]]) -&gt; float:
+        if len(positions) == 1:
+            return 0.0
+        res = 0.0
+        gm = geometric_median(positions, method='weiszfeld', options={})
+        for p in positions:
+            res += dist(gm, p)
+        return res
+    
+    def dist(self, a, b):
+        return ((a[0] - b[0])**2 + (a[1] - b[1])**2)**0.5
+    
+    
+</PRE>
+
+</BODY>
+</HTML>

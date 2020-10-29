@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>269_jumpjump.java</TITLE>
+ <TITLE>250_x372p.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,86 +15,131 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>269_jumpjump.java</CENTER></H3><HR>
+<H3><CENTER>250_x372p.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int[] label;
+    int[] count;
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UF uf1 = new UF(n + 1);
-        UF uf2 = new UF(n + 1);
-        int count = 0;
-        for (int[] e : edges) {
-            if</B></FONT> (e[0] == 3) {
-                int a = e[1], b = e[2];
-                if (!uf1.connected(a, b)) {
-                    count++;
-<A NAME="1"></A>                    uf1.union(a, b);
-                    uf2.union(a, b);
-                }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        label = new int[n];
+        count = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            label[i] = i;
+            count[i] = 1;
         }
         
-        for (int[] e : edges) {
-            if (e[0] == 1) {</B></FONT>
-                int a = e[1], b = e[2];
-                if (!uf1.connected(a, b)) {
-                    count++;
-                    uf1.union(a, b);
+        int ans = 0;
+        
+        //for type 3:
+        for (int[] edge: edges) {
+            if (edge[0] != 3) {
+                continue;
+            }
+            int i = edge[1]-1;
+            int j = edge[2]-1;
+            
+            int pi = find(label, i);
+            int pj = find(label, j);
+            //already connected
+            if (pi == pj) {
+                ans++;
+            } else {
+                if (count[pi] &gt; count[pj]) {
+                    label[pj] = pi;
+                    count[pi] += count[pj];
+                } else {
+                    label[pi] = pj;
+                    count[pj] += count[pi];
                 }
             }
         }
         
-        for (int[] e : edges) {
-            if (e[0] == 2) {
-                int a = e[1], b = e[2];
-                if (!uf2.connected(a, b)) {
-<A NAME="2"></A>                    count++;
-                    uf2.union(a, b);
-                }
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int[] label1 = new int[n];
+        int[] label2 = new int[n];
+        int[] count1 = new int[n];
+        int[] count2 = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            label1[i] = label[i];
+            label2[i] = label[i];
+            
+            count1[i] = 1;
+            count2[i] = 1;
         }
         
-        if (!uf1.allConnected() || !uf2.allConnected()) {
-            return -1;
-        } else {
-            return edges.length - count;
+        //for type 1:
+        for (int[] edge: edges) {
+            if (edge[0] != 1) {
+                continue;
+            }
+            int i = edge[1]-1;
+            int j = edge[2]-1;
+            int pi = find(label1, i);
+            int pj = find(label1, j);
+            //already connected
+            if (pi == pj) {
+                ans++;
+            } else {
+                if (count1[pi] &gt; count1[pj]) {
+                    label1[pj] = pi;
+                    count1[pi] += count1[pj];
+                } else {
+                    label1[pi] = pj;
+                    count1[pj] += count1[pi];
+                }
+            }
         }
+        
+        //for type 2:
+        for (int[] edge: edges) {
+            if (edge[0] != 2) {
+                continue;
+            }
+            int i = edge[1]-1;
+            int j = edge[2]-1;
+            int pi = find(label2, i);
+            int pj = find(label2, j);
+            //already connected
+            if (pi == pj) {
+                ans++;
+            } else {
+               if (count2[pi] &gt; count2[pj]) {
+                    label2[pj] = pi;
+                    count2[pi] += count2[pj];
+                } else {
+                    label2[pi] = pj;
+                    count2[pj] += count2[pi];
+                }
+            }
+        }
+        
+        //check fully connected
+        int p1 = find(label1, 0);
+        int p2 = find(label2, 0);
+        for (int i = 1; i &lt; n; i++) {
+            if (p1 != find(label1, i)) {
+                return -1;
+            }
+            if (p2 != find(label2, i)) {
+                return -1;
+            }
+        }
+        return ans;
+        
     }
     
-    private static class UF {
-        int p[]</B></FONT>;
-        int count;
-        
-        UF(int n) {
-            p = new int[n];
-            Arrays.fill(p, -1);
-            count = n - 1;
+    private int find(int[] label, int i) {
+        while(label[i] != i) {
+            i = label[i];
         }
-        
-        int findRoot(int a) {
-<A NAME="3"></A>            if (p[a] == -1) {
-                return a;
-            }
-            return <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>p[a] = findRoot(p[a]);
-        }
-        
-        boolean connected(int a, int b) {
-            return findRoot(a) == findRoot(b);
-        }
-        
-        void union(int a, int b) {</B></FONT>
-            int pa = findRoot(a);
-            int pb = findRoot(b);
-            if (pa != pb) {
-                p[pa] = pb;
-                count--;
-            }
-        }
-        
-        boolean allConnected() {
-            return count == 1;
-        }
+        return i;
     }
-}
+    
+    private void union(int[] label, int i, int j) {
+        int pi = find(label, i);
+        int pj = find(label, j);
+        label[pi] = pj;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

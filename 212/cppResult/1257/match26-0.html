@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>84_ykx_akks.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>84_ykx_akks.cpp</CENTER></H3><HR>
+<PRE>
+class Num {
+public:
+    int x, y, a;
+    Num(int _x, int _y, int _a): x(_x), y(_y), a(_a) {}
+};
+
+class Nums {
+	public:
+	int idx, x;
+	Nums(int _idx, int _x): x(_x), idx(_idx) {}
+};
+
+bool cmp(const Nums &amp;a, const Nums &amp;b) {
+	return a.x &lt; b.x;
+}
+
+vector&lt;int&gt; discretize(vector&lt;int&gt; &amp;x, int &amp;maxCur) {
+	// cout &lt;&lt; endl;
+	vector&lt;Nums&gt; a;
+	a.clear();
+	for (int i = 0; i &lt; x.size(); ++i) {
+		a.push_back(Nums(i, x[i]));
+	}
+	sort(a.begin(), a.end(), cmp);
+	int cur = 0;
+	vector&lt;int&gt; res(a.size());
+	for (int i = 0; i &lt; a.size(); ++i) {
+		// cout &lt;&lt; a[i].idx &lt;&lt; ' ' &lt;&lt; a[i].x &lt;&lt; endl;
+		if (i != 0 &amp;&amp; a[i].x != a[i - 1].x) {
+			++cur;
+		}
+		res[a[i].idx] = cur;
+	}
+	maxCur = cur;
+	return res;
+}
+
+bool cmp1(const Num &amp;a, const Num &amp;b) {
+    return a.a &lt; b.a;
+}
+class Solution {
+public:
+    int n, m;
+    vector&lt;int&gt; f;
+    int mc;
+    int gf(int x) {
+        if (f[x] == x) {
+            return x;
+        }
+        return (f[x] = gf(f[x]));
+    }
+    int getn(int x, int y) {
+<A NAME="0"></A>        return x * m + y;
+    }
+    void makeLink(vector&lt;vector&lt;int&gt; &gt; &amp;b) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; lk(mc + 1, -1);
+        vector&lt;int&gt; app;
+        for (int x = 0; x &lt; n; ++x) {
+            app.clear();
+            for (int y = 0; y &lt; m; ++y) {
+                int a = b[x][y];
+<A NAME="1"></A>                if (lk[a] == -1) {</B></FONT>
+                    lk[a] = getn(x, y);
+                    app.push_back(a);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                } else {
+                    f[gf(getn(x, y))] = gf(lk[a]);
+                    // cout &lt;&lt; &quot;link1 &quot; &lt;&lt; getn(x, y) &lt;&lt; ' ' &lt;&lt; lk[a] &lt;&lt; endl;
+                }
+            }
+            for (int i = 0; i &lt; app.size(); ++i) {
+                lk[app[i]] = -1;
+            }
+        }
+        for (int y = 0; y &lt; m; ++y) {
+            app.clear();
+            for (int x = 0; x &lt; n; ++x) {
+                int a = b[x][y];
+<A NAME="2"></A>                if (lk[a] == -1) {</B></FONT>
+                    lk[a] = getn(x, y);
+                    app.push_back(a);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                } else {
+                    f[gf(getn(x, y))] = gf(lk[a]);
+                    // cout &lt;&lt; &quot;link2 &quot; &lt;&lt; getn(x, y) &lt;&lt; ' ' &lt;&lt; lk[a] &lt;&lt; endl;
+                }
+            }
+            for (int i = 0; i &lt; app.size(); ++i) {
+                lk[app[i]] = -1;
+            }
+        }</B></FONT>
+    }
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        vector&lt;Num&gt; a;
+        a.clear();
+<A NAME="3"></A>        vector&lt;int&gt; ax;
+        ax.clear();
+        n = matrix.size(); m = matrix[0].size();
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int x = 0; x &lt; n; ++x) {
+            for (int y = 0; y &lt; m; ++y) {
+                ax.push_back(matrix[x][y]);
+            }
+        }</B></FONT>
+        ax = discretize(ax, mc);
+        int cur = 0;
+        for (int x = 0; x &lt; n; ++x) {
+            for (int y = 0; y &lt; m; ++y) {
+                a.push_back(Num(x, y, ax[cur]));
+                matrix[x][y] = ax[cur];
+                ++cur;
+            }
+        }
+        sort(a.begin(), a.end(), cmp1);
+        vector&lt;vector&lt;int&gt; &gt; res(n);
+        for (int i = 0; i &lt; n; ++i) {
+            res[i] = vector&lt;int&gt;(m, -1);
+        }
+        vector&lt;int&gt; rowR(n, 0), colR(m, 0);
+        vector&lt;int&gt; rowV(n, -1), colV(m, -1);
+        
+        f = vector&lt;int&gt;(n * m, 0);
+        int tot = n * m; 
+        for (int i = 0; i &lt; tot; ++i) {
+            f[i] = i;
+        }
+        makeLink(matrix);
+        // for (int i = 0; i &lt; n * m; ++i) {
+        //     cout &lt;&lt; gf(i) &lt;&lt; ' ';
+        // }
+        // cout &lt;&lt; endl;
+        vector&lt;int&gt; rk(n * m, 1);
+        
+        int currr = 0;
+        for (int i = 0; i &lt; a.size(); ++i) {
+            int x = a[i].x, y = a[i].y, aa = a[i].a;
+            int nn = getn(x, y);
+            currr = rk[gf(nn)] - 1;
+            
+            if (rowV[x] &gt;= 0 &amp;&amp; gf(rowV[x]) != gf(nn)) {
+                currr = max(currr, rk[gf(rowV[x])]);
+            }
+            if (colV[y] &gt;= 0 &amp;&amp; gf(colV[y]) != gf(nn)) {
+                currr = max(currr, rk[gf(colV[y])]);
+            }
+            
+            // if (aa &gt; rowV[x] &amp;&amp; rowV[x] &gt;= 0) {
+            //     currr = max(currr, rk[rowV[x]]);
+            // }
+            // if (aa &gt; colV[y] &amp;&amp; colV[y] &gt;= 0) {
+            //     currr = max(currr, rk[colV[y]]);
+            // }
+            rowV[x] = colV[y] = gf(nn);
+            rk[gf(nn)] = currr + 1;
+        }
+        
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                res[i][j] = rk[gf(getn(i, j))];
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>529_Wenbing_Zhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>529_Wenbing_Zhang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; dir = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}};
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {
+        int m = heights.size(), n = heights[0].size();
+        queue&lt;pair&lt;int, int&gt;&gt; q;
+        vector&lt;vector&lt;int&gt;&gt; rec(m, vector&lt;int&gt;(n, 0x7fffffff));</B></FONT>
+        q.push({0, 0});
+        rec[0][0] = 0;
+        while (!q.empty()) {
+            auto e = q.front();
+            q.pop();
+            int x = e.first;
+            int y = e.second;
+            for (auto&amp; d : dir) {
+                int n_x = x + d[0];
+                int n_y = y + d[1];
+<A NAME="1"></A>                
+                if (n_x &gt;= 0 &amp;&amp; n_x &lt; m &amp;&amp; n_y &gt;= 0 &amp;&amp; n_y &lt; n) {
+                    //cout &lt;&lt; n_x &lt;&lt; &quot; &quot; &lt;&lt; n_y &lt;&lt; endl;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if (rec[n_x][n_y] &gt; max(rec[x][y], abs(heights[x][y] - heights[n_x][n_y]))) {
+                        rec[n_x][n_y] = max(rec[x][y], abs(heights[x][y] - heights[n_x][n_y]));
+                        //cout &lt;&lt; &quot;push &quot; &lt;&lt; n_x &lt;&lt; &quot; &quot; &lt;&lt; n_y &lt;&lt; &quot; &quot; &lt;&lt; rec[n_x][n_y] &lt;&lt; endl;
+                        q.push({n_x, n_y});
+                    }
+                }
+            }
+        }
+        return rec[m - 1][n - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

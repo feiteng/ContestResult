@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>206_rajdetroja.cpp</TITLE>
+ <TITLE>120_lichunzhu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>206_rajdetroja.cpp</CENTER></H3><HR>
+<H3><CENTER>120_lichunzhu.cpp</CENTER></H3><HR>
 <PRE>
-#define ll long long
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>typedef long long ll;
 class Solution {
 public:
-<A NAME="0"></A>    int numTriplets(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
-        
-        int n = a.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = b.size();
-        
-        map&lt;ll,ll&gt; x,y;
-        
-        for(int i=0;i&lt;n;i++){
-            for(int j=i+1;j&lt;n;j++){
-                x[(ll)a[i]*a[j]]++;
+    int count(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        int n = nums1.size(), m = nums2.size();
+        int i, j, res = 0;
+        unordered_map&lt;ll, int&gt;S;
+        for (i = 0; i &lt; m; i++) {
+            ll t = nums2[i] * ll(nums2[i]);
+            S[t]++;
+        }
+        for (i = 0; i &lt; n; i++) {
+            for (j = i + 1; j &lt; n; j++) {
+                ll t1 = nums1[i] * ll(nums1[j]);                
+                if (S.count(t1)) {
+                    res += S[t1];
+                }
             }
         }
-        
-        for(int i=0;i&lt;m;i++){
-            for(int j=i+1;j&lt;m;j++){
-                y[(ll)b[i]*b[j]]++;
-            }
-        }
-        
-        ll ans = 0;
-        
-        for(int i=0;i&lt;n;i++){
-            ans += y[(ll)a[i]*a[i]];
-        }
-        
-        for(int j=0;j&lt;m;j++){
-            ans += x[(ll)b[j]*b[j]];
-        }
-        
-        return ans;
-        
+        return res;
+    }
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        return count(nums1, nums2) + count(nums2, nums1);
     }
 };</B></FONT>
 </PRE>

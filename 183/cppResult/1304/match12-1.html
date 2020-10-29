@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_zhouchgh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_zhouchgh.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    string longestDiverseString(int a, int b, int c) {
+        string res = &quot;&quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        priority_queue&lt;pair&lt;int, char&gt;&gt; hq;
+        if(a &gt; 0) hq.push({a, 'a'});
+        if(b &gt; 0) hq.push({b, 'b'});
+        if(c &gt; 0) hq.push({c, 'c'});
+        while(!hq.empty()){
+            auto first = hq.top(); hq.pop();
+            if(res.size() &gt;= 2 &amp;&amp; res[res.size()-1] == first.second &amp;&amp; res[res.size()-2] == first.second){
+                if(hq.empty()) return res;</B></FONT>
+                auto second = hq.top(); hq.pop();
+                res.push_back(second.second);
+                if(second.first - 1 &gt; 0) hq.push({second.first - 1, second.second});
+                hq.push(first);
+            }
+            else{
+                res.push_back(first.second);
+                if(first.first - 1 &gt; 0) hq.push({first.first - 1, first.second});
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

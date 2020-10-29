@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_lucifer1004.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>4_lucifer1004.cpp</CENTER></H3><HR>
+<PRE>
+class UnionFind {
+  int n;
+  vector&lt;int&gt; parent, size;
+    
+public:
+  UnionFind(int n) {
+    this-&gt;n = n;
+    parent = vector&lt;int&gt;(n);
+    size = vector&lt;int&gt;(n, 1);
+    for (int i = 0; i &lt; n; ++i)
+      parent[i] = i;
+  }
+
+  int find(int idx) {
+    if (parent[idx] == idx)
+      return idx;
+    return parent[idx] = find(parent[idx]);
+  }
+
+  void connect(int a, int b) {
+    int fa = find(a), fb = find(b);
+    if (fa != fb) {
+      if (size[fa] &gt; size[fb]) {
+        parent[fb] = fa;
+        size[fa] += size[fb];
+      } else {
+        parent[fa] = fb;
+        size[fb] += size[fa];
+      }
+    }
+  }
+};
+
+<A NAME="0"></A>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = matrix.size(), m = matrix[0].size();
+        UnionFind uf(n * m);
+        for (int i = 0; i &lt; n; ++i) {
+            map&lt;int, vector&lt;int&gt;&gt; mp;
+            for (int j = 0; j &lt; m; ++j)
+                mp[matrix[i][j]].emplace_back(i * m + j);
+<A NAME="1"></A>            for (auto &amp;[num, vec] : mp) {
+                for (int k = 0; k + 1 &lt; vec.size(); ++k)</B></FONT>
+                    uf.connect(vec[k], vec[k + 1]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        for (int j = 0; j &lt; m; ++j) {
+            map&lt;int, vector&lt;int&gt;&gt; mp;
+            for (int i = 0; i &lt; n; ++i)
+                mp[matrix[i][j]].emplace_back(i * m + j);
+            for (auto &amp;[num, vec] : mp) {
+                for (int k = 0; k + 1 &lt; vec.size(); ++k)</B></FONT>
+                    uf.connect(vec[k], vec[k + 1]);
+            }
+        }
+        vector&lt;vector&lt;int&gt;&gt; adj(n * m);
+        vector&lt;int&gt; indegree(n * m);
+        for (int i = 0; i &lt; n; ++i) {
+            vector&lt;pair&lt;int, int&gt;&gt; v(m);
+            for (int j = 0; j &lt; m; ++j)
+                v[j] = make_pair(matrix[i][j], j);
+            sort(v.begin(), v.end());
+            for (int j = 0; j + 1 &lt; m; ++j)
+                if (v[j].first != v[j + 1].first) {
+<A NAME="2"></A>                    int uu = uf.find(i * m + v[j].second);
+                    int vv = uf.find(i * m + v[j + 1].second);
+                    adj[uu].emplace_back(vv);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    indegree[vv]++;
+                }
+        }
+        for (int j = 0; j &lt; m; ++j) {
+            vector&lt;pair&lt;int, int&gt;&gt; v(n);
+            for (int i = 0; i &lt; n; ++i)</B></FONT>
+                v[i] = make_pair(matrix[i][j], i);
+            sort(v.begin(), v.end());
+            for (int i = 0; i + 1 &lt; n; ++i)
+                if (v[i].first != v[i + 1].first) {
+                    int uu = uf.find(v[i].second * m + j);
+                    int vv = uf.find(v[i + 1].second * m + j);
+                    adj[uu].emplace_back(vv);
+                    indegree[vv]++;
+                }
+        }
+        vector&lt;int&gt; ans(n * m, 1);
+        queue&lt;int&gt; q;
+        for (int i = 0; i &lt; n * m; ++i) {
+            if (uf.find(i) == i &amp;&amp; indegree[i] == 0)
+                q.emplace(i);
+        }
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            for (int v : adj[u]) {
+                ans[v] = max(ans[v], ans[u] + 1);
+                indegree[v]--;
+                if (indegree[v] == 0)
+                    q.emplace(v);
+            }
+        }
+        vector&lt;vector&lt;int&gt;&gt; result(n, vector&lt;int&gt;(m));
+        for (int i = 0; i &lt; n; ++i)
+            for (int j = 0; j &lt; m; ++j)
+                result[i][j] = ans[uf.find(i * m + j)];
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

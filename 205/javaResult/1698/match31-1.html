@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>275_gogogo19931105.java</TITLE>
+ <TITLE>156_anhpp.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>275_gogogo19931105.java</CENTER></H3><HR>
+<H3><CENTER>156_anhpp.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String modifyString(String s) {
-        char[] array = s.toCharArray();
-        for (int i = 0; i &lt; array.length; i++) {
-            if (array[i] == '?') {
-                Set&lt;Character&gt; set = new HashSet&lt;&gt;()</B></FONT>;
-                if (i - 1 &gt;= 0) {
-                    set.add(array[i - 1]);
-                }
-                if (i + 1 &lt; array.length &amp;&amp; array[i + 1] != '?') {
-                    set.add(array[i + 1]);
-                }
-                for (char c = 'a'; c &lt;= 'z'; c++) {
-                    if (!set.contains(c)) {
-                        array[i] = c;
-<A NAME="1"></A>                        break;
+        char[] c = s.toCharArray();
+        int n = c.length;
+        for(int i = 0; i &lt; n; i++)
+        {
+            if(c[i] == '?')
+            {
+                char c1 = i &gt; 0 ? c[i - 1] : 'A';
+                char c2 = i &lt; n - 1 ? c[i + 1] : 'A';
+<A NAME="1"></A>                for(int j = 0; j &lt; 26; j ++)
+                {</B></FONT>
+                    char c3 = (char)('a' + j);
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(c3 != c1 &amp;&amp; c3 != c2)
+                    {
+                        c[i] = c3;
+                        break;
                     }
                 }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
         }
-        return new String(array);
+        return new String(c);
     }
 }</B></FONT>
 </PRE>

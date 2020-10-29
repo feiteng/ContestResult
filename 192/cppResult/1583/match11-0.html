@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_CaoRui.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_CaoRui.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int f[105][105][25];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int minCost(vector&lt;int&gt;&amp; a, vector&lt;vector&lt;int&gt;&gt;&amp; w, int m, int n, int k) {
+        memset(f, 0x3f, sizeof(f));
+        for(int i = 1; i &lt;= n; i++){</B></FONT>
+<A NAME="1"></A>            if(!a[0]) f[0][1][i] = w[0][i-1];
+        }
+        if(a[0]) f[0][1][a[0]] = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 1; i &lt; m; i++){
+            for(int j = 1; j &lt;= min(i+1, k); j++){
+                if(a[i]){</B></FONT>
+<A NAME="2"></A>                    f[i][j][a[i]] = f[i-1][j][a[i]];
+                    for(int l = 1; l &lt;= n; l++){
+                        if(l == a[i]) continue;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                        f[i][j][a[i]] = min(f[i][j][a[i]], f[i-1][j-1][l]);
+                    }
+                    // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; f[i][j][a[i]] &lt;&lt; endl;
+                }
+                else{
+                    for(int c = 1; c &lt;= n; c++){
+                        for(int l = 1; l &lt;= n; l++){
+                            if(l == c) f[i][j][c] = min(f[i][j][c], f[i-1][j][l]+w[i][c-1]);
+                            else f[i][j][c] = min(f[i][j][c], f[i-1][j-1][l]+w[i][c-1]);
+                        }
+                        // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; c &lt;&lt; &quot; &quot; &lt;&lt; f[i][j][c] &lt;&lt; endl;
+                    }
+                }
+            }
+        }
+        int ans = 0x3f3f3f3f;
+        for(int i = 1; i &lt;= n; i++){
+            ans = min(ans, f[m-1][k][i]);
+        }
+        if(ans == 0x3f3f3f3f) return -1;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

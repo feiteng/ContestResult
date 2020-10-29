@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>312_xyqkoala.cpp</TITLE>
+ <TITLE>119_MesbahTanvir.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>312_xyqkoala.cpp</CENTER></H3><HR>
+<H3><CENTER>119_MesbahTanvir.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    using LL = long long;
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-<A NAME="0"></A>        unordered_map&lt;LL,int&gt; t1,t2;
-        
-        int m = nums1.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = nums2.size();
-        for(int i=0;i&lt;m;i++){
-            for(int j=i+1;j&lt;m;j++){
-                t1[1ll*nums1[i]*nums1[j]]++;
+        unordered_map &lt; long long , int &gt; a, b;
+        for(auto n: nums1){
+            a[n*1ll*n]++;
+        }
+        for(auto n: nums2){
+            b[n*1ll*n]++;
+        }
+        int ans =0 ;
+        for(int i =0; i &lt; nums1.size(); i ++){
+            for(int j = i + 1; j &lt; nums1.size(); j ++){
+                ans += b[nums1[i] *1ll*nums1[j]];
+                //cout &lt;&lt; i &lt;&lt; &quot; &quot;&lt;&lt; j &lt;&lt;endl;
             }
         }
-        for(int i=0;i&lt;n;i++){
-            for(int j=i+1;j&lt;n;j++){
-                t2[1ll*nums2[i]*nums2[j]]++;
+        
+        for(int i =0; i &lt; nums2.size(); i ++){
+            for(int j = i + 1; j &lt; nums2.size(); j ++){
+                ans += a[nums2[i]*1ll*nums2[j]];
+                //cout &lt;&lt; i &lt;&lt; &quot; &quot;&lt;&lt;j&lt;&lt;endl;
             }
         }
-        
-        LL res = 0;
-        for(int i=0;i&lt;m;i++){
-            res+=t2[1ll*nums1[i]*nums1[i]];
-        }
-        for(int i=0;i&lt;n;i++){
-            res+=t1[1ll*nums2[i]*nums2[i]];
-        }
-        // for(int i=0;i&lt;n;i++){
-        //     for(int j=0;j&lt;m;j++){
-        //         if((1ll*nums2[i]*nums2[i])%nums1[j]) continue;
-        //         res+=t1[(1ll*nums2[i]*nums2[i])/nums1[j]];
-        //     }
-        // }
-        return res;
+        return ans;
     }
 };</B></FONT>
 </PRE>

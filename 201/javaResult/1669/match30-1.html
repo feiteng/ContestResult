@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>12_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>12_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCost(int n, int[] cuts) {
+        Arrays.sort(cuts);
+        int m = cuts.length+1;
+        int[] st = new</B></FONT> int[m];
+        st[0] = cuts[0];
+        for (int i = 1; i &lt; m-1; ++i)
+            st[i] = cuts[i]-cuts[i-1];
+        st[m-1] = n-cuts[m-2];
+        int[][] ss = new int[m][m];
+        for (int i = 0; i &lt; m; ++i) {
+            ss[i][i] = st[i];
+<A NAME="1"></A>            for (int j = i+1; j &lt; m; ++j)
+                ss[i][j] = ss[i][j-1]+st[j];
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dp = new int[m][m];
+        for (int z = 1; z &lt; m; ++z) {
+            for (int i = 0; i &lt; m; ++i) {
+<A NAME="2"></A>                int j = i+z;</B></FONT>
+                if (j&gt;=m)
+                    break;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dp[i][j] = 100000000;
+                for (int k = i+1; k &lt;= j; ++k) {
+                    dp[i][j] = Math.min(dp[i][j],dp[i][k-1]+dp[k][j]+ss[i][j]);
+                }
+            }
+        }
+        return dp[0][m-1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

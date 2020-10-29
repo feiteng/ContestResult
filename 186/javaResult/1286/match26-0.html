@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>661_liu-xing-0923.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>661_liu-xing-0923.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int constrainedSubsetSum(int[] nums, int k) {
+<A NAME="0"></A>        int n = nums.length;
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeMap&lt;Integer, Integer&gt; tm = new TreeMap&lt;&gt;();
+        tm.put(nums[0], 1);
+        int count = 1;
+        for (int i = 1; i &lt; n; i++) {
+            int max = tm.lastKey</B></FONT>();
+            if (max &lt; 0) dp[i] = nums[i];
+            else dp[i] = max + nums[i];
+            if (count &lt; k) {
+                if (!tm.containsKey(dp[i])) tm.put(dp[i], 0);
+                tm.put(dp[i], tm.get(dp[i]) + 1);
+                count++;
+            } else {
+                int removeKey = dp[i - k];
+                int times = tm.get(removeKey);
+                if (times &lt;= 1) tm.remove(removeKey);
+                else tm.put(removeKey, times - 1);
+<A NAME="1"></A>                if (!tm.containsKey(dp[i])) tm.put(dp[i], 0);
+                tm.put(dp[i], tm.get(dp[i]) + 1);
+            }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        int ans = Integer.MIN_VALUE;
+        for (int i = 0; i &lt; n; i++) {
+            ans = Math.max(dp[i], ans);
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

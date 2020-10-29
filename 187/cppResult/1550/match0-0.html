@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>659_Siddhant-K-code.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>659_Siddhant-K-code.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        auto cmp = [](const auto&amp; p1, const auto&amp; p2) {
+            return p1.second &gt; p2.second;
+        };
+        priority_queue&lt;pair&lt;string, int&gt;, vector&lt;pair&lt;string, int&gt;&gt;, decltype(cmp)&gt; pq(cmp);
+        int m = mat.size(), n = mat[0].size();
+        int sum = 0;
+        string key;
+        for (int i = 0; i != m; ++i) {
+            sum += mat[i][0];
+            key += &quot;00&quot;;
+        }
+        pq.push({key, sum});
+        unordered_set&lt;string&gt; st;
+        st.insert(key);
+        while (!pq.empty() &amp;&amp; k--) {
+            auto p = pq.top(); pq.pop();
+            key = p.first; sum = p.second;
+            if (k == 0) return sum;
+            for (int i = 0; i != 2 * m; i += 2) {
+                string bk = key.substr(i, 2);
+                int p = stoi(bk);
+                if (p + 1 == n) continue;
+                string strJ = to_string(p + 1);
+                if (strJ.size() == 1) {
+                    key[i] = '0'; key[i + 1] = strJ[0];
+                } else {
+                    key[i] = strJ[0]; key[i + 1] = strJ[1];
+                }
+                if (!st.count(key)) {
+                    st.insert(key);
+                    pq.push({key, sum - mat[i/2][p] + mat[i/2][p + 1]});
+                }
+                key[i] = bk[0];
+                key[i + 1] = bk[1];
+            }
+        }
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

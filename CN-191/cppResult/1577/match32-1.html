@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+  double getProbability(vector&lt;int&gt;&amp; balls) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;double&gt;&gt; C(64, vector&lt;double&gt;(64));
+    C[0][0] = 1;
+    for (int i = 1; i &lt; 64; i++) {
+      C[i][0] = 1;
+      for (int j = 1; j &lt;= i; j++) C[i][j] = C[i-1][j] + C[i-1][j-1];
+    }</B></FONT>
+    map&lt;pair&lt;int, int&gt;, double&gt; cur;
+    cur[{0, 0}] = 1;
+    int S = 0;
+    for (auto b: balls) {
+      map&lt;pair&lt;int, int&gt;, double&gt; nxt;
+      for (int i = 0; i &lt;= b; i++) {
+        int j = b -i;
+        for (auto [k, v]: cur) {
+          auto [L, k2] = k;
+          int R = S - L;
+          if (i == 0) k2--;
+          if (i == b) k2++;
+          nxt[{L+i, k2}] += v * C[L+i][i] * C[R+j][j];
+        }
+      }
+      S += b;
+      cur = nxt;
+    }
+    double sum = 0;
+    double sum2 = 0;
+    for (auto [k, v]: cur) if (k.first == S/2) {
+      sum += v;
+      if (k.second == 0) sum2 += v;
+    }
+    return sum2 / sum;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_n2hawk.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_n2hawk.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countPairs(self, root: TreeNode, distance: int) -&gt; int:
+        self.ans = 0
+        def solve(root):
+            dist = [0] * 11
+            if root is None:
+<A NAME="0"></A>                return dist
+            if root.left is None and root.right is None:
+                dist[0] = 1
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return dist
+            Ldist = solve(root.left)
+            Rdist = solve(root.right)
+            for i in range(11):
+                for j in range(</B></FONT>11):
+                    if i + j + 2 &lt;= distance:
+                        self.ans += Ldist[i] * Rdist[j]
+            for i in range(1, 11):
+                dist[i] = Ldist[i-1] + Rdist[i-1]
+            return dist
+        solve(root)
+        return self.ans
+</PRE>
+
+</BODY>
+</HTML>

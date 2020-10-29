@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>601_paranan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>601_paranan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String[] getFolderNames(String[] names) {
+        
+        HashSet&lt;String&gt; seen=new HashSet&lt;String&gt;();
+        HashMap&lt;String,Integer&gt; map=new HashMap&lt;&gt;();
+        String[] arr=new String[names.length];
+        for(int i=0;i&lt;names.length;i++){</B></FONT>
+            
+            if(!seen.contains(names[i])){
+<A NAME="1"></A>                seen.add(names[i]);
+                map.put(names[i],0);
+                arr[i]=names[i];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            
+            else{
+                int now=map.get(names[i]);
+                
+                now++;
+                while(seen.contains(names[i]+&quot;(&quot;+String.valueOf(now)+&quot;)&quot;)){
+                    now++;
+                }
+                //System.out.println(names[i]+&quot;(&quot;+String.valueOf(now)+&quot;)&quot;);
+                arr[i]=names[i]+&quot;(&quot;+String.valueOf(now)+&quot;)&quot;;
+                seen.add(arr[i]);
+                map.put(arr[i],0);
+                map.put(names[i],now);
+            }
+            
+            
+            
+        }
+        
+        return arr;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

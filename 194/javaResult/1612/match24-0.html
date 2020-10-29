@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>400_danzhi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>400_danzhi.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int[] avoidFlood(int[] rains) {
+    int n = rains.length;
+    // Lake to the day it was full
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;Integer, Integer&gt; full = new HashMap&lt;&gt;();
+    TreeSet&lt;Integer&gt; drydays = new TreeSet&lt;&gt;();
+    int[] ans = new int[n];
+
+    for (int i = 0; i &lt; n; i++) {
+<A NAME="1"></A>      if (rains[i] &gt; 0) {
+        a</B></FONT>ns[i] = -1;
+        int lake = rains[i];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (full.containsKey(lake)) {
+          int day = full.get(lake);
+
+          Integer k = drydays.ceiling(day);
+          if (k == null) {
+            return new int[0];
+          }</B></FONT>
+<A NAME="2"></A>          drydays.remove(k);
+          ans[k] = lake;
+          full.remove(lake);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        full.put(lake, i);
+      } else {
+        drydays.add(i);
+      }
+    }
+
+    for (int i = 0; i &lt; n; i++) {</B></FONT>
+      if (ans[i] == 0) {
+        ans[i] = 1;
+      }
+    }
+    return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

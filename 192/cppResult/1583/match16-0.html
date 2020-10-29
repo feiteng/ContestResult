@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>38_zscnash.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>38_zscnash.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int dp[101][101][21];
+class Solution {
+public:
+    int minCost(vector&lt;int&gt;&amp; a, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+		for (int i=0;i&lt;=m;++i)
+			for (int j=0;j&lt;=m;++j)
+				for (int k=0;k&lt;=n;++k) dp[i][j][k]=1e9;</B></FONT>
+		if (a[0]==0)
+		{
+			for (int i=1;i&lt;=n;++i) dp[1][1][i]=cost[0][i-1];
+		}
+		else
+<A NAME="1"></A>		{
+			dp[1][1][a[0]]=0;
+		}
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		for (int i=1;i&lt;m;++i)
+			for (int j=1;j&lt;=m;++j)
+				for (int k=1;k&lt;=n;++k)
+				{
+					if (dp[i][j][k]==1e9) continue;
+                    cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot; &quot;&lt;&lt;dp[i][j][k]&lt;&lt;endl;
+					if (a[i]!=0)
+					{</B></FONT>
+						if (a[i]==k) dp[i+1][j][k]=min(dp[i+1][j][k],dp[i][j][k]);
+						else dp[i+1][j+1][a[i]]=min(dp[i+1][j+1][a[i]],dp[i][j][k]);
+					}
+					else
+					{
+<A NAME="2"></A>						for (int t=1;t&lt;=n;++t)
+						{
+							if (t==k) dp[i+1][j][k]=min(dp[i+1][j][k],dp[i][j][k]+cost[i][t-1]);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>							else dp[i+1][j+1][t]=min(dp[i+1][j+1][t],dp[i][j][k]+cost[i][t-1]);
+						}
+					}
+				}
+		int ans=1e9;
+		for (int i=1;i&lt;=n;++i) ans=min(ans,dp[m][target][i]);
+		if (ans==1e9) ans=-1;
+		return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

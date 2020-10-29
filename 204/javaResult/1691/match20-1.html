@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_yiwiy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>214_yiwiy.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public void dfs(int[][] grid, boolean[][] visited, int x, int y) {
+		int[][] to = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+<A NAME="2"></A>		int n = grid.length;
+		int m = grid[0].length;
+
+		visited[x][y] <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= true;
+
+		for (int i = 0; i &lt; 4; i++) {
+			int nextx = x + to[i][0];
+			int nexty = y + to[i][1];
+
+			if (nextx &gt;= 0 &amp;&amp; nextx &lt; n &amp;&amp; nexty &gt;= 0 &amp;&amp; nexty &lt; m &amp;&amp; visited[nextx][nexty] == false
+					&amp;&amp; grid[nextx][nexty] == 1) {
+				dfs(grid, visited, nextx, nexty);
+			}
+		}
+	}</B></FONT>
+
+	public boolean check(int[][] grid) {
+<A NAME="1"></A>		int n = grid.length;
+		int m = grid[0].length;
+
+		boolean[][] vi<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sited = new boolean[n][m];
+		int count = 0;
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				if (grid[i][j] == 1 &amp;&amp; visited[i][j] == false) {
+					count++;
+					dfs(grid, visited, i, j);
+				}
+			}
+		}
+
+<A NAME="0"></A>		return count &gt; 1;
+	}</B></FONT>
+
+	public <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int minDays(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+
+		if (check(grid)) {
+			return 0;
+		}
+
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				if (grid[i][j] == 1) {
+					grid[i][j] = 0;
+					if (check(grid)) {
+						return 1;
+					}
+					grid[i][j] = 1;
+				}
+			}
+		}
+
+		return 2;
+	}</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>122_ttzztztz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>122_ttzztztz.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        this-&gt;n = matrix.size(), this-&gt;m = matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt; ans(n, vector&lt;int&gt;(m, 0));
+        
+        vector&lt;int&gt; ind((n + 1) * (m + 1), 0);
+        vector&lt;vector&lt;int&gt;&gt; edges((n + 1) * (m + 1), vector&lt;int&gt;{});
+<A NAME="0"></A>        memset(group, 0xff, sizeof group);
+        
+        init();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i++) {
+            unordered_map&lt;int, vector&lt;int&gt;&gt; hmap;
+            for (int j = 0; j &lt; m; j++) {
+                hmap[matrix[i][j]].push_back(j);
+            }
+            
+            for (auto&amp; p : hmap) {</B></FONT>
+                auto&amp; vec = p.second;
+<A NAME="1"></A>                for (int x = 1; x &lt; vec.size(); x++) {
+                    merge(id(i, vec[x]), id(i, vec[x - 1]));
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+                
+        for (int i = 0; i &lt; m; i++) {
+            unordered_map&lt;int, vector&lt;int&gt;&gt; hmap;
+            for (int j = 0; j &lt; n; j++) {
+                hmap[matrix[j][i]].push_back(j);
+            }
+            
+            for (auto&amp; p : hmap) {</B></FONT>
+                auto&amp; vec = p.second;
+                for (int x = 1; x &lt; vec.size(); x++) {
+                    merge(id(vec[x], i), id(vec[x - 1], i));
+                }
+            }
+<A NAME="2"></A>        }
+        
+        unordered_set&lt;int&gt; all_group;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i++) {
+            map&lt;int, int&gt; ttl;
+            for (int j = 0; j &lt; m; j++) {</B></FONT>
+                ttl[matrix[i][j]] = fp(id(i, j));
+                all_group.insert(fp(id(i, j)));
+<A NAME="3"></A>            }
+            
+            for (auto it1 = ttl.begin(), it2 = ++ttl.begin(); it2 != ttl.end(); it1++, it2++) {
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int g1 = it1-&gt;second, g2 = it2-&gt;second;
+                edges[g1].push_back(g2);
+                ind[g2]++;
+            }
+        }
+        
+        for (int i = 0; i &lt; m; i++) {
+            map&lt;int, int&gt; ttl;
+            for (int j = 0; j &lt; n; j++) {</B></FONT>
+                ttl[matrix[j][i]] = fp(id(j, i));
+                all_group.insert(fp(id(j, i)));
+            }
+            
+            for (auto it1 = ttl.begin(), it2 = ++ttl.begin(); it2 != ttl.end(); it1++, it2++) {
+                int g1 = it1-&gt;second, g2 = it2-&gt;second;
+                edges[g1].push_back(g2);
+                ind[g2]++;
+            }
+        }
+        
+        deque&lt;int&gt; q;
+        unordered_map&lt;int, int&gt; tmp;
+        int cur = 1;
+        for (int g : all_group) {
+            if (ind[g] == 0) q.push_back(g);
+        }
+        
+        while (!q.empty()) {
+            int cnt = q.size();
+            
+            for (int _ = 0; _ &lt; cnt; _++) {
+                int g = q.front();
+                q.pop_front();
+                
+                tmp[g] = cur;
+                for (int k : edges[g]) {
+                    ind[k]--;
+                    if (ind[k] == 0) q.push_back(k);
+<A NAME="4"></A>                }
+            }
+            
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match23-1.html#4',3,'match23-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            cur++;
+        }
+        
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {</B></FONT>
+                memo[fp(id(i, j))].emplace_back(i, j);
+            }
+        }
+        
+        
+        for (auto [group, idx] : tmp) {
+            for (auto [x, y] : memo[group]) {
+                ans[x][y] = idx;
+            }
+        }
+        
+        return ans;
+    }
+private:
+    typedef pair&lt;int, int&gt; Point;
+    unordered_map&lt;int, vector&lt;Point&gt;&gt; memo;
+    int group[505][505];
+    int parent[250005];
+    
+    void init() {
+        for (int i = 0; i &lt;= n * m; i++) {
+            parent[i] = i;
+        }
+    }
+    int fp(int u) {
+        if (parent[u] == u) return u;
+        else return parent[u] = fp(parent[u]);
+    }
+    void merge(int u, int v) {
+        const int pu = fp(u), pv = fp(v);
+        if (parent[pu] != pv) {
+            parent[pu] = pv;
+        }
+    }
+    
+    int idx = 0;
+    
+    int n, m;
+    int id(int i, int j) {
+        return i * m + j;
+    }
+    Point point(int id) {
+        return { id / m, id % m };
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>84_HanaYukii.cpp</TITLE>
+ <TITLE>139_abhirajsmit.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,78 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>84_HanaYukii.cpp</CENTER></H3><HR>
+<H3><CENTER>139_abhirajsmit.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>#define F first
-#define S second
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
-    int d[100005][2];
-    int fi(int x,int tp) {
-        return d[x][tp] &lt;= 0 ? x : d[x][tp] = fi(d[x][tp], tp);
-    } 
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector&lt;pair&lt;int,int&gt;&gt;a;</B></FONT>
-        vector&lt;pair&lt;int,int&gt;&gt;b;
-        vector&lt;pair&lt;int,int&gt;&gt;bo;
-        int use = 0;
-        for (auto &amp;i : edges) {
-            if (i[0] == 1) {
-                a.push_back({i[1], i[2]});
-            }
-            else if (i[0] == 2) {
-                b.push_back({i[1], i[2]});
-            }
-            else {
-<A NAME="1"></A>                bo.push_back({i[1], i[2]});
-            }
-        }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int cnt = (n - 1) * 2;
-        for (auto &amp;i : bo) {
-            int x = fi(i.F, 0);
-            int y = fi(i.S, 0);
-            if (x != y) {
-                use++;
-<A NAME="2"></A>                d[x][0] = y;</B></FONT>
-                d[x][1] = y;
-                cnt -= 2;
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
-        }
-        for (auto &amp;i : a) {
-            int x = fi(i.F, 0);
-            int y = fi(i.S, 0);
-            if (x != y) {
-                d[x][0] = y;
-                cnt--;</B></FONT>
-                use++;
-            }
-        }
-        for (auto &amp;i : b) {
-            int x = fi(i.F, 1);
-            int y = fi(i.S, 1);
-            if (x != y) {
-                d[x][1] = y;
-                cnt--;
-                use++;
-            }
-        }
-        if (cnt) return -1;
-        else return edges.size() - use;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+    int root_(int node, vector&lt;int&gt;&amp; tree) {
+        if(tree[node] == node) {
+            return node;
+        } 
+        return root_(tree[tree[node]], tree);
     }
-};
+    int union_(int node1, int node2, vector&lt;int&gt;&amp; tree, vector&lt;int&gt;&amp; sz) {
+        int x = root_(node1, tree);
+        int y = root_(node2, tree);
+        //cout&lt;&lt;node1&lt;&lt;&quot; &quot;&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;node2&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;endl;
+        if(x == y) {
+            return 1;    
+        }
+        if(sz[x] &lt; sz[y]) {
+            tree[x] = tree[y];
+            sz[y]+=sz[x];
+        } else {
+            tree[y] = tree[x];
+            sz[x]+=sz[y];
+        }
+        return 0;
+    }
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;int&gt; root(n+1);
+        for(int i=1; i&lt;=n; i++) {
+            root[i] = i;
+        }
+        int cnt = 0;
+        vector&lt;int&gt; sz(n+1,1);
+        for(int i=0; i&lt;edges.size(); i++) {
+            if(edges[i][0] == 3) {
+                cnt+=union_(edges[i][1], edges[i][2], root, sz);
+            } 
+        }        
+        
+        vector&lt;int&gt; rootA = root;
+        vector&lt;int&gt; szA = sz;
+        
+        for(int i=0; i&lt;edges.size(); i++) {
+            if(edges[i][0] == 1) {
+                cnt+=union_(edges[i][1], edges[i][2], rootA, szA);
+            } 
+        }
+        
+        vector&lt;int&gt; rootB = root;
+        vector&lt;int&gt; szB = sz;
+        for(int i=0; i&lt;edges.size(); i++) {
+            if(edges[i][0] == 2) {
+                cnt+=union_(edges[i][1], edges[i][2], rootB, szB);
+            } 
+        }
+        
+        set&lt;int&gt; st;
+        for(int i=1; i&lt;=n; i++) {
+            st.insert(root_(i,rootA));
+        }
+        if(st.size() &gt;= 2) return -1;
+        st.clear();
+        for(int i=1; i&lt;=n; i++) {
+            st.insert(root_(i,rootB));
+        }
+        if(st.size() &gt;= 2) return -1;
+        
+        
+        return cnt;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

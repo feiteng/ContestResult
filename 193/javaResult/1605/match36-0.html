@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_BingleLove.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>443_BingleLove.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        if (m * k &gt; bloomDay.length) return -1;
+        int n = bloomDay.length</B></FONT>;
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        for (int i = 0; i &lt; n; i++)
+            set.add(bloomDay[i]);
+        int[] days = new int[set.size()];
+        int idx = 0;
+<A NAME="1"></A>        for (int day: set)
+            days[idx++] = day;
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int lo = 0, hi = days.length - 1;
+        
+        while (lo &lt;= hi) {
+            int mid = (hi - lo) / 2 + lo;
+            if (!helper(bloomDay, m, k, days[mid])) {
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        
+<A NAME="2"></A>        return</B></FONT> lo == days.length ? -1 : days[lo];
+    }
+    
+    private boolean helper(int[] bloomDay, <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match36-1.html#2',3,'match36-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int m, int k, int day) {
+        int continous = 0;
+        int pre = -2;
+        for (int i = 0; i &lt; bloomDay.length &amp;&amp; m &gt; 0; i++) {
+            if (day &gt;= bloomDay[i]) {</B></FONT>
+                if (i - pre == 1) {
+                    if (continous == k - 1) {
+                        m--;
+                        continous = 0;
+                    } else {
+                        continous += 1;
+                    }
+                } else {
+                    continous = 1;
+                    if (k == 1) {
+                        m--;
+                        continous = 0;
+<A NAME="3"></A>                    }
+                }
+                pre = i;
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match36-1.html#3',3,'match36-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else {
+                continous = 0;
+            }
+        }
+        //System.out.println(day + &quot;:&quot; + m);
+        return m == 0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

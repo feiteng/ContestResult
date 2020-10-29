@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_LighTcml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>121_LighTcml.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    struct edge
+    {
+        int x,y,v,id;
+        bool operator &lt; (const edge &amp;t) const {return v&lt;t.v;}
+    };
+    int Fa[110],fa[110],from[110],depth[110];
+    int tot,head[110];</B></FONT>
+    struct Edge {int to,net,v;}E[10010];
+    void addedge(int x,int y,int v)
+    {
+        E[++tot].to=y;E[tot].net=head[x];head[x]=tot;E[tot].v=v;
+        E[++tot].to=x;E[tot].net=head[y];head[y]=tot;E[tot].v=v;
+    }
+    int getFa(int x) {return x==Fa[x]?x:Fa[x]=getFa(Fa[x]);}
+    void dfs(int x)
+    {
+        for (int i=head[x];i;i=E[i].net)
+            if (E[i].to!=fa[x])
+            {
+                from[E[i].to]=E[i].v;
+                fa[E[i].to]=x;
+                depth[E[i].to]=depth[x]+1;
+                dfs(E[i].to);
+            }
+    }
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m=edges.size();
+<A NAME="1"></A>        vector&lt;edge&gt; e(m);
+        for (int i=0;i&lt;m;++i) e[i].x=(++edges[i][0]),e[i].y=(++edges[i][1]),e[i].v=edges[i][2],e[i].id=i;
+        sort(e.begin(),e.end());
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=1;i&lt;=n;++i) Fa[i]=i;
+        vector&lt;bool&gt; flag(m,false);
+        vector&lt;bool&gt; Mark(m,false);
+        int cnt=0;
+        for (int i=0;i&lt;m;++i)
+        {
+            int x=getFa(e[i].x);
+            int y=getFa(e[i].y);
+            if (x==y) continue;
+            Fa[x]=y;
+            ++cnt;</B></FONT>
+            addedge(e[i].x,e[i].y,e[i].id);
+            flag[e[i].id]=true;
+            if (cnt==n-1) break;
+        }
+        dfs(1);
+        vector&lt;int&gt; a;
+        vector&lt;int&gt; b;
+        for (int i=0;i&lt;m;++i)
+        {
+            if (flag[e[i].id]) continue;
+            int x=e[i].x;
+            int y=e[i].y;
+            bool f=false;
+            int tx=x;
+            int ty=y;
+            int Max=0;
+            while (tx!=ty)
+            {
+                if (depth[tx]&lt;depth[ty]) swap(tx,ty);
+                Max=max(Max,edges[from[tx]][2]);
+                tx=fa[tx];
+            }
+            if (Max&lt;e[i].v) continue;
+            while (x!=y)
+            {
+                if (depth[x]&lt;depth[y]) swap(x,y);
+                int p=from[x];
+                if (e[i].v==edges[p][2]) Mark[p]=true,f=true;
+                x=fa[x];
+            }
+            if (f) b.push_back(e[i].id);
+        }
+        for (int i=0;i&lt;m;++i) if (flag[e[i].id] &amp;&amp; !Mark[e[i].id]) a.push_back(e[i].id);
+        for (int i=0;i&lt;m;++i) if (flag[e[i].id] &amp;&amp; Mark[e[i].id]) b.push_back(e[i].id);
+        vector&lt;vector&lt;int&gt; &gt; ans;
+        ans.push_back(a);
+        ans.push_back(b);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

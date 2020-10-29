@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>609_lianyoucat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>609_lianyoucat.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Node{
+        int index;
+        double p;
+        Node(int index,double p){
+            this.index=index;
+<A NAME="1"></A>            this.p=p;
+        }
+    }</B></FONT>
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        Map&lt;Integer,Map&lt;Integer,Double&gt;&gt; g=new HashMap&lt;&gt;();
+        for(int i=0;i&lt;n;i++){
+            g.put(i,new HashMap&lt;&gt;());
+        }
+<A NAME="2"></A>        for(int i=0;i&lt;edges.length;i++){
+            int [] edge=edges[i];</B></FONT>
+            double p=succProb[i];
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>g.get(edge[0]).put(edge[1],p);
+            g.get(edge[1]).put(edge[0],p);
+        }
+        PriorityQueue&lt;Node&gt; queue=new PriorityQueue&lt;&gt;(Comparator.comparing(node-&gt;-node.p));
+        double[] bestP=new double[n];</B></FONT>
+        Arrays.fill(bestP,-1.0);
+        bestP[start]=1.0;
+        queue.add(new Node(start,1.0));
+        Set&lt;Integer&gt; done=new HashSet&lt;&gt;();
+        while(!queue.isEmpty()){
+            Node poll=queue.poll();
+            int cur=poll.index;
+            done.add(cur);
+            if(cur==end) return poll.p;
+            Set&lt;Integer&gt; nextSet=g.get(cur).keySet();
+            for(int i:nextSet){
+                Double d=g.get(cur).get(i);
+                if(d==null) continue;
+                double nextP=d*poll.p;
+<A NAME="3"></A>                if(!done.contains(i)&amp;&amp;nextP&gt;bestP[i]){
+                    bestP[i]=nextP;
+                    queue.add(new Node(i,nextP));
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match11-1.html#3',3,'match11-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return 0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

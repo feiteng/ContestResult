@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_caoboxiao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_caoboxiao.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numOfWays(self, a: List[int]) -&gt; int:
+        MOD = 1000 * 1000 * 1000 + 7
+        
+        frac = [1]
+        for i in range(1, len(a)):
+            frac.append((frac[-1] * i) % MOD)
+            
+        def mul(x1, x2):
+            return x1 * x2 % MOD
+            
+        def powerMod(x, n):
+            if n == 0:
+                return 1
+            y = powerMod(x, n // 2)
+            y = mul(y, y)
+            if n % 2 == 1:
+                y = mul(y, x)
+            return y
+                
+<A NAME="0"></A>        def getInv(x):
+            return powerMod(x, MOD - 2)
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def solve(a):
+            if len(a) &lt;= 2:
+                return 1
+            mid = a[0]
+            qL = []
+            qR = []
+            for i in range(1, len(a)):
+                if a[i] &lt; mid:
+                    qL.append(a[i])
+                else:
+                    qR.append(a[i</B></FONT>])
+            sL = solve(qL)
+            sR = solve(qR)
+            #print(a, mid, &quot;-----&quot;, qL, sL, qR, sR)
+            ans = mul(sL, sR)
+            if len(qL) &gt; 0 and len(qR) &gt; 0:
+                ans = mul(ans, frac[len(a) - 1])
+                ans = mul(ans, getInv(frac[len(qL)]))
+                ans = mul(ans, getInv(frac[len(qR)]))
+            #print(a, ans)
+            return ans
+        
+        ans = (solve(a) + MOD - 1) % MOD
+        
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

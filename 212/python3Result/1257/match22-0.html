@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_buptpwy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>82_buptpwy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        
+<A NAME="1"></A>        r, c = len(matrix), len(matrix[0])
+        row_counter = Counter()
+        col_counter =</B></FONT> Counter()
+        number_map = collections.defaultdict<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+       
+        for i in range(r):
+            for j in range(c):
+                number_map[matrix[i][j]].append([i,</B></FONT>j])
+    
+        ans = [[inf]*c for _ in range(r)]
+        dp = {}
+        def find(x):
+            #print(x, dp)
+            if x != dp[x]:
+                dp[x] = find(dp[x])
+            return dp[x]
+        
+        def uniofind(nodes):
+            dp.clear()
+            dx = collections.defaultdict(list)
+            dy = collections.defaultdict(list)
+            for x, y in nodes:
+                dp[(x,y)] = (x,y)
+                #print(dp)
+                dx[x].append((x,y))
+                dy[y].append((x,y))
+            for val in dx.values():
+                for i in range(1,len(val)):
+                    dp[find(val[i])] = find(val[i-1])
+            for val in dy.values():
+                for i in range(1,len(val)):
+                    dp[find(val[i])] = find(val[i-1])
+                
+        for num in sorted(number_map.keys()):
+            uniofind(number_map[num])
+            group_val = Counter()
+            
+            for x,y in number_map[num]:
+                target_val = 0
+                target_val = max(row_counter[x]+1,target_val)
+                target_val = max(col_counter[y]+1,target_val)
+                group_val[find((x,y))] = max(group_val[find((x,y))], target_val )
+                
+            for x,y in number_map[num]:
+                target_val = group_val[find((x,y))]
+                ans[x][y] = target_val
+                row_counter[x] = target_val
+                col_counter[y] = target_val
+            #print(ans, num)
+        return ans
+        
+        # if any(e  for e in row_heap.values()):
+        #     val, i, j = min(e[0] for e in row_heap.values() if e )
+        #     if val 
+            
+            
+        
+        
+        
+                
+</PRE>
+
+</BODY>
+</HTML>

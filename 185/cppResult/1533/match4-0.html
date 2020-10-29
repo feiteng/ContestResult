@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_Heltion.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_Heltion.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;vector&lt;string&gt;&gt; displayTable(vector&lt;vector&lt;string&gt;&gt;&amp; orders) {
+        map&lt;int, map&lt;string, int&gt;&gt; mp;
+        set&lt;string&gt; st; 
+        for(auto&amp; v : orders){
+            st.insert(v[2]);
+            mp[atoi(v[1].c_str())][v[2]] += 1;
+        }
+        vector&lt;vector&lt;string&gt;&gt; res;
+        res.push_back({});
+        res.back().push_back(&quot;Table&quot;);
+        for(auto&amp; x : st) 
+            res.back().push_back(x);
+        for(auto&amp; [id, s] : mp){
+            res.push_back({});
+            res.back().push_back(to_string(id));
+            for(auto&amp; x : st) 
+               res.back().push_back(to_string(s[x]));
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

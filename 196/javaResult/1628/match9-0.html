@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>610_lianyoucat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>610_lianyoucat.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int numSubmat(int[][] mat) {
+        int m=mat.length;
+        int n=mat[0].length;
+        int[][] sum=new int[m+1][n+1];
+        for(int i=1;i&lt;=m;i++){
+<A NAME="1"></A>            for(int j=1;j&lt;=n;j++){
+                s</B></FONT>um[i][j]=sum[i-1][j]+sum[i][j-1]-sum[i-1][j-1];
+                if(mat[i-1][j-1]==1) sum[i][j]++;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        // System.out.println(Arrays.deepToString(sum));
+        int ans=0;
+        for(int i=1;i&lt;=m;i++){
+            for(int j=1;j&lt;=n;j++){
+                for(int ri=i;ri&lt;=m;ri++){
+                    for(int rj=j;rj&lt;=n;rj++){
+                        int cnt=sum[ri][rj]-sum[i-1][rj]-sum[ri][j-1]+sum[i-1][j-1];
+<A NAME="2"></A>                        int di=ri-i+1;</B></FONT>
+                        int dj=rj-j+1;
+                        // System.out.format(&quot;i is %d, j is %d, ri is %d, rj is %d, one is %d, cnt is %d\n&quot;,i,j,ri,rj,cnt,di*dj);
+                        if(di*dj==cnt) ans++<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

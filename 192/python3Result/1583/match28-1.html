@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>316_dlesces.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>316_dlesces.py</CENTER></H3><HR>
+<PRE>
+
+class Solution:
+    def minCost(self, houses: [int], cost: [[int]], m: int, n: int, target: int) -&gt; int:
+        from functools import lru_cache
+
+        @lru_cache(None)
+        def DP(idx, target, left):  # have target groups after first color not left
+            if target &lt; 0:
+                return float(&quot;inf&quot;)
+            if idx == m:
+                if target == 0:
+                    return 0
+                else:
+                    return float(&quot;inf&quot;)
+
+            # print(idx, target, left)
+
+            if houses[idx]:
+<A NAME="0"></A>                if left == houses[idx]:
+                    return DP(idx+1, target, left)
+                else:
+                    return DP(idx+1, target-1, houses[i<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dx])
+
+            res = float('inf')
+            for color in range(1, n+1):
+                if color == left:
+                    res = min(res, cost[idx][color-1] + DP(idx+1, target, left))
+                else:
+                    res = min(res, cost[idx][color-1] +
+                              DP(idx+1, target-1, color))
+            return res
+
+        res = DP(0, target, -1)
+        return res if res != float('</B></FONT>inf') else -1
+</PRE>
+
+</BODY>
+</HTML>

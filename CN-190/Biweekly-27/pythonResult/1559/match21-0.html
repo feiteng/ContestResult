@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_wyc0807.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_wyc0807.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution(object):
+    def cherryPickup(self, grid):
+        &quot;&quot;&quot;
+        :type grid: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        M, N = len(grid), len(grid[0])
+        dp = {(0, N - 1): grid[0][0] + grid[0][-1]}
+        for i in xrange(1, M):
+            newDp =</B></FONT> collections.defaultdict(int)
+            for (a, b), v in dp.items():
+                for (x, y) in [(a - 1, b - 1), (a, b - 1), (a + 1, b - 1), (a - 1, b), (a, b), (a + 1, b), (a - 1, b + 1), (a, b + 1), (a + 1, b + 1)]:
+                    if x  &lt; 0 or y &lt; 0 or x &gt;= N or y &gt;= N:
+                        continue
+                    newDp[(x, y)] = max(newDp[(x, y)], v + grid[i][x] + (grid[i][y] if x != y else 0))
+            dp = newDp
+        return max(dp.values())
+</PRE>
+
+</BODY>
+</HTML>

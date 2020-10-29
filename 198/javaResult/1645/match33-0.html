@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_iejepwy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>214_iejepwy.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int closestToTarget(int[] arr, int target) {
+        int l=0;
+        int ans=Math.abs(target+1000000000);
+        int[] cnt=new int[22];
+        int sum=0;
+        for(int i=0;i&lt;22;i++){
+            sum+=1&lt;&lt;i;
+        }
+
+        for(int r=0;r&lt;arr.length;r++){
+            int cur=arr[r];
+            for(int i=0;i&lt;22;i++){
+                if(cur%2==0){
+                    cnt[i]++;
+                    if(cnt[i]==1){
+                        sum-=1&lt;&lt;i;
+                    }
+                }
+                cur/=2;
+            }
+            
+            if(r&gt;=l){
+                ans=Math.min(ans,Math.abs(sum-target));
+            }
+            while(sum&lt;target){
+                cur=arr[l];l++;
+                for(int i=0;i&lt;22;i++){
+                    if(cur%2==0){
+                        cnt[i]--;
+                        if(cnt[i]==0){
+                            sum+=1&lt;&lt;i;
+                        }
+<A NAME="0"></A>                    }
+                    cur/=2;
+                }
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            if(r&gt;=l){
+                ans=Math.min(ans,Math.abs(sum-target));
+            }
+        }
+
+        return ans;
+    }
+
+//    public static void main(String[] args) {
+//        int i=1;
+//        while(i&lt;25){
+//            System.out.println(i);
+//            System.out.println(Math.pow(2,i));
+//            i++;
+//        }
+//    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

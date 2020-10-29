@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>524_danzhi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>524_danzhi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCost(int[] houses, int[][] cost, int m, int n, int target) {
+        int[][][] dp = new</B></FONT> int[m][n][target + 1];
+    final int max = 2000000;
+<A NAME="1"></A>    for (int i = 0; i &lt; m; i++) {
+      for (int j = 0; j &lt; n; j++) {
+        Arrays.fill(dp[i][j], max);
+      <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    }
+    if (houses[0] == 0) {
+      for (int j = 0; j &lt; n; j++) {
+        dp[0][j][1] = cost[0][j];
+<A NAME="2"></A>      }
+    } else {</B></FONT>
+      int j = houses[0]-1;
+      <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dp[0][j][1] = 0;
+    }
+    for (int i = 1; i &lt; m; i++) {
+      if (houses[i] == 0) {
+<A NAME="4"></A>        for (int j = 0; j &lt; n; j++) {
+          for (int k = 1; k &lt;= target; k++) {</B></FONT>
+            int v = max;
+            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#4',2,'match16-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int jj = 0; jj &lt; n; jj++) {
+              if (jj == j) {
+                v = Math.min(v, dp[i-1][jj][k] + cost[i][j]);
+              } else {
+                v = Math.min(v, dp[i-1][jj][k-1] + cost[i][j]);
+<A NAME="3"></A>              }
+            }</B></FONT>
+            dp[i][j][k] = v;
+          <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#3',2,'match16-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+      } else {
+        int j = houses[i]-1;
+        for (int k = 1; k &lt;= target; k++) {</B></FONT>
+          int v = max;
+          for (int jj = 0; jj &lt; n; jj++) {
+            if (jj == j) {
+              v = Math.min(v, dp[i-1][jj][k]);
+            } else {
+              v = Math.min(v, dp[i-1][jj][k-1]);
+<A NAME="5"></A>            }
+          }
+          dp[i][j][k] = v;
+        <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#5',2,'match16-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+      }
+    }
+    int ans = max;
+    for (int j = 0; j &lt; n; j++) {
+      ans = Math.min(ans, dp[m-1][j][target]);
+    }
+    return ans &gt;= max ? -1 : ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

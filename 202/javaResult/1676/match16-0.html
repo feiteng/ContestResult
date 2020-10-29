@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>607_c95b6c4f.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>607_c95b6c4f.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int n) {
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;();
+        queue.offer(n);
+        Set&lt;Integer&gt; visited = new HashSet&lt;Integer&gt;();
+        visited.add(n);
+<A NAME="1"></A>        int sum = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size</B></FONT>();
+            for (int i = 0; i &lt; size; i++) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                int num = queue.poll();
+                if (num == 0) {
+                    return sum;
+                }
+                if (!visited.contains(num - 1)) {
+                    visited.add(num - 1);
+                    queue.offer(num - 1);
+                }
+                if (num % 2 == 0 &amp;&amp; !visited.contains(num - num / 2)) {
+                    visited.add(num - num / 2);
+                    queue.offer(num - num / 2);
+                }
+                if (num % 3 == 0 &amp;&amp; !visited.contains(num - 2 * (num / 3))) {
+                    visited.add(num - 2 * (num / 3));
+                    queue.offer(num - 2 * (num / 3));
+                }
+            }</B></FONT>
+            sum++;
+        }
+        return sum;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

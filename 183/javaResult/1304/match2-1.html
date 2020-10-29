@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>180_xianglaniunan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>180_xianglaniunan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String longestDiverseString(int a, int b, int c) {
+        Queue&lt;int[]&gt; q = new PriorityQueue&lt;&gt;((u, v)-&gt;(v[0] - u[0]));
+        if(a &gt; 0) q.offer(new int[]{a, 0});
+        if(b &gt; 0) q.offer(new int[]{b, 1});
+        if(c &gt; 0) q.offer(new int[]{c, 2});
+        
+        String str = &quot;&quot;;
+        
+<A NAME="1"></A>        while(!q.isEmpty())
+        {
+            int[] cur = q.poll</B></FONT>();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(str.length() &gt;= 2)
+            {
+                int n = str.length();
+                int p1 = str.charAt(n - 1) - 'a', p2 = str.charAt(n - 2) - 'a';
+                if(p1 == p2 &amp;&amp; p1 == cur[1])
+                {
+                    if(q.isEmpty()) return str;
+                    int[] next = q.poll();
+                    str += (char)('a' + next[1]);
+                    next[0]--;
+                    if(next[0] &gt; 0) q.offer(next);
+                    q.offer(cur);
+                }
+                else
+                {
+                    str += (char)('a' + cur[1]);    
+                    cur[0]--;
+                    if(cur[0] &gt; 0) q.offer(cur);
+                }
+            }
+            else
+            {
+                str += (char)('a' + cur[1]);    
+                cur[0]--;
+                if(cur[0] &gt; 0) q.offer(cur);
+            }
+
+        }
+        
+        return str;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_emthrm.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>39_emthrm.cpp</CENTER></H3><HR>
+<PRE>
+#define _USE_MATH_DEFINES
+#define FOR(i,m,n) for(int i=(m);i&lt;(n);++i)
+#define REP(i,n) FOR(i,0,n)
+#define ALL(v) (v).begin(),(v).end()
+using ll = long long;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fLL;
+const double EPS = 1e-8;
+const int MOD = 1000000007;
+// const int MOD = 998244353;
+const int dy[] = {1, 0, -1, 0}, dx[] = {0, -1, 0, 1};
+const int dy8[] = {1, 1, 0, -1, -1, -1, 0, 1}, dx8[] = {0, -1, -1, -1, 0, 1, 1, 1};
+template &lt;typename T, typename U&gt; inline bool chmax(T &amp;a, U b) { return a &lt; b ? (a = b, true) : false; }
+template &lt;typename T, typename U&gt; inline bool chmin(T &amp;a, U b) { return a &gt; b ? (a = b, true) : false; }
+
+int mod = MOD;
+struct ModInt {
+  unsigned val;
+  ModInt(): val(0) {}
+  ModInt(ll x) : val(x &gt;= 0 ? x % mod : x % mod + mod) {}
+  ModInt pow(ll exponent) const {
+    ModInt tmp = *this, res = 1;
+    while (exponent &gt; 0) {
+      if (exponent &amp; 1) res *= tmp;
+      tmp *= tmp;
+<A NAME="0"></A>      exponent &gt;&gt;= 1;
+    }
+    return res;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  }
+  ModInt &amp;operator+=(const ModInt &amp;x) { if((val += x.val) &gt;= mod) val -= mod; return *this; }
+  ModInt &amp;operator-=(const ModInt &amp;x) { if((val += mod - x.val) &gt;= mod) val -= mod; return *this; }
+  ModInt &amp;operator*=(const ModInt &amp;x) { val = static_cast&lt;unsigned long long&gt;(val) * x.val % mod; return *this; }</B></FONT>
+  ModInt &amp;operator/=(const ModInt &amp;x) {
+    // assert(__gcd(static_cast&lt;int&gt;(x.val), mod) == 1);
+    unsigned a = x.val, b = mod; int u = 1, v = 0;
+    while (b) {
+      unsigned tmp = a / b;
+      swap(a -= tmp * b, b);
+      swap(u -= tmp * v, v);
+<A NAME="1"></A>    }
+    return *this *= u;
+  }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  bool operator==(const ModInt &amp;x) const { return val == x.val; }
+  bool operator!=(const ModInt &amp;x) const { return val != x.val; }</B></FONT>
+  bool operator&lt;(const ModInt &amp;x) const { return val &lt; x.val; }
+  bool operator&lt;=(const ModInt &amp;x) const { return val &lt;= x.val; }
+  bool operator&gt;(const ModInt &amp;x) const { return val &gt; x.val; }
+  bool operator&gt;=(const ModInt &amp;x) const { return val &gt;= x.val; }
+  ModInt &amp;operator++() { if (++val == mod) val = 0; return *this; }
+  ModInt operator++(int) { ModInt res = *this; ++*this; return res; }
+<A NAME="2"></A>  ModInt &amp;operator--() { val = (val == 0 ? mod : val) - 1; return *this; }
+  ModInt operator--(int) { ModInt res = *this; --*this; return res; }
+  ModInt operator+() const { return *this; }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  ModInt operator-() const { return ModInt(val ? mod - val : 0); }
+  ModInt operator+(const ModInt &amp;x) const { return ModInt(*this) += x; }
+<A NAME="3"></A>  ModInt operator-(const ModInt &amp;x) const { return ModInt(*this) -= x; }
+  ModInt operator*(const ModInt &amp;x) const { return ModInt(*this) *= x; }
+  ModInt operator/(const ModInt &amp;x) const { return ModInt(*this) /= x; }</B></FONT>
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match33-1.html#3',3,'match33-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  friend ostream &amp;operator&lt;&lt;(ostream &amp;os, const ModInt &amp;x) { return os &lt;&lt; x.val; }
+  friend istream &amp;operator&gt;&gt;(istream &amp;is, ModInt &amp;x) { ll val; is &gt;&gt; val; x = ModInt(val); return is; }</B></FONT>
+};
+ModInt abs(const ModInt &amp;x) { return x; }
+struct Combinatorics {
+  int val; // &quot;val!&quot; and &quot;mod&quot; must be disjoint.
+  vector&lt;ModInt&gt; fact, fact_inv, inv;
+  Combinatorics(int val = 10000000) : val(val), fact(val + 1), fact_inv(val + 1), inv(val + 1) {
+    fact[0] = 1;
+    FOR(i, 1, val + 1) fact[i] = fact[i - 1] * i;
+    fact_inv[val] = ModInt(1) / fact[val];
+    for (int i = val; i &gt; 0; --i) fact_inv[i - 1] = fact_inv[i] * i;
+    FOR(i, 1, val + 1) inv[i] = fact[i - 1] * fact_inv[i];
+  }
+  ModInt nCk(int n, int k) const {
+    if (n &lt; 0 || n &lt; k || k &lt; 0) return ModInt(0);
+    // assert(n &lt;= val &amp;&amp; k &lt;= val);
+    return fact[n] * fact_inv[k] * fact_inv[n - k];
+  }
+  ModInt nPk(int n, int k) const {
+    if (n &lt; 0 || n &lt; k || k &lt; 0) return ModInt(0);
+    // assert(n &lt;= val);
+    return fact[n] * fact_inv[n - k];
+  }
+  ModInt nHk(int n, int k) const {
+    if (n &lt; 0 || k &lt; 0) return ModInt(0);
+    return k == 0 ? ModInt(1) : nCk(n + k - 1, k);
+  }
+};
+
+class Solution {
+public:
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;vector&lt;int&gt;&gt; graph(n);
+        set&lt;int&gt; st;
+        vector idx(n, n);
+        function&lt;int(int)&gt; sub = [&amp;](int id) {
+          return 0 &lt;= id &amp;&amp; id &lt; n ? idx[id] : -1;
+        };
+        REP(i, n) {
+          --nums[i];
+          if (i &gt; 0) {
+            auto it = st.lower_bound(nums[i]);
+            int l = it == st.begin() ? -1 : *prev(it), r = it == st.end() ? n : *it;
+            graph[sub(l) &gt; sub(r) ? l : r].emplace_back(nums[i]);
+          }
+          idx[nums[i]] = i;
+          st.emplace(nums[i]);
+        }
+        Combinatorics com(n);
+        ModInt ans = 1;
+        function&lt;int(int, int)&gt; dfs = [&amp;](int par, int ver) {
+          int sum = 0;
+          vector&lt;int&gt; child;
+          for (int e : graph[ver]) {
+            if (e != par) {
+              int d = dfs(ver, e);
+              sum += d;
+              child.emplace_back(d);
+            }
+          }
+          ans *= com.fact[sum];
+          for (int e : child) ans *= com.fact_inv[e];
+          return sum + 1;
+        };
+        dfs(-1, nums[0]);
+        return (ans - 1).val;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

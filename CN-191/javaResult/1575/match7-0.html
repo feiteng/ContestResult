@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>71_yschen-s.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>71_yschen-s.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+   
+    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {
+        Arrays.sort(horizontalCuts);
+        Arrays.sort(verticalCuts);
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;()</B></FONT>;
+        List&lt;Integer&gt; list1 = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt;= horizontalCuts.length; i++) {
+            if (i == 0) list.add(horizontalCuts[i]);
+            else if (i == horizontalCuts.length) list.add(h - horizontalCuts[i - 1]);
+            else list.add(horizontalCuts[i] - horizontalCuts[i - 1]);
+        }
+        for (int i = 0; i &lt;= verticalCuts.length; i++) {
+            if (i == 0) list1.add(verticalCuts[i]);
+            else if (i == verticalCuts.length) list1.add(w - verticalCuts[i - 1]);
+            else list1.add(verticalCuts[i] - verticalCuts[i - 1]);
+        }
+        Collections.sort(list);
+        Collections.sort(list1);
+        return (int) ((((long) list.get(list.size() - 1) % (1000000007l)) * ((long) list1.get(list1.size() - 1) % (1000000007l))) % (1000000007l)); }
+}
+</PRE>
+
+</BODY>
+</HTML>

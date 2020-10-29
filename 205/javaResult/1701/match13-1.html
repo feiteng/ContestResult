@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>293_keepPace.java</TITLE>
+ <TITLE>181_kasperyang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,99 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>293_keepPace.java</CENTER></H3><HR>
+<H3><CENTER>181_kasperyang.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    class UF {
-        int[] parents;
-        int num;
-        UF (int n) {
-            parents = new int[n];
-            num = n;
-            for (int i =0; i &lt; n; i += 1) {
-                parents[i] = i;
-            }
-        }
-        int find(int x) {
-            int p = x;
-            while (parents[p] != p) {
-                p = parents[p];
-            }
-            while (x != p) {
-<A NAME="3"></A>                parents[x] = p;
-                x = parents[x];
-            }
-            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#3',2,'match13-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return p;
-        }
-        void union(int x, int y) {
-            int paX = find(x);
-            int paY = find(y);
-<A NAME="2"></A>            if (paX == paY) return;</B></FONT>
-            parents[paX] = paY;
-            num -= 1;
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        boolean isConnected(int x, int y) {
-            return find(x) == find(y);
-        }</B></FONT>
-    }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        Arrays.sort(edges, (a, b) -&gt; b[0] - a[0]);
-        UF uf1 = new UF(n);
-        UF uf2 = new UF(n);
-        int ret = 0;
-        for (int[] edge : edges) {
-<A NAME="0"></A>            int type = edge[0];
-            int u = edge[1] - 1;
-            int v = edge[2] - 1;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (type == 3) {
-                if (uf1.isConnected(u, v) &amp;&amp; uf2.isConnected(u, v)) {
-                    ret += 1;
-                } else {
-                    uf1.union(u, v);
-                    uf2.union(u, v);
-                }
-            } else if (type == 1) {
-                if (uf1.isConnected(u, v)) {
-                    ret += 1;
-<A NAME="1"></A>                } else {
-                    uf1.union(u, v);
-                }
-            } else <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{</B></FONT>
-                if (uf2.isConnected(u, v)) {
-                    ret += 1;
-                } else {
-                    uf2.union(u, v);
-                }
-            }</B></FONT>
+        List&lt;List&lt;int[]&gt;&gt; tp = new ArrayList&lt;&gt;();
+        
+        for (int i = 0; i &lt; 3; i++) {
+            List&lt;int[]&gt; l = new ArrayList&lt;&gt;();
+            tp.add(l);
         }
-        if (uf1.num != 1 || uf2.num != 1) return -1;
-        return ret;
+        
+        for (int[] e: edges) {
+            List&lt;int[]&gt; type = tp.get(e[0] - 1);
+            type.add(e);
+        }
+        
+        DSU dsu = new DSU(n);
+        int cnt = 0;
+        
+        List&lt;int[]&gt; tp3 = tp.get(2);
+        for (int[] e: tp3) {
+            int u = e[1] - 1;
+            int v = e[2] - 1;
+            if (!dsu.union(u, v)) {
+                cnt++;
+            }
+        }
+        
+        DSU dsu1 = new DSU(dsu);
+        List&lt;int[]&gt; tp1 = tp.get(0);
+        for (int[] e: tp1) {
+            int u = e[1] - 1;
+            int v = e[2] - 1;
+            if (!dsu1.union(u, v)) {
+                cnt++;
+            }
+        }
+        
+        DSU dsu2 = new DSU(dsu);
+        List&lt;int[]&gt; tp2 = tp.get(1);
+        for (int[] e: tp2) {
+            int u = e[1] - 1;
+            int v = e[2] - 1;
+            if (!dsu2.union(u, v)) {
+                cnt++;
+            }
+        }
+        
+        for (int i = 0; i &lt; n; i++) {
+            // System.out.printf(&quot;dsu1, i: %d, find(i): %d\n&quot;, i, dsu1.find(i));
+            // System.out.printf(&quot;dsu2, i: %d, find(i): %d\n&quot;, i, dsu2.find(i));
+            
+            if (dsu1.find(0) != dsu1.find(i)) return -1;
+            if (dsu2.find(0) != dsu2.find(i)) return -1;
+        }
+        
+        return cnt;
     }
 }
+
+class DSU {
+    int n;
+    int[] f;
+    DSU(int n) {
+        this.n = n;
+        f = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            f[i] = i;
+        }
+    }
+    
+    DSU(DSU dsu) {
+        n = dsu.n;
+        f = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            f[i] = dsu.f[i];
+        }
+    }
+    
+    int find(int i) {
+        if (i == f[i]) return i;
+        f[i] = find(f[i]);
+        return f[i];
+    }
+    
+    boolean union(int i, int j) {
+        int fi = find(i);
+        int fj = find(j);
+        if (fi == fj) return false;
+        f[fi] = fj;
+        return true;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>390_dsjaklg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>390_dsjaklg.cpp</CENTER></H3><HR>
+<PRE>
+#define ll long long
+<A NAME="0"></A>ll mod = 1000000007;
+const int maxn = 1010;
+ll qpow(ll a, ll x) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    ll ret = 1;
+    while (x) {
+        if (x &amp; 1)
+            ret = ret * a % mod;
+        a = a * a % mod;
+        x &gt;&gt;= 1;
+    }
+    return ret;
+}
+ll fac[maxn], inv[maxn];
+
+ll init() {
+    fac[0] = 1;</B></FONT>
+    for (int i = 1; i &lt; maxn; i++)
+        fac[i] = fac[i - 1] * i % mod;
+    inv[maxn - 1] = qpow(fac[maxn - 1], mod - 2);
+    for (int i = maxn - 2; i &gt;= 0; i--)
+        inv[i] = inv[i + 1] * (i + 1) % mod;
+    return 0;
+}
+
+ll c(ll n, ll m) {
+    if (n &lt; m)
+        return 0;
+    return fac[n] * inv[m] % mod * inv[n - m] % mod;
+}
+
+class Solution {
+  public:
+    ll dfs(vector&lt;int&gt; &amp;nums) {
+        if (nums.size() &lt;= 1) {
+            return 1;
+        }
+<A NAME="1"></A>        vector&lt;int&gt; lft, rht;
+        ll n = nums.size();
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (ll i = 1; i &lt; n; ++i) {
+            if (nums[i] &lt; nums[0]) {
+                lft.push_back(nums[i]);
+            } else {
+                rht.push_back(nums[i]);
+            }
+        }
+        ll lNum = lft.size();
+        ll ans = dfs(lft) * dfs(rht) % mod;
+        ans *= c(n - 1, lNum);</B></FONT>
+        ans %= mod;
+        return ans;
+    }
+    int numOfWays(vector&lt;int&gt; &amp;nums) {
+        init();
+        int ans = dfs(nums);
+        ans = (ans - 1 + mod) % mod;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

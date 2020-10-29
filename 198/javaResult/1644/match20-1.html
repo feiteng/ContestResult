@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>390_ShizukaYee.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>390_ShizukaYee.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        Map&lt;Character, Integer&gt; start = new HashMap&lt;&gt;();
+        Map&lt;Character, Integer&gt; end = new HashMap&lt;&gt;();
+        for(int i=0; i&lt;s.length(); i++){</B></FONT>
+            if(!start.containsKey(s.charAt(i))){
+                start.put(s.charAt(i), i);
+                end.put(s.charAt(i), i);
+            }
+            else{
+                end.put(s.charAt(i), i);
+            }
+<A NAME="1"></A>        }
+        PriorityQueue&lt;String&gt; queue = new PriorityQueue&lt;&gt;(10, (s1, s2)-&gt; s1.length()-s2.length());
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(char c: start.keySet()){
+            String sub = build(c, start, end, s);
+            queue.add(sub);
+        }
+        boolean[] visited = new boolean[26]</B></FONT>;
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        while(!queue.isEmpty()){
+            String cur = queue.poll();
+            boolean canAdd = true;
+            for(char c: cur.toCharArray()){
+                if(visited[c-'a']){
+                    canAdd = false;
+                    break;
+                }
+            }
+            if(canAdd){
+                res.add(cur);
+                for(char c: cur.toCharArray()){
+                    visited[c-'a'] = true;
+<A NAME="2"></A>                }
+            }
+        }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+    }
+    
+    public String build(char c, Map&lt;Character, Integer&gt; start, Map&lt;Character, Integer&gt; end, String s){
+        boolean update = true</B></FONT>;
+        int left = start.get(c);
+        int right = end.get(c);
+        int newLeft = left;
+        int newRight = right;
+        // System.out.println(&quot;c=&quot;+c);
+        while(update == true){
+            update = false;
+            for(int i=left; i&lt;=right; i++){
+                char cur = s.charAt(i);
+                // System.out.println(&quot;cur=&quot;+cur);
+                if(start.get(cur)&lt;left){
+                    newLeft = start.get(cur);
+                    update = true;
+                }
+                if(end.get(cur)&gt;right){
+                    newRight = end.get(cur);
+                    update = true;
+                }
+                // System.out.println(&quot;newLeft=&quot;+newLeft);
+                // System.out.println(&quot;newRight=&quot;+newRight);
+            }
+            left = newLeft;
+            right = newRight;
+        }
+        return s.substring(left, right+1);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

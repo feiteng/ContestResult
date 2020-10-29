@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>119_w285714.cpp</TITLE>
+ <TITLE>124_polonez.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>119_w285714.cpp</CENTER></H3><HR>
+<H3><CENTER>124_polonez.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>public:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int f[100005][26];
+public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n=s.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ss=0;
-        int M=0;
-        int res=0;
-        for(int i=0;i&lt;n;++i){
-            if(i==0||s[i]==s[i-1]){
-                ss+=cost[i];
-                M=max(M,cost[i]);
-            }
-            else{
-                res+=ss-M;
-                ss=cost[i];
-                M=cost[i];
-            }
+        memset(f, 60, sizeof(f));
+        int n = s.length();
+        for (int i = 0; i &lt; 26; i++)
+            f[0][i]=0;
+        for (int i = 0; i &lt; n; i ++)
+        {
+            f[i+1][s[i]-'a'] = f[i][s[i]-'a']+cost[i];
+            for (int j = 0; j &lt; 26; j ++)
+                if (j!=s[i]-'a')
+                {
+                    f[i+1][j] = f[i][j]+cost[i];
+                    if (f[i][j]&lt;f[i+1][s[i]-'a']) f[i+1][s[i]-'a'] = f[i][j];
+                }
         }
-        res+=ss-M;
-        return res;
+        int ret = 2e9;
+        for (int i = 0; i &lt; 26; i ++)
+            ret=min(ret,f[n][i]);
+        return ret;
     }
 };</B></FONT>
 </PRE>

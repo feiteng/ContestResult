@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>414_amadeus-23.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>414_amadeus-23.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String minInteger(String num, int k) {
+<A NAME="1"></A>        char[] ch = num.toCharArray();
+        recur(ch,k,0);
+        return</B></FONT> String.valueOf(ch);
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public void recur(char[] ch, int k, int start) {
+        if(k == 0 || start &gt;= ch.length) return;
+        int end</B></FONT>;
+        if(ch.length-1- start &lt;= k) {
+            end = ch.length - 1;
+        }else {
+            end = start + k;
+        }
+        
+        int index = start;
+<A NAME="2"></A>        
+        for(int i = start+1; i &lt;= end; i++) {
+            if(Integer.valueOf(ch[i]) &lt; Integer.valueOf(ch[index])) {
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>index = i;
+            }
+        }
+        
+        char temp = ch[index];
+        for(int i = index - 1; i &gt;= start; i--) {
+            ch[i+1] = ch[i];
+        }
+        c</B></FONT>h[start] = temp;
+        
+        k = k-index + start;
+        
+        recur(ch,k,start+1);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

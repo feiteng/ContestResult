@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>132_stdll00.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>132_stdll00.py</CENTER></H3><HR>
+<PRE>
+from typing import List
+
+import collections
+
+
+class UnionFind(object):
+    def __init__(self, n):
+        self.n = n
+        self.parents = [-1] * n
+
+    def find(self, x):
+        if self.parents[x] &lt; 0:
+            return x
+        else:
+            self.parents[x] = self.find(self.parents[x])
+            return self.parents[x]
+
+    def union(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+
+        if x == y:
+            return
+
+        if self.parents[x] &gt; self.parents[y]:
+            x, y = y, x
+
+        self.parents[x] += self.parents[y]
+        self.parents[y] = x
+
+    def size(self, x):
+        return -self.parents[self.find(x)]
+
+    def same(self, x, y):
+        return self.find(x) == self.find(y)
+
+    def members(self, x):
+        root = self.find(x)
+        return [i for i in range(self.n) if self.find(i) == root]
+
+    def roots(self):
+        return [i for i, x in enumerate(self.parents) if x &lt; 0]
+
+    def members_dict(self):
+        pass
+
+    def group_count(self):
+        return len(self.roots())
+
+    def all_group_members(self):
+        return {r: self.members(r) for r in self.roots()}
+
+    def __str__(self):
+        return '\n'.join('{}: {}'.format(r, self.members(r)) for r in self.roots())
+
+<A NAME="0"></A>
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        cost_edge <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= collections.defaultdict(list)
+
+        for index, (f, t, wei) in enumerate(edges):
+            cost_edge[wei].append((index, f, t))
+
+        l1 =</B></FONT> []
+        l2 = []
+        uf = UnionFind(n)
+        for w in sorted(cost_edge.keys()):
+            _uf = uf
+            es = cost_edge[w]
+            # print(w, es, _uf.parents)
+            for i1, (index, f, t) in enumerate(es):
+                uf = UnionFind(n)
+                uf.parents = list(_uf.parents)  # this object will re-use
+                if uf.same(f, t):
+                    continue
+                for i2, e2 in enumerate(es):
+                    if i1 == i2:
+                        continue
+                    uf.union(e2[1], e2[2])
+
+                # print(index, f, t, uf.parents)
+                if uf.same(f, t):
+                    l2.append(index)
+                else:
+                    l1.append(index)
+                    uf.union(f, t)
+            for i2, e2 in enumerate(es):
+                uf.union(e2[1], e2[2])
+
+        l1.sort()
+        l2.sort()
+        return [l1, l2]
+
+
+</PRE>
+
+</BODY>
+</HTML>

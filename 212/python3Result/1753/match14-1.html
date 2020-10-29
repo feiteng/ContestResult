@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>632_sis-flag.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>632_sis-flag.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -&gt; int:
+        rows = len(heights)
+        cols = len(heights[0])
+        temp = [1e6+1 for k in range(cols)]
+        dis = [temp.copy() for k in range(rows)]
+        
+        dis[0][0] = 0
+        que = [(0,0)]
+        while len(que) &gt; 0:
+            rr, cc = que.pop(0)
+<A NAME="0"></A>            if cc &gt; 0:
+                nr = rr
+                nc = cc - 1
+                d0 = max(dis[rr][cc], abs(heights<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[rr][cc] - heights[nr][nc]))
+                if d0 &lt; dis[nr][nc]:
+                    dis[nr][nc] = d0
+                    que.append((nr, nc))
+<A NAME="1"></A>            if cc &lt; cols-1:
+                nr =</B></FONT> rr
+                nc = cc + 1
+                d0 = max(dis[rr][cc], abs(heights<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[rr][cc] - heights[nr][nc]))
+                if d0 &lt; dis[nr][nc]:
+                    dis[nr][nc] = d0
+                    que.append((nr, nc))
+<A NAME="2"></A>            if rr &gt; 0:
+                nr =</B></FONT> rr - 1
+                nc = cc
+                d0 = max(dis[rr][cc], abs(heights<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[rr][cc] - heights[nr][nc]))
+                if d0 &lt; dis[nr][nc]:
+                    dis[nr][nc] = d0
+                    que.append((nr, nc))
+<A NAME="3"></A>            if rr &lt; rows-1:
+                nr =</B></FONT> rr + 1
+                nc = cc
+                d0 = max(dis[rr][cc], abs(heights<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[rr][cc] - heights[nr][nc]))
+                if d0 &lt; dis[nr][nc]:
+                    dis[nr][nc] = d0
+                    que.append((nr, nc))
+                    
+        return dis[rows-1][c</B></FONT>ols-1]
+                
+</PRE>
+
+</BODY>
+</HTML>

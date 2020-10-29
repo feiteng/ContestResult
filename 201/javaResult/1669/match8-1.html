@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>110_REWFALTQ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>110_REWFALTQ.java</CENTER></H3><HR>
+<PRE>
+/*
+1. def: int[][] dp, dp[i][j] := min cost to cut stick[i : j]
+<A NAME="0"></A>2. base case: dp[x][x + 1] = 0
+3. induction rule: dp[i][j] = min(dp[i][k] + dp[k][j]) + stick[j] - stick[i]
+*/
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCost(int n, int[] cuts) {
+        Arrays.sort(cuts);
+        int[] stick = new int[cuts.length + 2];
+        for (int i = 0; i &lt; cuts.length; i++) {
+            stick[i + 1] = cuts[i];
+        }</B></FONT>
+<A NAME="1"></A>        int len = stick.length;
+        stick[len - 1] = n;
+        int[][] dp = new int[len][len];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = len - 1; i &gt;= 0; i--) {
+            for (int j = i + 2; j &lt; len; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
+                for (int k = i + 1; k &lt; j; k++) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k][j]);
+                }
+                dp[i][j] += stick[j] - stick[i];
+            }
+        }
+        return dp[0][len - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

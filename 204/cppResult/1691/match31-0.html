@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>583_manag.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>583_manag.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int n, m;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void dfs(int i, int j, vector&lt;vector&lt;int&gt;&gt;&amp; grid, vector&lt;vector&lt;int&gt;&gt;&amp; vis){
+        vis[i][j] = 1;
+        if(i + 1 &lt; n &amp;&amp; grid[i + 1][j] == 1 &amp;&amp; vis[i + 1][j] == 0){
+            dfs(i + 1, j, grid, vis);
+        }
+        if(i - 1 &gt;= 0 &amp;&amp; grid[i - 1][j] == 1 &amp;&amp; vis[i - 1][j] == 0){
+            dfs(i - 1, j, grid, vis);
+        }
+        if(j + 1 &lt; m &amp;&amp; grid[i][j + 1] == 1 &amp;&amp; vis[i][j + 1] == 0){
+            dfs(i, j + 1, grid, vis);
+        }
+        if(j - 1 &gt;= 0 &amp;&amp; grid[i][j - 1] == 1 &amp;&amp; vis[i][j - 1] == 0){
+            dfs(i, j - 1, grid, vis);
+        }
+    }
+    int minDays(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        n = grid.size();</B></FONT>
+        if(n == 0){
+            return 0;
+<A NAME="1"></A>        }
+        m = grid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; vis(n, vector&lt;int&gt;(m, 0));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int i = -1, j = -1;
+        for(int p = 0; p &lt; n; p++){
+            for(int q = 0; q &lt; m; q++){
+                if(grid[p][q] == 1){
+                    i = p;</B></FONT>
+                    j = q;
+                    break;
+<A NAME="2"></A>                }
+            }
+            if(i != -1) break;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        if(i == -1) return 0;
+        dfs(i, j, grid, vis);
+        for(int p = 0; p &lt; n; p++){
+            for(int q = 0; q &lt; m; q++){
+                if(grid[p][q] == 1 &amp;&amp; vis[p][q] == 0){</B></FONT>
+                    return 0;
+                }
+            }
+        }
+        for(i = 0; i &lt; n; i++){
+            for(j = 0; j &lt; m; j++){
+                if(grid[i][j] == 1){
+<A NAME="3"></A>                    grid[i][j] = 0;
+                    bool flag = 0;
+                    vector&lt;vector&lt;int&gt;&gt; vis1(n, vector&lt;int&gt;(m, 0));
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match31-1.html#3',3,'match31-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    for(int p = 0; p &lt; n; p++){
+                        for(int q = 0; q &lt; m; q++){
+                            if(grid[p][q] == 1){
+                                flag = 1;</B></FONT>
+                                //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; q &lt;&lt; endl;
+                                dfs(p, q, grid, vis1);
+                                break;
+                            }
+                        }
+                        if(flag){
+                            break;
+                        }
+                    }
+                    if(flag == 0){
+                        return 1;
+                    }
+                    for(int p = 0; p &lt; n; p++){
+                        for(int q = 0; q &lt; m; q++){
+                            if(grid[p][q] == 1 &amp;&amp; vis1[p][q] == 0){
+                                return 1;
+                            }
+                        }
+                    }
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

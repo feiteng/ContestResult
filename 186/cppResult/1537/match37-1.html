@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_janwei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_janwei.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxScore(string s) {
+        int n = s.size();
+        vector&lt;int&gt; numZeroes(n), numOnes(n);
+        int zeroCnt = 0;
+        for(int i = 0; i &lt; n; i++) {</B></FONT>
+            zeroCnt += (s[i] == '0');
+            numZeroes[i] = zeroCnt;
+        }
+        int oneCnt = 0;
+<A NAME="1"></A>        for(int i = n - 1; i &gt;= 0; i--) {
+            oneCnt += (s[i] == '1');
+            numOnes[i] = oneCnt;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        int ans = 0;
+        for(int split = 0; split + 1 &lt; n; split++) {
+            ans = max(ans, numZeroes[split] + numOnes[split + 1]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>58_yzheng2364.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>58_yzheng2364.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String minInteger(String num, int k) {
+        char[] numArr = num.toCharArray();
+        int n = num.length();
+        for (int i = 0; i &lt; n; i++) {
+<A NAME="0"></A>            int minIdx = 0;
+            int min = Integer.MAX_VALUE;
+            int limit = (k + i) &gt; n - 1 ? n - 1: k + i;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = i; j &lt;= limit; j++) {
+                int digit = (int)(numArr[j] - '0');
+                if (digit &lt; min) {
+                    min = digit;
+                    minIdx = j;
+                }
+            }
+            k -= (minIdx - i);
+            swapMin(numArr, minIdx, i);
+            if (k == 0) break;
+        }
+<A NAME="1"></A>        return new String(numArr);
+    }</B></FONT>
+    
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public void swapMin(char[] c, int current, int target) {
+        char tmp = c[current];
+        for (int i = current; i &gt; target; i--) {
+            tmp = c[i - 1];
+            c[i - 1] = c[i];
+            c[i] = tmp;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

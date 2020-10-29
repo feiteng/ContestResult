@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>132_keyurpotdar.py</TITLE>
+ <TITLE>164_esddse.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>132_keyurpotdar.py</CENTER></H3><HR>
+<H3><CENTER>164_esddse.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import defaultdict
+class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        p1, p2 = collections.Counter(), collections.Counter()
-        n1, n2 = len(nums1), len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(nums2)
-        for i in range(n1):
-            for j in range(i + 1, n1):
-                p1[nums1[i] * nums1[j]] += 1
-        for i in range(n2):
-            for j in range(i + 1, n2):
-                p2[nums2[i] * nums2[j]] += 1
-        # print(p1, p2)
+        size1, size2 = len(nums1), len(nums2)
+        
+        sq1, sq2 = defaultdict(int), defaultdict(int)
+        for i, num in enumerate(nums1):
+            sq1[num**2] += 1
+        for i, num in enumerate(nums2):
+            sq2[num**2] += 1
+        
         res = 0
-        for a in nums1:
-            res += p2[a * a]
-        for a in nums2:
-            res += p1[a * a]
+        for i in range(size1):
+            for j in range(i+1, size1):
+                res += sq2[nums1[i]*nums1[j]]
+
+        for i in range(size2):
+            for j in range(i+1, size2):
+                res += sq1[nums2[i]*nums2[j]]
+        
         re</B></FONT>turn res
+        
+        
 </PRE>
 
 </BODY>

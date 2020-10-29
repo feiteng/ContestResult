@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_yan-hai-she.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>121_yan-hai-she.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+    	int rows = grid.size(),cols = grid[0].size();
+<A NAME="0"></A>    	int dp[rows+1][cols+1][cols+1];
+    	memset(dp,-1,sizeof(dp));
+    	
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    	dp[0][0][cols-1] = grid[0][0] + grid[0][cols-1];
+    	
+    	for(int i = 1;i &lt; rows;i++){
+    		for(int j = 0;j &lt; cols;j++){
+    			for(int k = 0;k &lt; cols;k++){
+    				if(k == j) continue;
+    				for(int pre_j = j-1;pre_j &lt;= j+1;pre_j++){
+    					if(pre_j &lt; 0 || pre_j &gt;= cols)	continue;
+    					for(int pre_k = k-1;pre_k &lt;= k+1;pre_k++){
+	    					if(pre_k &lt; 0 || pre_k &gt;= cols || pre_k == pre_j) continue;</B></FONT>
+	    					if(dp[i-1][pre_j][pre_k] != -1){
+<A NAME="1"></A>	    						dp[i][j][k] = max(dp[i][j][k],dp[i-1][pre_j][pre_k]+grid[i][j] + grid[i][k]);
+	    						//printf(&quot;%d %d %d %d\n&quot;,i,j,k,dp[i][j][k]);
+							}
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>						}
+					}
+				}
+			}
+		}
+		
+		int res = 0;
+		for(int j = 0;j &lt; cols;j++){
+			for(int k = 0;k &lt; cols;k++){</B></FONT>
+				if(dp[rows-1][j][k] != -1){
+					res = max(res,dp[rows-1][j][k]);
+					//printf(&quot;%d %d %d\n&quot;,j,k,dp[rows-1][j][k]);
+				}
+			}
+		}
+		
+		return res;
+		
+    }
+};
+</PRE>
+</BODY>
+</HTML>

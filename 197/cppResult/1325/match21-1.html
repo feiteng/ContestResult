@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>566_wppply.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>566_wppply.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+        vector&lt;double&gt; dist(n, -1);
+        priority_queue&lt;pair&lt;double, int&gt;, vector&lt;pair&lt;double, int&gt;&gt;, less&lt;pair&lt;double, int&gt;&gt;&gt; pq;</B></FONT>
+        
+        unordered_map&lt;int, vector&lt;pair&lt;int, double&gt;&gt;&gt; graph;
+        
+<A NAME="1"></A>        for (int i = 0; i &lt; edges.size(); i++) {
+            int node1 = edges[i][0], node2 = edges[i][1];
+            float prob = succProb[i];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            graph[node1].push_back({node2, prob});
+            graph[node2].push_back({node1, prob});
+        }
+        
+        dist[start] = 1.0;
+        pq.push({1.0, start});
+        
+        while (pq.size()) {
+<A NAME="2"></A>            auto [weight, node] = pq.top(); pq.pop();</B></FONT>
+            if (node == end) return weight;
+            // cout &lt;&lt; &quot;(&quot;&lt;&lt;node&lt;&lt;&quot;)&quot;;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (auto &amp; v : graph[node]) {
+                auto [neighbor, prob] = v;
+                
+                if (dist[neighbor] &lt; prob * weight) {
+                    dist[neighbor] = prob * weight;
+                    pq.push({prob * weight, neighbor});
+                }
+            }
+            // for (auto &amp; a : dist) {
+            //     cout &lt;&lt; a &lt;&lt; &quot;,&quot;;
+            // }   
+            // cout &lt;&lt; endl &lt;&lt; &quot;====&quot; &lt;&lt; endl;
+        }
+        // for (auto &amp; a : dist) {
+        //     cout &lt;&lt; a &lt;&lt; &quot;,&quot;;
+        // }
+        return 0;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

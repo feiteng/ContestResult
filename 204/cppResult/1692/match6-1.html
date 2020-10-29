@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>227_balakrishnan_v.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>227_balakrishnan_v.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    #define MODD 1000000007
+    #define ll long long
+    
+    ll binomial[1111][1111];
+    
+    
+<A NAME="0"></A>    ll Solve(const vector&lt;int&gt;&amp; nums) {
+        if (nums.empty()) return 1;
+        int x = nums[0];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; left,right;
+        for(int i=1;i&lt;nums.size();i++) {
+            if (nums[i] &lt; x) {
+                left.push_back(nums[i]);
+            } else {
+                right.push_back(nums[i]);
+            }
+<A NAME="1"></A>        }</B></FONT>
+        
+        ll ct1 = Solve(left);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        ll ct2 = Solve(right);
+        
+        ll bval = binomial[left.size()+right.size()][left.size()];
+        
+        ll ret = (ct1*ct2)%MODD;
+        ret = (ret*bval)%MODD;
+        return ret;
+        
+    }
+    
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+        int N = nums.size();        
+        for(int i=0;i&lt;=N;i++)</B></FONT>
+            for(int j=0;j&lt;=i;j++) {
+                if (j == 0) {
+                    binomial[i][j]=1;
+                } else {
+                    binomial[i][j]=(binomial[i-1][j]+binomial[i-1][j-1])%MODD;
+                }
+            }
+        ll ans = (Solve(nums)+MODD-1)%MODD;
+        return ans;
+        
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

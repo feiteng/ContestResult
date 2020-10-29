@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_scheshan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_scheshan.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int kthSmallest(int[][] mat, int k) {
+        int sum = 0;
+        for (int i = 0; i &lt; mat.length; i++) {
+            sum += mat[i][0];
+        }
+
+        if (k == 1) {
+            return sum;
+<A NAME="0"></A>        }
+        k--;
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Queue&lt;Item&gt; queue = new PriorityQueue&lt;&gt;(new Comparator&lt;Item&gt;() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o1.total - o2.total;
+            }
+        });
+
+<A NAME="1"></A>        Set&lt;String&gt; visit = new HashSet&lt;&gt;()</B></FONT>;
+        Item first = new Item(new int[mat.length], sum);
+        visit.add(Arrays.toString(first.pick));
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue.add(first);
+
+        while (k &gt; 0) {
+            k--;
+
+            Item item = queue.remove();
+            for (int i = 0; i &lt; mat.length; i++) {
+                item.pick[i]++;
+
+                if (item.pick[i] &lt; mat[i].length &amp;&amp; !visit.contains</B></FONT>(Arrays.toString(item.pick))) {
+                    visit.add(Arrays.toString(item.pick));
+                    int[] pick = Arrays.copyOf(item.pick, item.pick.length);
+<A NAME="2"></A>
+                    int total = item.total - mat[i][item.pick[i] - 1] + mat[i][item.pick[i]];
+                    queue.add(new Item(pick, total));
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+                item.pick[i]--;
+            }
+        }
+
+<A NAME="3"></A>        return queue.peek().total;
+    }</B></FONT>
+
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private class Item {
+
+        private int[] pick;
+
+        private int total;
+
+        public Item(int[] pick, int total) {
+            this.pick = pick;
+            this.total = total;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

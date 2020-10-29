@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>393_angel30818.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>393_angel30818.py</CENTER></H3><HR>
+<PRE>
+import numpy as np
+from numpy.linalg import norm as npnorm
+
+class Solution:
+    def getMinDistSum(self, pts: List[List[int]]) -&gt; float:
+        if len(pts) == 1: return 0
+        seen = set()
+        for p in pts:
+            seen.add(tuple(p))
+        if len(seen) == 1: return 0
+        
+<A NAME="0"></A>        xmean = sum([x[0] for x in pts])/len(pts)
+        ymean = sum([x[1] for x in pts])/len(pts)
+    
+        old <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= np.random.randn(2)
+        new = np.random.randn(2)
+
+        while npnorm(old-new)&gt;10**-6:
+            num = 0
+            denom = 0
+            for i in range(len(pts)):
+                dist = npnorm(new - pts[i])
+                num += pts[i]/dist
+                denom += 1/dist
+            old = new
+            new = num/denom
+        
+        res = 0
+        for i in range(len(pts)):
+            res += npnorm(new - pts[</B></FONT>i])
+        if not res: return 0
+        return res
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_Heltion.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>39_Heltion.cpp</CENTER></H3><HR>
+<PRE>
+constexpr int maxn = 100 + 2;
+int a[maxn];
+int dp[maxn][maxn][27][maxn];
+class Solution {
+<A NAME="0"></A>public:
+    int getLengthOfOptimalCompression(string s, int k) {
+        int n = s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; n; i += 1) a[i + 1] = s[i] - 'a';
+        for(int i = 0; i &lt;= n; i += 1)
+            for(int j = 0; j &lt;= k; j += 1)
+<A NAME="1"></A>                for(int p = 0; p &lt;= 26; p += 1)
+                    for(int q = 1; q &lt;= n; q += 1)</B></FONT>
+                        dp[i][j][p][q] = maxn;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][26][1] = 0;
+        for(int i = 0; i &lt; n; i += 1)
+            for(int j = 0; j &lt;= min(k, i); j += 1)
+                for(int p = 0; p &lt;= 26; p += 1)</B></FONT>
+                    for(int q = 1; q &lt;= i + 1; q += 1){
+                        if(dp[i][j][p][q] &gt;= maxn) continue;
+                        //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; q &lt;&lt; &quot; &quot; &lt;&lt; dp[i][j][p][q] &lt;&lt; &quot;\n&quot;;
+                        {
+                            int ni = i + 1;
+                            int nj = j;
+                            int np = a[i + 1];
+                            int nq = p == a[i + 1] ? q + 1 : 1;
+                            if(nq == 100 or nq == 10 or nq == 2 or nq == 1) 
+                                dp[ni][nj][np][nq] = min(dp[ni][nj][np][nq], dp[i][j][p][q] + 1); 
+                            else dp[ni][nj][np][nq] = min(dp[ni][nj][np][nq], dp[i][j][p][q]);
+                        }
+                        {
+                            if(j &lt; k){
+                                int ni = i + 1;
+                                int nj = j + 1;
+                                int np = p;
+                                int nq = q;
+                                dp[ni][nj][np][nq] = min(dp[ni][nj][np][nq], dp[i][j][p][q]);
+                            }
+                        }
+                    }
+        int ans = maxn + 1;
+        for(int p = 0; p &lt;= 26; p += 1)
+            for(int q = 1; q &lt;= n; q += 1)
+                ans = min(ans, dp[n][k][p][q]);
+        return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

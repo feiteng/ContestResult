@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>229_thecheersong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>229_thecheersong.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        string ans = &quot;&quot;;
+        int l = 0;
+        while (a || b || c) {
+            if (a &amp;&amp; a &gt;= b &amp;&amp; a &gt;= c) {
+                if (l &gt;= 2 &amp;&amp; ans[l - 1] == 'a' &amp;&amp; ans[l - 2] == 'a') {
+                    if (b &amp;&amp; b &gt;= c) {
+                        ans.append(&quot;b&quot;);
+                        b--;
+                    }
+                    else if (c) {
+                        ans.append(&quot;c&quot;);
+<A NAME="1"></A>                        c--;
+                    }
+                    else break;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+                else {
+                    ans.append(&quot;a&quot;);
+                    a--;
+                }
+            }
+            else if (b &amp;&amp; b &gt;= c) {
+                if (l &gt;= 2 &amp;&amp; ans[l - 1] == 'b' &amp;&amp; ans[l - 2] == 'b') {
+                    if (a &amp;&amp; a &gt;= c) {
+                        ans.append(&quot;a&quot;);
+                        a--;
+                    }
+                    else if (c) {
+                        ans.append(&quot;c&quot;);
+                        c--;
+                    }
+                    else break;</B></FONT>
+                }
+                else {
+                    ans.append(&quot;b&quot;);
+<A NAME="2"></A>                    b--;
+                }
+            }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            else if (c) {
+                if (l &gt;= 2 &amp;&amp; ans[l - 1] == 'c' &amp;&amp; ans[l - 2] == 'c') {
+                    if (a &amp;&amp; a &gt;= b) {
+                        ans.append(&quot;a&quot;);
+                        a--;
+                    }
+                    else if (b) {
+                        ans.append(&quot;b&quot;);
+                        b--;
+                    }
+                    else break;</B></FONT>
+                }
+                else {
+                    ans.append(&quot;c&quot;);
+                    c--;
+                }
+            }
+            else break;
+            l++;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

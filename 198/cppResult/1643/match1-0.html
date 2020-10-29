@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>684_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>684_y119777.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; ed, string la) {
+        vector&lt;int&gt; r(n);
+        vector&lt;vector&lt;int&gt;&gt; e(n + 1);
+        for (auto &amp;t : ed) {
+<A NAME="0"></A>            e[t[0]].push_back(t[1]);
+            e[t[1]].push_back(t[0]);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        function&lt;vector&lt;int&gt;(int, int)&gt; f;
+        f = [&amp;](int u, int p) {
+            vector&lt;int&gt; res(26);
+            ++res[la[u] - 'a'];
+            for (int x : e[u]) {
+                if(x == p) continue;
+                auto rt = f(x, u);
+                for (int i = 0; i &lt; 26; i++)
+                    res[i] += rt[i];
+            }
+            r[u] = res[la[u] - 'a' ];
+            return res;
+        };
+        f(0, -1);
+        return r;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

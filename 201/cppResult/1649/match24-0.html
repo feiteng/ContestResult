@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>724_brz-z.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>724_brz-z.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+	#define maxn 100010
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	int sum[maxn],f[maxn];
+	map&lt;int,int&gt;mp;
+    int maxNonOverlapping(vector&lt;int&gt;&amp; a, int k) {
+		int n=a.size();
+		sum[1]=a[0];
+		for(int i=2;i&lt;=n;i++)sum[i]=sum[i-1]+a[i-1];
+		mp.clear();mp[0]=0;
+		memset(f,0,sizeof(f));
+		for(int i=1;i&lt;=n;i++){
+			f[i]=f[i-1];
+//			printf(&quot;%d %d : &quot;,i,sum[i]);
+			if(mp.count(sum[i]-k)){
+				f[i]=max(f[i],mp[sum[i]-k]+1);
+			}
+			if(mp.count(sum[i]))mp[sum[i]]=max(mp[sum[i]],f[i]);
+			else mp[sum[i]]=f[i];
+//			printf(&quot; -&gt; %d\n&quot;,f[i]);
+		}
+		return f[n];
+    }
+}K;</B></FONT>
+</PRE>
+</BODY>
+</HTML>

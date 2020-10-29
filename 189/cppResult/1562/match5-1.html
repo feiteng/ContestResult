@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>738_pyrexshorts.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>738_pyrexshorts.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;&amp; favoriteCompanies) {
+<A NAME="1"></A>        int n = favoriteCompanies.size();
+        unordered_set&lt;string&gt; companies[n];
+        for(int i = 0; i &lt; n; i++) {
+            for(string c : favoriteCompanies[i]) {</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                companies[i].insert(c);
+            }
+        }
+        vector&lt;int&gt; ans;
+        for(int i = 0; i &lt; n; i++) {
+            bool isSubset = false;
+<A NAME="2"></A>            for(int j = 0; j &lt; n; j++) {</B></FONT>
+                if(i != j) {
+                    bool isContained = true;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for(auto it : companies[i]) {
+                        if(companies[j].find(it) == companies[j].end()) {
+                            isContained = false;
+                            break;
+                        }
+                    }
+                    if(isContained) {
+                        isSubset = true;
+                        break;
+                    }
+                }</B></FONT>
+            }
+            if(!isSubset) {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

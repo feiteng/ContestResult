@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>424_abhigyankole.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>424_abhigyankole.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxNonOverlapping(int[] nums, int target) {
+        HashMap&lt;Long,Integer&gt; map=new HashMap&lt;&gt;();
+        map.put(0L,0);
+        long sum=0;
+        int prev=0;
+        for(int i:nums)
+        {
+            sum+=i;
+            if(map.containsKey(sum-target))
+<A NAME="1"></A>            {</B></FONT>
+                
+                int nprev=map.get(sum-target)+1;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>prev=Math.max(prev,nprev);
+                map.put(sum,prev);
+                //System.out.println(&quot;putting 1&quot;+sum+&quot; &quot;+prev);
+            }
+            else
+            {
+                map.put(sum,prev);
+                //System.out.println(&quot;putting 2&quot;+sum+&quot; &quot;+prev);
+            }
+            //System.out.println(&quot;prev is now &quot;+prev);
+            
+        }
+        return prev;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

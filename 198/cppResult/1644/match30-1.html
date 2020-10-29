@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>395_Dengxj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>395_Dengxj.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        int n = s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;pair&lt;int, int&gt;&gt; A(26, pair&lt;int, int&gt;(-1, -1));
+        for (int i = 0; i &lt; n; ++i) {
+            int idx = s[i] - 'a';
+            if (A[idx].first ==  -1) {
+                A[idx].first = i;</B></FONT>
+                A[idx].second = i;
+            } else {
+                A[idx].second = i;
+            }
+        }
+        vector&lt;pair&lt;int, int&gt;&gt; cand;
+<A NAME="1"></A>        for (int i = 0; i &lt; 26; ++i) if (A[i].first != -1) {
+            int start = A[i].first, end = A[i].second;
+            bool flag = true;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j = start + 1; j &lt;= end; ++j) {
+                int idx = s[j] - 'a';
+                if (A[idx].first != -1 &amp;&amp; A[idx].first &lt; start) {
+                    flag = false;
+                    break;
+                }</B></FONT>
+                end = max(end, A[idx].second);
+            }
+            if (flag)
+                cand.emplace_back(end, start);
+        }
+        sort(cand.begin(), cand.end());
+        vector&lt;string&gt; res;
+        int cur = 0;
+        for (const auto&amp; ele: cand) {
+            if (ele.second &gt;= cur) {
+                res.emplace_back(s.substr(ele.second, ele.first - ele.second + 1));
+                cur = ele.first + 1;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

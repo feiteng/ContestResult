@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>487_wellcs.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>487_wellcs.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; getStrongest(vector&lt;int&gt;&amp; arr, int k) {
+        sort(arr.begin(), arr.end());
+        int n = arr.size();
+        int m = arr[(n-1) / 2];
+        vector&lt;int&gt; ret;
+        int left = 0;
+        int right = n-1;
+        for(int i = 0; i &lt; k; ++i) {
+            if(abs(arr[left]-m) &gt; abs(arr[right] - m)) {
+                ret.push_back(arr[left]);
+                left++;
+            } else {
+                ret.push_back(arr[right]);
+                right--;
+            }
+        }
+        
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

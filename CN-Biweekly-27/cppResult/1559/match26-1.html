@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>171_zhangwenyao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>171_zhangwenyao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        const int rows = grid.size(), cols = grid[0].size();
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(rows, vector&lt;vector&lt;int&gt;&gt;(cols, vector&lt;int&gt;(cols, -1)));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][cols - 1] = grid[0][0] + grid[0][cols - 1];
+        for(int r = 1; r &lt; rows; ++r){
+            for(int cl = 0; cl &lt; cols; ++cl){
+<A NAME="1"></A>                for(int cr = cl; cr &lt; cols; ++cr){</B></FONT>
+                    int g = cl == cr ? grid[r][cl] : grid[r][cl] + grid[r][cr];
+                    int pre = -1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for(int i = -1; i &lt;= 1; ++i){
+                        if(cl + i &lt; 0 || cl + i &gt;= cols) continue;
+                        for(int j = -1; j &lt;= 1; ++j){
+                            if(cr + j &lt; 0 || cr + j &gt;= cols || cr &lt; cl) continue;</B></FONT>
+                            pre = max(pre, dp[r - 1][cl + i][cr +j]);
+                        }
+<A NAME="2"></A>                    }
+                    if(pre &gt;= 0)
+                        dp[r][cl][cr] = g + pre;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        int res = 0;
+        for(int cl = 0; cl &lt; cols; ++cl){
+            for(int cr = cl; cr &lt; cols; ++cr){
+                res = max(res, dp[rows - 1][cl][cr]);
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

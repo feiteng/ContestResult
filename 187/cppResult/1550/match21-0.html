@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>471_hungry_penguin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>471_hungry_penguin.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef pair&lt;int,vector&lt;int&gt;&gt; iv;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        int r=mat.size(), c=mat[0].size();
+        priority_queue&lt;iv&gt; pq;
+        int tot=0;
+        for(int i=0;i&lt;r;i++){
+            tot += mat[i][0];
+        }</B></FONT>
+        pq.push({-tot,vector&lt;int&gt;(r,0)});
+        multiset&lt;int&gt;score;
+        set&lt;vector&lt;int&gt;&gt;vis;
+        vis.insert(vector&lt;int&gt;(r,0));
+<A NAME="1"></A>        while(!pq.empty()){
+            if(score.size() == k)
+                break;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            iv cur=pq.top(); pq.pop();
+            int cur_score = cur.first;
+            score.insert(-cur_score);
+            //cout&lt;&lt;&quot;cur score: &quot;&lt;&lt;cur_score&lt;&lt;&quot; &quot;;
+            vector&lt;int&gt;idx= cur.second;
+            // for(const auto qq:idx){
+            //     cout&lt;&lt;qq&lt;&lt;&quot; &quot;;
+            // }cout&lt;&lt;endl;
+            for(int i=0;i&lt;r;i++){
+                if(idx[i]+1&lt;c){</B></FONT>
+                    idx[i]++;
+                    if(vis.count(idx)) {
+                        idx[i]--;
+                        continue;
+                    }
+                    vis.insert(idx);
+                    pq.push({cur_score -(mat[i][idx[i]]-mat[i][idx[i]-1]),idx});
+                    idx[i]--;
+                }
+            }
+        }
+        return *score.rbegin();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

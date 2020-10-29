@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>98_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>98_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    public int findMaxValueOfEquation(int[][] points, int k) {
+    	TreeMap&lt;Integer , Integer&gt; map = new TreeMap&lt;&gt;();
+<A NAME="0"></A>    	int i , j = 0 , n = points.length , ans = Integer.MIN_VALUE;
+    	for (i = 0;i &lt; n;i ++) {
+    		int result = points[i][0] + points[i][1];
+    		while (j &lt;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> i &amp;&amp; points[i][0] - points[j][0] &gt; k) {
+    			int value = points[j][1] - points[j][0];
+    			map.put(value , map.get(value) - 1);
+    			if (map.get(value) == 0) {
+    				map.remove(value);
+    			}
+<A NAME="1"></A>    			j ++;
+    		}
+    		if (!map.isEmpty()) {</B></FONT>
+    			result += (map.lastKey());<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+    			ans = Math.max(ans , result);
+    		}
+    		int value = points[i][1] - points[i][0];
+    		map.put(value , map.getOrDefault(value , 0) + 1);
+    	}    	
+    	return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

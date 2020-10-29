@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>448_elleryqueenhomels.java</TITLE>
+ <TITLE>152_hiromi_ayase.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>448_elleryqueenhomels.java</CENTER></H3><HR>
+<H3><CENTER>152_hiromi_ayase.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int minCost(String str, int[] cost) {
-        int res = 0;
-<A NAME="0"></A>        char[] s = str.toCharArray();
-        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
-        for (int i = 0; i &lt; s.length; ++i) {
-            if (!<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>stack.isEmpty() &amp;&amp; s[stack.peek()] == s[i]) {
-                if (cost[stack.peek()] &lt; cost[i]) {
-                    res += cost[stack.pop()];
-                    stack.push(i);
-                } else {
-                    res += cost[i];
-                }
-            } else {
-                stack.push(i);
-            }
-        }
-        return res;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+  public static void main(String[] args) {
+    System.out.println(new Solution().minCost(&quot;abaac&quot;, new int[]{1,2,3,4,5}));
+  }
+  public int minCost(String s, int[] cost) {
+    int n = s.length();
+
+    int ret = 0;
+    for (int from = 0; from &lt; n;) {
+      int to = from;
+      int max = cost[to];
+      int sum = 0;
+      while (to &lt; n &amp;&amp; s.charAt(to) == s.charAt(from)) {
+        max = Math.max(max, cost[to]);
+        sum += cost[to];
+        to ++;
+      }
+      ret += sum - max;
+      from = to;
     }
+    return ret;
+  }
 }</B></FONT>
 </PRE>
 

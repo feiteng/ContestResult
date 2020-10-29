@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>180_jassy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>180_jassy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        # steps = {1:{1:1,3:2,5:4}, 2:{2:2,5:3,6:1}, 3:{1:3,4:2,6:4}, 4:{2:4,3:3,4:1}}
+        steps = {1:[(0,1), (0,-1)], 2:[(1,0), (-1,0)], 3:[(0,-1),(1,0)], 4:[(0,1),(1,0)], 5:[(-1,0),(0,-1)], 6:[(0,1),(-1,0)]}
+        start = grid[</B></FONT>0][0]
+        q = [(0,0)]
+        steped = set([(0,0)])
+        while len(q)&gt;0:
+            qq = []
+<A NAME="1"></A>            for x,y in q:
+                for dx,dy in steps[grid[x][y]]:
+                    if x+dx&gt;=0 and y+dy&gt;=0 and x+dx&lt;len(grid) and y+dy&lt;len(grid[0]) and (x+dx,y+dy) not in steped:
+                        if (<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>-dx,-dy) in steps[grid[x+dx][y+dy]]:
+                            qq.append((x+dx, y+dy))
+                            steped.add((x+d</B></FONT>x, y+dy))
+                            # print(steped)
+            q = qq
+        if (len(grid)-1,len(grid[0]) - 1) not in steped:
+            return False
+        return True
+                
+</PRE>
+
+</BODY>
+</HTML>

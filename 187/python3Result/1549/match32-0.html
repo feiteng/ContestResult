@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>432_fanzhh.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>432_fanzhh.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -&gt; int:
+        mxq = collections.deque()
+        miq = collections.deque()
+        n = len(nums)
+        ans = 0
+        j = 0
+        ans = 0
+        # mxq (v, i)
+        for i in range(n):
+            while j &lt; n and (len(mxq) == 0 or (max(mxq[0][0], nums[j]) - min(miq[0][0], nums[j]) &lt;= limit)):
+                # print(i, &quot;: &quot;)
+<A NAME="0"></A>                # print(j, &quot;max:&quot;, max(mxq[0][0], nums[j]) if mxq else nums[j])
+                # print(j, &quot;min:&quot;, min(miq[0][0], nums[j]) if miq else nums[j])
+                nj = nums[j]
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while mxq and nj &gt; mxq[-1][0]:
+                    mxq.pop()
+                mxq.append((nj, j))
+                
+                while miq and nj &lt; miq[-1][0]:
+                    miq.pop()
+                miq.append((nj</B></FONT>, j))
+                
+                j += 1
+<A NAME="1"></A>            
+            ans = max(ans, j - i)
+            # print(i, j)
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if mxq[0][1] == i:
+                mxq.popleft()
+            if miq[0][1] == i:
+                miq.popleft(</B></FONT>)
+        
+        # print(&quot;------&quot;)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

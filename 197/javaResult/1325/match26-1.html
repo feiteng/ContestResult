@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>349_dennanisny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>349_dennanisny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        double[] maxProbs = new</B></FONT> double[n];
+        Deque&lt;Integer&gt; queue = new ArrayDeque&lt;&gt;();
+        Map&lt;Integer, List&lt;Pair&lt;Integer, Double&gt;&gt;&gt; neighborMap = new HashMap&lt;&gt;();
+<A NAME="1"></A>        for (int i = 0; i &lt; edges.length; i++) {
+            int[] edge = edges[i];
+            double prob = succProb[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int a = edge[0], b = edge[1];
+            neighborMap.computeIfAbsent(a, l -&gt; new ArrayList&lt;&gt;()).add(new Pair&lt;&gt;(b, prob));
+<A NAME="2"></A>            neighborMap.computeIfAbsent(b, l -&gt; new ArrayList&lt;&gt;()).add(new Pair&lt;&gt;(a, prob));
+        }</B></FONT>
+        maxProbs[start] = 1.0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>queue.add(start);
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            for (Pair&lt;Integer, Double&gt; pair : neighborMap.getOrDefault</B></FONT>(cur, new ArrayList&lt;&gt;())) {
+                int next = pair.getKey();
+                double prob = pair.getValue();
+                if (maxProbs[cur]*prob &gt; maxProbs[next]) {
+                    maxProbs[next] = maxProbs[cur]*prob;
+<A NAME="3"></A>                    if (next != end) {
+                        queue.add(next);
+                    }
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#3',2,'match26-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return maxProbs[end];
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

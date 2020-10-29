@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_acw_yxc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>32_acw_yxc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    
+    def fact(self, n):
+        res = 1
+        for i in range(1, n + 1): res *= i
+        return res
+    
+    def get_tot(self, balls):
+<A NAME="0"></A>        tot = self.fact(sum(balls))
+        for b in balls:
+            if b:
+                tot /= self.fact<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(b)
+        return tot
+    
+    def dfs(self, u, balls, left, right, ts, ls, rs):
+        if ls * 2 &gt; ts or rs * 2 &gt; ts: return 0
+        if u == len(balls):
+            l =</B></FONT> 0
+            r = 0
+            for i in range(len(balls)):
+                if left[i]: l += 1
+                if right[i]: r += 1
+            if l != r: return 0
+            return self.get_tot(left) * self.get_tot(right)
+        res = 0
+        for i in range(balls[u] + 1):
+            left[u] = i
+            right[u] = balls[u] - i
+            res += self.dfs(u + 1, balls, left, right, ts, ls + left[u], rs + right[u])
+        return res
+    
+    def getProbability(self, balls: List[int]) -&gt; float:
+        tot = self.get_tot(balls)
+        left = [0 for i in range(len(balls))]
+        right = [0 for i in range(len(balls))]
+        return self.dfs(0, balls, left, right, sum(balls), 0, 0) / tot
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>404_hunsmore-SNL0Zgj5Rb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>404_hunsmore-SNL0Zgj5Rb.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int ways(String[] pizza, int k) {
+        int rows = pizza.length;
+        int cols = pizza[0].length();
+        int[][] apples = new</B></FONT> int[rows][cols];
+        for (int i = rows - 1; i &gt;= 0; i--) {
+            for (int j = cols - 1; j &gt;= 0; j--) {
+                if (pizza[i].charAt(j) == 'A') apples[i][j] = 1;
+                if (i &lt; rows - 1) apples[i][j] += apples[i + 1][j];
+                if (j &lt; cols - 1) apples[i][j] += apples[i][j + 1];
+                if (i &lt; rows - 1 &amp;&amp; j &lt; cols - 1) apples[i][j] -= apples[i + 1][j + 1];
+            }
+        }
+
+        int[][][] dp = new int[rows][cols][k];
+        for (int i = rows - 1; i &gt;= 0; i--) {
+            for (int j = cols - 1; j &gt;= 0; j--) {
+                if (apples[i][j] &gt; 0) dp[i][j][0] = 1;
+            }
+        }
+<A NAME="1"></A>
+        int mask = 1000000007;
+
+<A NAME="2"></A>        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int kk = 1; kk &lt; k; kk++) {
+            for (int i = rows - 1; i &gt;= 0; i--) {
+                for (int j = cols - 1; j &gt;= 0; j--) {</B></FONT>
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int ii = i + 1; ii &lt; rows; ii++) {
+                        if (apples[i][j] &gt; apples[ii][j]) {
+                            dp[i][j][kk] += dp[ii][j][kk - 1];
+<A NAME="3"></A>                            dp[i][j][kk] %= mask;
+                        }
+                    }</B></FONT>
+                    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match4-1.html#3',3,'match4-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int jj = j + 1; jj &lt; cols; jj++) {
+                        if (apples[i][j] &gt; apples[i][jj]) {
+                            dp[i][j][kk] += dp[i][jj][kk - 1];
+                            dp[i][j][kk] %= mask;
+                        }
+                    }
+                }
+            }
+        }
+
+        return dp[0][0][k - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

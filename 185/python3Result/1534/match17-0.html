@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>742_JerryJin2905.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>742_JerryJin2905.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minNumberOfFrogs(self, croakOfFrogs: str) -&gt; int:
+        ans = 0
+        cnt = 0
+        memo = collections.defaultdict(int)
+<A NAME="0"></A>        for ch in croakOfFrogs:
+            if ch == 'c':
+                cnt += 1
+                memo<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>['c'] += 1
+            elif ch == 'r':
+                if memo['c'] == 0:
+                    return -1
+                else:
+                    memo['c'] -= 1
+                    memo['r'] += 1
+            elif ch == 'o':
+                if memo['r'] == 0:
+                    return -1
+                else:
+                    memo['r'] -= 1
+                    memo['o'] += 1
+            elif ch == 'a':
+                if memo['o'] == 0:
+                    return -1
+                else:
+                    memo['o'] -= 1
+                    memo['a'] += 1
+            elif ch == 'k':
+                if memo['a'] == 0:
+                    return -1
+                else:
+                    memo['a'] -=</B></FONT> 1
+                    cnt -= 1
+            else:
+                return -1
+            ans = max(ans, cnt)
+        
+        for ch in 'croa':
+            if memo[ch] &gt; 0:
+                return -1
+        return ans
+            
+                    
+        
+</PRE>
+
+</BODY>
+</HTML>

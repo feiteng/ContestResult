@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>354_window0105.java</TITLE>
+ <TITLE>219_HenryLee4.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>354_window0105.java</CENTER></H3><HR>
+<H3><CENTER>219_HenryLee4.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        int one = helper(nums1, nums2);
-        int two = helper(nums2, nums1);
-        return one + two;
-    }
-<A NAME="1"></A>    private int helper(int[] arr1, int[] arr2) {
-        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int val : arr1) {</B></FONT>
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put((long)val * val, map.getOrDefault((long)val * val, 0) + 1);
+        int res = 0;
+        for(int num: nums1){
+            res += verify(nums2, num);
         }
-        
-<A NAME="2"></A>        int res = 0;
-        for (int i = 0; i &lt; arr2.length - 1; i++) {
-            for (int j = i + 1; j &lt; arr2.length; j++) {</B></FONT>
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (map.containsKey((long)arr2[i] * arr2[j])) {
-                    res += map.get((long)arr2[i] * arr2[j]);
-                }
+        System.out.println(res);
+        for(int num: nums2){
+            res += verify(nums1, num);
+        }
+        return res;
+    }
+    
+    private int verify(int[] nums, long tar){
+        tar = tar * tar;
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int res = 0;
+        for(int num: nums){
+            int cur = (int)(tar / num);
+            if(tar % num == 0 &amp;&amp; map.containsKey(cur)){
+                res += map.get(cur);
             }
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
         return res;
     }

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+
+
+        double[] pr = new double[n];
+        p</B></FONT>r[start] = 1;
+
+
+        while (true) {
+            boolean modified = false;
+            for (int i = 0; i &lt; succProb.length; i++) {
+                int[] edge = edges[i];
+                int v = edge[0], w = edge[1];
+<A NAME="1"></A>                double p = succProb[i];
+
+                double pv = pr[v];
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double pw = pr[w];
+                if (pv * p &gt; pw) {
+                    pr[w] = pv * p;
+                    modified = true;
+                }
+                if (pw * p &gt; pv) {
+                    pr[v] = pw * p;
+                    modified = true;
+                }
+            }
+            if (!modified) {
+                break;
+            }
+        }</B></FONT>
+        return pr[end];
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>266_society765.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>266_society765.py</CENTER></H3><HR>
+<PRE>
+NB = 24
+
+class Solution:
+    def add(self, c, x):
+        k = 0
+        while x:
+            x, c[k] = x &amp; c[k], x ^ c[k]
+            k += 1
+
+    def sub(self, c, x):
+        k = 0
+        while x:
+            x, c[k] = x &amp; ~c[k], x ^ c[k]
+            k += 1
+<A NAME="0"></A>
+    def val(self, c, count):
+        k = 0
+        res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= -1
+        while count:
+            if count % 2 &gt; 0:
+                res &amp;= c[k]
+            else:
+                res &amp;= ~c[k]
+
+            count //= 2
+            k += 1
+        r</B></FONT>eturn res
+
+    def closestToTarget(self, arr: List[int], target: int) -&gt; int:
+        c = [0] * NB
+        n = len(arr)
+        i = 0
+        j = 0
+        K = target
+        res = 2**NB-1
+
+        while i &lt; n:
+            if K &lt; target or j == n:
+                self.sub(c, arr[i])
+                i += 1
+            else:
+                self.add(c, arr[j])
+                j += 1
+
+            if j &gt; i:
+                K = self.val(c, j - i)
+                X = abs(K - target)
+                if res &gt; X:
+                    res = X
+            else:
+                K = target
+
+        return res
+</PRE>
+
+</BODY>
+</HTML>

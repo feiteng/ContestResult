@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_cai-liao-xian-zhi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_cai-liao-xian-zhi.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int ans,a[10];
+    int pseudoPalindromicPaths (TreeNode* root) {
+<A NAME="0"></A>        ans=0;
+        memset(a,0,sizeof(a));
+        work(root);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return ans;
+    }
+    void work(TreeNode* root){
+        if(!root)return;
+        a[root-&gt;val]++;
+        work(root-&gt;left);
+        work(root-&gt;right);
+        if(!root-&gt;left&amp;&amp;!root-&gt;right){
+            int c=0;
+            for(int i=1;i&lt;10;++i){
+                if(a[i]%2==1)c++;</B></FONT>
+                if(c&gt;1)break;
+            }
+            if(c&lt;=1)ans++;
+        }
+        a[root-&gt;val]--;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

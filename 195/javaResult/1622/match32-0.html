@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>192_nagabhushan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>192_nagabhushan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] seg1;
+    int[] seg2;
+    int[] p1, p2;
+    int n;
+    int m;
+    
+    
+    public int findMaxValueOfEquation(int[][] a, int k</B></FONT>) {
+        
+        n = a.length;
+        m = 2*(int)Math.pow(2, Math.ceil(Math.log10(n)/Math.log10(2)))-1;
+        // m = 4*n;
+        seg1 = new int[m];
+        seg2 = new int[m];
+        
+        p1 = new int[n];
+        p2 = new int[n];
+        
+        for(int i=0; i&lt;n; i++) {
+            p1[i] = a[i][0]+a[i][1];
+            p2[i] = a[i][1]-a[i][0];
+        }
+        
+        build(0, n-1, 0, true);
+        build(0, n-1, 0, false);
+        
+        long ans = -(long)1e15;
+        
+        for(int i=0; i&lt;n; i++) {
+            int low = i+1;
+            int high = n-1;
+<A NAME="1"></A>            int mid = 0;
+            while(low&lt;high) {
+                mid = low+(high-low+1)/2;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (a[mid][0]-a[i][0]&gt;k) {
+                    high=mid-1;
+                } else {
+                    low=mid;
+                }
+            }</B></FONT>
+            boolean good = true;
+            if (low&lt;n &amp;&amp; a[low][0]-a[i][0]&gt;k) {
+                good = false;
+                // continue;
+            } 
+            if (good)
+                ans = Math.max(ans, a[i][1]-a[i][0]+query(i+1, low, 0, n-1, 0, true));
+            
+            low = 0;
+            high = i-1;
+<A NAME="2"></A>            mid = 0;
+            while(low&lt;high) {
+                mid = low+(high-low)/2;
+                if (a[i][0]-a[mid][0]&gt;k) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    low=mid+1;
+                } else {
+                    high=mid;
+                }
+            }</B></FONT>
+            if (a[i][0]-a[low][0]&gt;k) {
+                continue;
+            } 
+            
+<A NAME="3"></A>            ans = Math.max(ans, a[i][1]+a[i][0]+query(low, i-1, 0, n-1, 0, false));
+            // System.out.println(ans);
+            
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match32-1.html#3',3,'match32-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        return (int)ans;
+        
+    }
+    
+    private void build(int low, int high, int pos, boolean f) {</B></FONT>
+        if (low==high) {
+            if (f) {
+                seg1[pos] = p1[low];
+            } else {
+                
+                seg2[pos] = p2[low];
+            }
+            return;
+        }
+        
+        int mid = (low+high)/2;
+        
+<A NAME="4"></A>        build(low, mid, 2*pos+1, f);
+        build(mid+1, high, 2*pos+2, f);
+        
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match32-1.html#4',3,'match32-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (f) {
+            seg1[pos] = Math.max(seg1[2*pos+1], seg1[2*pos+2]);
+        } else {
+                
+<A NAME="5"></A>            seg2[pos] = Math.max(seg2[2*pos+1], seg2[2*pos+2]);
+        }
+        
+    <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match32-1.html#5',3,'match32-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}</B></FONT>
+    
+    private long query(int qlow, int qhigh, int low, int high, int pos, boolean f) {</B></FONT>
+<A NAME="6"></A>		
+		if (qhigh&lt;low || high&lt;qlow) {
+			return -1*(long)1e15;
+		} else if (qlow&lt;=low <FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match32-1.html#6',3,'match32-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>&amp;&amp; qhigh&gt;=high) {
+            if (f) {
+                return seg1[pos];
+            } else {
+                return seg2[pos];
+            }
+		} else {</B></FONT>
+			int mid = 0;
+			mid = (low+high)/2;
+			return Math.max(query(qlow, qhigh, low, mid, 2*pos+1, f),
+					query(qlow, qhigh, mid+1, high, 2*pos+2, f));
+		}
+		
+	}
+	
+// 	private void update(int index, long value, int low, int high, int pos) {
+// 		if (low==high) {
+// 			seg[pos] = value;
+// 			return;
+// 		}
+		
+// 		int mid = (low+high)/2;
+// 		if (index&lt;=mid)
+// 			update(index, value, low, mid, 2*pos+1);
+// 		else
+// 			update(index, value, mid+1, high, 2*pos+2);
+		
+// 		seg[pos] = Math.max(seg[2*pos+1], seg[2*pos+2]);
+		
+// 	}
+}
+</PRE>
+
+</BODY>
+</HTML>

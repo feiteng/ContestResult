@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>109_Andrew-Angrew.py</TITLE>
+ <TITLE>165_rickettsdinner630.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>109_Andrew-Angrew.py</CENTER></H3><HR>
+<H3><CENTER>165_rickettsdinner630.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        prev_char = None
-        max_block_cost = 0
-        remained_cost = 0
-        for char, char_cost in zip(s, cost):
-            if char == prev_char:
-                max_block_cost = max(max_block_cost, char_cost)
-            else:
-                remained_cost +=</B></FONT> max_block_cost
-                max_block_cost = char_cost
-                prev_char = char
-        remained_cost += max_block_cost
-        return sum(cost) - remained_cost
+        block = []
+        start = 0
+        for i in range(len(s)):
+            if i != 0 and s[i] != s[i - 1]:
+                block.append(cost[start:i])
+                start = i
+        block.append(cost[start:])
+        return sum(sum(b) - max(b</B></FONT>) for b in block)
 </PRE>
 
 </BODY>

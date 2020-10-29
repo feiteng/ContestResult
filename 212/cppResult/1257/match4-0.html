@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_AQT.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_AQT.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+public:
+    map&lt;int, vector&lt;pair&lt;int, int&gt;&gt;&gt; mp;
+    int mxr[1000005], mxc[1000005];
+    int dsu[2000005], mx[1000005];
+
+    int getrt(int n){
+        return dsu[n] = (dsu[n] == n ? n : getrt(dsu[n]));
+    }
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        int N = matrix.size();
+        int M = matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt; arr;
+        
+        for(int i = 0; i&lt;N; i++){
+            vector&lt;int&gt; tmp;
+            for(int j = 0; j&lt;M; j++){
+                mp[matrix[i][j]].emplace_back(i, j);
+                tmp.push_back(0);
+            }
+<A NAME="0"></A>            arr.push_back(tmp);
+        }
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto p : mp){
+            for(auto k : p.second){
+                dsu[k.first] = k.first;
+                dsu[k.second+N] = k.second + N;
+<A NAME="1"></A>                mx[k.first] = mx[k.second+N] = max(mxr[k.first], mxc[k.second]);
+            }
+            for(auto k : p.second){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(getrt(dsu[k.first]) != getrt(dsu[k.second+N])){
+                    mx[getrt(k.first)] = max(mx[getrt(k.first)], mx[getrt(k.second+N)]);
+                    dsu[getrt(k.second+N)] = getrt(k.first);
+                }
+            }
+            for(auto k : p.second){
+                arr[k.first][k.second] = mx[getrt(k.first)] + 1;
+                mxc[k.second] = mxr[k.first] = arr[k.first][k.second];
+            }
+        }
+        
+        return arr;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>591_taraspylypenko.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>591_taraspylypenko.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int ways(String[] pizza, int k) {
+        int numRows = pizza.length;
+        int numCols = pizza[0].length();
+        boolean[][] a = new</B></FONT> boolean[numRows][numCols];
+        for(int i = 0; i &lt; numRows; i++) {
+            for(int j = 0; j &lt; numCols; j++) {
+                a[i][j] = (pizza[i].charAt(j)) == 'A';
+<A NAME="1"></A>            }
+        }
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] applesUnder = new int[numRows+1][numCols+1];
+        for(int i = numRows-1; i &gt;= 0; i--) {
+            for(int j = numCols-1; j &gt;= 0; j--) {
+                int applesHere = 0</B></FONT>;
+                if(a[i][j]) {
+                    applesHere = 1;
+                }
+                applesUnder[i][j] = applesUnder[i][j+1] + applesUnder[i+1][j] - applesUnder[i+1][j+1] + applesHere;
+            }
+        }
+        
+        int[][][] w = new int[k][numRows+1][numCols+1];
+        
+        //cutsLeft == 0
+        for(int i = 0; i &lt; numRows; i++) {
+            for(int j = 0; j &lt; numCols; j++) {
+<A NAME="2"></A>                if(applesUnder[i][j] &gt; 0) {
+                    w[0][i][j] = 1;
+                }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        //cutsLeft &gt; 0        
+        for(int cutsLeft = 1; cutsLeft &lt; k; cutsLeft++) {
+            for(int i = numRows-1; i &gt;= 0; i--) {
+                for(int j = numCols-1; j &gt;= 0; j--) {</B></FONT>
+                    for(int newI = i; newI &lt; numRows; newI++) {
+                        if(applesUnder[newI][j] &lt; applesUnder[i][j]) {
+                            w[cutsLeft][i][j] += w[cutsLeft-1][newI][j];
+                            w[cutsLeft][i][j] = w[cutsLeft][i][j]%1000000007;
+                        }                        
+                    }
+                    for(int newJ = j; newJ &lt; numCols; newJ++) {
+<A NAME="3"></A>                        if(applesUnder[i][newJ] &lt; applesUnder[i][j]) {
+                            w[cutsLeft][i][j] += w[cutsLeft-1][i][newJ];
+                            w[cutsLeft][i][j] = w[cutsLeft][i][j]%1000000007;
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match12-1.html#3',3,'match12-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                    }
+                }
+            }
+        }
+                
+        return w[k-1][0][0];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

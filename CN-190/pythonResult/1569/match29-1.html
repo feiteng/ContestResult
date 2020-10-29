@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>346_vuuihc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>346_vuuihc.py</CENTER></H3><HR>
+<PRE>
+import sys
+class Solution(object):
+    def maxDotProduct(self, nums1, nums2):
+        &quot;&quot;&quot;
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        dp = [[0]*len(nums2) for i in range(len(nums1))]
+        dpmax = 0
+        # dp[i][j] a 的前i+1个数的子序列，和b的前j+1个数的子序列，最大点积，非空
+        # dp[i][j] = max(a[i-1]*b[j-1] + dp[i-1][j-1], )
+        # dp[0][0] = 0
+        # dp[1][1] = 1*1 = 1
+        # dp[0][1] = 0
+        # dp[1][0] = 0
+        # dp[1][2] = 
+        
+        # 1,2,3,4 ,5, 6, 7
+        # 1,2,3,4,-1,-1, 4
+        
+        max1 = -sys.maxint - 1
+        for i in range(len(nums1)):
+            max1 = max(nums1[i]*nums2[0], max1)
+            dp[i][0] = max1
+            
+        max1 = -sys.maxint - 1
+        for i in range(len(nums2)):
+            max1 = max(nums1[0]*nums2[i], max1)
+            dp[0][i] = max1
+            
+        for i in range(1, len(nums1)):
+<A NAME="0"></A>            for j in range(1, len(nums2)):
+                tmpmax = max(0, dp[i-1][j-1])
+                tmpmax = max(nums1[i]* nums2[j] + tmpmax, dp[i-1][j-1])
+                tmpmax = max(tmpmax, dp<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][j-1])
+                tmpmax = max(tmpmax, dp[i-1][j])
+                # print tmpmax
+                
+                dp[i][j] = tmpmax
+                
+        return</B></FONT> dp[len(nums1)-1][len(nums2)-1]
+            
+</PRE>
+
+</BODY>
+</HTML>

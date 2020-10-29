@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>416_twbbbb.py</TITLE>
+ <TITLE>109_Andrew-Angrew.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>416_twbbbb.py</CENTER></H3><HR>
+<H3><CENTER>109_Andrew-Angrew.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from itertools import combinations
+from collections import Counter
+
+def count_triplets_asym(products, nums):
+    return sum(products[a * b] for a, b in combinations(nums, 2))
+
 class Solution:
-<A NAME="0"></A>    def numTriplets(self, nums1: [int], nums2: [int]) -&gt; int:
-        def f(a,b):
-            import collections
-            c<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=collections.Counter()
-            for x in a:
-                c[x*x]+=1
-            ans=0
-            for i in range(len(b)):
-                for j in range(i+1,len(b)):
-                    ans+=c[b[i]*b[j]]
-            return ans
-        return f(nums1,nums2)+f(n</B></FONT>ums2,nums1)
+    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        return (
+            count_triplets_asym(Counter(x ** 2 for x in nums1), nums2) +
+            count_triplets_asym(Counter(x</B></FONT> ** 2 for x in nums2), nums1)
+        )
 </PRE>
 
 </BODY>

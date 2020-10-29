@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_aging.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_aging.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;bool&gt; checkArithmeticSubarrays(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; l, vector&lt;int&gt;&amp; r) {
+       /* nums = l = r = vector&lt;int&gt;(500, 0);
+        for (int i = 0; i &lt; 500; ++i) {
+            nums[i] = i;
+            l[i] = 0;
+            r[i] = 499;
+        }*/
+        
+        vector&lt;bool&gt; res;
+        
+<A NAME="1"></A>        for (int i = 0; i &lt; l.size(); ++i) {
+            vector&lt;int&gt; sub(nums.begin() + l[i], nums.begin() + r[i] + 1);</B></FONT>
+            sort(sub.begin(), sub.end());
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int d = sub[1] - sub[0];
+            bool flag = true;
+            for (int j = 1; j + 1 &lt; sub.size(); ++j) {
+                if (sub[j + 1] - sub[j] != d) {
+                    flag = false;
+                    break;
+                }
+            }
+            res.push_back(flag);
+        }
+        
+        return res;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>186_dl3182.py</TITLE>
+ <TITLE>177_Seayahh.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>186_dl3182.py</CENTER></H3><HR>
+<H3><CENTER>177_Seayahh.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-<A NAME="0"></A>        i,ans = 0,0
-        while i&lt;len(s):
-            j = i
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while j&lt;len(s) and s[i]==s[j]:
-                j+=1
-            if j!=i+1:
-                ans += sum(cost[i:j])-max(cost[i:j])
-            i = j
+        last = ''
+        l = [0]
+        ans = 0
+        for i, c in enumerate(s):
+            if c == last:
+                l.append(cost[i])
+            else:
+                ans += sum(l) - max(l)
+                last = c
+                l = [cost[i]]
+        
+        ans += sum(l) - max(l)
         re</B></FONT>turn ans
 </PRE>
 

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>505_Mikchy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>505_Mikchy.cpp</CENTER></H3><HR>
+<PRE>
+const int MAXN = 350;
+
+struct Node
+{
+    int x, y;
+    Node(int x_, int y_) : x(x_), y(y_) {}
+};
+
+class Solution {
+public:
+    
+    int dx[12] = {0, 0, +1, -1, 0, +1, 0, +1, -1, 0, -1, 0};
+    int dy[12] = {-1, +1, 0, 0, -1, 0, +1, 0, 0, -1, 0, +1};
+    
+    int vis[MAXN][MAXN];
+    
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        
+        memset(vis, 0, sizeof(vis));
+        int n = grid.size(), m = grid[0].size();
+        
+        queue&lt;Node&gt; q;
+        
+        while(!q.empty()) q.pop();
+        
+        q.push(Node(0, 0));
+        vis[0][0] = 1;
+        
+        while(!q.empty())
+        {
+            Node cur = q.front();
+            int cur_x = cur.x, cur_y = cur.y;
+            q.pop();
+            if(cur_x == n - 1 &amp;&amp; cur_y == m - 1) return true;
+            
+<A NAME="0"></A>            int tx, ty;
+            if(grid[cur_x][cur_y] == 1)
+            {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                tx = cur_x, ty = cur_y - 1;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 1 || grid[tx][ty] == 4 || grid[tx][ty] == 6))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+                tx = cur_x, ty = cur_y + 1;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 1 || grid[tx][ty] == 3 || grid[tx][ty] == 5))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+<A NAME="1"></A>            }
+            else if(grid[cur_x][cur_y] == 2)
+            {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                tx = cur_x - 1, ty = cur_y;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 2 || grid[tx][ty] == 3 || grid[tx][ty] == 4))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+                tx = cur_x + 1, ty = cur_y;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 2 || grid[tx][ty] == 5 || grid[tx][ty] == 6))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+<A NAME="2"></A>            }
+            else if(grid[cur_x][cur_y] == 3)
+            {</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                tx = cur_x, ty = cur_y - 1;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 1 || grid[tx][ty] == 4 || grid[tx][ty] == 6))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+                
+                tx = cur_x + 1, ty = cur_y;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 2 || grid[tx][ty] == 5 || grid[tx][ty] == 6))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+<A NAME="3"></A>            }
+            else if(grid[cur_x][cur_y] == 4)
+            {</B></FONT>
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#3',2,'match7-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                tx = cur_x, ty = cur_y + 1;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 1 || grid[tx][ty] == 3 || grid[tx][ty] == 5))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+                
+                tx = cur_x + 1, ty = cur_y;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 2 || grid[tx][ty] == 5 || grid[tx][ty] == 6))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+<A NAME="4"></A>            }
+            else if(grid[cur_x][cur_y] == 5)
+            {</B></FONT>
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#4',2,'match7-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                tx = cur_x - 1, ty = cur_y;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 2 || grid[tx][ty] == 3 || grid[tx][ty] == 4))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+                
+                tx = cur_x, ty = cur_y - 1;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 1 || grid[tx][ty] == 4 || grid[tx][ty] == 6))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+<A NAME="5"></A>            }
+            else if(grid[cur_x][cur_y] == 6)
+            {</B></FONT>
+<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#5',2,'match7-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                tx = cur_x - 1, ty = cur_y;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 2 || grid[tx][ty] == 3 || grid[tx][ty] == 4))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+                
+                tx = cur_x, ty = cur_y + 1;
+                if(tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; vis[tx][ty] == 0 &amp;&amp; (grid[tx][ty] == 1 || grid[tx][ty] == 3 || grid[tx][ty] == 5))
+                {
+                    vis[tx][ty] = 1;
+                    q.push(Node(tx, ty));
+                }
+            }
+            
+
+        }</B></FONT>
+        
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

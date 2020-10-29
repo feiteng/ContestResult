@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>479_xhcqup.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>479_xhcqup.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>using ll = long long;
+const ll MOD = 1e9+7;
+class Solution {
+<A NAME="1"></A>public:
+    int numOfArrays(int n, int m, int k) {</B></FONT>
+        vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; dp(n+1, vector&lt;vector&lt;ll&gt;&gt;(m+1, vector&lt;ll&gt;(k+1)));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i&lt;=m;i++) dp[1][i][1] = 1;
+        for(int i=2;i&lt;=n;i++){
+            for(int j=1;j&lt;=m;j++){
+<A NAME="2"></A>                for(int l=1;l&lt;=k;l++){</B></FONT>
+                    if(j&gt;1) dp[i-1][j-1][l-1] = (dp[i-1][j-1][l-1]  + dp[i-1][j-2][l-1]) % MOD;
+                    dp[i][j][l] = (dp[i-1][j-1][l-1] + (dp[i-1][j][l]*j)%MOD) % MOD;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        ll ans = 0;
+        for(int i=1;i&lt;=m;i++){
+            ans = (ans + dp[n][i][k]) % MOD;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>478_AchillesRahin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>478_AchillesRahin.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minNumberOfFrogs(String s) {
+        int max = 0;
+        int total = 0;
+        
+        Map&lt;Character, Integer&gt; count = new HashMap&lt;&gt;();
+        
+        for (int i =0 ; i &lt; s.length();i++){
+            char c = s.charAt(i);
+            //System.out.println(count.toString());
+            if (c != 'c' &amp;&amp; !count.containsKey(c)) return -1;
+            if (c == 'c'){
+                count.put('r', count.getOrDefault('r', 0) + 1);
+<A NAME="0"></A>                total++;
+            }
+            else if (c == 'r'){
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>count.put('o', count.getOrDefault('o', 0) + 1);
+                count.put('r', count.get('r') - 1);
+<A NAME="1"></A>                if (count.get('r') == 0) count.remove('r');
+            }
+            else if (c == 'o'){</B></FONT>
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>count.put('a', count.getOrDefault('a', 0) + 1);
+                count.put('o', count.get('o') - 1);
+<A NAME="2"></A>                if (count.get('o') == 0) count.remove('o');
+            }
+            else if (c == 'a'){</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>count.put('k', count.getOrDefault('k', 0) + 1);
+                count.put('a', count.get('a') - 1);
+<A NAME="3"></A>                if (count.get('a') == 0) count.remove('a');
+            }
+            else if (c == 'k'){</B></FONT>
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>count.put('k', count.getOrDefault('k', 0) - 1);
+                if (count.get('k') == 0) count.remove('k');
+                total--;
+            }
+            max = Math.max(max, total);
+        }
+        
+        if (count.size</B></FONT>() &gt; 0) return -1;
+        return max;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

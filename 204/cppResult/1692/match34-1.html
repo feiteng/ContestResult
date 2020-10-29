@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_9pm.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_9pm.cpp</CENTER></H3><HR>
+<PRE>
+// {{{ ModInt
+template&lt;int _MOD&gt;
+struct ModInt {
+	static const auto MOD = _MOD;
+	template&lt;class T&gt; using integral_only = typename enable_if&lt;is_integral&lt;T&gt;::value&gt;::type;
+ 
+    int x;   
+	constexpr ModInt() : x() {}
+ 
+	template&lt;class T, integral_only&lt;T&gt;* = nullptr&gt;
+    ModInt(T _x=0) {
+<A NAME="0"></A>		x = _x % MOD;
+		if(x&lt;0) x+=MOD;
+	}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    ModInt operator-() const { return {x == 0? 0 : MOD-x}; }
+    ModInt&amp; operator+=(const ModInt a) {
+        if ((x += a.x) &gt;= MOD) x -= MOD;
+        return *this;
+    }
+    ModInt&amp; operator-=(const ModInt a) {
+        if ((x += MOD-a.x) &gt;= MOD) x -= MOD;
+        return *this;
+    }
+    ModInt&amp; operator*=(const ModInt a) {
+<A NAME="1"></A>        x = (long long)x * a.x % MOD;</B></FONT>
+        return *this;
+    }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    ModInt&amp; operator/=(const ModInt a) {
+        return (*this) *= a.inv();
+    }
+ 
+    ModInt operator+(const ModInt a) const { return ModInt(*this) += a; }
+<A NAME="2"></A>    ModInt operator-(const ModInt a) const { return ModInt(*this) -= a; }
+    ModInt operator*(const ModInt a) const { return ModInt(*this) *= a; }
+    ModInt operator/(const ModInt a) const { return ModInt(*this) /= a; }</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    ModInt inv() const {
+	    // for prime MOD
+        return pow(MOD-2);
+    }
+	ModInt inv2() const {
+		// work for non-prime MOD if gcd(x,MOD) = 1
+		int a = x, b = MOD, u = 1, v = 0;
+		while(b != 0) {</B></FONT>
+			int t = a / b;
+			a -= t * b;
+			u -= t * v;
+			swap(a, b);
+			swap(u, v);
+		}
+		return u;
+	}
+	template&lt;class T, integral_only&lt;T&gt;* = nullptr&gt;
+    ModInt pow(T t) const {
+		ModInt r = 1, p = *this;
+		while(t) {
+			if(t &amp; 1) r *= p;
+			p *= p;
+			t &gt;&gt;= 1;
+		}
+        return r;
+    }
+ 
+    bool operator==(ModInt rhs) const { return x == rhs.x; }
+    bool operator!=(ModInt rhs) const { return x != rhs.x; }
+    bool operator&lt;(ModInt rhs) const { return x &lt; rhs.x; }
+    bool operator&lt;=(ModInt rhs) const { return x &lt;= rhs.x; }
+    bool operator&gt;(ModInt rhs) const { return x &gt; rhs.x; }
+    bool operator&gt;=(ModInt rhs) const { return x &gt;= rhs.x; }
+ 
+    friend string to_string(ModInt i) { return to_string(i.x); }
+    friend istream&amp; operator&gt;&gt;(istream&amp;i,ModInt&amp;a) { return i&gt;&gt;a.x; }
+    friend ostream&amp; operator&lt;&lt;(ostream&amp;o,const ModInt&amp;a) { return o&lt;&lt;a.x; }
+};
+ 
+const int MOD=1000000007;
+using mint=ModInt&lt;MOD&gt;;
+// }}}
+ 
+const int N=20005;
+ 
+struct Node {
+    Node *left, *right;
+    int val;
+    Node(int v) : val(v),left(NULL),right(NULL) {}
+};
+class Solution {
+public:
+    mint fact[N], ifact[N];
+    void init_fact(int n) {
+        n++;
+        fact[0]=1;
+        for(int i=1; i&lt;=n; i++) fact[i]=fact[i-1]*i;
+        ifact[n]=fact[n].inv();
+        for(int i=n; i&gt;0; i--) ifact[i-1]=ifact[i]*i;
+    }
+
+    mint solve(vector&lt;int&gt;&amp; nums) {
+        if ( nums.size()==0 ) return 1;
+        int root=nums[0];
+        vector&lt;int&gt; left,right;
+        for ( int i=1; i&lt;nums.size(); i++ ) {
+            if ( nums[i]&lt;root ) left.push_back(nums[i]);
+            else right.push_back(nums[i]);
+        }
+        mint l=solve(left);
+        mint r=solve(right);
+        int szl=left.size();
+        int szr=right.size();
+        return fact[szl+szr]*ifact[szl]*ifact[szr]*l*r;
+    }
+    
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+        init_fact(nums.size());
+        return solve(nums).x-1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

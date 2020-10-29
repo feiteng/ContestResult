@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>265_payall4u.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>265_payall4u.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxSum(int[] nums1, int[] nums2) {
+        long[] dp1 = new long[nums1.length + 1];
+        long[] dp2 = new long[nums2.length + 1];
+        int p1 = nums1.length - 1, p2 = nums2.length - 1;
+<A NAME="1"></A>        while (p1 &gt;= 0 &amp;&amp; p2 &gt;= 0) {
+            if (nums1[p1] == nums2[p2]) {</B></FONT>
+                long tmp = Math.max(dp1[p1 + 1], dp2[p2 + 1]);
+                dp1[p1] = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dp2[p2] = tmp + nums1[p1];
+                p1--;
+                p2--;
+            } else if (nums1[p1] &lt; nums2[p2]) {
+<A NAME="2"></A>                dp2[p2] = dp2[p2 + 1] + nums2[p2];
+                p2--;
+            } else {</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dp1[p1] = dp1[p1 + 1] + nums1[p1];
+                p1--;
+            }
+        }
+        while (p1 &gt;= 0) {
+            dp1[p1] = dp1[p1 + 1] + nums1[p1];
+            p1--;
+        }
+
+        while (p2 &gt;= 0) {
+            dp2[p2] = dp2[p2 + 1] + nums2[p2];
+            p2--;
+        }</B></FONT>
+        int a = (int)(dp1[0] % 1000000007);
+        int b = (int)(dp2[0] % 1000000007);
+        return Math.max(a, b);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

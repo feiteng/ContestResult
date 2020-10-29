@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>123_xyz_zhzho.cpp</TITLE>
+ <TITLE>145_qwnjc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,76 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>123_xyz_zhzho.cpp</CENTER></H3><HR>
+<H3><CENTER>145_qwnjc.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        map&lt;long long, int&gt; mp;
-<A NAME="0"></A>        
-        int ans = 0;
+        long long res = 0;
         
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; nums2.size(); i ++) {
-            for(int j = i+1;j&lt;nums2.size();j++) {
-                mp[1LL*nums2[i]*nums2[j]]++;
+        const int MX = 100000 + 1000;
+        vector&lt;int&gt; cntsA(MX, 0);
+        vector&lt;int&gt; cntsB(MX, 0);
+        for (auto x : nums1) {
+            ++cntsA[x];
+        }
+        for (auto x : nums2) {
+            ++cntsB[x];
+        }
+        // sort(nums1.begin(), nums1.end());
+        // sort(nums2.begin(), nums2.end());
+        auto calc = [&amp;](const vector&lt;int&gt;&amp; A, const vector&lt;int&gt;&amp; B, vector&lt;int&gt;&amp; cntsA, vector&lt;int&gt;&amp; cntsB) {
+            int n = A.size();
+            int m = B.size();
+            
+            long long res = 0;
+            
+            // vector&lt;long long&gt; C;
+            // C.reserve(m * m + 1);
+            // for (int i = 0; i &lt; m; ++i) {
+            //     for (int j = i + 1; j &lt; m; ++j) {
+            //         C.push_back(B[i] * 1LL * B[j]);
+            //     }
+            // }
+            // sort(C.begin(), C.end());
+            // for (auto x : A) {
+            //     auto eq = equal_range(C.begin(), C.end(), x * 1LL * x);
+            //     if (eq.first != C.end()) {
+            //         res += eq.second - eq.first;
+            //     }
+            // }
+            
+            for (int i = 0; i &lt; n; ++i) {
+                long long p = A[i] * 1LL * A[i];
+                long long sq = 0;
+                for (int j = 0; j &lt; m; ++j) {
+                    long long x = B[j];
+                    
+                    if (x * x == p) {
+                        sq = x;
+                        continue;
+                    }
+                    
+                    if (x * x &lt; p &amp;&amp; p % x == 0) {
+                        long long y = p / x;
+                        if (y &gt;= 0 &amp;&amp; y &lt; cntsB.size()) {
+                            res += cntsB[y];
+                        }
+                    }
+                }
+                
+                if (sq * sq == p) {
+                    // cout &lt;&lt; A[i] &lt;&lt; &quot; &quot; &lt;&lt; cntsB[sq] &lt;&lt; endl;
+                    res += (cntsB[sq] * (cntsB[sq] - 1)) / 2;
+                }
             }
-<A NAME="1"></A>        }</B></FONT>
+            
+            return res;
+        };
         
-        
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; nums1.size(); i ++) {
-            ans += mp[1LL*nums1[i]*nums1[i]];
-        }
-        
-        mp.clear();
-        for(int i = 0; i &lt; nums1.size(); i ++) {
-            for(int j = i+1;j&lt;nums1.size();j++) {
-                mp[1LL*nums1[i]*nums1[j]]++;
-            }
-        }
-        
-        
-        for(int i = 0; i &lt; nums2.size(); i ++) {
-            ans += mp[1LL*nums2[i]*nums2[i]];
-        }
-        
-        return ans;
+        res += calc(nums1, nums2, cntsA, cntsB);
+        res += calc(nums2, nums1, cntsB, cntsA);
+        return res;
     }
 };</B></FONT>
 </PRE>

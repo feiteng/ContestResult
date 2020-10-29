@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>418_nikcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>418_nikcode.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int R;
+    int C;
+
+<A NAME="0"></A>    public int cherryPickup(int[][] grid) {
+        R = grid.length;
+        C = grid[0].length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][] mem = new int[R][C][C];
+        for (int i = 0; i &lt; R; i++) {
+            for (int j = 0; j &lt; C; j++) {
+                for (int l = 0; l &lt; C; l++)
+                    mem[i][j][l] = -1;
+            }
+        }
+
+        return getMaxUtil(grid, mem, 0, 0, C - 1);
+    }
+
+    private int getMaxUtil(int arr[][], int mem[][][],
+                           int x, int y1, int y2) {</B></FONT>
+
+        if (!isValid(x, y1, y2)) return Integer.MIN_VALUE;
+
+<A NAME="1"></A>        if (x == R - 1)
+            return (y1 == y2) ? arr[x][y1] : arr[x][y1] + arr[x][y2];
+
+        if (x == R - 1) return Integer.MIN_VALUE<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+
+        if (mem[x][y1][y2] != -1) return mem[x][y1][y2];
+
+        int ans = Integer.MIN_VALUE;
+
+        int temp = (y1 == y2) ? arr[x][y1] :
+                arr[x][y1] + arr[x][y2];
+
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1, y2 - 1));
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1, y2 + 1));
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1, y2));
+
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1 - 1, y2));
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1 - 1, y2 - 1));
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1 - 1, y2 + 1));
+
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1 + 1, y2));
+        ans = Math.max(ans, temp + getMaxUtil(arr, mem, x + 1, y1 + 1, y2 - 1));
+        ans = Math.max(ans, temp + getMaxUtil</B></FONT>(arr, mem, x + 1, y1 + 1, y2 + 1));
+
+        return (mem[x][y1][y2] = ans);
+    }
+
+    private boolean isValid(int x, int y1, int y2) {
+        return (x &gt;= 0 &amp;&amp; x &lt; R &amp;&amp; y1 &gt;= 0 &amp;&amp; y1 &lt; C &amp;&amp; y2 &gt;= 0 &amp;&amp; y2 &lt; C);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

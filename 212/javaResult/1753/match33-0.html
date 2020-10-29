@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>936_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>936_zac4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        int R = heights.length, C = heights[0].length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[][] effort = new int[R][C]</B></FONT>;
+<A NAME="1"></A>        for (int[] e : effort) {
+            Arrays.fill(e, Integer.MAX_VALUE);
+        }
+        Queue&lt;int[]&gt; q = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new LinkedList();
+        q.offer(new int[]{0, 0, 0});
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            int r0 = cur[0]</B></FONT>, c0 = cur[1], ef = cur[2];
+            if (ef &gt; effort[r0][c0]) {
+                continue;
+<A NAME="2"></A>            } else {
+                effort[r0][c0] = ef;
+            }
+<A NAME="3"></A>            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int[] d : dirs) {
+                int r = r0 + d[0], c = c0 + d[1];
+                if (r &gt;= 0 &amp;&amp; c &gt;= 0 &amp;&amp; r &lt; R &amp;&amp; c &lt; C) {
+                    int nEf = Math.max</B></FONT>(ef, <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match33-1.html#3',3,'match33-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.abs(heights[r][c] - heights[r0][c0]));
+                    if (nEf &lt; effort[r][c]) {
+                        effort[r][c] = nEf;
+                        q.offer(new int[]{r, c, nEf});
+                    }
+                }
+            }
+        }
+        return effort[R - 1][C - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

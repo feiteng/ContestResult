@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>211_ZhuolinYang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>211_ZhuolinYang.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+const double eps = 1e-8;
+
+<A NAME="0"></A>int dcmp(double x) { return fabs(x) &lt;= eps ? 0 : (x &gt; 0 ? 1 : -1); }
+priority_queue&lt;pair&lt;double, int&gt; &gt; q;
+double d[200001];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>vector&lt;pair&lt;int, double&gt; &gt; E[200001];
+class Solution {
+<A NAME="1"></A>public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+        int m = (int )edges.size();</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i ++) E[i].clear();
+        for (int i = 0; i &lt; m; i ++) {
+            int x = edges[i][0], y = edges[i][1];
+            double z = -log(succProb[i]);</B></FONT>
+            E[x].push_back(make_pair(y, z));
+            E[y].push_back(make_pair(x, z));
+        }
+        q.push(make_pair(0., start));
+        for (int i = 0; i &lt; n; i ++) d[i] = 0x3f3f3f3f3f3f3f3f;
+        d[start] = 0.;
+        while (!q.empty()) {
+            while (!q.empty() &amp;&amp; dcmp(d[q.top().second] + q.top().first)) q.pop();
+            if (q.empty()) break;
+            pair&lt;double, int&gt; z = q.top(); q.pop();
+            if (z.second == end) break;
+            for (int i = 0; i &lt; (int )E[z.second].size(); i ++) {
+                int to = E[z.second][i].first;
+                double cc = E[z.second][i].second;
+                if (d[z.second] + cc + eps &lt; d[to]) {
+                    d[to] = d[z.second] + cc;
+                    q.push(make_pair(-d[to], to));
+                }
+            }
+        }
+        if (d[end] &gt; 0x3f3f3f3f3f3f3f3f - 1) return 0;
+        return exp(-d[end]);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

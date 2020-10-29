@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>400_alaric-2.java</TITLE>
+ <TITLE>807_zhaox29.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>400_alaric-2.java</CENTER></H3><HR>
+<H3><CENTER>807_zhaox29.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    /*
+    input: String s is not null or empty
+         only lower case &amp; ?
+    M1: try out the char - linear scan
+    
+        j?qg??b
+        
+         i
+        
+        ? -&gt; 
+            try the first char in 'a' - 'z' that is different from i - 1 &amp; i + 1
+            
+        jaqgacb
+        
+        X?????Y
+         -----
+        
+      Time: O(n)
+      Space: O(1)
+    */
     public String modifyString(String s) {
-
-        char[] chars = s.toCharArray();
-        for (int i = 0; i &lt; chars.length; i++) {
-            if (chars[i] == '?') {
-                for (int j = 0; j &lt; 26; j++) {</B></FONT>
-                    char ch = (char) ('a' + j);
-                    if ((i - 1 &lt; 0 || chars[i - 1] != ch) &amp;&amp; 
-                            (i + 1 &gt;= s.length() || chars[i + 1] != ch)) {
-<A NAME="1"></A>                        chars[i] = ch;
-                        break;
-                    }
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i &lt; s.length(); i++) {
+            if (s.charAt(i) != '?') {
+                sb.append(s.charAt(i));
+            } else {
+                char ch = 'a';
+                while ((i - 1 &gt;= 0 &amp;&amp; sb.charAt(i - 1) == ch) 
+                       || (i + 1 &lt; s.length() &amp;&amp; s.charAt(i + 1) == ch)) {
+                    ch++;
+                }
+                sb.append(ch);
             }
         }
-        return new String(chars);
+        
+        return sb.toString();
     }
 }</B></FONT>
 </PRE>

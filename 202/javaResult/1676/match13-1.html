@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_cloudstrife0142.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>151_cloudstrife0142.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minDays(int n) {
+        HashMap&lt;Integer, Integer&gt; memo = new HashMap&lt;&gt;();
+        return help(n, memo);
+    }
+    
+    public int help(int rem, HashMap&lt;Integer, Integer&gt; memo) {
+        if (rem &lt;= 1) {
+            return rem;
+        }
+        if (memo.containsKey(rem)) {
+            return memo.get(rem);
+        }
+        int ret = Integer.MAX_VALUE;
+        if (rem % 2 == 0) {
+            ret = Math.min(ret, 1 + help(rem/2, memo));
+        } else {
+            ret = Math.min(ret, 2 + help((rem-1)/2, memo));
+        }
+        if (rem % 3 == 0) {
+            ret = Math.min(ret, 1 + help(rem/3, memo));
+        } else {
+            ret = Math.min(ret, 1 + (rem % 3) + help(rem/3, memo));
+        }
+        memo.put(rem, ret);
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

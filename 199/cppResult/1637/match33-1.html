@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_dzm1016397507.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_dzm1016397507.cpp</CENTER></H3><HR>
+<PRE>
+int f[105][105];
+<A NAME="0"></A>void upd(int&amp;ret, int val){
+    if(ret==-1||ret&gt;val)ret = val;
+}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int getLengthOfOptimalCompression(string s, int m) {
+        int n = s.size();
+        memset(f, -1, sizeof(f));
+        f[0][0] = 0;
+        for(int i=0;i&lt;n;i++)</B></FONT>
+            for(int j=0;j&lt;=m;j++){
+                if(f[i][j]==-1)continue;
+                unordered_map&lt;int, int&gt;mp;
+                int mx = 0;
+                for(int k=i+1;k&lt;=n;k++){
+                    int cur = s[k-1]-'a';
+                    mp[cur]++;
+                    mx = max(mx, mp[cur]);
+                    if(j+k-i-mx&lt;=m){
+                        upd(f[k][j+k-i-mx], f[i][j]+1+(mx&lt;10?(mx==1?0:1):(mx&lt;100?2:3)));
+                    }
+                    if(j+k-i&lt;=m){
+                        upd(f[k][j+k-i], f[i][j]);
+                    }
+                }
+            }
+        int ret = -1;
+        for(int i=0;i&lt;=m;i++)if(f[n][i]!=-1)upd(ret, f[n][i]);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>62_ldhnguyen94.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>62_ldhnguyen94.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    
+    def get_group(self, positions, start_x, start_y):
+        r = defaultdict(set)
+        c = defaultdict(set)
+        for x, y in positions:
+            r[x].add((x, y))
+            c[y].add((x, y))
+        
+        queue = collections.deque([(start_x, start_y)])
+        ans = set()
+        
+        while queue:
+            for _ in range(len(queue)):
+                x, y = queue.popleft()
+                for nx, ny in r[x]:
+                    if (nx, ny) not in ans:
+                        queue.append((nx, ny))
+                        ans.add((nx, ny))
+                for nx, ny in c[y]:
+                    if (nx, ny) not in ans:
+                        queue.append((nx, ny))
+<A NAME="0"></A>                        ans.add((nx, ny))
+        return ans
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def matrixRankTransform(self, matrix: List[List[int]]) -&gt; List[List[int]]:
+        N, M = len(matrix), len(matrix[0])
+        ans = [[None] * M for _ in range(N)]
+<A NAME="1"></A>        
+        row_rank =</B></FONT> [0] * N
+        column_rank = [0] * M
+        groups <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= defaultdict(list)
+        
+        # Group them
+        for i in range(N):
+            for j in range(M):
+                groups[matrix[i][j]].append((i</B></FONT>, j))
+        
+        
+        # Assign values
+        for num in sorted(groups.keys()):
+            positions = groups[num]
+            for i, (x, y) in enumerate(positions):
+                if ans[x][y] is not None: continue
+                
+                this_group = self.get_group(positions, x, y)
+                rank = max(row_rank[x], column_rank[y]) + 1
+                for nx, ny in this_group:
+                    rank = max(rank, row_rank[nx] + 1, column_rank[ny] + 1)
+                
+                for ax, ay in this_group:
+                    ans[ax][ay] = rank
+                    row_rank[ax] = max(row_rank[ax], rank)
+                    column_rank[ay] = max(column_rank[ay], rank)
+
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

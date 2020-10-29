@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>492_IlGJNk1zYk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>492_IlGJNk1zYk.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long LL;
+
+class Solution {
+    int MOD = 1e9 + 7;
+    
+public:
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+<A NAME="0"></A>        return helper(nums) - 1;
+    }
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    long long helper(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        if (n &lt;= 1)
+            return 1;
+        vector&lt;int&gt; less, more;
+        for (int j = 1; j &lt; n; ++j) {
+            if (nums[j] &lt; nums[0])</B></FONT>
+                less.push_back(nums[j]);
+            else
+                more.push_back(nums[j]);
+        }
+        LL nl = helper(less);
+<A NAME="1"></A>        LL nm = helper(more);
+        LL C = Lucas(n - 1, less.size(), MOD) % MOD;
+        return (((C * (nl % MOD)) % MOD) * (nm % MOD)) % MOD;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    
+    LL fast_power(LL a,LL b,LL p){
+        LL ans=1;
+        a%=p;
+        while(b){
+            if(b&amp;1) ans=(ans*a)%p;
+            a=(a*a)%p;
+            b&gt;&gt;=1;
+        }
+        return ans;
+    }</B></FONT>
+ 
+    LL C(LL a,LL b,LL p){
+        if(b&gt;a) return 0;
+        if(a==b) return 1;
+        LL ans1=1,ans2=1;
+        for(LL i=1;i&lt;=b;i++){
+            ans1=ans1*(a-i+1)%p;
+            ans2=ans2*i%p;
+        }
+        return ans1*fast_power(ans2,p-2,p)%p;
+    }
+    
+    LL Lucas(LL a,LL b,LL p){
+        if(b==0) return 1;
+        return C(a%p,b%p,p)*Lucas(a/p,b/p,p)%p;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

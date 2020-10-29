@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>682_tong20.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>682_tong20.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    // croak
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minNumberOfFrogs(String croakOfFrogs) {
+        int len = croakOfFrogs.length();
+        if(len % 5 != 0) return -1;
+        int frogs = len/5;</B></FONT>
+        int [] state = new int[6];
+        state[0] = frogs;
+        int result = 0;
+        int current = 0;
+        for(int i=0;i&lt;len;i+=1){
+            char ch = croakOfFrogs.charAt(i);
+            if(ch == 'c'){
+                if(state[0] ==0) return -1;
+<A NAME="1"></A>                state[0]-=1;
+                state[1]+=1;
+                current+=1;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}else if(ch == 'r'){
+                if(state[1] ==0) return -1;
+                 state[1]-=1;
+                state[2]+=1;
+                
+            }else if(ch == 'o'){
+                if(state[2] ==0) return -1;
+                 state[2]-=1;
+                state[3]+=1;
+                
+            }else if(ch == 'a'){
+                if(state[3] ==0) return -1;
+                 state[3]-=1;
+                state[4]+=1;
+                
+            }else{
+                if(state[4] ==0) return -1;</B></FONT>
+                 state[4]-=1;
+                state[5]+=1;
+                current-=1;
+            }
+            result = Math.max(result, current);
+            // for(int s: state){
+            //      System.out.print(s+&quot;,&quot;);
+            // }
+            // System.out.println();
+        }
+        
+        
+        return state[5] == frogs?result:-1;
+        
+        
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

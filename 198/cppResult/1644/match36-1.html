@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_huangyuyang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>121_huangyuyang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+	int l[30], r[30];
+	vector&lt;string&gt; maxNumOfSubstrings(string s) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		vector &lt;vector &lt;int&gt; &gt; cnt;
+		cnt.resize(s.size());
+		for (int i = 0; i &lt; 26; i++) {
+			l[i] = 1e9;
+			r[i] = -1e9;
+		}
+
+		for (int i = 0; i &lt; s.size(); i++) {</B></FONT>
+			if (i &gt; 0) {
+				cnt[i] = cnt[i - 1];
+			} else {
+				cnt[i].resize(26, 0);
+			}
+			int now = s[i] - 'a';
+			cnt[i][now]++;
+			if (l[now] &gt; 1e8) {
+				l[now] = i;
+			}
+			r[now] = i;
+		}
+		for (int i = 0; i &lt; 26; i++) {
+			if (r[i] &lt; 0) {
+				continue;
+			}
+			while (true) {
+				int ll = l[i], rr = r[i];
+				for (int j = 0; j &lt; 26; j++) {
+					int c = cnt[rr][j];
+					if (ll &gt; 0) {
+						c -= cnt[ll - 1][j];
+					}
+					if (c &gt; 0) {
+						ll = min(ll, l[j]);
+						rr = max(rr, r[j]);
+					}
+				}
+				if (ll != l[i] || rr != r[i]) {
+					l[i] = ll;
+<A NAME="1"></A>					r[i] = rr;
+				} else {
+					break;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				}
+			}
+		}
+		vector &lt;pair &lt;int, int&gt; &gt; ans;
+		for (int i = 0; i &lt; 26; i++) {
+			if (r[i] &lt; 0) {
+				continue;
+			}</B></FONT>
+			bool ok = true;
+			for (int j = 0; j &lt; 26; j++) {
+				if (r[j] &lt; 0) {
+					continue;
+				}
+				if (i != j &amp;&amp; ((l[j] &gt;= l[i] &amp;&amp; r[j] &lt; r[i]) || (l[j] &gt; l[i] &amp;&amp; r[j] &lt;= r[i]) || (l[j] == l[i] &amp;&amp; r[j] == r[i] &amp;&amp; j &lt; i))) {
+					ok = false;
+					break;
+				}
+			}
+			if (ok) {
+				ans.push_back(make_pair(l[i], r[i]));
+			}
+		}
+		sort(ans.begin(), ans.end());
+		vector &lt;string&gt; ret;
+		for (int i = 0; i &lt; ans.size(); i++) {
+			string now = &quot;&quot;;
+			for (int j = ans[i].first; j &lt;= ans[i].second; j++) {
+				now += s[j];
+			}
+			ret.push_back(now);
+		}
+		return ret;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_zwliew.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_zwliew.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        @functools.lru_cache(None)
+        def dp(idx, prevColor, curHoods):
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if curHoods &gt; target:
+                return math.inf
+            if idx == m:
+                return math.inf if curHoods != target else 0
+            if houses[idx] &gt; 0:
+                return dp(idx + 1, houses[idx], curHoods + (1 if houses[idx] != prevColor else 0))
+            best = math.inf
+            for i in range(1, n + 1):
+                best = min(best, cost[idx][i - 1] + dp(idx + 1, i, curHoods + (1 if i != prevColor else 0)))
+            return best
+        ans = dp(0, None, 0)
+        if ans == math.inf:
+            return -1
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

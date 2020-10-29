@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>691_jingxu526.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>691_jingxu526.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        int[] g = new int[bloomDay.length];
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new TreeMap&lt;&gt;();
+        
+        for (int i = 0; i &lt; bloomDay.length; i++) {
+            if (!map.containsKey(bloomDay[i])) map.put(bloomDay[i],new ArrayList&lt;&gt;());
+            map.get(bloomDay[i]).add(i);
+        }
+        
+        int[] keys = new int[map.keySet().size()];
+        
+        int p = 0;
+        for (int i : map.keySet()) {
+<A NAME="0"></A>            keys[p++] = i;
+        }
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int l = 0, r = keys.length - 1;
+        boolean v = false;
+        while (l &lt;= r) {
+            int mid = (l + r) / 2;
+            if (valid(m, k, keys[mid], bloomDay)) {
+<A NAME="1"></A>                r</B></FONT> = mid;
+                v = true;
+                if (l == r) break;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else {
+                l = mid + 1;
+            }
+        }
+        
+        if (v) return keys[l];
+        return -1;
+    }
+    
+    boolean valid(int m, int k, int t, int[] bloomDay) {
+        int[] g = new int[bloomDay.length]</B></FONT>;
+        
+        for (int i = 0; i &lt; bloomDay.length; i++) {
+<A NAME="2"></A>            if (bloomDay[i] &lt;= t) g[i] = 1;
+        }
+        
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int count = 0;
+        for (int i = 0; i &lt; g.length; i++) {
+            if (g[i] == 1) {
+                count++;
+                if (count == k) {
+                    m--;
+                    count = 0;
+                }</B></FONT>
+                if (m == 0) return true;
+            } else {
+                count = 0;
+            }
+        }
+        return false;
+    }
+    
+    boolean valid(int[] g, int m, int k) {
+        int count = 0;
+        for (int i = 0; i &lt; g.length; i++) {
+            if (g[i] == 1) {
+                count++;
+                if (count == k) {
+<A NAME="3"></A>                    m--;
+                    count = 0;
+                }
+                if (m == 0) return true<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match33-1.html#3',3,'match33-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            } else {
+                count = 0;
+            }
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

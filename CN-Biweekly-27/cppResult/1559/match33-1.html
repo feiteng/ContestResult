@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>245_BeckoninGshy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>245_BeckoninGshy.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[100][100][100]; //走到第i行，s1-&gt;x ,s2-&gt;y 的最大方案数
+    int vis[100][100][100];
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<A NAME="0"></A>        int n = grid.size(), m = grid[0].size();
+        memset(dp,0,sizeof(dp));
+        memset(vis,0,sizeof(vis));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][m-1] = grid[0][0] + grid[0][m-1];
+<A NAME="1"></A>        vis[0][0][m-1] = 1;
+        for(int i = 1; i &lt; n; i++){
+            for(int j = 0; j &lt; m; j++){</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for(int k = 0; k &lt; m; k++){
+                    for(int c = -1; c &lt;= 1; c++){
+                        for(int d = -1; d &lt;= 1; d++){
+                            if(j+c &gt;= 0 &amp;&amp; j+c &lt; m &amp;&amp; k+d &gt;= 0 &amp;&amp; k+d &lt; m &amp;&amp; vis[i-1][j+c][k+d]){
+                                
+                                if(j == k) dp[i][j][k] = max(dp[i-1][j+c][k+d]+grid[i][j], dp[i][j][k]);
+                                else dp[i][j][k] = max(dp[i-1][j+c][k+d]+grid[i][j]+grid[i][k], dp[i][j][k]);</B></FONT>
+                                vis[i][j][k] = 1;
+<A NAME="2"></A>                            }
+                            
+                        }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    }
+                    
+                    
+                }
+            }
+        }
+        int ans = 0;
+            for(int i = 0; i &lt; m; i++){
+                for(int j = 0; j &lt; m; j++){
+                    ans = max(ans,dp[n-1][i][j]);
+                }
+            }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>327_guoyihua.java</TITLE>
+ <TITLE>226_codingteamnyu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>327_guoyihua.java</CENTER></H3><HR>
+<H3><CENTER>226_codingteamnyu.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; tm1 = new HashMap&lt;&gt;();
-<A NAME="0"></A>        Map&lt;Long, Integer&gt; tm2 = new HashMap&lt;&gt;();
-        
-        int n1 = nums1.length, n2 = nums2.length;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n1 - 1; i++) {
-            for (int j = i + 1; j &lt; n1; j++) {
-                long tmp = (long)(nums1[i]) * (long)(nums1[j]);
-                tm1.put(tmp, tm1.getOrDefault(tmp, 0) + 1);
+        int ans =0;
+        HashMap&lt;Long, Integer&gt; hs = new HashMap&lt;&gt;();
+        int n = nums1.length, m = nums2.length;
+        for(int i = 0; i&lt; n; i++){
+            long val = nums1[i];
+            val *= val;
+            if(hs.containsKey(val)) hs.replace(val, hs.get(val)+1);
+            else hs.put(val,1);
+        }
+        for(int i = 0; i&lt; m; i++){
+            long val = nums2[i];
+            for(int j = i+1; j &lt;m ;j++){
+                val = nums2[i];
+                val *= nums2[j];
+                if(hs.containsKey(val)){
+                    ans+=hs.get(val);
+                }
             }
         }
-        
-        for (int i = 0; i &lt; n2 - 1; i++) {
-            for (int j = i + 1; j &lt; n2; j++) {
-                long tmp = (long)(nums2[i]) * (long)(nums2[j]);
-                tm2.put(tmp, tm2.getOrDefault(tmp, 0) + 1);
+        //System.out.println(hs +&quot; &quot;+ans);
+        hs.clear();
+        for(int i = 0; i&lt; m; i++){
+            long val = nums2[i];
+            val *= val;
+            if(hs.containsKey(val)) hs.replace(val, hs.get(val)+1);
+            else hs.put(val,1);
+        }
+        for(int i = 0; i&lt; n; i++){
+            long val = nums1[i];
+            for(int j = i+1; j &lt;n ;j++){
+                val = nums1[i];
+                val *= nums1[j];
+                if(hs.containsKey(val)){
+                    ans+=hs.get(val);
+                }
             }
-        }</B></FONT>
-<A NAME="1"></A>        
-        int res = 0;
-        
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n1; i++) {
-            long tmp = (long)(nums1[i]) * (long)(nums1[i]);
-            res += tm2.getOrDefault(tmp, 0);
         }
-        
-        for (int i = 0; i &lt; n2; i++) {
-            long tmp = (long)(nums2[i]) * (long)(nums2[i]);
-            res += tm1.getOrDefault(tmp, 0);
-        }
-        
-        return res;
+        //System.out.println(hs +&quot; &quot;+ans);
+        return ans;
     }
 }</B></FONT>
 </PRE>

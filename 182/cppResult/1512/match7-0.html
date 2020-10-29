@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>727_YoungForest.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>727_YoungForest.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UndergroundSystem {
+    unordered_map&lt;int, pair&lt;string, int&gt;&gt; user_checkin_time;
+    map&lt;pair&lt;string, string&gt;, pair&lt;int, int&gt;&gt; interval_total_time_person_count;
+public:
+    UndergroundSystem() {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        user_checkin_time[id] = {stationName, t};
+    }
+<A NAME="1"></A>    
+    void checkOut(int id, string stationName, int t) {
+        auto in = user_checkin_time[id];</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        auto&amp; interval = interval_total_time_person_count[{in.first, stationName}];
+        interval.first += t - in.second;
+        ++interval.second;
+        user_checkin_time.erase(id);
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        auto it = interval_total_time_person_count.find({startStation, endStation});
+        if (it == interval_total_time_person_count.end())
+            return -1;</B></FONT>
+        else
+            return static_cast&lt;double&gt;(it-&gt;second.first) / it-&gt;second.second;
+    }
+};
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj-&gt;checkIn(id,stationName,t);
+ * obj-&gt;checkOut(id,stationName,t);
+ * double param_3 = obj-&gt;getAverageTime(startStation,endStation);
+ */
+</PRE>
+</BODY>
+</HTML>

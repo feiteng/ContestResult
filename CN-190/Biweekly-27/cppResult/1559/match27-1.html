@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>604_John_Ran.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>604_John_Ran.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int dp[105][105][105];
+    int d[3]={-1,0,1};
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n=grid.size(),m=grid[0].size();
+        memset(dp,-1,sizeof dp);
+        dp[0][0][m-1]=grid[0][0]+grid[0][m-1];
+        for(int step=1;step&lt;n;++step){
+<A NAME="1"></A>            for(int i=0;i&lt;m;++i){
+                for(int j=i;j&lt;m;++j){</B></FONT>
+                    if(dp[step-1][i][j]==-1)continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for(int ii=0;ii&lt;3;++ii){
+                        for(int jj=0;jj&lt;3;++jj){
+<A NAME="2"></A>                            int ti=i+d[ii];
+                            int tj=j+d[jj];
+                            if(ti&lt;0||ti&gt;=m||tj&lt;0||tj&gt;=m)continue;</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            if(ti&lt;=tj){
+                                if(ti==tj){
+                                    dp[step][ti][tj]=max(dp[step][ti][tj],dp[step-1][i][j]+grid[step][ti]);
+                                }else{
+                                    dp[step][ti][tj]=max(dp[step][ti][tj],dp[step-1][i][j]+grid[step][ti]+grid[step][tj]);
+                                }
+                            }
+                        }
+                    }
+                }</B></FONT>
+            }
+<A NAME="3"></A>        }
+        
+        int res=0;
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;m;++i){
+            for(int j=0;j&lt;m;++j){
+                res=max(res,dp[n-1][i][j]);
+            }
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>322_elvinyang.java</TITLE>
+ <TITLE>187_aureole999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>322_elvinyang.java</CENTER></H3><HR>
+<H3><CENTER>187_aureole999.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution
-{
-    public int minCost(String s, int[] cost)
-    {
-<A NAME="1"></A>        int ans = 0;
-        for (int i = 1; i &lt; s.length();) {
-            if (s.charAt(i) == s.charAt(i - 1)) {
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int j = i - 1</B></FONT>, mc = -1, count = 0;
-                while (j &lt; s.length() &amp;&amp; s.charAt(j) == s.charAt(i - 1)) {
-                    mc = Math.max(mc, cost[j]);
-                    count += cost[j];
-                    j++;
-                }
-                ans += count - mc;
-                i = j;
-            }</B></FONT>
-            else i++;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCost(String s, int[] cost) {
+        char[] ch = s.toCharArray();
+        char prev = '0';
+        int max = 0;
+        int sum = 0;
+        int res = 0;
+        for (int i = 0; i &lt; ch.length; i++) {
+            if (ch[i] == prev) {
+                sum += cost[i];
+                max = Math.max(max, cost[i]);
+            } else {
+                res += sum - max;
+                max = cost[i];
+                sum = max;
+            }
+            prev = ch[i];
         }
-        return ans;
+        res += sum - max;
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

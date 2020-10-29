@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_tongtongac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>191_tongtongac.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;array&gt;
+#include &lt;cassert&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;list&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+#include &lt;algorithm&gt;
+#include &lt;complex&gt;
+#include &lt;cmath&gt;
+#include &lt;numeric&gt;
+#include &lt;bitset&gt;
+#include &lt;functional&gt;
+#include &lt;random&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+typedef pair&lt;ll, ll&gt; pll;
+
+
+const ll MOD = 1e9 + 7;
+const ll MX = 1005;
+ll fs[MX], ifs[MX];
+
+ll gcd(ll a, ll b){
+    if(b==0) return a;
+    return gcd(b, a%b);
+}
+
+
+ll extend_gcd(ll a, ll b, ll &amp;x, ll &amp;y) {  
+    if (b == 0) {  
+	x = 1, y = 0;  
+	return a;  
+    }  
+    else {  
+	ll r = extend_gcd(b, a % b, y, x);  
+	y -= x * (a / b);  
+	return r;  
+    }  
+}  
+ll inv(ll a, ll mod) {  
+    ll x, y;  
+    extend_gcd(a, mod, x, y);  
+    x = (x % mod + mod) % mod;  
+    return x;  
+}  
+
+
+class Solution {
+public:
+    void init(){
+        fs[0] = 1;
+        ifs[0] = inv(fs[0], MOD);
+        for(int i=1; i&lt;MX; i++){
+            fs[i] = (i * fs[i-1])%MOD;
+            ifs[i] = inv(fs[i], MOD);
+<A NAME="0"></A>        }
+    }
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    ll dfs(vector&lt;int&gt; nums) {
+       
+        int n = nums.size();
+        if(n &lt;= 2) return 1;
+        int a = nums[0];
+        vector&lt;int&gt; numsL, numsR;
+
+        for(int i=1; i&lt;n; i++){
+            if(nums[i] &lt; a){
+                numsL.push_back(nums[i]);
+            }else{
+                numsR.push_back(nums[i]);
+            }
+        }
+        int nl = numsL.size(), nr = numsR.size();</B></FONT>
+        ll ans = ((fs[nl + nr] * ifs[nl]) % MOD * ifs[nr])%MOD;
+        return ((dfs(numsL) * dfs(numsR)) % MOD * ans)%MOD;
+    }
+
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+         init();
+        return dfs(nums) - 1;
+
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

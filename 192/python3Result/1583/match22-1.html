@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>494_Hai_dee.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>494_Hai_dee.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+
+class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        
+        # i = house
+        # c = previous color
+        # t = number of neighbourhoods needed.
+        @lru_cache(maxsize=None)
+        def solve(i, c, t):
+
+            # Invalid cases...
+            if t &lt; 0:
+                return math.inf
+            if i == len(houses):
+<A NAME="0"></A>                if t == 0:
+                    return 0
+                else:
+                    return math.i<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>nf
+
+            # If the house is already painted...
+            if houses[i] != 0:
+                if houses[i] == c:
+                    return solve(i + 1, c, t)
+                else:
+                    return solve(i + 1, houses[i], t - 1)
+<A NAME="1"></A>
+            # Otherwise we need to paint the house.
+            min_cost =</B></FONT> math.inf
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for j in range(1, n + 1):
+                this_cost = cost[i][j - 1]
+                if j == c:
+                    this_cost += solve(i + 1, c, t)
+                else:
+                    this_cost += solve(i + 1, j, t - 1)
+                min_cost = min(min_cost, this_cost)
+
+            return min_cost
+
+        answer = solve(0, 0, target)
+        if</B></FONT> answer is math.inf:
+            return -1
+        else:
+            return answer
+</PRE>
+
+</BODY>
+</HTML>

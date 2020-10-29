@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>196_slkyrim.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>196_slkyrim.py</CENTER></H3><HR>
+<PRE>
+import math
+
+class Solution:
+<A NAME="0"></A>    def numPoints(self, points: List[List[int]], r: int) -&gt; int:
+        
+        def getDist(p1, p2):
+            return ((p1<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[0]-p2[0])**2 + (p1[1]-p2[1])**2)**0.5
+        
+        def getCenter(p1, p2):
+            mid = [(p1[0]+p2[0]) / 2, (p1[1]+p2[1]) / 2]
+            dist =</B></FONT> (r**2 - getDist(p1, mid)**2)**0.5
+            angle = math.atan2(p1[0]-p2[0],p2[1]-p1[1])
+            return [mid[0]+dist*math.cos(angle), mid[1]+dist*math.sin(angle)]
+        
+<A NAME="1"></A>        n = len(points)
+        res = 1
+        eps = 1e-8
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(n):
+            for j in range(i+1, n):
+                if getDist(points[i], points[j]) &gt; 2 * r:
+                    continue
+                center = getCenter(points[i], points[j])
+                cnt = 0
+                for k in range(n):
+                    if getDist(center, points[k]) &lt; r + eps:
+                        cnt += 1
+                res = max(res, cnt)
+            
+        re</B></FONT>turn res
+            
+</PRE>
+
+</BODY>
+</HTML>

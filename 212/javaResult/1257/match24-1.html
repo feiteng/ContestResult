@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_luchy0120.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    List&lt;int[]&gt; li = new ArrayList&lt;&gt;();
+    public void get(int x,int y){
+        li.add(new int[]{x,y});
+        vis[x][y] = true;
+<A NAME="1"></A>        int v = m[x][y];
+        for(int i=0;i&lt;m.length;++i){
+            if(i!=x&amp;&amp;m[i][y]==v&amp;&amp;!vis[i][y]){
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>get(i,y);
+            }
+        }
+        for(int j=0;j&lt;m[0].length;++j){
+            if(j!=y&amp;&amp;m[x][j]==v&amp;&amp;!vis[x][j]){</B></FONT>
+                get(x,j);
+            }
+        }    
+    }
+    
+    
+    
+    
+    int m[][];
+    boolean vis[][];int rs[];int cs[];int rk[][];
+    public int[][] matrixRankTransform(int[][] mm) {
+        m = mm;
+        int l = m.length;
+        int ll = m[0].length;
+        vis = new boolean[l][ll];
+<A NAME="0"></A>
+        PriorityQueue&lt;int[]&gt; q = new PriorityQueue&lt;&gt;((x,y)-&gt;{return Integer.compare(x[0],y[0]);});
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;l;++i){
+            for(int j=0;j&lt;ll;++j){
+                q.offer(new int[]{m[i][j],i,j});
+            }
+        }</B></FONT>
+
+        rs = new int[l];
+        cs = new int[ll];
+        rk = new int[l][ll];
+
+        while(q.size()&gt;0){
+            int cur[] = q.poll();
+            int x =  cur[1];
+            int y =  cur[2];
+            if(vis[x][y]) continue;
+            li.clear();
+            get(x,y);
+            int v = 0;
+            for(int r[]:li){
+                v = Math.max(v,  rs[r[0]]);
+                v = Math.max(v,  cs[r[1]]);
+            }
+            v++;
+            
+            for(int r[]:li){
+                rk[r[0]][r[1]] =v;
+                rs[r[0]] = v;
+                cs[r[1]] = v;
+            }
+            
+            
+            
+            
+        }
+        
+        return rk;
+        
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

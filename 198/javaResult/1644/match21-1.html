@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>439_cushion.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>439_cushion.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        // greedy: get 26 strings and sort by start and if overlap choose shorter
+        int[] start = new int[26], end = new int[26];
+        Arrays.fill(start, -1); Arrays.fill(end, -1);
+        int n = s.length();
+        for (int i = 0; i &lt; n; i++) {
+            int pos = s.charAt(i) - 'a';
+            if</B></FONT> (start[pos] == -1) start[pos] = i;
+            end[pos] = i;
+            // treat &quot;ababa&quot;
+            
+        }  
+<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) {
+            int pos = s.charAt(i) - 'a';
+            for (int j = 0; j &lt; 26; j++) {
+                if (start[j] != -1 &amp;&amp; (start[j] &lt; i &amp;&amp; end[j] &gt; i)) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    start[j] = Math.min(start[j], start[pos]);
+                    end[j] = Math.max(end[j], end[pos]);
+                }
+            }
+        }</B></FONT>
+        // treat abba and bb just use bb
+        for (int i = 0; i &lt; 26; i++) {
+            for (int j = 0; j &lt; 26; j++) {
+                if (start[i] != -1 &amp;&amp; start[j] != -1) {
+                    if (start[i] &gt; start[j] &amp;&amp; end[i] &lt; end[j]) {
+                        start[j] = -1; end[j] = -1;
+                    }
+                }
+            }
+        }
+        // treat abab this case
+        boolean[] v = new boolean[26];
+        List&lt;Cell&gt; candidates = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 26; i++) {
+            if (!v[i] &amp;&amp; start[i] != -1) {
+                for (int j = i + 1; j &lt; 26; j++) {
+                    if (!v[j] &amp;&amp; start[j] != -1) {
+                        if (!((end[i] &lt; start[j]) || (start[i] &gt; end[j]))) {
+                            // has overlap
+                            v[j] = true;
+                            start[i] = Math.min(start[i], start[j]);
+                            end[i] = Math.max(end[i], end[j]);
+                        }
+                    }
+                }
+                candidates.add(new Cell(start[i], end[i]));
+                // System.out.println(&quot;i=&quot; + i);
+                // System.out.println(&quot;start[i]=&quot; + start[i]);
+                // System.out.println(&quot;end[i]=&quot; + end[i]);
+            }
+        }
+        PriorityQueue&lt;Cell&gt; q = new PriorityQueue&lt;&gt;((a, b) -&gt; a.start - b.start);
+        for (int i = 0; i &lt; candidates.size(); i++) {
+            Cell cur = candidates.get(i);
+            q.add(cur);
+        }
+        Stack&lt;Cell&gt; stack = new Stack&lt;&gt;();
+        while (!q.isEmpty()) {
+            Cell cur = q.poll();
+            while (!stack.isEmpty() &amp;&amp; stack.peek().end &gt; cur.start) {
+                stack.pop();
+            }
+            stack.add(cur);
+        }
+<A NAME="2"></A>        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; stack.size(); i++) {
+            Cell cur = stack.get(i);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.add(s.substring(cur.start, cur.end + 1));
+        }
+        return res;
+    }
+    
+    class Cell {
+        int start</B></FONT>;
+        int end;
+        int length;
+        public Cell(int start, int end) {
+            this.start = start;
+            this.end = end;
+            length = end - start + 1;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

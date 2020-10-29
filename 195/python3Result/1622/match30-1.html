@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>213_angel30818.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>213_angel30818.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findMaxValueOfEquation(self, points: List[List[int]], k: int) -&gt; int:
+        
+        dq1 = collections.deque()
+        dq2 = collections.deque()
+        dq1.append(0)
+        dq2.append(0)
+        res = -sys.maxsize
+        
+        for j in range(1, len(points)):
+            xj, yj = points[j]
+            while dq1 and xj - points[dq1[0]][0] &gt; k:
+                dq1.popleft()
+            if dq1: 
+                res = max(res, yj + points[dq1[0]][1] + xj - points[dq1[0]][0])
+            while dq1 and yj - points[dq1[-1]][1] - (xj - points[dq1[-1]][0]) &gt; 0:
+<A NAME="0"></A>                dq1.pop()
+            dq1.append(j)
+            
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while dq2 and xj - points[dq2[0]][0] &gt; k:
+                dq2.popleft()
+            if dq2: 
+                res = max(res, yj + points[dq2[0]][1] - xj + points[dq2[0]][0]) 
+            while dq2 and yj - points[dq2[-1]][1] - (points[dq2[-1]][0] - xj) &gt; 0:
+                dq2.pop()
+            dq2.append(j)
+            
+        re</B></FONT>turn res
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

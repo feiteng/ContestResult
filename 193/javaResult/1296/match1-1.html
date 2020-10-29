@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>487_frankkkkk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>487_frankkkkk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class TreeAncestor {
+
+    int height;
+    int[][] table;
+    
+    public TreeAncestor(int n, int[] parent) {
+        
+        height = (int) Math.ceil(Math.log10(n) / Math.log10(2)); 
+        table = new int[n + 1][height + 1]; 
+        preprocessing();
+        
+        for (int i = 0; i &lt; n; ++i) {
+            calculateSparse(parent[i], i);
+        }
+    }
+    
+    private void preprocessing() {
+        for (int i = 0; i &lt; table.length; i++) { 
+            Arrays.fill(table[i], -1); 
+        } 
+    } 
+    
+    private void calculateSparse(int u, int v) {</B></FONT>
+<A NAME="1"></A>        // Using the recurrence relation to 
+        // calculate the values of table[][]
+        if (u == -1) return;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>table[v][0] = u; 
+        for (int i = 1; i &lt;= height; i++) { 
+            table[v][i] = table[table[v][i - 1]][i - 1]; 
+  
+            // If we go out of bounds of the tree 
+            if (table[v][i] == -1) 
+                break; 
+        } 
+    } 
+    
+    public int getKthAncestor(int node, int k) {
+        
+        for (int i = 0; i &lt;= height; i++) { 
+            if ((k &amp; (1 &lt;&lt; i)) != 0) { 
+                node = table[node][i]; 
+                if (node == -1) 
+                    break; 
+            } 
+        } 
+        return node; 
+    }
+}</B></FONT>
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor obj = new TreeAncestor(n, parent);
+ * int param_1 = obj.getKthAncestor(node,k);
+ */
+</PRE>
+
+</BODY>
+</HTML>

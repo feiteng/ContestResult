@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>252_necoramen.java</CENTER></H3><HR>
+<PRE>
+import java.util.HashMap;
+
+class UndergroundSystem {
+
+    private HashMap&lt;String, Integer&gt; cnt;
+    private HashMap&lt;String, Integer&gt; totalTime;
+
+    private HashMap&lt;Integer, String&gt; checkedinStation;
+    private HashMap&lt;Integer, Integer&gt; checkedinTime;
+
+
+    public UndergroundSystem() {
+        cnt = new HashMap&lt;&gt;();
+<A NAME="0"></A>        totalTime = new HashMap&lt;&gt;();
+        checkedinTime = new HashMap&lt;&gt;();
+        checkedinStation = new HashMap&lt;&gt;();
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    public void checkIn(int id, String stationName, int t) {
+
+        checkedinStation.put(id, stationName);
+        checkedinTime.put(id, t);
+
+    }
+
+    public void checkOut(int id, String stationName, int t) {
+
+        String prevStation = checkedinStation.get(id);
+        int prevTime = checkedinTime.get(id);
+
+        checkedinStation.remove(id);
+        checkedinTime.remove(id);
+
+        int time = t - prevTime;
+        String key = prevStation + &quot;#&quot; + stationName;
+
+        cnt.put(key, cnt.getOrDefault(key, 0) + 1);
+        totalTime.put(key, totalTime.getOrDefault(key, 0) + time);
+
+
+    }
+
+    public double getAverageTime(String startStation, String endStation) {
+
+        String key = startStation + &quot;#&quot; + endStation;
+        int time = totalTime.get(key);
+        int tripCnt = cnt.get(key);
+        return (double) time / tripCnt;
+
+    }
+}</B></FONT>
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem obj = new UndergroundSystem();
+ * obj.checkIn(id,stationName,t);
+ * obj.checkOut(id,stationName,t);
+ * double param_3 = obj.getAverageTime(startStation,endStation);
+ */
+</PRE>
+
+</BODY>
+</HTML>

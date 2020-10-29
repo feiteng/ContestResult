@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>700_tastemyspear.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>700_tastemyspear.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minDays(int n) {
+<A NAME="0"></A>        Queue&lt;Integer&gt; queue = new LinkedList();
+        queue.offer(n);
+        Set&lt;Integer&gt; used = new HashSet();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int step = 1;
+        while (!queue.isEmpty()) {
+            // System.out.println(queue);
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i++) {
+                int node = queue.poll();
+                if (node == 1) {
+                    return step;
+                }
+                if (node % 3 == 0 &amp;&amp; !used.contains(node / 3)) {
+                    used.add(node / 3);
+                    queue.offer(node / 3);
+                }
+                if (node % 2 == 0 &amp;&amp; !used.contains(node / 2)) {
+                    used.add(node / 2);
+                    queue.offer(node / 2);
+                }
+                if (!used.contains(node - 1)) {
+                    used.add(node - 1);
+                    queue.offer(node - 1);
+                }
+            }
+            step++;
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>481_power-more.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>481_power-more.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+void merge(vector&lt;string&gt; &amp;a, int l,int m,int r)
+{
+    string *tmp = new string[r - l + 5];
+    int i = l, j = m + 1, k = 0;
+    while (i&lt;=m&amp;&amp;j&lt;=r)
+        tmp[k++] = a[i].size() &gt; a[j].size() ? a[j++] : a[i++];
+    while (i&lt;=m)
+        tmp[k++] = a[i++];
+    while (j&lt;=r)
+        tmp[k++] = a[j++];
+    for (int i = l,j=0; i &lt;=r;)
+        a[i++] = tmp[j++];
+    delete[] tmp;
+}
+void mergesort(vector&lt;string&gt; &amp;a, int l,int r)
+{
+    if (l&gt;=r)
+        return;
+    int m = l + (r - l) / 2;
+    mergesort(a, l, m);
+    mergesort(a, m+1, r);
+    merge(a, l, m, r);
+}
+    string arrangeWords(string str) {
+        if (str.empty()) return &quot;&quot;;
+        vector&lt;string &gt; dic;
+        string tmp,res;
+        for (auto &amp;x:str){
+            if (x==' ') dic.push_back(tmp),tmp.clear();
+            else {
+                if (x&lt;='Z') x+=32;
+                tmp+=x;
+            }
+        }
+        dic.push_back(tmp);
+        for (auto x:dic) cout&lt;&lt;x&lt;&lt;' ';
+        bool flag=1;
+<A NAME="0"></A>        mergesort(dic, 0, dic.size()-1);
+
+                
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dic[0][0]-=32;
+        res+=dic[0];
+        for (int i=1;i&lt;dic.size();i++){
+            res+=&quot; &quot;+dic[i];
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

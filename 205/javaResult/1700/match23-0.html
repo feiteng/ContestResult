@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>97_luchy0120.java</TITLE>
+ <TITLE>226_pranavgupta194.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>97_luchy0120.java</CENTER></H3><HR>
+<H3><CENTER>226_pranavgupta194.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int minCost(String s, int[] cost) {
-        
-        char cs[] = s.toCharArray();
-        
-        int len  = cs.length;
-        int all = 0;
-        for(int i=0;i&lt;len;){
-            
-            int j = i</B></FONT>;
-            
-            List&lt;Integer&gt; li  =new ArrayList&lt;&gt;();
-            while(j&lt;len&amp;&amp;cs[j]==cs[i]){
-                li.add(cost[j]);
-                j++;
+        int cost1 = 0;
+        int n = s.length();
+        for(int i = 0;i&lt;n;i++){
+            int max = cost[i];
+            int c = s.charAt(i);
+            int sum = cost[i];int j = i+1;
+            for( ;j&lt;n&amp;&amp;s.charAt(j)==c;j++){
+                max = Math.max(max,cost[j]);
+                sum += cost[j];
             }
-            
-            if(li.size()&gt;=2){
-                
-<A NAME="1"></A>                Collections.sort(li);
-                
-                for(int u=0;u&lt;li.size()-1;++u){
-                    all += <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>li.get(u);
-                }
-                
-            }
-            i = j;
-            
-            
+            i = j-1;
+            cost1 += sum - max;
         }
-        
-        return all;
-        
-        
-        
+        return cost1;
     }
 }</B></FONT>
 </PRE>

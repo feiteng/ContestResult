@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>358_tianxind.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>358_tianxind.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+     class Key {
+        String str;
+        int index;
+
+        public Key(String str, int index) {
+            this.str = str;
+            this.index = index;
+        }
+    }
+
+    public String arrangeWords(String text) {
+        String[] ts = text.split(&quot; &quot;);
+        Map&lt;String, Integer&gt; pos = new HashMap&lt;&gt;()</B></FONT>;
+        List&lt;Key&gt; list = new ArrayList&lt;&gt;();
+<A NAME="1"></A>        for (int i = 0; i &lt; ts.length; i++) {
+            list.add(new Key(ts[i], i));
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        Collections.sort(list, new Comparator&lt;Key&gt;() {
+            @Override
+            public int compare(Key o1, Key o2) {
+                if (o1.str.length() != o2.str.length()) {
+                    return</B></FONT> Integer.compare(o1.str.length(), o2.str.length());
+                } else {
+                    return Integer.compare(o1.index, o2.index);
+                }
+            }
+        });
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; ts.length; i++) {
+            String str = list.get(i).str;
+            if (i == 0) {
+                str = Character.toUpperCase(str.charAt(0)) + str.substring(1, str.length());
+            }else{
+                str = Character.toLowerCase(str.charAt(0)) + str.substring(1, str.length());
+<A NAME="2"></A>            }
+            if (sb.length() &gt; 0) {
+                sb.append(&quot; &quot;);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            sb.append(str);
+        }
+        return sb.toString();
+    }
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

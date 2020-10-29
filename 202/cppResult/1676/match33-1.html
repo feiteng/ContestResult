@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>310_user033.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>310_user033.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minDays(int n) {
+        // T(n) = min(T(n - 1), T(n / 2 [if n % 2 == 0]), T(n / 3 if [N % 3 == 0])) + 1
+        unordered_map&lt;int, int&gt; visited;
+<A NAME="0"></A>        return DFSEatOrange(n, visited);
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int DFSEatOrange(int n , unordered_map&lt;int, int&gt;&amp; visited) {
+        if (visited.find(n) != visited.end()) return visited[n];
+        if (n &lt;= 1) return n;
+        
+        int min_move = n;
+        min_move = min(min_move, DFSEatOrange(n / 2, visited) + 1 + n % 2);
+        
+        min_move = min(min_move, DFSEatOrange(n / 3, visited) + 1 + n % 3);
+
+       
+        visited[n] = min_move;
+        return min_move;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

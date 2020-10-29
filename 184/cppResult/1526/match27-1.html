@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>664_csdu-gou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>664_csdu-gou.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    string entityParser(string text) {
+        string ret;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; text.size(); i++)
+        {
+            if (text[i] == '&amp;')
+            {
+                if (text.substr(i, 6) == &quot;&amp;quot;&quot;)
+                {
+                    ret += &quot;\&quot;&quot;;
+                    i += 5;
+                }
+                else if (text.substr(i, 6) == &quot;&amp;apos;&quot;)
+                {
+                    ret += &quot;'&quot;;
+                    i += 5;
+                }
+                else if (text.substr(i, 5) == &quot;&amp;amp;&quot;)
+                {
+                    ret += &quot;&amp;&quot;;
+                    i += 4;
+                }
+                else if (text.substr(i, 4) == &quot;&amp;gt;&quot;)
+                {
+                    ret += &quot;&gt;&quot;;
+                    i += 3;
+                }
+                else if (text.substr(i, 4) == &quot;&amp;lt;&quot;)
+                {
+                    ret += &quot;&lt;&quot;;
+                    i += 3;
+                }
+                else if (text.substr(i, 7) == &quot;&amp;frasl;&quot;)
+                {
+                    ret += &quot;/&quot;;
+                    i += 6;
+                }
+                else
+                {
+                    ret += &quot;&amp;&quot;;
+                }
+            }
+            else</B></FONT>
+                ret += text[i];
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

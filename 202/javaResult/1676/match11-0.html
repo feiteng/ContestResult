@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>676_iejepwy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>676_iejepwy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int n) {
+        Deque&lt;Integer&gt; deque=new ArrayDeque&lt;&gt;();
+        Set&lt;Integer&gt; set=new HashSet&lt;&gt;();
+        int ans=0;
+        deque.addLast(n);
+        while (!deque.isEmpty()){
+            int len=deque.size();
+            for(int i=0;i&lt;len;i++){
+                int cur=deque.removeFirst();
+                if(cur==0){
+                    return ans;
+                }
+                if(cur%3==0&amp;&amp;!set.contains(cur/3)){
+                    deque.addLast(cur/3);
+                    set.add(cur/3);
+                }
+                if(cur%2==0&amp;&amp;!set.contains(cur/2)){
+                    deque.addLast(cur/2);
+                    set.add(cur/2);
+                }
+                if(!set.contains(cur-1)){
+                    deque.addLast(cur-1);
+                    set.add(cur-1);
+                }
+            }
+            ans++;
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

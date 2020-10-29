@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>322_elvinyang.java</TITLE>
+ <TITLE>113_yuhwu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>322_elvinyang.java</CENTER></H3><HR>
+<H3><CENTER>113_yuhwu.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String modifyString(String s) {
-        char[] arr = s.toCharArray();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; arr.length; i++) {
-<A NAME="1"></A>            if (arr[i] == '?') {
-                for (char j = 'a'; j &lt;= 'z'; j++) {
-                    if (i &gt; 0 &amp;&amp; arr[i - 1] == j) continue;
-                    if</B></FONT> (i &lt; arr.length - 1 &amp;&amp; arr[i + 1] == j) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>continue;
-                    arr[i] = j;
-                    break;
+        StringBuilder sb = new StringBuilder();
+        int n = s.length();
+        for(int i=0; i&lt;n; i++){
+            char c = s.charAt(i);
+            if(c!='?'){
+                sb.append(c);
+            }
+            else{
+                for(char r='a'; r&lt;='z'; r++){
+                    if(i&gt;0 &amp;&amp; i&lt;n-1){
+                        char prev = sb.charAt(i-1);
+                        char next = s.charAt(i+1);
+                        if(r!=prev &amp;&amp; r!=next){
+                            sb.append(r);
+                            break;
+                        }
+                    }
+                    else if(i&gt;0){
+                        char prev = sb.charAt(i-1);
+                        if(r!=prev){
+                            sb.append(r);
+                            break;
+                        }
+                    }
+                    else if(i&lt;n-1){
+                        char next = s.charAt(i+1);
+                        if(r!=next){
+                            sb.append(r);
+                            break;
+                        }                        
+                    }
+                    else{
+                        sb.append(r);
+                        break;
+                    }
                 }
             }
         }
-        return new String(arr);
+        return sb.toString();
     }
 }</B></FONT>
 </PRE>

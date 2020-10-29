@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_qqwqert007.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_qqwqert007.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>from typing import List
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def closestToTarget(self, arr: List[int], target: int) -&gt; int:
+        n = len(arr)
+        ans = []
+        for i in range(n):
+            if i == 0 or arr[i] != arr[i-1]:
+                ans.append(</B></FONT>arr[i])
+        arr = ans.copy()
+        n = len(arr)
+
+        p = [[0] * 20 for _ in range(n+1)]
+        for i, a in enumerate(arr):
+            for j in range(20):
+                p[i][j] = p[i - 1][j] + (a &gt;&gt; j &amp; 1)
+        
+        ans = float('inf')
+        l = n - 1
+        for i in range(n - 1, -1, -1):
+            if i &lt; n-1 and arr[i] == arr[i+1]:
+                continue
+            def get(j):
+                ans = 0
+                for k in range(20):
+                    if p[i][k] - p[j - 1][k] == i - j + 1:
+                       ans |= 1 &lt;&lt; k
+                return ans
+
+            while l &gt;= 0 and get(l) &gt;= target:
+                l -= 1
+
+            if l &gt;= 0:
+                ans = min(ans, abs(target - get(l)))
+            if l + 1 &lt;= i:
+                ans = min(ans, abs(get(l+1) - target))
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

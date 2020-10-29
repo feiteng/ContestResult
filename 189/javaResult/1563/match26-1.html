@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>255_fengw7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>255_fengw7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    class Point
+<A NAME="0"></A>    {
+        double x,y;
+        Point(){}
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Point(double tx,double ty){x=tx;y=ty;}
+    }</B></FONT>;
+<A NAME="2"></A> 
+double dist(Point p1,Point p2)
+{
+	return Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.po<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>w(p1.y-p2.y,2));
+}
+ 
+Point GetCircleCenter(Point p1,Point p2, int r)
+{
+	Point mid = new Point((p1.x+p2.x)/2,(p1.y+p2.y)/2);
+	double angle = Math.atan2(p1.x-p2.x,p2.y-p1.y);
+	double d = Math.sqrt(r * r - Math.pow(dist(p1,mid),2));
+	return new Point(mid.x+d * Math.cos(angle), mid.y+d * Math.sin(angle));
+}</B></FONT>
+
+
+
+<A NAME="1"></A>    public int numPoints(int[][] points, int r) {
+        
+        int num = points.length;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Point[] p = new Point[num];
+        
+        for (int i = 0; i &lt; points.length; i++) {
+            p[i] = new Point(points[i][0] * 1.0, points[i][1] * 1.0);
+        }
+        
+        int ans = 1;
+		for(int i=0;i&lt;num;i++)
+		{
+			for(int j=i+1;j&lt;num;j++)
+			{
+				if(dist(p[i],p[j]) &gt; 2.0*r) continue;
+				Point center = GetCircleCenter(p[i],p[j], r);
+				int cnt = 0;
+				for(int k=0;k&lt;num;k++)
+					if(dist(center,p[k]) &lt; 1.0*r+0.00000001) cnt++;
+				ans = Math.max(ans,cnt);
+			}
+		}
+        return ans;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

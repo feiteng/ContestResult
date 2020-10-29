@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>292_Shibo_Wang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>292_Shibo_Wang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def stoneGameIII(self, values: List[int]) -&gt; str:
+        memory = {}
+        
+        def recursive(start):
+            if start == len(values):
+                return 0
+            elif start in memory:
+                return memory[start]
+            else:
+                res = -float('inf')
+                tmp = 0
+                for i in range(start, min(start+3, len(values))):
+                    res = max(res, tmp+values[i]-recursive(i+1))
+                    tmp += values[i]
+                memory[start] = res
+                
+                return memory[start]
+            
+            
+        ans = recursive(0)
+        if ans == 0:
+            return &quot;Tie&quot;
+        elif ans&gt;0:
+            return &quot;Alice&quot;
+        else:
+            ret</B></FONT>urn &quot;Bob&quot;
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

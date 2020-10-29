@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>173_terranw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>173_terranw.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    private int n, m, num;
+    private int gCnt, iCnt;
+    private int[][] gr;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[][] dire = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    
+<A NAME="5"></A>    private void fld(int px</B></FONT>, int py) {
+        //System.out.printf(&quot;%d %d n=%d m=%d\n&quot;, px, py, n, m);
+        if (px &lt; 0 || px &gt;= n || py &lt; 0 || py &gt;= m) return;
+        <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#5',2,'match31-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (gr[px][py] != num - 1) return;
+        ++gCnt;
+        gr[px][py] = num;
+        for (int d = 0; d &lt; 4; ++d) {
+            fld(px + dire[d][0], py + dire[d][1]);
+        }
+    }</B></FONT>
+    
+    private void count() {
+        ++num;
+<A NAME="3"></A>        gCnt = 0;
+        iCnt = 0;
+        
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#3',2,'match31-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                if (gr[i][j] == num - 1) {
+                    fld</B></FONT>(i, j);
+                    ++iCnt;
+                }
+            }
+        }
+<A NAME="1"></A>    }
+    
+    private boolean try1() {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+<A NAME="2"></A>                if (gr[i][j] == num) {
+                    g</B></FONT>r[i][j] = 0;
+                    count();
+                    if (iCnt == 0 || iCnt &gt; 1) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return true;
+                    gr[i][j] = num;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public int minDays(int[][] grid) {</B></FONT>
+        n = grid.length;
+        m = grid[0].length;
+        this.gr = grid;
+        
+        num = 1;
+        
+        count();
+        //System.out.printf(&quot;gCnt=%d iCnt=%d\n&quot;, gCnt, iCnt);
+        
+        if (iCnt == 0 || iCnt &gt; 1) return 0;
+        if (gCnt &lt;= 2) return gCnt;
+        
+        
+        if (try1()) return 1;
+        
+        int ans = gCnt;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                int mask = 0;
+                int mCnt = 0;
+                if (gr[i][j] &gt; 0) {
+                    for (int d = 0; d &lt; 4; ++d) {
+                        int px = i + dire[d][0];
+                        int py = j + dire[d][1];
+                        if (px &gt;= 0 &amp;&amp; px &lt; n &amp;&amp; py &gt;= 0 &amp;&amp; py &lt; m &amp;&amp; gr[px][py] &gt; 0) {
+                            mask |= (1 &lt;&lt; d);
+                            ++mCnt;
+                        }
+                    }
+                    
+                    //System.out.printf(&quot;(%d,%d) mCnt=%d\n&quot;, i, j, mCnt);
+                
+                    if (mCnt == 1) return 1;
+<A NAME="4"></A>                    if (mCnt == 2) { 
+                        ans = 2;
+                    }
+                    if (ans &gt; mCnt) ans = mCnt<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#4',2,'match31-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+                }
+                
+                
+            }
+        }
+        
+        return ans;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

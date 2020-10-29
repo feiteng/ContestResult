@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>510_nzy-r.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>510_nzy-r.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    const int dir[4][2] = {{1,0}, {0,1}, {-1,0}, {0, -1}};
+    
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {</B></FONT>
+        queue&lt;int&gt; row;
+        queue&lt;int&gt; col;
+        int val[110][110];
+        bool check[110][110];
+        
+        memset(check, true, sizeof(check));
+        memset(val, 0xf, sizeof(val));
+        val[0][0] = 0;
+        check[0][0] = false;
+        row.push(0);
+        col.push(0);
+        
+        while (!row.empty()) {
+<A NAME="1"></A>            int x = row.front(), y = col.front();
+            row.pop();
+            col.pop();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            check[x][y] = true;
+            
+            for (int i = 0; i &lt; 4; i++) {
+                int a = x+dir[i][0];
+                int b = y+dir[i][1];
+                
+                if (0 &lt;= a &amp;&amp; a &lt; heights.size() &amp;&amp; 0 &lt;= b &amp;&amp; b &lt; heights[0].size()) {
+                    if (val[a][b] &gt; max(val[x][y], abs(heights[a][b] - heights[x][y]))) {
+                        val[a][b] = max(val[x][y], abs(heights[a][b] - heights[x][y]));
+                        
+                        if (check[a][b]) {
+                            check[a][b] = false;
+                            row.push(a);
+                            col.push(b);
+                        }
+                    }
+                }
+            }</B></FONT>
+        }
+        
+        return val[heights.size() -1][heights[0].size() -1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

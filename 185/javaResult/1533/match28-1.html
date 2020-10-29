@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>20_taran_1407.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>20_taran_1407.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+        TreeSet&lt;String&gt; dishes = new TreeSet&lt;&gt;();
+        TreeMap&lt;Integer, TreeMap&lt;String, Integer&gt;&gt; mp = new TreeMap&lt;&gt;();
+        for(List&lt;String&gt; li:orders){
+            int table = Integer.parseInt(li.get</B></FONT>(1));
+<A NAME="1"></A>            String dish = li.get(2);
+            dishes.add(dish);
+            if(!mp.containsKey(table))mp.put(table, new TreeMap&lt;&gt;());
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>mp.get(table).put(dish, mp.get(table).getOrDefault(dish, 0)+1);
+        }
+        List&lt;List&lt;String&gt;&gt; list = new ArrayList&lt;&gt;();
+<A NAME="2"></A>        ArrayList&lt;String&gt; top = new ArrayList&lt;&gt;();
+        top.add(0, &quot;Table&quot;);
+        for(String s:dishes)top.add</B></FONT>(s);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.add(top);
+        for(Map.Entry&lt;Integer, TreeMap&lt;String, Integer&gt;&gt; e:mp.entrySet()){
+<A NAME="3"></A>            ArrayList&lt;String&gt; cur = new ArrayList&lt;&gt;();
+            cur.add(&quot;&quot;+e.getKey</B></FONT>());
+            for(String s:dishes){
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#3',2,'match28-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>cur.add(&quot;&quot;+e.getValue().getOrDefault(s, 0));
+            }
+            list.add(cur);
+        }
+        return list;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

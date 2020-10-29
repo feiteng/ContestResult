@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_besieger.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_besieger.cpp</CENTER></H3><HR>
+<PRE>
+bool cmp(pair&lt;int,int&gt;a,pair&lt;int,int&gt;b){
+    int sa=a.first+a.second,sb=b.first+b.second;
+    if(sa!=sb)return sa&lt;sb;
+    return a.second&lt;b.second;
+}
+bool cmp(pair&lt;pair&lt;int,int&gt;,int&gt;a,pair&lt;pair&lt;int,int&gt;,int&gt;b){
+    return cmp(a.first,b.first);
+}
+struct cp{
+  bool operator()  (pair&lt;pair&lt;int,int&gt;,int&gt;a,pair&lt;pair&lt;int,int&gt;,int&gt;b){
+<A NAME="0"></A>      return cmp(a.first,b.first);
+  }
+};
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; findDiagonalOrder(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        vector&lt;pair&lt;pair&lt;int,int&gt;,int&gt;&gt;b;
+        for(int i=0;i&lt;a.size();++i){
+            for(int j=0;j&lt;a[i].size();++j){
+                b.push_back({{i,j},a[i][j]});
+            }
+        }
+        sort(begin(b),end(b),cp());
+        vector&lt;int&gt;c;
+        for(auto t:b)c.push_back(t.second);</B></FONT>
+        return c;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

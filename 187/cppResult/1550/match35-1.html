@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_balakrishnan_v.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_balakrishnan_v.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        
+        int n=mat.size();
+        int m=mat[0].size();
+        
+        int max_summ = 0;
+        for(int i=0;i&lt;n;i++) {
+            max_summ += *max_element(mat[i].begin(),mat[i].end());
+<A NAME="0"></A>        }
+        
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        multiset&lt;int&gt; sums;
+        sums.insert(0);
+        
+        for(int i=0;i&lt;n;i++) {
+            multiset&lt;int&gt; new_sums;
+            for(int s : sums) {
+                for(int x : mat[i]) {
+                    new_sums.insert(s+x);
+                }
+            }</B></FONT>
+            while(new_sums.size() &gt; k) {
+                new_sums.erase(std::prev(new_sums.end()));
+            }
+            sums=new_sums;
+        }
+        return *sums.rbegin();
+        cout &lt;&lt; *sums.rbegin() &lt;&lt; endl;
+        
+        
+        vector&lt;int&gt; counts(max_summ+1,0);
+        counts[0]=1;
+        int max_observed_summ = 0;
+        for(int i=0;i&lt;n;i++) {
+            max_observed_summ += *max_element(mat[i].begin(),mat[i].end());
+            for(int s=max_observed_summ;s&gt;=0;s--) {
+                counts[s]=0;
+                for(int j=0;j&lt;m;j++) {
+                    if (s &gt;= mat[i][j])
+                        counts[s]+=counts[s-mat[i][j]];
+                }
+                counts[s]=min(counts[s],k+1);
+            }
+        }
+        
+        int summ = 0;
+        for(int s=0;s&lt;=max_summ;s++) {
+            summ += counts[s];
+            if (summ &gt;= k) return s;
+        }
+        
+        
+        return 0;
+        
+        
+        // 
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

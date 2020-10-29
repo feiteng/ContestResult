@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_tian-tang-6.java</TITLE>
+ <TITLE>214_bluesky999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>34_tian-tang-6.java</CENTER></H3><HR>
+<H3><CENTER>214_bluesky999.java</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.HashMap;
+import java.util.Map;
 
-<A NAME="0"></A>
-import java.util.*;
+class Solution {
+	public int numTriplets(int[] nums1, int[] nums2) {
+		return cnt(nums1, nums2) + cnt(nums2, nums1);
+	}
 
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
-    public int numTriplets(int[] nums1, int[] nums2) {
-        return count(nums1, nums2) + count(nums2, nums1);
-    }
+	private int cnt(int[] nums1, int[] nums2) {
+		Map&lt;Long, Integer&gt; m = new HashMap&lt;Long, Integer&gt;();
+		for (int i = 0; i &lt; nums1.length; i++)
+			for (int j = i + 1; j &lt; nums1.length; j++) {
+				long k = 1L * nums1[i] * nums1[j];
+				m.put(k, m.getOrDefault(k, 0) + 1);
+			}
 
-    public int count(int[] a, int[] b) {
-        Map&lt;Long, Integer&gt; cnt = new HashMap&lt;&gt;();
-        for (int x : a) {
-            long x2 = (long) x * x;
-            cnt.put(x2, cnt.getOrDefault(x2, 0) + 1);
-        }
-<A NAME="1"></A>        int ans = 0;
-        for (int i = 0; i &lt; b.length; i++) {
-            for (int j = i + 1; j &lt; b.length; j++) {</B></FONT>
-                ans += <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>cnt.getOrDefault((long) b[i] * b[j], 0);
-            }
-        }
-        return ans;
-    }
+		int ans = 0;
+		for (int k : nums2)
+			ans += m.getOrDefault(1L * k * k, 0);
+		return ans;
+	}
 }</B></FONT>
 </PRE>
 

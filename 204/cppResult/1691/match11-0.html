@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>737_SweetSheryl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>737_SweetSheryl.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int minDays(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int rows = grid.size();
+        int cols = grid[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ones = 0;
+        for(int r = 0; r &lt; rows; ++r) {
+            for(int c = 0; c &lt; cols; ++c) {
+                if(grid[r][c] == 1) {
+                    ++ones;
+                }
+            }
+        }
+        if(ones == 1) {
+            return 1;
+        }</B></FONT>
+        int nums = islandNum(grid);
+<A NAME="1"></A>        if(nums != 1) {
+            return 0;
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(nums == 1 &amp;&amp; ones == 2) {
+            return 2;
+        }
+
+         for(int r = 0; r &lt; rows; ++r) {
+            for(int c = 0; c &lt; cols; ++c) {
+                if(grid[r][c] == 1) {             
+                    grid[r][c] = 0;
+                    if(islandNum(grid) &gt;= 2) {
+                        return 1;
+                    }
+                    grid[r][c] = 1;
+                }
+            }
+        }
+        return 2;
+    }</B></FONT>
+<A NAME="2"></A>    int islandNum(vector&lt;vector&lt;int&gt;&gt; grid){
+        int rows = grid.size();
+        int cols = grid[0].size();
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        for(int r = 0; r &lt; rows; ++r) {
+            for(int c = 0; c &lt; cols; ++c) {
+                if(numOfIslands(r, c, grid) == true) {
+                    ++res;</B></FONT>
+                    if(res &gt;= 2) {
+                        return res;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    
+    
+    bool numOfIslands(int r, int c, vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int rows = grid.size();
+        int cols = grid[0].size();
+        if(r &lt; 0 || r&gt;=rows || c &lt; 0 || c&gt;= cols || grid[r][c] == 0) {
+            return false;
+        }
+        grid[r][c] = 0;
+        numOfIslands(r-1, c, grid);
+        numOfIslands(r, c-1, grid);
+        numOfIslands(r+1, c, grid);
+        numOfIslands(r, c+1, grid);
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

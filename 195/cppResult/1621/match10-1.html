@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_pikay.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_pikay.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int MOD = 1000000007;
+using int64 = long long;
+int64 power(int64 a, int64 b = MOD - 2) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int64 c = 1;
+    while (b) {
+        if (b &amp; 1)
+            c = c * a % MOD;
+        b /= 2;
+        a = a * a % MOD;
+    }
+    return c;
+}
+
+
+class Solution {
+public:
+    
+    int numSubseq(vector&lt;int&gt;&amp; nums, int target) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        int64 ans = 0;
+        for(int i=0;i&lt;n;i++) {
+            int cnt = ( upper_bound(nums.begin()+i, nums.end(), target-nums[i]) - nums.begin() )-i;
+            if(cnt&gt;0)</B></FONT>
+                ans += power(2,cnt-1);
+        }
+        return ans % MOD;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

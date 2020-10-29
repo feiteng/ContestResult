@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>112_orangesTA.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>112_orangesTA.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        int n = (int)s.size();
+        
+        vector&lt;pair&lt;int,int&gt;&gt; v(30);
+        for (int i = 0; i &lt; 30; i++) {
+            v[i].first = n+10;
+<A NAME="0"></A>            v[i].second = -1;
+        }
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++) {
+            int idx = s[i]-'a';
+            v[idx].first = min(v[idx].first,i);
+            v[idx].second = max(v[idx].second,i);
+        }
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; 26; j++) {
+                if (v[j].first &lt; i &amp;&amp; i &lt; v[j].second) {</B></FONT>
+                    int idxi = s[i]-'a';
+                    v[j].first = min(v[j].first,v[idxi].first);
+                    v[j].second = max(v[j].second,v[idxi].second);
+                }
+            }
+        }
+        
+<A NAME="1"></A>
+        
+        vector&lt;pair&lt;int,int&gt;&gt; pps;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        pair&lt;int,int&gt; cur = {-1,-1};
+        for (int i = 0; i &lt; n; i++) {
+            int idx = s[i]-'a';
+            if (v[idx].first &lt;= cur.first) {</B></FONT>
+                continue;
+            }
+            assert(v[idx].first &gt; cur.first);
+            if (v[idx].first &gt; cur.second) {
+                pps.push_back(cur);
+                cur = v[idx];
+                continue;
+            }
+            if (v[idx].second &lt; cur.second) {
+                cur = v[idx];
+            }
+        }
+        pps.push_back(cur);
+        
+        vector&lt;string&gt; ans;
+        for (auto p: pps) {
+            // cout &lt;&lt; p.first &lt;&lt; &quot;, &quot; &lt;&lt; p.second &lt;&lt; &quot;\n&quot;;
+            int i = p.first;
+            int j = p.second;
+            if (i &lt; 0) continue;
+            string t = s.substr(i,j-i+1);
+            ans.push_back(t);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

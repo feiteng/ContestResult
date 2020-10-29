@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>395_aizwwl.py</TITLE>
+ <TITLE>109_dirtysalt.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>395_aizwwl.py</CENTER></H3><HR>
+<H3><CENTER>109_dirtysalt.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        edges.sort(reverse=True)
-        a_uf = UF(n+1)
-        b_uf = UF(n+1)
-        unwanted = 0
+        A = [0] * (n+1)
+        B = [0] * (n+1)
         
-        for</B></FONT> t, u, v in edges:
-<A NAME="2"></A>            #print((t, u, v))
-            if t == 1:
-                # Alice
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if a_uf.find(u) == a_uf.find(v):
-                    # dont need this
-                    unwanted += 1
-                else:
-                    a_uf.union(u, v)
-            elif t == 2:
-                # Bob
-                if b_uf.find(u) == b_uf.find(v):
-                    # dont need this
-                    unwanted += 1
-                else:
-<A NAME="1"></A>                    b_uf.union(</B></FONT>u, v)
+        def merge(fu, x, y):
+            if x == y: return
+            fu[x] = y
+        
+        def parent(fu, x):
+            p = x
+            while fu[p] != 0:
+                p = fu[p]
+            
+            while x != p:
+                x2 = fu[x]
+                fu[x] = p
+                x = x2
+            return p
+        
+        edges = [tuple(x) for x in edges]
+        edges.sort(reverse = True)
+        c = 0
+        for t, x, y in edges:
+            if t == 3:
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                p3 = parent(B, x)
+                p4 = parent(B, y)
+                if (p1 != p2) or (p3 != p4):
+                    c += 1
+                    merge(A, p1, p2)
+                    merge(B, p3, p4)
+            
+            elif t == 1:
+                p1 = parent(A, x)
+                p2 = parent(A, y)
+                if p1 != p2:
+                    c += 1
+                    merge(A, p1, p2)
+            
             else:
-                # Alice and Bob
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if a_uf.find(u) == a_uf.find(v) and b_uf.find(u) == b_uf.find(v):
-                    # both guys dont need
-                    unwanted += 1
-                else:
-                    a_uf.union(u, v)
-                    b_uf.union(</B></FONT>u, v)
-                
-        if a_uf.size[a_uf.find(1)] &lt; n or b_uf.size[b_uf.find(1)] &lt; n:
-            return -1
-                
-        return unwanted
-    
-class UF:
-    def __init__(self, n):
-        self.uf = [i for i in range(n)]
-        self.size = [1] * n
-    
-    def find(self, u):
-        while u != self.uf[u]:
-            self.uf[u] = self.uf[self.uf[u]]
-            u = self.uf[u]
-        return u
-    
-    def union(self, u, v):
-        rootU = self.find(u)
-        rootV = self.find(v)
-        if rootU != rootV:
-            if self.size[rootU] &gt; self.size[rootV]:
-                self.size[rootU] += self.size[rootV]
-                self.uf[rootV] = rootU
-            else:
-                self.size[rootV] += self.size[rootU]
-                self.uf[rootU] = rootV
-        
-        
+                p1 = parent(B, x)
+                p2 = parent(B, y)
+                if p1 != p2:
+                    c += 1
+                    merge(B, p1, p2)
+            
+        p0 = parent(A, 1)
+        p1 = parent(B, 1)
+        for i in range(1, n+1):
+            p = parent(A, i)
+            if p != p0: return -1
+            p = parent(B, i)
+            if p != p1: return -1
+            
+        ans = len(edges) - c
+        re</B></FONT>turn ans
         
 </PRE>
 

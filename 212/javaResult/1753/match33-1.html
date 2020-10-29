@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>853_lookingforsure.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>853_lookingforsure.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        int[][] mtr = new int[heights.length][heights[0].length];
+		for (int[] row : mtr)
+		{
+			Arrays.fill(row, Integer.MAX_VALUE);
+<A NAME="0"></A>		}
+
+<A NAME="1"></A>		mtr[0][0] = 0;
+		int[][] dir = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+
+		Queue&lt;int[]&gt; q = new LinkedList<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>&lt;int[]&gt;();</B></FONT>
+		q.offer(new int[] { 0, 0 });
+		while (!q.isEmpty())
+<A NAME="2"></A>		{
+			int[] head = q.poll();
+			int effort = mtr[head[0]][head[1]];</B></FONT>
+			for (int[] d : dir)<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			{
+				int x = head[0] + d[0];
+				int y = head[1] + d[1];
+				if (x &gt;= 0 &amp;&amp; x &lt; heights.length &amp;&amp; y &gt;= 0
+						&amp;&amp; y &lt; heights[0].length)
+<A NAME="3"></A>				{
+					int absDiff = Math</B></FONT>
+							.abs(heights[x][y] - heights[head[0]][head[1]]);
+					int newEffort = Math.max(absDiff, effort);<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#3',2,'match33-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+					if (newEffort &lt; mtr[x][y])
+					{
+						mtr[x][y] = newEffort;
+						q.offer(new int[] { x, y });
+					}
+				}
+			}
+		}
+
+		return mtr[heights.length - 1][heights[0].length - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

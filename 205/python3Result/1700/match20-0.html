@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>575_MaidaWu.py</TITLE>
+ <TITLE>172_sshang.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>575_MaidaWu.py</CENTER></H3><HR>
+<H3><CENTER>172_sshang.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        stack=[]
-        res=0
-        for i in range(len(s)):
-<A NAME="0"></A>            if not stack:
-                stack.append(i)
-                continue
-            if s[i]==s<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[stack[-1]]:
-                if cost[i]&lt;cost[stack[-1]]:
-                    res+=cost[i]
-                else:
-                    res+=cost[stack[-1]]
-                    stack.pop()
-                    stack.append(i)
-            else:
-                stack.append(i)
-        re</B></FONT>turn res
         
+        total = sum(cost)
+        remain = 0
+        prev, prev_max = s[0], cost[0]
+        for i, c in enumerate(s[1:]):
+            if c != prev:
+                remain += prev_max
+                prev, prev_max = c, cost[i+1]
+            else:
+                prev_max = max(prev_max, cost[i+1])
+        remain += prev_max
+        
+        re</B></FONT>turn total - remain
 </PRE>
 
 </BODY>

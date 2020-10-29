@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>704_li-yan-song.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>704_li-yan-song.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    typedef long long LL;
+    
+    int mod = 1e9 + 7;
+    
+    int maxSum(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        int n = nums1.size(), m = nums2.size();
+<A NAME="0"></A>        vector&lt;LL&gt; f1(n+1, 0);
+        vector&lt;LL&gt; f2(m+1, 0);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int i = n - 1, j = m - 1;
+        while (i &gt;= 0 &amp;&amp; j &gt;= 0) {
+            if (nums1[i] == nums2[j]) {
+                f1[i] = f2[j] = max(f1[i + 1], f2[j + 1]) + nums1[i];
+                --i;
+                --j;
+            }
+            else if (nums1[i] &gt; nums2[j]) {
+<A NAME="1"></A>                f1[i] = nums1[i] + f1[i+1];
+                --i;
+            }
+            else if (nums1[i] &lt; nums2[j]) {</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                f2[j] = nums2[j] + f2[j+1];
+                --j;
+            }
+        }
+        while (i &gt;= 0) {
+            f1[i] = nums1[i] + f1[i + 1];
+            --i;
+        }
+        while (j &gt;= 0) {
+            f2[j] = nums2[j] + f2[j + 1];
+            --j;
+        }
+        return max(f1[0], f2[0]) % mod;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

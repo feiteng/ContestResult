@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>28_xaviercai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>28_xaviercai.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 48 + 2;
+const int M = 8 + 2;
+double dp[N][N][M][M]; // l r lcs rcs
+double pro[M][M];
+
+class Solution {
+public:
+    double getProbability(vector&lt;int&gt;&amp; balls) {
+        pro[0][0] = 1;
+        for (int i = 1; i &lt; M; ++i) {
+            pro[i][0] = pro[i-1][0] / 2;
+            for (int j = 1; j &lt;= i; ++j) {
+                pro[i][j] = pro[i-1][j] / 2 + pro[i-1][j-1] / 2;
+            }
+        }
+            
+        for (int i = 0; i &lt; N; ++i) for (int j = 0; j &lt; N; ++j)
+            for (int k = 0; k &lt; M; ++k) for (int l = 0; l &lt; M; ++l)
+                dp[i][j][k][l] = 0;
+        dp[0][0][0][0] = 1;
+        
+        int n = balls.size(), cnt = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            int x = balls[i];
+            for (int p = 0; p &lt;= x; ++p) {
+<A NAME="0"></A>                int dl = p == 0 ? 0 : 1;
+                int dr = p == x ? 0 : 1;
+                for (int l = 0; l &lt;= cnt; ++l) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    int r = cnt - l;
+                    for (int lcs = 0; lcs &lt;= i; ++lcs) {
+                        for (int rcs = 0; rcs &lt;= i; ++rcs) {
+                            dp[l+p][r+x-p][lcs+dl][rcs+dr] += dp[l][r][lcs][rcs] * pro[x][p];</B></FONT>
+                        }
+                    }
+                }
+            }
+            cnt += x;
+        }
+<A NAME="1"></A>        
+        int h = cnt/2;
+        double ans1 = 0, ans2 = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt;= n; ++i) {
+            ans1 += dp[h][h][i][i];
+        }
+        for (int i = 0; i &lt;= n; ++i) {</B></FONT>
+            for (int j = 0; j &lt;= n; ++j)
+                ans2 += dp[h][h][i][j];
+        }
+        return ans1 / ans2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

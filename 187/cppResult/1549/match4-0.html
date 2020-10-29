@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>50_rgkbitw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>50_rgkbitw.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int longestSubarray(vector&lt;int&gt;&amp; nums, int limit) {
+        int max_ans = 0;
+        multiset&lt;int&gt; ms;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = nums.size();
+        int st = 0;
+        for(int j=0; j&lt;n; ++j){
+            ms.insert(nums[j]);
+            while( *prev(ms.end()) - *ms.begin() &gt; limit ){
+                ms.erase(ms.find(nums[st]));
+                st++;
+            } 
+            max_ans = max(max_ans, j - st + 1 );
+        }
+        return max_ans;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

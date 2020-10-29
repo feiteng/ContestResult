@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_alice_v3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_alice_v3.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public void minInt(char[] n, int start, int k) {
+<A NAME="2"></A>        if (start &gt;= n.length || k &lt;= 0) return;
+        char minDigit = 'a';
+        int minIndex = -1;
+        for (int i = start</B></FONT>; i &lt; Math.min(start + k + 1, n.length); i++) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            // System.out.println(minDigit + &quot; &quot; + n[i]);
+            if (minDigit &gt; n[i]) {
+                minDigit = n[i];
+                minIndex = i;
+            }
+        }
+        char curr = '0';
+        for (int i = minIndex; i &gt; start; i--) {
+            c</B></FONT>urr = n[i-1];
+            n[i-1] = n[i];
+            n[i] = curr;
+        }
+<A NAME="0"></A>        minInt(n, start+1, k - (minIndex - start));
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public String minInteger(String num, int k) {
+        char[] n = num.toCharArray();
+        minInt(n, 0, k);
+        return new String(n);
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

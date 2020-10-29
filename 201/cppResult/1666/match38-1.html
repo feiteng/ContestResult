@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_shinigami_orz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>360_shinigami_orz.cpp</CENTER></H3><HR>
+<PRE>
+
+#include&lt;bits/stdc++.h&gt;
+ 
+using namespace std;
+ 
+// Comap_varetetive Temap_varlate:
+typedef long long int lli;
+typedef unsigned long long int ulli;
+typedef long double ldb;
+typedef pair &lt;lli,lli&gt; pll;
+typedef pair &lt;lli,string&gt; pls;
+typedef pair &lt;string, lli&gt; psl;
+ 
+typedef vector &lt;lli&gt; vl;
+typedef vector &lt;pll&gt; vll;
+typedef vector &lt;string&gt; vs;
+typedef vector &lt;char&gt; vc;
+ 
+typedef set &lt;lli&gt; sl;
+typedef set &lt;pll&gt; sll;
+typedef set &lt;char&gt; sc;
+ 
+typedef map &lt;lli, lli&gt; mll;
+typedef map &lt;pll, lli&gt; map_varll;
+typedef map &lt;string, lli&gt; msl;
+ 
+typedef priority_queue &lt;lli&gt; max_heap ;
+typedef priority_queue &lt; lli, vector&lt;lli&gt; , greater&lt;lli&gt; &gt; min_heap;
+ 
+// Debugging :
+void __print(int x) {cerr &lt;&lt; x;}
+void __print(long x) {cerr &lt;&lt; x;}
+void __print(long long x) {cerr &lt;&lt; x;}
+void __print(unsigned x) {cerr &lt;&lt; x;}
+void __print(unsigned long x) {cerr &lt;&lt; x;}
+void __print(unsigned long long x) {cerr &lt;&lt; x;}
+void __print(float x) {cerr &lt;&lt; x;}
+void __print(double x) {cerr &lt;&lt; x;}
+void __print(long double x) {cerr &lt;&lt; x;}
+void __print(char x) {cerr &lt;&lt; '\'' &lt;&lt; x &lt;&lt; '\'';}
+void __print(const char *x) {cerr &lt;&lt; '\&quot;' &lt;&lt; x &lt;&lt; '\&quot;';}
+void __print(const string &amp;x) {cerr &lt;&lt; '\&quot;' &lt;&lt; x &lt;&lt; '\&quot;';}
+void __print(bool x) {cerr &lt;&lt; (x ? &quot;true&quot; : &quot;false&quot;);}
+ 
+ 
+ 
+#define pb push_back 
+#define pf push_front
+#define in insert 
+#define popb pop_back
+#define popf pop_front
+#define ba  back
+#define si size()
+#define be begin()
+#define en end()
+#define le length()
+#define lb lower_bound
+#define ub upper_bound
+ 
+#define mt make_tuple
+#define fi first
+#define se second
+#define all(v) v.be, v.en
+#define INF LLONG_MAX
+const ldb PI = acos(-1.0);
+ 
+#define forz(i, n) for (int i = 0; i &lt; n; i++)
+#define rforz(i, n) for (int i = n - 1; i &gt;= 0; i--)
+ 
+#define fore(i, m, n) for (int i = m; i &lt;= n; i++)
+#define rfore(i, m, n) for (int i = n; i &gt;= m; i--)
+ 
+#define deci(n)  fixed&lt;&lt;setprecision(n)
+#define high(n) __builtin_popcount(n)
+#define parity(n) __builtin_parity(n)
+#define ctz(n)  __builtin_ctz(n)
+#define mod 1000000007
+#define mod2 998244353
+#define EPSILON 1e-9
+ 
+// I/O from a file.
+#define file freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin); freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);
+ 
+// Printing Data :
+#define pvec(v) forz(i,v.si) cout&lt;&lt;v[i]&lt;&lt;&quot; &quot;; cout&lt;&lt;&quot;\n&quot;;
+#define parr(arr, n) forz(i,n) cout&lt;&lt;arr[i]&lt;&lt;&quot; &quot;; cout&lt;&lt;&quot;\n&quot;;
+ 
+#define p1(i) cout&lt;&lt;i&lt;&lt;&quot;\n&quot;
+#define p2(i, j) cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot;\n&quot;
+#define p3(i, j, k) cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot;\n&quot;
+#define p4(i, j, k, l) cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot; &quot;&lt;&lt;l&lt;&lt;&quot;\n&quot;
+ 
+// Comap_vararing Floating Point Values
+bool AreSame(ldb a, ldb b){return fabs(a - b) &lt; EPSILON;}
+ 
+// Exponentiation in O(log y)
+lli power(lli x,lli y){lli res=1; x=x;while(y&gt;0){if(y&amp;1) res=(res*x);y=y&gt;&gt;1;x=(x*x);}return res;} 
+ 
+// Modular Exponentiation in O(log y)
+lli power(lli x,lli y,lli p){lli res=1; x=x%p;while(y&gt;0){if(y&amp;1) res=(res*x)%p;y=y&gt;&gt;1;x=(x*x)%p;}return res;} 
+ 
+// Euclidean gcd
+lli gcd(lli a, lli b) { if (a==0) return b; return gcd(b % a, a);}
+ 
+// Returns ceil(a/b)
+lli ceil2(lli a, lli b) {lli c=a/b; if(a%b)c++;return c;}
+ 
+bool isPalindrome(string s) { string t = s; reverse(all(t)); return s == t;}  
+ 
+
+class Solution {
+public:
+    
+<A NAME="0"></A>    string help(string s, int n)
+    {
+        string res = &quot;&quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;n;i++)
+        {
+            if((i+1&lt;n)&amp;&amp;(s[i]-s[i+1])==32 || (s[i+1]-s[i])==32)
+            {
+                // cout&lt;&lt;&quot;hello&quot;;
+                i++;
+            }
+            else
+            {
+                res += s[i];
+            }
+        }
+        // cout&lt;&lt;res&lt;&lt;endl;
+        return res;
+    }</B></FONT>
+    
+    string makeGood(string s) 
+    {
+        
+        if(s==&quot;&quot;){
+            return s;
+        }
+        while(true)
+        {
+            string t = s;
+            int n = s.size();
+            s = help(s,n);
+            if(s==&quot;&quot;) break;
+            if(t==s){
+                break;
+            }
+        }
+        return s;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

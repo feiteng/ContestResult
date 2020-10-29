@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>461_iejepwy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>461_iejepwy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean isOk(int[] bloomDay,int m,int k,int cur){
+        int ans=0;
+        int kk=0;
+        for(int i:bloomDay){
+            if(i&lt;=cur){</B></FONT>
+                kk++;
+                if(kk==k){
+<A NAME="3"></A>                    kk=0;
+                    ans++;
+                }
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#3',2,'match15-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}else{
+                kk=0;
+            }
+<A NAME="0"></A>        }
+        return ans&gt;=m;
+    }</B></FONT>
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minDays(int[] bloomDay, int m, int k) {
+        if(bloomDay.length&lt;m*k){
+            return -1;
+<A NAME="1"></A>        }
+        int l=0,r=Integer.MIN_VALUE;
+        for(int i:bloomDay){</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>r=Math.max(r,i);
+        }
+        while(l&lt;r){
+            int cur=l+(r-l)/2;
+            if(isOk(bloomDay,m,k,cur)){
+                r=cur;
+            }else{
+                l=cur+1;
+            }
+        }
+        return l;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

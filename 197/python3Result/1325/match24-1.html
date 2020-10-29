@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>348_cpparabian.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>348_cpparabian.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        graph = defaultdict(list)
+        for i, (u, v) in enumerate(edges):
+            graph[u].append([v, succProb[i]])
+            graph[</B></FONT>v].append([u, succProb[i]])
+            
+        
+        # distance = defaultdict(int)
+        # distance[start] = 1
+        
+        '''
+        for k in range(len(edges)):
+            for u in range(n):
+                for v, p in graph[u]:
+                    distance[v] = max(distance[v], distance[u] * p)
+        '''
+        '''
+        for k in range(n):
+            for i, (u, v) in enumerate(edges):
+                p = succProb[i]
+                if distance[u] * p &gt; distance[v]:
+                    distance[v] = distance[u] * p
+                elif distance[v] * p &gt; distance[u]:
+                    distance[u] = distance[v] * p
+        '''
+        
+        # djikstra
+        
+        distance = defaultdict(int)
+        distance[start] = 1
+        
+        pq = [(-1, start)]
+        
+<A NAME="1"></A>        while pq:
+            p, u = heapq.heappop(pq)
+            p = -p
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for v, w in graph[u]:
+                if distance[v] &lt; distance[u] * w:
+                    distance[v] = distance[u] * w
+                    heapq.heappush(pq, (- distance[v], v))
+        
+        return</B></FONT> distance[end]
+</PRE>
+
+</BODY>
+</HTML>

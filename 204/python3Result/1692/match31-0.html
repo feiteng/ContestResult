@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>516_lrghust.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>516_lrghust.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getFactorial(self, a):
+        if a not in self.factor:
+            self.factor[a]=math.factorial(a)
+        return self.factor[a]
+
+<A NAME="0"></A>    def helper(self, nums: List[int]) -&gt; int:
+        if len(nums)==0:
+            return 0
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if len(nums)&lt;=2:
+            return 1
+        root=nums[0]
+        l=[]
+        r=[]
+        for i in range(1, len(nums)):
+            if nums[i]&lt;root:
+                l.append(nums[i])
+            else:
+                r.append(nums[i</B></FONT>])
+        self.factor={}
+        lnum=self.helper(l)
+        rnum=self.helper(r)
+        print(l,r)
+        print(lnum, rnum)
+        if lnum and rnum:
+            n=self.getFactorial(len(nums)-1)
+            a=self.getFactorial(len(l))
+            b=self.getFactorial(len(r))
+            return n//(a*b) * lnum * rnum
+        else:
+            return lnum if lnum else rnum
+    
+    def numOfWays(self, nums: List[int]) -&gt; int:
+        return (self.helper(nums)-1)%(10**9+7)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>225_Juny1He.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>225_Juny1He.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int closestToTarget(int[] arr, int target) {
+
+        int n = arr.length;
+        
+        int[][] pref = new int[n][32];
+        for(int i = 0; i &lt; n; i ++){
+            int cur = arr[i];
+            for(int j = 0; j &lt; 32; j ++){
+                int digit = cur&amp;1;
+                pref[i][32-j-1] = digit;
+                cur = cur &gt;&gt; 1;
+            }
+        }
+        int[][] cal = new int[n+1][32];
+<A NAME="1"></A>        for(int i = 1; i &lt;= n; i ++){
+            for(int j = 0; j &lt; 32; j ++){
+                cal[i][j] = cal[i-1][j]+pref[i-1][j];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        int min = 1000000000;
+        for(int i = 0; i &lt; n; i ++){
+            int left = i;
+            int right = n-1;</B></FONT>
+            while(left &lt;= right){
+                int mid = (left+right) &gt;&gt;&gt; 1;
+<A NAME="0"></A>                int value = calculate(cal,i,mid);
+                min = Math.min(min,Math.abs(value-target));
+                if(value == target) return 0;
+                else <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(value &lt; target){
+<A NAME="2"></A>                    right = mid-1;
+                }else{
+                    left = mid+1;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}</B></FONT>
+            }
+        }
+        return min;
+
+
+    }
+    private int calculate(int[][] cal, int left</B></FONT>, int right){
+        int ret = 0;
+        for(int i = 0; i &lt; 32; i ++){
+            int temp = 0;
+            int num = cal[right+1][i]-cal[left][i];
+            if(num == (right-left+1)){
+                temp = 1;
+            }
+            ret = (ret &lt;&lt; 1)+temp;
+        }
+        return ret;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

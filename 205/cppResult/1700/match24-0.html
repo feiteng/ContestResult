@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>620_programmerbear.cpp</TITLE>
+ <TITLE>126_jljljljljl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>620_programmerbear.cpp</CENTER></H3><HR>
+<H3><CENTER>126_jljljljljl.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int sum=cost[0];
-        int maxs=cost[0];
-        int ans=0;
-        for(int i=1;i&lt;s.length();i++)
+    int minCost(string s, vector&lt;int&gt;&amp; cost) 
+    {
+        char prev = s[0];
+        int maxCost = cost[0];
+        int ret = 0, sum = cost[0];
+        for(int i = 1; i &lt; s.size(); i++)
         {
-            if(s[i]==s[i-1])
-<A NAME="1"></A>            {</B></FONT>
-                maxs=max(maxs,cost[i]);
-                sum+=cost[i];
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            if(s[i] == prev)
+            {
+                maxCost = max(maxCost, cost[i]);
+                sum += cost[i];
+            }
             else
             {
-                ans+=sum-maxs;//cout&lt;&lt;ans&lt;&lt;endl;
-                sum=cost[i];
-                maxs=cost[i];
+                ret += sum - maxCost;
+                prev = s[i];
+                maxCost = cost[i];
+                sum = maxCost;
             }
         }
-        ans+=sum-maxs;
-        return ans;
+        
+        ret += sum - maxCost;
+        return ret;
     }
 };</B></FONT>
 </PRE>

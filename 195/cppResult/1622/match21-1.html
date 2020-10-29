@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>171_rtmkz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>171_rtmkz.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int findMaxValueOfEquation(vector&lt;vector&lt;int&gt;&gt;&amp; a, int k) {
+        int l = 0;
+        multiset &lt;int&gt; st;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = -1e9;
+        for (int i = 0; i &lt; a.size(); i++) {
+            while (a[i][0] - a[l][0] &gt; k) {
+                st.erase(st.find(a[l][1] - a[l][0]));
+                l++;
+            }
+            if (st.size()) ans = max(ans, a[i][0] + a[i][1] + *st.rbegin());
+            st.insert(a[i][1] - a[i][0]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

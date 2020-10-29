@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_jtjl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_jtjl.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    typedef pair&lt;int, int&gt; PII;
+    int n;
+    vector&lt;PII&gt; E[50050];
+    int dfs(int u, int fa) {
+<A NAME="0"></A>        int cnt = 0;
+        for (auto &amp;v : E[u]) {
+            if (v.first != fa) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                cnt += dfs(v.first, u);
+                cnt += v.second;
+            }
+        }
+        return cnt;
+    }
+    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; cc) {
+        for (int i = 0; i &lt; n; i++) E[i].clear();
+        for (auto &amp;x : cc) {</B></FONT>
+            int p = x[0], q = x[1];
+            E[p].emplace_back(q, 1);
+            E[q].emplace_back(p, 0);
+        }
+        return dfs(0, -1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

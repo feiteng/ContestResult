@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>200_chendongcharlie.cpp</TITLE>
+ <TITLE>123_sunsetcolors.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>200_chendongcharlie.cpp</CENTER></H3><HR>
+<H3><CENTER>123_sunsetcolors.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+#define IO std::ios::sync_with_stdio(false); cin.tie(0)
+#define ll long long
+#define SZ(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rep(i, l, r) for (int i = l; i &lt;= r; i++)
+#define per(i, l, r) for (int i = l; i &gt;= r; i--)
+#define mset(s, _) memset(s, _, sizeof(s))
+#define pb push_back
+#define pii pair &lt;int, int&gt;
+<A NAME="0"></A>#define mp(a, b) make_pair(a, b)
+#define INF 0x3f3f3f3f
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>inline int read() {
+  int x = 0, neg = 1; char op = getchar();
+  while (!isdigit(op)) { if (op == '-') neg = -1; op = getchar(); }
+  while (isdigit(op)) { x = 10 * x + op - '0'; op = getchar(); }
+  return neg * x;
+}
+inline void print(int x) {
+  if (x &lt; 0) { putchar('-'); x = -x; }
+  if (x &gt;= 10) print(x / 10);
+  putchar(x % 10 + '0');
+}
+
+class Solution {
 public:
-<A NAME="1"></A>    int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.size();
-        int ans = 0;
-        for (int i = 0;i &lt; n-1; i++)</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-            if (s[i] == s[i+1]){
-                int j = i+1;
-                int costSum = cost[i];
-                int maxCost = cost[i];
-                while(j &lt; n &amp;&amp; s[j] == s[i]){
-                    costSum += cost[j];
-                    maxCost = max(maxCost, cost[j]);
-                    j++;
-                }       
-                ans += (costSum - maxCost);
-                i = j-1;
-            }     </B></FONT>
-        return ans;
+    int minCost(string s, vector&lt;int&gt;&amp; cost) {
+      int n = SZ(s);
+      bool v = false;
+      int ans = 0;
+      int sum = 0,mx = -1;
+      for(int i = 1 ; i &lt; n ; i++){
+        if(s[i] == s[i - 1]){
+          if(!v) v = true,sum = cost[i-1] + cost[i],mx = max(cost[i-1],cost[i]);
+          else sum += cost[i],mx = max(mx,cost[i]);
+        }else{
+          if(v){
+            v = false;
+            ans += sum - mx;
+            sum = 0,mx = -1;
+          }
+        }
+      }
+      if(v) ans += sum - mx;
+      return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>389_yuhsiangliu.py</TITLE>
+ <TITLE>152_kuro10.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>389_yuhsiangliu.py</CENTER></H3><HR>
+<H3><CENTER>152_kuro10.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        pre <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= '#'
-        total, high = 0, 0
-        res = 0
-        for cha, cos in zip(s+'#',cost+[0]):
-            if cha==pre:
-                total += cos
-                high = max(high, cos)
+        if len(s) &lt;= 1:
+            return 0
+        
+        max_payoff = sum(cost)
+        
+        pay_off = 0
+        # split by section, take the max val of that section
+        
+        last_ch = s[0]
+        this_max = 0
+        for ch, w in zip(s, cost):
+            if ch != last_ch:
+                # print(pay_off, this_max)
+                pay_off += this_max
+                this_max = w
+                last_ch = ch
             else:
-                res += total - high
-                total, high = cos, cos
-                pre =</B></FONT> cha
-        return res
+                this_max = max(w, this_max)
+                
+        pay_off += this_max
+        
+        re</B></FONT>turn max_payoff - pay_off
 </PRE>
 
 </BODY>

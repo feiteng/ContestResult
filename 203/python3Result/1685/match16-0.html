@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>310_dibdidib.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>310_dibdidib.py</CENTER></H3><HR>
+<PRE>
+from sys import setrecursionlimit
+
+
+sys.setrecursionlimit(1000000)
+
+
+<A NAME="0"></A>class Solution:
+    def stoneGameV(self, stoneValue: List[int]) -&gt; int:
+        stones = stoneValue
+        p <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [0]
+        for x in stones:
+            p.append(p[-1] + x)
+
+        @lru_cache(None)
+        def dp(i, j):
+            if j - i == 1:
+                return 0
+<A NAME="1"></A>            best =</B></FONT> -math.inf
+            for k in range(i + 1, j): # split at k, with k becoming part of right
+                left = p[k] - p[i]
+                right = p<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[j] - p[k]
+                if left &gt; right: # Bob throws away left, alice gets right
+                    best = max(best, right + dp(k, j))
+                elif left &lt; right: # Bob throws away right, alice gets left
+                    best = max(best, left + dp(i, k))
+                else:
+                    best = max(best, left + dp(i, k), right + dp(k, j))
+            return best
+
+        return dp(0, len(s</B></FONT>tones))
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>364_rign-LR7Rq2TRuq.cpp</TITLE>
+ <TITLE>146_panpeng.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,100 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>364_rign-LR7Rq2TRuq.cpp</CENTER></H3><HR>
+<H3><CENTER>146_panpeng.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
-    int fa[100005];
-    int get(int x){
-        if(x==fa[x]) return x;
-        return fa[x]=get(fa[x]);
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind{
+    public:
+        vector&lt;int&gt; sz,parent;
+        UnionFind(const int n){
+            sz.reserve(n);
+            sz.assign(n, 1);
+            parent.reserve(n);
+            for(int i = 0; i &lt; n; ++i)
+                parent.push_back(i);
+        }
+
+    int findParent(int x){
+        while(x != parent[x]){
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
     }
-    void merge(int x,int y){</B></FONT>
-        fa[get(x)]=get(y);
-    }
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        int ans=0;
-        bool flag=true;
-        for(int i=1;i&lt;=n;i++) fa[i]=i;
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==3){
-                if(get(edges[i][1])==get(edges[i][2]))ans++;
-                else merge(edges[i][1],edges[i][2]);
-<A NAME="1"></A>            }
+    
+    bool merge(int x, int y){
+        int p = findParent(x);
+        int q = findParent(y);
+        if(p == q) return false;
+        else if(sz[p] &gt;= sz[q]){
+            sz[p] += sz[q];
+            parent[q] = p;
         }
-        for(int i=0;i&lt;edges.size();i++){
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(edges[i][0]==1){
-                if(get(edges[i][1])==get(edges[i][2])) ans++;
-                else merge(edges[i][1],edges[i][2]);
-            }
+        else{
+            sz[q] += sz[p];
+            parent[p] = q;
         }
-        for(int i=1;i&lt;=n;i++) if(get(1)!=get(i)) flag=false;</B></FONT>
-        for(int i=1;i&lt;=n;i++) fa[i]=i;
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==3){
-                merge(edges[i][1],edges[i][2]);
-<A NAME="2"></A>            }
-        }
-        for(int i=0;i&lt;edges.size();i++){
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(edges[i][0]==2){
-                if(get(edges[i][1])==get(edges[i][2])) ans++;
-                else merge(edges[i][1],edges[i][2]);
-            }
-        }
-        for(int i=1;i&lt;=n;i++) if(get(1)!=get(i)) flag=false;</B></FONT>
-        if(flag==false) return -1;
-        return ans;
+        return true;
     }
 };
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int N = edges.size();
+        vector&lt;int&gt; vI[4];
+        for(int i=0;i&lt;N;i++){
+            vI[edges[i][0]].push_back(i);
+        }
+        UnionFind uSet1(n+1);
+        UnionFind uSet2(n+1);
+        int ans = 0;
+        for(auto ei:vI[3]){
+            int x = edges[ei][1];
+            int y = edges[ei][2];
+            int px=uSet1.findParent(x);
+            int py=uSet1.findParent(y);
+            if(px==py){
+                ans++;
+                continue;
+            }
+            uSet1.merge(px,py);
+            uSet2.merge(px,py);
+        }
+        for(auto ei:vI[1]){
+            int x = edges[ei][1];
+            int y = edges[ei][2];
+            int px=uSet1.findParent(x);
+            int py=uSet1.findParent(y);
+            if(px==py){
+                ans++;
+                continue;
+            }
+            uSet1.merge(px,py);
+        } 
+        for(auto ei:vI[2]){
+            int x = edges[ei][1];
+            int y = edges[ei][2];
+            int px=uSet2.findParent(x);
+            int py=uSet2.findParent(y);
+            if(px==py){
+                ans++;
+                continue;
+            }
+            uSet2.merge(px,py);
+        }  
+        int root1=uSet1.findParent(1);
+        if(uSet1.sz[root1]!=n){
+            return -1;
+        }
+        int root2=uSet2.findParent(1);
+        if(uSet2.sz[root2]!=n){
+            return -1;
+        }
+        return ans;
+        
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

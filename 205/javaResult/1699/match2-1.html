@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>221_ToffeeLu.java</TITLE>
+ <TITLE>155_anhpp.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>221_ToffeeLu.java</CENTER></H3><HR>
+<H3><CENTER>155_anhpp.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
+        int[] cnt1 = new int[100001];
+        int[] cnt2 = new int[100001];
+        for(int num : nums1)
+            cnt1[num]++;
+        for(int num : nums2)
+            cnt2[num]++;
+        int n1 = nums1.length;
+        int n2 = nums2.length;
         int res = 0;
-<A NAME="1"></A>        Map&lt;Long, Integer&gt; square1 = new HashMap&lt;&gt;();
-        for(int num : nums1){</B></FONT>
-            long p = (long)num * num;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>square1.put(p, square1.getOrDefault(p, 0) + 1);
-        }
-        for(int j = 0; j &lt; nums2.length; j++){
-            for(int k = j + 1; k &lt; nums2.length; k++){
-                long p = (long)nums2[j] * nums2[k];
-                if(square1.containsKey(p)){
-                    res += square1.get(p);
+        for(int i = 0; i &lt; n1; i ++)
+            for(int j = i + 1; j &lt; n1; j++)
+            {
+                long prod = 1L * nums1[i] * nums1[j];
+                long root = (long)Math.sqrt(prod);
+                if(root * root == prod){
+                    res += cnt2[(int)root];
                 }
             }
-        }
-        
-<A NAME="2"></A>        Map&lt;Long, Integer&gt; square2 = new HashMap&lt;&gt;();
-        for(int num : nums2){</B></FONT>
-            long p = (long)num * num;
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>square2.put(p, square2.getOrDefault(p, 0) + 1);
-        }
-        for(int j = 0; j &lt; nums1.length; j++){
-            for(int k = j + 1; k &lt; nums1.length; k++){
-                long p = (long)nums1[j] * nums1[k];
-                if(square2.containsKey(p)){
-                    res += square2.get(p);
+        for(int i = 0; i &lt; n2; i ++)
+            for(int j = i + 1; j &lt; n2; j++)
+            {
+                long prod = 1L * nums2[i] * nums2[j];
+                long root = (long)Math.sqrt(prod);
+                if(root * root == prod){
+                    res += cnt1[(int)root];
                 }
             }
-        }
-        
         return res;
     }
 }</B></FONT>

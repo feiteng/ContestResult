@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>566_WindQAQ.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>566_WindQAQ.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        priority_queue&lt;pair&lt;int, char&gt;&gt; pq;
+        if (a) pq.emplace(a, 'a');
+        if (b) pq.emplace(b, 'b');
+        if (c) pq.emplace(c, 'c');
+        
+        string ret;
+        
+        while (!pq.empty()) {
+            auto t = pq.top();
+            pq.pop();
+            if (ret.size() &lt; 2) {
+                ret.push_back(t.second);
+                t.first--;
+                if (t.first &gt; 0) pq.push(t);
+            }
+            else {</B></FONT>
+                int n = ret.size();
+                char x = ret[n-1], y = ret[n-2];
+                // cout &lt;&lt; t.second &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot;\n&quot;;
+                if (x == y &amp;&amp; y == t.second) {
+                    if (!pq.empty()) {
+                        auto s = pq.top();
+                        pq.pop();
+                        ret.push_back(s.second);
+                        s.first--;
+                        if (s.first &gt; 0) pq.push(s);
+                        if (t.first &gt; 0) pq.push(t);
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    ret.push_back(t.second);
+                    t.first--;
+                    if (t.first &gt; 0) pq.push(t);
+                }
+            }
+        }
+        
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

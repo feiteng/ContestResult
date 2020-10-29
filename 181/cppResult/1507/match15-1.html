@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_qi-han-5.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>280_qi-han-5.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int flag, m, n;
+    int vis[305][305];
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        flag = 0;
+        memset(vis, 0, sizeof(vis));
+        m = grid.size(), n = grid[0].size();
+        dfs(grid, 0, 0);
+        if(flag) 
+            return true;
+        else
+            return false;
+    }
+    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int a, int b)
+    {
+        if(vis[a][b]) return;
+        vis[a][b] = 1;
+        if(a == m-1 &amp;&amp; b == n-1)
+        {
+<A NAME="0"></A>            flag = 1;
+            return;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(grid[a][b] == 1)
+        {
+            if(a &gt;= 0 &amp;&amp; a &lt; m &amp;&amp; b-1 &gt;= 0 &amp;&amp; b-1 &lt; n &amp;&amp; (grid[a][b-1] == 1 || grid[a][b-1] == 4 || grid[a][b-1] == 6)) dfs(grid, a, b-1);
+            if(a &gt;= 0 &amp;&amp; a &lt; m &amp;&amp; b+1 &gt;= 0 &amp;&amp; b+1 &lt; n &amp;&amp; (grid[a][b+1] == 1 || grid[a][b+1] == 3 || grid[a][b+1] == 5)) dfs(grid, a, b+1);
+        }
+        if(grid[a][b] == 2)
+        {
+            if(a-1 &gt;= 0 &amp;&amp; a-1 &lt; m &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; n &amp;&amp; (grid[a-1][b] == 2 || grid[a-1][b] == 3 || grid[a-1][b] == 4)) dfs(grid, a-1, b);
+            if(a+1 &gt;= 0 &amp;&amp; a+1 &lt; m &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; n &amp;&amp; (grid[a+1][b] == 2 || grid[a+1][b] == 5 || grid[a+1][b] == 6)) dfs(grid, a+1, b);
+        }
+        if(grid[a][b] == 3)
+        {
+            if(a &gt;= 0 &amp;&amp; a &lt; m &amp;&amp; b-1 &gt;= 0 &amp;&amp; b-1 &lt; n &amp;&amp; (grid[a][b-1] == 1 || grid[a][b-1] == 4 || grid[a][b-1] == 6)) dfs(grid, a, b-1);
+            if(a+1 &gt;= 0 &amp;&amp; a+1 &lt; m &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; n &amp;&amp; (grid[a+1][b] == 2 || grid[a+1][b] == 5 || grid[a+1][b] == 6)) dfs(grid, a+1, b);
+        }
+        if(grid[a][b] == 4)
+        {
+            if(a &gt;= 0 &amp;&amp; a &lt; m &amp;&amp; b+1 &gt;= 0 &amp;&amp; b+1 &lt; n &amp;&amp; (grid[a][b+1] == 1 || grid[a][b+1] == 5 || grid[a][b+1] == 3)) dfs(grid, a, b+1);
+            if(a+1 &gt;= 0 &amp;&amp; a+1 &lt; m &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; n &amp;&amp; (grid[a+1][b] == 2 || grid[a+1][b] == 5 || grid[a+1][b] == 6)) dfs(grid, a+1, b);
+        }
+        if(grid[a][b] == 5)
+        {
+            if(a &gt;= 0 &amp;&amp; a &lt; m &amp;&amp; b-1 &gt;= 0 &amp;&amp; b-1 &lt; n &amp;&amp; (grid[a][b-1] == 1 || grid[a][b-1] == 4 || grid[a][b-1] == 6)) dfs(grid, a, b-1);
+            if(a-1 &gt;= 0 &amp;&amp; a-1 &lt; m &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; n &amp;&amp; (grid[a-1][b] == 2 || grid[a-1][b] == 3 || grid[a-1][b] == 4)) dfs(grid, a-1, b);
+        }
+        if(grid[a][b] == 6)
+        {
+            if(a &gt;= 0 &amp;&amp; a &lt; m &amp;&amp; b+1 &gt;= 0 &amp;&amp; b+1 &lt; n &amp;&amp; (grid[a][b+1] == 1 || grid[a][b+1] == 5 || grid[a][b+1] == 3)) dfs(grid, a, b+1);
+            if(a-1 &gt;= 0 &amp;&amp; a-1 &lt; m &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; n &amp;&amp; (grid[a-1][b] == 2 || grid[a-1][b] == 3 || grid[a-1][b] == 4)) dfs(grid, a-1, b);
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

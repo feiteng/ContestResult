@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>387_ko19951231.cpp</TITLE>
+ <TITLE>122_Eser.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,19 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>387_ko19951231.cpp</CENTER></H3><HR>
+<H3><CENTER>122_Eser.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     string modifyString(string s) {
-        for(int i=0;i&lt;s.length();i++){
-            if(s[i]=='?'){
-                char x = 'a';
-                if(i&gt;0&amp;&amp;x==s[i-1]) x++;
-                if(i&lt;s.length()-1&amp;&amp;x==s[i+1]) x++;
-                if(i&gt;0&amp;&amp;x==s[i-1]) x++;
-                s[i]=x;
+        string alpha = &quot;abcdefghijklmnopqrstuvwxyz&quot;;
+        for (int i = 0; i &lt; s.size(); ++i){
+            if (s[i] != '?') continue;
+            for (char c: alpha){
+                if ((i == 0 || c!=s[i-1]) &amp;&amp; (i == s.size()-1 || c!=s[i+1])){
+                    s[i] = c;
+                    break;
+                }
             }
         }
         return s;

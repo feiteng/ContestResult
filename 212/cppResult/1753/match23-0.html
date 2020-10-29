@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_lz9506.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_lz9506.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int nxt[4][2]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int d[105][105];
+    bool f[105][105];
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; a) {</B></FONT>
+        int n = a.size();
+        int m = a[0].size();
+        memset(d, 1, sizeof(d));
+        memset(f, true, sizeof(f));
+        queue&lt;pair&lt;int, int&gt;&gt; q;
+        q.push(make_pair(0, 0));
+        f[0][0] = false;
+        d[0][0] = 0;
+        while (!q.empty()){
+<A NAME="1"></A>            auto xx = q.front();
+            q.pop();
+            int x = xx.first;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int y = xx.second;
+            for (int i = 0; i &lt; 4; i++){
+                int nx = x + nxt[i][0];
+                int ny = y + nxt[i][1];
+                if (nx &gt;= 0 &amp;&amp; nx &lt; n &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; m){
+                    if (d[nx][ny] &gt; max(d[x][y], abs(a[nx][ny] - a[x][y]))){
+                        d[nx][ny] = max(d[x][y], abs(a[nx][ny] - a[x][y]));
+                        if (f[nx][ny]){
+                            q.push(make_pair(nx, ny));
+                            f[nx][ny] = false;
+                        }
+                    }
+                }
+            }</B></FONT>
+            f[x][y] = true;
+        }
+        return d[n - 1][m - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

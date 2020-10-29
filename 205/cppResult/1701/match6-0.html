@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>516_z71258847.cpp</TITLE>
+ <TITLE>124_sunsetcolors.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,72 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>516_z71258847.cpp</CENTER></H3><HR>
+<H3><CENTER>124_sunsetcolors.cpp</CENTER></H3><HR>
 <PRE>
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+#define IO std::ios::sync_with_stdio(false); cin.tie(0)
+#define ll long long
+#define SZ(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rep(i, l, r) for (int i = l; i &lt;= r; i++)
+#define per(i, l, r) for (int i = l; i &gt;= r; i--)
+#define mset(s, _) memset(s, _, sizeof(s))
+#define pb push_back
+#define pii pair &lt;int, int&gt;
+<A NAME="0"></A>#define mp(a, b) make_pair(a, b)
+#define INF 0x3f3f3f3f
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>inline int read() {
+  int x = 0, neg = 1; char op = getchar();
+  while (!isdigit(op)) { if (op == '-') neg = -1; op = getchar(); }
+  while (isdigit(op)) { x = 10 * x + op - '0'; op = getchar(); }
+  return neg * x;
+}
+inline void print(int x) {
+  if (x &lt; 0) { putchar('-'); x = -x; }
+  if (x &gt;= 10) print(x / 10);
+  putchar(x % 10 + '0');
+}
+
+const int maxn = 1e5 + 10;
+int par[maxn],memo[maxn];
+int find(int x){
+  return par[x] == x ? x : par[x] = find(par[x]);
+}
 class Solution {
 public:
-    int find(int x, vector&lt;int&gt; &amp;father){
-        if (father[x]!=x) {
-            int u=find(father[x], father);
-            father[x]=u;
-        }
-        return father[x];
-    }
-    
-    void unions(int x, int y, vector&lt;int&gt; &amp;father){
-        int fx = find(x, father);
-        int fy = find(y, father);
-        father[fx]=fy;
-    }
-    
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector&lt;int&gt; fa, fb;
-        for (int i=0; i&lt;=n; i++){
-<A NAME="0"></A>            fa.push_back(i);
-            fb.push_back(i);
+      rep(i,1,n) par[i] = i;
+      int ans = 0;
+      for(auto it : edges){
+        int tp = it[0],u = it[1],v = it[2];
+        if(tp == 3){
+          int x = find(u),y = find(v);
+          if(x == y) continue;
+          else{
+            ans++;
+            par[x] = y;
+          }
         }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans=0;
-        for (int i=0; i&lt;edges.size(); i++){
-            if (edges[i][0]==3){
-                int x=edges[i][1];
-                int y=edges[i][2];
-                if (find(x, fa)!=find(y, fa)){
-                    unions(x, y, fa);
-                    unions(x, y, fb);
-                }
-                else ans++;
-            }
+      }
+      bool ok = true;
+      rep(i,1,n) memo[i] = par[i];
+      for(auto it : edges){
+        int tp = it[0],u = it[1],v = it[2];
+        if(tp == 1){
+          int x = find(u),y = find(v);
+          if(x == y) continue;
+          else{
+            ans++;
+            par[x] = y;
+          }
         }
-        
-        for (int i=0; i&lt;edges.size(); i++){
-            if (edges[i][0]==1){
-                int x=edges[i][1];
-                int y=edges[i][2];
-                if (find(x, fa)!=find(y, fa)){
-                    unions(x, y, fa);
-                }
-                else ans++;
-            }
-            else if (edges[i][0]==2){
-                int x=edges[i][1];
-                int y=edges[i][2];
-                if (find(x, fb)!=find(y, fb)){
-                    unions(x, y, fb);
-                }
-                else ans++;
-            }
+      }
+      set&lt;int&gt; st;
+      rep(i,1,n) st.insert(find(i));
+      if(st.size() != 1) ok = false;
+      if(!ok) return -1;
+      st.clear();
+      rep(i,1,n) par[i] = memo[i];
+      for(auto it : edges){
+        int tp = it[0],u = it[1],v = it[2];
+        if(tp == 2){
+          int x = find(u),y = find(v);
+          if(x == y) continue;
+          else{
+            ans++;
+            par[x] = y;
+          }
         }
-        
-        int ra=find(1, fa);</B></FONT>
-        int rb=find(1, fb);
-        
-        for (int i=2; i&lt;=n; i++){
-            if (find(i, fa)!=ra) return -1;
-            if (find(i, fb)!=rb) return -1;
-        }
-        return ans;
+      }
+      rep(i,1,n) st.insert(find(i));
+      if(st.size() != 1) ok = false;
+      if(!ok) return -1;
+      return SZ(edges) - ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

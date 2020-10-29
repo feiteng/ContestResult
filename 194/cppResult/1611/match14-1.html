@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>349_Yx2020.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>349_Yx2020.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;string&gt; getFolderNames(vector&lt;string&gt;&amp; names) {
+        unordered_map&lt;string, int&gt; map;
+        vector&lt;string&gt; res;
+        
+        for(auto s: names) {
+            if(map.find(s) == map.end()) {
+                res.push_back(s);
+                map[s] = 0;
+            }
+            else {
+                int k = map[s]+1;
+                string tmp = s+&quot;(&quot;+to_string(k)+&quot;)&quot;;
+                while(map.find(tmp) != map.end()) {
+                    k++;
+                    tmp = s+&quot;(&quot;+to_string(k)+&quot;)&quot;;
+                }
+                map[s] = k;
+                map[tmp] = 0;
+                res.push_back(tmp);
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

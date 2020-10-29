@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>493_banggiangle.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>493_banggiangle.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        int pos[] = new int[26];
+        Arrays.fill(pos, -1);
+        for (int i = 0; i &lt; s.length(); ++i) {
+            pos[s.charAt(i) - 'a'] = i;
+        }
+<A NAME="0"></A>        int[] end = new int[26];
+        Arrays.fill(end, -1);
+        for (int i = s.length() - 1; i &gt;= 0; --i) {
+            end[<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.charAt(i) - 'a'] = i;
+        }
+        
+        int[][] cnt = new int[26][2];
+        
+        for (int i = 0; i &lt; 26; ++i) {
+            c</B></FONT>nt[i][0] = end[i];
+            cnt[i][1] = pos[i];
+        }
+        
+        for (int i = 0; i &lt; 26 * 2; ++i) {
+                int j = i % 26;
+                int[] tmp = cnt[j].clone();
+                for (int k = cnt[j][0] + 1; k &lt; cnt[j][1]; ++k) {
+                    char c = s.charAt(k);
+                    tmp[0] = Math.min(tmp[0], cnt[c-'a'][0]);
+                    tmp[1] = Math.max(tmp[1], cnt[c-'a'][1]);
+                }
+                cnt[j] = tmp;
+        }
+        Arrays.sort(cnt, (a, b)-&gt; {
+            return a[1]-b[1];
+        });
+        
+        // for (int[] it : cnt) {
+        //     for (int i : it) {
+        //         System.out.print(i + &quot; &quot;);
+        //     }
+        //     System.out.println();
+        // }
+<A NAME="1"></A>        
+        int prev = -1;
+        for (int[] it : cnt) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (prev &lt; it[0]) {
+                res.add(s.substring(it[0], it[1] + 1));
+                prev = it[1];
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

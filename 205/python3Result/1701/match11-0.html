@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>611_dafeii.py</TITLE>
+ <TITLE>127_xunrui.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,58 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>611_dafeii.py</CENTER></H3><HR>
+<H3><CENTER>127_xunrui.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UF:
-    def __init__(self, n):
-        self.p = [i for i in range(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n+1)]
-    
-    def find(self, a):
-        if self.p[a] != a:
-            self.p[a] = self.find(self.p[a])
-<A NAME="1"></A>        return self.p[a]
-    
-    def</B></FONT> union(self, a, b):
-        self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.p[a] = self.p[b]
-
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        uf_alice = UF(n)
-        uf_bob = UF(n)
-        delete_num =</B></FONT> 0
-        for label, u, v in edges:
-            if label == 3:
-                pu = uf_alice.find(u)
-                pv = uf_alice.find(v)
-                if pu == pv:
-                    delete_num += 1
+        te = [[],[],[]]
+        for edge in edges:
+            te[edge[0]-1].append((edge[1]-1,edge[2]-1))
+        compBase = list(range(n))
+        nComp = n
+        ans = 0
+        for i,j in te[2]:
+            comp1 = self.find(compBase,i)
+            comp2 = self.find(compBase,j)
+            if comp1 == comp2:
+                ans += 1
+            else:
+                self.union(compBase,comp1,comp2)
+                nComp -= 1
+        for k in range(2):
+            nnComp = nComp
+            comp = compBase.copy()
+            for i,j in te[k]:
+                comp1 = self.find(comp,i)
+                comp2 = self.find(comp,j)
+                if comp1 == comp2:
+                    ans += 1
                 else:
-                    uf_alice.union(pu, pv)
-                    uf_bob.union(pu, pv)
-        for label, u, v in edges:
-            if label == 1:
-                pu = uf_alice.find(u)
-                pv = uf_alice.find(v)
-                if pu == pv:
-                    delete_num += 1
-                else:
-                    uf_alice.union(pu, pv)
-            elif label == 2:
-                pu = uf_bob.find(u)
-                pv = uf_bob.find(v)
-                if pu == pv:
-                    delete_num += 1
-                else:
-                    uf_bob.union(pu, pv)
-        alice_ps = set([uf_alice.find(i) for i in range(1, n+1)])
-        bob_ps = set([uf_bob.find(i) for i in range(1, n+1)])
-        if len(alice_ps) != 1 or len(bob_ps) != 1:
-            return -1
-        return delete_num
-                    
-                
-                    
+                    self.union(comp,comp1,comp2)
+                    nnComp -= 1
+            if nnComp != 1:
+                return -1
+        return ans
+    
+    def find(self,arr,i):
+        idx = []
+        while arr[i] != i:
+            idx.append(i)
+            i = arr[i]
+        for j in idx:
+            arr[j] = i
+        return i
+    
+    def union(self,arr,i,j):
+        arr[j] = i
+        re</B></FONT>turn
+    
 </PRE>
 
 </BODY>

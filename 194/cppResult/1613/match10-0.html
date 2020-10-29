@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_yuiouiop.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_yuiouiop.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int f[11000], nn, m, mm;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    struct T{int u,v,w;bool operator&lt;(const T&amp;a)const{return w&lt;a.w;}}q[11000];
+    int fa(int k){return f[k]=f[k]==k?k:fa(f[k]);}</B></FONT>
+    int kru(int u, int v, int w){
+        int ans = 0;
+        for(int i = 0; i &lt; nn; ++i) f[i] = i;
+        int fx = fa(u), fy = fa(v);
+        if(fx != fy){
+            f[fx] = fy;
+            ans += w;
+        }
+        sort(q, q + mm);
+        for(int i = 0; i &lt; mm; ++i){
+            int fx = fa(q[i].u), fy = fa(q[i].v);
+            if(fx != fy){
+<A NAME="1"></A>                f[fx] = fy;
+                ans += q[i].w;
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return ans;
+    }
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        nn = n;
+        m = edges.size();
+        for(int i = 0; i &lt; m; ++i){
+            q[i].u = edges[i][0];</B></FONT>
+            q[i].v = edges[i][1];
+            q[i].w = edges[i][2];
+        }
+        mm = m;
+        int lim = kru(1, 1, 0);
+        vector&lt;vector&lt;int&gt; &gt; ret(2);
+        for(int i = 0; i &lt; m; ++i){
+            int u, v, w;
+            mm = 0;
+            for(int j = 0; j &lt; m; ++j){
+                if(i != j){
+                    q[mm].u = edges[j][0];
+                    q[mm].v = edges[j][1];
+                    q[mm].w = edges[j][2];
+                    ++mm;
+                }else{
+                    u = edges[j][0];
+                    v = edges[j][1];
+                    w = edges[j][2];
+                }
+            }
+            int have = kru(u, v, w);
+            int no = kru(1, 1, 0);
+            if(have &lt;= lim){
+                if(no == lim) ret[1].push_back(i);
+                else ret[0].push_back(i);
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

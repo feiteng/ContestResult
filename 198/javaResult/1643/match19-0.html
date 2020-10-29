@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_zjthangz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>443_zjthangz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+        List&lt;List&lt;Integer&gt;&gt; map = new ArrayList(n);
+        for (int i = 0; i &lt; n; i++) map.add(new ArrayList());
+        for (int[] edge : edges) {
+            map.get(edge[0]).add(edge[1]);
+            map.get(edge[1]).add(edge[0]);
+<A NAME="1"></A>        }
+        int[] ret = new</B></FONT> int[n];
+        boolean[] met = new boolean[n];
+        dfs(0, map, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>labels.toCharArray(), met, ret);
+        return ret;
+    }
+<A NAME="2"></A>    int[] dfs(int cur, List&lt;List&lt;Integer&gt;&gt; map, char[] labels, boolean[] met, int[] output) {</B></FONT>
+        met[cur] = true;
+        int[] ret = new int[26];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (Integer next : map.get(cur)) {
+            if (met[next]) continue;
+            int[] subret = dfs(next, map, labels, met, output);
+            for (int i = 0</B></FONT>; i &lt; 26; i++) ret[i] += subret[i];
+        }
+        ret[labels[cur]-'a']++;
+        output[cur] = ret[labels[cur]-'a'];
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

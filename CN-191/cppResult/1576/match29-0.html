@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_YW_WY.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_YW_WY.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void helper(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;unordered_set&lt;int&gt;&gt;&amp; out_nb, vector&lt;bool&gt;&amp; visited, int start, int&amp; ans) {
+        visited[start] = true;
+        for (auto a:graph[start]) {
+            if (visited[a]) continue;</B></FONT>
+            if (out_nb[start].count(a)) ++ans;
+            helper(graph, out_nb, visited, a, ans);
+        }
+    }
+    
+    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; connections) {
+        vector&lt;vector&lt;int&gt;&gt; graph(n);
+        vector&lt;unordered_set&lt;int&gt;&gt; out_nb(n);
+        vector&lt;bool&gt; visited(n, false);
+        for (auto connection:connections) {
+            graph[connection[0]].push_back(connection[1]);
+            graph[connection[1]].push_back(connection[0]);
+            out_nb[connection[0]].insert(connection[1]);
+        }
+        int ans = 0;
+        helper(graph, out_nb, visited, 0, ans);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

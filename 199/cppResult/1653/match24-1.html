@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>57_retawB.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>57_retawB.cpp</CENTER></H3><HR>
+<PRE>
+#define sync ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#define rep(i,n) for(int i=0; i&lt;int(n); ++i)
+#define repp(i,a,n) for(int i=a; i&lt;int(n); ++i)
+#define sz(x) int((x).size())
+#define pq priority_queue
+#define pb push_back
+#define eb emplace_back
+#define mp make_pair
+
+template&lt;class T&gt; std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::vector&lt;T&gt; &amp;input){for (auto const&amp; i: input) {os &lt;&lt; i &lt;&lt; &quot; &quot;;}return os;}
+template&lt;class T&gt; std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::set&lt;T&gt; &amp;input){for (auto const&amp; i: input) {os &lt;&lt; i &lt;&lt; &quot; &quot;;}return os;}
+template&lt;class T, size_t n&gt; std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::array&lt;T, n&gt; &amp;input){for (size_t i=0; i&lt;n; ++i) {os &lt;&lt; input[i] &lt;&lt; &quot; &quot;;}return os;}
+template&lt;class T1, class T2&gt; std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::pair&lt;T1,T2&gt; &amp;input){os &lt;&lt; &quot;(&quot; &lt;&lt; input.first &lt;&lt; &quot;, &quot; &lt;&lt; input.second &lt;&lt; ')';return os;}
+template&lt;class T1, class T2&gt; std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::unordered_map&lt;T1,T2&gt; &amp;input){for (auto const&amp; i: input) {os &lt;&lt; i &lt;&lt; &quot; &quot;;}return os;}
+
+#define cerr cout
+
+void debug_out() { cerr &lt;&lt; endl; }
+template &lt;typename Head, typename... Tail&gt; void debug_out(Head H, Tail... T) {cerr &lt;&lt; &quot; &quot; &lt;&lt; H;debug_out(T...);}
+#define dbg(...) cerr &lt;&lt; &quot;[&quot; &lt;&lt; #__VA_ARGS__ &lt;&lt; &quot;]:&quot;, debug_out(__VA_ARGS__)
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pi;
+typedef pair&lt;ll,ll&gt; pl;
+typedef vector&lt;int&gt; vi;
+typedef vector&lt;pi&gt; vp;
+typedef vector&lt;ll&gt; vl;
+typedef vector&lt;vi&gt; vvi;
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+<A NAME="0"></A> */
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int solve(TreeNode* u, int d, vi &amp;dep){
+        dep.clear();
+        if(u==nullptr){
+            return 0;
+        }
+        if(u-&gt;left == nullptr &amp;&amp; u-&gt;right == nullptr){ // leaf
+            dep.pb(1);
+            return 0;
+        }
+        vi L, R;
+        int ans = 0;</B></FONT>
+        ans += solve(u-&gt;left, d, L);
+        ans += solve(u-&gt;right, d, R);
+        rep(i,sz(L)) rep(j,sz(R)) if(L[i]+R[j]&lt;=d) ans++;
+        for(int x: L) dep.pb(x + 1);
+        for(int x: R) dep.pb(x + 1);
+        //dbg(u-&gt;val, dep);
+        return ans;
+    }
+    int countPairs(TreeNode* root, int d) {
+        if(root==nullptr) return 0;
+        vi dep;
+        int ans = solve(root, d, dep);
+        dbg(dep);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

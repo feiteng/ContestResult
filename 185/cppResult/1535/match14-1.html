@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>658_jklp2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>658_jklp2.cpp</CENTER></H3><HR>
+<PRE>
+#define VI vector&lt;int&gt;
+#define VII vector&lt;VI&gt;
+#define VIII vector&lt;VII&gt;
+#define VS vector&lt;string&gt;
+#define LL uint64_t
+const int MOD=1e9+7;
+class Solution {
+public:
+    int numOfArrays(int n, int m, int k) {
+        VIII dp(n,VII(m+1,VI(n+1,0)));
+<A NAME="0"></A>        for(int val=1;val&lt;=m;val++){
+            dp[0][val][1]=1;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i&lt;n;i++){
+            for(int kk=1;kk&lt;=k&amp;&amp;kk&lt;=(i+1);kk++){
+                for(int val=1;val&lt;=m;val++){
+                    for(int last=1;last&lt;=m;last++){
+                        if(last&lt;val){
+                            dp[i][val][kk]+=dp[i-1][last][kk-1];
+                            dp[i][val][kk]%=MOD;
+                        }else{
+                            dp[i][last][kk]+=dp[i-1][last][kk];
+                            dp[i][last][kk]%=MOD;
+                        }
+                    }
+<A NAME="1"></A>                }
+            }
+        }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans=0;
+        for(int val=1;val&lt;=m;val++){
+            ans+=dp[n-1][val][k];
+            ans%=MOD;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

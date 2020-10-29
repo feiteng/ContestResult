@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>349_yihongz.java</TITLE>
+ <TITLE>220_ToffeeLu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>349_yihongz.java</CENTER></H3><HR>
+<H3><CENTER>220_ToffeeLu.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        int count = 1;
-        int maxc = cost[0];
-        int sum = cost[0];
-        int n = s.length()</B></FONT>;
+        char prev = s.charAt(0);
+        int prevIndex = 0;
+        int n = s.length();
         int res = 0;
-        for (int i = 1; i &lt; n; i++) {
-            if (s.charAt(i) != s.charAt(i - 1)) {
-                // System.out.println(&quot;&quot; + i + &quot; &quot; + res + &quot; &quot;+ sum + &quot; &quot; + maxc);
-                res += sum - maxc;
-<A NAME="1"></A>                count = 1;
-                maxc = cost[i];
-                sum = cost[i];
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
-                sum += cost[i];
-                count++;
-                maxc = Math.max(maxc, cost[i]);
+        for(int i = 1; i &lt; n; i++){
+            char c = s.charAt(i);
+            if(c == prev){
+                if(cost[i] &lt; cost[prevIndex]){
+                    res += cost[i];
+                }
+                else{
+                    res += cost[prevIndex];
+                    prevIndex = i;
+                }
             }
+            else{
+                prevIndex = i;
+            }
+            prev = c;
         }
-        if (count &gt; 1) {
-            res += sum - maxc;
-        }
-        // System.out.println();
         return res;
     }
 }</B></FONT>

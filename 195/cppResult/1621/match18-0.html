@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_huaji035.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>16_huaji035.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+typedef long long LL;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int mod = 1e9 + 7;
+
+int qmi(int a, int k)
+{
+    int res = 1;
+    while(k)
+    {
+        if(k &amp; 1)  res = (LL) res * a % mod;</B></FONT>
+        k &gt;&gt;= 1;
+        a = (LL)a * a % mod;
+    }
+    return res;
+}
+
+class Solution {
+public:
+    int numSubseq(vector&lt;int&gt;&amp; a, int sum) {
+        
+<A NAME="1"></A>        a.push_back(-1);
+        sort(a.begin(), a.end());
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        for(int i = 1; i &lt; a.size(); i ++)
+        {
+            int l = 0, r = a.size() - 1;
+            while(l &lt; r)
+            {
+                int mid = l + r + 1 &gt;&gt; 1;
+                if(a[i] + a[mid] &lt;= sum)  l = mid;
+                else  r = mid - 1;
+            }
+            if(l &gt;= i)</B></FONT>
+            {
+                int j = l - i;
+                res = (res + qmi(2, j)) % mod;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

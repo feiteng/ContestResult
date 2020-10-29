@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numOfArrays(int N, int M, int K) {
+
+
+        int mod = 1_000_000_007;
+
+        // n numbers
+        // 1&lt;=num&lt;=m
+        // cost=k
+
+        int[][][] dp = new</B></FONT> int[N + 1][M + 1][K + 1];
+<A NAME="1"></A>
+        dp[0][0][0] = 1;
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int n = 1; n &lt;= N; n++) {
+
+            for (int m = 1; m &lt;= M; m++) {
+                for (int k = 1; k &lt;= K; k++) {</B></FONT>
+
+                    long cnt = 0;
+
+                    // System.out.printf(&quot;dp[%d][%d][%d]\n&quot;, n, m, k);
+                    for (int m2 = 0; m2 &lt; m; m2++) {
+                        cnt += dp[n - 1][m2][k - 1];
+
+                        cnt %= mod;
+
+                        //System.out.printf(&quot;++dp[%d][%d][%d]  (%d)\n&quot;, n - 1, m2, k - 1, dp[n - 1][m2][k - 1]);
+                    }
+
+                    cnt += (long) dp[n - 1][m][k] * m;
+                    cnt %= mod;
+
+                    //System.out.printf(&quot;++dp[%d][%d][%d]  (%d)\n&quot;, n - 1, m, k, dp[n - 1][m][k]);
+
+
+<A NAME="2"></A>                    dp[n][m][k] = (int) cnt;
+
+                    //System.out.printf(&quot;dp[%d][%d][%d]=%d\n&quot;, n, m, k, dp[n][m][k]);
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+
+        }
+        int ans = 0;
+        for (int m = 0; m &lt;= M; m++) {
+            ans += dp[N][m][K];
+            ans %= mod;
+        }
+
+        return ans;
+
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

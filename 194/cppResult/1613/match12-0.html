@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_xh286286.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_xh286286.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; us;
+    int find(int a) {
+        if (us[a] ==a) return a;
+        return us[a] = find(us[a]);
+    }
+    void merge(int a, int b) {</B></FONT>
+        a = find(a);
+        b = find(b);
+        if (a==b) return;
+        us[a] = b;
+    }
+    vector&lt;vector&lt;int&gt;&gt; ze;
+    vector&lt;int&gt; ef;
+    unordered_map&lt;int, vector&lt;int&gt; &gt; zg;
+    unordered_map&lt;int,int&gt; vis;
+    int ac ;
+    int dfs(int now, int pe) {
+        vis[now] = ++ac;
+        int bp = vis[now];
+        for (int ei: zg[now]) {
+            if (ei== pe) continue;
+            int nxt = ze[ei][0];
+            if (nxt==now) nxt = ze[ei][1];
+            if (vis[nxt]&gt;0) {
+                bp = min(bp, vis[nxt]);
+                ef[ei] = 2;
+                continue;
+            }
+            int v = dfs(nxt, ei);
+            if (v &gt; vis[now]) {
+                ef[ei] = 1;
+            }
+            else {
+                ef[ei] = 2;
+            }
+            bp = min(bp, v);
+        }
+        return bp;
+    }
+    void findifcircle( vector&lt;int &gt; &amp; z) {
+        // for (int ei: z) {
+        //     cout&lt;&lt;ze[ei][0]&lt;&lt;','&lt;&lt; ze[ei][1]&lt;&lt;&quot;; &quot;;
+        // }
+        // cout&lt;&lt;endl;
+        ac = 0;
+        zg.clear();
+        vis.clear();
+        set&lt;int&gt; cc;
+        for (int t: z) {
+            auto e = ze[t];
+            zg[e[0]].push_back(t);
+            zg[e[1]].push_back(t);
+            cc.insert(e[0]);
+            cc.insert(e[1]);
+        }
+        for (int t: cc) {
+            if (vis[t]==0) dfs(t,-1);
+        }
+    }
+    
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        ze = edges;
+        int m = ze.size();
+        ef.resize(m);
+        vector&lt;int&gt; zei(m);
+        iota(zei.begin(), zei.end(), 0);
+        us.resize(n);
+        iota(us.begin(), us.end(), 0);
+        sort(zei.begin(), zei.end(), [&amp;](int a, int b){
+            return ze[a][2] &lt; ze[b][2];
+        });
+        vector&lt;int&gt; zr1, zr2;
+        int ac = 0;
+        while(ac&lt;m) {
+            int now = ac;
+            auto e = ze[zei[ac++] ];
+            while (ac&lt;m &amp;&amp; ze[zei[ac] ][2] == e[2]) ++ac;
+            vector&lt;int&gt; z;
+            for (int i=now; i&lt;ac; ++i) {
+                auto &amp; e = ze[zei[i] ];
+                e[0] = find(e[0]), e[1] = find(e[1]);
+                if (e[0]==e[1]) continue;
+                z.push_back(zei[i]);
+            }
+            if (z.empty()) continue;
+            findifcircle(z);
+            for (int t: z) {
+                e = ze[t];
+<A NAME="1"></A>                merge(e[0], e[1]);
+            }
+        }            
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0; i&lt;m; ++i) {
+            if (ef[i] ==1 ) zr1.push_back(i);
+            else if (ef[i]==2) zr2.push_back(i);
+        }
+        return { zr1, zr2};
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

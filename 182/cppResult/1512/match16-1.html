@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_szp14.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UndergroundSystem
+{
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    map&lt;string, int&gt; T, C;
+    map&lt;int, pair&lt;string, int&gt; &gt; tab;
+public:
+    UndergroundSystem()
+    {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t)
+    {
+        tab[id] = {stationName, t};
+    }
+    
+    void checkOut(int id, string stationName, int t)
+    {
+        string key = tab[id].first + '&amp;' + stationName;
+        int x = t - tab[id].second;
+        T[key] += x;
+        C[key]++;
+        tab.erase(id);
+    }
+    
+    double getAverageTime(string startStation, string endStation)
+    {
+        string key = startStation + '&amp;' + endStation;
+        return 1.0 * T[key] / C[key];</B></FONT>
+    }
+};
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj-&gt;checkIn(id,stationName,t);
+ * obj-&gt;checkOut(id,stationName,t);
+ * double param_3 = obj-&gt;getAverageTime(startStation,endStation);
+ */
+</PRE>
+</BODY>
+</HTML>

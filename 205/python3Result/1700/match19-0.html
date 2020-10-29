@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>358_mapleisle.py</TITLE>
+ <TITLE>576_Shf.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>358_mapleisle.py</CENTER></H3><HR>
+<H3><CENTER>576_Shf.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        start=0
-<A NAME="0"></A>        curr=0
-        ret=0
-        while curr&lt;len(s):
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while curr&lt;len(s) and s[curr]==s[start]:
-                curr+=1
-            if curr-start&gt;1:
-                ret+=sum(cost[start:curr])-max(cost[start:curr])
-            start=curr
-        re</B></FONT>turn ret
+        prev = '?'
+        prev_costs = [0]
+        res = 0
+        for i, c in enumerate(s):
+            if c == prev:
+                prev_costs.append(cost[i])
+            else:
+                res += sum(prev_costs) - max(prev_costs)
+                prev = c
+                prev_costs = [cost[i]]
+        res += sum(prev_costs) - max(prev_costs)
+        re</B></FONT>turn res
 </PRE>
 
 </BODY>

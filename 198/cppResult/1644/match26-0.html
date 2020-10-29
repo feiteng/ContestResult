@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>473_cai_lw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>473_cai_lw.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        int n=s.size();
+        vector&lt;pair&lt;int,int&gt;&gt; intv(26,{-1,-1}),cand;
+        for(int i=0;i&lt;n;i++){
+            int c=s[i]-'a';
+            if(intv[c].first==-1)intv[c].first=i;
+            intv[c].second=i;
+        }
+        vector&lt;bool&gt; l(n),r(n);
+        for(int i=0;i&lt;26;i++){
+            if(intv[i].first!=-1)l[intv[i].first]=true;
+            if(intv[i].second!=-1)r[intv[i].second]=true;
+        }
+        for(int i=0;i&lt;n;i++)
+            if(l[i]){
+                array&lt;bool,26&gt; vis{false};
+                for(int j=i;j&lt;n;j++){
+                    vis[s[j]-'a']=true;
+                    if(r[j]){
+                        bool ok=true;
+                        for(int k=0;k&lt;26;k++){
+                            if(!vis[k])continue;
+                            if(!(i&lt;=intv[k].first&amp;&amp;j&gt;=intv[k].second)){
+                                ok=false;
+                                break;
+                            }
+                        }
+                        if(ok){
+                            cand.push_back({i,j});
+<A NAME="0"></A>                            break;
+                        }
+                    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        vector&lt;string&gt; ans;
+        for(int i=0;i&lt;cand.size();i++){
+            bool ok=true;
+            for(int j=0;j&lt;cand.size();j++){
+                if(i==j)continue;
+                if(cand[i].first&lt;cand[j].first&amp;&amp;cand[i].second&gt;cand[j].second){
+                    ok=false;
+                    break;
+                }
+            }
+            if(ok)
+                ans.push_back(s.substr(cand[i].first,cand[i].second-cand[i].first+1));
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

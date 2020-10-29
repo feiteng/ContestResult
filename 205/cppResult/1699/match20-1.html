@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>138_astroash.cpp</TITLE>
+ <TITLE>138_abhirajsmit.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>138_astroash.cpp</CENTER></H3><HR>
+<H3><CENTER>138_abhirajsmit.cpp</CENTER></H3><HR>
 <PRE>
-#define ll long long int
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-<A NAME="0"></A>        int n = nums1.size();
-        int m = nums2.size();
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        ll count = 0;
-        unordered_map&lt;ll, ll&gt; mp1, mp2;
-        for(int i = 0 ; i &lt; n; i++) {
-            for(int j = i + 1; j &lt; n; j++) {
-                mp1[(ll)nums1[i] * nums1[j]]++;
+        int cnt = 0;
+        unordered_map&lt;long long int,int&gt; nums1Product;
+        unordered_map&lt;long long int,int&gt; nums2Product;
+        for(int i=0; i&lt;nums1.size(); i++) {
+            long long int val = nums1[i];
+            for(int j=i+1; j&lt;nums1.size(); j++) {
+                nums1Product[val*nums1[j]]++;
             }
         }
         
-        for(int i =0 ; i &lt; m; i++) {
-            for(int j = i + 1; j &lt; m; j++) {
-                mp2[(ll)nums2[i] * nums2[j]]++;
-<A NAME="1"></A>            }
-        }</B></FONT>
-        
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; n; i++) {
-            count += mp2[(ll)nums1[i] * nums1[i]];
+        for(int i=0; i&lt;nums2.size(); i++) {
+            long long int val = nums2[i];
+            for(int j=i+1; j&lt;nums2.size(); j++) {
+                nums2Product[val*nums2[j]]++;
+            }
         }
         
-        for(int i = 0; i &lt; m; i++) {
-            count += mp1[(ll)nums2[i] * nums2[i]];
+        for(int i=0; i&lt;nums1.size(); i++) {
+            long long int val = nums1[i];
+            cnt+=nums2Product[val*val];
         }
         
-        return count;
+        for(int i=0; i&lt;nums2.size(); i++) {
+            long long int val = nums2[i];
+            cnt+=nums1Product[val*val];
+        }
+        
+        return cnt;
     }
 };</B></FONT>
 </PRE>

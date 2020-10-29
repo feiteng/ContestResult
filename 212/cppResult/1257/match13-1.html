@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_liudehua.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_liudehua.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int ufind(vector&lt;int&gt; &amp;uset, int x) {
+        return uset[x] == x ? x: (uset[x] = ufind(uset, uset[x]));
+    }
+    
+    void umerge(vector&lt;int&gt; &amp;uset, int x, int y) {
+        int px = ufind(uset, x);
+        int py = ufind(uset, y);
+        uset[px] = py;
+    }
+    
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        int S = n*m;
+        vector&lt;vector&lt;int&gt;&gt; G(S);
+<A NAME="0"></A>        vector&lt;int&gt; ind(S, 0);
+        vector&lt;vector&lt;int&gt;&gt; ans(n, vector&lt;int&gt;(m, 0));
+        vector&lt;int&gt; uset(S, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=0; i&lt;S; i++) {
+            uset[i] = i;
+        }
+        
+        for (int i=0; i&lt;n; i++) {
+            map&lt;int, vector&lt;int&gt;&gt; ref;
+            for (int j=0; j&lt;m; j++) {</B></FONT>
+                ref[matrix[i][j]].push_back(i*m + j);
+            }
+            for (auto it = ref.begin(); it != ref.end(); ++it) {
+<A NAME="3"></A>                int N = it-&gt;second.size();
+                for (int i=1; i&lt;N; i++)
+                    umerge(uset, it-&gt;second[i], it-&gt;second[0]);
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#3',2,'match13-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        for (int j=0; j&lt;m; j++) {
+            map&lt;int, vector&lt;int&gt;&gt; ref;
+            for (int i=0; i&lt;n; i++) {
+                ref[matrix[i][j]].push_back(i*m + j);
+            }
+            for (auto it = ref.begin(); it != ref.end(); ++it) {</B></FONT>
+<A NAME="1"></A>                int N = it-&gt;second.size();
+                for (int i=1; i&lt;N; i++)
+                    umerge(uset, it-&gt;second[i], it-&gt;second[0]);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        
+        for (int i=0; i&lt;n; i++) {
+            map&lt;int, vector&lt;int&gt;&gt; ref;
+            for (int j=0; j&lt;m; j++) {</B></FONT>
+                ref[matrix[i][j]].push_back(i*m + j);
+            }
+            bool first = true;
+            for (auto it = ref.begin(); it != ref.end(); ++it) {
+                if (!first) {
+                    auto pit = it;
+                    --pit;
+                    for (int s: pit-&gt;second) {
+                        for (int t: it-&gt;second) {
+                            int ss = ufind(uset, s);
+                            int tt = ufind(uset, t);
+                            G[ss].push_back(tt);
+                            // revG[t].push_back(s);
+                            ind[tt]++;
+                        }
+                    }
+                }
+<A NAME="2"></A>                first = false;
+            }
+        }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j=0; j&lt;m; j++) {
+            map&lt;int, vector&lt;int&gt;&gt; ref;
+            for (int i=0; i&lt;n; i++) {
+                ref[matrix[i][j]].push_back(i*m + j);
+            }</B></FONT>
+            bool first = true;
+            for (auto it = ref.begin(); it != ref.end(); ++it) {
+                if (!first) {
+                    auto pit = it;
+                    --pit;
+                    for (int s: pit-&gt;second) {
+                        for (int t: it-&gt;second) {
+                            int ss = ufind(uset, s);
+                            int tt = ufind(uset, t);
+                            G[ss].push_back(tt);
+                            // revG[t].push_back(s);
+                            ind[tt]++;
+                        }
+                    }
+                }
+                first = false;
+            }
+        }
+
+        
+        vector&lt;int&gt; stk;
+        for (int i=0; i&lt;S; i++) {
+            if (ind[i] == 0 &amp;&amp; ufind(uset, i) == i) {
+                // printf(&quot;init ind 0 : %d\n&quot;, i);
+                stk.push_back(i);
+            }
+        }
+        int level = 1;
+        while (!stk.empty()) {
+            for (int p: stk) {
+                int x = p / m;
+                int y = p % m;
+                ans[x][y] = level;
+            }
+            vector&lt;int&gt; tmp;
+            for (int p: stk) {
+                for (int t: G[p]) {
+                    ind[t]--;
+                    if (ind[t] == 0 &amp;&amp; ufind(uset, t) == t) {
+                        tmp.push_back(t);
+                    }
+                }
+            }
+            level++;
+            stk = tmp;
+        }
+        for (int i=0; i&lt;n; i++) {
+            for (int j=0; j&lt;m; j++) {
+                if (ans[i][j] == 0) {
+                    int p = ufind(uset, i*m+j);
+                    int x = p / m;
+                    int y = p%m;
+                    ans[i][j] = ans[x][y];
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

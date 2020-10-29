@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>467_yav126.py</TITLE>
+ <TITLE>236_Siddhant_Khare.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>467_yav126.py</CENTER></H3><HR>
+<H3><CENTER>236_Siddhant_Khare.py</CENTER></H3><HR>
 <PRE>
-class Solution:
-<A NAME="0"></A>    def minCost(self, s: str, cost: List[int]) -&gt; int:
-        if not s:
-            return 0
-        totalCost <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
-        prev = 0
-        for i in range(1, len(s)):
-            if s[i] == s[prev]:
-                if cost[i] &lt; cost[prev]:
-                    totalCost += cost[i]
-                else:
-                    totalCost += cost[prev]
-                    prev = i
-            else:
-                prev = i
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minCost(self, s: str, cost: List[int]) -&gt; int:
+        
+        # lenght
+        
+        n = len(s)
+        j = 0
+        
+        # in it answer
+        
+        ans = 0
+    
+        # new defs
+        
+        def cut(i, j):
+            tt = 0
+            
+            # maximum array
+            
+            mx = cost[i]
+            
+            # range i to j
+            for k in range(i, j):
+                tt += cost[k]
+                mx = max(mx, cost[k])
                 
-        re</B></FONT>turn totalCost
+                # exit
+                
+            return tt - mx
+    
+    # for looping
+    
+        for i in range(n):
+            
+            # cont
+            
+            if s[i] == s[j]: continue
+                
+                # answer
+                
+            ans += cut(j, i)
+            j = i
+     # answer
+    
+        ans += cut(j, n)
+        
+        # exit
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

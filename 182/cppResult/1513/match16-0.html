@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_x____x.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_x____x.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 512;
+const int M = 64;
+int v[N][M][2][2];
+int f[M][32];
+class Solution {
+public:
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+      int m = evil.size();
+      memset(f, 0, sizeof(f));
+      for (int l = 0; l &lt;= m; ++l) {
+        string e = evil.substr(0, l);
+        for (int i = 0; i &lt; 26; ++i) {
+          string t = e + (char)(i + 'a');
+          for (int j = min(m, l + 1); j &gt; 0; --j) {
+            if (evil.substr(0, j) == t.substr(t.size() - j)) {
+              f[l][i] = j;
+              break;
+            }
+          }
+        }
+      }
+<A NAME="0"></A>      // for (int i = 0; i &lt; 26; ++i) cout &lt;&lt; f[i] &lt;&lt; ' '; cout &lt;&lt; endl;
+      const int P = 1000000007;
+      memset(v, 0, sizeof(v));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      v[0][0][1][1] = 1;
+      for (int i = 0; i &lt; n; ++i) {
+        for (int j = 0; j &lt; m; ++j) {
+          for (int eq1 = 0; eq1 &lt; 2; ++eq1) {
+            for (int eq2 = 0; eq2 &lt; 2; ++eq2) {
+              if (!v[i][j][eq1][eq2]) continue;
+              for (int ch = 0; ch &lt; 26; ++ch) {</B></FONT>
+                if (eq1 &amp;&amp; (ch + 'a') &lt; s1[i]) continue;
+<A NAME="1"></A>                if (eq2 &amp;&amp; (ch + 'a') &gt; s2[i]) continue;
+                int l = f[j][ch];
+                if (l &lt; m) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                  (v[i + 1][l][eq1 &amp;&amp; (ch + 'a') == s1[i]][eq2 &amp;&amp; (ch + 'a') == s2[i]] += v[i][j][eq1][eq2]) %= P;
+                }
+              }
+            }
+          }
+        }
+      }
+      int ret = 0;
+      for (int i = 0; i &lt; m; ++i) {
+        for (int eq1 = 0; eq1 &lt; 2; ++eq1) for (int eq2 = 0; eq2 &lt; 2; ++eq2) {</B></FONT>
+          (ret += v[n][i][eq1][eq2]) %= P;
+        }
+      }
+      return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

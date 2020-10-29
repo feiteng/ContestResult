@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>261_tianhao2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>261_tianhao2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minDays(vector&lt;int&gt;&amp; bloomDay, int m, int k) {
+        int l=1;
+        int r=1000000001;
+        while(l&lt;r) {
+            int mid=(l+r)/2;
+            int curr=0;
+            int res=0;
+            for (int i=0; i&lt;bloomDay.size(); i++) {
+                if (bloomDay[i]&lt;=mid) {
+                    curr++;
+                    if (curr==k) {
+                        curr=0;
+                        res++;
+                    }
+                } else {
+                    curr=0;
+                }
+            }
+            if (res&gt;=m) {
+                r=mid;
+            } else {
+                l=mid+1;
+            }
+        }
+        if (l&lt;=1000000000) {</B></FONT>
+            return l;
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

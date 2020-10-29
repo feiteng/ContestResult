@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_QAMichaelPeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>249_QAMichaelPeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int find(vector&lt;vector&lt;int&gt;&gt;&amp; dp, int begin, int end, vector&lt;int&gt;&amp; acc) {
+        if (dp[begin][end]!=-1) return dp[begin][end];
+        if (begin==end)return 0;
+        int sum=acc[end+1]-acc[begin];</B></FONT>
+        int prevLeftSum = 0;
+<A NAME="1"></A>        int best=0;
+        for (int i=begin;i&lt;end;++i) {
+            int leftSum=acc[i+1]-acc[begin];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int rightSum=sum-leftSum;
+                int cur=min(leftSum,rightSum);
+                if (leftSum&gt;rightSum) {
+                    cur+=find(dp, i+1, end, acc);
+                } else if (leftSum&lt;rightSum) {
+                    cur += find(dp, begin, i, acc);
+                } else {
+                    cur += max(find(dp, begin, i, acc), find(dp, i+1, end, acc));
+<A NAME="2"></A>                }</B></FONT>
+                if (cur&gt;best)best=max(best, cur);
+            
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        return dp[begin][end]=best;
+    }
+    int stoneGameV(vector&lt;int&gt;&amp; svs) {
+        int sz=svs.size();
+        vector&lt;vector&lt;int&gt;&gt; dp(sz, vector&lt;int&gt;(sz, -1));
+        vector&lt;int&gt; acc(1);
+        acc.reserve(svs.size()+1);
+        for (int sv: svs)acc.push_back(acc.back()+sv);</B></FONT>
+        return find(dp, 0, sz-1, acc);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

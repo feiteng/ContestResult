@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>588_huya-402994.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>588_huya-402994.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Result {
+        boolean canTravel;
+        int time;
+        Result( int time,boolean canTravel){
+            this.canTravel = canTravel;
+<A NAME="1"></A>            this.time = time;
+        }
+    }</B></FONT>
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minTime(int n, int[][] edges, List&lt;Boolean&gt; hasApple) {
+        Map&lt;Integer, List&lt;Integer&gt;&gt; tree = new HashMap&lt;&gt;();
+        
+        for (int[] edge: edges){</B></FONT>
+            int from = edge[0], to = edge[1];
+<A NAME="2"></A>            tree.putIfAbsent(from, new LinkedList&lt;&gt;());
+            tree.putIfAbsent(to, new LinkedList&lt;&gt;());
+            tree.get(from).add(to);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        return dfs(tree, 0, hasApple).time;
+    }
+    
+    
+    private Result dfs(Map&lt;Integer, List&lt;Integer&gt;&gt; tree, Integer curNode, List&lt;Boolean&gt; hasApple){
+        
+       
+        List&lt;Integer&gt; children = tree.get</B></FONT>(curNode); 
+        
+        if (children.size() == 0){
+            return new Result(0, hasApple.get(curNode));
+        }
+        
+        int time = 0; 
+        for (Integer child: children){
+            Result res =  dfs(tree, child, hasApple);
+            if (res.canTravel){
+                time += res.time + 2;
+            }
+        }
+        if (time == 0){
+            return new Result(0, hasApple.get(curNode));
+        }
+        // System.out.println(&quot;curNode:&quot; + curNode + &quot;time&quot; + time); 
+        
+        return new Result(time, true);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

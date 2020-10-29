@@ -1,0 +1,1134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>713_hahahiehie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>713_hahahiehie.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+
+class Utils {
+    public static int lowerBound(int[] a, int target, int n) {
+        int low = 0;
+        int high = n;
+        while (low &lt; high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid] &lt; target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    public static int upperBound(int[] a, int target, int n) {
+        int low = 0;
+        int high = n;
+        while (low &lt; high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid] &lt;= target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    public static &lt;T extends Comparable&lt;T&gt;&gt; int lowerBound(T[] a, T target, int n) {
+        int low = 0;
+        int high = n;
+        while (low &lt; high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid].compareTo(target) &lt; 0) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    public static &lt;T extends Comparable&lt;T&gt;&gt; int upperBound(T[] a, T target, int n) {
+        int low = 0;
+        int high = n;
+        while (low &lt; high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid].compareTo(target) &lt;= 0) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    public static long or(int x, int y) {
+        return ((long) x &lt;&lt; 32) | ((long) y &lt;&lt; 32 &gt;&gt;&gt; 32);
+    }
+
+    // k = 0...nums.length - 1
+    // After calling this function, nums[k] is the k-th number.
+    public static int kthNumber(int[] nums, int k) {
+        return kthNumberHelper(nums, k, 0, nums.length - 1);
+    }
+
+    // end is inclusive (0 to nums.length - 1)
+    private static int kthNumberHelper(int[] nums, int K, int start, int end) {
+        if (start == end) return nums[start];
+        int i = partition(nums, start, end);
+        return K &lt;= i ? kthNumberHelper(nums, K, start, i) : kthNumberHelper(nums, K, i + 1, end);
+    }
+
+    // end is inclusive (0 to nums.length - 1)
+    public static int partition(int[] nums, int start, int end) {
+        int pos = start + ((end - start) &gt;&gt; 1);
+        int pivot = nums[pos];
+
+        int i = start, j = end;
+        nums[pos] = nums[end];
+        while (i &lt; j) {
+            while (i &lt; j &amp;&amp; nums[i] &lt; pivot) i++;
+            if (i &lt; j) nums[j--] = nums[i];
+
+            while (i &lt; j &amp;&amp; pivot &lt; nums[j]) j--;
+            if (i &lt; j) nums[i++] = nums[j];
+        }
+
+        // pos is the final position for pivot.
+        nums[i] = pivot;
+        return i;
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+
+    // partition nums into 3 parts [smaller than pivot, equal to pivot, larger than pivot]
+    public static void partition3(int[] nums, int pivot) {
+        int n = nums.length;
+        int l = 0, r = n - 1;
+        for (int i = 0; i &lt;= r; i++) {
+            if (nums[i] &lt; pivot) {
+                swap(nums, l++, i);
+            } else if (nums[i] &gt; pivot) {
+                swap(nums, r--, i--);
+            }
+        }
+    }
+
+    // end is inclusive
+    public static void reverse(int[] nums, int start, int end) {
+        for (int i = start, j = end; i &lt; j; i++, j--) {
+            int t = nums[i];
+            nums[i] = nums[j];
+            nums[j] = t;
+        }
+    }
+
+    // Return false if next permutation is not available. (nums is not changed for this case)
+    public static boolean nextPermutation(int[] nums) {
+        int n = nums.length;
+        if (n &lt;= 1) return false;
+        int i = n - 1;
+        while (i - 1 &gt;= 0 &amp;&amp; nums[i - 1] &gt;= nums[i]) {
+            i--;
+        }
+        if (i &lt;= 0) return false;
+        for (int j = n - 1; j &gt;= i; j--) {
+            if (nums[j] &gt; nums[i - 1]) {
+                int t = nums[j];
+                nums[j] = nums[i - 1];
+                nums[i - 1] = t;
+
+                reverse(nums, i, n - 1);
+                break;
+            }
+        }
+        return true;
+    }
+
+    // rolling hash of substrings of 's' with length == k
+    // long[pos] = hash(s.substring(pos, pos + k))
+    public static long[] rollingHash(String s, int k) {
+        long[] ans = new long[s.length() - k + 1];
+        int seed1 = 13;
+        int seed2 = 131;
+        int h1 = 0, h2 = 0, power1 = 1, power2 = 1;
+        for (int i = 0; i &lt; k; i++) {
+            h1 = h1 * seed1 + s.charAt(i);
+            h2 = h2 * seed2 + s.charAt(i);
+
+            power1 *= seed1;
+            power2 *= seed2;
+        }
+
+        ans[0] = ((long) h1 &lt;&lt; 32) | ((long) h2 &lt;&lt; 32 &gt;&gt;&gt; 32);
+
+        for (int i = k; i &lt; s.length(); i++) {
+            h1 = h1 * seed1 + s.charAt(i) - power1 * s.charAt(i - k);
+            h2 = h2 * seed2 + s.charAt(i) - power2 * s.charAt(i - k);
+            ans[i - k + 1] = ((long) h1 &lt;&lt; 32) | ((long) h2 &lt;&lt; 32 &gt;&gt;&gt; 32);
+        }
+
+        return ans;
+    }
+
+    public static long stringHash(String s) {
+        int h1 = 0;
+        int h2 = 0;
+        int seed1 = 13;
+        int seed2 = 131;
+
+        for (int i = 0; i &lt; s.length(); i++) {
+            h1 = h1 * seed1 + s.charAt(i);
+            h2 = h2 * seed2 + s.charAt(i);
+        }
+        return ((long) h1 &lt;&lt; 32) | ((long) h2 &lt;&lt; 32 &gt;&gt;&gt; 32);
+    }
+
+    public static int[] kmpNext(String s) {
+        int n = s.length();
+        int[] next = new int[n];
+        next[0] = 0;
+        for (int i = 1; i &lt; n; i++) {
+            int k = next[i - 1];
+            while (k &gt; 0 &amp;&amp; s.charAt(i) != s.charAt(k)) k = next[k - 1];
+            if (s.charAt(i) == s.charAt(k)) {
+                next[i] = k + 1;
+            } else {
+                next[i] = 0;
+            }
+        }
+        return next;
+    }
+
+    // s is the original String
+    // p is the pattern String
+    public static boolean kmpMatch(String s, String p) {
+        int[] next = kmpNext(p);
+        int n = s.length();
+        int m = p.length();
+        for (int i = 0, j = 0; i &lt; n; i++) {
+            while (j &gt; 0 &amp;&amp; p.charAt(j) != s.charAt(i)) {
+                j = next[j - 1];
+            }
+            if (p.charAt(j) == s.charAt(i)) j++;
+            if (j == m) return true;
+        }
+        return false;
+    }
+
+    // a, b could be negative
+    // remainder &gt;= 0
+    // return [a / b, a % b]
+    public static int[] divMod(int a, int b) {
+        int r = a % b;
+        int c = a / b;
+        if (r &lt; 0) {
+            r += Math.abs(b);
+            c++;
+        }
+        return new int[]{c, r};
+    }
+
+    public static List&lt;Integer&gt; negativeBase(int n, int base) {
+        List&lt;Integer&gt; digits = new ArrayList&lt;&gt;();
+        if (n == 0) {
+            digits.add(0);
+            return digits;
+        }
+        while (n != 0) {
+            // t[0] = n / base
+            // t[1] = n % base;
+            int[] t = divMod(n, base);
+            digits.add(t[1]);
+            n = t[0];
+        }
+        Collections.reverse(digits);
+        return digits;
+    }
+
+    // Tested by leetcode 1163
+    public static int[] suffixSort(int[] s) {
+        int n = s.length;
+        int[] count = new int[n], t;
+        int[] SA = new int[n], nSA = new int[n];
+        int[] rank = new int[n], nRank = new int[n];
+
+        Integer[] tempArray = new Integer[n];
+        for (int x = 0; x &lt; n; x++) tempArray[x] = x;
+        Arrays.sort(tempArray, (a, b) -&gt; s[a] - s[b]); // NOTE: comparison might overflow!!!
+        for (int x = 0; x &lt; n; x++) SA[x] = tempArray[x];
+
+        int i, k;
+        for (rank[SA[0]] = 0, i = 1; i &lt; n; i++) {
+            rank[SA[i]] = (s[SA[i]] != s[SA[i - 1]]) ? rank[SA[i - 1]] + 1 : rank[SA[i - 1]];
+        }
+        for (k = 1; k &lt; n &amp;&amp; rank[SA[n - 1]] &lt; n - 1; k &lt;&lt;= 1) {
+            for (i = 0; i &lt; n; i++) count[rank[SA[i]]] = i + 1;
+            for (i = n - 1; i &gt;= 0; i--) if (SA[i] &gt;= k) nSA[--count[rank[SA[i] - k]]] = SA[i] - k;
+            for (i = n - k; i &lt; n; i++) nSA[--count[rank[i]]] = i;
+            t = SA;
+            SA = nSA;
+            nSA = t;
+            for (nRank[SA[0]] = 0, i = 1; i &lt; n; i++) {
+                nRank[SA[i]] = (SA[i] + k &gt;= n ||
+                        SA[i - 1] + k &gt;= n ||
+                        rank[SA[i]] != rank[SA[i - 1]] ||
+                        rank[SA[i] + k] != rank[SA[i - 1] + k]) ? nRank[SA[i - 1]] + 1 : nRank[SA[i - 1]];
+            }
+            t = rank;
+            rank = nRank;
+            nRank = t;
+        }
+        return SA;
+    }
+}
+
+class Fraction {
+    long n, d;
+
+    public Fraction(long n, long d) {
+        long g = gcd(n, d);
+        this.n = n / g;
+        this.d = d / g;
+    }
+
+    public void add(Fraction other) {
+        long numerator = this.n * other.d + this.d * other.n;
+        long denominator = this.d * other.d;
+        long g = gcd(numerator, denominator);
+        this.n = numerator / g;
+        this.d = denominator / g;
+    }
+
+    private long gcd(long x, long y) {
+        return x != 0 ? gcd(y % x, x) : y;
+    }
+}
+
+class UnionFind {
+    private int[] parent;
+    private int[] sz;
+
+    // from 0 ... n - 1
+    public UnionFind(int n) {
+        parent = new int[n];
+        sz = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+            sz[i] = 1;
+        }
+    }
+
+    public int find(int x) {
+        return parent[x] == x ? x : (parent[x] = find(parent[x]));
+    }
+
+    public void union(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px == py) return;
+        parent[py] = px;
+        sz[px] += sz[py];
+    }
+
+    public int size(int x) {
+        return sz[find(x)];
+    }
+}
+
+class Trie {
+    private static class TrieNode {
+        TrieNode[] next = new TrieNode[26];
+        boolean isWord = false;
+    }
+
+    private TrieNode root = new TrieNode();
+
+    public void insert(String word) {
+        TrieNode cur = root;
+        for (int i = 0; i &lt; word.length(); i++) {
+            int c = word.charAt(i) - 'a';
+            if (cur.next[c] == null) {
+                cur.next[c] = new TrieNode();
+            }
+            cur = cur.next[c];
+        }
+        cur.isWord = true;
+    }
+
+    public boolean contains(String word) {
+        TrieNode cur = root;
+        for (int i = 0; i &lt; word.length(); i++) {
+            int c = word.charAt(i) - 'a';
+            if (cur.next[c] == null) return false;
+            cur = cur.next[c];
+            if (cur.isWord) return true;
+        }
+        return false;
+    }
+}
+
+class Pair {
+    long x, y;
+
+    public Pair(long x, long y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Pair pt = (Pair) obj;
+        return (x == pt.x) &amp;&amp; (y == pt.y);
+    }
+
+    @Override
+    public int hashCode() {
+        //return (int) (x ^ (y * 31));
+        long bits = x ^ (y * 31);
+        return (((int) bits) ^ ((int) (bits &gt;&gt; 32)));
+    }
+}
+
+class SegmentTree {
+    private int size;
+    private int[] data;
+
+    // 0 ... n - 1
+    public SegmentTree(int n) {
+        this.size = n;
+        this.data = new int[this.size * 4];
+        build(0, 0, n - 1);
+    }
+
+    private void build(int x, int l, int r) {
+        if (l == r) {
+            data[x] = 0; // TODO
+            return;
+        }
+
+        int m = (l + r) &gt;&gt; 1;
+        build(x * 2 + 1, l, m);
+        build(x * 2 + 2, m + 1, r);
+        data[x] = data[x * 2 + 1] * data[x * 2 + 2]; // TODO
+    }
+
+    public void update(int pos, int value) {
+        update(0, 0, size - 1, pos, value);
+    }
+
+    private void update(int x, int l, int r, int pos, int value) {
+        if (l == r) {
+            data[x] = value; // TODO
+            return;
+        }
+        int m = (l + r) &gt;&gt; 1;
+        if (pos &lt;= m)
+            update(x * 2 + 1, l, m, pos, value);
+        else
+            update(x * 2 + 2, m + 1, r, pos, value);
+        data[x] = data[x * 2 + 1] * data[x * 2 + 2]; // TODO
+    }
+
+    public int query(int queryL, int queryR) {
+        return query(0, 0, size - 1, queryL, queryR);
+    }
+
+    private int query(int x, int l, int r, int queryL, int queryR) {
+        if (queryL &lt;= l &amp;&amp; r &lt;= queryR) {
+            return data[x];
+        }
+
+        int m = (l + r) &gt;&gt; 1;
+        if (queryR &lt;= m)
+            return query(x * 2 + 1, l, m, queryL, queryR);
+        else if (m + 1 &lt;= queryL)
+            return query(x * 2 + 2, m + 1, r, queryL, queryR);
+        else
+            return query(x * 2 + 1, l, m, queryL, m) * query(x * 2 + 2, m + 1, r, m + 1, queryR); // TODO
+    }
+}
+
+class BinaryIndexTree {
+    private int[] c;
+    private int n;
+
+    // NOTE: index is from 1 to n. (NOT 0 .. n - 1)
+    public BinaryIndexTree(int n) {
+        this.n = n;
+        this.c = new int[n + 1];
+    }
+
+    // Add value to position k;
+    public void add(int k, int value) {
+        while (k &lt;= n) {
+            c[k] += value;
+            k += (k &amp; (k ^ (k - 1)));
+        }
+    }
+
+    public int getSum(int k) {
+        int sum = 0;
+        while (k &gt; 0) {
+            sum += c[k];
+            k -= (k &amp; (k ^ (k - 1)));
+        }
+        return sum;
+    }
+}
+
+abstract class Calculator&lt;T&gt; {
+    abstract protected T parseNumber(String s);
+
+    abstract protected T add(T a, T b);
+
+    abstract protected T minus(T a, T b);
+
+    abstract protected T multiply(T a, T b);
+
+    abstract protected T divide(T a, T b);
+
+
+    public T calculate(String s, T defaultValue) {
+        if (s == null) {
+            return defaultValue;
+        }
+        s = s.replaceAll(&quot;\\s+&quot;, &quot;&quot;);
+        if (s.length() == 0) {
+            return defaultValue;
+        }
+        pos = 0;
+        return parse(s, defaultValue);
+    }
+
+    private int pos;
+
+    private T parse(String s, T defaultValue) {
+        Stack&lt;T&gt; st = new Stack&lt;&gt;();
+        T cur = defaultValue;
+        char sigh = '+';
+
+        while (pos &lt; s.length()) {
+            if (s.charAt(pos) == '(') {
+                // skip the '('
+                pos++;
+                cur = parse(s, defaultValue);
+                // skip the ')'
+                pos++;
+            } else {
+                StringBuilder number = new StringBuilder();
+                while (pos &lt; s.length()) {
+                    char ch = s.charAt(pos);
+                    if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '(' || ch == ')') {
+                        break;
+                    }
+                    pos++;
+                    number.append(ch);
+                }
+                cur = parseNumber(number.toString());
+            }
+            if (sigh == '+') st.push(cur);
+            if (sigh == '-') st.push(minus(defaultValue, cur));
+            if (sigh == '*') st.push(multiply(st.pop(), cur));
+            if (sigh == '/') st.push(divide(st.pop(), cur));
+
+            if (pos &gt;= s.length() || s.charAt(pos) == ')') break;
+            sigh = s.charAt(pos++);
+        }
+        T ans = defaultValue;
+        while (!st.empty()) {
+            ans = add(ans, st.pop());
+        }
+        return ans;
+    }
+}
+
+class Graph {
+    Map&lt;Integer, List&lt;Integer&gt;&gt; adj = new HashMap&lt;&gt;();
+
+    public void link(int x, int y) {
+        adj.computeIfAbsent(x, k -&gt; new ArrayList&lt;&gt;()).add(y);
+    }
+
+    public List&lt;Integer&gt; getChildren(int x) {
+        return adj.getOrDefault(x, new ArrayList&lt;&gt;());
+    }
+
+    public Set&lt;Integer&gt; getAllNodes() {
+        return adj.keySet();
+<A NAME="0"></A>    }
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Dijkstra {
+    public static class Edge {
+        int to;
+        int w;
+
+        public Edge(int to, int w) {
+            this.to = to;
+            this.w = w;
+        }
+    }</B></FONT>
+
+    public Map&lt;Integer, List&lt;Edge&gt;&gt; adj = new HashMap&lt;&gt;();
+
+    public void link(int x, int y, int w) {
+        adj.computeIfAbsent(x, k -&gt; new ArrayList&lt;&gt;()).add(new Edge(y, w));
+    }
+<A NAME="1"></A>
+    public Map&lt;Integer, Integer&gt; shortestPath(int src) {
+        Map&lt;Integer, Integer&gt; dist = new HashMap&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Set&lt;Integer&gt; vst = new HashSet&lt;&gt;();
+
+        PriorityQueue&lt;Edge&gt; q = new PriorityQueue&lt;&gt;((a, b) -&gt; Integer.compare(a.w, b.w));
+        q.add(new Edge(src, 0));
+        dist.put</B></FONT>(src, 0);
+
+        while (true) {
+            while (!q.isEmpty() &amp;&amp; vst.contains(q.peek().to)) {
+                q.poll();
+            }
+            if (q.isEmpty()) break;
+
+            Edge cur = q.poll();
+            int u = cur.to;
+            int w = cur.w;
+            vst.add(u);
+            if (adj.containsKey(u)) {
+                for (Edge e : adj.get(u)) {
+                    if (!vst.contains(e.to) &amp;&amp; (!dist.containsKey(e.to) || dist.get(e.to) &gt; w + e.w)) {
+                        dist.put(e.to, w + e.w);
+                        q.add(new Edge(e.to, w + e.w));
+                    }
+                }
+            }
+        }
+        return dist;
+    }
+}
+
+class EulerPath&lt;T, E&gt; {
+    private Map&lt;T, List&lt;Object[]&gt;&gt; adj = new HashMap&lt;T, List&lt;Object[]&gt;&gt;();
+    private Map&lt;T, Integer&gt; curr = new HashMap&lt;T, Integer&gt;();
+    private Set&lt;E&gt; vst = new HashSet&lt;E&gt;();
+    private List&lt;E&gt; result = new ArrayList&lt;E&gt;();
+
+    // 1. For directed graph, each edge has unique edgeId
+    // 2. For undirected graph, you need to call link() twice with the same
+    // edgeId, as below:
+    // addEdge(x, y, 1);
+    // addEdge(y, x, 1);
+    public void addEdge(T x, T y, E edgeId) {
+        if (!adj.containsKey(x)) {
+            adj.put(x, new ArrayList&lt;Object[]&gt;());
+        }
+        adj.get(x).add(new Object[]{y, edgeId});
+    }
+
+    private void dfs(T x) {
+        if (adj.containsKey(x)) {
+            while (curr.get(x) &lt; adj.get(x).size()) {
+                int index = curr.get(x);
+                curr.put(x, index + 1);
+                Object[] edge = adj.get(x).get(index);
+                T y = (T) edge[0];
+                E edgeId = (E) edge[1];
+                if (vst.contains(edgeId)) {
+                    continue;
+                }
+                vst.add(edgeId);
+                dfs(y);
+                result.add(edgeId);
+            }
+        }
+    }
+
+    public List&lt;E&gt; getEulerPath() {
+        T start = adj.keySet().iterator().next();
+        return getEulerPath(start);
+    }
+
+    public List&lt;E&gt; getEulerPath(T start) {
+        for (T x : adj.keySet()) {
+            curr.put(x, 0);
+        }
+        dfs(start);
+        Collections.reverse(result);
+        return result;
+    }
+}
+
+class MultiTreeSet&lt;E&gt; {
+    TreeMap&lt;E, Integer&gt; data;
+    int sz;
+
+    public MultiTreeSet() {
+        data = new TreeMap&lt;&gt;();
+        sz = 0;
+    }
+
+    public void add(E e) {
+        data.put(e, data.getOrDefault(e, 0) + 1);
+        sz++;
+    }
+
+    public boolean remove(Object o) {
+        if (data.containsKey(o)) {
+            data.put((E) o, data.getOrDefault(o, 0) - 1);
+            sz--;
+
+            if (data.get(o) == 0) {
+                data.remove(o);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean contains(E e) {
+        return data.containsKey(e);
+    }
+
+    public E first() {
+        return data.firstKey();
+    }
+
+    public E last() {
+        return data.lastKey();
+    }
+
+    public int size() {
+        return sz;
+    }
+
+    public List&lt;E&gt; getAll() {
+        List&lt;E&gt; list = new ArrayList&lt;&gt;();
+        for (Map.Entry&lt;E, Integer&gt; entry : data.entrySet()) {
+            E e = entry.getKey();
+            int count = entry.getValue();
+            for (int i = 0; i &lt; count; i++) {
+                list.add(e);
+            }
+        }
+        return list;
+    }
+}
+
+class TreapSet&lt;E&gt; {
+    private class Node {
+        E key;
+        int priority, count, total;
+        Node left, right, pnt;
+
+        public Node(E key, int priority, Node pnt) {
+            this.key = key;
+            this.priority = priority;
+            this.pnt = pnt;
+            this.count = 1;
+            this.total = 1;
+        }
+    }
+
+    private static final Random RANDOM = new Random();
+    private final Comparator&lt;? super E&gt; comparator;
+    private Node root;
+    private int size = 0;
+
+    public TreapSet(Comparator&lt;? super E&gt; comparator) {
+        this.comparator = comparator;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    private int leftRank(Node p) {
+        return p.left != null ? p.left.total : 0;
+    }
+
+    private int rightRank(Node p) {
+        return p.right != null ? p.right.total : 0;
+    }
+
+    private void rotateLeft(Node x) {
+        Node y = x.right;
+        if ((x.right = y.left) != null)
+            y.left.pnt = x;
+        y.pnt = x.pnt;
+        if (x == root)
+            root = y;
+        else if (x == x.pnt.left)
+            x.pnt.left = y;
+        else
+            x.pnt.right = y;
+        y.left = x;
+        x.pnt = y;
+        x.total = leftRank(x) + rightRank(x) + x.count;
+        y.total = leftRank(y) + rightRank(y) + y.count;
+    }
+
+    private void rotateRight(Node x) {
+        Node y = x.left;
+        if ((x.left = y.right) != null)
+            y.right.pnt = x;
+        y.pnt = x.pnt;
+        if (x == root)
+            root = y;
+        else if (x == x.pnt.right)
+            x.pnt.right = y;
+        else
+            x.pnt.left = y;
+        y.right = x;
+        x.pnt = y;
+        x.total = leftRank(x) + rightRank(x) + x.count;
+        y.total = leftRank(y) + rightRank(y) + y.count;
+    }
+
+    public void add(E key) {
+        ++size;
+        if (root == null) {
+            root = new Node(key, RANDOM.nextInt(), null);
+            return;
+        }
+        Node x = root, p = null;
+        while (x != null) {
+            ++((p = x).total);
+            int cmp = comparator.compare(key, x.key);
+            if (cmp &lt; 0)
+                x = x.left;
+            else if (cmp &gt; 0)
+                x = x.right;
+            else {
+                ++(x.count);
+                return;
+            }
+        }
+
+        x = new Node(key, RANDOM.nextInt(), p);
+        if (comparator.compare(key, p.key) &lt; 0)
+            p.left = x;
+        else
+            p.right = x;
+        while ((p = x.pnt) != null &amp;&amp; p.priority &lt; x.priority) {
+            if (p.left == x)
+                rotateRight(p);
+            else
+                rotateLeft(p);
+        }
+    }
+
+    public void remove(E key) {
+        Node x = root, p = null;
+        --size;
+        while (x != null) {
+            --(x.total);
+            int cmp = comparator.compare(key, x.key);
+            if (cmp &lt; 0)
+                x = x.left;
+            else if (cmp &gt; 0)
+                x = x.right;
+            else {
+                if (--(x.count) &gt; 0)
+                    return;
+                break;
+            }
+        }
+        if (x == null) return;
+        while (x.left != null || x.right != null) {
+            if (x.left == null || (x.right != null &amp;&amp; x.right.priority &gt; x.left.priority)) {
+                rotateLeft(x);
+            } else {
+                rotateRight(x);
+            }
+        }
+        if ((p = x.pnt) != null) {
+            if (p.left == x) p.left = null;
+            else p.right = null;
+        } else {
+            root = null;
+        }
+        // delete x;
+    }
+
+    public int less(E key) {
+        int sum = 0;
+        Node x = root;
+        while (x != null) {
+            int cmp = comparator.compare(key, x.key);
+            if (cmp &lt; 0)
+                x = x.left;
+            else if (cmp &gt; 0) {
+                sum += leftRank(x) + x.count;
+                x = x.right;
+            } else {
+                sum += leftRank(x);
+                break;
+            }
+        }
+        return sum;
+    }
+
+
+    public E get(int pos) // pos = 0 ... size - 1
+    {
+        Node p = root;
+        ++pos;
+        while (true) {
+            int t = leftRank(p);
+            if (pos &lt;= t)
+                p = p.left;
+            else {
+                if ((pos -= t + p.count) &lt;= 0)
+                    break;
+                p = p.right;
+            }
+        }
+        return p.key;
+    }
+
+    public int count(E key) {
+        Node x = root;
+        while (x != null) {
+            int cmp = comparator.compare(key, x.key);
+            if (cmp &lt; 0)
+                x = x.left;
+            else if (cmp &gt; 0) {
+                x = x.right;
+            } else {
+                return x.count;
+            }
+        }
+        return 0;
+    }
+
+    public boolean contains(E key) {
+        return count(key) &gt; 0;
+    }
+}
+
+
+public class Solution {
+
+    private static final int INF = 1_000_000_001;
+    private static final long MOD = 1_000_000_007;
+    private static final int[][] DIR = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+
+    long[] dp;
+    long[] t;
+    int size;
+
+    void preprocess(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        for (int i = 0; i &lt; m; i++) {
+            size += mat[i][n - 1];
+        }
+        size++;
+
+        dp = new long[size];
+        t = new long[size];
+
+        System.out.println(&quot;size = &quot; + size);
+        //for (int j = 0; j &lt; size; j++) dp[j] = 0;
+
+        dp[0] = 1;
+        for (int i = 0; i &lt; m; ++i) {
+
+            for (int j = 0; j &lt; size; j++) t[j] = 0;
+            for (int j = 0; j &lt; size; j++) {
+                if (dp[j] &gt; 0) {
+                    for (int k = 0; k &lt; n; k++) {
+                        if (dp[j] &gt;= 200001) {
+                            t[j + mat[i][k]] = 200001;
+                        } else {
+                            t[j + mat[i][k]] += dp[j];
+                            //t[j + mat[i][k]] = 200001;
+                        }
+
+//                        if (t[j + mat[i][k]] &gt; INF) {
+//                            t[j + mat[i][k]] = INF;
+//                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j &lt; size; j++) {
+                dp[j] = t[j];
+            }
+<A NAME="2"></A>        }
+    }
+
+    long notLarger(int[][] mat, <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int target, int K) {
+        int m = mat.length;
+        int n = mat[0].length;
+        //int size = 5000 * m + 1;
+
+
+        long sum = 0;
+        for (int i = 0; i &lt;= target &amp;&amp; i &lt; size; i++) {
+            sum += dp[i];
+        }</B></FONT>
+        //System.out.println(&quot;sum = &quot; + sum + &quot; target = &quot; + target);
+        return sum;
+    }
+
+    public int kthSmallest2(int[][] mat, int k) {
+        int m = mat.length;
+        int n = mat[0].length;
+
+        int low = 0;
+        int high = m * 5000;
+
+        preprocess(mat);
+        System.out.println(&quot;zzz...&quot;);
+        while (low &lt; high) {
+            int mid = (low + high) / 2;
+            long t = notLarger(mat, mid, k);
+            if (t &lt; k) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+
+    }
+
+    Set&lt;String&gt; st = new HashSet&lt;&gt;();
+    String getKey(int[] nums) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; nums.length; i++) {
+            sb.append(nums[i] + &quot;,&quot;);
+        }
+        return sb.toString();
+    }
+
+    public int kthSmallest(int[][] mat, int k) {
+        int m = mat.length;
+        int n = mat[0].length;
+
+        PriorityQueue&lt;int[]&gt; q = new PriorityQueue&lt;&gt;((x, y) -&gt; x[m] - y[m]);
+
+        int sum = 0;
+        for (int i = 0; i &lt; m; i++) {
+            sum += mat[i][n - 1];
+        }
+        int[] e = new int[m + 1];
+        for (int i = 0; i &lt; m; i++) {
+            e[i] = 0;
+        }
+        e[m] = sum;
+        q.add(e);
+
+        st.add(getKey(e));
+
+        for (int i = 0; i &lt; k; i++) {
+            int[] t = q.poll();
+            if (i == k - 1) return t[m];
+
+            for (int j = 0; j &lt; m; j++) {
+                if (t[j] == n - 1) continue;
+
+                int[] newE = new int[m + 1];
+                int s = 0;
+                for (int l = 0; l &lt; m; l++) {
+                    if (l == j) {
+                        newE[l] = t[l] + 1;
+                    } else {
+                        newE[l] = t[l];
+                    }
+                    s += mat[l][newE[l]];
+                }
+                newE[m] = s;
+
+                String key = getKey(newE);
+                if (!st.contains(key)) {
+                    q.add(newE);
+                    st.add(key);
+                }
+            }
+        }
+        return 0;
+
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        long startTime = System.currentTimeMillis();
+        /* ------------------------------------------------------- */
+        /* ------------------------------------------------------- */
+        /* ------------------------------------------------------- */
+
+//        int[][] mat =
+//                {{
+//        121, 312, 381, 415, 488, 509, 536, 735, 1033, 1126, 1225, 1269, 1335, 1380, 2228, 2319, 2455, 2457, 2814, 3198, 3333, 3403, 3460, 3460, 3470, 3487, 3548, 3619, 3811, 4536, 4544, 4605, 4964},{
+//        210, 287, 452, 455, 496, 538, 903, 957, 1167, 1285, 1330, 1439, 1557, 1577, 1585, 2015, 2080, 2139, 2599, 2655, 2838, 2854, 3118, 3850, 3855, 4090, 4302, 4347, 4397, 4402, 4402, 4545, 4766},{
+//        159, 227, 378, 538, 553, 605, 666, 705, 731, 857, 1047, 1126, 1152, 1155, 1162, 1613, 1662, 1694, 1760, 1817, 2267, 2323, 2413, 2432, 2854, 3219, 3922, 3927, 4215, 4585, 4595, 4911, 4947},{
+//        58, 596, 619, 638, 806, 1285, 1294, 1687, 1691, 1737, 1758, 1784, 1810, 1838, 1983, 2022, 2222, 2451, 2614, 2617, 2982, 3032, 3246, 3426, 3780, 3863, 4030, 4049, 4080, 4107, 4180, 4513, 4517},{
+//        91, 146, 237, 290, 450, 802, 810, 871, 1222, 1341, 1379, 1420, 1490, 1673, 1707, 2057, 2305, 2565, 2642, 2652, 2677, 2704, 3168, 3536, 3591, 3879, 4029, 4035, 4229, 4534, 4616, 4824, 4948},{
+//        65, 114, 122, 193, 355, 554, 695, 872, 1201, 1273, 1684, 1923, 2211, 2469, 2663, 2678, 2696, 2910, 3185, 3455, 3490, 3491, 3581, 3897, 4011, 4148, 4224, 4252, 4474, 4486, 4820, 4828, 4978},{
+//        4, 481, 581, 601, 917, 949, 1057, 1275, 1355, 1403, 1800, 1902, 1958, 2265, 2294, 2316, 2462, 2885, 2900, 3021, 3389, 3456, 3542, 3684, 3773, 3940, 4364, 4399, 4420, 4699, 4703, 4717, 4731},{
+//        70, 79, 222, 234, 418, 514, 542, 812, 861, 974, 1468, 1809, 1923, 2168, 2183, 2478, 2521, 2623, 2672, 2672, 2820, 2824, 3036, 3136, 3280, 3512, 3515, 3686, 3759, 3811, 4220, 4689, 4812},{
+//        68, 264, 797, 823, 1246, 1337, 1383, 1535, 1677, 2155, 2270, 2323, 2498, 2760, 2830, 3194, 3241, 3322, 3404, 3410, 3615, 3919, 3930, 4034, 4038, 4039, 4165, 4212, 4268, 4325, 4363, 4540, 4678},{
+//        248, 290, 306, 526, 552, 770, 816, 1072, 1203, 1352, 1377, 1591, 1720, 1763, 1767, 1873, 2404, 2415, 2470, 2656, 2946, 2977, 3119, 3160, 3242, 3738, 4060, 4099, 4289, 4387, 4761, 4900, 4905},{
+//        14, 134, 308, 373, 392, 422, 956, 1016, 1146, 1169, 1218, 1382, 1394, 1654, 2002, 2073, 2081, 2106, 2376, 2552, 2769, 2778, 2878, 3484, 3866, 4078, 4153, 4221, 4474, 4543, 4721, 4750, 4986},{
+//        89, 162, 213, 353, 364, 435, 484, 561, 1007, 1220, 1305, 1382, 1503, 1561, 1646, 1659, 1808, 1929, 2225, 2231, 2295, 2365, 2608, 2632, 2764, 2765, 3823, 3829, 4054, 4057, 4068, 4269, 4639},{
+//        201, 541, 625, 1050, 1275, 1332, 1431, 1445, 1611, 1627, 2182, 2416, 2463, 2680, 2797, 2938, 2952, 3099, 3338, 3363, 3368, 3388, 3412, 3986, 4036, 4061, 4209, 4375, 4411, 4626, 4788, 4831, 4977},{
+//        118, 544, 655, 664, 712, 804, 1066, 1837, 1846, 1930, 2079, 2137, 2166, 2242, 2448, 2531, 2661, 2740, 2752, 2924, 3032, 3154, 3221, 3518, 3867, 3935, 4003, 4008, 4116, 4264, 4295, 4373, 4722},{
+//        26, 234, 358, 387, 401, 439, 455, 888, 918, 922, 1079, 1196, 1198, 1322, 1858, 1962, 2126, 2223, 2644, 2876, 2902, 3417, 3560, 3565, 3713, 3719, 3720, 3760, 3881, 3955, 4198, 4668, 4794},{
+//        11, 383, 770, 855, 1170, 1170, 1318, 1325, 1383, 1654, 1722, 1833, 2007, 2199, 2478, 2559, 2642, 2674, 2815, 2869, 2938, 3110, 3304, 3376, 3444, 3616, 3812, 3859, 3874, 4197, 4232, 4483, 4727},{
+//        137, 191, 398, 777, 952, 1074, 1132, 1134, 1290, 1298, 1495, 2268, 2452, 2595, 3214, 3284, 3391, 3531, 3612, 3682, 3819, 3825, 3876, 3917, 4187, 4340, 4419, 4567, 4710, 4765, 4773, 4812, 4850},{
+//        139, 321, 498, 648, 979, 1107, 1203, 1701, 1782, 2021, 2087, 2379, 2388, 2416, 2653, 2781, 3057, 3122, 3197, 3356, 3391, 3454, 3460, 3672, 3686, 4083, 4453, 4571, 4623, 4687, 4700, 4723, 4873},{
+//        100, 324, 407, 411, 414, 713, 844, 949, 1086, 1169, 1294, 1360, 1543, 1705, 1906, 2117, 2290, 2419, 2700, 2882, 2889, 2978, 3011, 3145, 3370, 3686, 3723, 3738, 3793, 3974, 4042, 4416, 4660},{
+//        84, 364, 544, 638, 1530, 1690, 1959, 2051, 2156, 2448, 2622, 2651, 2691, 2748, 2795, 2935, 2998, 3375, 3438, 3477, 3486, 3496, 3646, 3845, 3896, 3991, 4056, 4186, 4327, 4394, 4663, 4768, 4886},{
+//        75, 151, 166, 298, 369, 584, 927, 1087, 1585, 2151, 2253, 2380, 2559, 2566, 2838, 2996, 3006, 3243, 3245, 3404, 3446, 3516, 3751, 3976, 4119, 4258, 4366, 4443, 4469, 4576, 4646, 4754, 4848},{
+//        33, 311, 860, 938, 1118, 1180, 1482, 1519, 1587, 1706, 1742, 1798, 1854, 2251, 2337, 2360, 2383, 2596, 2613, 2640, 2696, 2961, 3100, 3197, 3956, 4025, 4075, 4102, 4137, 4171, 4324, 4970, 4986},{
+//        5, 52, 267, 418, 765, 1035, 1237, 1355, 1499, 1520, 1596, 1866, 2076, 2452, 2541, 2635, 2718, 2776, 2865, 2970, 3039, 3612, 3690, 3777, 3828, 3858, 3930, 4026, 4463, 4498, 4554, 4742, 4905},{
+//        46, 153, 328, 598, 661, 1176, 1180, 1575, 1575, 1921, 2208, 2226, 2397, 2521, 2543, 2706, 2732, 2958, 3218, 3373, 3695, 3761, 3799, 3839, 3927, 4141, 4163, 4308, 4468, 4597, 4625, 4848, 4898},{
+//        147, 295, 370, 435, 871, 998, 1126, 1265, 1347, 1617, 1901, 1921, 2151, 2189, 2273, 2493, 2556, 2722, 2729, 2744, 2994, 3001, 3019, 3024, 3346, 3414, 3647, 3909, 3963, 4020, 4313, 4745, 4919},{
+//        452, 509, 536, 557, 957, 1032, 1184, 1439, 1540, 1650, 1650, 1653, 1685, 1751, 1871, 1957, 2097, 2383, 2443, 2505, 2591, 2825, 3216, 3252, 3410, 3721, 3749, 3902, 3934, 4108, 4377, 4797, 4880},{
+//        84, 98, 335, 364, 564, 857, 959, 974, 1201, 1325, 1436, 1479, 2124, 2222, 2684, 3077, 3243, 3252, 3275, 3411, 3686, 3822, 3875, 4073, 4113, 4118, 4305, 4360, 4387, 4439, 4642, 4735, 4865},{
+//        8, 506, 789, 1098, 1127, 1250, 1260, 1591, 1597, 1599, 1743, 1809, 1874, 2316, 2336, 2394, 2547, 3215, 3314, 3342, 3591, 3629, 3813, 4090, 4154, 4234, 4356, 4551, 4658, 4679, 4829, 4864, 4936},{
+//        242, 472, 515, 634, 1031, 1047, 1347, 1475, 1566, 1764, 2040, 2177, 2470, 2706, 2807, 2893, 2904, 2940, 3039, 3353, 3377, 3453, 3470, 3606, 3622, 3834, 4197, 4202, 4423, 4474, 4511, 4846, 4964},{
+//        579, 941, 980, 1015, 1054, 1471, 1495, 1699, 2019, 2036, 2250, 2477, 2525, 2649, 2653, 2691, 2726, 2734, 2827, 2898, 3039, 3531, 3786, 3921, 3952, 4515, 4527, 4571, 4599, 4609, 4617, 4703, 4794},{
+//        91, 181, 376, 400, 494, 956, 1023, 1041, 1231, 1451, 1514, 1632, 1894, 2076, 2440, 2469, 2960, 3222, 3371, 3453, 3571, 3577, 3881, 4058, 4195, 4215, 4377, 4412, 4460, 4463, 4551, 4864, 4931},{
+//        67, 305, 375, 497, 564, 660, 795, 812, 1333, 1458, 1802, 2011, 2026, 2077, 2092, 2191, 2210, 2287, 2322, 2356, 2378, 3193, 3342, 3553, 3778, 3797, 3845, 3873, 4009, 4061, 4315, 4336, 4905},{
+//        135, 136, 399, 442, 599, 601, 776, 852, 990, 1032, 1117, 1251, 1260, 1478, 1573, 2011, 2079, 2567, 2640, 2643, 2679, 2766, 2923, 3065, 3380, 4048, 4114, 4221, 4240, 4492, 4621, 4717, 4903},{
+//        13, 101, 164, 705, 985, 995, 1083, 1162, 1241, 1327, 1357, 1433, 1454, 1457, 1503, 1540, 1618, 1698, 1844, 1894, 1906, 1986, 2556, 3064, 3348, 3433, 3539, 4326, 4333, 4626, 4659, 4734, 4983}};
+//
+//
+//        int k = 129;
+//
+//        //11355
+//        System.out.println(new Solution().kthSmallest(mat, k));
+
+        /* ------------------------------------------------------- */
+        /* ------------------------------------------------------- */
+        /* ------------------------------------------------------- */
+        System.out.println((System.currentTimeMillis() - startTime) + &quot;ms&quot;);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

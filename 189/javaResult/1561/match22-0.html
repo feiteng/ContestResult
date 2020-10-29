@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_YuhanWu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_YuhanWu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    class Pair{
+        String s;
+        int index;
+        public Pair(String s, int index){
+            this.s = s;
+            this.index = index;
+        }
+    }
+    public String arrangeWords(String text) {
+        String[] split = text.split(&quot; &quot;);
+        int n = split.length</B></FONT>;
+<A NAME="1"></A>        Pair[] p = new Pair[n];
+        for(int i=0; i&lt;n; i++){
+            p[i] = new Pair(split[i].toLowerCase(), i);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        Arrays.sort(p, (a,b)-&gt;(a.s.length() == b.s.length() ? a.index-b.index : a.s.length() - b.s.length()));
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        for(int i=0; i&lt;n; i++){
+            if(i==0){
+                char[] cur = p[i].s.toCharArray();
+                cur[0] = (char)(cur[0]-'a'+'A');
+                sb.append(new String(cur));
+            }
+            else{
+                sb.append(p[i].s);
+            }
+            if(i!=n-1){
+                sb.append(&quot; &quot;);
+            }
+        }
+        return sb.toString();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

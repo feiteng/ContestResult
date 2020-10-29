@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>604_I_wanna_AC.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>604_I_wanna_AC.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int dir[4][2] = {{1,0},{0,1},{-1,0},{0,-1}};</B></FONT>
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {
+        auto cmp = [](vector&lt;int&gt;&amp;a, vector&lt;int&gt;&amp;b){
+            return a[2]&gt;b[2];  
+        };
+        priority_queue&lt;vector&lt;int&gt;, vector&lt;vector&lt;int&gt;&gt;, decltype(cmp)&gt; q(cmp);
+        q.push({0,0,0});
+        int dp[200][200] = {false};
+        memset(dp,0x3f,sizeof(dp));
+        dp[0][0] = 0;
+        while(q.size()&gt;0){
+            auto cur = q.top(); q.pop();
+<A NAME="1"></A>            if ( cur[0]+1==heights.size() &amp;&amp; cur[1]+1 ==heights[0].size() ){
+                return cur[2];
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int k=0; k&lt;4; ++k){
+                int y = dir[k][0] + cur[0];
+                int x = dir[k][1] + cur[1];
+                if ( x&gt;=0 &amp;&amp; y&gt;=0 &amp;&amp; x&lt;heights[0].size() &amp;&amp; y&lt;heights.size()  ){
+                    int c = max( cur[2], abs(heights[y][x] - heights[cur[0]][cur[1]]) );
+                    if ( q.size()==0 || dp[y][x]&gt;c ){
+                        dp[y][x] = c;
+                        q.push({y,x,c});
+                    }
+                    
+                }
+            }
+        }
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

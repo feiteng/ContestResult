@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>126_jljljljljl.cpp</TITLE>
+ <TITLE>119_MesbahTanvir.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>126_jljljljljl.cpp</CENTER></H3><HR>
+<H3><CENTER>119_MesbahTanvir.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int minCost(string s, vector&lt;int&gt;&amp; cost) 
-<A NAME="1"></A>    {
-        char prev = s[0];
-        int maxCost = cost[0];
-        int ret = 0, sum = cost[0];</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-        for(int i = 1; i &lt; s.size(); i++)
-        {
-            if(s[i] == prev)
-            {
-                maxCost = max(maxCost, cost[i]);
-                sum += cost[i];
+    int minCost(string s, vector&lt;int&gt;&amp; cost) {
+        int res =0 ;
+        int mn = 0;
+        for(int i =0; i &lt; s.size(); i ++){
+            if(i==0 or s[i]!=s[i-1]){
+                res += mn;
+                mn = INT_MIN;
+
             }
-            else
-            {
-                ret += sum - maxCost;
-                prev = s[i];
-                maxCost = cost[i];
-                sum = maxCost;
-            }
+            mn = max (mn, cost[i]);
+
         }
-        
-        ret += sum - maxCost;
-        return ret;
+        res += mn;
+        return accumulate(cost.begin(), cost.end(), 0) - res;
     }
 };</B></FONT>
 </PRE>

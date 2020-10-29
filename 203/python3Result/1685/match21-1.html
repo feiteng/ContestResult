@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>230_rickdiculous.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>230_rickdiculous.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def stoneGameV(self, stones: List[int]) -&gt; int:
+        n = len(stones)
+        prefix = [0] * (n + 1)
+        for i in range(n):
+            prefix[i + 1] = prefix[i] + stones[i]
+        @lru_cache(None)
+        def dfs(s: int, t: int) -&gt; int:
+<A NAME="1"></A>            if s == t: return 0
+            ret = 0
+            for i in range(s, t):
+                u, v = prefix[i + 1] - prefix[</B></FONT>s], prefix<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[t + 1] - prefix[i + 1]
+                if u &gt; v:
+                    ret = max(v + dfs(i + 1, t), ret)
+                elif u &lt; v:    
+                    ret = max(u + dfs(s, i), ret)
+                else:    
+                    ret = max(u + dfs(s, i), u + dfs(</B></FONT>i + 1, t), ret)
+            return ret            
+        return dfs(0, n - 1)      
+</PRE>
+
+</BODY>
+</HTML>

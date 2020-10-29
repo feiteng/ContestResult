@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>330_gyang274.py</TITLE>
+ <TITLE>205_Hexadecimal.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>330_gyang274.py</CENTER></H3><HR>
+<H3><CENTER>205_Hexadecimal.py</CENTER></H3><HR>
 <PRE>
-import copy
-
-from collections import defaultdict
-
-<A NAME="0"></A>class DSU:
-  def __init__(self, reps):
-    # representer
-    self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.reps = reps
-  # def add(self, x):
-  #   self.reps[x] = x
-  def find(self, x):
-    if not x == self.reps[x]:
-<A NAME="1"></A>      self.reps[x] = self.find(self.reps[x])
-    return self.reps[x]
-  def</B></FONT> union(self, x, y):
-    self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.reps[self.find(y)] = self.find(x)
-
-class Solution:
-  def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-    # start with all type3 edges
-    es = [[], [], [], []]
-    for i, u, v in edges:
-      es[i].append((u, v))
-    # start with all type3 edges
-    dsu = DSU(reps =</B></FONT> {x: x for x in range(1, n + 1)})
-    for u, v in es[3]:
-      dsu.union(u, v)
-    # islands
-    islands = defaultdict(set)
-    for x in range(1, n + 1):
-      islands[dsu.find(x)].add(x)
-    if len(islands) == 1:
-      return len(es[3]) - (n - 1) + len(es[1]) + len(es[2])
-    # Alice
-    dA = copy.deepcopy(dsu)
-    for u, v in es[1]:
-      dA.union(u, v)
-    islandsA = defaultdict(set)
-    for x in range(1, n + 1):
-      islandsA[dA.find(x)].add(x)
-    if len(islandsA) &gt; 1:
-      return -1
-    # Bob
-    dB = copy.deepcopy(dsu)
-    for u, v in es[2]:
-      dB.union(u, v)
-    islandsB = defaultdict(set)
-    for x in range(1, n + 1):
-      islandsB[dB.find(x)].add(x)
-    if len(islandsB) &gt; 1:
-      return -1
-    return len(edges) - (n - len(islands)) - (len(islands) - 1) * 2
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        tot = len(edges)
+        if tot &lt; n - 1:
+            return -1
+        nei = [[] for _ in range(n + 1)]
+        for t, u, v in edges:
+            nei[u].append([-t, v])
+            nei[v].append([-t, u])
+        h = [[-3, 1]]        
+        seen = [set() for _ in range(3)]
+        e = -1
+        while h:
+            t, u = heappop(h)
+            if t == -3:
+                if u not in seen[1] or u not in seen[2]:
+                    seen[1].add(u)
+                    seen[2].add(u)
+                    e += 1
+                    for nt, v in nei[u]:
+                        heappush(h, [nt, v])
+            elif t == -1:
+                if u not in seen[1]:
+                    seen[1].add(u)
+                    e += 1
+                    for nt, v in nei[u]:
+                        heappush(h, [nt, v])
+            else:
+                if u not in seen[2]:
+                    seen[2].add(u)
+                    e += 1
+                    for nt, v in nei[u]:
+                        heappush(h, [nt, v])
+        return tot - e if len(seen[1]) == n and len(seen[2</B></FONT>]) == n else -1
 </PRE>
 
 </BODY>

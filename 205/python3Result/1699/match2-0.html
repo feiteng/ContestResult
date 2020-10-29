@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>393_lifuhuang.py</TITLE>
+ <TITLE>122_Eser.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>393_lifuhuang.py</CENTER></H3><HR>
+<H3><CENTER>122_Eser.py</CENTER></H3><HR>
 <PRE>
-class Solution:
-<A NAME="0"></A>    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        def calc(arr1, arr2):
-            sq = [a * a for a in arr1]
-            pos = defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(int)
-            for a in sq:
-                pos[a] += 1
-
-            result = 0
-            for j in range(len(arr2)):
-                for k in range(j + 1, len(arr2)):
-                    result += pos[arr2[j] * arr2[k]]
-            return result
-
-
-
-        return calc(nums1, nums2) + calc(n</B></FONT>ums2, nums1)
-
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def numTriplets(self, nums1: List[int], nums2: List[int], final = False) -&gt; int:
+        res = 0
+        cnt = collections.Counter([i * i for i in nums1])
+        for i in range(len(nums2)):
+            for j in range(i):
+                res += cnt[nums2[i] * nums2[j]]
+        if final:
+            return res
+        return res + self.numTriplets(n</B></FONT>ums2, nums1, True)
 </PRE>
 
 </BODY>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>133_votrubac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>133_votrubac.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class BrowserHistory {
+public:
+    stack&lt;string&gt; h_back, h_forward;
+    string cur;
+    BrowserHistory(string homepage) {
+        cur = homepage;
+    }
+    
+    void visit(string url) {
+        h_forward = stack&lt;string&gt;();
+        h_back.push(cur);
+        cur = url;
+    }
+    
+    string back(int steps) {
+        while (--steps &gt;= 0 &amp;&amp; !h_back.empty()) {
+            h_forward.push(cur);
+            cur = h_back.top();
+            h_back.pop();
+        }
+        return cur;
+    }
+    
+    string forward(int steps) {
+        while (--steps &gt;= 0 &amp;&amp; !h_forward.empty()) {
+            h_back.push(cur);
+            cur = h_forward.top();
+            h_forward.pop();
+        }
+        return cur;
+    }
+};</B></FONT>
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj-&gt;visit(url);
+ * string param_2 = obj-&gt;back(steps);
+ * string param_3 = obj-&gt;forward(steps);
+ */
+</PRE>
+</BODY>
+</HTML>

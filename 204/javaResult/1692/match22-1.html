@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_kuailezhish.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_kuailezhish.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private final int up = 1000;
+    private final long p = 1000000007;
+    
+    private long cau(long n) {
+<A NAME="0"></A>        return n == 1 ? 1 : (p - p / n * cau(p % n) % p) % p;
+    }
+    
+    private int dfs(long[] f, long[] rf, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Integer&gt; list) {
+        if (list.size() &lt;= 1) return 1;
+        List&lt;Integer&gt; l = new ArrayList();
+<A NAME="1"></A>        List&lt;Integer&gt; r = new</B></FONT> ArrayList();
+        int root = list.get(0);
+        for (int i = 1; i &lt; list.size(); i++) {
+            if (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.get(i) &lt; root) l.add(list.get(i));
+            else r.add(list.get(i));
+        }
+        long ans = 1</B></FONT>;
+        ans = ans * dfs(f, rf, l) % p;
+        ans = ans * dfs(f, rf, r) % p;
+        ans = ans * f[list.size() - 1] % p;
+        ans = ans * rf[l.size()] % p;
+        ans = ans * rf[r.size()] % p;
+        return (int) ans;
+    }
+    
+    public int numOfWays(int[] nums) {
+        long[] f = new long[up + 1];
+        long[] rf = new long[up + 1];
+        f[0] = f[1] = 1L;
+        rf[0] = rf[1] = 1L;
+<A NAME="2"></A>        for (int i = 2; i &lt;= up; i++) {
+            f[i] = (f[i - 1] * i) % p;
+            rf[i] = cau(f[i]);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        List&lt;Integer&gt; list = new ArrayList();
+        for (int i = 0; i &lt; nums.length; i++) list.add(nums[i]);
+        return dfs(f, rf, list) - 1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

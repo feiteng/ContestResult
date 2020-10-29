@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>248_peterrockwave.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>248_peterrockwave.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        revstoneValue = stoneValue[::-1]
+        expecteddiff = [0] #its what (activeplayer - nonactiveplayer) is if people play optimally.
+        for index in range(len(revstoneValue)):
+            possible = [sum(revstoneValue[index-j:index+1])-expecteddiff[-(j+1)] for j in range(0,3) if len(expecteddiff)&gt;j]# this might be slow to get len constantly
+<A NAME="0"></A>            if len(possible)==0:
+                possible = [revstoneValue[index]]
+            newdiff=max(possible)
+            expecteddiff<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.append(newdiff)
+        
+        finaldiff = expecteddiff[-1]
+        #print(finaldiff)
+        #print(expecteddiff)
+        if finaldiff==0:
+            return &quot;Tie&quot;
+        elif finaldiff&gt;0:
+            return &quot;Alice&quot;
+        elif finaldiff&lt;0:
+            ret</B></FONT>urn &quot;Bob&quot;
+</PRE>
+
+</BODY>
+</HTML>

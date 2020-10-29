@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>119_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>119_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minTime(int n, int[][] edges, List&lt;Boolean&gt; hasApple) {
+        Node[] nodes = new Node[n];
+        for (int i = 0; i &lt; n; ++i) {
+            nodes[i] = new Node(i);
+        }
+        
+        for (int[] e : edges) {
+            int u = e[0];
+            int v = e[1];
+            
+            nodes[u].children.add(nodes[v]);
+            nodes[v].children.add(nodes[u]);
+        }</B></FONT>
+        
+        nodes[0].root(null);
+        nodes[0].setDepth(0);
+        
+        int maxDepth = 0;
+        for (Node u : nodes) {
+            if (!hasApple.get(u.id)) {
+                continue;
+            }
+            maxDepth = Math.max(maxDepth, u.depth);
+        }
+        
+        NodeList[] byDepth = new NodeList[maxDepth + 1];
+<A NAME="1"></A>        for (int i = 0; i &lt; byDepth.length; ++i) {
+            byDepth[i] = new NodeList();
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (Node u : nodes) {
+            if (hasApple.get(u.id)) {
+                byDepth[u.depth].add(u);
+            }
+        }</B></FONT>
+        
+        // for (Node u : nodes) {
+        //     if (u.depth == maxDepth) {
+        //         layer.add(u);
+        //     }
+        // }
+        
+        int count = -1;
+        HashSet&lt;Node&gt; layer = new HashSet&lt;&gt;();
+        for (int d = maxDepth; d &gt;= 0; --d) {
+            HashSet&lt;Node&gt; next = new HashSet&lt;&gt;();
+            layer.addAll(byDepth[d]);
+            count += layer.size();
+            for (Node u : layer) {
+                if (u.parent != null) {
+                    next.add(u.parent);
+                }
+            }
+            layer = next;
+        }
+        // do (!layer.isEmpty()) {
+        //     count += layer.size();
+        //     HashSet&lt;Node&gt; next = new HashSet&lt;&gt;();
+        //     for (Node u : layer) {
+        //         if (u.parent != null) {
+        //             next.add(u.parent);
+        //         }
+        //     }
+        //     layer = next;
+        // }
+        return Math.max(0, count * 2);
+    }
+    
+    private static class NodeList extends ArrayList&lt;Node&gt; {}
+    
+    private static class Node {
+        public int id;
+        public Node parent;
+        public HashSet&lt;Node&gt; children = new HashSet&lt;&gt;();
+        public int depth;
+        
+        public Node(int i) {
+            id = i;
+        }
+        
+        public void root(Node p) {
+            parent = p;
+            children.remove(p);
+            for (Node v : children) {
+                v.root(this);
+            }
+        }
+        
+        public void setDepth(int d) {
+            depth = d;
+            for (Node v : children) {
+                v.setDepth(d + 1);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

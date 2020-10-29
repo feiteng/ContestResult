@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>232_ho_long.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>232_ho_long.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string longestDiverseString(int a, int b, int c) {
+        vector&lt;char&gt; seq;
+        int last;
+        if (a &gt;= b &amp;&amp; a &gt;= c) {
+            seq.push_back('a');
+            --a;
+            last = 0;
+        }
+        else if (b &gt;= c &amp;&amp; b &gt; a){
+            seq.push_back('b');
+            --b;
+            last = 1;
+        }
+        else if (c &gt; a &amp;&amp; c &gt; b){
+            seq.push_back('c');
+            --c;
+            last = 2;
+        }
+        while (true){
+            if (a == 0 &amp;&amp; b == 0 &amp;&amp; c == 0) break;
+<A NAME="0"></A>            if (last == 0 &amp;&amp; b == 0 &amp;&amp; c == 0) break;
+            if (a == 0 &amp;&amp; last == 1 &amp;&amp; c == 0) break;
+            if (a == 0 &amp;&amp; b == 0 &amp;&amp; last == 2) break;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (last == 0){
+                if (b == 0){
+                    seq.push_back('c');
+                    --c;
+                    last = 2;
+                }
+                else if (c == 0 || b &gt;= c){
+                    seq.push_back('b');
+<A NAME="1"></A>                    --b;
+                    last = 1;
+                }
+                else {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                    seq.push_back('c');
+                    --c;
+                    last = 2;
+                }
+            }
+            else if (last == 1){
+                if (a == 0){
+                    seq.push_back('c');
+                    --c;
+                    last = 2;
+                }
+                else if (c == 0 || a &gt;= c){
+                    seq.push_back('a');
+<A NAME="2"></A>                    --a;
+                    last = 0;
+                }
+                else {</B></FONT><FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                    seq.push_back('c');
+                    --c;
+                    last = 2;
+                }
+            }
+            else if (last == 2){
+                if (a == 0){
+                    seq.push_back('b');
+                    --b;
+                    last = 1;
+                }
+                else if (b == 0 || a &gt;= b){
+                    seq.push_back('a');
+                    --a;
+                    last = 0;
+                }
+                else {</B></FONT>
+                    seq.push_back('b');
+                    --b;
+                    last = 1;
+                }
+            }
+        }
+        string answer = &quot;&quot;;
+        for (int i = 0;i &lt; seq.size();++i){
+            if (seq[i] == 'a'){
+                if (a &gt; 0){
+                    --a;
+                    answer += &quot;aa&quot;;
+                }
+                else{
+                    answer += 'a';
+                }
+            }
+            else if (seq[i] == 'b'){
+                if (b &gt; 0){
+                    --b;
+                    answer += &quot;bb&quot;;
+                }
+                else{
+                    answer += 'b';
+                }
+            }
+            else{
+                if (c &gt; 0){
+                    --c;
+                    answer += &quot;cc&quot;;
+                }
+                else{
+                    answer += 'c';
+                }
+            }
+        }
+        return answer;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

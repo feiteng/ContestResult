@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_flyman3046.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_flyman3046.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class WeightedUF {
+        int[] id;
+        int count;
+        int[] sz;
+        public WeightedUF(int n) {
+            count = n;
+            id = new int[n];
+            for(int i = 0; i &lt; n; i++) {
+                id[i] = i;
+            }
+            sz = new int[n];
+            Arrays.fill(sz, 1);
+        }
+
+        public boolean isConnected(int p, int q) {
+            return find(p) == find(q);
+        }
+        public int find(int p) {
+            while(p != id[p]) {
+<A NAME="1"></A>                p = id[p];
+            }
+            return p;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        public boolean union(int p, int q) {
+            int i = find(p);
+            int j = find</B></FONT>(q);
+            if(i == j) {
+                return false;
+            }
+            if(sz[i] &lt; sz[j]) {
+                id[i] = j;
+                sz[j] += sz[i];
+            }
+            else {
+                id[j] = i;
+                sz[i] += sz[j];
+            }
+            count--;
+            return true;
+        }
+<A NAME="2"></A>    }
+
+
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 2; i++) {</B></FONT>
+            res.add(new ArrayList&lt;&gt;());
+        }
+
+        int mst = findMst(n, edges);
+<A NAME="3"></A>        for (int i = 0; i &lt; edges.length; i++) {
+            if (isCritical(n, edges, i, mst)) {
+                res.get(0).add(i);
+            } else if (isPseudo(n, edges, i, mst)) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#3',2,'match9-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res.get(1).add(i);
+            }
+        }
+        return res;
+    }
+
+    boolean isCritical(int nodes, int[][] edges, int idx, int mst) {
+        List&lt;Edge&gt; arr = new</B></FONT> ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; edges.length; i++) {
+            if (i == idx) {
+                continue;
+            }
+            arr.add(new Edge(i, edges[i][0], edges[i][1], edges[i][2]));
+        }
+        Collections.sort(arr);
+        WeightedUF uf = new WeightedUF(nodes);
+        int res = 0;
+        for (int i = 0; i &lt; arr.size(); i++) {
+            Edge cur = arr.get(i);
+            if (uf.isConnected(cur.from, cur.to)) {
+                continue;
+            }
+            res += cur.weight;
+            uf.union(cur.from, cur.to);
+        }
+        return uf.count != 1 || res &gt; mst;
+    }
+
+    boolean isPseudo(int nodes, int[][] edges, int idx, int mst) {
+        List&lt;Edge&gt; arr = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; edges.length; i++) {
+            if (i == idx) {
+                continue;
+            }
+            arr.add(new Edge(i, edges[i][0], edges[i][1], edges[i][2]));
+        }
+        Collections.sort(arr);
+        WeightedUF uf = new WeightedUF(nodes);
+        int res = 0;
+        res += edges[idx][2];
+        uf.union(edges[idx][0], edges[idx][1]);
+        for (int i = 0; i &lt; arr.size(); i++) {
+            Edge cur = arr.get(i);
+            if (uf.isConnected(cur.from, cur.to)) {
+                continue;
+            }
+            res += cur.weight;
+            uf.union(cur.from, cur.to);
+        }
+        return uf.count == 1 &amp;&amp; res == mst;
+    }
+
+    int findMst(int nodes, int[][] edges) {
+        int n = edges.length;
+        Edge[] arr = new Edge[n];
+        for (int i = 0; i &lt; n; i++) {
+            arr[i] = new Edge(i, edges[i][0], edges[i][1], edges[i][2]);
+        }
+        Arrays.sort(arr);
+        WeightedUF uf = new WeightedUF(nodes);
+        int res = 0;
+        for (int i = 0; i &lt; n; i++) {
+            Edge cur = arr[i];
+            if (uf.isConnected(cur.from, cur.to)) {
+                continue;
+            }
+            res += cur.weight;
+            uf.union(cur.from, cur.to);
+        }
+<A NAME="0"></A>        return res;
+    }
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Edge implements Comparable&lt;Edge&gt; {
+        int idx;
+        int from;
+        int to;
+        int weight;
+        public Edge(int idx, int from, int to, int weight) {
+            this.idx = idx;
+            this.from = from;
+            this.to = to;
+            this.weight = weight;
+        }</B></FONT>
+
+        @Override
+        public int compareTo(Edge o) {
+            return Integer.compare(weight, o.weight);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_llaki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_llaki.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int getLengthOfOptimalCompression(String s, int k) {
+        int n = s.length();
+        int[][] dp = new</B></FONT> int[n][k + 1];
+        int[] sameTill = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            int j = i;
+            while (j + 1 &lt; n &amp;&amp; s.charAt(j + 1) == s.charAt(i)) {
+                j++;
+            }
+            sameTill[i] = j;
+        }
+        for (int pos = n - 1; pos &gt;= 0; pos--) {
+            for (int del = 0; del &lt;= k; del++) {
+                // dp[pos][del]
+                int t = sameTill[pos];
+                dp[pos][del] = Integer.MAX_VALUE;
+                if (pos + 1 &lt; n &amp;&amp; del &gt; 0) {
+                    dp[pos][del] = dp[pos + 1][del - 1];
+                }
+                for (int x = 0; x &lt;= del &amp;&amp; x &lt;= (t - pos + 1); x++) {
+                    int leftCharCount = t - pos + 1 - x;
+                    int len = lengthSingleChar(leftCharCount);
+                    if (t + 1 &lt; n) {
+                        len += dp[t + 1][del - x];
+                    }
+                    dp[pos][del] = Math.min(dp[pos][del], len);
+                }
+                int numDiff = 0;
+                for (int till = pos; till &lt;= n - 1; till++) {
+                    if (s.charAt(till) != s.charAt(pos)) {
+                        numDiff++;
+                    }
+                    if (numDiff &gt; del) break;
+                    int len = till &lt; n - 1 ? dp[till + 1][del - numDiff] : 0;
+                    len += lengthSingleChar(till - pos + 1 - numDiff);
+                    dp[pos][del] = Math.min(dp[pos][del], len);
+                }
+            }
+        }
+        return dp[0][k];
+    }
+
+    private int lengthSingleChar(int leftCharCount) {
+        return (leftCharCount == 0 ? 0 :
+                              (leftCharCount == 1 ? 1 : 1 + Integer.toString(leftCharCount).length()));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

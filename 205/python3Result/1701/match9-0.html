@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>306_ye15.py</TITLE>
+ <TITLE>132_keyurpotdar.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,82 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>306_ye15.py</CENTER></H3><HR>
+<H3><CENTER>132_keyurpotdar.py</CENTER></H3><HR>
 <PRE>
-class UnionFind:
-<A NAME="0"></A>    def __init__(self, n):
-        self.parent = list(range(n))
-        self.rank = [1]*n
-        self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.count = n
-        
-    def find(self, p):
-        if p != self.parent[p]: 
-            self.parent[p] = self.find(self.parent[p])
-        return self.parent[p]
-    
-    def union(self, p, q):
-<A NAME="1"></A>        prt, qrt = self.find(</B></FONT>p), self.find(q)
-        if prt == qrt: return 
-        self.count -= 1
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if self.rank[prt] &gt; self.rank[qrt]: prt, qrt = qrt, prt
-        self.parent[prt] = qrt
-        self.rank[qrt] += self.rank[</B></FONT>prt]
-
-        
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        ufa = UnionFind(n) # for Alice
-        ufb = UnionFind(n) # for Bob
+        a, b = collections.defaultdict(list), collections.defaultdict(list)
+        t1, t2, t3 = [], [], []
         
-        ans = 0
+        for t, u, v in edges:
+            if t == 1:
+                a[u].append((v, 0))
+                a[v].append((u, 0))
+                t1.append((u, v))
+            elif t == 2:
+                b[u].append((v, 0))
+                b[v].append((u, 0))
+                t2.append((u, v))
+            else:
+                a[u].append((v, 1))
+                a[v].append((u, 1))
+                b[u].append((v, 1))
+                b[v].append((u, 1))
+                t3.append((u, v))
         
-        edges.sort(reverse=True) 
-        for t, u, v in edges: 
-            u -= 1
-            v -= 1
-            if t == 3: # Alice &amp; Bob
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: 
-                    ufa.union(u, v)
-                    ufb.union(u, v)
-            elif t == 2: # Bob only
-                if ufb.find(u) == ufb.find(v): ans += 1
-                else: ufb.union(u, v)
-            else: # Alice only
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: ufa.union(u, v)
-                    
-        return ans if ufa.count == 1 and ufb.count == 1 else -1
+        def dfs(i, g, seen):
+            seen.add(i)
+            for j, _ in g[i]:
+                if j not in seen:
+                    dfs(j, g, seen)
+        
+        aseen, bseen = set(), set()
+        dfs(1, a, aseen)
+        dfs(1, b, bseen)
+        if len(aseen) &lt; n or len(bseen) &lt; n:
+            return -1
+        
+        p1, p2 = list(range(n + 1)), list(range(n + 1))
+        s1, s2 = [1] * (n + 1), [1] * (n + 1)
+        inc = 0
+        
+        def find(parent, i): 
+            if parent[i] != i: 
+                parent[i] = find(parent, parent[i])
+            return parent[i]
+
+        def union(parent, size, x, y): 
+            i = find(parent, x) 
+            j = find(parent, y)
+            if size[i] &lt; size[j]: 
+                parent[i] = j
+                size[j] += size[i]
+            else: 
+                parent[j] = i 
+                size[i] += size[j]
+        
+        for u, v in t3:
+            i, j = find(p1, u), find(p1, v)
+            if i == j: continue
+            union(p1, s1, i, j)
+            inc += 1
+            # union(p2, s2, i, j)
+        p2, s2 = p1[:], s1[:]
+        
+        
+        for u, v in t1:
+            i, j = find(p1, u), find(p1, v)
+            if i == j: continue
+            union(p1, s1, i, j)
+            inc += 1
+        
+        for u, v in t2:
+            i, j = find(p2, u), find(p2, v)
+            if i == j: continue
+            union(p2, s2, i, j)
+            inc += 1
+        
+        return len(e</B></FONT>dges) - inc
 </PRE>
 
 </BODY>

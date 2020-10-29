@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>352_xiaochong1117.py</TITLE>
+ <TITLE>121_Eser.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>352_xiaochong1117.py</CENTER></H3><HR>
+<H3><CENTER>121_Eser.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
-    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        def helper(l1, l2):
-            l1_count = collections.defaultdict<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(int)
-            for num in l1:
-                l1_count[num*num] += 1
-            count = 0
-            for j in range(len(l2)):
-                for k in range(j+1, len(l2)):
-                    count += l1_count[l2[j]*l2[k]]
-            return count
-        return helper(nums1, nums2) + helper(n</B></FONT>ums2, nums1)
-            
-            
-            
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def numTriplets(self, nums1: List[int], nums2: List[int], final = False) -&gt; int:
+        res = 0
+        cnt = collections.Counter([i * i for i in nums1])
+        for i in range(len(nums2)):
+            for j in range(i):
+                res += cnt[nums2[i] * nums2[j]]
+        if final:
+            return res
+        return res + self.numTriplets(n</B></FONT>ums2, nums1, True)
 </PRE>
 
 </BODY>

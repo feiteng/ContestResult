@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>299_tran_anh.java</TITLE>
+ <TITLE>226_codingteamnyu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,126 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>299_tran_anh.java</CENTER></H3><HR>
+<H3><CENTER>226_codingteamnyu.java</CENTER></H3><HR>
 <PRE>
-class UnionFind {
-    int[] parent;
-    int[] rank;
-    int numComponents;
-    
-    public UnionFind(int numElements) {
-        parent = new int[numElements];
-        rank = new int[numElements];
-<A NAME="2"></A>        numComponents = numElements;
-        for (int i = 0; i &lt; numElements; i++) {
-            parent[i] = i;
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rank[i] = 0;
-        }
-    }
-    
-    public void unify(int element1, int element2) {
-        int root1 = find(element1);
-        int root2 = find</B></FONT>(element2);
-        
-        if (root1 == root2) return;
-        
-        numComponents--;
-        if (rank[root1] &lt;= rank[root2]) {
-            parent[root1] = root2;
-            if (rank[root1] == rank[root2])
-                rank[root2]++;
-<A NAME="3"></A>        } else {
-            parent[root2] = root1;
-        }
-    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    
-    public boolean areInSameComponent(int element1, int element2) {
-        return find(element1) == find(element2);
-    }
-    
-    publ</B></FONT>ic int find(int element) {
-        int temp = element;
-        while (temp != parent[temp])
-            temp = parent[temp];
-        compressPath(element, temp);
-        
-        return temp;
-    }
-    
-    private void compressPath(int element, int root) {
-        while (element != root) {
-            int parent = this.parent[element];
-            this.parent[element] = root;
-            element = parent;
-        }
-    }
-    
-    public int getNumComponents() {
-        return this.numComponents;
-<A NAME="0"></A>    }
-}
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    private int parent[];
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UnionFind ufAlice = new UnionFind(n+1);
-        UnionFind ufBob = new UnionFind(n+1);
-        int count = 0;
-        
-        for (int[] edge: edges) {
-            int type = edge[0];
-            int from = edge[1];
-            int to = edge[2];
-            if (type == 3) {
-<A NAME="1"></A>                if (ufAlice.areInSameComponent</B></FONT>(from, to) &amp;&amp;
-                    ufBob.areInSameComponent(from, to))
-                    count++;
-                else <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    ufAlice.unify(from, to);
-                    ufBob.unify(from, to);
+        int ans = 0;
+        parent = new int[n+1];
+        for(int i = 1; i&lt;=n; i++) parent[i] = i;
+        int m = edges.length;
+        for(int i = 0; i&lt;m; i++){
+            if(edges[i][0] == 3){
+                int x = edges[i][1], y =edges[i][2];
+                int p1 = getParent(x), p2 = getParent(y);
+                if(p1 == p2){
+                    ans ++;
+                    continue;
                 }
+                parent[p1] = p2;
             }
         }
-        
-        for (int[] edge: edges) {
-            int type = edge[0];
-            int from = edge[1];
-            int to = edge[2];
-            if (type == 1) {
-                if (ufAlice.areInSameComponent</B></FONT>(from, to))
-                    count++;
-                else
-                    ufAlice.unify(from, to);
-            } 
-            
-            if (type == 2) {
-                if (ufBob.areInSameComponent(from, to))
-                    count++;
-                else
-                    ufBob.unify(from, to);
+        int[] parent1 = new int[n+1];
+        for(int i = 1; i&lt;=n ; i++) {
+            parent1[i] = parent[i];
+            //System.out.println(parent[i]);
+        }
+        for(int i = 0; i&lt;m; i++){
+            if(edges[i][0] == 2){
+                int x = edges[i][1], y =edges[i][2];
+                int p1 = getParent(x), p2 = getParent(y);
+                if(p1 == p2){
+                    ans ++;
+                    continue;
+                }
+                parent[p1] = p2;
             }
         }
-        
-        
-        
-        
-        if (ufAlice.getNumComponents() == 2 &amp;&amp;
-            ufBob.getNumComponents() == 2)
-            return count;
-        return -1;
+        HashSet&lt;Integer&gt; hs = new HashSet&lt;&gt;();
+        for(int i = 1; i&lt;=n;i++){
+            hs.add(getParent(i));
+        }
+        if(hs.size()&gt;1) return -1;
+        for(int i = 1; i&lt;=n ; i++) parent[i] = parent1[i];
+        for(int i = 0; i&lt;m; i++){
+            if(edges[i][0] == 1){
+                int x = edges[i][1], y =edges[i][2];
+                int p1 = getParent(x), p2 = getParent(y);
+                if(p1 == p2){
+                    ans ++;
+                    continue;
+                }
+                parent[p1] = p2;
+            }
+        }
+        hs = new HashSet&lt;&gt;();
+        for(int i = 1; i&lt;=n;i++){
+            hs.add(getParent(i));
+        }
+        if(hs.size()&gt;1) return -1;
+        return ans;
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
+    public int getParent(int x){
+        if(parent[x] == x) return x;
+        return parent[x] = getParent(parent[x]);
+    }
+    
+}</B></FONT>
 </PRE>
 
 </BODY>

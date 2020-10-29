@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_kelvinchandra1024.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_kelvinchandra1024.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    public class Range {
+        int start;
+        int end;
+
+        public Range(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Range range = (Range) o;
+            return start == range.start &amp;&amp;
+                    end == range.end;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(start, end);
+        }
+            @Override
+    public String toString() {
+        return &quot;Range{&quot; +
+                &quot;start=&quot; + start +
+                &quot;, end=&quot; + end +
+                '}';
+    }
+<A NAME="0"></A>
+    }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        Map&lt;Character, Integer&gt; startIndex = new HashMap&lt;&gt;();
+        Map&lt;Character, Integer&gt; endIndex = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; s.length(); i++) {</B></FONT>
+            startIndex.putIfAbsent(s.charAt(i), i);
+            endIndex.put(s.charAt(i), i);
+        }
+<A NAME="1"></A>        TreeSet&lt;Range&gt; ranges = new TreeSet&lt;&gt;((r1, r2) -&gt; {
+            return r1.end - r2.end;
+        });
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(char c : startIndex.keySet()) {
+            Range cRange = merge(c, s, startIndex, endIndex);
+            ranges.add(cRange);
+        }
+        // System.out.println(ranges);
+        int end = -1</B></FONT>;
+        List&lt;String&gt; output = new ArrayList&lt;&gt;();
+        for(Range range : ranges) {
+            if(range.start &gt; end) {
+                output.add(s.substring(range.start, range.end + 1));
+<A NAME="2"></A>                end = range.end;
+            }
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return output;
+    }
+    
+    Range merge(char c, String s, Map&lt;Character, Integer&gt; startIndex, Map&lt;Character, Integer&gt; endIndex) {
+        int start = startIndex.get(c)</B></FONT>;
+        int end = endIndex.get(c);
+        int i = start;
+        int j = start;
+        while(true) {
+            if(i != start) {
+                start = Math.min(start, startIndex.get(s.charAt(i)));
+                end = Math.max(end, endIndex.get(s.charAt(i)));
+                i--;
+            }
+            if(j != end) {
+                start = Math.min(start, startIndex.get(s.charAt(j)));
+                end = Math.max(end, endIndex.get(s.charAt(j)));
+                j++;
+            }
+            if(i == start &amp;&amp; j == end) break;
+        }
+        return new Range(start, end);
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

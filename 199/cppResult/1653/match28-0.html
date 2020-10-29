@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>3_natsugiri.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>3_natsugiri.cpp</CENTER></H3><HR>
+<PRE>
+#pragma GCC optimize (&quot;O3&quot;)
+// #pragma GCC target (&quot;avx&quot;)
+#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+#include&lt;string&gt;
+#include&lt;string.h&gt;
+
+#ifdef LOCAL
+#define eprintf(...) fprintf(stderr, __VA_ARGS__)
+#else
+#define NDEBUG
+#define eprintf(...) do {} while (0)
+#endif
+#include&lt;cassert&gt;
+
+using namespace std;
+
+typedef long long LL;
+typedef vector&lt;int&gt; VI;
+
+#define REP(i,n) for(int i=0, i##_len=(n); i&lt;i##_len; ++i)
+#define EACH(i,c) for(__typeof((c).begin()) i=(c).begin(),i##_end=(c).end();i!=i##_end;++i)
+
+template&lt;class T&gt; inline void amin(T &amp;x, const T &amp;y) { if (y&lt;x) x=y; }
+template&lt;class T&gt; inline void amax(T &amp;x, const T &amp;y) { if (x&lt;y) x=y; }
+template&lt;class Iter&gt; void rprintf(const char *fmt, Iter begin, Iter end) {
+    for (bool sp=0; begin!=end; ++begin) { if (sp) putchar(' '); else sp = true; printf(fmt, *begin); }
+    putchar('\n');
+}
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+VI G[10011];
+int par[10011];
+bool leaf[10011];
+int D[10011];
+
+void bfs(int s) {
+    VI que;
+    que.clear();
+    que.push_back(s);
+    D[s] = 0;
+    par[s] = s;
+    for (int i=0; i&lt;(int)que.size(); i++) {
+	int v = que[i];
+	EACH (e, G[v]) if (*e != par[v]) {
+	    D[*e] = D[v] + 1;
+<A NAME="0"></A>	    par[*e] = v;
+	    que.push_back(*e);
+	}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+}
+
+class Solution {
+public:
+
+    int countPairs(TreeNode* root, int distance) {
+	REP (i, 10000) G[i].clear();
+
+	vector&lt;pair&lt;int, TreeNode* &gt; &gt; que;
+	int cnt = 0;
+	que.emplace_back(cnt++, root);</B></FONT>
+	for (int i=0; i&lt;(int)que.size(); i++) {
+	    int v = que[i].first;
+	    TreeNode *x = que[i].second;
+	    leaf[v] = (x-&gt;left == 0 &amp;&amp; x-&gt;right == 0);
+
+	    if (x-&gt;left) {
+		G[v].push_back(cnt);
+		G[cnt].push_back(v);
+		que.emplace_back(cnt++, x-&gt;left);
+	    }
+	    if (x-&gt;right) {
+		G[v].push_back(cnt);
+		G[cnt].push_back(v);
+		que.emplace_back(cnt++, x-&gt;right);
+	    }
+	}
+
+	int ans = 0;
+	REP (i, cnt) if (leaf[i]) {
+	    bfs(i);
+	    REP (j, cnt) if (j != i &amp;&amp; leaf[j] &amp;&amp; D[j] &lt;= distance) ans++;
+	}
+	return ans/2;
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>537_chongliangtao1002.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>537_chongliangtao1002.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int stoneGameV(int[] stoneValue) {
+        int n = stoneValue.length;
+        int[][] dp = new int[n][n];
+        for (int i = 0; i &lt; n; i += 1) {
+            dp[i][i] = 0;
+        }
+        int[] prefixSum = new int[n + 1];
+        for (int i = 1; i &lt;= n; i += 1) {</B></FONT>
+            prefixSum[i] = prefixSum[i - 1] + stoneValue[i - 1];
+        }
+<A NAME="1"></A>        for (int i = 2; i &lt;= n; i += 1) {
+            for (int j = 0; j &lt;= n - i; j += 1) {
+                // [j, j + i - 1]
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int k = j; k &lt;= j + i - 2; k += 1) {
+                    // [j, k], [k + 1][j + i - 1]
+                    int left = prefixSum[k + 1] - prefixSum[j];
+                    int right = prefixSum[j + i] - prefixSum[k + 1];
+                    if (left &lt;= right) {
+                        dp[j][j + i - 1] = Math.max(dp[j][j + i - 1], left + dp[j][k]);
+                    } 
+                    if (left &gt;= right) {
+                        dp[j][j + i - 1] = Math.max(dp[j][j + i - 1], right + dp[k + 1][j + i - 1]);
+                    } 
+                    // else {
+                    //     dp[j][j + i - 1] = Math.max(dp[j][j + i - 1], left + dp[k + 1][j + i - 1]);
+                    //     dp[j][j + i - 1] = Math.max(dp[j][j + i - 1], right + dp[j][k]);
+                    // }
+                }
+            }
+        }
+        return dp[0][n - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

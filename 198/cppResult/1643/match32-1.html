@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>229_WJTung.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>229_WJTung.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    void DFS(int u, string &amp;labels, vector&lt;vector&lt;int&gt;&gt; &amp;count, vector&lt;vector&lt;int&gt;&gt; &amp;E, vector&lt;bool&gt; &amp;visited) {
+<A NAME="1"></A>        visited[u] = true;
+        ++count[u][labels[u] - 'a'];
+        for (int v : E[u]) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (!visited[v]) {
+                DFS(v, labels, count, E, visited);
+                for (int i = 0; i &lt; 26; ++i) {
+                    count[u][i] += count[v][i];
+                }
+            }
+        }
+        return;
+    }
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, string labels) {
+        vector&lt;bool&gt; visited(n, false);
+        vector&lt;vector&lt;int&gt;&gt; E(n);
+        for (auto &amp;edge : edges) {</B></FONT>
+            E[edge[0]].push_back(edge[1]);
+            E[edge[1]].push_back(edge[0]);
+        }
+        vector&lt;vector&lt;int&gt;&gt; count(n, vector&lt;int&gt;(26, 0));
+        DFS(0, labels, count, E, visited);
+        vector&lt;int&gt; ans;
+        for (int i = 0; i &lt; n; ++i) {
+            ans.push_back(count[i][labels[i] - 'a']);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

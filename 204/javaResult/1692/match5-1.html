@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>316_happyleetcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>316_happyleetcode.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    int M = (int) 1e9 + 7;
+    public int numOfWays(int[] n) {
+        init();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Integer&gt; l = new ArrayList&lt;&gt;();
+        for (int i : n) l.add(i);
+        return dfs(l) - 1;
+    }
+    int dfs(List&lt;Integer&gt; a) {
+<A NAME="1"></A>        if (a.size() &lt;= 1) return 1;
+        int i = 1</B></FONT>, base = a.get(0);
+        List&lt;Integer&gt; ll = new ArrayList&lt;&gt;(), rl = new ArrayList&lt;&gt;();
+        for (; i &lt; <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>a.size(); i++) {
+            if (a.get(i) &gt; base) rl.add(a.get(i));
+            else ll.add(a.get(i));
+        }
+        
+        int left = dfs(ll);
+        int right = dfs(rl);
+
+        int lc = ll.size</B></FONT>(), rc = rl.size();
+
+        long res = 0;
+        for (int group = rc; group &gt;= 1; group--) {
+            res += (long)c[rc - 1][group - 1] * c[lc + 1][group] % M;
+            res %= M;
+        }
+        if (res == 0) res = 1;
+        res = res * left % M;
+        res = res * right % M;
+        return (int) Math.max(1, res);
+    }
+    int c[][] = new int[1001][1001];
+
+
+    void init()
+    {
+        for (int i = 0; i &lt; 1001; i ++ )
+            for (int j = 0; j &lt;= i; j ++ )
+                if (j == 0) c[i][j] = 1;
+                else c[i][j] = (c[i - 1][j] + c[i - 1][j - 1]) % M;
+    }
+
+
+}
+</PRE>
+
+</BODY>
+</HTML>

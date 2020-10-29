@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>246_kenzo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>246_kenzo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        
+        double[] probFromStart = new</B></FONT> double[n];
+        Arrays.fill(probFromStart, 0);
+        probFromStart[start] = 1;
+        
+        // Construct a graph
+        Map&lt;Integer, List&lt;double[]&gt;&gt; graph = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; edges.length; i++) {
+            int[] edge = edges[i];
+            graph.putIfAbsent(edge[0], new ArrayList&lt;&gt;());
+            graph.putIfAbsent(edge[1], new ArrayList&lt;&gt;());
+            graph.get(edge[0]).add(new double[]{edge[1], succProb[i]});
+            graph.get(edge[1]).add(new double[]{edge[0], succProb[i]});            
+<A NAME="1"></A>        }
+        
+        // Do a BFS and update prodFromStart
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer(start);
+        
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+<A NAME="2"></A>            for (double[] connectTo</B></FONT> : graph.getOrDefault(node, new ArrayList&lt;&gt;())) {
+                int to = (int)connectTo[0];
+                double prob = connectTo[1];
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double moveProb = probFromStart[node] * prob; 
+                if (moveProb &gt; probFromStart[to]) {
+                    probFromStart[to] = moveProb;
+                    queue.offer(to);
+                }                
+            }
+        }
+        
+        return probFromStart[end];
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

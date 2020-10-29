@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>202_grawlixes.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>202_grawlixes.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numSubseq(self, nums: List[int], target: int) -&gt; int:
+<A NAME="0"></A>        MOD = 10**9 + 7
+        nums.sort()
+        i = 0
+        j <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(nums) - 1
+        ret = 0
+        
+        while i &lt;= j:
+            if nums[i] + nums[j] &lt;= target:
+                # add the number of subsequences that contain nums[i] up to nums[j]
+                # can view it as a binary number where the lsb must be 1 -
+                # so, we have 2^(j - i) possibilities
+                ret = (ret + 2 ** (j - i)) % MOD
+                
+                # keep going, this time with a higher i
+                i += 1
+            else:
+                # can't be certain that we can make valid subsequences from i to j,
+                # so decrease j and try again.
+                j -= 1
+            
+        re</B></FONT>turn ret
+</PRE>
+
+</BODY>
+</HTML>

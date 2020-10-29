@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_LarryNY.py</TITLE>
+ <TITLE>165_rickettsdinner630.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>16_LarryNY.py</CENTER></H3><HR>
+<H3><CENTER>165_rickettsdinner630.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import collections
+class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        def go(a, b):
-            s = collections.Counter()
-            for x in a:
-                s[x*x] += 1
-<A NAME="1"></A>            
-            count =</B></FONT> 0
-            N = len(b)
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(N):
-                for j in range(i + 1, N):
-                    if b[i] * b[j] in s:
-                        count += s[b[i] * b[j]]
-                        
-            r</B></FONT>eturn count
-        return go(nums1, nums2) + go(nums2, nums1)
-        
-    
+        n1 = collections.Counter([x ** 2 for x in nums1])
+        n2 = collections.Counter([x ** 2 for x in nums2])
+        ans = 0
+        for i in range(len(nums1)):
+            for j in range(i + 1, len(nums1)):
+               ans += n2[nums1[i] * nums1[j]]
+            
+        for i in range(len(nums2)):
+            for j in range(i + 1, len(nums2)):
+               ans += n1[nums2[i] * nums2[j]]
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

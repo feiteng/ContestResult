@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>429_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>429_szp14.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        int len = (int)s.size();
+    vector&lt;int&gt; minP(26, len), maxP(26, -1);
+    for(int i = 0; i &lt; len; i++)
+<A NAME="0"></A>    {
+        minP[s[i] - 'a'] = min(minP[s[i] - 'a'], i);
+        maxP[s[i] - 'a'] = max(maxP[s[i] - 'a'], i);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    
+    vector&lt;vector&lt;bool&gt; &gt; G(26, vector&lt;bool&gt;(26));
+    for(int i = 0; i &lt; 26; i++) if(minP[i] != len)
+        for(int j = minP[i]; j &lt;= maxP[i]; j++) G[i][s[j] - 'a'] = true;
+    
+    for(int k = 0; k &lt; 26; k++)</B></FONT>
+        for(int i = 0; i &lt; 26; i++)
+            for(int j = 0; j &lt; 26; j++)
+<A NAME="1"></A>                G[i][j] = G[i][j] || (G[i][k] &amp;&amp; G[k][j]);
+    
+    vector&lt;int&gt; L = minP, R = maxP;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for(int i = 0; i &lt; 26; i++)
+        for(int j = 0; j &lt; 26; j++) if(G[i][j])
+        {
+            L[i] = min(L[i], minP[j]);
+            R[i] = max(R[i], maxP[j]);
+        }</B></FONT>
+    
+    set&lt;pair&lt;int, int&gt; &gt; intV;
+    for(int i = 0; i &lt; 26; i++) if(minP[i] != len)
+        intV.insert({R[i], L[i]});
+    
+    int l = 0;
+    for(auto p = intV.begin(); p != intV.end(); )
+    {
+        if(p-&gt;second &lt; l) p = intV.erase(p);
+        else
+        {
+            l = p-&gt;first + 1;
+            p++;
+        }
+    }
+    
+    vector&lt;string&gt; ans;
+    for(auto p = intV.begin(); p != intV.end(); p++)
+        ans.push_back(s.substr(p-&gt;second, p-&gt;first - p-&gt;second + 1));
+    return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

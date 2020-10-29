@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>594_littledva.cpp</TITLE>
+ <TITLE>100_OTTFF.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>594_littledva.cpp</CENTER></H3><HR>
+<H3><CENTER>100_OTTFF.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="1"></A>public:
-    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        unordered_map&lt;long long, int&gt; M;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
-        for(auto i:nums1){
-            M[1ll*i*i]++;
-        }
-        for(int j=0; j&lt;nums2.size()-1; j++){
-            for(int k=j+1; k&lt;nums2.size(); k++){
-                    ans+= M[1ll*nums2[j]*nums2[k]];
-            }
-        }
-        M.clear();
-        swap(nums1, nums2);
-<A NAME="0"></A>        for(auto i:nums1){
-            M[1ll*i*i]++;
-        }</B></FONT>
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int j=0; j&lt;nums2.size()-1; j++){
-            for(int k=j+1; k&lt;nums2.size(); k++){
-                    ans+= M[1ll*nums2[j]*nums2[k]];
-            }
-        }</B></FONT>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    typedef long long LL;
+    int get(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2)
+    {
+        unordered_map&lt;LL,int&gt; cnt;
+        for(int i:nums1)
+            cnt[1LL*i*i]++;
+        int n=nums2.size();
+        int ans=0;
+        for(int i=0;i&lt;n;i++)
+            for(int j=i+1;j&lt;n;j++)
+                ans+=cnt[1LL*nums2[i]*nums2[j]];
         return ans;
     }
-};
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        int ans=get(nums1,nums2);
+        ans+=get(nums2,nums1);
+        return ans;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

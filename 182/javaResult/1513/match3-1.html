@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>38_daodao-2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>38_daodao-2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int mod = 1000000007;
+	int n, m;
+	long[][][][] dp;
+	String s1, s2, evil;
+
+	public int findGoodStrings(int n, String s1, String s2, String evil) {
+		if (s1.compareTo(s2) &gt; 0) return 0;
+		if (s1.compareTo(s2) == 0) {
+			if (s1.indexOf(evil) &gt;= 0) return 0;
+			else return 1;
+		}
+
+		this.s1 = s1;
+		this.s2 = s2;
+		this.evil = evil;
+
+
+		this.m = evil.length();
+		this.n = n;
+
+		dp = new long[2][2][n][m];
+		for (int i = 0; i &lt; 2; i++) for (int j = 0; j &lt; 2; j++) {
+			for (int  k = 0 ;k &lt; n; k++)
+				Arrays.fill(dp[i][j][k], -1);
+<A NAME="0"></A>		}
+
+		long res = solve(0, 0, 0, 0);
+		return (int)re<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s;
+	}
+
+	private long solve(int i1, int i2, int idx, int e) {</B></FONT>
+		if (e == m) return 0;
+		if (idx == n) return 1;
+
+		if (dp[i1][i2][idx][e] != -1) return dp[i1][i2][idx][e];
+		long res = 0;
+		for (char ch = 'a'; ch &lt;= 'z'; ch++) {
+			if (i1 == 0 &amp;&amp; ch &lt; s1.charAt(idx)) continue;
+			if (i2 == 0 &amp;&amp; ch &gt; s2.charAt(idx)) continue;
+
+			int ne = -1;
+			for (int i = e; i &gt;= 0; i--) {
+				boolean ok = true;
+				for (int j = 0; j &lt; i; j++) {
+					if (evil.charAt(i - 1 - j) != evil.charAt(e - 1 - j)) {
+						ok = false;
+						break;
+					}
+				}
+				if (ok &amp;&amp; ch == evil.charAt(i)) {
+					ne = i;
+					break;
+				}
+			}
+			int ni1 = i1;
+			if (ch &gt; s1.charAt(idx)) ni1 = 1;
+			int ni2 = i2;
+			if (ch &lt; s2.charAt(idx)) ni2 = 1;
+			res += solve(ni1, ni2, idx+1, ne+1);
+			res %= mod;
+		}
+
+		return dp[i1][i2][idx][e] = res;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

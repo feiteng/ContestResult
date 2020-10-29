@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>439_Lelielru.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>439_Lelielru.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import math
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class TreeAncestor:
+
+    def __init__(self, n: int, parent: List[int]):
+        self.height = int(math.ceil(math.log10(n)/math.log10(2)))
+        self.table = [0] * (n + 1)
+        i = 0
+        while i &lt; len(self.table):
+<A NAME="1"></A>            self.table[i] = [-1] * (self.height+1)
+            i +</B></FONT>= 1
+        for child, parent in enumerate(parent):
+            self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.table[child][0] = parent
+            i = 1
+            while i &lt; self.height:
+<A NAME="2"></A>                self.table[child][i] = self.table[self.table[child][i-1]][i-1]
+                if self.table[child][i] == -1:
+                    break
+                i +</B></FONT>=<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> 1
+                
+    def getKthAncestor(self, node: int, k: int) -&gt; int:
+        i = 0
+        while i &lt;= self.height:
+            if (k &amp; (1&lt;&lt;i)) != 0:
+                node = self.table[node][i]
+                if node == -1:
+                    break
+            i += 1
+        re</B></FONT>turn node
+
+# Your TreeAncestor object will be instantiated and called as such:
+# obj = TreeAncestor(n, parent)
+# param_1 = obj.getKthAncestor(node,k)
+</PRE>
+
+</BODY>
+</HTML>

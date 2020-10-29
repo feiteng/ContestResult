@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>670_yzeng61987.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>670_yzeng61987.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeMap&lt;Integer, Map&lt;String, Integer&gt;&gt; map = new TreeMap();
+        TreeSet&lt;String&gt; set = new TreeSet();
+        for (List&lt;String&gt; order : orders) {
+            int table = Integer.parseInt</B></FONT>(order.get(1));
+            String dish = order.get(2);
+            
+            set.add(dish);
+<A NAME="1"></A>            if (!map.containsKey(table)) {
+                map.put(table, new HashMap&lt;String, Integer&gt;());
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(table).put(dish, map.get(table).getOrDefault(dish, 0) + 1);
+        }
+        
+        List&lt;List&lt;String&gt;&gt; res = new ArrayList();
+        List&lt;String&gt; list = new ArrayList();
+        list.add(&quot;Table&quot;);
+        for (String dish : set) {
+            list.add(dish);
+        }
+        
+        res.add(list);
+<A NAME="2"></A>        
+        for (int table</B></FONT> : map.keySet()) {
+            list = new ArrayList();
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.add(Integer.toString(table));
+            for (String dish : set) {
+                list.add(Integer.toString(map.get(table).getOrDefault(dish, 0)));
+            }
+            res.add(list);
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>239_tyagivaibhav.cpp</TITLE>
+ <TITLE>119_w285714.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>239_tyagivaibhav.cpp</CENTER></H3><HR>
+<H3><CENTER>119_w285714.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
         int n=s.size();
-        int ans=0;
-        int curr=cost[0],maxx=cost[0];
-        bool f=false;
-        for(int i=1;i&lt;n;i++){
-            if(s[i]!=s[i-1]){//cout&lt;&lt;curr&lt;&lt;&quot; &quot;&lt;&lt;maxx&lt;&lt;endl;
-<A NAME="1"></A>                ans+=(curr-maxx);
-                maxx=cost[i];</B></FONT>
-                curr=cost[i];
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }else{
-                f=true;
-                curr+=cost[i];
-                maxx=max(cost[i],maxx);
+        int ss=0;
+        int M=0;
+        int res=0;
+        for(int i=0;i&lt;n;++i){
+            if(i==0||s[i]==s[i-1]){
+                ss+=cost[i];
+                M=max(M,cost[i]);
             }
-        }//cout&lt;&lt;endl;
-        ans+=(curr-maxx);
-        return ans;
+            else{
+                res+=ss-M;
+                ss=cost[i];
+                M=cost[i];
+            }
+        }
+        res+=ss-M;
+        return res;
     }
 };</B></FONT>
 </PRE>

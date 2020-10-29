@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; peopleIndexes(List&lt;List&lt;String&gt;&gt; favoriteCompanies) {
+        final int N = favoriteCompanies.size();
+        
+        HashMap&lt;String, Integer&gt; companyIDs = new HashMap&lt;&gt;();
+        for (List&lt;String&gt; lst : favoriteCompanies) {
+            for (String company : lst) {
+                if (companyIDs.containsKey(company)) {
+                    continue;
+                }
+                companyIDs.put(company, companyIDs.size());
+            }
+        }
+        
+        BitSet[] masks = new BitSet[N];
+        for (int i = 0; i &lt; N; ++i) {
+            masks[i] = new BitSet(companyIDs.size());
+            for (String company : favoriteCompanies.get(i)) {
+                int id = companyIDs.get(company);
+<A NAME="0"></A>                masks[i].set(id);
+                // masks[i] |= 1 &lt;&lt; id;
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        // HashSet&lt;Integer&gt; maskSet = new HashSet&lt;&gt;();
+        // for (int m : masks) {
+        //     maskSet.add(m);
+        // }
+        // System.out.format(&quot;N = %d, maskSet.size() = %d\n&quot;, N, maskSet.size());
+        
+        List&lt;Integer&gt; ans = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; N; ++i) {
+            boolean isSubset = false;
+            for (int j = 0; j &lt; N; ++j) {
+                if (i == j) {
+                    continue;
+<A NAME="1"></A>                }</B></FONT>
+                BitSet copyMask = (BitSet)masks[i].clone();
+                copyMask.and(masks[j]);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (copyMask.equals(masks[i])) {
+                    isSubset = true;
+                    break;
+                }
+            }
+            if (!isSubset) {
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>32_lihuoran.py</TITLE>
+ <TITLE>204_Hexadecimal.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,59 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>32_lihuoran.py</CENTER></H3><HR>
+<H3><CENTER>204_Hexadecimal.py</CENTER></H3><HR>
 <PRE>
-from typing import List
-import collections
-
-
-class Union:
-<A NAME="0"></A>    def __init__(self, n):
-        self.n = n
-        self.p = [i for i in range(n)]
-        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.cnt = n
-
-    def root(self, i):
-        if self.p[i] != i:
-            self.p[i] = self.root(self.p[i])
-        return self.p[i]
-
-    def</B></FONT> merge(self, i, j):
-        if self.root(i) == self.root(j):
-<A NAME="1"></A>            return
-
-        self.cnt -= 1
-        self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.p[self.root(i)] = self.root(j)
-
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        e = {1: [], 2: [], 3: []}
-        for t, i, j in edges:
-            e[t].append((i - 1, j - 1))
-
-        u1 = Union(n)
-        u2 =</B></FONT> Union(n)
-        ecnt = 0
-        for i, j in e[3]:
-            if u1.root(i) != u1.root(j):
-                ecnt += 1
-                u1.merge(i, j)
-                u2.merge(i, j)
-
-        for i, j in e[1]:
-            if u1.root(i) != u1.root(j):
-                ecnt += 1
-                u1.merge(i, j)
-        for i, j in e[2]:
-            if u2.root(i) != u2.root(j):
-                ecnt += 1
-                u2.merge(i, j)
-
-        if u1.cnt != 1 or u2.cnt != 1:
+        tot = len(edges)
+        if tot &lt; n - 1:
             return -1
-        else:
-            return len(edges) - ecnt
+        nei = [[] for _ in range(n + 1)]
+        for t, u, v in edges:
+            nei[u].append([-t, v])
+            nei[v].append([-t, u])
+        h = [[-3, 1]]        
+        seen = [set() for _ in range(3)]
+        e = -1
+        while h:
+            t, u = heappop(h)
+            if t == -3:
+                if u not in seen[1] or u not in seen[2]:
+                    seen[1].add(u)
+                    seen[2].add(u)
+                    e += 1
+                    for nt, v in nei[u]:
+                        heappush(h, [nt, v])
+            elif t == -1:
+                if u not in seen[1]:
+                    seen[1].add(u)
+                    e += 1
+                    for nt, v in nei[u]:
+                        heappush(h, [nt, v])
+            else:
+                if u not in seen[2]:
+                    seen[2].add(u)
+                    e += 1
+                    for nt, v in nei[u]:
+                        heappush(h, [nt, v])
+        return tot - e if len(seen[1]) == n and len(seen[2</B></FONT>]) == n else -1
 </PRE>
 
 </BODY>

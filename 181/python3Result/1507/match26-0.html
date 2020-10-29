@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>251_nocilantro.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>251_nocilantro.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        self.n = len(grid)
+        self.m = len(grid[0])
+        self.vis = [[False for j in range(self.m)] for i in range(self.n)]
+        from collections import deque
+        l = deque()
+        l.append((0, 0))
+        while len(l) &gt; 0:
+            x, y = l.popleft()
+<A NAME="0"></A>            if x == self.n - 1 and y == self.m - 1:
+                return True
+<A NAME="1"></A>            self.vis[x][y] = True
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if y &gt; 0 and grid[x][y] in [1, 3, 5] and grid[x][y - 1] in [1, 4, 6] and not self.vis[x][y - 1]:
+<A NAME="2"></A>                l.append((x</B></FONT>, y - 1))
+            if y &lt; self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.m - 1 and grid[x][y] in [1, 4, 6] and grid[x][y  + 1] in [1, 3, 5] and not self.vis[x][y + 1]:
+<A NAME="3"></A>                l.append((x</B></FONT>, y + 1))
+            if x &gt; 0 and grid<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x][y] in [2, 5, 6] and grid[x - 1][y] in [2, 3, 4] and not self.vis[x - 1][y]:
+                l.append((x</B></FONT> - 1, y))
+            if x &lt; self<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.n - 1 and grid[x][y] in [2, 3, 4] and grid[x + 1][y] in [2, 5, 6] and not self.vis[x + 1][y]:
+                l.append((x</B></FONT> + 1, y))
+        return False
+</PRE>
+
+</BODY>
+</HTML>

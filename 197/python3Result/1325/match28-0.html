@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>362_intdude.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>362_intdude.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        neighbors = [[] for i in range(n)]
+        for i in range(len(edges)):
+            x, y = edges[i]
+            neighbors[x].append([y,succProb[i]])
+            neighbors[y].append([x,succProb[i]])
+        pq = [[-1.0, start]]
+        visited = [False]*n
+        while len(pq) &gt; 0:
+            tmp = heapq.heappop(</B></FONT>pq)
+            pro = -tmp[0]
+            pos = tmp[1]
+            if visited[pos] is True:
+                continue
+            visited[pos] = True
+            if pos == end:
+                return pro
+            for x in neighbors[pos]:
+                nex = x[0]
+                if visited[nex] is False:
+                    pp = pro*x[1]
+                    heapq.heappush(pq, [-pp, nex])
+            
+            
+        return 0.0
+</PRE>
+
+</BODY>
+</HTML>

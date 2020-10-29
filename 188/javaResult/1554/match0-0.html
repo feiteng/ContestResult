@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>777_cctest.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>777_cctest.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+     public int minTime(int n, int[][] edges, List&lt;Boolean&gt; hasApple) {
+     Map&lt;Integer,List&lt;Integer&gt;&gt; map=new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; edges.length; i++) {
+           if(!map.containsKey(edges[i][0])) map.put(edges[i][0],new ArrayList&lt;&gt;());
+          map.get(edges[i][0]).add(edges[i][1]);
+        }
+      dfs(map,0,0,hasApple);
+        return res;
+    }
+
+    int res=0;
+    boolean dfs(Map&lt;Integer,List&lt;Integer&gt;&gt; map,int step,int point, List&lt;Boolean&gt; hasApple){
+        boolean flag=false;  
+        if(hasApple.get(point)){
+          res+=step*2;
+          flag=true;
+               }
+       
+     if(map.containsKey(point)){
+         for (Integer next : map.get(point)) {
+            if(!flag){
+                flag|=dfs(map,step+1,next,hasApple);
+            }else {
+                dfs(map,1,next,hasApple);
+            }
+         } 
+     }
+     return flag;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

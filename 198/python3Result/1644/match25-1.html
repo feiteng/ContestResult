@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>530_forlastdance.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>530_forlastdance.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+from heapq import heappop, heappush
+<A NAME="0"></A>import copy
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        aux1 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= dict()
+        for i,c in enumerate(s):
+            if c not in aux1:
+                aux1[c] = [i,i]
+            else:
+                aux1[c][1] = i
+        aux =</B></FONT> copy.deepcopy(aux1)
+        for key, val in aux.items():
+            flag = True
+            while flag:
+                flag = False
+                for c in s[val[0]+1:val[1]]:
+                    if aux1[c][1] &gt; val[1]:
+                        flag = True
+                        aux[key][1] = aux1[c][1]
+                    if aux1[c][0] &lt; val[0]:
+                        flag = True
+                        aux[key][0] = aux1[c][0]
+
+        # print(aux)
+        h = []
+        for key, val in aux.items():
+            heappush(h, (val[1],val[1]-val[0]+1,key))
+        letters = set()
+        total_l = float('inf')
+        cur_l = 0
+        right = -1
+        # stack = []
+        while h:
+            cur, l, c = heappop(h)
+            if aux[c][0] &gt; right:
+                cur_l += l
+                right = cur
+                letters.add(c)
+                # stack.append([cur,c])
+            else:
+                continue
+        # print(letters)
+        # print(aux)
+        ans = []
+        for c in letters:
+            # print(s[aux[c][0]:aux[c][1]+1])
+            ans.append(s[aux[c][0]:aux[c][1]+1])
+        return ans
+            
+        
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

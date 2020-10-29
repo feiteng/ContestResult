@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>537_si-kou-man.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>537_si-kou-man.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+        Set&lt;String&gt; foodSet = new HashSet();
+        Map&lt;Integer, Map&lt;String, Integer&gt;&gt; table2Orders = new HashMap();
+        
+        for(List&lt;String&gt; order: orders) {
+            int tableNumber = Integer.parseInt(order.get(1));
+            String foodItem = order.get(2);
+<A NAME="1"></A>            
+            foodSet.add</B></FONT>(foodItem);
+            Map&lt;String, Integer&gt; tableOrder = table2Orders.getOrDefault(tableNumber, new HashMap());
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>tableOrder.put(foodItem, tableOrder.getOrDefault(foodItem, 0) + 1);
+            table2Orders.put(tableNumber, tableOrder);
+        }
+        
+        List&lt;List&lt;String&gt;&gt; result = new ArrayList();
+        
+        List&lt;String&gt; foodList = new ArrayList(foodSet);
+<A NAME="2"></A>        Collections.sort(foodList);
+        List&lt;String&gt; firstRow = new ArrayList(foodList);
+        firstRow.add</B></FONT>(0, &quot;Table&quot;);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>result.add(firstRow);
+        
+        List&lt;Integer&gt; tables = new ArrayList(table2Orders.keySet());
+        Collections.sort(tables);
+        for(int tableNum : tables) {
+            List&lt;String&gt; row = new</B></FONT> ArrayList();
+<A NAME="3"></A>            row.add(String.valueOf(tableNum));
+            for(String food: foodList) {
+                int count = table2Orders.get(tableNum).getOrDefault(food, 0);
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>row.add(String.valueOf(count));
+            }
+            result.add(row);
+        }
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

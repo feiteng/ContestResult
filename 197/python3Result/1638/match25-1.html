@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>671_jayaprakash_a.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>671_jayaprakash_a.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getMinDistSum(self, positions: List[List[int]]) -&gt; float:
+<A NAME="0"></A>        # print('------------------')
+        dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        def distSum(x, y):
+            return sum([sqrt((pos[0]-x)**2 + (pos[<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>1]-y)**2) for pos in positions])
+        meanx, meany = 0, 0
+        for pos in positions:
+            meanx += pos[0]
+            meany += pos[1]
+        meanx /= len(positions)
+        meany /= len(positions)
+        meanDist = distSum(meanx, meany)
+        
+        delta = 100.0
+        epsilon =</B></FONT> 0.0000001
+        while delta &gt; epsilon:
+<A NAME="1"></A>            # print(delta)
+            valid = False
+            for mov in dirs:
+                newx, newy = meanx+delta*mov[0], meany+delta*mov<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[1]
+                # print(newx, newy)
+                newDist = distSum(newx, newy)
+                if newDist &lt; meanDist:
+                    # if abs(newDist-meanDist) &lt; 0.00001:
+                    #     print('return ')
+                    #     return newDist
+                    meanDist = newDist
+                    meanx = newx
+                    meany = newy
+                    valid = True
+                    break
+            if not valid:
+                delta /= 2
+        re</B></FONT>turn meanDist
+</PRE>
+
+</BODY>
+</HTML>

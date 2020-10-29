@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>549_duduainankai.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>549_duduainankai.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String stoneGameIII(int[] stones) {
+        int sum = 0;
+        for (int s : stones) {
+<A NAME="1"></A>            sum += s;
+        }
+        int max = getMax(stones, 0, sum, new Integer[stones.length])</B></FONT>;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (max &gt; sum - max) {
+            return &quot;Alice&quot;;
+        } else if (max == sum - max) {
+            return &quot;Tie&quot;;
+        } else {
+<A NAME="2"></A>            return &quot;Bob&quot;;
+        }
+    }
+    private int getMax(int[] stones, int start, int sum</B></FONT>, Integer[] dp) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        if (start == stones.length) {
+            return 0;
+        }
+        if (dp[start] != null) {
+            return dp[start];
+        }
+        int res = sum - getMax(stones, start + 1, sum - stones[start], dp)</B></FONT>;
+        if (start &lt; stones.length - 1) {
+            res = Math.max(res, sum - getMax(stones, start + 2, sum - stones[start] - stones[start + 1], dp));
+        }
+        if (start &lt; stones.length - 2) {
+            res = Math.max(res, sum - getMax(stones, start + 3, sum - stones[start] - stones[start + 1] - stones[start + 2], dp));
+        }
+        dp[start] = res;
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

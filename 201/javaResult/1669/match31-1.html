@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_iejepwy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>367_iejepwy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCost(int n, int[] cuts) {
+        Arrays.sort(cuts);
+        int len=cuts.length+1;
+        int[] a=new</B></FONT> int[len];int i=0;
+        int l=0;
+        for(int c:cuts){
+            a[i++]=c-l;
+            l=c;
+        }
+        a[i]=n-l;
+
+        int[][] dp=new int[len][len];
+
+        int[] pre=new int[len+1];
+        int t=0;
+        pre[0]=t;
+        for(i=0;i&lt;len;i++){
+            t+=a[i];
+<A NAME="1"></A>            pre[i+1]=t;
+        }
+        //sum[l,r]= pre[r+1]-pre[l-1+1];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int cnt=2;cnt&lt;=len;cnt++){
+            for(int ll=0;ll+cnt-1&lt;len;ll++){
+                int rr=ll+cnt-1;
+                dp[ll][rr]=Integer.MAX_VALUE;
+                for(int tt=ll;tt&lt;rr;tt++){
+                    dp[ll][rr]=Math.min(dp[ll][rr],
+                            dp[ll][tt]+dp[tt+1][rr]+pre[rr+1]-pre[ll]
+                    );
+                }
+            }
+        }
+
+        return dp[0][len-1];
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

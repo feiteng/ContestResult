@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>386_mi-zhi-te-bie-cai.cpp</TITLE>
+ <TITLE>133_tylerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>386_mi-zhi-te-bie-cai.cpp</CENTER></H3><HR>
+<H3><CENTER>133_tylerwang.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
-    int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.length();
-        int ans = 0;
-<A NAME="1"></A>        for(int i=0;i&lt;n-1;i++){</B></FONT>
-            if(s[i]==s[i+1]){
-                char c= s[i];
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int r =i;
-                int maxc=0;
-                int tot=0;
-                while(r&lt;n &amp;&amp; s[r]==c){
-                    maxc = max(maxc, cost[r]);
-                    tot+=cost[r];
-                    r++;
-                }
-                ans+= tot-maxc;
-                i = r-1;
-            }</B></FONT>
+<A NAME="0"></A>// Author: Tyler Wang
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+ public:
+  int minCost(string s, vector&lt;int&gt;&amp; cost) {
+    vector&lt;int&gt; dp(26);
+    for (int i = 0; i &lt; s.size(); ++i) {
+      vector&lt;int&gt; ndp(26);
+      for (int j = 0; j &lt; 26; ++j) {
+        ndp[j] = dp[j] + cost[i];
+      }
+      int k = s[i] - 'a';
+      for (int j = 0; j &lt; 26; ++j) {
+        if (j != k) {
+          ndp[k] = min(ndp[k], dp[j]);
         }
-        return ans;
+      }
+      dp = move(ndp);
     }
-};
+    return *min_element(dp.begin(), dp.end());
+  }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

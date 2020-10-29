@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>515_Charlesna.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>515_Charlesna.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; peopleIndexes(List&lt;List&lt;String&gt;&gt; f) {
+        
+        // 500*500 * 20*1
+        
+        
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        int index = 0;
+        
+        List&lt;List&lt;Integer&gt;&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; f.size(); i++) {
+            List&lt;Integer&gt; temp = new ArrayList&lt;&gt;();
+            for (String s : f.get(i)) {
+                if (!map.containsKey(s)) {
+                    map.put(s, index++);
+                }
+<A NAME="0"></A>                temp.add(map.get(s));
+            }
+            Collections.sort(temp);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.add(temp);
+        }
+        
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; list.size(); i++) {
+<A NAME="1"></A>            boolean add = true;
+            for (int j = 0; j &lt; list.size(); j++) {</B></FONT>
+                if (i == j) continue;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match39-1.html#1',3,'match39-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (isSub(list, i, j)) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                res.add(i);
+            }
+        }
+        
+        return res;
+    }</B></FONT>
+    
+    private boolean isSub(List&lt;List&lt;Integer&gt;&gt; list, int i, int j) {
+        int a = 0, b = 0;
+        while(a &lt; list.get(i).size() &amp;&amp; b &lt; list.get(j).size()) {
+            if (list.get(i).get(a) == list.get(j).get(b)) {
+                a++;
+                b++;
+            }
+            else {
+                b++;
+            }
+        }
+        
+        return a == list.get(i).size();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

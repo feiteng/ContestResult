@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>222_nirvana_rsc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>222_nirvana_rsc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static class Point {
+        int end;
+        double prob;
+
+        Point(int end, double prob) {
+            this.end = end;
+            this.prob = prob;
+<A NAME="1"></A>        }
+    }</B></FONT>
+    
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+<A NAME="2"></A>        Map&lt;Integer, List&lt;Point&gt;&gt; g = new HashMap&lt;&gt;();
+
+        for (int i = 0; i &lt; edges.length; i++) {</B></FONT>
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>g.computeIfAbsent(edges[i][0], v -&gt; new ArrayList&lt;&gt;()).add(new Point(edges[i][1], succProb[i]));
+            g.computeIfAbsent(edges[i][1], v -&gt; new ArrayList&lt;&gt;()).add(new Point(edges[i][0], succProb[i]));
+        }
+
+<A NAME="3"></A>        PriorityQueue&lt;Point&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; Doub</B></FONT>le.compare(b.prob, a.prob));
+        pq.offer(new Point(start, 1.0));
+        boolean[] visited = new boolean[n+1];
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!pq.isEmpty()) {
+            Point remove = pq.remove();
+            if(remove.end == end) {
+                return remove.prob;
+            }
+            if</B></FONT>(visited[remove.end]) {
+                continue;
+            }
+            visited[remove.end] = true;
+            for (Point next : g.getOrDefault(remove.end, Collections.emptyList())) {
+                pq.offer(new Point(next.end, remove.prob*next.prob));
+            }
+        }
+        return 0;
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

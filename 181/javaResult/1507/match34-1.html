@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>20_taran_1407.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>20_taran_1407.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int n, m;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean[][] mp = new boolean[][]{
+        {},
+        {false, false, true, true},
+        {true, true, false, false},
+        {false, true, true, false},
+        {false, true, false, true},
+        {true, false, true, false},
+        {true, false, false, true}
+    };</B></FONT>
+    int[][] D = new int[][]{
+        {-1, 0},
+<A NAME="2"></A>        {1, 0},
+        {0, -1},
+        {0, 1}
+    };<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+    public boolean hasValidPath(int[][] grid</B></FONT>) {
+        n = grid.length; m = grid[0].length;
+        boolean[][] vis = new boolean[n][m];
+        return dfs(grid, vis, 0, 0);
+    }
+<A NAME="1"></A>    boolean valid(int r, int c){
+        if(r &lt; 0 || r &gt;= n || c &lt; 0 || c &gt;= m)return false;
+        return true;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    boolean dfs(int[][] grid, boolean[][] vis, int r, int c){
+        
+        if(r == n-1 &amp;&amp; c == m-1)return true;</B></FONT>
+        if(vis[r][c])return false;
+        vis[r][c] = true;
+        boolean ans = false;
+        for(int dir = 0; dir &lt; 4; dir++)if(mp[grid[r][c]][dir] &amp;&amp; valid(r+D[dir][0], c+D[dir][1]) &amp;&amp; mp[grid[r+D[dir][0]][c+D[dir][1]]][dir^1])ans |= dfs(grid, vis, r+D[dir][0], c+D[dir][1]);
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

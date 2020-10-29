@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_wu-qing-de-yun-que.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_wu-qing-de-yun-que.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int max(int x,int y,int z,int m,int n, int a1,int a2,int a3,int a4)
+    {
+        
+        return Math.max(x,Math.max(y,Math.max(z,Math.max(m,Math.max(n,Math.max(a1,Math.max(a2,Math.max(a3,a4))))))));
+    }
+    public int cherryPickup(int[][] grid) {
+<A NAME="0"></A>        int rows = grid.length;
+        int cols = grid[0].length;
+        int[][][] dp = new int[cols][cols][2];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int j = 0 ; j &lt; cols; j++){
+                for (int k = 0; k &lt; cols; k++){
+                    dp[j][k][0] = -10000;           
+<A NAME="1"></A>                }
+        }</B></FONT>
+        dp[0][cols - 1][0] = grid[0][0] + grid[0][cols - 1];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1 ; i &lt; rows; i++){
+            for(int j = 0 ; j &lt; cols; j++){
+                for (int k = 0; k &lt; cols; k++){</B></FONT>
+                    if (j == k) 
+                    {
+                        int j1 = Math.max(j-1,0);
+                        int j2 = Math.min(j + 1,cols - 1);
+                        int k1 = Math.max(k-1,0);
+                        int k2 = Math.min(k + 1,cols - 1);
+                        dp[j][k][i % 2] = max(dp[j1][k1][(i + 1) % 2] ,
+                                             dp[j1][k][(i + 1) % 2],
+                                             dp[j1][k2][(i + 1) % 2] ,
+                                             dp[j][k1][(i + 1) % 2] ,
+                                             dp[j][k][(i + 1) % 2],
+                                             dp[j][k2][(i + 1) % 2] ,
+                                             dp[j2][k1][(i + 1) % 2],
+                                             dp[j2][k][(i + 1) % 2] ,
+                                             dp[j2][k2][(i + 1) % 2] 
+                                             ) + grid[i][j] ;
+                    }
+                    else 
+                    {
+                        int j1 = Math.max(j-1,0);
+                        int j2 = Math.min(j + 1,cols - 1);
+                        int k1 = Math.max(k-1,0);
+                        int k2 = Math.min(k + 1,cols - 1);
+                        dp[j][k][i % 2] =max(dp[j1][k1][(i + 1) % 2] ,
+                                             dp[j1][k][(i + 1) % 2],
+                                             dp[j1][k2][(i + 1) % 2] ,
+                                             dp[j][k1][(i + 1) % 2] ,
+                                             dp[j][k][(i + 1) % 2],
+                                             dp[j][k2][(i + 1) % 2] ,
+                                             dp[j2][k1][(i + 1) % 2],
+                                             dp[j2][k][(i + 1) % 2] ,
+<A NAME="2"></A>                                             dp[j2][k2][(i + 1) % 2] 
+                                             ) + grid[i][j] + grid[i][k];
+                    }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+    }
+    int res = 0;
+    for (int i = 0; i &lt; cols ; i++)
+    {
+        for (int j = 0; j &lt; cols; j++)
+        {
+            res = Math.max(res, dp[i][j][(rows + 1) % 2]);
+        }
+        
+    }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

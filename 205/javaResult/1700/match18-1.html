@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>360_rohan03.java</TITLE>
+ <TITLE>250_x372p.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>360_rohan03.java</CENTER></H3><HR>
+<H3><CENTER>250_x372p.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        int n=s.length();
-        char c=s.charAt(0);
-        int count=0;
-<A NAME="0"></A>        int ans=0;
-        int tmp=0;
-        for(int i=0;i&lt;n;i++){
-            if(c==<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.charAt(i)){
-                count++;
-                tmp=Math.max(cost[i],tmp);
-                ans+=cost[i];
-            }else{
-                if(count&gt;=1){
-                    ans-=tmp;
+        int ans = 0;
+        int i = 0;
+        while(i &lt; s.length()) {
+            int j = i;
+            while(j &lt; s.length() &amp;&amp; s.charAt(j) == s.charAt(i)) {
+                j++;
+            }
+            if (i != j-1) {
+                int max = cost[i];
+                int total = 0;
+                for (int k = i; k &lt; j; k++) {
+                    total += cost[k];
+                    max = Math.max(max, cost[k]);
                 }
-                tmp=cost[i];
-<A NAME="1"></A>                ans+=cost[i];
-                c</B></FONT>ount=1;
-                c=s.charAt(i);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        if(count&gt;=1){
-            ans-=tmp;
+                total -= max;
+                ans += total;
+                i = j;
+            } else {
+                i++;
+            }
         }
         return ans;
     }

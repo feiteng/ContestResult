@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>611_Balez.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>611_Balez.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, n: int, cuts: List[int]) -&gt; int:
+<A NAME="0"></A>        from functools import lru_cache
+        
+        c = [0] + sorted(cuts) + [n]
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>@lru_cache(None)
+        def helper(i, j):
+            if j == i + 1:
+                return 0
+            return c[j] - c[i] + min([helper(i, k) + helper(k, j) for k in range(i + 1, j)])
+        
+        return helper(0, len(c</B></FONT>) - 1)
+</PRE>
+
+</BODY>
+</HTML>

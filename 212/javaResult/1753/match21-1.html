@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>173_frankkkkk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>173_frankkkkk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        
+        int M = heights.length, N = heights[0].length;
+        
+        int[][] efforts = new int[M][N];
+        for (int i = 0; i &lt; M; ++i) Arrays.fill(efforts[i], Integer.MAX_VALUE);</B></FONT>
+        efforts[0][0] = 0;
+<A NAME="1"></A>        
+        // 0: i, 1: j, 2: max effort in the path
+        Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
+        queue.add(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[] {0, 0, 0});
+        
+        int[] dirs = new int[] {1, 0, -1, 0, 1};
+        
+        while (!queue.isEmpty()) {
+<A NAME="2"></A>            
+            int[] node = queue.poll();
+            int x = node[0]</B></FONT>, y = node[1], e = node[2];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; 4; ++i) {
+                int nx = x + dirs[i];
+                int ny = y + dirs[i + 1];
+                
+                if (nx &lt; 0 || nx == M || ny &lt; 0 || ny == N) continue;
+                int ne = Math.max(e, Math.abs(heights[nx][ny] - heights[x][y]));
+                
+                if (efforts[nx][ny] &lt;= ne) continue;
+                
+                efforts[nx][ny] = ne;
+                queue.add(new int[] {nx, ny, ne});
+            }
+            
+        }
+        
+        return efforts[M - 1][N - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

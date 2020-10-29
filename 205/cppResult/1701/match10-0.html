@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>44_liouzhou_101.cpp</TITLE>
+ <TITLE>119_w285714.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,89 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>44_liouzhou_101.cpp</CENTER></H3><HR>
+<H3><CENTER>119_w285714.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int f[111111], g[111111];
-
-int father(int x)
-{
-    return f[x] == x ? x : f[x] = father(f[x]);
-}
-
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-<A NAME="1"></A>    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {</B></FONT>
-        for (int i = 1; i &lt;= n; ++i) f[i] = i;
-        
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int m = 0;
-        int res = 0;
-        for (auto &amp;e : edges)
-        {
-            int x = e[1], y = e[2], z = e[0];
-            if (z == 3)
-            {
-                int fx = father(x), fy = father(y);
-                if (fx != fy)</B></FONT>
-                {
-                    f[fx] = fy;
-                    m++;
-                }
-                else
-                {
-                    res ++;
-                }
-            }
-        }
-        
-        //cout &lt;&lt; m &lt;&lt; endl;
-        
-        for (int i = 1; i &lt;= n; ++i) g[i] = f[i];
-<A NAME="2"></A>        
-        {
-            for (int i = 1; i &lt;= n; ++i) f[i] = g[i];
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int cnt = m;
-            for (auto &amp;e : edges)
-            {
-            int x = e[1], y = e[2], z = e[0];
-                if (z == 1)
-                {
-                    int fx = father(x), fy = father(y);
-                    if (fx != fy)</B></FONT>
-                    {
-                        f[fx] = fy;
-                        cnt++;
-                    }
-                    else
-                        res += 1;
-                }
-            }
-            //cout &lt;&lt; cnt &lt;&lt; endl;
-            if (cnt != n-1) return -1;
-<A NAME="3"></A>        }
-        {
-            for (int i = 1; i &lt;= n; ++i) f[i] = g[i];
-<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int cnt = m;
-            for (auto &amp;e : edges)
-            {
-            int x = e[1], y = e[2], z = e[0];
-                if (z == 2)
-                {
-                    int fx = father(x), fy = father(y);
-                    if (fx != fy)</B></FONT>
-                    {
-                        f[fx] = fy;
-                        cnt++;
-                    }
-                    else
-                        res += 1;
-                }
-            }
-            //cout &lt;&lt; cnt &lt;&lt; endl;
-            if (cnt != n-1) return -1;
-        }
-        return res;
+    vector&lt;int&gt; f;
+    int find(int x){
+        if(f[x]==-1)
+            return x;
+        return f[x]=find(f[x]);
     }
-};
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        f=vector&lt;int&gt;(n+1,-1);
+        int res=0;
+        int p=n;
+        for(auto&amp; q:edges)
+            if(q[0]==3){
+                int fx=find(q[1]);
+                int fy=find(q[2]);
+                if(fx!=fy){
+                    f[fx]=fy;
+                    ++res;
+                    --p;
+                }
+            }
+        vector&lt;int&gt; of=f;
+        int op=p;
+        for(auto&amp; q:edges)
+            if(q[0]==1){
+                int fx=find(q[1]);
+                int fy=find(q[2]);
+                if(fx!=fy){
+                    f[fx]=fy;
+                    ++res;
+                    --p;
+                }
+            }
+        if(p&gt;1)
+            return -1;
+        f=of;
+        p=op;
+        for(auto&amp; q:edges)
+            if(q[0]==2){
+                int fx=find(q[1]);
+                int fy=find(q[2]);
+                if(fx!=fy){
+                    f[fx]=fy;
+                    ++res;
+                    --p;
+                }
+            }
+        if(p&gt;1)
+            return -1;
+        return edges.size()-res;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

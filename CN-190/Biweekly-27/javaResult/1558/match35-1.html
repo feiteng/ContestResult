@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_2499370956.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+        Map&lt;Integer, List&lt;Integer&gt;&gt; coursesByPrerequisite = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            coursesByPrerequisite.put(i, new ArrayList&lt;&gt;());
+        }
+        for (int[] p : prerequisites) {
+            coursesByPrerequisite.get</B></FONT>(p[0]).add(p[1]);
+        }
+
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; coursesToPrerequisiteRecursive = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            coursesToPrerequisiteRecursive.put(i, new HashSet&lt;&gt;());
+        }
+        for (int i = 0; i &lt; n; i++) {
+            Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+            q.add(i);
+            boolean[] visited = new boolean[n];
+            while (!q.isEmpty()) {
+                int c = q.remove();
+                if (visited[c]) {
+                    continue;
+                }
+                visited[c] = true;
+<A NAME="1"></A>                coursesToPrerequisiteRecursive.get(c).add(i);
+                q.addAll(coursesByPrerequisite.get(c));
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>coursesToPrerequisiteRecursive.get(i).remove(i);
+        }
+        
+        List&lt;Boolean&gt; out = new ArrayList&lt;&gt;();
+        for (int[] q : queries) {
+            out.add(coursesToPrerequisiteRecursive.get(q[1]).contains(q[0]));
+        }
+        return out;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

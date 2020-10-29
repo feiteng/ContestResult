@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>529_milu_buet.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>529_milu_buet.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        
+        g = defaultdict(list)
+        for i in range(len(edges)):
+            a,b = edges[i]
+            p = succProb[i]
+            g[a].append((b,p))
+            g[b].append((a,p))
+            
+        #print(g)
+        
+        q = [(-1.0, start)]
+        visited = set()
+        while q:
+            cost, node = heappop(</B></FONT>q)
+            visited.add(node)
+            #print(node, cost)
+            
+            if node == end:
+                return -cost
+            
+            for nb, cs in g[node]:
+                if nb not in visited:
+                    elem = (cost*cs, nb)
+                    heappush(q, elem)
+        
+        return 0.0
+            
+            
+            
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>166_rickettsdinner630.py</TITLE>
+ <TITLE>128_nthistle.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>166_rickettsdinner630.py</CENTER></H3><HR>
+<H3><CENTER>128_nthistle.py</CENTER></H3><HR>
 <PRE>
-import collections
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import defaultdict
+
 class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-<A NAME="0"></A>        n1 = collections.Counter([x ** 2 for x in nums1])
-        n2 = collections.Counter([x ** 2 for x in nums2])
-        ans = 0
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(len(nums1)):
-<A NAME="1"></A>            for j in range(i + 1, len(nums1)):
-               ans += n2[nums1[i] * nums1[j</B></FONT>]]
-            
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(len(nums2)):
-            for j in range(i + 1, len(nums2)):
-               ans += n1[nums2[i] * nums2[j]]
-        re</B></FONT>turn ans
+        c = 0
+        nums1_set = defaultdict(lambda : 0)
+        nums2_set = defaultdict(lambda : 0)
+        for n in nums1:
+            nums1_set[n*n] += 1
+        for n in nums2:
+            nums2_set[n*n] += 1
+        for i in range(len(nums1)):
+            for j in range(i+1, len(nums1)):
+                r = nums1[i] * nums1[j]
+                if r in nums2_set:
+                    c += nums2_set[r]
+        for i in range(len(nums2)):
+            for j in range(i+1, len(nums2)):
+                r = nums2[i] * nums2[j]
+                if r in nums1_set:
+                    c += nums1_set[r]
+        re</B></FONT>turn c
 </PRE>
 
 </BODY>

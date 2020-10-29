@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>528_hahahaha-11.cpp</TITLE>
+ <TITLE>115_Scrubpai.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,91 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>528_hahahaha-11.cpp</CENTER></H3><HR>
+<H3><CENTER>115_Scrubpai.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int MM = 1e5 + 5;
+struct E {
+        int u, v, type;
+    };
+    bool cmp(E a, E b) {
+        return a.type &gt; b.type;
+    }
 class Solution {
 public:
-    int fa[100007], rk[100007];
-    int find (int x) {
-<A NAME="0"></A>        if (fa[x] != x) {
-            return fa[x] =find(fa[x]);
-        }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return x;
+    vector&lt;E&gt; a; int dsu1[MM], dsu2[MM], cnt1, cnt2, used;
+    int Find(int x, int dsu[]) {
+        if (dsu[x] == x) return x;
+        else return dsu[x] = Find(dsu[x], dsu);
     }
     
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        for (int i = 1; i &lt;= n; i++) {
-            fa[i] = i;
-            rk[i] = 1;
-        }
-        int cnt = 0, cn = 0;</B></FONT>
         for (int i = 0; i &lt; edges.size(); i++) {
-            if (edges[i][0] == 3) {
-                int fx = find(edges[i][1]);
-                int fy = find(edges[i][2]);
-                if (fx != fy) {
-                    fa[fx] = fy;
-                    rk[fy] += rk[fx];
-                    cnt++;
-                    
-                } else {
-                    cn++;
+            a.push_back({edges[i][1], edges[i][2], edges[i][0]});
+        }
+        for (int i = 1; i &lt;= n; i++) dsu1[i] = i, dsu2[i] = i;
+        sort(a.begin(), a.end(), cmp);
+        for (E e : a) {
+            if (e.type == 3) {
+                bool flag = 0;
+                int fa = Find(e.u, dsu1), fb = Find(e.v, dsu1);
+                if (fa != fb) {
+                    dsu1[fa] = fb; cnt1++; flag = 1;
+                }
+                fa = Find(e.u, dsu2); fb = Find(e.v, dsu2);
+                if (fa != fb) {
+                    dsu2[fa] = fb; cnt2++; flag = 1;
+                }
+                if (flag) used++;
+            } else if (e.type == 1) {
+                int fa = Find(e.u, dsu1), fb = Find(e.v, dsu1);
+                if (fa != fb) {
+                    dsu1[fa] = fb; cnt1++; used++;
+                }
+            } else {
+                int fa = Find(e.u, dsu2), fb = Find(e.v, dsu2);
+                if (fa != fb) {
+                    dsu2[fa] = fb; cnt2++; used++;
                 }
             }
         }
-<A NAME="1"></A>        int x = find(1);
-        int cat = 0;
-        if (rk[x] == n) return edges.size() - cnt;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; edges.size(); i++) {
-            if (edges[i][0] == 1) {
-                int fx = find(edges[i][1]);
-                int fy = find(edges[i][2]);
-                 if (fx != fy) {
-                    fa[fx] = fy;
-                    rk[fy] += rk[fx];
-                    
-                } else {</B></FONT>
-                    cat++;     
-                }
-            }
-        }
-        x = find(1);
-        if (rk[x] != n) return -1;
-        int ans = cat + cn;
-<A NAME="2"></A>        for (int i = 1; i &lt;= n; i++) {
-            fa[i] = i;
-            rk[i] = 1;
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
-        for (int i = 0; i &lt; edges.size(); i++) {
-            if (edges[i][0] == 3) {
-                int fx = find(edges[i][1]);
-                int fy = find(edges[i][2]);
-                if (fx != fy) {
-                    fa[fx] = fy;
-                    rk[fy] += rk[fx];
-                } 
-<A NAME="3"></A>            }
-        }
-        int count = 0;</B></FONT>
-<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match2-1.html#3',3,'match2-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; edges.size(); i++) {
-            if (edges[i][0] == 2) {
-                int fx = find(edges[i][1]);
-                int fy = find(edges[i][2]);
-                if (fx != fy) {
-                    fa[fx] = fy;
-                    rk[fy] += rk[fx];
-                } else {</B></FONT>
-                    count++;
-                } 
-            }
-        }
-        x = find(1);
-        if (rk[x] != n) return -1;
-        return ans + count;
-        
-        
+        if (cnt1 != n - 1 || cnt2 != n - 1) return -1;
+        return edges.size() - used;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

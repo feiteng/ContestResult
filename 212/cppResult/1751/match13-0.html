@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>516_orangezeit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>516_orangezeit.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    char slowestKey(vector&lt;int&gt;&amp; rt, string kp) {
+        int prev = 0;
+        int letters[26] = {};
+        for (int i = 0; i &lt; rt.size(); ++i) {
+            letters[kp[i] - 'a'] = max(letters[kp[i] - 'a'], rt[i] - prev);
+            prev = rt[i];
+        }
+        int mt = *max_element(letters, letters + 26);
+        for (int i = 25; i &gt;= 0; --i) {
+            if (mt == letters[i]) return 'a' + i;
+        }
+        return 'a';
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

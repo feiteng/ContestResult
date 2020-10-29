@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>278_Jsnwu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>278_Jsnwu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int M = 110;
+const int N = 25;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int f[M][N][M];
+    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        for(int i=0;i&lt;m;i++){
+            for(int j=0;j&lt;n;j++){
+                for(int k=0;k&lt;=target;k++){
+                    f[i][j][k] = 1e9;
+                }
+            }
+        }</B></FONT>
+        if(houses[0]&gt;0){
+            f[0][houses[0]-1][1] = 0;
+        }else{
+            for(int j=0;j&lt;n;j++){
+                f[0][j][1] = cost[0][j];
+            }
+        }
+<A NAME="1"></A>        for(int i=1;i&lt;m;i++){
+            if(houses[i]&gt;0){
+                int cur=houses[i]-1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for(int j=0;j&lt;n;j++){
+                    for(int k=1;k&lt;=target;k++){
+                        if(j==cur){</B></FONT>
+                            f[i][cur][k] = min(f[i][cur][k],f[i-1][j][k]);
+                            // printf(&quot;%d %d %d f: %d %d %d %d f: %d\n&quot;,i,cur,k,f[i][cur][k],i-1,j,k,f[i-1][j][k]);
+                        }else{
+                            f[i][cur][k] = min(f[i][cur][k],f[i-1][j][k-1]);
+                            // printf(&quot;%d %d %d f: %d %d %d %d f: %d\n&quot;,i,cur,k,f[i][cur][k],i-1,j,k-1,f[i-1][j][k-1]);
+                        }
+                    }              
+                }
+<A NAME="2"></A>                continue;
+            }
+            for(int cur=0;cur&lt;n;cur++){
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for(int j=0;j&lt;n;j++){
+                    for(int k=1;k&lt;=target;k++){
+                        if(cur==j){
+                            f[i][cur][k] = min(f[i][cur][k],f[i-1][j][k]+cost[i][cur]);
+                            // printf(&quot;%d %d %d f: %d %d %d %d f: %d\n&quot;,i,cur,k,f[i][cur][k],i-1,j,k,f[i-1][j][k]);
+                        }else{
+                            f[i][cur][k] = min(f[i][cur][k],f[i-1][j][k-1]+cost[i][cur]);
+                            // printf(&quot;%d %d %d f: %d %d %d %d f: %d\n&quot;,i,cur,k,f[i][cur][k],i-1,j,k-1,f[i-1][j][k-1]);
+                        }
+                    }
+                }
+            }
+            
+        }
+        int ret = 1e9;
+        for(int j=0;j&lt;n;j++){
+            ret = min(ret,f[m-1][j][target]);
+        }</B></FONT>
+        return ret==1e9?-1:ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>516_akokoz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>516_akokoz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int lr = 1;
+	int tb = 2;
+	int lb = 3;
+	int rb = 4;
+	int lt = 5;
+	int rt = 6;
+	int[][] dirs = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+
+	public boolean hasValidPath(int[][] grid) {
+<A NAME="0"></A>		return dfs(0, 0, 0, 0, grid);
+	}
+
+	boolean dfs(int pr, int pc,<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> int r, int c, int[][] g) {
+		if (r == g.length - 1 &amp;&amp; c == g[0].length - 1)
+			return true;
+		if (g[r][c] &lt; 0)
+<A NAME="1"></A>			return false;
+		int dir = g[r][c];</B></FONT>
+		g[r][c] = -1;
+		boolean found <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= false;
+		if (dir == 1) {
+			if (c &gt; 0 &amp;&amp; g[r][c - 1] &gt; 0 &amp;&amp; (g[r][c - 1] == 1 || g[r][c - 1] == rb || g[r][c - 1] == rt))
+<A NAME="2"></A>				found |=  dfs(r, c, r, c - 1, g);
+			if (c &lt; g[0].length - 1 &amp;&amp; g[r][c + 1] &gt; 0 &amp;&amp; (g[r][c + 1] == 1 || g[r][c + 1] == lb || g[r][c + 1] == lt))
+				found |= dfs(r, c, r, c + 1, g);
+		} else if (dir </B></FONT>== 2) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+			if (r &gt; 0 &amp;&amp; g[r - 1][c] &gt; 0 &amp;&amp; (g[r - 1][c] == tb || g[r - 1][c] == lb || g[r - 1][c] == rb))
+<A NAME="3"></A>				found |=  dfs(r, c, r - 1, c, g);
+			if (r &lt; g.length - 1 &amp;&amp; g[r + 1][c] &gt; 0 &amp;&amp; (g[r + 1][c] == tb || g[r + 1][c] == lt || g[r + 1][c] == rt))
+				found |=  dfs(r, c, r + 1, c, g);
+		} else if (dir </B></FONT>== 3) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match8-1.html#3',3,'match8-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+			if (c &gt; 0 &amp;&amp; g[r][c - 1] &gt; 0 &amp;&amp; (g[r][c - 1] == 1 || g[r][c - 1] == rb || g[r][c - 1] == rt))
+<A NAME="4"></A>				found |=  dfs(r, c, r, c - 1, g);
+			if (r &lt; g.length - 1 &amp;&amp; g[r + 1][c] &gt; 0 &amp;&amp; (g[r + 1][c] == tb || g[r + 1][c] == lt || g[r + 1][c] == rt))
+				found |=  dfs(r, c, r + 1, c, g);
+		} else if (dir </B></FONT>== 4) <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match8-1.html#4',3,'match8-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+			if (c &lt; g[0].length - 1 &amp;&amp; g[r][c + 1] &gt; 0 &amp;&amp; (g[r][c + 1] == 1 || g[r][c + 1] == lb || g[r][c + 1] == lt))
+<A NAME="5"></A>				found |=  dfs(r, c, r, c + 1, g);
+			if (r &lt; g.length - 1 &amp;&amp; g[r + 1][c] &gt; 0 &amp;&amp; (g[r + 1][c] == tb || g[r + 1][c] == lt || g[r + 1][c] == rt))
+				found |=  dfs(r, c, r + 1, c, g);
+		} else if (dir </B></FONT>== 5) <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match8-1.html#5',3,'match8-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+			if (c &gt; 0 &amp;&amp; g[r][c - 1] &gt; 0 &amp;&amp; (g[r][c - 1] == 1 || g[r][c - 1] == rb || g[r][c - 1] == rt))
+<A NAME="6"></A>				found |=  dfs(r, c, r, c - 1, g);
+			if (r &gt; 0 &amp;&amp; g[r - 1][c] &gt; 0 &amp;&amp; (g[r - 1][c] == tb || g[r - 1][c] == lb || g[r - 1][c] == rb))
+				found |=  dfs(r, c, r - 1, c, g);
+		} else if (dir </B></FONT>== 6) <FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match8-1.html#6',3,'match8-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+			if (c &lt; g[0].length - 1 &amp;&amp; g[r][c + 1] &gt; 0 &amp;&amp; (g[r][c + 1] == 1 || g[r][c + 1] == lb || g[r][c + 1] == lt))
+				found |=  dfs(r, c, r, c + 1, g);
+			if (r &gt; 0 &amp;&amp; g[r - 1][c] &gt; 0 &amp;&amp; (g[r - 1][c] == tb || g[r - 1][c] == lb || g[r - 1][c] == rb))
+				found |=  dfs(r, c, r - 1, c, g);
+		}</B></FONT>
+		return found;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

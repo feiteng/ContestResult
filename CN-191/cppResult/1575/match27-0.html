@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_hongyunyan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_hongyunyan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxArea(int h, int w, vector&lt;int&gt;&amp; horizontalCuts, vector&lt;int&gt;&amp; verticalCuts) {
+        
+        long long rest = 1000000007;
+        
+        sort(horizontalCuts.begin(), horizontalCuts.end());
+        sort(verticalCuts.begin(), verticalCuts.end());
+        
+        
+        
+//         horizontalCuts.push_back(h);
+//         verticalCuts.push_back(w);
+        
+        vector&lt;long long&gt; pre_horizontal;</B></FONT>
+        vector&lt;long long&gt; pre_vertical;
+        
+        pre_horizontal.push_back(0);
+        for (int i = 0; i &lt; horizontalCuts.size(); i++)
+        {
+            pre_horizontal.push_back(horizontalCuts[i]);
+        }
+        pre_horizontal.push_back(h);
+        
+        pre_vertical.push_back(0);
+        for (int i = 0; i &lt; verticalCuts.size(); i++)
+        {
+            pre_vertical.push_back(verticalCuts[i]);
+        }
+        pre_vertical.push_back(w);
+        
+        long long h_diff = -1;
+        for (int i = 0; i &lt; pre_horizontal.size() - 1; i++)
+        {
+            long long diff = pre_horizontal[i+1] - pre_horizontal[i];
+            h_diff = max(diff, h_diff);
+<A NAME="1"></A>        }
+        
+        long long w_diff = -1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; pre_vertical.size() - 1; i++)
+        {
+            long long diff = pre_vertical[i+1] - pre_vertical[i];
+            w_diff = max(diff, w_diff);
+        }
+        long long max_value = w_diff * h_diff % rest;
+        return max_value;
+        
+//         pre_horizontal.push_back(0);
+//         pre_vertical.push_back(0);
+        
+
+//         for (int i = 0; i &lt; min(horizontalCuts.size(), verticalCuts.size()); i++)
+//         {
+//             int h_value = horizontalCuts[i];
+//             int v_value = verticalCuts[i];
+//             pre_horizontal.push_back(h_value);
+//             pre_vertical.push_back(v_value);
+//             for (int j = 0; j &lt; pre_horizontal.size() - 1; j++)
+//             {
+//                 long long value = (pre_horizontal[j+1] - pre_horizontal[j]) * (v_value - pre_vertical[pre_vertical.size() - 2]);
+//                 max_value = max(max_value, value);
+//             }
+            
+//             for (int j = 0; j &lt; pre_vertical.size() - 1; j++)
+//             {
+//                 long long value = (pre_vertical[j+1] - pre_vertical[j]) * (h_value - pre_horizontal[pre_horizontal.size() - 2]);
+//                 max_value = max(max_value, value);
+//             }
+//         }
+//         long long diff = -1;
+//         long long big_value = -1;
+ 
+//         if (horizontalCuts.size() &lt; verticalCuts.size())
+//         {
+//             for (int i = horizontalCuts.size(); i&lt; verticalCuts.size(); i++)
+//             {
+//                 long long new_diff = verticalCuts[i] - verticalCuts[i-1];
+//                 diff = max(diff, new_diff);
+//             }
+//             for (int i = 1; i &lt; pre_horizontal.size(); i++)
+//             {
+//                 long long value = pre_horizontal[i] - pre_horizontal[i-1];
+//                 big_value = max(big_value, value);
+//             }
+//             max_value = max(max_value, big_value*diff);
+//         }
+//         else if (horizontalCuts.size() &gt; verticalCuts.size())
+//         {
+//             for (int i = verticalCuts.size(); i&lt; horizontalCuts.size(); i++)
+//             {
+//                 long long new_diff = horizontalCuts[i] - horizontalCuts[i-1];
+//                 diff = max(diff, new_diff);
+//             }
+//             for (int i = 1; i &lt; pre_vertical.size(); i++)
+//             {
+//                 long long value = pre_vertical[i] - pre_vertical[i-1];
+//                 big_value = max(big_value, value);
+//             }
+//             max_value = max(max_value, big_value*diff);
+//         }
+        
+//         return max_value % rest;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

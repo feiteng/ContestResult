@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_wsy19970125.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>53_wsy19970125.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        
+        res = -1
+        
+        nums = [0] * (len(arr) + 2)
+        
+        d = defaultdict(int)
+        
+<A NAME="0"></A>        for step, i in enumerate(arr):
+            a, b = nums[i - 1], nums[i + 1]
+            if a &gt; 0 and b &gt; 0:
+                d<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[a] -= 1
+                d[b] -= 1
+                d[a + b + 1] += 1
+                nums[i - a] = a + b + 1
+                nums[i + b] = a + b + 1
+            elif a &gt; 0:
+<A NAME="1"></A>                d[a] -= 1
+                d[a + 1] += 1
+                nums[i - a] =</B></FONT> a + 1
+                nums<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i] = a + 1
+            elif b &gt; 0:
+                d[b] -= 1
+                d[b + 1] += 1
+                nums[i + b] = b + 1
+                nums[i] = b + 1
+            else:
+                d[1] += 1
+                nums[i] = 1
+            if d[m] &gt; 0:
+                res = step + 1
+        re</B></FONT>turn res
+                
+</PRE>
+
+</BODY>
+</HTML>

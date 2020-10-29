@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_wangshengyu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>64_wangshengyu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int ans[105][105];
+    vector&lt;int&gt; eg[105];
+    bool mark[105];
+    int N;
+    void Dfs(int rt)
+    {
+        if (mark[rt]) return;
+        mark[rt] = true;
+        for (int i = 0; i &lt; eg[rt].size(); i++)
+        {
+            int v = eg[rt][i];</B></FONT>
+            Dfs(v);
+            ans[rt][v] = 1;
+            for (int j = 0; j &lt; N; j++)
+            {
+                ans[rt][j] |= ans[v][j];
+            }
+        }
+    }
+    vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;&amp; pq, vector&lt;vector&lt;int&gt;&gt;&amp; q) {
+        N = n;
+        vector&lt;bool&gt; res;
+<A NAME="1"></A>        memset(ans, 0, sizeof(ans));
+        memset(mark, 0, sizeof(mark));
+        for (int i = 0; i &lt; 105; i++) eg[i].clear();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; pq.size(); i++)
+        {
+            eg[pq[i][0]].push_back(pq[i][1]);
+        }
+        for (int i = 0; i &lt; n; i++)
+        {
+            Dfs(i);
+        }
+        for (int i = 0; i &lt; q.size(); i++)
+        {</B></FONT>
+            int v0 = q[i][0];
+            int v1 = q[i][1];
+            res.push_back (ans[v0][v1]);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

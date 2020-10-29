@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>387_ko19951231.cpp</TITLE>
+ <TITLE>136_linjiale-b.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,79 +15,94 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>387_ko19951231.cpp</CENTER></H3><HR>
+<H3><CENTER>136_linjiale-b.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; head;
-    int find_head(int x){
-        if(x==head[x]) return x;
-        head[x] = find_head(head[x]);
-        return head[x];
+    int fathera[100005];
+    int fatherb[100005];
+    int getfathera(int x)
+    {
+        //cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;fathera[x]&lt;&lt;endl;
+        if(x==fathera[x])
+            return x;
+        return fathera[x]=getfathera(fathera[x]);
     }
-    void unionn(int x, int y){
-        //printf(&quot;union %d %d\n&quot;, x, y);
-        int head_x = find_head(x);
-        int head_y = find_head(y);
-        head[head_y]=head_x;
+    int getfatherb(int x)
+    {
+        if(x==fatherb[x])
+            return x;
+        return fatherb[x]=getfatherb(fatherb[x]);
     }
-    bool connected(int x, int y){
-        int head_x = find_head(x);
-        int head_y = find_head(y);
-        return head_x==head_y;
+    void mergea(int x,int y)
+    {
+        int tmpa = getfathera(x);
+        //cout&lt;&lt;&quot;!&quot;&lt;&lt;x&lt;&lt;endl;
+        int tmpb = getfathera(y);
+       // cout&lt;&lt;&quot;!!&quot;&lt;&lt;y&lt;&lt;endl;
+        fathera[tmpa] = tmpb;
+       // cout&lt;&lt;&quot;!!!&quot;&lt;&lt;getfathera(x)&lt;&lt;&quot; &quot;&lt;&lt;getfathera(y)&lt;&lt;endl;
+    }
+    void mergeb(int x,int y)
+    {
+        int tmpa = getfatherb(x);
+        int tmpb = getfatherb(y);
+        fatherb[tmpa] = tmpb;
     }
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-<A NAME="3"></A>        int num_edges = edges.size();
-        for(int i=0;i&lt;=n;i++) head.push_back(i);
-        int used_edge = 0;
-<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int part = n;
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==3){
-                int x = edges[i][1];
-                int y = edges[i][2];
-                if(connected(x, y)) continue;</B></FONT>
-                unionn(x, y);
-<A NAME="2"></A>                used_edge++;
-                part--;
-            }
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==1){
-                int x = edges[i][1];
-                int y = edges[i][2];
-                if(connected(x, y)) continue;</B></FONT>
-                unionn(x, y);
-                used_edge++;
-                part--;
+        for(int i=1;i&lt;=n;i++)
+        {
+            fathera[i]=i;
+            fatherb[i]=i;
+        }
+        int len = edges.size();
+        int ans = 0;
+        for(int i=0;i&lt;len;i++)
+        {
+            if(edges[i][0]==3)
+            {
+                int tmpa = getfathera(edges[i][1]);
+                int tmpb = getfathera(edges[i][2]);
+                if(tmpa==tmpb)
+                    ans++;
+                else{
+                    mergea(tmpa,tmpb);
+                    mergeb(tmpa,tmpb);
+                    //cout&lt;&lt;getfathera(tmpa)&lt;&lt;&quot; &quot;&lt;&lt;getfathera(tmpb)&lt;&lt;endl;
+                }
             }
         }
-<A NAME="0"></A>        if(part!=1) return -1;
-        part = n;
-        head.clear();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;=n;i++) head.push_back(i);
-        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==3){
-                int x = edges[i][1];
-                int y = edges[i][2];
-                if(connected(x, y)) continue;</B></FONT>
-                unionn(x, y);
-<A NAME="1"></A>                part--;
+        for(int i=0;i&lt;len;i++)
+        {
+            if(edges[i][0]==1)
+            {
+                int tmpa = getfathera(edges[i][1]);
+                int tmpb = getfathera(edges[i][2]);
+                if(tmpa==tmpb)
+                    ans++;
+                else{
+                    mergea(tmpa,tmpb);
+                }
+            }
+            if(edges[i][0]==2)
+            {
+                int tmpa = getfatherb(edges[i][1]);
+                int tmpb = getfatherb(edges[i][2]);
+                if(tmpa==tmpb)
+                    ans++;
+                else{
+                    mergeb(tmpa,tmpb);
+                }
             }
         }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;edges.size();i++){
-            if(edges[i][0]==2){
-                int x = edges[i][1];
-                int y = edges[i][2];
-                if(connected(x, y)) continue;</B></FONT>
-                unionn(x, y);
-                used_edge++;
-                part--;
-            }
-        }
-        if(part!=1) return -1;
-        return num_edges-used_edge;
+        int tmpa = getfathera(1);
+        int tmpb = getfatherb(1);
+        for(int i=1;i&lt;n;i++)
+            if(getfathera(i)!=tmpa|| getfatherb(i)!=tmpb)
+                return -1;
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

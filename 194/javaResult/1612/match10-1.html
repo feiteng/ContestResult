@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>351_atul2938.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>351_atul2938.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] avoidFlood(int[] rains) {
+        int n = rains.length;
+        int ans[] = new int[n];
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        HashMap&lt;Integer, Integer&gt; filledLakes = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; n; i++){
+            if(rains[i] &gt; 0){</B></FONT>
+                ans[i] = -1;
+                if(filledLakes.containsKey(rains[i])){
+<A NAME="1"></A>                    if(set.isEmpty()){
+                        return new int[0];
+                    }
+                    else<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                        Integer bestDay = set.ceiling(filledLakes.get(rains[i]));
+                        if(bestDay == null){
+                            return new int[0];
+                        }
+                        ans[bestDay] = rains[i];
+                        set.remove(bestDay);
+                    }</B></FONT>
+                }
+<A NAME="2"></A>                filledLakes.put(rains[i], i);
+            }
+            else{
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>set.add(i);
+            }
+        }
+        for(int emptyDay: set){
+            ans[emptyDay] = 1;
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

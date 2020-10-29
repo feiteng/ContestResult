@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>176_dexterdreeeam.cpp</TITLE>
+ <TITLE>138_abhirajsmit.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,109 +15,78 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>176_dexterdreeeam.cpp</CENTER></H3><HR>
+<H3><CENTER>138_abhirajsmit.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+    int root_(int node, vector&lt;int&gt;&amp; tree) {
+        if(tree[node] == node) {
+            return node;
+        } 
+        return root_(tree[tree[node]], tree);
+    }
+    int union_(int node1, int node2, vector&lt;int&gt;&amp; tree, vector&lt;int&gt;&amp; sz) {
+        int x = root_(node1, tree);
+        int y = root_(node2, tree);
+        //cout&lt;&lt;node1&lt;&lt;&quot; &quot;&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;node2&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;endl;
+        if(x == y) {
+            return 1;    
+        }
+        if(sz[x] &lt; sz[y]) {
+            tree[x] = tree[y];
+            sz[y]+=sz[x];
+        } else {
+            tree[y] = tree[x];
+            sz[x]+=sz[y];
+        }
+        return 0;
+    }
 public:
-
-    vector&lt;int&gt; ids;
-
-    int get_id(int x, vector&lt;int&gt; &amp;myid)
-    {
-        return myid[x] == x ? x : (myid[x] = get_id(myid[x], myid));
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;int&gt; root(n+1);
+        for(int i=1; i&lt;=n; i++) {
+            root[i] = i;
+        }
+        int cnt = 0;
+        vector&lt;int&gt; sz(n+1,1);
+        for(int i=0; i&lt;edges.size(); i++) {
+            if(edges[i][0] == 3) {
+                cnt+=union_(edges[i][1], edges[i][2], root, sz);
+            } 
+        }        
+        
+        vector&lt;int&gt; rootA = root;
+        vector&lt;int&gt; szA = sz;
+        
+        for(int i=0; i&lt;edges.size(); i++) {
+            if(edges[i][0] == 1) {
+                cnt+=union_(edges[i][1], edges[i][2], rootA, szA);
+            } 
+        }
+        
+        vector&lt;int&gt; rootB = root;
+        vector&lt;int&gt; szB = sz;
+        for(int i=0; i&lt;edges.size(); i++) {
+            if(edges[i][0] == 2) {
+                cnt+=union_(edges[i][1], edges[i][2], rootB, szB);
+            } 
+        }
+        
+        set&lt;int&gt; st;
+        for(int i=1; i&lt;=n; i++) {
+            st.insert(root_(i,rootA));
+        }
+        if(st.size() &gt;= 2) return -1;
+        st.clear();
+        for(int i=1; i&lt;=n; i++) {
+            st.insert(root_(i,rootB));
+        }
+        if(st.size() &gt;= 2) return -1;
+        
+        
+        return cnt;
     }
-
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges)
-    {
-        vector&lt;pair&lt;int, int&gt;&gt; conn1, conn2, conn3;</B></FONT>
-        for (auto &amp;v : edges)
-        {
-            if (v[0] == 1)
-            {
-                conn1.push_back(make_pair(v[1] - 1, v[2] - 1));
-            }
-            if (v[0] == 2)
-            {
-                conn2.push_back(make_pair(v[1] - 1, v[2] - 1));
-            }
-            if (v[0] == 3)
-            {
-                conn3.push_back(make_pair(v[1] - 1, v[2] - 1));
-            }
-        }
-
-        unordered_set&lt;int&gt; comein;
-        ids = vector&lt;int&gt;(n);
-        for (int i = 0; i &lt; n; ++i)
-        {
-            ids[i] = i;
-        }
-
-        int rst = 0;
-
-        for (auto p : conn3)
-        {
-            if (get_id(p.first, ids) != get_id(p.second, ids))
-            {
-                ids[get_id(p.first, ids)] = get_id(p.second, ids);
-            }
-        }
-
-        unordered_set&lt;int&gt; real_id;
-        for (int i = 0; i &lt; n; ++i)
-        {
-            real_id.insert(get_id(i, ids));
-        }
-
-        int sz_common = n - real_id.size();
-
-<A NAME="1"></A>        vector&lt;int&gt; ids1 = ids;
-        vector&lt;int&gt; ids2 = ids;
-
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        rst = sz_common;
-
-        for (auto p : conn1)
-        {
-            int real_id1 = get_id(p.first, ids1);
-            int real_id2 = get_id(p.second, ids1);
-            if (real_id1 != real_id2)
-            {
-                ++rst;
-                ids1[real_id1] = real_id2;</B></FONT>
-            }
-        }
-
-        for (int i = 1; i &lt; n; ++i)
-        {
-<A NAME="2"></A>            if (get_id(i, ids1) != get_id(0, ids1))
-            {
-                return -1;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-
-        for (auto p : conn2)
-        {
-            int real_id1 = get_id(p.first, ids2);
-            int real_id2 = get_id(p.second, ids2);
-            if (real_id1 != real_id2)
-            {
-                ++rst;
-                ids2[real_id1] = real_id2;</B></FONT>
-            }
-        }
-
-        for (int i = 1; i &lt; n; ++i)
-        {
-            if (get_id(i, ids2) != get_id(0, ids2))
-            {
-                return -1;
-            }
-        }
-
-        return edges.size() - rst;
-
-    }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

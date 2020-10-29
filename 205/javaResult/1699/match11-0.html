@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>36_nevergiveup.java</TITLE>
+ <TITLE>202_Neymars.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>36_nevergiveup.java</CENTER></H3><HR>
+<H3><CENTER>202_Neymars.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
 
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private int get(int[] nums1 , int[] nums2) {
+        return work(nums1, nums2) + work(nums2, nums1);
+
+    }
+
+    private int work(int[] nums1, int[] nums2) {
+
         int ans = 0;
-        for (int i = 0;i &lt; nums1.length;i ++) {
-            Map&lt;Long , Integer&gt; map = new HashMap&lt;&gt;();
-<A NAME="1"></A>            long target = (long) nums1[i] * (long) nums1[i];
-            for (int j = 0;j &lt; nums2.length;j ++) {</B></FONT>
-                long value = nums2[j];
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (target % value == 0) {
-                    long need = target / value;
-                    ans += map.getOrDefault(need , 0);
-                }
-                map.put(value , map.getOrDefault(value , 0) + 1);
-            }
-        }
-<A NAME="2"></A>        return ans;
-    }</B></FONT>
+        int n = nums1.length;
+        int m = nums2.length;
+        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
 
-    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int numTriplets(int[] nums1, int[] nums2) {
-        return get(nums1 , nums2) + get(nums2 , nums1);
-    }</B></FONT>
 
-}
+        for (int i = 0; i &lt; n; i++)
+            map.put((long) nums1[i] * nums1[i], map.getOrDefault((long) nums1[i] * nums1[i], 0) + 1);
+
+        for (int i = 0; i &lt; m; i++)
+            for (int j = i + 1; j &lt; m; j++)
+                ans += map.getOrDefault((long) nums2[i] * nums2[j], 0);
+
+        return ans;
+
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

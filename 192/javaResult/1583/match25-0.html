@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>733_si-kou-man.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>733_si-kou-man.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCost(int[] houses, int[][] cost, int m, int n, int target) {
+        int IMPOSSIBLE = 1000_000_0</B></FONT>00;
+        
+        // dp[i][j][k] means the min cost for painting [0, i] with i-th house color j(0-based) and end up with k neighborhoods
+        int dp[][][] = new int[m][n][target+1];
+        for(int i = 0; i &lt; m; i++) {
+            for(int j = 0; j &lt; n; j++) {
+<A NAME="1"></A>                for(int k = 0; k &lt;= target; k++) {
+                    dp[i][j][k] = IMPOSSIBLE;
+                }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        // base case: the first house
+        if(houses[0] != 0) {
+            dp[0][houses[0] - 1][1] = 0;
+        } else {
+            for(int j = 0; j &lt; n; j++) {
+                dp[0][j][1] = cost[0][j];
+            }
+        }
+        
+        for(int i = 1; i &lt; m; i++) {
+            if(houses[i] != 0) {</B></FONT> // i-th house has already painted
+                int color = houses[i]-1;
+<A NAME="2"></A>                for(int k = 1; k &lt;= target; k++) {
+                    for(int prevJ = 0; prevJ &lt; n; prevJ++) { // i-1 house painted with prevJ
+                        dp[i][color][k] = Math.min(dp[i][color][k], prevJ == color ? dp[i-1][prevJ][k] : dp[i-1][prevJ][k-1]);
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+// System.out.println(&quot;painted, i=&quot; + i + &quot;, j=&quot; + color + &quot;, k=&quot; + k + &quot;, cost=&quot;+dp[i][color][k]);
+                }
+            } else {
+                for(int j = 0; j &lt; n; j++) { // paint i-th house with color j
+<A NAME="3"></A>                    for(int k = 1; k &lt;= target; k++) {
+                        for(int prevJ = 0; prevJ &lt; n; prevJ++) {</B></FONT> // i-1 house painted with prevJ
+                            dp[i][j][k] = Math.min(dp[i][j][k], (j == prevJ ? dp[i-1][prevJ][k] : dp[i-1][prevJ][k-1]) + cost[i][j]);
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match25-1.html#3',3,'match25-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+// System.out.println(&quot;unpaint, i=&quot; + i + &quot;, j=&quot; + j + &quot;, k=&quot; + k + &quot;, cost=&quot;+dp[i][j][k]);
+                    }
+                }
+            }
+        }
+        
+        
+        int result = IMPOSSIBLE;
+        for(int j = 0; j &lt; n; j++) {
+            result = Math.min(result, dp[m-1][j][target]);
+        }
+        return result == IMPOSSIBLE ? -1 : result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

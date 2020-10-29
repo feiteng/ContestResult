@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_wdq9527188.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>217_wdq9527188.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+    public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            map.put(i, new HashSet&lt;&gt;());
+        }
+        for (int[] prerequisite : prerequisites) {
+            map.get(prerequisite[0]).add(prerequisite[1]);
+        }
+<A NAME="1"></A>        Boolean[][] cache = new</B></FONT> Boolean[n][n];
+        List&lt;Boolean&gt; ans = new ArrayList&lt;&gt;();
+        for (int[] query : queries) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ans.add(dfs(map, query[0], query[1], cache));
+        }
+        return ans;
+    }
+
+    private boolean dfs(Map&lt;Integer, Set&lt;Integer&gt;&gt; map, int start, int end, Boolean cache[][]) {
+        if (cache[start][end] != null) {
+            return</B></FONT> cache[start][end];
+        }
+        Set&lt;Integer&gt; set = map.get(start);
+        boolean ans = false;
+        if (set.contains(end)) {
+            ans = true;
+        } else {
+            for (Integer child : set) {
+                if (dfs(map, child, end, cache)) {
+                    ans = true;
+                    break;
+                }
+            }
+        }
+        return cache[start][end] = ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

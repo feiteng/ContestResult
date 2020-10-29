@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_y119777.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn=2e5+5;
+int first[maxn];
+struct edge{
+        int t,ind,nxt;
+}e[maxn];
+int from[maxn],to[maxn],cost[maxn],index1[maxn];
+int sta[maxn];
+int n,m,len;
+ 
+void addedge(int f,int t,int ind,int i){
+        e[i].nxt=first[f];
+        first[f]=i;
+<A NAME="0"></A>        e[i].t=t;
+        e[i].ind=ind;
+}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int par[maxn],num[maxn];
+int fnd(int x){return par[x]==x?x:par[x]=fnd(par[x]);}
+void unit(int a,int b){</B></FONT>
+        if(fnd(a)==fnd(b))return;
+        num[fnd(b)]+=num[fnd(a)];
+        num[fnd(a)]=0;
+        par[fnd(a)]=fnd(b);
+}
+<A NAME="1"></A>bool cmp(int a,int b) {return cost[a]&lt;cost[b];}
+ 
+int dfn[maxn],low[maxn],cnt;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void dfs(int s,int f){
+        dfn[s]=low[s]=++cnt;
+        for(int p=first[s];p!=0;p=e[p].nxt){
+                int t=e[p].t;</B></FONT>
+                if(p==(((f-1)^1)+1))continue;
+                if(dfn[t]==0){
+                        dfs(t,p);
+                        if(low[t]&gt;dfn[s]){
+                                sta[e[p].ind]=2;
+                        }
+                        else{
+                                low[s]=min(low[s],low[t]);
+                        }
+                }
+                else {
+                        low[s]=min(low[s],dfn[t]);
+                }
+        }
+}
+ 
+int st[maxn],tail;
+void kruskal2(){
+        sort(index1,index1+m,cmp);
+        for(int i=0;i&lt;m&amp;&amp;num[fnd(1)]&lt;n;){
+                int j=i;
+                while(cost[index1[i]]==cost[index1[j]]&amp;&amp;j&lt;m){j++;}
+                for(int k=i;k&lt;j;k++){
+                        int indk=index1[k];
+                        if(fnd(from[indk])!=fnd(to[indk])){
+                                st[tail++]=indk;
+                                sta[indk]=1;
+                        }
+                }
+                for(int p=0;p&lt;tail;p++){
+                        int tp=st[p];
+                        int f=fnd(from[tp]),t=fnd(to[tp]);
+                        addedge(f,t,tp,++len);
+                        addedge(t,f,tp,++len);
+                }
+                for(int p=0;p&lt;tail;p++){
+                        int tp=st[p];
+                        int f=fnd(from[tp]),t=fnd(to[tp]);
+                        dfs(f,0);
+                        unit(f,t);
+                }
+                cnt=0;
+                len=0;
+                for(int p=0;p&lt;tail;p++){
+                        int tp=st[p];
+                        int f=fnd(from[tp]),t=fnd(to[tp]);
+                        first[f]=first[t]=0;
+                        dfn[f]=dfn[t]=0;
+                }
+ 
+                i=j;
+                tail=0;
+        }
+}
+ 
+ 
+vector&lt;vector&lt;int&gt;&gt; test(int nt, vector&lt;vector&lt;int&gt;&gt;&amp; ed){
+        //scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        n = nt;
+        m = ed.size();
+        cnt = 0;
+    memset(e, 0, sizeof(edge) * maxn);
+    memset(first, 0, sizeof first);
+    memset(st, 0, sizeof st);
+<A NAME="2"></A>    memset(dfn, 0, sizeof dfn);
+    memset(low, 0, sizeof low);
+    memset(sta, 0, sizeof sta);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    len = 0;
+    tail = 0;
+        for(int i=1;i&lt;=n;i++){par[i]=i;num[i]=1;}
+ 
+        for(int i=0;i&lt;m;i++){</B></FONT>
+                //scanf(&quot;%d%d%d&quot;,from+i,to+i,cost+i);
+                from[i] = ed[i][0] + 1;
+                to[i] = ed[i][1] + 1;
+                cost[i] = ed[i][2];
+                index1[i]=i;
+        }
+        kruskal2();
+ 
+        vector&lt;int&gt; vx, vy;
+        for(int i=0;i&lt;m;i++){
+                if(sta[i]==2) {vx.push_back(i);}//puts(&quot;any&quot;);
+                else if(sta[i]==1) {vy.push_back(i);}//puts(&quot;at least one&quot;);
+                //else puts(&quot;none&quot;);
+        }
+        return {vx, vy};
+}
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        return test(n, edges);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

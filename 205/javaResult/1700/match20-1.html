@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>495_chenwei713.java</TITLE>
+ <TITLE>249_abhigyankole.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>495_chenwei713.java</CENTER></H3><HR>
+<H3><CENTER>249_abhigyankole.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        int sum = 0;
-        int max = -1;
-        int res = 0;
-        char prev = ' ';
-        for(int i = 0; i &lt; s.length(); i++) {
-            if(s.charAt(i) != prev) {</B></FONT>
-                if(max != -1) {
-                    res += sum - max;
-                    max = cost[i];
-                    sum = cost[i];
-                } else {
-                    max = cost[i];
-<A NAME="1"></A>                    sum = cost[i];
-                }
-                prev = s.charAt(i);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
-                max = Math.max(max, cost[i]);
-                sum += cost[i];
+        ArrayList&lt;pair&gt; list=getList(s);
+        //System.out.println(list);
+        int ans=0;
+        for(pair p:list)
+        {
+            int max=-1;
+            int sum=0;
+            for(int i=p.a;i&lt;=p.b;i++)
+            {
+                max=Math.max(cost[i],max);
+                sum+=cost[i];
+            }
+            //System.out.println(&quot;min &quot;+min+&quot; sum &quot;+sum);
+            ans=ans+sum-max;
+        }
+        return ans;
+    }
+    class pair
+    {
+        int a ;int b;
+        pair(int a,int b)
+        {
+            this.a=a;this.b=b;
+        }
+        public String toString()
+        {
+            return a+&quot; &quot;+b;
+        }
+    }
+    public ArrayList&lt;pair&gt; getList(String s)
+    {
+        ArrayList&lt;pair&gt; nl=new ArrayList&lt;&gt;();
+        int last=0;
+        for(int i=1;i&lt;s.length();i++)
+        {
+            if(s.charAt(i)!=s.charAt(i-1))
+            {
+                nl.add(new pair(last,i-1));
+                last=i;
             }
         }
-        if</B></FONT>(max != -1) {
-                    res += sum - max;
-                }
-        
-        return res;
-        
+        nl.add(new pair(last,s.length()-1));
+        return nl;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>98_REWFALTQ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>98_REWFALTQ.java</CENTER></H3><HR>
+<PRE>
+/*
+1. def: int[][] dp where dp[i][j] := max score Alice can achieve by dividing stones[i : j]
+2. base case: dp[x][x] = 0 //, dp[x][x + 1] = min(stones[x], stones[x + 1])
+<A NAME="0"></A>3. induction rule: dp[i][j] = 
+max(dp[i][k] + ps[i : k] or dp[k + 1][j] + ps[k + 1][j] depending on prefixSum) for k in [i : j - 1]
+*/
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int stoneGameV(int[] stones) {
+        int len = stones.length;
+        int[] ps = new int[len + 1];
+        for (int i = 0; i &lt; len; i++) {
+            ps[i + 1] = ps[i] + stones[i];
+        }
+        int[][] dp = new int[len][len];
+<A NAME="1"></A>        for (int diff = 1; diff &lt; len; diff++) {</B></FONT>
+            for (int i = 0; i + diff &lt; len; i++) {
+                int j = i + diff;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = i; k &lt; j; k++) {
+                    int first = ps[k + 1] - ps[i];
+                    int second = ps[j + 1] - ps[k + 1];
+                    if (first &lt;= second) {
+                        dp[i][j] = Math.max(dp[i][j], dp[i][k] + first);
+                    }
+                    if (first &gt;= second) {
+                        dp[i][j] = Math.max(dp[i][j], dp[k + 1][j] + second);
+                    }
+                }
+            }
+        }
+        return dp[0][len - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

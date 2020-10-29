@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>305_milky_knight.cpp</TITLE>
+ <TITLE>114_Scrubpai.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,77 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>305_milky_knight.cpp</CENTER></H3><HR>
+<H3><CENTER>114_Scrubpai.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int MM = 1e5 + 5;
+struct E {
+        int u, v, type;
+    };
+    bool cmp(E a, E b) {
+        return a.type &gt; b.type;
+    }
 class Solution {
 public:
-    int fa[100005],fb[100005];
-    int finda(int x){
-        if(fa[x] == x) return x; 
-        fa[x] = finda(fa[x]);
-        return finda(fa[x]);
+    vector&lt;E&gt; a; int dsu1[MM], dsu2[MM], cnt1, cnt2, used;
+    int Find(int x, int dsu[]) {
+        if (dsu[x] == x) return x;
+        else return dsu[x] = Find(dsu[x], dsu);
     }
     
-<A NAME="0"></A>    int findb(int x){
-        if(fb[x] == x) return x; 
-        fb[x] = findb(fb[x]);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return findb(fb[x]);
-    }
-    
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e) {
-        for(int i=0;i&lt;=n;i++){
-            fa[i] = fb[i] = i;
-<A NAME="1"></A>        }
-        
-        int cnt = 0;</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;e.size();i++){
-            if(e[i][0] == 3){
-                int fx = finda(e[i][1]);
-                int fy = finda(e[i][2]);
-                if(fx != fy){
-                    cnt++;
-                    fa[fx] = fy;
-                }</B></FONT>
-                
-                fx = findb(e[i][1]);
-                fy = findb(e[i][2]);
-                if(fx != fy){
-                    fb[fx] = fy;
-                }
-<A NAME="3"></A>            }
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        for (int i = 0; i &lt; edges.size(); i++) {
+            a.push_back({edges[i][1], edges[i][2], edges[i][0]});
         }
-        
-<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;e.size();i++){
-            if(e[i][0] == 1){
-                int fx = finda(e[i][1]);
-                int fy = finda(e[i][2]);
-                if(fx != fy){
-                    cnt++;
-<A NAME="2"></A>                    fa[fx] = fy;
-                }</B></FONT>
-            }
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        
-        for(int i=0;i&lt;e.size();i++){
-            if(e[i][0] == 2){
-                int fx = findb(e[i][1]);
-                int fy = findb(e[i][2]);
-                if(fx != fy){
-                    cnt++;
-                    fb[fx] = fy;
+        for (int i = 1; i &lt;= n; i++) dsu1[i] = i, dsu2[i] = i;
+        sort(a.begin(), a.end(), cmp);
+        for (E e : a) {
+            if (e.type == 3) {
+                bool flag = 0;
+                int fa = Find(e.u, dsu1), fb = Find(e.v, dsu1);
+                if (fa != fb) {
+                    dsu1[fa] = fb; cnt1++; flag = 1;
+                }
+                fa = Find(e.u, dsu2); fb = Find(e.v, dsu2);
+                if (fa != fb) {
+                    dsu2[fa] = fb; cnt2++; flag = 1;
+                }
+                if (flag) used++;
+            } else if (e.type == 1) {
+                int fa = Find(e.u, dsu1), fb = Find(e.v, dsu1);
+                if (fa != fb) {
+                    dsu1[fa] = fb; cnt1++; used++;
+                }
+            } else {
+                int fa = Find(e.u, dsu2), fb = Find(e.v, dsu2);
+                if (fa != fb) {
+                    dsu2[fa] = fb; cnt2++; used++;
                 }
             }
         }
-        int na = 0,nb = 0;</B></FONT>
-        for(int i=1;i&lt;=n;i++){
-            if(fa[i] == i) na++;
-            if(fb[i] == i) nb++;
-        }
-        int ans = e.size() - cnt; 
-        if(na!=1 || nb!=1) return -1;
-        else return ans; 
+        if (cnt1 != n - 1 || cnt2 != n - 1) return -1;
+        return edges.size() - used;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

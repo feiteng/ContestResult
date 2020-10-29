@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>588_fiveface.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>588_fiveface.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -&gt; int:
+        mi = []
+        mx = []
+        start = 0
+        i = 0
+        N = len(nums)
+<A NAME="0"></A>        res = 0
+        while i &lt; N:
+            n = nums[i]
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while mi and mi[-1] &gt; n: mi.pop(-1)
+            mi.append(n)
+            while mx and mx[-1] &lt; n: mx.pop(-1)
+            mx.append(n)
+            while start &lt;= i and mx and mi and mx[0] - mi[0] &gt; limit:
+                if mx[0] == nums[start]: mx.pop(0)
+                if mi[0] == nums[start]: mi.pop(0)
+                start += 1
+            res = max(</B></FONT>res, i - start + 1)
+            i += 1
+        return res
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>325_aiifabbf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>325_aiifabbf.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UndergroundSystem:
+
+    def __init__(self):
+        self.records = {}
+        self.timeSummations = {}
+
+    def checkIn(self, id: int, stationName: str, t: int) -&gt; None:
+        self.records[id] = (stationName, t)
+
+    def checkOut(self, id: int, stationName: str, t: int) -&gt; None:
+        startStation, startTime = self.records[id]
+        endStation, endTime =</B></FONT> stationName, t
+<A NAME="1"></A>        path = (startStation, endStation)
+        duration = endTime - startTime
+
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if path in self.timeSummations:
+            summationTime, summationCount = self.timeSummations[path]
+            self.timeSummations[path] = [summationTime + duration, summationCount + 1]
+        else:
+            self.timeSummations[path] = [duration, 1]
+
+    def getAverageTime(self, startStation: str, endStation: str) -&gt; float:
+        path = (startStation</B></FONT>, endStation)
+        time, count = self.timeSummations[path]
+        return time / count
+</PRE>
+
+</BODY>
+</HTML>

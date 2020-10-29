@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>193_ac130h.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>193_ac130h.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minNumberOfFrogs(string croakOfFrogs) {
+        int n = croakOfFrogs.length();
+        if (n % 5 != 0) {
+            return -1;
+        }
+        unordered_map&lt;char, int&gt; freq;
+        for (const auto&amp; c : croakOfFrogs) {
+            freq[c]++;
+        }
+        for (const auto&amp; p : freq) {
+            if (p.second != freq['c']) {
+                return -1;
+            }
+        }
+        vector&lt;int&gt; am(6, 0);
+<A NAME="0"></A>        int result = 0;
+        for (const auto&amp; c : croakOfFrogs) {
+            if (c == 'c') {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                am[1]++;
+            } else if (c == 'r') {
+                if (am[1] == 0) {
+                    return -1;
+                } else {
+                    am[1]--;
+                    am[2]++;
+                }
+            } else if (c == 'o') {
+                if (am[2] == 0) {
+                    return -1;
+                } else {
+                    am[2]--;
+                    am[3]++;
+                }
+            } else if (c == 'a') {
+                if (am[3] == 0) {
+                    return -1;
+                } else {
+                    am[3]--;
+                    am[4]++;
+                }
+            } else if (c == 'k') {
+                if (am[4] == 0) {
+                    return -1;
+                } else {
+                    am[4]--;</B></FONT>
+                }
+            }
+            int cur_frog = accumulate(am.begin(), am.end(), 0);
+            result = max(result, cur_frog);
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

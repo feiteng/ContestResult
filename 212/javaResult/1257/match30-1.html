@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int[][] matrixRankTransform(int[][] matrix) {
+        final int N = matrix.length;
+        final int M = matrix[0].length;
+        
+//         LocVal[] locVals = new LocVal[N * M];
+//         int idx = 0;
+//         for (int i = 0; i &lt; N; ++i) {
+//             for (int j = 0; j &lt; M; ++j) {
+//                 locVals[idx++] = new LocVal(i, j, matrix[i][j]);
+//             }
+//         }
+//         Arrays.sort(locVals, LocVal.BY_V);
+        
+//         int[][] A = new int[N][M];
+//         for (LocVal lv : locVals) {
+//             int rank = 1;
+//             for (int r = 0; r &lt; N; ++r) {
+//                 rank = Math.max(rank, 1 + A[r][lv.C]);
+//             }
+//             for (int c = 0; c &lt; N; ++c) {
+//                 rank = Math.max(rank, 1 + A[lv.R][c]);
+//             }
+//         }
+        // return A;
+        
+        LocListMap locs = new LocListMap();
+        for (int i = 0</B></FONT>; i &lt; N; ++i) {
+            for (int j = 0; j &lt; M; ++j) {
+                locs.getOrCreate(matrix[i][j]).add(new Loc(i, j));
+            }
+        }
+        
+        int[][] A = new int[N][M];
+        int[] rowHigh = new int[N];
+        int[] colHigh = new int[M];
+        for (Map.Entry&lt;Integer, ArrayList&lt;Loc&gt;&gt; kvp : locs.entrySet()) {
+            int num = kvp.getKey();
+            ArrayList&lt;Loc&gt; lst = kvp.getValue();
+            
+            ArrayList&lt;LocVal&gt; updates = new ArrayList&lt;&gt;();
+            for (Loc loc : lst) {
+                int rank = 1 + Math.max(rowHigh[loc.R], colHigh[loc.C]);
+                updates.add(new LocVal(updates.size(), loc.R, loc.C, rank));
+            }
+            
+            LocValList[] byRow = new LocValList[N];
+            for (int i = 0; i &lt; N; ++i) {
+                byRow[i] = new LocValList();
+            }
+            for (LocVal upd : updates) {
+                byRow[upd.R].add(upd);
+            }
+            
+            LocValList[] byCol = new LocValList[M];
+            for (int j = 0; j &lt; M; ++j) {
+                byCol[j] = new LocValList();
+            }
+            for (LocVal upd : updates) {
+                byCol[upd.C].add(upd);
+            }
+            
+            int K = updates.size();
+            DisjointSet djs = new DisjointSet(K);
+            int[] actualRank = new int[K];
+            for (int i = 0; i &lt; K; ++i) {
+                actualRank[i] = updates.get(i).V;
+            }
+            for (LocValList lvl : byRow) {
+                for (int j = 1; j &lt; lvl.size(); ++j) {
+                    int x0 = djs.find(lvl.get(0).ID);
+                    int xj = djs.find(lvl.get(j).ID);
+                    djs.union(x0, xj);
+                    int oldMax = Math.max(actualRank[x0], actualRank[xj]);
+                    int x = djs.find(x0);
+                    actualRank[x] = Math.max(actualRank[x], oldMax);
+                }
+            }
+            for (LocValList lvl : byCol) {
+                for (int j = 1; j &lt; lvl.size(); ++j) {
+                    int x0 = djs.find(lvl.get(0).ID);
+                    int xj = djs.find(lvl.get(j).ID);
+                    djs.union(x0, xj);
+                    int oldMax = Math.max(actualRank[x0], actualRank[xj]);
+                    int x = djs.find(x0);
+                    actualRank[x] = Math.max(actualRank[x], oldMax);
+                }
+            }
+            
+            for (LocVal upd : updates) {
+                int x = djs.find(upd.ID);
+                int rank = actualRank[x];
+                A[upd.R][upd.C] = rank;
+                rowHigh[upd.R] = rank;
+<A NAME="2"></A>                colHigh[upd.C] = rank;
+            }
+        }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return A;
+    }
+    
+    private static class Loc {
+        public int R, C;
+        
+        public Loc(int r, int c) {
+            R = r;
+            C = c;
+        }
+    }</B></FONT>
+    
+    private static class LocListMap extends TreeMap&lt;Integer, ArrayList&lt;Loc&gt;&gt; {
+        private ArrayList&lt;Loc&gt; getOrCreate(int k) {
+            ArrayList&lt;Loc&gt; lst = getOrDefault(k, null);
+            if (lst == null) {
+                lst = new ArrayList&lt;&gt;();
+                put(k, lst);
+            }
+            return lst;
+        }
+    }
+    
+    private static class LocVal {
+        public int ID, R, C, V;
+        
+        public LocVal(int i, int r, int c, int v) {
+            ID = i;
+            R = r;
+            C = c;
+            V = v;
+        }
+        
+        public LocVal(int r, int c, int v) {
+            R = r;
+            C = c;
+            V = v;
+        }
+        
+        // private static final Comparator&lt;LocVal&gt; BY_V = new Comparator&lt;LocVal&gt;() {
+        //     @Override
+        //     public int compare(LocVal lhs, LocVal rhs) {
+        //         return Integer.compare(lhs.V, rhs.V);
+        //     }
+        // };
+    }
+    
+    private static class LocValList extends ArrayList&lt;LocVal&gt; {}
+    
+    /*
+	 * DisjointSet does union-find in approximately linear time.
+	 */
+	public static class DisjointSet {
+		private int[] rank;
+		private int[] parent;
+
+		public DisjointSet(int n) {
+			this.rank = new int[n];
+			this.parent = new int[n];
+
+			for (int i = 0; i &lt; n; ++i) {
+				parent[i] = i;
+			}
+		}
+
+		public int find(int x) {
+<A NAME="1"></A>			if (parent[x] != x) {
+				parent[x] = find(parent[x]);
+			}
+			return parent[x];<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		}
+
+		public boolean union(int x, int y) {
+			int xr = find(x);
+			int yr = find(y);</B></FONT>
+
+			if (xr == yr) {
+				return false;
+			}
+
+			if (rank[xr] &lt; rank[yr]) {
+				parent[xr] = yr;
+			} else if (rank[xr] &gt; rank[yr]) {
+				parent[yr] = xr;
+			} else {
+				parent[xr] = yr;
+				++rank[yr];
+			}
+			return true;
+		}
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

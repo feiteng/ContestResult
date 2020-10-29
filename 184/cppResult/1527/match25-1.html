@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>154_Captain_Mushroom.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>154_Captain_Mushroom.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int mod = 1e9+7;
+    
+    bool valid(int i, int j, int k)
+    {
+        return (i != j &amp;&amp; j != k);
+    }
+    
+    int dp[5100][3][3][3];
+    
+    int numOfWays(int n) {
+<A NAME="0"></A>        
+        memset(dp, 0, sizeof(dp));
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j1 = 0; j1 &lt;= 2; j1++)
+            for (int k1 = 0; k1 &lt;= 2; k1++)
+                for (int l1 = 0; l1 &lt;= 2; l1++)
+                    if (valid(j1, k1, l1))
+                        dp[1][j1][k1][l1] = 1;
+        for (int i = 2; i &lt;= n; i++)
+        {
+            for (int j1 = 0; j1 &lt;= 2; j1++)
+                for (int k1 = 0; k1 &lt;= 2; k1++)
+                    for (int l1 = 0; l1 &lt;= 2; l1++)</B></FONT>
+<A NAME="1"></A>                    {
+                        if (valid(j1, k1, l1))
+                        {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            for (int j2 = 0; j2 &lt;= 2; j2++)
+                                for (int k2 = 0; k2 &lt;= 2; k2++)
+                                    for (int l2 = 0; l2 &lt;= 2; l2++)</B></FONT>
+                                    {
+                                        if (valid(j2, k2, l2) &amp;&amp; j2 != j1 &amp;&amp; k2 != k1 &amp;&amp; l2 != l1)
+                                        {
+                                            dp[i][j2][k2][l2] = (dp[i - 1][j1][k1][l1] + dp[i][j2][k2][l2]) % mod;
+                                        }
+                                    }
+                        }
+<A NAME="2"></A>                    }
+        }
+        
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+            for (int j1 = 0; j1 &lt;= 2; j1++)
+                for (int k1 = 0; k1 &lt;= 2; k1++)
+                    for (int l1 = 0; l1 &lt;= 2; l1++)
+                        ans = (ans + dp[n][j1][k1][l1]) % mod;</B></FONT>
+        return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_xh286286.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_xh286286.cpp</CENTER></H3><HR>
+<PRE>
+const int base = 1000000007;
+class Solution {
+<A NAME="0"></A>public:
+    int numSubseq(vector&lt;int&gt;&amp; nums, int target) {
+        sort(nums.begin(), nums.end());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = nums.size();
+        int z2[100000+10];
+        z2[0] = 1;
+        for (int i=1; i&lt;=100000; ++i) {
+            z2[i] = (z2[i-1]*2) % base;
+        }
+        long long res = z2[n] -1;
+        for (int i=0; i&lt;n; ++i) {
+            int x = target - nums[i];</B></FONT>
+            if (x&gt;= nums[i]) continue;
+            auto p = upper_bound(nums.begin(), nums.begin() +i, x);
+            int g = p-nums.begin();
+            res -= z2[i-g];
+        }
+        res %= base;
+        if (res&lt;0) res+=base;
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

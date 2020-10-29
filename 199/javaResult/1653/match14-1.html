@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    private void buildGraph(TreeNode root) {
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            graph.putIfAbsent(node , new HashSet&lt;&gt;());
+            if (node.left != null) {
+                graph.get(node).add(node.left);
+                graph.putIfAbsent(node.left , new HashSet&lt;&gt;());
+                graph.get(node.left).add(node);
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                graph.get(node).add(node.right);
+                graph.putIfAbsent(node.right , new HashSet&lt;&gt;());
+                graph.get(node.right).add(node);
+                queue.add(node.right);
+            }
+        }
+    }
+
+    private int bfs(TreeNode node , int dist) {
+        Map&lt;TreeNode , Integer&gt; distMap = new HashMap&lt;&gt;();
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        distMap.put(node , 0);
+        queue.add(node);
+        int ans = 0;
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+            if (current.left == null &amp;&amp; current.right == null &amp;&amp; distMap.get(current) &gt; 0) {
+                ans ++;
+            }
+            if (distMap.get(current) &lt; dist) {
+                for (TreeNode next : graph.get(current)) {
+                    if (!distMap.containsKey(next)) {
+                        distMap.put(next , distMap.get(current) + 1);
+                        queue.add(next);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    private Map&lt;TreeNode , Set&lt;TreeNode&gt;&gt; graph = new HashMap&lt;&gt;();
+
+    public int countPairs(TreeNode root, int distance) {
+        int ans = 0;
+        buildGraph(root);
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+<A NAME="0"></A>            TreeNode node = queue.poll();
+            if (node.left == null &amp;&amp; node.right == null) {
+                ans += bfs(node , distance);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }</B></FONT>
+        }
+        return ans / 2;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

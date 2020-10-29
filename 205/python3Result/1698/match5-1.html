@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>306_ye15.py</TITLE>
+ <TITLE>111_atf.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>306_ye15.py</CENTER></H3><HR>
+<H3><CENTER>111_atf.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def modifyString(self, s: str) -&gt; str:
         s = list(s)
-<A NAME="0"></A>        for i, c in enumerate(s):
-            if c == &quot;?&quot;: 
-                for cc in &quot;abc&quot;: 
-                    if (i == 0 or s[i-1] != cc) and (i+1 == len(s) or s<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i+1] != cc): 
-                        s[i] = cc
-                        break 
-        return &quot;&quot;.join(s</B></FONT>)
+        ans = []
+        for i, x in enumerate(s):
+            if x == '?':
+                x = None
+                if i &gt; 0:
+                    x = s[i - 1]
+                y = None
+                for j in range(i, len(s)):
+                    if s[j] != '?':
+                        y = s[j]
+                        break
+                #print(x, y)
+                
+                cands = ['a', 'b', 'c']
+                if x in cands:
+                    cands.remove(x)
+                if y in cands:
+                    cands.remove(y)
+                ans.append(cands.pop())
+                s[i] = ans[-1]
+            else:
+                ans.append(x)
+                
+        return ''.join(a</B></FONT>ns)
 </PRE>
 
 </BODY>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>216_cf_newbie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>216_cf_newbie.cpp</CENTER></H3><HR>
+<PRE>
+const int inf = 1e9;
+const int maxm = 110;
+const int maxn = 25;
+
+void relax(int&amp; x, int y) {
+<A NAME="0"></A>    x=min(x,y);
+}
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int dp[maxm][maxn][maxm];//i houses, j color, k neighborhoods
+    
+    int minCost(vector&lt;int&gt;&amp; a, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        for (int i=0; i&lt;maxm; i++) {
+            for (int j=0; j&lt;maxn; j++) {
+                for (int k=0; k&lt;maxm; k++) {
+                    dp[i][j][k]=inf;
+                }
+            }
+        }
+        
+        for (int &amp;x: a) x--;</B></FONT>
+        
+        
+        for (int j=0; j&lt;n; j++) {
+            if (a[0]==-1) {
+                dp[0][j][1] = cost[0][j];
+            }
+<A NAME="1"></A>            if (a[0]==j) {
+                dp[0][j][1] = 0;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+<A NAME="2"></A>        for (int i=1; i&lt;m; i++) {
+            for (int j=0; j&lt;n; j++) {
+                if (a[i] != -1 &amp;&amp; a[i] != j) continue;</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for (int j2=0; j2&lt;n; j2++) {
+                    for (int k=0; k&lt;=m; k++) {
+                        if (dp[i-1][j2][k] != inf) {</B></FONT>
+<A NAME="3"></A>                            int cur = a[i]==-1? cost[i][j] : 0;
+                            relax(dp[i][j][k+(j!=j2)], cur + dp[i-1][j2][k]);
+                            // cout&lt;&lt;dp[i][j][k+(j!=j2)]&lt;&lt;endl;
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+                }
+            }
+        }
+        
+        int res = inf;
+        for (int j=0; j&lt;n; j++) {</B></FONT>
+            relax(res, dp[m-1][j][target]);
+            // cout&lt;&lt;dp[n-1][j][target]&lt;&lt;endl;
+        }
+        
+        return res==inf? -1: res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

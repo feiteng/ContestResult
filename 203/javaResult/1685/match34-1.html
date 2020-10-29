@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>253_DCXiaoBing.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>253_DCXiaoBing.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int stoneGameV(int[] stones) {
+        int n = stones.length, dp[][] = new int[n][n], sum[] = new int[n];
+        
+        sum[0] = stones[0];
+        for(int i = 1; i &lt; n; i++) {
+            // dp[i][i] = stones[i];
+            sum[i] = sum[i-1] + stones[i];
+        }
+        
+        for(int len = 2; len &lt;= n; len++) {  
+            for(int i = 0; i &lt; n - len + 1; i++) {</B></FONT>
+                for(int j = i + 1; j &lt;= i + len - 1; j++) { // idx of split point
+                    int lSum, rSum;
+                    if(i == 0) {
+                        lSum = sum[j-1];
+                        rSum = sum[i + len - 1] - sum[j - 1];
+                    } else {
+<A NAME="1"></A>                        lSum = sum[j-1] - sum[i-1];
+                        rSum = sum[i + len - 1] - sum[j-1];
+                    }
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(lSum &gt; rSum) { // right sum left
+                        dp[i][i + len - 1] = Math.max(dp[i][i + len - 1], dp[j][i + len - 1] + rSum);
+                    } else if(lSum &lt; rSum) { // left part left
+<A NAME="2"></A>                        dp[i][i + len - 1] = Math.max(dp[i][i + len - 1], dp[i][j-1] + lSum);
+                    } else {
+                        dp[i][i + len - 1] = Math.max</B></FONT>(dp[i][i + len - 1], dp[j][i + len - 1] + rSum);
+                        dp[i][i + len - 1] = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.max(dp[i][i + len - 1], dp[i][j-1] + lSum);
+                    }
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

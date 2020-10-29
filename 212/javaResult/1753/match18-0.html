@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>819_cheng-wei-jun.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>819_cheng-wei-jun.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minimumEffortPath(int[][] heights) {
+        int[][] minPath = new int[heights.length][heights[0].length];
+        for (int i = 0; i &lt; minPath.length; i++) {
+            for (int j = 0; j &lt; minPath[0].length; j++) {
+                minPath[i][j] = Integer.MAX_VALUE;
+            }
+        }
+        minPath[0][0] = 0;
+        PriorityQueue&lt;Point&gt; points = new PriorityQueue&lt;&gt;(Comparator.comparingInt</B></FONT>(o -&gt; o.distance));
+        Point start = new Point(0,0,minPath[0][0]);
+        points.offer(start);
+
+        while (!points.isEmpty()) {
+            Point poll = points.poll();
+            //已无效
+            int x = poll.x;
+            int y = poll.y;
+            if (poll.distance &gt; minPath[x][y]) {
+<A NAME="1"></A>                continue;
+            }
+            //左
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (x &gt; 0 &amp;&amp; minPath[x -1][y] &gt; Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x-1][y]))) {
+                minPath[x -1][y] = Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x-1][y]));
+                points.offer(new Point(x-1,y,minPath[x-1][y]));
+            }
+            //右
+            if (x &lt; heights.length-1 &amp;&amp; minPath[x +1][y] &gt; Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x+1][y]))) {
+                minPath[x +1][y] = Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x+1][y]));
+                points.offer(new Point(x+1,y,minPath[x+1][y]));
+            }
+            //上
+            if (y &gt; 0 &amp;&amp; minPath[x][y-1] &gt; Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x][y-1]))) {
+                minPath[x][y-1] = Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x][y-1]));
+                points.offer(new Point(x,y-1,minPath[x][y-1]));
+            }
+            //下
+            if (y &lt; heights[0].length-1 &amp;&amp; minPath[x ][y+1] &gt; Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x][y+1]))) {
+                minPath[x ][y+1] = Math.max(minPath[x][y] , Math.abs(heights[x][y] - heights[x][y+1]));
+                points.offer(new Point(x,y+1,minPath[x][y+1]));
+            }
+<A NAME="2"></A>        }
+        return minPath[minPath.length-1][minPath[0].length-1];
+    }</B></FONT>
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Point{
+        int x;
+        int y;
+        int distance;
+
+        public Point(int x, int y, int distance) {
+            this.x = x;
+            this.y = y;
+            this.distance = distance;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

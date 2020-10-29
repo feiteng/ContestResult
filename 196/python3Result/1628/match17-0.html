@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>561_thumbpixels.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>561_thumbpixels.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def numSubmat(self, mat: List[List[int]]) -&gt; int:
+        m, n = len(mat), len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(mat[0])
+        def findPrefixCount(p_mat, mat):
+            for i in range(0, m):  
+                for j in range(n - 1, -1, -1):  
+                    if not mat[i][j]:  
+                        continue
+                    if j != n - 1:  
+                        p_mat[i][j] += p_mat[i][j + 1]  
+
+                    p_mat[i][j] += mat[i][j]  
+        p_mat = [[0 for i in range(n)] for j in range(m)]  
+
+        findPrefixCount(p_mat, mat) 
+        res = 0
+        for j in range(0, n):  
+            i = m - 1
+            q = []
+            to_sum = 0
+            while i &gt;= 0:
+                c = 0
+                while len(q) != 0 and q[-1][0] &gt; p_mat[i][j]:  
+                    to_sum -= (q[-1][1] + 1)*(q[-1][0] - p_mat[i][j])  
+                    c += q[-1][1] + 1
+                    q.pop()  
+                to_sum += p_mat[i][j]  
+                res += to_sum  
+                q.append((p_mat[i][j], c))  
+                i -= 1
+        re</B></FONT>turn res 
+</PRE>
+
+</BODY>
+</HTML>

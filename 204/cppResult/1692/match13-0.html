@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>49_lozy219.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>49_lozy219.cpp</CENTER></H3><HR>
+<PRE>
+#define ll long long
+
+class Solution {
+    const ll MOD=1e9+7;
+    vector&lt;ll&gt; fact;
+public:
+    template &lt;typename T&gt;
+    T modpow(T base, T exp, T modulus) {
+      base %= modulus;
+      T result = 1;
+      while (exp &gt; 0) {
+        if (exp &amp; 1) result = (result * base) % modulus;
+        base = (base * base) % modulus;
+        exp &gt;&gt;= 1;
+      }
+      return result;
+    }
+
+    ll ncr(ll n, ll r) {
+      ll top = fact[n];
+      ll bot = fact[n-r]*fact[r]%MOD;
+
+      return top*modpow(bot, MOD-2, MOD)%MOD;
+    }
+
+<A NAME="0"></A>    ll dp(vector&lt;int&gt;&amp; nums) {
+        if (nums.size()&lt;=2) return 1;
+        vector&lt;int&gt; left;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; right;
+        for (int i=1; i&lt;nums.size(); ++i) {
+            if (nums[i]&gt;nums[0]) {
+                right.push_back(nums[i]);
+            } else {
+                left.push_back(nums[i]);
+            }
+        }
+        ll l=dp(left);</B></FONT>
+<A NAME="1"></A>        ll r=dp(right);
+        ll way=ncr(nums.size()-1, left.size());
+        return l*r%MOD*way%MOD;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+        fact=vector&lt;ll&gt;(1005, 1);
+        for (int i=1; i&lt;fact.size(); ++i) {
+          fact[i] = i*fact[i-1]%MOD;
+        }</B></FONT>
+        return (dp(nums)-1+MOD)%MOD;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

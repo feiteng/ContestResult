@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>182_di-si-ren-cheng-n.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>182_di-si-ren-cheng-n.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    class Block {
+        int x, y, num;
+
+        public Block(int x, int y, int num) {
+            this.x = x;
+            this.y = y;
+            this.num = num;
+        }
+
+
+    }
+
+    public void show(int [][]a){</B></FONT>
+        for (int[] ints : a) {
+            for (int aa : ints) {
+                System.out.print(aa);
+            }
+            System.out.println();
+            System.out.println();
+        }
+    }
+<A NAME="1"></A>    public int[][] matrixRankTransform(int[][] matrix) {
+        int[][] result = new int[matrix.length][matrix[0].length];
+        int[] pi = new int[matrix.length];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] pj = new int[matrix[0].length];
+        ArrayList&lt;Block&gt; blocks = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; matrix.length; i++) {
+            for (int j = 0; j &lt; matrix[0].length; j++) {
+                blocks.add(new Block(i, j, matrix[i][j]));
+            }
+        }
+        blocks.sort((a, b) -&gt; a.num - b.num);
+
+        int i = 0</B></FONT>;
+        while (i &lt; blocks.size()) {
+            int j = i;
+            while (j + 1 &lt; blocks.size() &amp;&amp; blocks.get(i).num == blocks.get(j+1).num)
+                j++;
+
+            for (int k = i; k &lt;= j; k++) {
+<A NAME="2"></A>                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                pi[x] = Math.max(pi[x], pj[y]);
+                pj[y] = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(pi[x], pj[y]);
+            }
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get</B></FONT>(k).y;
+                pi[x] = Math.max(pi[x], pj[y]);
+                pj[y] = Math.max(pi[x], pj[y]);
+            }            
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                pi[x] = Math.max(pi[x], pj[y]);
+                pj[y] = Math.max(pi[x], pj[y]);
+            }
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                pi[x] = Math.max(pi[x], pj[y]);
+                pj[y] = Math.max(pi[x], pj[y]);
+            }
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                pi[x] = Math.max(pi[x], pj[y]);
+                pj[y] = Math.max(pi[x], pj[y]);
+            }            
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                pi[x] = Math.max(pi[x], pj[y]);
+                pj[y] = Math.max(pi[x], pj[y]);
+            }
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                result[x][y] = Math.max(pi[x], pj[y])+1;
+            }
+
+            for (int k = i; k &lt;= j; k++) {
+                int x = blocks.get(k).x;
+                int y = blocks.get(k).y;
+                pi[x] = result[x][y];
+                pj[y] = result[x][y];
+            }
+            i = j + 1;
+        }
+
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_wwei17.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>280_wwei17.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; peopleIndexes(List&lt;List&lt;String&gt;&gt; favoriteCompanies) {
+<A NAME="0"></A>        return sln1(favoriteCompanies);
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private List&lt;Integer&gt; sln1(List&lt;List&lt;String&gt;&gt; ll){
+        Map&lt;String, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i =0;i&lt; ll.size();i++){
+            for(String s: ll.get(i)){
+                if(!map.containsKey(s)) map.put(s, new HashSet&lt;&gt;());
+                map.get(s).add(i);
+            }
+        }
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        for(int i =0;i&lt; ll.size();i++){
+            Set&lt;Integer&gt; set= new HashSet&lt;&gt;(map.get(ll.get(i).get(0)));</B></FONT>
+<A NAME="1"></A>            for(int j = 1;j&lt; ll.get(i).size();j++){
+                Set&lt;Integer&gt; set2 = map.get(ll.get(i).get(j));
+                set.retainAll(set2);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if(set.size()==1) res.add(i);
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

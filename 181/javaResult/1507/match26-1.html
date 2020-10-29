@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>401_flyingpenguin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>401_flyingpenguin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+   
+    int[][] dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][] nm = {
+            null,
+            {{1,3}, {1,4}, null, null},
+            {null, null, {2,5, 6}, {2,3, 4}},
+            {null, {1, 4, 6}, {2, 5, 6}, null},
+            {{1, 3, 5}, null, {2, 5, 6}, null},
+            {null, {1, 4, 6}, null, {2, 3, 4}},
+            {{1, 3, 5}, null, null, {2, 3, 4}</B></FONT>}};
+
+    boolean[][] v;
+
+    public boolean hasValidPath(int[][] g) {
+        v = new boolean[g.length][g[0].length];
+        return doh(g, 0, 0);
+    }
+
+    private boolean doh(int[][] g, int i, int j) {
+        int m = g.length;
+        int n = g[0].length;
+        v[i][j] = true;
+        if (i == m - 1 &amp;&amp; j == n - 1) {
+            return true;
+        }
+        for (int di = 0; di &lt; dirs.length; di++) {
+            int ni = i + dirs[di][0];
+            int nj = j + dirs[di][1];
+            if (ni &gt;= 0 &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= 0 &amp;&amp; nj &lt; n &amp;&amp; !v[ni][nj]) {
+                int[] nextarray = nm[g[i][j]][di];
+                if (nextarray == null) {
+                    continue;
+                }
+                for (int k = 0; k &lt; nextarray.length; k++) {
+                    if (nextarray[k] == g[ni][nj]) {
+                        boolean good = doh(g, ni, nj);
+                        if (good) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

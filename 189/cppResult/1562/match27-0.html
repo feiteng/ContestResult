@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>637_Kode4Fun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>637_Kode4Fun.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool check(vector&lt;string&gt;&amp; minset, vector&lt;string&gt;&amp; majorset){
+        if(majorset.size() &lt;= minset.size())
+            return false;
+
+        // check occurrence
+        int curSet2Index = 0;
+        for (int i = 0; i &lt; minset.size(); i++) {
+            string curSet1 = minset[i];
+            string curSet2;
+            while (true) {
+                if (curSet2Index &gt;= majorset.size()) return false;
+
+                curSet2 = majorset[curSet2Index];
+                if      (curSet1 &gt; curSet2) curSet2Index++;
+                else if (curSet1 &lt; curSet2) return false;
+                else                        break;
+            }
+        }
+
+<A NAME="0"></A>        return true;
+    }
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;&amp; favoriteCompanies) {
+        for(int i = 0; i &lt; favoriteCompanies.size(); i++){
+            sort(favoriteCompanies[i].begin(), favoriteCompanies[i].end());
+<A NAME="1"></A>        }
+        vector&lt;int&gt; ans;
+        for(int i = 0; i &lt; favoriteCompanies.size(); i++){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool canAdd = true;
+            for(int j = 0; j &lt; favoriteCompanies.size(); j++){
+                if(j == i)
+                    continue;
+                if(check(favoriteCompanies[i], favoriteCompanies[j])){
+                    canAdd = false;
+                    break;
+                }
+            }
+            if(canAdd){
+                ans.push_back(i);
+            }
+        }
+        return ans;
+        
+        
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

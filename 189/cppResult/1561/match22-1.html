@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>535_Georgelmy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>535_Georgelmy.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string arrangeWords(string text) {
+        map&lt;int, vector&lt;string&gt;&gt; words;
+        int ind = 0;
+        while (ind &lt; text.length()) {
+            int next = text.find_first_of(&quot; &quot;, ind);
+            if (next == -1) next = text.length();
+            if (words.find(next - ind) == words.end()) {
+                words[next - ind] = vector&lt;string&gt;();
+            }
+            string tmp = text.substr(ind, next - ind);
+            if (ind == 0) tmp[0] += 'a' - 'A';
+<A NAME="0"></A>            words[next - ind].emplace_back(tmp);
+            ind = next + 1;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string res = &quot;&quot;;
+        for (auto&amp; p : words) {
+            for (string&amp; s : p.second) {
+                res += s;
+                res += &quot; &quot;;
+            }
+        }
+        res.pop_back();
+        res[0] += 'A' - 'a';
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

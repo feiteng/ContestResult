@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>592_iixre.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>592_iixre.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+  public List&lt;String&gt; maxNumOfSubstrings(String paramString) {
+    int[][] arrayOfInt = new int[26][2];
+    int b;
+    for (b = 0; b &lt; 26; b++) {
+      for (int b1 = 0; b1 &lt; 2; b1++)
+        arrayOfInt[b][b1] = -1; 
+    } 
+    for (b = 0; b &lt; paramString.length(); b++) {
+      if (arrayOfInt[paramString.charAt(b) - 97][0] == -1)
+        arrayOfInt[paramString.charAt(b) - 97][0] = b; 
+      arrayOfInt[paramString.charAt(b) - 97][1] = b;
+    } 
+    int[] arrayOfInt1 = new int[paramString.length()];
+<A NAME="0"></A>    int i;
+    for (i = 0; i &lt; paramString.length(); i++)
+      arrayOfInt1[i] = -1; 
+    for (i = 0; i &lt; 26; i++) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+      if (arrayOfInt[i][0] != -1) {
+        int k = arrayOfInt[i][1];
+        for (int m = arrayOfInt[i][0]; m &lt;= k; m++) {
+          if (arrayOfInt[paramString.charAt(m) - 97][0] &gt;= arrayOfInt[i][0]) {
+            k = Math.max(k, arrayOfInt[paramString.charAt(m) - 97][1]);
+          } else {
+            arrayOfInt1[arrayOfInt[i][0]] = -2;
+            break;
+          } 
+        } 
+        if</B></FONT> (arrayOfInt1[arrayOfInt[i][0]] != -2)
+          arrayOfInt1[arrayOfInt[i][0]] = k; 
+<A NAME="1"></A>      } 
+    } 
+    i = arrayOfInt1.length;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ArrayList&lt;String&gt; arrayList = new ArrayList();
+    for (int j = arrayOfInt1.length - 1; j &gt;= 0; j--) {
+      if (arrayOfInt1[j] &gt;= 0 &amp;&amp; arrayOfInt1[j] &lt; i) {
+        arrayList.add(paramString.substring(j, arrayOfInt1[j] + 1));
+        i = j;
+      } 
+    } 
+    return arrayList;
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

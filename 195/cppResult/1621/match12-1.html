@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_sahilshelangia.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>203_sahilshelangia.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;bits/stdc++.h&gt;
+#define fast ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define debug cout&lt;&lt;&quot;here&quot;&lt;&lt;endl;
+#define ll long long int
+#define mp make_pair
+#define pb push_back
+#define endl '\n'
+#define all(x) x.begin(),x.end()
+const ll MOD=1e9+7;
+#define MAX 200005
+#define infi 1e12
+#define intial 0
+#define waiting 1
+#define visited 2
+#define PII pair&lt;ll,ll&gt;
+#define input freopen(&quot;input.txt&quot;,&quot;r&quot;,stdin);
+#define output freopen(&quot;output.txt&quot;,&quot;w&quot;,stdout);
+using namespace std;
+<A NAME="0"></A>mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+// replace this with the leetcode function
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+	ll power(ll x,ll n){
+		ll ans=1;
+		while(n){
+			if(n&amp;1)
+				ans=ans*x%MOD;
+			x=x*x%MOD;
+			n/=2;
+		}
+		return ans;
+	}
+    int numSubseq(vector&lt;int&gt;&amp; nums, int target) {
+        sort(all(nums));
+        ll ans=0;
+        for(int i=0;i&lt;nums.size();++i){</B></FONT>
+        	int mx=target-nums[i];
+        	if(mx&lt;nums[i])
+        		break;
+
+        	int indx=upper_bound(all(nums),mx)-nums.begin();
+        	ans=(ans+power(2,indx-i-1))%MOD;
+        }
+        return ans;
+    }
+};
+
+
+// end here
+#ifdef LOCAL
+int main()
+{
+	auto ans=Solution().solve(v);
+}
+#endif
+</PRE>
+</BODY>
+</HTML>

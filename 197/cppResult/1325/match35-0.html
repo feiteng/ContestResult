@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_zscnash.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>74_zscnash.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double dist[100005];
+class Solution {
+public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+<A NAME="1"></A>		int m=edges.size();</B></FONT>
+		for (int i=0;i&lt;n;++i) dist[i]=0;
+		dist[start]=1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		for (int i=1;i&lt;=50;++i)
+			for (int j=0;j&lt;m;++j){
+				int x=edges[j][0],y=edges[j][1];
+                double w=succProb[j];</B></FONT>
+				dist[x]=max(dist[x],dist[y]*w);
+				dist[y]=max(dist[y],dist[x]*w);
+			}
+		return dist[end];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

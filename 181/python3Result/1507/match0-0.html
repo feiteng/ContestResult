@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>489_catchyzkq.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>489_catchyzkq.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        # direction: 0 1 2 3: up left down right
+        m = len(grid)
+        n = len(grid[0]) if m &gt; 0 else 0
+        st = [{} for _ in range(7)]
+        st[1][1] = [1,4,6] 
+        st[1][3] = [1,3,5]
+        st[2][0] = [2,3,4]
+        st[2][2] = [2,5,6]
+        st[3][1] = [1,4,6]
+        st[3][2] = [2,5,6]
+        st[4][2] = [2,5,6]
+        st[4][3] = [1,3,5]
+        st[5][0] = [2,3,4]
+        st[5][1] = [1,4,6]
+        st[6][0] = [2,3,4]
+        st[6][3] = [1,3,5]
+        
+#         def find(x, y):
+#             res = []
+#             dirs = [[-1,0], [0,-1],[1,0],[0,1]]
+            
+#             for i, d in enumerate(dirs):
+#                 nx, ny = x + d[0], y + d[1]
+#                 if 0&lt;=nx&lt;m and 0&lt;=ny&lt;n:
+#                     res.append(i)
+#             return res
+        # bfs
+        visit = [[False]*n for _ in range(m)]
+        dirs = [[-1,0], [0,-1],[1,0],[0,1]]
+        
+        x, y = 0, 0
+        qu = [(0,0)]
+        
+        while len(qu) &gt; 0:
+            x, y = qu[0]
+            visit[x][y] = True
+            qu.pop(0)
+            if x == m-1 and y == n-1:
+                return True
+            # pos_dirs = find(x, y)
+            rd_dirs = st[grid[x][y]].keys()
+            # print('keys', x, y, rd_dirs)
+            
+            for rd_d in rd_dirs:
+                nx, ny = x + dirs[rd_d][0], y + dirs[rd_d][1]
+                if 0&lt;=nx&lt;m and 0&lt;=ny&lt;n and grid[nx][ny] in st[grid[x][y]][rd_d] and not visit[nx][ny]:
+                    qu.append((nx, ny))
+            
+        re</B></FONT>turn False
+            
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

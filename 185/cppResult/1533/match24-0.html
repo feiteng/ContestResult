@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_xiong-bao-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_xiong-bao-2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;vector&lt;string&gt;&gt; displayTable(vector&lt;vector&lt;string&gt;&gt;&amp; orders) {
+        map&lt;int, map&lt;string, int&gt;&gt; mp;
+        set&lt;string&gt; foods;
+        for (auto &amp;i : orders) {
+            mp[stoi(i[1])][i[2]]++;
+            foods.insert(i[2]);
+        }
+        vector&lt;vector&lt;string&gt;&gt; res;
+        vector&lt;string&gt; head {&quot;Table&quot;};
+        for (auto &amp;i : foods) {
+            head.push_back(i);
+        }
+        res.push_back(head);
+        for (auto &amp;i : mp) {
+            vector&lt;string&gt; t;
+            t.push_back(to_string(i.first));
+            for (auto j : foods) {</B></FONT>
+                auto it = i.second.find(j);
+                if (it == i.second.end()) {
+                    t.push_back(&quot;0&quot;);
+                } else {
+                    t.push_back(to_string(it-&gt;second));
+                }
+            }
+            res.push_back(t);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

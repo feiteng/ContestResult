@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>481_ChangXingJiang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>481_ChangXingJiang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -&gt; int:
+        row = len(heights)
+        col = len(heights[0])
+
+        table = [[0] * col for _ in range(row)]
+
+        for i in range(1, row):
+            table[i][0] = max(table[i - 1][0], abs(heights[i][0] - heights[i - 1][0]))
+
+        for j in range(1, col):
+            table[0][j] = max(table[0][j - 1], abs(heights[0][j] - heights[0][j - 1]))
+
+        need = collections.deque()
+
+        for i in range(1, row):
+            for j in range(1, col):
+                table[i][j] = min(
+                    max(table[i - 1][j], abs(heights[i][j] - heights[i - 1][j])),
+                    max(table[i][j - 1], abs(heights[i][j] - heights[i][j - 1]))
+                )
+                if max(table[i][j], abs(heights[i][j] - heights[i - 1][j])) &lt; table[i - 1][j]:
+                    table[i - 1][j] = max(table[i][j], abs(heights[i][j] - heights[i - 1][j]))
+                    need.append((i - 1, j))
+                if max(table[i][j], abs(heights[i][j] - heights[i][j - 1])) &lt; table[i][j - 1]:
+<A NAME="0"></A>                    table[i][j - 1] = max(table[i][j], abs(heights[i][j] - heights[i][j - 1]))
+                    need.append((i, j - 1))
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while need:
+            i, j = need.popleft()
+            if i &gt; 0 and max(table[i][j], abs(heights[i][j] - heights[i - 1][j])) &lt; table[i - 1][j]:
+                table[i - 1][j] = max(table[i][j], abs(heights[i][j] - heights[i - 1][j]))
+                need.append((i - 1, j))
+            if i &lt; row - 1 and max(table[i][j], abs(heights[i][j] - heights[i + 1][j])) &lt; table[i + 1][j]:
+                table[i + 1][j] = max(table[i][j], abs(heights[i][j] - heights[i + 1][j]))
+                need.append((i + 1, j))
+            if j &gt; 0 and max(table[i][j], abs(heights[i][j] - heights[i][j - 1])) &lt; table[i][j - 1]:
+                table[i][j - 1] = max(table[i][j], abs(heights[i][j] - heights[i][j - 1]))
+                need.append((i, j - 1))
+            if j &lt; col - 1 and max(table[i][j], abs(heights[i][j] - heights[i][j + 1])) &lt; table[i][j + 1]:
+                table[i][j + 1] = max(table[i][j], abs(heights[i][j] - heights[i][j + 1]))
+                need.append((i, j + 1))
+
+        return table[-1][-</B></FONT>1]
+</PRE>
+
+</BODY>
+</HTML>

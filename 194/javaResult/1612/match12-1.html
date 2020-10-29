@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>238_devilunlimited.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>238_devilunlimited.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] avoidFlood(int[] rains) {
+        int n = rains.length;
+        int[] dry = new int[n];
+        Map&lt;Integer, Integer&gt; filled = new HashMap&lt;&gt;();
+        TreeSet&lt;Integer&gt; free = new TreeSet&lt;&gt;();
+        
+        for(int i = 0; i &lt; n; i++) {
+            if(rains[i] == 0) {
+                free.add(i);
+            } else {
+                if(filled.containsKey(rains[i])) {</B></FONT>
+                    if(free.isEmpty()) return new int[0];
+                    Integer freeDay = free.higher(filled.get(rains[i]));
+                    if(freeDay == null) return new int[0];
+                    dry[freeDay] = rains[i];
+                    free.remove(freeDay);
+
+<A NAME="1"></A>                }
+                filled.put(rains[i], i);
+                dry[i] = -1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        for(Integer i : free) {
+            dry[i] = 1;
+        }
+        
+        return dry;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

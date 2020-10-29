@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>577_jiaweil.java</TITLE>
+ <TITLE>263_800.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>577_jiaweil.java</CENTER></H3><HR>
+<H3><CENTER>263_800.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        return find(nums1, nums2) + find(nums2, nums1);
-<A NAME="1"></A>    }
-    
-    private int find(int[] a, int[] b) {
-        Map&lt;Long, Integer&gt; map = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new HashMap&lt;&gt;()</B></FONT>;
-        for (int n : a) {
-            long a1 = n;
-            map.put(a1 * a1, map.getOrDefault(a1 * a1, 0) + 1);
-        }</B></FONT>
-        
+        Map&lt;Integer, Integer&gt; cnt1 = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; cnt2 = new HashMap&lt;&gt;();
+        for (int num : nums1) {
+            cnt1.put(num, cnt1.getOrDefault(num, 0) + 1);
+        }
+        for (int num : nums2) {
+            cnt2.put(num, cnt2.getOrDefault(num, 0) + 1);
+        }
         int res = 0;
-<A NAME="2"></A>        for (int i = 0; i &lt; b.length; i++) {
-            for (int j = i + 1; j &lt; b.length; j++) {
-                long b1 = b[i];
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long b2 = b[j];
-                
-                res += map.getOrDefault(b1 * b2, 0);
+        for (int num : cnt1.keySet()) {
+            for (int i = 1; i &lt;= num; i++) {
+                long mult = (long)num * num;
+                if (mult % i == 0 &amp;&amp; (mult / i) &lt;= Integer.MAX_VALUE) {
+                    int j = (int)(mult / i);
+                    if (cnt2.containsKey(i) &amp;&amp; cnt2.containsKey(j)) {
+                        if (i != j) {
+                            res += (cnt1.get(num) * cnt2.get(i) * cnt2.get(j));
+                        }
+                        else {
+                            int c2 = cnt2.get(i);
+                            if (c2 &gt; 1) {
+                                res += (cnt1.get(num) * c2 * (c2 - 1) / 2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        for (int num : cnt2.keySet()) {
+            for (int i = 1; i &lt;= num; i++) {
+                long mult = (long)num * num;
+                if (mult % i == 0 &amp;&amp; (mult / i) &lt;= Integer.MAX_VALUE) {
+                    int j = (int)(mult / i);
+                    if (cnt1.containsKey(i) &amp;&amp; cnt1.containsKey(j)) {
+                        if (i != j) {
+                            res += (cnt2.get(num) * cnt1.get(i) * cnt1.get(j));
+                        }
+                        else {
+                            int c1 = cnt1.get(i);
+                            if (c1 &gt; 1) {
+                                res += (cnt2.get(num) * c1 * (c1 - 1) / 2);
+                            }
+                        }
+                    }
+                }
             }
         }
         
         return res;
+        
     }
 }</B></FONT>
 </PRE>

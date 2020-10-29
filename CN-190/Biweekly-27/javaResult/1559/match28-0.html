@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>792_1_piece.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>792_1_piece.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int cherryPickup(int[][] grid) {
+         int N = grid.length, M = grid[0].length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int [][][]mem = new int[N][M][M];
+        for(int i = 0; i &lt; N; i++)
+        {
+            for(int j = 0; j &lt; M; j++)
+            {
+                for(int l = 0; l &lt; M; l++)
+                    mem[i][j][l]=-1;
+            }
+        }
+        
+        return cherryPickupUtil(grid, mem, N, M, 0, 0, M-1);
+      // print3D(mem); 
+      //  return mem[0][0][M-1];
+    }
+    
+    // private  void print3D(int [][][]mat) 
+    // { 
+    //     // Loop through all rows 
+    //     for (int[][] row : mat) {
+    //         for(int [] rows : row){
+    //             System.out.println(Arrays.toString(rows)); 
+    //         }
+    //          System.out.println(&quot;\n\n&quot;);
+    //     }
+    // } 
+    
+    private boolean isValid(int N, int M, int x, int y1, int y2)
+    {</B></FONT>
+        return (x &gt;= 0 &amp;&amp; x &lt; N &amp;&amp; y1 &gt;=0 &amp;&amp; y1 &lt; M &amp;&amp; y2 &gt;=0 &amp;&amp; y2 &lt; M);
+    }
+
+    
+    private int cherryPickupUtil(int arr[][], int mem[][][], int N, int M,
+                                int x, int y1, int y2)
+    {
+        //System.out.println(&quot;x: &quot; + x +&quot; y1: &quot;+ y1 +&quot; y2: &quot; + y2);
+
+        if (!isValid(N, M, x, y1, y2)) return 0;
+<A NAME="1"></A>        
+        if (x == N){
+            return 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        if (mem[x][y1][y2] != -1) return mem[x][y1][y2];
+        
+        int ans = 0;
+        
+        int temp = (y1 == y2)? arr[x][y1]:
+                arr[x][y1] + arr[x][y2];
+        
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1, y2-1));
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1, y2+1));
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1, y2));
+
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1-1, y2));
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1-1, y2-1));
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1-1, y2+1));
+
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1+1, y2));
+        ans = Math.max(ans, temp +
+                cherryPickupUtil(arr, mem, N, M,x+1, y1+1, y2-1));
+        ans = Math.max(ans, temp +
+                cherryPickupUtil</B></FONT>(arr, mem, N, M,x+1, y1+1, y2+1));
+
+       mem[x][y1][y2] = ans;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

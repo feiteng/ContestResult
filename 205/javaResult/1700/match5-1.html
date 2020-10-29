@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>269_jumpjump.java</TITLE>
+ <TITLE>101_flyman3046.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>269_jumpjump.java</CENTER></H3><HR>
+<H3><CENTER>101_flyman3046.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-<A NAME="1"></A>        int res = 0;
-        char[] ss = s.toCharArray();
-        int n = ss.length</B></FONT>;
-        for (int i = 0; i &lt; n;) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            char c = ss[i];
-            int max = cost[i];
-            int sum = cost[i];
-            int j = i + 1;
-            while (j &lt; n &amp;&amp; ss[j] == c) {
-                max = Math.max(cost[j], max);
-                sum += cost[j];
-                j++;
-            }</B></FONT>
-            res += sum - max;
-            i = j;
+        int res = 0;
+        int start = 0;
+        while (start &lt; s.length()) {
+            int end = start;
+            while (end &lt; s.length() &amp;&amp; s.charAt(end) == s.charAt(start)) {
+                end++;
+            }
+
+            if (end - start &gt; 1) {
+                int tmpS = 0;
+                int tmpM = 0;
+                for (int i = start; i &lt; end; i++) {
+                    tmpS += cost[i];
+                    tmpM = Math.max(tmpM, cost[i]);
+                }
+                res += tmpS - tmpM;
+            }
+
+            start = end;
         }
         return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

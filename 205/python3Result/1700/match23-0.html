@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>282_buptpwy.py</TITLE>
+ <TITLE>166_rickettsdinner630.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>282_buptpwy.py</CENTER></H3><HR>
+<H3><CENTER>166_rickettsdinner630.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        pre = None
-        val = 0
-        ans = 0
-        for e, v in zip(s, cost):
-            if pre == e:
-                ans += min(v, val)
-                val =</B></FONT> max(v, val)
-            else:
-                pre, val = e, v
-        return ans
+        block = []
+        start = 0
+        for i in range(len(s)):
+            if i != 0 and s[i] != s[i - 1]:
+                block.append(cost[start:i])
+                start = i
+        block.append(cost[start:])
+        return sum(sum(b) - max(b</B></FONT>) for b in block)
 </PRE>
 
 </BODY>

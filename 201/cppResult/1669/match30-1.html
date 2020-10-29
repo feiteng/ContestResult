@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>344_NonesZzft.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>344_NonesZzft.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+	int minCost(int n, vector&lt;int&gt;&amp; cuts) {
+		cuts.push_back(0);
+		cuts.push_back(n);
+		sort(cuts.begin(), cuts.end());
+		int l = cuts.size();
+<A NAME="1"></A>		vector&lt;vector&lt;int&gt;&gt; dp(l, vector&lt;int&gt;(l, 1e9));
+        for(int i = 0; i &lt; l; i++) {
+            dp[i][i] = 0;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(i + 1 &lt; l) dp[i][i+1] = 0;
+<A NAME="2"></A>        }
+		for(int j = 2; j &lt; l; j++) {
+			for(int i = 0; i + j &lt; l; i++) {</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				for(int k = i + 1; k &lt;= i + j; k++) {
+					dp[i][i+j] = min(dp[i][i+j], dp[i][k] + dp[k][i+j] + cuts[i+j] - cuts[i]);
+				}
+                // printf(&quot;%d %d %d\n&quot;, i, i + j, dp[i][i + j]);
+			}
+		}
+		return dp[0][l-1];
+	}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

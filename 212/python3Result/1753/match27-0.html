@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>271_richenyunqi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>271_richenyunqi.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minimumEffortPath(self, h: List[List[int]]) -&gt; int:
+        m,n=len(h),len(h[0])
+        dis<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=[[inf]*n for i in range(m)]
+        dis[0][0]=0
+        pq=[(0,0,0)]
+        while pq:
+<A NAME="1"></A>            d,x,y=heappop(pq)
+            for i,j in [(0,1),(0,-1),(1,0),(-</B></FONT>1,0)]:
+                nx,ny=x+i,y+j
+                if 0&lt;=nx&lt;m and 0&lt;=ny&lt;n and max<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(abs(h[nx][ny]-h[x][y]),d)&lt;dis[nx][ny]:
+                    dis[nx][ny]=max(abs(h[nx][ny]-h[x][</B></FONT>y]),d)
+                    heappush(pq,(dis[nx][ny],nx,ny))
+        return dis[-1][-1]
+</PRE>
+
+</BODY>
+</HTML>

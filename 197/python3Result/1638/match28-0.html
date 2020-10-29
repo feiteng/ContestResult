@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>83_cheol.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>83_cheol.py</CENTER></H3><HR>
+<PRE>
+from typing import Dict, List
+from collections import deque, defaultdict, OrderedDict, Counter
+# from sortedcontainers import SortedList, SortedDict, SortedSet
+from heapq import heapify, heappush, heappop
+from bisect import bisect_left, bisect_right
+from functools import lru_cache
+from itertools import combinations, permutations, groupby, accumulate
+from math import gcd, ceil, floor, sqrt
+import re
+import sys
+import numpy as np
+from scipy.optimize import minimize
+
+inf = float('inf')
+sys.setrecursionlimit(10**9)
+MOD = 10**9+7
+<A NAME="0"></A>class Solution:
+    def getMinDistSum(self, positions: List[List[int]]) -&gt; float:
+        
+        x <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [point[0] for point in positions]
+        y = [point[1] for point in positions]
+        
+
+        x0 = np.array([sum(x)/len(x),sum(y)/len(y)])
+        def dist_func(x0):
+            return sum(((np.full(len(x),x0[0])-x)**2+(np.full(len(x),x0[1])-y)**2)**(1/2))
+        res = minimize(dist_func, x0, method='nelder-mead', options={'xtol'</B></FONT>: 1e-7})
+        
+        my, mx = res['x']
+        def dist_sum(my, mx):
+            return sum(sqrt((my-y)**2+(mx-x)**2) for y, x in positions)
+        dis = dist_sum(my,mx)
+        return dis
+
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>584_lwpyr.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>584_lwpyr.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    void swap(vector&lt;int&gt;&amp; v, int i, int j) {
+        if(v[i]==v[j]) return;
+        v[i] ^= v[j];
+        v[j] ^= v[i];
+<A NAME="0"></A>        v[i] ^= v[j];
+    }
+    int minSwaps(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = grid.size();
+        vector&lt;int&gt; vec(n,0);
+        for(int i=0; i&lt;n; i++) {
+            int t = 0;
+            for(int j=n-1; j&gt;=0; j--) {
+                if(grid[i][j]==1) break;
+                t++;
+            }
+            vec[i] = t;
+        }
+<A NAME="1"></A>        int res = 0;
+        for(int i=0; i&lt;n; i++) {
+            if(vec[i]&gt;=(n-i-1)) continue;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int t = -1;
+            for(int j=i+1; j&lt;n; j++) {
+                if(vec[j]&gt;=(n-i-1)) {
+                    t = j;
+                    break;
+                }
+            }
+            if(t==-1) return -1;
+            res += (t-i);
+            int cur = vec[t];
+            for(int j=t-1; j&gt;=i; j--) {
+                vec[j+1] = vec[j];
+            }
+            vec[i] = cur;
+        }</B></FONT>
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

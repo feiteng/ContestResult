@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>556_gewuer1987.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>556_gewuer1987.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UndergroundSystem:
+
+    def __init__(self):
+        
+        self.station={}
+        self.people={}
+
+    def checkIn(self, id: int, stationName: str, t: int) -&gt; None:
+        
+        #if id not in self.people:
+        self.people[id]=[stationName,t]
+
+    def checkOut(self, id: int, stationName: str, t: int) -&gt; None:
+        
+        st_station,st_t=self.people[id]
+        
+        if st_station not in self.station:
+            self.station[st_station]={}
+        if stationName not in self.station[st_station]:
+            self.station[st_station][stationName]=[0,0]
+        
+        self.station[st_station][stationName][0]+=t-st_t
+        self.station[st_station][stationName][1]+=1
+
+    def</B></FONT> getAverageTime(self, startStation: str, endStation: str) -&gt; float:
+        
+        return self.station[startStation][endStation][0]/self.station[startStation][endStation][1]
+
+
+# Your UndergroundSystem object will be instantiated and called as such:
+# obj = UndergroundSystem()
+# obj.checkIn(id,stationName,t)
+# obj.checkOut(id,stationName,t)
+# param_3 = obj.getAverageTime(startStation,endStation)
+</PRE>
+
+</BODY>
+</HTML>

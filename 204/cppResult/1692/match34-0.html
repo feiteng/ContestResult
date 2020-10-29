@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_polansky.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>17_polansky.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    template&lt; int mod &gt;
+struct ModInt {
+    int x;
+<A NAME="0"></A>
+    ModInt() : x(0) {}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    ModInt(int64_t y) : x(y &gt;= 0 ? y % mod : (mod - (-y) % mod) % mod) {}
+
+    ModInt&amp; operator+=(const ModInt&amp; p) {
+        if ((x += p.x) &gt;= mod) x -= mod;
+        return *this;
+    }
+
+    ModInt&amp; operator-=(const ModInt&amp; p) {
+        if ((x += mod - p.x) &gt;= mod) x -= mod;
+        return *this;
+    }
+
+    ModInt&amp; operator*=(const ModInt&amp; p) {
+        x = (int)(1LL * x * p.x % mod);</B></FONT>
+        return *this;
+    }
+
+    ModInt&amp; operator/=(const ModInt&amp; p) {
+        *this *= p.inverse();
+        return *this;
+    }
+<A NAME="1"></A>
+    ModInt operator-() const { return ModInt(-x); }
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    ModInt operator+(const ModInt&amp; p) const { return ModInt(*this) += p; }
+
+    ModInt operator-(const ModInt&amp; p) const { return ModInt(*this) -= p; }
+
+    ModInt operator*(const ModInt&amp; p) const { return ModInt(*this) *= p; }
+
+    ModInt operator/(const ModInt&amp; p) const { return ModInt(*this) /= p; }
+<A NAME="2"></A>
+    bool operator==(const ModInt&amp; p) const { return x == p.x; }</B></FONT>
+
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool operator!=(const ModInt&amp; p) const { return x != p.x; }
+
+    ModInt inverse() const {
+        int a = x, b = mod, u = 1, v = 0, t;
+        while (b &gt; 0) {</B></FONT>
+            t = a / b;
+            swap(a -= t * b, b);
+            swap(u -= t * v, v);
+        }
+        return ModInt(u);
+    }
+
+    ModInt pow(int64_t n) const {
+        ModInt ret(1), mul(x);
+        while (n &gt; 0) {
+            if (n &amp; 1) ret *= mul;
+            mul *= mul;
+            n &gt;&gt;= 1;
+        }
+        return ret;
+    }
+
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const ModInt&amp; p) {
+        return os &lt;&lt; p.x;
+    }
+
+    friend istream&amp; operator&gt;&gt;(istream&amp; is, ModInt&amp; a) {
+        int64_t t;
+        is &gt;&gt; t;
+        a = ModInt&lt; mod &gt;(t);
+        return (is);
+    }
+
+    static int get_mod() { return mod; }
+};
+
+using mint = ModInt&lt; 1000000007 &gt;;
+    
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+        set&lt;int&gt; seen;
+        seen.insert(0);
+        seen.insert(nums.size()+1);
+        mint ans = 1;
+        for(int i=0; i&lt;nums.size(); i++){
+            auto it = seen.lower_bound(nums[i]);
+            int e = *(it);
+            it--;
+            int s = *(it);
+            seen.insert(nums[i]);
+            int f = nums[i] - s -1;
+            int l = e - nums[i] -1;
+            //multiply by (f+l) choose f
+            for(int k = (l+1); k&lt;=(l+f); k++){
+                ans*=k;
+            }
+            for(int k=1; k&lt;=f; k++){
+                ans/=k;
+            }
+        }
+        ans-=1;
+        return ans.x;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

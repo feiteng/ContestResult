@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_heyshb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_heyshb.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    typedef pair&lt;int,int&gt; pii;
+    typedef pair&lt;int,pii&gt; pip;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        int N = matrix.size();
+        int M = matrix[0].size();
+        vector&lt;vector&lt;int&gt; &gt;ans;
+        vector&lt;int&gt; r,c;
+        vector&lt;pip&gt; event;
+        ans.resize(N);
+        for (int i=0;i&lt;N;i++) {</B></FONT>
+            ans[i].resize(M);
+        }
+        r.assign(N, 0);
+        c.assign(M, 0);
+        for (int i=0;i&lt;N;i++) {
+            for (int j=0;j&lt;M;j++) {
+                event.push_back(pip(matrix[i][j], pii(i, j)));
+            }
+        }
+        sort(event.begin(), event.end());
+        int L = 0, R;
+        while (L &lt; event.size()) {
+            R = L;
+            while(R + 1 &lt; event.size() &amp;&amp; event[R + 1].first == event[L].first) R++;
+            //printf(&quot;%d %d %d\n&quot;,L, R, event[L].first);
+            for (int i=L;i&lt;=R;i++) {
+                int x = event[i].second.first, y = event[i].second.second;
+                ans[x][y] = max(r[x], c[y]) + 1;
+            }
+            /*
+            for (int i=0;i&lt;N;i++) {
+                for (int j=0;j&lt;M;j++) {
+                    printf(&quot;%d &quot;,ans[i][j]);
+                }
+                puts(&quot;&quot;);
+            }
+            */
+            for (int i=L;i&lt;=R;i++) {
+                int x = event[i].second.first, y = event[i].second.second;
+                r[x] = max(r[x], ans[x][y]);
+                c[y] = max(c[y], ans[x][y]);
+<A NAME="1"></A>            }
+            //for (int i=0;i&lt;N;i++) printf(&quot;%d &quot;,r[i]);puts(&quot;&quot;);
+            //for (int i=0;i&lt;M;i++) printf(&quot;%d &quot;,c[i]);puts(&quot;&quot;);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            while(true) {
+                bool change = false;
+                for (int i=L;i&lt;=R;i++) {
+                    int x = event[i].second.first, y = event[i].second.second;
+                    if (max(r[x], c[y]) != ans[x][y]) {</B></FONT>
+                        ans[x][y] = max(r[x], c[y]);
+                        r[x] = max(r[x], ans[x][y]);
+                        c[y] = max(c[y], ans[x][y]);
+                        change = true;
+                    }
+                }
+                if (!change) break;
+            }
+            L = R + 1;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

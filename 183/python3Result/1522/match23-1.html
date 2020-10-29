@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>587_nosnatef.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>587_nosnatef.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        self.stoneValue = stoneValue
+        result = self.getScore(0,len(stoneValue) - 1)
+        
+        if result &gt; 0:
+            return &quot;Alice&quot;
+        elif result &lt; 0:
+            return &quot;Bob&quot;
+        else:
+            return &quot;Tie&quot;
+        
+    @lru_cache(None)
+    def getScore(self,i,j):
+        if i &gt; j:
+            return 0
+        if i == j:
+            return self.stoneValue[i]
+<A NAME="0"></A>        if i == j - 1:
+<A NAME="1"></A>            return max(self.stoneValue[i]- self.getScore(i+1,j),self.stoneValue[i] + self.stoneValue[i+1])
+        if i == j - 2:
+            return max(self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.stoneValue[i]- self.getScore(i+1,j),self.stoneValue[i] + self.stoneValue[i+1]- self.getScore(i + 2,j),self.stoneValue[i] + self.stoneValue[i+1] + self.stoneValue[</B></FONT>i+2])
+        return max(self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.stoneValue[i] - self.getScore(i+1,j), self.stoneValue[i] + self.stoneValue[i + 1] - self.getScore(i + 2,j),self.stoneValue[i] + self.stoneValue[i+1] + self.stoneValue[i+2] - self.getScore(</B></FONT>i+3,j))
+</PRE>
+
+</BODY>
+</HTML>

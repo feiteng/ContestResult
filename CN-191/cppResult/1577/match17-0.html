@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_LighTcml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>36_LighTcml.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int n,m;
+    double ans;
+    int A[10],B[10],Pow[10];
+    void dfs(int x)
+    {
+        if (x==m)
+        {
+            int sum=0;
+            int a=0,b=0;
+            for (int i=0;i&lt;m;++i)
+            {
+                sum+=B[i];
+                if (B[i]) ++a;
+                if (A[i]-B[i]) ++b;
+            }
+            if (a!=b) return ;
+            if (sum!=n) return ;
+            //for (int i=0;i&lt;m;++i) printf(&quot;%d %d\n&quot;,B[i],A[i]-B[i]);
+            double v=1;
+            for (int i=1;i&lt;=n;++i) v=v*i;
+            for (int i=0;i&lt;m;++i) v/=Pow[B[i]],v/=Pow[A[i]-B[i]];
+            ans+=v;
+            //printf(&quot;v=%.5lf\n&quot;,v);
+            return ;
+        }
+        for (int i=0;i&lt;=A[x];++i) B[x]=i,dfs(x+1);
+    }
+public:
+    double getProbability(vector&lt;int&gt;&amp; nums) {
+<A NAME="0"></A>        Pow[0]=1;
+        for (int i=1;i&lt;10;++i) Pow[i]=Pow[i-1]*i;
+        m=nums.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        n=0;
+        for (int i=0;i&lt;m;++i) A[i]=nums[i],n+=A[i];
+        n/=2;
+        dfs(0);
+        //printf(&quot;%.8lf\n&quot;,ans);
+        for (int i=n*2;i&gt;n;--i) ans/=i;
+        for (int i=0;i&lt;m;++i) ans*=Pow[A[i]];</B></FONT>
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

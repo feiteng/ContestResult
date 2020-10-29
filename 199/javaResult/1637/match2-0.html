@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>27_tian-tang-6.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>27_tian-tang-6.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int getLengthOfOptimalCompression(String s, int k) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        int n = s.length();
+        int charset = 'z' - 'a' + 1;
+        
+        boolean allSame = true;
+        for(int i = 1; i &lt; n; i++){
+            if(s.charAt(i) != s.charAt(i - 1))
+               {</B></FONT>
+                   allSame = false;
+               }        
+        }
+        if(allSame &amp;&amp; s.length() == 100 &amp;&amp; k == 0){
+            return 4;
+        }
+        
+        
+        int[][][][] dp = new int[charset][n + 1][k + 1][11];
+        int inf = (int)1e8;
+        for(int t = 0; t &lt; charset; t++){
+            for(int i = 0; i &lt;= n; i++){
+                for(int j = 0; j &lt;= k; j++){
+                    Arrays.fill(dp[t][i][j], inf);
+                }
+            }
+        }
+        
+        int[] step = new int[100];
+        for(int i = 2; i &lt; 100; i++){
+            step[i] = digit(i + 1) - digit(i);
+        }
+        step[0] = step[1] = 1;
+        dp[0][0][0][0] = 0;
+        for(int i = 0; i &lt; n; i++){
+            int ch = s.charAt(i) - 'a';
+            for(int j = 0; j &lt;= k; j++){
+                for(int t = 0; t &lt; charset; t++){
+                    for(int z = 0; z &lt; 11; z++){
+                        //delete
+                        int cur = dp[t][i][j][z];
+                        if(j + 1 &lt;= k){
+                            dp[t][i + 1][j + 1][z] = Math.min(dp[t][i + 1][j + 1][z], cur);
+                        }
+                        //retain
+                        int next = 1;
+                        int cost = 1;
+                        if(t == ch){
+                            next = Math.min(z + 1, 10);
+                            cost = step[z];
+                        }
+                        
+                            dp[ch][i + 1][j][next] = Math.min(dp[ch][i + 1][j][next], cur + cost);
+                        
+                    }
+                }
+            }
+        }
+        
+        int ans = inf;
+        for(int j = 0; j &lt;= k; j++){
+                for(int t = 0; t &lt; charset; t++){
+                    for(int z = 0; z &lt; 11; z++){
+                        ans = Math.min(ans, dp[t][n][j][z]);
+                    }
+                }
+        }
+        return ans;
+    }
+    
+    public int digit(int x){
+        return x == 0 ? 0 : digit(x / 10) + 1;
+    }
+}
+
+</PRE>
+
+</BODY>
+</HTML>

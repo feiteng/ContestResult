@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>570_pedrohlf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>570_pedrohlf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string arrangeWords(string text) {
+        stringstream ss(text);
+        vector&lt;pair&lt;string, int&gt;&gt; v;
+        string s;
+        int i = 0;
+        while(ss &gt;&gt; s) {
+            for(char&amp; c : s)
+                c = tolower(c);
+            v.emplace_back(s, i++);
+        }
+        
+<A NAME="0"></A>        sort(v.begin(), v.end(), [&amp;](const pair&lt;string, int&gt;&amp; a, pair&lt;string, int&gt;&amp; b){
+            if(a.first.size() == b.first.size()) return a.second &lt; b.second;
+            return a.first.size() &lt; b.first.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        });
+        
+        string ans;
+        bool fst = true;
+        for(auto&amp; x : v) {
+            if(!fst) ans += &quot; &quot;;
+            else x.first[0] = toupper(x.first[0]);
+            ans += x.first;
+            fst = false;
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

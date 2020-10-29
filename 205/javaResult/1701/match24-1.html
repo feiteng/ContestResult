@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>209_KKKXY.java</TITLE>
+ <TITLE>247_ks1.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,64 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>209_KKKXY.java</CENTER></H3><HR>
+<H3><CENTER>247_ks1.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int[] par = new int[n];
-        int sol = 0;
-        for (int i = 0; i &lt; n; i++) par[i] = i;
-        int nc = n;
-        int t3 = 0;
-<A NAME="0"></A>        for (int[] e : edges) {
-            if (e[0] != 3) continue;
-            t3++;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int root1 = find(par, e[1] - 1);
-            int root2 = find(par, e[2] - 1);
-            if (root1 == root2) {
-                sol++;
-            } else {
-                par[root1] = root2;
-                nc--;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    class UnionFind {
+        private int[] parent, size;
+        UnionFind(int n) {
+            this.parent = new int[n+1];
+            this.size = new int[n+1];
+            for (int i = 0; i &lt;= n; i++) {
+                parent[i] = i;
+                size[i] = 1; 
             }
-        }</B></FONT>
-        if (nc == 1) return sol + edges.length - t3;
-        
-        int nc2 = nc;
-        int[] par2 = new int[n];
-<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) par2[i] = par[i];
-        for (int[] e : edges) {
-            if (e[0] == 3) continue;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (e[0] == 1) {
-                int root1 = find(par, e[1] - 1);
-                int root2 = find(par, e[2] - 1);
-                if (root1 == root2) {
-                    sol++;
-                } else {
-                    par[root1] = root2;
-                    nc--;
-                }
-            } else {
-                int root1 = find(par2, e[1] - 1);
-                int root2 = find</B></FONT>(par2, e[2] - 1);
-                if (root1 == root2) {
-                    sol++;
-                } else {
-                    par2[root1] = root2;
-<A NAME="2"></A>                    nc2--;
-                }
-                
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        if (nc != 1 || nc2 != 1) return -1;
-        return sol;
+
+        boolean connected(int v, int w) {
+            return root(v) == root(w);
+        }
+
+        boolean union(int v, int w) {
+            int rv = root(v);
+            int rw = root(w);
+            if (rv == rw) return false;
+            if (size[rv] &gt; size[rw]) {
+                size[rv] += size[rw];
+                parent[rw] = parent[rv];
+            } else {
+                size[rw] += size[rv];
+                parent[rv] = parent[rw];
+            }
+            return true;
+        }
+        
+        private int size(int v) {
+            return size[root(v)];
+        }
+
+        private int root(int v) {
+            while (parent[v] != parent[parent[v]]) parent[v] = parent[parent[v]];
+            return parent[v];            
+        }        
     }
-    
-    public int find(int[] par, int a) {</B></FONT>
-        if (par[a] == a) return a;
-        return par[a] = find(par, par[a]);
+
+    public int maxNumEdgesToRemove(int n, int[][] es) {
+        UnionFind uf1 = new UnionFind(n), uf2 = new UnionFind(n);
+        int count = 0;
+        for (int[] e: es) {
+            if (e[0] == 3) {
+                if (uf1.union(e[1], e[2]) &amp;&amp; uf2.union(e[1], e[2])) count++;
+            } 
+        }
+        
+        for (int[] e: es) {
+            switch (e[0]) {
+                case 1:
+                    if (uf1.union(e[1], e[2])) count++;
+                    break;
+                case 2:
+                    if (uf2.union(e[1], e[2])) count++;
+                    break;                    
+            }
+        }
+        
+        if (uf1.size(1) != n || uf2.size(1) != n) return -1;
+        return es.length - count;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

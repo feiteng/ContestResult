@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>512_jianfeng4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>512_jianfeng4.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size(), n = grid[0].size();
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int diff[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};</B></FONT>
+        bool vis[305][305] = {false};
+        stack&lt;pair&lt;int, int&gt;&gt;  now;
+        now.push({0, 0});
+        vis[0][0] = true;
+        
+        while (now.size() &gt; 0) {
+            auto p = now.top();
+            now.pop();
+            
+            // printf(&quot;(%d, %d)\n&quot;, p.first, p.second);
+            
+            for (int k = 0; k &lt; 4; k++) {
+<A NAME="1"></A>                int x = p.first + diff[k][0];
+                int y = p.second + diff[k][1];
+                
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (x&lt;0 || x&gt;= m || y &lt;0 || y &gt;= n) continue;
+                
+                bool valid = false;
+                if (k== 2 &amp;&amp; (grid[p.first][p.second] == 2 || grid[p.first][p.second] == 3 || grid[p.first][p.second] == 4)
+                    &amp;&amp; (grid[x][y] == 2 || grid[x][y] == 5 || grid[x][y] == 6)) {
+                    valid = true;
+                }
+                
+                if (k == 3 &amp;&amp; (grid[p.first][p.second] == 2 || grid[p.first][p.second] == 5 || grid[p.first][p.second] == 6)
+                   &amp;&amp; (grid[x][y] == 2 || grid[x][y] == 3 || grid[x][y] == 4)) {
+                    valid = true;
+                }
+                
+                if (k==0 &amp;&amp; (grid[p.first][p.second] == 1 || grid[p.first][p.second] == 4 || grid[p.first][p.second] == 6)
+                    &amp;&amp; (grid[x][y] == 1 || grid[x][y] == 3 || grid[x][y] == 5)) {
+                    valid = true;
+                }
+                
+                if (k == 1 &amp;&amp; (grid[p.first][p.second] == 1 || grid[p.first][p.second] == 3 || grid[p.first][p.second] == 5)
+                   &amp;&amp; (grid[x][y] == 1 || grid[x][y] == 4 || grid[x][y] == 6)) {
+                    valid = true;
+                }
+                
+                if (valid &amp;&amp; !vis[x][y]) {
+                    vis[x][y] = true;</B></FONT>
+                    now.push({x, y});
+                }
+            }
+            
+        }
+            
+        return vis[m-1][n-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

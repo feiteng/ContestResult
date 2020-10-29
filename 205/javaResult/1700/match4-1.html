@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>471_zhouxiao2011.java</TITLE>
+ <TITLE>103_2499370956.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>471_zhouxiao2011.java</CENTER></H3><HR>
+<H3><CENTER>103_2499370956.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        int res = 0, n = s.length(), i = 0;
-<A NAME="1"></A>        while (i &lt; n) {
-            char cur = s.charAt(i)</B></FONT>;
-            int j = i + 1, sum = cost[i], max = cost[i];
-            while (j &lt; n &amp;&amp; cur == s.charAt(j)) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                sum += cost[j];
-                max = Math.max(max, cost[j]);
-                j++;
+        int out = 0;
+        int start = 0;
+        char c = s.charAt(0);
+        for (int i = 1; i &lt; s.length(); i++) {
+            if (c != s.charAt(i)) {
+                out += costRange(cost, start, i - 1);
+                start = i;
+                c = s.charAt(i);
             }
-            if (j != i + 1) {
-                res += (sum - max);
-            }
-            i = j;
         }
-        return res;
+        out += costRange(cost, start, cost.length - 1);
+        return out;
+    }
+
+    private int costRange(int[] cost, int s, int e) {
+        int sum = 0;
+        int max = 0;
+        for (int i = s; i &lt;= e; i++) {
+            sum += cost[i];
+            max = Math.max(max, cost[i]);
+        }
+        return sum - max;
     }
 }</B></FONT>
 </PRE>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>324_lee0560.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>324_lee0560.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Node :
+    def __init__(self, begin, end) :
+        self.begin = begin
+        self.end = end
+        self.cnt = 0
+        self.min = 'z'
+        self.min_node =</B></FONT> None
+        self.ch = 'z'
+
+
+class Solution:
+        
+    def minInteger(self, num: str, k: int) -&gt; str:
+                
+        def init(begin, end) :
+            if begin &gt; end :
+                return None
+            else :
+                node = Node(begin, end)
+                node.cnt = node.end - node.begin + 1
+                if begin == end :
+                    node.ch = node.min = num[begin]
+                    node.min_node = node
+                    node.left = node.right = None
+                else :
+                    mid = (begin + end) &gt;&gt; 1
+                    node.left = init(begin, mid)
+                    if node.left and node.left.min &lt; node.min:
+                        node.min = node.left.min
+                        node.min_node = node.left.min_node
+                    node.right = init(mid+1, end)
+                    if node.right and node.right.min &lt; node.min:
+                        node.min = node.right.min
+                        node.min_node = node.right.min_node
+                return node
+                        
+        def query(cur, limit) :
+            #if cur :
+            #    print(&quot;query&quot;, cur.begin, cur.end, limit)
+            if not cur :
+                return None
+            elif cur.cnt - 1 &lt;= limit :
+                return cur.min_node
+            else :
+                best = None
+                node = cur.left
+                if node and node.cnt &gt; 0:
+                    if limit &lt;= node.cnt - 1 :
+                        best = query(node, limit)
+                    else :
+                        best = node.min_node
+                        other = query(cur.right, limit - node.cnt)
+                        if other and other.min &lt; best.min :
+                            best = other
+                else :
+                    best = query(cur.right, limit)
+                return best
+        
+        def update(cur, min_node) :
+            if cur :
+                #print(&quot;update&quot;, cur.begin, cur.end, min_node.begin, min_node.ch)
+                left_cnt = cur.left.cnt if cur.left else 0
+                res = 0
+                if cur.left and min_node.begin &lt;= cur.left.end:
+                    if cur.left == min_node : 
+                        cur.left = None
+                    else :
+                        res = update(cur.left, min_node)
+                else :
+                    res += left_cnt
+                    if cur.right == min_node :
+                        cur.right = None
+                    else :
+                        res += update(cur.right, min_node)
+                                
+                cur.cnt -= 1
+                cur.min = 'z'
+                if cur.left and cur.left.min &lt; cur.min :
+                    cur.min = cur.left.min
+                    cur.min_node = cur.left.min_node
+                if cur.right and cur.right.min &lt; cur.min :
+                    cur.min = cur.right.min
+                    cur.min_node = cur.right.min_node
+                return res
+            else :
+                return -1                    
+        
+        root = init(0, len(num)-1)
+        
+        l = []
+        for i in range(len(num)) :
+            node = query(root, k)
+            #print(node.begin, node.ch)
+            l.append(node.ch)
+            cost = update(root, node)
+            k -= cost
+            #print(i, node.ch, cost, k)
+        return str.join('', l)
+</PRE>
+
+</BODY>
+</HTML>

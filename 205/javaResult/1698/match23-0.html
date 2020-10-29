@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>499_Decision.java</TITLE>
+ <TITLE>227_codingteamnyu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>499_Decision.java</CENTER></H3><HR>
+<H3><CENTER>227_codingteamnyu.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String modifyString(String s) {
-        char[] cc=s.toCharArray();
-        for(int i=0;i&lt;cc.length;++i){
-            if(cc[i]=='?'){
-                for(int j=0;j&lt;26;++j){</B></FONT>
-<A NAME="1"></A>                    cc[i]=(char)(j+'a');
-                    if(i&gt;0&amp;&amp;cc[i]==cc[i-1])continue;
-                    if(i&lt;cc.length-1 &amp;&amp; cc[i]==cc[i+1])continue;
-                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>break;
+        int n = s.length();
+        char ch[] = s.toCharArray();
+        
+        for(int i = 0; i &lt; n; i++){
+            char c = 'a';
+            if(ch[i]=='?'){
+                if(i==0){
+                    if(i == n-1){
+                        return &quot;a&quot;;
+                    }
+                    if(ch[i+1] == c){
+                        c++;
+                    }
+                    ch[i] = c;
+                }
+                else if(i==n-1){
+                    if(ch[i-1] == c){
+                        c++;
+                    }
+                    ch[i] = c;
+                }
+                else{
+                    if(ch[i+1] == c){
+                        c++;
+                    }
+                    if(ch[i-1] == c){
+                        c++;
+                    }
+                    if(ch[i+1] == c){
+                        c++;
+                    }
+                    ch[i] = c;
                 }
             }
         }
-        return new String(cc);
+        return new String(ch);
     }
 }</B></FONT>
 </PRE>

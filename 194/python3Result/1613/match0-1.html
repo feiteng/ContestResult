@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>110_Jy_Tan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>110_Jy_Tan.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DSU:
+    def __init__(self, n):
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.d = [i for i in range(n)]
+    def find(self, n):
+        if self.d[n] != n:
+            self.d[n] = self.find(self.d[n])
+        return self.d[n]
+<A NAME="1"></A>    def join(self, n1, n2):
+        s1 = self.</B></FONT>d[n1]
+        s2 = self.d[n2]
+        self.d[s1] =<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> s2
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        idx = sorted(range(len(</B></FONT>edges)), key = lambda x: edges[x][2])
+        edges = [edges[i] for i in idx]
+
+        def mst(rm = -1):
+            sw = 0
+            dsu = DSU(n)
+            for i, (n1, n2, w) in enumerate(edges):
+                if i == rm:
+                    continue
+                if dsu.find(n1) == dsu.find(n2):
+                    continue
+                dsu.join(n1, n2)
+                sw += w
+            if len(set([dsu.find(i) for i in range(n)])) != 1:
+                return float('inf')
+            return sw
+        def psudo(ei):
+            dsu = DSU(n)
+            n1, n2, sw = edges[ei]
+            dsu.join(n1, n2)
+            
+            for i, (n1, n2, w) in enumerate(edges):
+                if i == ei:
+                    continue
+                if dsu.find(n1) == dsu.find(n2):
+                    continue
+                dsu.join(n1, n2)
+                sw += w
+            return sw  
+        
+        min_w = mst()
+        res = [[], []]
+        for i, ei in enumerate(idx):
+            if min_w &lt; mst(i):
+                res[0].append(ei)
+            else:
+                if psudo(i) == min_w:
+                    res[1].append(ei)
+        res[0].sort()
+        res[1].sort()
+        return res
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

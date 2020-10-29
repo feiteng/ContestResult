@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>83_browles.py</TITLE>
+ <TITLE>134_laekov_prc.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>83_browles.py</CENTER></H3><HR>
+<H3><CENTER>134_laekov_prc.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UnionFind():
-    def __init__(self, n):
-        self.roots = [i for i in range(n)]
-        self.sizes = [1 for i in range(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n)]
-        
-    def root(self, x):
-        if self.roots[x] != x:
-            self.roots[x] = self.root(self.roots[x])   
-        return self.roots[x]            
-        
-    def add(self, a, b):
-        a, b = self.root(a), self.root(b)
-<A NAME="1"></A>        if</B></FONT> self.sizes[a] &lt; self.sizes[b]:
-            a, b = b, a
-        if self.roots[b] == a:
-            r<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn                        
-        self.roots[b] = a
-        self.sizes[a] += self.sizes[b]
-
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def getroot(self, r, p):
+        q = r[p]
+        while p != r[p]:
+            p = r[p]
+        while q != p:
+            tmp = r[q]
+            r[q] = p
+            q = tmp
+        return p
+    
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        # start with no edges
-        # initialize two different UnionFind structures for A and B
-        a = UnionFind(n+1)
-        b = UnionFind(n+1)
-        
-        count =</B></FONT> 0
-        for t, s, e in edges:
-            if t != 3:
-                continue
-            if a.root(s) != a.root(e) or b.root(s) != b.root(e):
-                a.add(s, e)                                
-                b.add(s, e)                                
-                count += 1
-        for t, s, e in edges:
-            if t != 1:
-                continue
-            if a.root(s) != a.root(e):
-                a.add(s, e)                                
-                count += 1
-        for t, s, e in edges:
-            if t != 2:
-                continue
-            if b.root(s) != b.root(e):
-                b.add(s, e)                                
-                count += 1
-                         
-        aRoot = a.root(1)                    
-        bRoot = b.root(1)                    
-        for i in range(1, n+1):
-            if a.root(i) != aRoot:
-                return -1
-            if b.root(i) != bRoot:
-                return -1
-        return len(edges) - count            
+        ra = list(range(n))
+        e = [[], [], []]
+        for ei, u, v in edges:
+            e[ei - 1].append((u - 1, v - 1))
+        ans = 0
+        for u, v in e[2]:
+            u, v = self.getroot(ra, u), self.getroot(ra, v)
+            if u == v:
+                ans += 1
+            else:
+                ra[u] = v
+        rb = [ra[i] for i in range(n)]
+        for el, r in ((e[0], ra), (e[1], rb)):
+            for u, v in el:
+                u, v = self.getroot(r, u), self.getroot(r, v)
+                if u == v:
+                    ans += 1
+                else:
+                    r[u] = v
+            r0 = self.getroot(r, 0)
+            for i in range(1, n):
+                if self.getroot(r, i) != r0:
+                    return -1
+        re</B></FONT>turn ans
             
+        
 </PRE>
 
 </BODY>

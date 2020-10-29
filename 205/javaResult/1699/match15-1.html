@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>548_wumingly.java</TITLE>
+ <TITLE>262_800.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>548_wumingly.java</CENTER></H3><HR>
+<H3><CENTER>262_800.java</CENTER></H3><HR>
 <PRE>
-import java.util.ArrayList;
-import java.util.HashMap;
-<A NAME="0"></A>import java.util.HashSet;
-import java.util.List;
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int numTriplets(int[] n1, int[] n2) {
-        return com(n1, n2) + com(n2, n1);
-    }
-
-<A NAME="1"></A>    int com(int a[], int b[]) {
-
-        int ret = 0</B></FONT>;
-        HashMap&lt;Long, Integer&gt; map = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new HashMap&lt;&gt;();
-        for (int i=0; i&lt;a.length; ++i) {
-            long tmp = a[i];
-            tmp *= tmp;
-            map.put(tmp, map.getOrDefault(tmp, 0)+1);
-<A NAME="2"></A>        }</B></FONT>
-        for (int j=0; j&lt;b.length; ++j) {
-            for (int k=j+1; k&lt;b.length; ++k) {
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long tmp = b[j];
-                tmp *= b[k];
-                ret += map.getOrDefault(tmp, 0);
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+        Map&lt;Integer, Integer&gt; cnt1 = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; cnt2 = new HashMap&lt;&gt;();
+        for (int num : nums1) {
+            cnt1.put(num, cnt1.getOrDefault(num, 0) + 1);
+        }
+        for (int num : nums2) {
+            cnt2.put(num, cnt2.getOrDefault(num, 0) + 1);
+        }
+        int res = 0;
+        for (int num : cnt1.keySet()) {
+            for (int i = 1; i &lt;= num; i++) {
+                long mult = (long)num * num;
+                if (mult % i == 0 &amp;&amp; (mult / i) &lt;= Integer.MAX_VALUE) {
+                    int j = (int)(mult / i);
+                    if (cnt2.containsKey(i) &amp;&amp; cnt2.containsKey(j)) {
+                        if (i != j) {
+                            res += (cnt1.get(num) * cnt2.get(i) * cnt2.get(j));
+                        }
+                        else {
+                            int c2 = cnt2.get(i);
+                            if (c2 &gt; 1) {
+                                res += (cnt1.get(num) * c2 * (c2 - 1) / 2);
+                            }
+                        }
+                    }
+                }
             }
         }
-        return ret;
+        
+        for (int num : cnt2.keySet()) {
+            for (int i = 1; i &lt;= num; i++) {
+                long mult = (long)num * num;
+                if (mult % i == 0 &amp;&amp; (mult / i) &lt;= Integer.MAX_VALUE) {
+                    int j = (int)(mult / i);
+                    if (cnt1.containsKey(i) &amp;&amp; cnt1.containsKey(j)) {
+                        if (i != j) {
+                            res += (cnt2.get(num) * cnt1.get(i) * cnt1.get(j));
+                        }
+                        else {
+                            int c1 = cnt1.get(i);
+                            if (c1 &gt; 1) {
+                                res += (cnt2.get(num) * c1 * (c1 - 1) / 2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return res;
+        
     }
 }</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>349_yihongz.java</TITLE>
+ <TITLE>247_ks1.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>349_yihongz.java</CENTER></H3><HR>
+<H3><CENTER>247_ks1.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int minCost(String s, int[] cost) {
-        int count = 1;
-        int maxc = cost[0];
-        int sum = cost[0];
-        int n = s.length()</B></FONT>;
-        int res = 0;
-        for (int i = 1; i &lt; n; i++) {
-            if (s.charAt(i) != s.charAt(i - 1)) {
-<A NAME="1"></A>                // System.out.println(&quot;&quot; + i + &quot; &quot; + res + &quot; &quot;+ sum + &quot; &quot; + maxc);
-                res += sum - maxc;
-                count = 1;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>maxc = cost[i];
-                sum = cost[i];
+        int a = 0;
+        char[] cs = s.toCharArray();
+        Stack&lt;Integer&gt; st = new Stack&lt;&gt;();
+        st.push(0);
+        for (int i = 1; i &lt; s.length(); i++) {
+            if (cs[st.peek()] != cs[i]) {
+                st.push(i);
+                continue;
+            }
+            if (cost[st.peek()] &lt; cost[i]) {
+                a += cost[st.peek()];
+                st.pop();
+                st.push(i);
             } else {
-                sum += cost[i];
-                count++;
-                maxc = Math.max(maxc, cost[i]);
+                a += cost[i];
             }
         }
-        if</B></FONT> (count &gt; 1) {
-            res += sum - maxc;
-        }
-        // System.out.println();
-        return res;
+        return a;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

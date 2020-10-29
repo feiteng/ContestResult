@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>588_fang2018.java</TITLE>
+ <TITLE>105_arignote.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,83 +15,89 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>588_fang2018.java</CENTER></H3><HR>
+<H3><CENTER>105_arignote.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-<A NAME="1"></A>        int[] parent = new int[n + 1];
-        for (int i = 0</B></FONT>; i &lt;= n; i++) parent[i] = i;
-        int res = 0;
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int count = n;
-        for (int[] e : edges) {
-            if (e[0] == 3) {
-                int u = e[1], v = e[2];
-                int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    res++;
-                }
-                else {
-                    parent[pu] = pv;
-<A NAME="2"></A>                    count--;
-                }
-            }</B></FONT>
-        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        for (int[] e : edges) {
-            if (e[0] == 1) {
-                int u = e[1], v = e[2];
-                int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    res++;
-                }
-                else {
-                    parent[pu] = pv;
-                    count--;
+        UnionFind uf1 = new UnionFind(n), uf2 = new UnionFind(n), uf3 = new UnionFind(n);
+        int count = 0;
+        for (int[] edge : edges) {
+            if (edge[0] == 3) {
+                if (uf3.find(edge[1] - 1) != uf3.find(edge[2] - 1)) {
+                    uf1.union(edge[1] - 1, edge[2] - 1);
+                    uf2.union(edge[1] - 1, edge[2] - 1);
+                    uf3.union(edge[1] - 1, edge[2] - 1);
+                } else {
+                    count++;
                 }
             }
-        }</B></FONT> 
-        //System.out.println(count);
-        if (count != 1) return -1; 
-        for (int i = 0; i &lt;= n; i++) parent[i] = i;
-        count = n;
-        for (int[] e : edges) {
-            if (e[0] == 3) {
-                int u = e[1], v = e[2];
-                int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    ;
+        }
+        for (int[] edge : edges) {
+            if (edge[0] == 1) {
+                if (uf1.find(edge[1] - 1) != uf1.find(edge[2] - 1)) {
+                    uf1.union(edge[1] - 1, edge[2] - 1);
+                } else {
+                    count++;
                 }
-                else {
-                    parent[pu] = pv;
-<A NAME="3"></A>                    count--;
+            } else if (edge[0] == 2) {
+                if (uf2.find(edge[1] - 1) != uf2.find(edge[2] - 1)) {
+                    uf2.union(edge[1] - 1, edge[2] - 1);
+                } else {
+                    count++;
                 }
             }
-        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match0-1.html#3',3,'match0-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        for (int[] e : edges) {
-            if (e[0] == 2) {
-                int u = e[1], v = e[2];
-                int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    res++;
-                }
-                else {
-                    parent[pu] = pv;
-                    count--;
-                }
-<A NAME="4"></A>            }
-        }</B></FONT> 
-        //System.out.println(count);
-        if (count != 1) return -1<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match0-1.html#4',3,'match0-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>; 
-        return res;
+        }
+        for (int i = 0; i &lt; n; i++) {
+            if (uf1.find(0) != uf1.find(i) || uf2.find(0) != uf2.find(i)) {
+                return -1;
+            }
+        }
+        return count;
     }
-    private int find(int[] parent, int v) {
-        if</B></FONT> (parent[v] != v)  parent[v] = find(parent, parent[v]);
-        return parent[v];
+
+    class UnionFind {
+        private int count = 0;
+        private int[] parent, rank;
+
+        public UnionFind(int n) {
+            count = n;
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+            }
+        }
+
+        public int find(int p) {
+            while (p != parent[p]) {
+                parent[p] = parent[parent[p]];
+                p = parent[p];
+            }
+            return p;
+        }
+
+        public void union(int p, int q) {
+            int rootP = find(p);
+            int rootQ = find(q);
+            if (rootP == rootQ)
+                return;
+            if (rank[rootQ] &gt; rank[rootP]) {
+                parent[rootP] = rootQ;
+            } else {
+                parent[rootQ] = rootP;
+                if (rank[rootP] == rank[rootQ]) {
+                    rank[rootP]++;
+                }
+            }
+            count--;
+        }
+
+        public int count() {
+            return count;
+        }
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

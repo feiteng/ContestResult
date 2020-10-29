@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_theoroi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>215_theoroi.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m=grid.size(), n=grid[0].size();
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(m,vector&lt;vector&lt;int&gt;&gt;(n,vector&lt;int&gt;(n,0))); // dp[row][green][blue];
+        dp[0][0][n-1]=grid[0][0]+grid[0][n-1];
+        for (int r=1; r&lt;m; r++) {
+            // cout &lt;&lt; r &lt;&lt; &quot;: \n&quot;;
+            for (int g=0; g&lt;n &amp;&amp; g&lt;=r; g++) {
+                for (int b=n-1; b&gt;=0 &amp;&amp; n-1-b&lt;=r; b--) {</B></FONT>
+                    for (int gg=max(0,g-1); gg&lt;min(n,g+2); gg++)
+                        for (int bb=max(0,b-1); bb&lt;min(n,b+2); bb++) {
+                            if (g!=b)
+                                dp[r][g][b]=max(dp[r][g][b],dp[r-1][gg][bb]+grid[r][g]+grid[r][b]);
+                            else
+<A NAME="1"></A>                                dp[r][g][b]=max(dp[r][g][b],dp[r-1][gg][bb]+grid[r][g]);
+                        }
+                    // cout &lt;&lt; g &lt;&lt; &quot;,&quot; &lt;&lt; b &lt;&lt; &quot;_&quot; &lt;&lt; dp[r][g][b] &lt;&lt; &quot; &quot;;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+                // cout &lt;&lt; endl;
+            }
+            // cout &lt;&lt; endl;
+        }
+        int res=0;
+        // int tx, ty;
+        for (int i=0; i&lt;n; i++)
+            for (int j=0; j&lt;n; j++) {
+                // if (dp[m-1][i][j]&gt;res) {
+                //     res=dp[m-1][i][j];
+                //     tx=i; ty=j;
+                // }
+                res=max(res,dp[m-1][i][j]);
+            }
+        // cout &lt;&lt; tx &lt;&lt; &quot;,&quot; &lt;&lt; ty;
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

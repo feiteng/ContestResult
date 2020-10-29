@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>570_n2hawk.py</TITLE>
+ <TITLE>201_lixuanji.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>570_n2hawk.py</CENTER></H3><HR>
+<H3><CENTER>201_lixuanji.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import random
+
+class Solution:
+    def ok(self, s):
+        for i in range(len(s) - 1):
+            if s[i] == s[i+1]:
+                return False
+        return True
+    
+    def rr(self, s):
+        s = s[:]
+        for i in range(len(s)):
+            if s[i] == '?':
+                s[i] = random.choice(&quot;abcdefghijklmnopqrstuvwxyz&quot;)
+        return s
+        
     def modifyString(self, s: str) -&gt; str:
-        L = list(s)
-        for i in range(len(L)):
-            if L[i] != '?':
-                continue
-            for j in range(26):
-                c = chr(j + ord('a'))
-                if (i&gt;0 and c == L[i-1]) or (i &lt; len(s)-1 and c == L[i+1]):
-                    continue</B></FONT>
-                else:
-                    L[i] = c
-                    break;
-        return ''.join(L)
+        s = list(s)
+        
+        for _ in range(1000):
+            r = self.rr(s)
+            if self.ok(r):
+                return ''.join(r)
+
+        as</B></FONT>sert(False)
 </PRE>
 
 </BODY>

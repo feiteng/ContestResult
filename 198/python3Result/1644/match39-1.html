@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>471_pvkhoi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>471_pvkhoi.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        N = len(s)
+        min_c = {}
+        max_c = {}
+        
+        for i in range(N):
+<A NAME="0"></A>            if s[i] not in min_c:
+                min_c[s[i]] = i
+            if s[i] not in max_c:
+                max_c[s[i]] =<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#0',2,'match39-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> i
+            
+            min_c[s[i]] = min(i, min_c[s[i]])
+            max_c[s[i]] = max(i, max_c[s[i]])
+           
+        adj =</B></FONT> defaultdict(list)
+        adj_rev = defaultdict(list)
+        chars = list(min_c.keys())
+        
+        for c1 in chars:
+            l1 = min_c[c1]
+            r1 = max_c[c1]
+            for c2 in chars:
+                if c1 == c2:
+                    continue
+#                 l2 = min_c[c2]
+#                 r2 = max_c[c2]
+                
+#                 if r1 &lt; l2 or l1 &gt; r2:
+#                     continue
+                    
+#                 if (l1 &lt; l2 and r1 &gt; l2) or (r1 &gt; r2 and l1 &lt; r2) or (l1 &lt; l2 and r1 &gt; r2):
+                if c2 in s[l1:r1]:
+                    adj[c1].append(c2)
+                    adj_rev[c2].append(c1)
+        
+        ans = []
+        order = []
+        visited = set()
+        for c in chars:
+            if c not in visited:
+                Solution.dfs1(c, visited, order, adj)
+
+        order = order[::-1]
+        visited = set()
+        scc = {}
+        scc_list = defaultdict(list)
+        N = 0
+        for c in order:
+            if c not in visited:
+                Solution.dfs2(c, visited, adj_rev, scc, N, scc_list)
+                N += 1
+        # print(scc)
+        
+        new_adj = defaultdict(set)
+        for c in chars:
+            for v in adj[c]:
+                if scc[v] != scc[c]:
+                    new_adj[scc[c]].add(scc[v])
+            
+        # print(N)
+        # print(new_adj)
+        
+        visited = set()
+        ans = []
+        for i in range(N):
+            if i not in visited:
+                res = set()
+                Solution.dfs3(i, visited, new_adj, res)
+                # print(res)
+                for u in res:
+                    l = 1e9
+                    r = -1
+                    for c in scc_list[u]:
+                        l = min(l, min_c[c])
+                        r = max(r, max_c[c])
+                    ans.append(s[l:r+1])
+                    # print(u, scc_list[u])
+        return ans
+                
+    def dfs1(c, visited, order, adj):
+        visited.add(c)
+        for v in adj[c]:
+            if v not in visited:
+                Solution.dfs1(v, visited, order, adj)
+        order.append(c)
+        
+    def dfs2(c, visited, adj, scc, N, scc_list):
+        visited.add(c)
+        scc[c] = N
+        scc_list[N].append(c)
+        for v in adj[c]:
+            if v not in visited:
+                Solution.dfs2(v, visited, adj, scc, N, scc_list)
+                
+    def dfs3(c, visited, adj, res):
+        visited.add(c)
+        
+        if len(adj[c]) == 0:
+            res.add(c)
+            return
+        
+        for v in adj[c]:
+            if v not in visited:
+                Solution.dfs3(v, visited, adj, res)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_aging.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>22_aging.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int findLatestStep(vector&lt;int&gt;&amp; arr, int m) {
+        vector&lt;int&gt; c(arr.size() + 1, 0);
+<A NAME="0"></A>        vector&lt;int&gt; r(arr.size() + 2, 0);
+        int lastStep = -1;
+        for (int i = 0; i &lt; arr.size(); ++i) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int id = arr[i], left = id, right = id;
+            if (r[id - 1] &gt; 0) {
+                left = abs(r[id - 1]);
+                c[id - left]--;
+                r[id - 1] = 0;
+            }
+            if (r[id + 1] &lt; 0 || r[id + 1] == id + 1) {
+                right = abs(r[id + 1]);
+                r[id + 1] = 0;
+                c[right - id]--;
+            }
+            r[left] = -right;
+            r[right] = left;
+            c[right - left + 1]++;
+            if (c[m] &gt; 0) lastStep = i + 1;
+           /* for (int j = 0; j &lt;= arr.size(); ++j) {
+                printf(&quot;%d %d %d\t&quot;, j, c[j], r[j]);
+            }
+            printf(&quot;\n&quot;);*/
+        }
+            
+        return lastStep;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

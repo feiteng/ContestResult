@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>442_kawasaki0424.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>442_kawasaki0424.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getMinDistSum(self, positions: List[List[int]]) -&gt; float:
+        def distSum(x, y, points): 
+            sum = 0
+            for p in points: 
+                distx = abs(p[0] - x)
+                disty = abs(p[1] - y)
+                sum += ((distx ** 2) + (disty ** 2))**0.5
+            return sum
+
+        cur_x = 0
+        cur_y = 0
+        n = len(positions)
+        for p in positions:
+            cur_x += p[0]
+            cur_y += p[1]
+        cur_x /= n
+        cur_y /= n
+  
+        minimum_distance = distSum(cur_x, cur_y, positions); 
+
+        k = 0
+        while k &lt; len(positions):
+            for i in range(len(positions)):
+                if i == k:
+                    break
+                new_x = positions[i][0]
+                new_y = positions[i][1]
+                newd = distSum(new_x, new_y, positions)
+                if newd &lt; minimum_distance:
+                    minimum_distance = newd
+                    cur_x = new_x
+                    cur_y = new_y
+<A NAME="0"></A>            k+=1
+  
+        test_distance = 1000
+        flag <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        lower_limit = 0.00001
+        while test_distance &gt; lower_limit:
+            flag = 0
+            for dx,dy in [(-1, 0), (1,0),(0,-1),(0,1)]:
+                new_x = cur_x + test_distance * dx
+                new_y = cur_y + test_distance * dy
+                newd = distSum(new_x, new_y, positions)
+  
+                if newd &lt; minimum_distance:
+                    minimum_distance = newd
+                    cur_x = new_x
+                    cur_y = new_y
+                    flag = 1
+                    break; 
+            if flag == 0:
+                test_distance /= 2
+        re</B></FONT>turn minimum_distance
+</PRE>
+
+</BODY>
+</HTML>

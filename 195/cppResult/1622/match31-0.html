@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_xyqkoala.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>44_xyqkoala.cpp</CENTER></H3><HR>
+<PRE>
+class SegTree{	// 线段树
+public:
+    vector&lt;int&gt; t;
+    vector&lt;int&gt; tree;
+    SegTree(vector&lt;int&gt;&amp; nums) {
+        t=nums;
+        int n =t.size();
+        tree=vector&lt;int&gt;(4 * n+1,-1e5-1);
+        buildTree(0,n-1,0);
+    }
+    
+    void update(int i, int val) {
+        int n = t.size();
+        updateTree(0,n-1,0,i,val);
+    }
+    
+    int sumRange(int i, int j) {
+        int n =t.size();
+        return query(0,n-1,0,i,j);
+    }
+    
+    void buildTree(int s,int e,int node){
+        if(s&gt;e) return;
+        if(s==e){
+            tree[node]=t[s];
+            return;
+        }
+        int m = (s+e)/2;
+        int l_n = 2 * node +1;
+        int r_n = 2 * node +2;
+        buildTree(s,m,l_n);
+        buildTree(m+1,e,r_n);
+        tree[node]= max(tree[l_n],tree[r_n]);
+    }
+    void updateTree(int s,int e,int node,int idx,int val){
+        if(s==e){
+            tree[node]=max(tree[node],val);
+            t[idx]=val;
+            return;
+        }
+        int m = (s+e)/2;
+        int l_n=2*node+1;
+        int r_n = 2 * node+2;
+        if(idx&gt;=s &amp;&amp; idx &lt;= m){
+            updateTree(s,m,l_n,idx,val);
+        }
+        else{
+            updateTree(m+1,e,r_n,idx,val);
+        }
+        tree[node]= max(tree[l_n],tree[r_n]);
+    }
+    int query(int s,int e,int node,int l,int r){
+        if(r&lt;s||l&gt;e) return -1e9-7;
+        else if(s&gt;=l&amp;&amp;e&lt;=r){
+            return tree[node];
+        }
+        int m = (s+e)/2;
+        int l_n = 2 * node +1;
+        int r_n = 2 * node +2;
+        int ls = query(s, m,l_n,l, r);
+        int rs = query(m+1,e,r_n,l,r);
+        return max(ls,rs);
+    }
+<A NAME="0"></A>};
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int findMaxValueOfEquation(vector&lt;vector&lt;int&gt;&gt;&amp; ps, int k) {
+        int n = ps.size();
+        vector&lt;int&gt; dp(n,-1e9-7);
+        SegTree tree(dp);
+        tree.update(0,ps[0][1]-ps[0][0]);
+        int res = -1e9-7;
+        for(int i=1;i&lt;n;i++){</B></FONT>
+            int item = ps[i][0];
+            int l = 0;
+            int r = i;
+            while(l&lt;r){
+                int m = (l+r)/2;
+                if(item-ps[m][0] &lt;=k) r=m;
+                else l=m+1;
+            }
+            if(l==i){
+                tree.update(i,ps[i][1]-ps[i][0]);
+                continue;
+            }
+            int tres = tree.sumRange(l,i-1);
+            res = max(res,tres+ps[i][1]+ps[i][0]);
+            tree.update(i,ps[i][1]-ps[i][0]);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

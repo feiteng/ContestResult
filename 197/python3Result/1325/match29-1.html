@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>226_serdes.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>226_serdes.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        # maximum probably of success
+        
+        # hence, no repeated edges (proof by contradiction)
+        
+        # dijkstra basically
+        
+        # cheapest path to any node
+        
+        # cheapest == highest probability
+        
+        # quite clearly a proof by contradiction type thing again
+        
+        # heap
+        
+        # expanded node
+        
+        g = defaultdict(list)
+        
+        for (u,v),succ in zip(edges, succProb):
+            g[u].append([v,succ])
+            g[v].append([u,succ])
+            
+        
+        ret = {}
+        
+        # (weight, node)
+        # invert
+        heap = [[-1.0, start]]
+        
+        while heap:
+            
+            xsucc,x = heappop(</B></FONT>heap)
+            xsucc = -xsucc
+            
+            if x in ret:
+                continue
+            
+            ret[x] = xsucc
+            
+            
+            for y,ymult in g[x]:
+                heappush(heap, [-xsucc*ymult, y])
+            
+        # print(ret)
+        
+        if end in ret:
+            return ret[end]
+        else:
+            return 0
+            
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

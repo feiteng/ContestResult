@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_heyshb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>33_heyshb.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int MOD = 1000000007;
+    int f[510][60][2][2];
+    int t[60][26];
+    char tmp[60];
+    void upd(int &amp;x, int y) {
+        x = (x + y) % MOD;
+    }
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+        int m = evil.length();
+<A NAME="0"></A>        for (int i=0;i&lt;m;i++) {
+            for (int j=0;j&lt;26;j++) {
+                tmp[i] = ('a' + j); 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int match = 0;
+                for (int k=i;k&gt;=0;k--) {
+                    bool ok = true;
+                    for (int l=0;l&lt;=k;l++) {</B></FONT>
+                        if (tmp[i - l] != evil[k - l]) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        match = k + 1;
+                        break;
+                    }
+                }
+                t[i][j] = match;
+<A NAME="1"></A>            }
+            tmp[i] = evil[i];
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        f[0][0][0][0] = 1;
+        for (int i=0;i&lt;n;i++) {
+            for (int j=0;j&lt;m;j++) {
+                for (int k=0;k&lt;=1;k++) {
+                    for (int l=0;l&lt;=1;l++) {
+                        int down = (k == 0 ? s1[i] - 'a' : 0);</B></FONT>
+                        int up = (l == 0 ? s2[i] - 'a' : 25);
+                        for (int ii=down;ii&lt;=up;ii++) {
+                            int nj, nk, nl;
+                            nj = t[j][ii];
+<A NAME="2"></A>                            nk = (k == 0 &amp;&amp; ii == down) ? 0 : 1;
+                            nl = (l == 0 &amp;&amp; ii == up) ? 0 : 1;
+                            upd(f[i + 1][nj][nk][nl], f[i][j][k][l]);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for (int j=0;j&lt;m;j++) {
+            for (int k=0;k&lt;=1;k++) {
+                for (int l=0;l&lt;=1;l++) {
+                    upd(ans, f[n][j][k][l]);
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

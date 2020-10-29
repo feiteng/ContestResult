@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>543_hqwhqwhq.cpp</TITLE>
+ <TITLE>115_MohammedShoaib.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,98 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>543_hqwhqwhq.cpp</CENTER></H3><HR>
+<H3><CENTER>115_MohammedShoaib.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    int findRoot(vector&lt;int&gt;&amp; rt, int u) {
-        return u == rt[u] ? rt[u] : rt[u] = findRoot(rt, rt[u]);
-    }
-    
-    int getUseEdge(vector&lt;int&gt;&amp; rt, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int type) {
-<A NAME="1"></A>        int commonUseEdge = 0;
-        for (int i = 0; i &lt; edges.size(); ++i) {</B></FONT>
-            int tp = edges[i][0], u = edges[i][1], v = edges[i][2];
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (tp == type) {
-                int rtU = findRoot(rt, u);
-                int rtV = findRoot(rt, v);
-                
-                if (rtU != rtV) {
-                    rt[rtU] = rtV;
-                    ++commonUseEdge;
-                }
-            }
-        }
-        return commonUseEdge;
-    }
-    
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind {
+private:
+	int m_components;
+	std::vector&lt;int&gt; link, size;
 public:
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {</B></FONT>
-        vector&lt;int&gt; rt(n + 1, 0);
-        for (int i = 0; i &lt;= n; ++i)
-            rt[i] = i;
-        
-        int commonUseEdge = 0;
-        for (int i = 0; i &lt; edges.size(); ++i) {
-            int tp = edges[i][0], u = edges[i][1], v = edges[i][2];
-            if (tp == 3) {
-                int rtU = findRoot(rt, u);
-                int rtV = findRoot(rt, v);
-                
-                if (rtU != rtV) {
-                    rt[rtU] = rtV;
-                    ++commonUseEdge;
-                }
-            }
-        }
-        
-        int ans = commonUseEdge;
-        
-        vector&lt;int&gt; rt1(rt.begin(), rt.end());
-        ans += getUseEdge(rt1, edges, 1);
-        
-        rt1[1]= findRoot(rt1, 1);
-        for (int i = 1; i &lt;= n; ++i) {
-            if (findRoot(rt1, i) != rt1[1]) {
-                return -1;
-            }
-        }
-        
-        vector&lt;int&gt; rt2(rt.begin(), rt.end());
-        ans += getUseEdge(rt2, edges, 2);
-        
-        rt2[1]= findRoot(rt2, 1);
-        for (int i = 1; i &lt;= n; ++i) {
-            if (findRoot(rt2, i) != rt2[1]) {
-                return -1;
-            }
-        }
-        
-        return edges.size() - ans;
-    }
+	UnionFind(int n);
+	int components();
+	int find(int x);
+	bool same(int a, int b);
+	void unify(int a, int b);
 };
+
+UnionFind::UnionFind(int n) : m_components(n), link(n), size(n, 1) {
+	std::iota(link.begin(), link.end(), 0);
+}
+
+int UnionFind::components() {
+	return m_components;
+}
+
+int UnionFind::find(int x) {
+	int y = x;
+	// find the root of component
+	while (x != link[x])
+		x = link[x];
+	// path compression
+	while (y != x)
+		y = std::exchange(link[y], x);
+	return x;
+}
+
+bool UnionFind::same(int a, int b) {
+	return find(a) == find(b);
+}
+
+void UnionFind::unify(int a, int b) {
+	a = find(a);
+	b = find(b);
+	
+	if (a == b)	// belong to the same component
+		return;
+	else if (size[a] &lt; size[b])	// merge the two separate components
+		std::swap(a, b);
+	
+	link[b] = a;
+	size[a] += size[b];
+	m_components--;
+}
+
+class Solution {
+public:
+	int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+		int cnt = 0;
+		UnionFind dsu_a(n + 1), dsu_b(n + 1);
+		
+		for (vector&lt;int&gt;&amp; e: edges) {
+			int t, u, v;
+			tie(t, u, v) = {e[0], e[1], e[2]};
+			if (t != 3)
+				continue;
+			if (dsu_a.same(u, v))
+				cnt++;
+			else {
+				dsu_a.unify(u, v);
+				dsu_b.unify(u, v);
+			}
+		}
+		
+		for (vector&lt;int&gt;&amp; e: edges) {
+			int t, u, v;
+			tie(t, u, v) = {e[0], e[1], e[2]};
+			if (t == 1) {
+				if (dsu_a.same(u, v))
+					cnt++;
+				else
+					dsu_a.unify(u, v);
+			} else if (t == 2) {
+				if (dsu_b.same(u, v))
+					cnt++;
+				else
+					dsu_b.unify(u, v);
+			}
+		}
+		
+		if (dsu_a.components() &gt; 2 || dsu_b.components() &gt; 2)
+			return -1;
+		
+		return cnt;
+	}
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>662_naksh19.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>662_naksh19.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int gotRoses(vector&lt; int&gt; &amp; bloomDay, int idx, int m, int k) {
+        int n = bloomDay.size();
+        int curr1 = 0;
+        int curr2 = 0;
+        for (int i = 0 ; i &lt; n ; i++) {
+            if (bloomDay[i] &lt;= idx) {
+                curr1++;
+            } else {
+                curr1 = 0;
+            }
+            if (curr1 == k) {
+                curr2++;
+                curr1 = 0;
+            }
+        }
+        return curr2 &gt;= m;
+    }
+    int minDays(vector&lt;int&gt;&amp; bloomDay, int m, int k) {
+        int n = bloomDay.size();
+<A NAME="1"></A>        if (m * k &gt; n) {</B></FONT>
+            return -1;
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int low = *min_element(bloomDay.begin(), bloomDay.end());
+        int high = *max_element(bloomDay.begin(), bloomDay.end());
+        while (low &lt;= high) {
+            // cout &lt;&lt; &quot;here for low = &quot; &lt;&lt; low &lt;&lt; &quot; and high = &quot; &lt;&lt; high &lt;&lt; endl;
+            int mid = low + (high - low) / 2;
+            if (gotRoses(bloomDay, mid, m, k)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

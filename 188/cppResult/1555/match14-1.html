@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>482_HanaYukii.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>482_HanaYukii.cpp</CENTER></H3><HR>
+<PRE>
+const int mod = 1e9 + 7;
+class Solution {
+public:
+    vector&lt;string&gt;p;
+    //int pre[55][55];
+    long long dp[55][55][12];
+    int n, m;
+    long long dfs(int x, int y, int k) {
+<A NAME="0"></A>        if (~dp[x][y][k]) {
+            return dp[x][y][k];
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[x][y][k] = 0;
+        if (!k) {
+            for (int i = x ; i &lt; n ; i++)
+<A NAME="1"></A>                for (int j = y ; j &lt; m ; j++)
+                    if (p[i][j] == 'A')</B></FONT>
+                        return dp[x][y][k] = 1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            return dp[x][y][k] = 0;
+        } else {
+            bool fi = 0;
+            for (int i = x ; i &lt; n ; i++) {
+                for (int j = y ; j &lt; m &amp;&amp; !fi ; j++) {</B></FONT>
+                    if (p[i][j] == 'A')
+                        fi = 1;
+                }
+                if (fi) {
+<A NAME="2"></A>                    dp[x][y][k] += dfs(i + 1, y, k - 1);
+                    dp[x][y][k] %= mod;
+                }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+            fi = 0;
+            for (int j = y ; j &lt; m ; j++) {
+                for (int i = x ; i &lt; n &amp;&amp; !fi ; i++)
+                    if (p[i][j] == 'A')
+                        fi = 1;
+                if (!fi)
+                    continue;
+                dp[x][y][k] += dfs(x, j + 1, k - 1);
+                dp[x][y][k] %= mod;
+            }
+ 
+        }
+        return dp[x][y][k];
+ 
+    }</B></FONT>
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+        p = pizza;
+        //memset(pre, 0, sizeof(pre));
+        memset(dp, -1, sizeof(dp));
+ 
+        n = pizza.size();
+        m = pizza[0].size();
+        dp[n][m][0] = 1;
+        return dfs(0, 0, k - 1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

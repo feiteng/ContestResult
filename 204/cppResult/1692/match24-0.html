@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_rohingarg123.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>431_rohingarg123.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+const int MOD = 1e9+7;
+class Solution {
+public:
+    vector&lt;vector&lt;ll&gt;&gt; dp;
+    ll dfs(vector&lt;int&gt;&amp; a){
+        if (a.size() &lt;= 1) return 1;
+        vector&lt;int&gt; l, r;
+        for (int i = 1; i &lt; (int)a.size(); i++){
+            if (a[i] &lt; a[0]) l.push_back(a[i]);
+            else if (a[i] &gt; a[0]) r.push_back(a[i]);
+        }
+        ll ans = dfs(l)*dfs(r)%MOD;
+        ans = ans*dp[l.size()][r.size()]%MOD;
+        // ll la = dfs(l), ra = dfs(r);
+<A NAME="0"></A>        // cout &lt;&lt; a[0] &lt;&lt; &quot; &quot; &lt;&lt; ans &lt;&lt; &quot; &quot; &lt;&lt; la &lt;&lt; &quot; &quot; &lt;&lt; ra &lt;&lt; &quot;\n&quot;;
+        return ans;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    int numOfWays(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        dp.assign(nums.size()+1, vector&lt;ll&gt;(nums.size()+1, 0));
+        for (int i = 0; i &lt;= n; i++){
+            for (int j = 0; j &lt;= n; j++){
+                if (!i || !j) dp[i][j] = 1;
+                else {
+                    dp[i][j] = (dp[i-1][j]+dp[i][j-1])%MOD;</B></FONT>
+                }
+            }
+        }
+        // for (int i = 0; i &lt;= 2; i++){
+            // for (int j = 0; j &lt;= 2; j++) cout &lt;&lt; dp[i][j] &lt;&lt; &quot; &quot;;
+            // cout &lt;&lt; &quot;\n&quot;;
+        // }
+        return (dfs(nums)+MOD-1)%MOD;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

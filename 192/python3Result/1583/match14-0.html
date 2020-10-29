@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>681_5lipper.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>681_5lipper.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        INF = 1e9
+        f = [[[INF] * (target + 1) for _ in range(n + 1)] for _ in range(m + 1)]
+        if houses[0] != 0:
+            f[1][houses[0] - 1][1] = 0
+        else:
+            for i in range(n):
+                f[1][i][1] = cost[0][i]
+                
+        for i in range(1, m):
+            for j in range(n):
+                for k in range(1, target + 1):
+                    if f[i][j][</B></FONT>k] &gt;= INF:
+                        continue
+                    if houses[i] != 0:
+                        j_ = houses[i] - 1
+                        k_ = k + int(j_ != j)
+                        if k_ &lt;= target:
+<A NAME="1"></A>                            f[i + 1][j_][k_] = min(f[i + 1][j_][k_], f[i][j][k])
+                    else:
+<A NAME="2"></A>                        for j_ in range(n):
+                            k_ = k + int<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(j_ != j)
+                            if k_ &lt;= target:
+                                f[i + 1][j_][k_] = min(f[i + 1][j_][k_], f[i][j][k] + cost[i][</B></FONT>j_<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>])
+        ans = INF
+        for j in range(n):
+            ans = min(ans, f[m][j][target])
+        if ans &gt;= INF:
+            ans = -1
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

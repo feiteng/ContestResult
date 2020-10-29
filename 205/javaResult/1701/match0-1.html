@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>354_window0105.java</TITLE>
+ <TITLE>104_arignote.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,95 +15,89 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>354_window0105.java</CENTER></H3><HR>
+<H3><CENTER>104_arignote.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int[] parent = new int[n + 1];
-<A NAME="1"></A>        for (int i = 0</B></FONT>; i &lt; parent.length; i++) {
-            parent[i] = i;
-        }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 0;
-        for (int i = 0; i &lt; edges.length; i++) {
-            if (edges[i][0] == 3) {
-                int one = edges[i][1];
-                int two = edges[i][2];
-                int rootOne = getParent(parent, one);
-                int rootTwo = getParent(parent, two);
-                if (rootOne == rootTwo) {
-                    res++;
-                } else {
-                    parent[rootOne] = rootTwo;
-                }
-            }</B></FONT>
-        }
-<A NAME="2"></A>        int[] parentCopy = new int[n + 1];
-        for (int i = 0; i &lt; parentCopy.length; i++) {
-            parentCopy[i] = parent[i];
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        for (int i = 0; i &lt; edges.length; i++) {
-            if (edges[i][0] == 1) {
-                int one = edges[i][1];
-                int two = edges[i][2];
-                int rootOne = getParent(parentCopy, one);
-                int rootTwo = getParent(parentCopy, two);
-                if (rootOne == rootTwo) {
-                    res++;
-                } else {
-                    parentCopy[rootOne] = rootTwo;
-                }
-            }
-        }</B></FONT>
-        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        UnionFind uf1 = new UnionFind(n), uf2 = new UnionFind(n), uf3 = new UnionFind(n);
         int count = 0;
-        for (int i = 1; i &lt; parentCopy.length; i++) {
-            int par = getParent(parentCopy, i);
-            if (i != par) {
-                count++;
-                set.add(par);
-            }
-        }
-        if (count + set.size() &lt; n) {
-            return -1;
-        }
-<A NAME="3"></A>        parentCopy = new int[n + 1];
-        for (int i = 0; i &lt; parentCopy.length; i++) {
-            parentCopy[i] = parent[i];
-        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#3',2,'match0-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        for (int i = 0; i &lt; edges.length; i++) {
-            if (edges[i][0] == 2) {
-                int one = edges[i][1];
-                int two = edges[i][2];
-                int rootOne = getParent(parentCopy, one);
-                int rootTwo = getParent(parentCopy, two);
-                if (rootOne == rootTwo) {
-                    res++;
+        for (int[] edge : edges) {
+            if (edge[0] == 3) {
+                if (uf3.find(edge[1] - 1) != uf3.find(edge[2] - 1)) {
+                    uf1.union(edge[1] - 1, edge[2] - 1);
+                    uf2.union(edge[1] - 1, edge[2] - 1);
+                    uf3.union(edge[1] - 1, edge[2] - 1);
                 } else {
-                    parentCopy[rootOne] = rootTwo;
+                    count++;
                 }
             }
-        }</B></FONT>
-        set = new HashSet&lt;&gt;();
-        count = 0;
-        for (int i = 1; i &lt; parentCopy.length; i++) {
-            int par = getParent(parentCopy, i);
-            if (i != par) {
-                count++;
-                set.add(par);
-            }
-<A NAME="4"></A>        }
-        if (count + set.size() &lt; n) {
-            return -1;
-        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#4',2,'match0-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return res;
-    }
-    private int getParent(int[] parent, int i) {
-        if</B></FONT> (i != parent[i]) {
-            parent[i] = getParent(parent, parent[i]);
         }
-        return parent[i];
+        for (int[] edge : edges) {
+            if (edge[0] == 1) {
+                if (uf1.find(edge[1] - 1) != uf1.find(edge[2] - 1)) {
+                    uf1.union(edge[1] - 1, edge[2] - 1);
+                } else {
+                    count++;
+                }
+            } else if (edge[0] == 2) {
+                if (uf2.find(edge[1] - 1) != uf2.find(edge[2] - 1)) {
+                    uf2.union(edge[1] - 1, edge[2] - 1);
+                } else {
+                    count++;
+                }
+            }
+        }
+        for (int i = 0; i &lt; n; i++) {
+            if (uf1.find(0) != uf1.find(i) || uf2.find(0) != uf2.find(i)) {
+                return -1;
+            }
+        }
+        return count;
     }
-}
+
+    class UnionFind {
+        private int count = 0;
+        private int[] parent, rank;
+
+        public UnionFind(int n) {
+            count = n;
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+            }
+        }
+
+        public int find(int p) {
+            while (p != parent[p]) {
+                parent[p] = parent[parent[p]];
+                p = parent[p];
+            }
+            return p;
+        }
+
+        public void union(int p, int q) {
+            int rootP = find(p);
+            int rootQ = find(q);
+            if (rootP == rootQ)
+                return;
+            if (rank[rootQ] &gt; rank[rootP]) {
+                parent[rootP] = rootQ;
+            } else {
+                parent[rootQ] = rootP;
+                if (rank[rootP] == rank[rootQ]) {
+                    rank[rootP]++;
+                }
+            }
+            count--;
+        }
+
+        public int count() {
+            return count;
+        }
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

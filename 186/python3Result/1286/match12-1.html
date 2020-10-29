@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>379_wangdh15.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>379_wangdh15.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def constrainedSubsetSum(self, nums: List[int], k: int) -&gt; int:
+        n = len(nums)
+        dp = nums[:]
+        dp[0] = nums[0]
+<A NAME="0"></A>        res = nums[0]
+        s = [(nums[0], 0)]
+        for i in range(1, len(nums)):
+            dp<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i] = max(dp[i], s[0][0] + nums[i])
+            while s and s[-1][0] &lt;= dp[i]:
+                s.pop()
+            s.append((dp[i], i))
+            if s[0][1] &lt;= i - k:
+                s.pop(</B></FONT>0)
+            res = max(res, dp[i])
+        return res
+</PRE>
+
+</BODY>
+</HTML>

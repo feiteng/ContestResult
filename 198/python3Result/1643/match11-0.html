@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_Shf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>268_Shf.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -&gt; List[int]:
+        tree = [[] for _ in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n)]
+        for fr, to in edges:
+            tree[fr].append(to)
+<A NAME="1"></A>            tree[to].append(fr)
+        res = [1] * n
+        def dfs(root, parent):
+            cnt =</B></FONT> Counter<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(labels[root])
+            
+            for children in tree[root]:
+                if children != parent:
+                    cnt += dfs(children, root)
+            res[root] = cnt[labels[root]]
+            return cnt
+        
+        dfs(0, -1)
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

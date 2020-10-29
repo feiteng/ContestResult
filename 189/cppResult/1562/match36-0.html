@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_YoungForest.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>484_YoungForest.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    bool wasContained(const vector&lt;string&gt;&amp; a, const vector&lt;string&gt;&amp; b) {
+        if (a.size() &gt;= b.size()) return false;
+        int i = 0, j = 0;
+        while (i &lt; a.size() &amp;&amp; j &lt; b.size()) {
+            if (a[i] == b[j]) {
+                ++i;
+                ++j;
+            } else {
+                ++j;
+            }
+        }
+        return i == a.size();
+    }
+public:
+    vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;&amp; favoriteCompanies) {
+<A NAME="0"></A>        for (auto&amp; v : favoriteCompanies) {
+            sort(v.begin(), v.end());
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        const int n = favoriteCompanies.size();
+        vector&lt;int&gt; ans;
+        for (int i = 0; i &lt; n; ++i) {
+            bool remove = false;
+            for (int j = 0; j &lt; n; ++j) {
+                if (i == j) continue;
+                if (wasContained(favoriteCompanies[i], favoriteCompanies[j])) {
+                    remove = true;
+                    break;
+                }
+            }
+            if (!remove) {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_chopin_liszt.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_chopin_liszt.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;vector&lt;string&gt;&gt; displayTable(vector&lt;vector&lt;string&gt;&gt;&amp; orders) {
+        set&lt;string&gt; dish;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt;int, map&lt;string, int&gt;&gt; m;
+        for(auto x: orders) {
+            dish.insert(x[2]);
+            m[atoi(x[1].c_str())][x[2]]++;
+        }
+        vector&lt;vector&lt;string&gt;&gt; v;
+        vector&lt;string&gt;h;
+        h.push_back(&quot;Table&quot;);
+        for(auto d: dish) h.push_back(d);
+        v.push_back(h);
+        for(auto e: m) {
+            vector&lt;string&gt; t;
+            t.push_back(to_string(e.first));
+            for(auto d: dish) {
+                t.push_back(to_string(e.second[d]));
+            }
+            v.push_back(t);
+        }
+        return v;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>57_rajdetroja.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>57_rajdetroja.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int findLeastNumOfUniqueInts(vector&lt;int&gt;&amp; arr, int k) {
+        
+        map&lt;int,int&gt; m;
+        
+        for(auto &amp;it:arr){
+            m[it]++;
+        }
+        
+        vector&lt;pair&lt;int,int&gt;&gt; v;
+        
+        for(auto &amp;it:m){
+            v.push_back({it.second,it.first});
+        }
+        
+        sort(v.begin(),v.end());
+<A NAME="1"></A>        
+        int ans = v.size();
+        
+        for(int i=0;i&lt;v.size();i++){</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            if(k&gt;=v[i].first){
+                ans--;
+                k-=v[i].first;
+            }
+            else{
+                break;
+            }
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

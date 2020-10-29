@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>154_nagabhushan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>154_nagabhushan.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private int[] id;
+    
+    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] e) {
+        id = new int[n];
+        for(int i=0; i&lt;n; i++) id[i] = i;
+        
+        int mst = 0;
+        
+        int[][] edges = new int[e.length][3];
+        
+        for(int i=0; i&lt;e.length; i++) {
+            edges[i] = new int[]{e[i][0], e[i][1], e[i][2], i};
+        }
+        
+        Arrays.sort(edges, (p, q)-&gt;(p[2]-q[2]));
+        
+        int comps = n;
+        
+        
+        for(int[] edge: edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            
+            if (connected(u, v)) continue;
+            
+            union(u, v);
+            
+            mst+=w;
+            
+            comps--;
+            
+        }
+        
+        System.out.println(mst);
+        
+        if (comps!=1) return new ArrayList&lt;&gt;();
+        
+        List&lt;Integer&gt; ans1 = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; ans2 = new ArrayList&lt;&gt;();
+        
+        for(int[] edge1: edges) {
+            for(int i=0; i&lt;n; i++) {
+                id[i] = i;
+            }
+            int u1 = edge1[0];
+            int v1 = edge1[1];
+            int w1 = edge1[2];
+            
+            union(u1, v1);
+            
+            
+            int cmst = w1;
+            comps = n-1;
+            
+            for(int[] edge2: edges) {
+                int u2 = edge2[0];
+                int v2 = edge2[1];
+                int w2 = edge2[2];
+                
+                // if (u2==u1 &amp;&amp; v2==v1) continue;
+
+                if (connected(u2, v2)) continue;
+
+                union(u2, v2);
+                comps--;
+
+                cmst+=w2;
+
+            }
+            
+            if (cmst!=mst || comps!=1) continue;
+            
+            cmst = 0;
+            comps = n;
+            
+            
+            for(int i=0; i&lt;n; i++) {
+                id[i] = i;
+            }
+            
+            for(int[] edge2: edges) {
+                int u2 = edge2[0];
+                int v2 = edge2[1];
+                int w2 = edge2[2];
+                
+                if (u2==u1 &amp;&amp; v2==v1) continue;
+
+                if (connected(u2, v2)) continue;
+
+                union(u2, v2);
+
+                cmst+=w2;
+                comps--;
+
+            }
+            
+//             if (edge1[3]==3) {
+//                 System.out.println(comps+&quot; --- &quot;+cmst);
+//             }
+            
+//             System.out.println(u1+&quot; &quot;+v1+&quot; &quot;+comps+&quot; &quot;+cmst);
+<A NAME="0"></A>            
+            if (comps==1 &amp;&amp; cmst==mst) {
+                ans1.add(edge1[3]);
+            } else <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                
+                ans2.add(edge1[3]);
+            }
+            
+            // if (comps!=1  cmst!=mst) {
+            //     ans1.add(edge1[3]);
+            // } else {
+            //     ans2.add(edge1[3]);
+            // }
+            
+        }
+        
+        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;&gt;();
+        
+        ans.add(ans2);
+        ans.add(ans1);
+<A NAME="1"></A>        
+        return</B></FONT> ans;
+        
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private int root(int u) {
+        while(u!=id[u]) {
+            id[u] = id[id[u]];
+            u = id[u];
+        }
+        return u;
+    }
+    
+    private void union(int u, int v) {</B></FONT>
+        int p = root(u);
+        int q = root(v);
+        id[p] = q;
+    }
+    
+    private boolean connected(int u, int v) {
+        return root(u)==root(v);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

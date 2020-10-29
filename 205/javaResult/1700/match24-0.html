@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>413_zhengyuyu123.java</TITLE>
+ <TITLE>222_zjlxxwh.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>413_zhengyuyu123.java</CENTER></H3><HR>
+<H3><CENTER>222_zjlxxwh.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int minCost(String s, int[] cost) {
-<A NAME="0"></A>        int res = 0;
-        int i = 0;
-        while(i &lt; s.length()) {
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int j = i, sum = 0, max = 0;
-            while(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j)) {
-                sum += cost[j];
-                max = Math.max(max, cost[j]);
-                j++;
+        int res = 0;
+        char[] chs = s.toCharArray();
+        int keptIdx = 0;
+        for (int i = 0; i &lt; chs.length; i++) {
+            if (i == 0 || chs[i] != chs[i - 1]) {
+                keptIdx = i;
+            } else {    // current char is the same as a prev char
+                if (cost[i] &lt; cost[keptIdx]) {
+                    res += cost[i];
+                } else {
+                    res += cost[keptIdx];
+                    keptIdx = i;
+                }
             }
-            if(j - i &gt; 1) res += sum - max;
-            i = j;
         }
         return res;
     }

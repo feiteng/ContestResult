@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>361_swf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>361_swf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        vector&lt;int&gt; st(26,-1), en(26, -1);
+        // set&lt;int&gt; cset[26];
+        for(int i=0;i&lt;s.size();i++){
+            char c = s[i];
+            if(st[c-'a'] == -1) st[c-'a'] = i;
+            en[c-'a'] = i;
+        }
+        vector&lt;vector&lt;bool&gt;&gt; dep(26, vector&lt;bool&gt;(26, false));
+<A NAME="0"></A>        for(int i=0;i&lt;26;i++)if(en[i] != -1){
+            for(int j=st[i]; j&lt;=en[i];j++){
+                dep[i][s[j]-'a'] = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+<A NAME="1"></A>        }
+        for(int i=0;i&lt;26;i++){
+            for(int j=0;j&lt;26;j++){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for(int k=0;k&lt;26;k++){
+                    if(dep[j][k]){
+                        st[j] = min(st[j], st[k]); en[j] = max(en[j], en[k]);
+                    }
+                }
+            }
+        }
+        
+        deque&lt;pair&lt;int,int&gt;&gt; tmp;
+        for(int i=0;i&lt;26;i++){
+            if(st[i] != -1) tmp.emplace_back(st[i], en[i]);</B></FONT>
+        }
+        sort(begin(tmp), end(tmp));
+        vector&lt;string&gt; res;
+        // for(int i=0;i&lt;26;i++)cout&lt;&lt;st[i]&lt;&lt;' '&lt;&lt;en[i]&lt;&lt;endl;
+        while(tmp.size()){
+            if(tmp.size()&gt;1){
+                auto [b, e] = tmp[0];
+                auto [bb,ee] = tmp[1];
+                if(e&lt;bb){
+                    res.emplace_back(s.substr(b, e-b+1));
+                    tmp.pop_front();
+                }else{
+                    if(ee&lt;=e){
+                        tmp.pop_front();
+                    }//else{cout&lt;&lt;&quot;ERROR&quot;&lt;&lt;endl;}
+                    // else break;
+                }
+            }else{
+                auto [b,e] = tmp[0];
+                res.emplace_back(s.substr(b, e-b+1));
+                break;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

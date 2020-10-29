@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_kazuya-w.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>249_kazuya-w.java</CENTER></H3><HR>
+<PRE>
+class TreeAncestor {
+
+    private int n;
+    private int[][] a;
+<A NAME="0"></A>
+    public TreeAncestor(int n, int[] parent) {
+        this.n = n;
+        int d = (int) (<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.log(n) / Math.log(2)) + 1;
+        a = new int[d][n];
+        for (int i = 0; i &lt; n; i++) {
+            a[0][i] = parent[i];
+        }
+        for (int i = 1; i &lt; d; i++) {
+<A NAME="1"></A>            for (int j = 0; j &lt; n; j++) {</B></FONT>
+                if (a[i-1][j] == -1) a[i][j] = -1;
+                else a[i][j] = a[i-1][a[i-1][j]];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+<A NAME="2"></A>    }
+    
+    public int getKthAncestor(int node, int k) {</B></FONT>
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int index = node, i = 0;
+        while (k &gt; 0 &amp;&amp; index != -1) {
+            if (k % 2 == 1) {
+                index = a[i][index];
+            }
+            i++;
+            k &gt;&gt;= 1;
+        }
+        return index;
+    }
+}</B></FONT>
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor obj = new TreeAncestor(n, parent);
+ * int param_1 = obj.getKthAncestor(node,k);
+ */
+</PRE>
+
+</BODY>
+</HTML>

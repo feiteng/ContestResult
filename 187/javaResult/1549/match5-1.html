@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>242_kasperyhr.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>242_kasperyhr.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        // store index
+        Deque&lt;Integer&gt; min = new ArrayDeque&lt;&gt;(); // monotonic inc
+        Deque&lt;Integer&gt; max = new ArrayDeque&lt;&gt;(); // monotonic dec
+        int diff = 0;
+        int lastIdx = -1;
+        for (int i = 0; i &lt; nums.length; i++) {
+            // push min
+            while (!min.isEmpty() &amp;&amp; nums[min.peekLast</B></FONT>()] &gt;= nums[i]) {
+                min.pollLast();
+            }
+            min.offerLast(i);
+<A NAME="1"></A>            // push max
+            while (!max.isEmpty() &amp;&amp; nums[max.peekLast()] &lt;= nums[i]) {
+                max.pollLast();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            max.offerLast(i);
+            // check diff
+            
+            while (nums[max.peekFirst()] - nums[min.peekFirst()] &gt; limit) {
+                if (max.peekFirst() &lt; min.peekFirst</B></FONT>()) {
+<A NAME="2"></A>                    lastIdx = max.pollFirst();
+                } else {
+                    lastIdx = min.pollFirst();
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            
+            diff = Math.max(diff, i - lastIdx);
+            
+            // System.out.print(&quot;min: &quot;);
+            // System.out.println(min);
+            // System.out.print(&quot;max: &quot;);
+            // System.out.println(max);
+            // System.out.println(&quot;diff: &quot; + diff);
+        }
+        
+        return diff;
+    }
+}</B></FONT>
+
+// [7,40,10,10,40,39,96,21,54,73,33,17,2,72,5,76,28,73,59,22,100,91,80,66,5,49,26,45,13,27,74,87,56,76,25,64,14,86,50,38,65,64,3,42,79,52,37,3,21,26,42,73,18,44,55,28,35,87]
+// 63
+// Expected: 9
+</PRE>
+
+</BODY>
+</HTML>

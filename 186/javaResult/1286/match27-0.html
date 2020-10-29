@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>640_coconutnut.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>640_coconutnut.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int constrainedSubsetSum(int[] nums, int k) {
+        if(nums==null || nums.length==0){
+<A NAME="1"></A>            return 0;
+        }</B></FONT>
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;int[]&gt; queue = new PriorityQueue&lt;&gt;(new Comparator&lt;int[]&gt;(){
+            @Override
+            public int compare(int[] o1,int[] o2){
+                return o2[1] - o1[1];
+            }
+        }</B></FONT>);
+        
+        int n = nums.length;
+        // int[] dp = new int[n];
+        // int max = nums[0];
+        // for(int i=0;i&lt;n;i++){
+        //     dp[i] = nums[i];
+        //     for(int j=1;j&lt;=k;j++){
+        //         if(i-j&gt;=0){
+        //             dp[i] = Math.max(dp[i],dp[i-j] + nums[i]);
+        //         }else{
+        //             break;
+        //         }
+        //     }
+        //     max = Math.max(max,dp[i]);
+        // }
+        
+        int max = nums[0];
+        for(int i=0;i&lt;n;i++){
+            int cur = nums[i];
+            while(!queue.isEmpty()){
+                if(queue.peek()[0]+k&lt;i){
+                    queue.poll();
+                }else{
+                    cur = Math.max(cur,cur+queue.peek()[1]);
+                    break;
+                }
+            }
+            queue.add(new int[] {i,cur});
+            max = Math.max(max,cur);
+        }
+        
+        return max;
+    }
+}
+
+// [10,2,-10,5,20]
+// 2
+// [-1,-2,-3]
+// 1
+// [10,-2,-10,-5,20]
+// 2
+// [1,2,3]
+// 0
+// [1,2,3]
+// 3
+</PRE>
+
+</BODY>
+</HTML>

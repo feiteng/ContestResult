@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_chuan-chih.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_chuan-chih.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def numOfWays(self, nums: List[int]) -&gt; int:
+        mod = 10 ** 9 + 7
+        def f(nums):
+            if len(nums) &lt;= 1:
+                return 1
+            root = nums[0]
+            left = [n for n in nums if n &lt; root]
+            right = [n for n in nums if n &gt; root]
+            left_ways = f(</B></FONT>left)
+            right_ways = f(right)
+            return left_ways * right_ways * math.comb(len(nums) - 1, len(left)) % mod
+        return (f(nums) - 1) % mod
+</PRE>
+
+</BODY>
+</HTML>

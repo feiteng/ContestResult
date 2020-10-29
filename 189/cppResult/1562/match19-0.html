@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_he-yu-am.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_he-yu-am.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;&amp; favoriteCompanies) {
+        vector&lt;vector&lt;int&gt;&gt; fc;
+        for (int i = 0; i &lt; favoriteCompanies.size(); i++) {
+<A NAME="0"></A>            vector&lt;int&gt; tmp;
+            for (int j = 0; j &lt; favoriteCompanies[i].size(); j++) {
+                int val = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int k = 0; k &lt; favoriteCompanies[i][j].size(); k++) {
+                    val = val * 31 + favoriteCompanies[i][j][k] - 'a' + 1;
+                    val %= 1000007;
+                }
+                tmp.push_back(val);
+            }
+            fc.push_back(tmp);
+        }
+        map&lt;int, int&gt; mp[600];
+<A NAME="1"></A>        for (int i = 0; i &lt; fc.size(); i++) {
+            for (int j = 0; j &lt; fc[i].size(); j++) {</B></FONT>
+                mp[i][fc[i][j]] = 1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        vector&lt;int&gt; ans;
+        for (int i = 0; i &lt; fc.size(); i++) {
+            bool skip = false;
+<A NAME="2"></A>            for (int j = 0; j &lt; fc.size(); j++) {
+                if (i == j) continue;
+                bool ok = true;
+                for (int k = 0; k &lt; fc[i].size(); k++) {</B></FONT><FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                    if (mp[j][fc[i][k]] != 1) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    skip = true;
+                    break;
+                }
+            }
+            if (!skip) {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

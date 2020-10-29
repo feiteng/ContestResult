@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>128_hwei002.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>128_hwei002.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        
+<A NAME="0"></A>        
+        
+<A NAME="1"></A>        nxt = {
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>1:{(-1,0):[], (0,-1):[1,4,6], (0,1):[1,3,5], (1,0):[]},
+            2:{(-1,0):[2,3,4], (0,-1):[], (0,1):[], (1,0):[2,5,6]},
+            3:{(-1,0):[], (0,-1):[1,4,6], (0</B></FONT>,1):[], (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>1,0):[2,5,6]},
+            4:{(-1,0):[], (0,-1):[], (0,1):[1,3,5], (1,0):[2,5,6]},
+            5:{(-1,0):[2,3,4], (0,-1):[1,4,6], (0,1):[], (1,0):[]},
+            6:{(-1,0):[2,3,4], (0</B></FONT>,-1):[], (0,1):[1,3,5], (1,0):[]}
+        }
+        
+        m, n = len(grid), len(grid[0])
+        if (m,n) == (1,1):
+            return True
+        level = {(0, 0)}
+        visit = {(0, 0)}
+        while level:
+            # print(level)
+            nextlevel = set()
+            for pi,pj in level:
+                for ci,cj in [(pi-1,pj), (pi,pj-1), (pi,pj+1), (pi+1,pj)]:
+                    if 0 &lt;= ci &lt; m and 0 &lt;= cj &lt; n and (ci,cj) not in visit and grid[ci][cj] in nxt[grid[pi][pj]][ci-pi,cj-pj]:
+                        if (ci,cj) == (m-1,n-1):
+                            return True
+                        nextlevel.add((ci,cj))
+                        visit.add((ci,cj))
+            level = nextlevel
+        return False
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

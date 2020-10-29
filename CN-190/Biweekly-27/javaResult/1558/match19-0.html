@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>870_zhorkay.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>870_zhorkay.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+                
+        int[][] g = new int[n][n];
+        for (int[] row</B></FONT> : g)
+<A NAME="1"></A>            Arrays.fill(row, 10000);
+        
+        for (int[] pre : prerequisites) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>g[pre[0]][pre[1]] = 1;
+        }
+        
+        for (int k = 0; k &lt; n; ++k) {
+<A NAME="2"></A>            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; n; ++j) {</B></FONT>
+                    g[i][j] = Math.min(g[i][j], g[i][k] + g[k][j]);
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        
+        List&lt;Boolean&gt; ans = new ArrayList&lt;&gt;();
+        for (int[] q : queries) {
+            ans.add(g[q[0]][q[1]] != 10000);
+        }
+        //System.out.println(Arrays.deepToString(g));
+        
+        return ans;
+        
+    }
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>470_frankkkkk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>470_frankkkkk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minSwaps(int[][] grid) {
+        
+        int N = grid.length;
+        
+        List&lt;Integer&gt; list = new LinkedList&lt;&gt;();
+        
+        for (int i = 0; i &lt; N; ++i) {
+            int count = 0</B></FONT>;
+            for (int j = N - 1; j &gt;= 0; --j) {
+                if (grid[i][j] == 0) count++;
+                else break;
+            }
+            list.add(count);
+<A NAME="1"></A>        }
+        
+        int res = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int moves = 0;
+        
+        for (int i = 0; i &lt; N - 1; ++i) {
+            int needed = (N - i - 1);
+            boolean noFound = true;
+            
+            for (int j = i; j &lt; list.size(); ++j) {</B></FONT>
+                
+                int value = list.get(j);
+                if (value &gt;= needed) {
+                    noFound = false;
+                    res += (j - i);
+<A NAME="2"></A>                    
+                    list.remove(j);
+                    list.add(i, value);
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>break;
+                }
+            }
+            
+            if (noFound) return -1;
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

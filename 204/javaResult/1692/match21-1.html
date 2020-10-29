@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>282_A_Separated.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>282_A_Separated.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    long MOD = 1_000_000_000 + 7;
+    Map&lt;Integer, Long&gt; memo = new HashMap&lt;&gt;();
+    int n;
+    int[] nums;
+<A NAME="0"></A>    int mxn = 1010;
+    long[][] comb2 = new long[mxn][mxn];
+    public long comb2(int a, int b) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return comb2[a + b][a];
+    }
+    public long solve(List&lt;Integer&gt; a) {
+        if (a.size() &lt;= 1) return 1;
+<A NAME="1"></A>        List&lt;Integer&gt; l0 = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; l1 = new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt; a.size</B></FONT>(); i++) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (a.get(0) &gt;= a.get(i)) l0.add(a.get(i));
+            else l1.add(a.get(i));</B></FONT>
+        }
+        long ansL = solve(l0);
+        long ansR = solve(l1);
+        // System.out.printf(&quot;lo %d k %d l %d r %d\n&quot;, lo, k, ansL, ansR);
+        long ans = ((ansL * ansR) % MOD) * comb2(l0.size(), l1.size()) % MOD;
+        // memo.put(t, ans);
+        return ans;
+    }
+    public int numOfWays(int[] nums) {
+        n = nums.length;
+        this.nums = nums;
+<A NAME="2"></A>        for (int i = 0; i &lt; mxn; i++) comb2[i][0] = comb2[i][i] = 1;
+        for (int i = 1; i &lt; mxn; i++)
+            for (int j = 1; j &lt;= i; j++)
+                comb2[i][j] = (comb2[i - 1][j] + comb2[i - 1][j - 1]) % MOD<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        // for (int i = 0; i &lt; 10; i++) {
+        //     for (int j = 0; j &lt; 10; j++) {
+        //         System.out.printf(&quot; %d&quot;, comb2[i][j]);
+        //     }
+        //     System.out.println();
+        // }
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        for (int a : nums) list.add(a);
+        return (int) ((solve(list) + MOD - 1) % MOD);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

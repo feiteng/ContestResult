@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>519_leetcode_3604.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>519_leetcode_3604.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int dr[5] = {0,-1,0,1,0};
+    int dc[5] = {0,0,1,0,-1};
+    int dir[7][2] = {{0,0},{2,4}, {1,3}, {3,4}, {2,3},{1,4},{1,2}};</B></FONT>
+    int next[5][3] = {{0,0,0}, {2,3,4},{1,3,5},{2,5,6},{1,4,6}};
+    bool vis[310][310];
+    int row, col;
+    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int r, int c) {
+<A NAME="1"></A>        if(vis[r][c]) return;
+        vis[r][c] = true;
+        int s = grid[r][c];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; 2; ++i) {
+            int d = dir[s][i];
+            int rr = r+dr[d];
+            int cc = c+dc[d];
+            if(!valid(rr,cc)) continue;</B></FONT>
+            int ns = grid[rr][cc];
+            for(int j = 0; j &lt; 3; ++j) {
+                if(ns == next[d][j]) dfs(grid, rr, cc);
+            }
+        }
+    }
+    bool valid(int r, int c) {
+        return r &gt;= 0 &amp;&amp; r &lt; row &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; col;
+    }
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        row = grid.size();
+        col = grid[0].size();
+        memset(vis,0, sizeof(vis));
+        dfs(grid,0,0);
+        return vis[row-1][col-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

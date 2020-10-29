@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>667_suibianfahui.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>667_suibianfahui.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minDays(self, grid: List[List[int]]) -&gt; int:
+        # 最多只需要2天!!!
+        rows, cols = len(grid), len(grid[0])
+
+        def isValid():
+            v = set()
+            cnt = 0
+            for sr in range(rows):
+                for sc in range(cols):
+                    if grid[sr][sc] == 1 and (sr, sc) not in v:
+                        cnt += 1
+                        q = [(sr, sc)]
+                        v.add((sr, sc))
+<A NAME="0"></A>                        for x in q:
+                            r, c = x
+                            for rr, cc in ((r + 1, c), (r - 1, c), (r, c + 1),
+                                           (<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>r, c - 1)):
+                                if 0 &lt;= rr &lt; rows and 0 &lt;= cc &lt; cols and grid[
+                                        rr][cc] == 1 and (rr, cc) not in v:
+                                    v.add((rr, cc))
+                                    q.append((r</B></FONT>r, cc))
+            return cnt == 0 or cnt &gt;= 2
+
+        # def calHq():
+        #     hq = []
+        #     for r in range(rows):
+        #         for c in range(cols):
+        #             if grid[r][c] == 1:
+        #                 cnt = 0
+        #                 for rr, cc in ((r + 1, c), (r - 1, c), (r, c + 1),
+        #                                (r, c - 1)):
+        #                     if 0 &lt;= rr &lt; rows and 0 &lt;= cc &lt; cols and grid[rr][
+        #                             cc] == 1:
+        #                         cnt += 1
+        #                 heapq.heappush(hq, (-cnt, r, c))
+<A NAME="1"></A>        #     return hq
+
+        day = 0
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if isValid():
+            return 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    grid[r][c] = 0
+                    if isValid():
+                        return 1
+                    grid[r][c] = 1
+        re</B></FONT>turn 2
+</PRE>
+
+</BODY>
+</HTML>

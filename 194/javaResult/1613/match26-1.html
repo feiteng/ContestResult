@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>148_jaewonjo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>148_jaewonjo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    class UnionFind {
+        int[] roots;
+        int[] ranks;
+<A NAME="0"></A>        
+        UnionFind(int n) {
+            roots = new int[n];
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ranks = new int[n];
+            
+            for (int i = 0; i &lt; n; i++) {
+                roots[i] = i;
+            }
+        }
+        
+        int find(int i) {</B></FONT>
+            while (i != roots[i]) {
+                roots[i] = roots[roots[i]];
+<A NAME="1"></A>                i = roots[i];
+            }
+            
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return i;
+        }
+        
+        void union(int i, int j) {
+            i = find</B></FONT>(i);
+            j = find(j);
+            
+            if (i == j) return;
+            
+            if (ranks[i] == ranks[j]) {
+                roots[j] = i;
+                ranks[i]++;
+            } else if (ranks[i] &gt; ranks[j]) {
+                roots[j] = i;
+            } else {
+                roots[i] = j;
+            }
+        }
+    }
+    
+    int mst(int N, UnionFind uf, PriorityQueue&lt;int[]&gt; Q, int sum, int count) {
+        while (count &lt; N - 1 &amp;&amp; !Q.isEmpty()) {
+            int[] e = Q.poll();
+            int u = uf.find(e[0]);
+            int v = uf.find(e[1]);
+            int w = e[2];
+            
+            if (u == v) continue;
+            uf.union(u, v);
+            count++;
+            sum += w;
+        }
+        
+        if (count &lt; N - 1) return -1;
+        return sum;
+    }
+    
+    int compare(int[] a, int[] b) {
+        return a[2] - b[2];
+    }
+    
+    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
+        PriorityQueue&lt;int[]&gt; Q = new PriorityQueue&lt;&gt;((a, b) -&gt; compare(a, b));
+        for (int[] e : edges) Q.offer(e);
+        int mst = mst(n, new UnionFind(n), Q, 0, 0);
+        List&lt;Integer&gt; criticals = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; pcriticals = new ArrayList&lt;&gt;();
+        
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        
+        for (int i = 0; i &lt; edges.length; i++) {
+            Q = new PriorityQueue&lt;&gt;((a, b) -&gt; compare(a, b));
+            for (int j = 0; j &lt; edges.length; j++) {
+                if (i == j) continue;
+                Q.offer(edges[j]);
+            }
+            
+            int v = mst(n, new UnionFind(n), Q, 0, 0);
+            if (v &gt; mst || v == -1) {
+                criticals.add(i);
+                set.add(i);
+            }
+        }
+        
+        for (int i = 0; i &lt; edges.length; i++) {
+            int[] e = edges[i];
+            UnionFind uf = new UnionFind(n);
+            Q = new PriorityQueue&lt;&gt;((a, b) -&gt; compare(a, b));
+            for (int j = 0; j &lt; edges.length; j++) {
+                if (i == j) continue;
+                Q.offer(edges[j]);
+            }
+            
+            uf.union(e[0], e[1]);
+            int v = mst(n, uf, Q, e[2], 1);
+            if (v == mst &amp;&amp; !set.contains(i)) {
+                pcriticals.add(i);
+            }
+        }
+        
+        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;&gt;();
+        ans.add(criticals);
+        ans.add(pcriticals);
+        return ans;
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

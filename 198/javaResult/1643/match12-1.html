@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_seancliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_seancliu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+        List&lt;Integer&gt;[] adj = new List[n];
+        for (int i = 0; i &lt; n; i++) {
+            adj[i] = new ArrayList&lt;&gt;();
+        }
+        for (int[] e : edges) {
+            adj[e[0]].add(e[1]);
+            adj[e[1]].add(e[0]);
+        }
+<A NAME="1"></A>        int[] res = new int[n];
+        boolean[] visited = new</B></FONT> boolean[n];
+        visited[0] = true;
+        dfs(0, adj, res, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>labels.toCharArray(), visited);
+        return res;
+    }
+    
+    private int[] dfs(int u, List&lt;Integer&gt;[] adj, int[] res, char[] chs, boolean[] visited</B></FONT>) {
+        int[] cnt = new int[26];
+
+<A NAME="2"></A>        for (int v : adj[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                int[] nextCnt = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(v, adj, res, chs, visited);
+                for (int i = 0; i &lt; 26; i++) {
+                    cnt[i] += nextCnt[i];
+                }                
+            }
+
+        }
+        r</B></FONT>es[u] = ++cnt[chs[u] - 'a'];
+        return cnt;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

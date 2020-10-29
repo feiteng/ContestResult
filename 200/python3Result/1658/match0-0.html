@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_hughian.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>268_hughian.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minSwaps(self, grid: List[List[int]]) -&gt; int:
+        n = len(grid)
+        dp = [[0] * n for _ in range(n)]
+        
+        for i in range(n):
+            dp[i][n-1] = int(grid[i][n-1] == 0)
+            for j in range(n-2, -1, -1):
+<A NAME="1"></A>                dp[i][j] = dp[i][j+1] + int(grid[i][j</B></FONT>] == 0)
+                
+        print(dp)
+        cnt <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        for i in range(n-1):
+            j = i + 1
+            if dp[i][j] &lt; n - j:
+                flag = False
+                for k in range(i+1, n):
+                    if dp[k][j] &gt;= n - (i+1):
+                        tmp = dp.pop(k)
+                        dp.insert(i, tmp)
+                        cnt += (k - i)
+                        flag = True
+                        # print(i, k)
+                        # print(dp)
+                        break
+                if not flag:
+                    return -1
+                
+        
+        re</B></FONT>turn cnt
+</PRE>
+
+</BODY>
+</HTML>

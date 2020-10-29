@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>120_MesbahTanvir.cpp</TITLE>
+ <TITLE>132_tylerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,85 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>120_MesbahTanvir.cpp</CENTER></H3><HR>
+<H3><CENTER>132_tylerwang.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-public:
-<A NAME="0"></A>    int get_pr(int n, vector &lt; int &gt; &amp;p){
-        //cout &lt;&lt; p[n] &lt;&lt;&quot; &quot;&lt;&lt;n&lt;&lt;endl;
-        if(p[n]==n) return n;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return p[n] = get_pr(p[n], p);
+<A NAME="0"></A>// Author: Tyler Wang
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class disjoint_sets {
+ public:
+  disjoint_sets(int n) : count_(n), parent_or_size_(n, -1) {}
+
+  int count() const { return count_; }
+
+  int size() const { return (int)parent_or_size_.size(); }
+
+  int size(int x) { return -parent_or_size_[find(x)]; }
+
+  int find(int x) {
+    if (parent_or_size_[x] &lt; 0) {
+      return x;
     }
-    void merge(int n, int m, vector&lt;int&gt;&amp;p){
-        int p1 = get_pr(n, p);
-        int p2 = get_pr(m, p);
-        p[p1]=p2;</B></FONT>
+    return parent_or_size_[x] = find(parent_or_size_[x]);
+  }
+
+  bool merge(int x, int y) {
+    if ((x = find(x)) == (y = find(y))) {
+      return false;
     }
-<A NAME="1"></A>    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector &lt; int &gt; pr, one, two;
-        pr.resize(n+2);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i =1; i &lt;= n; i ++){
-            pr[i] = i;
-        }
-        int take = 0;
-        for(int i =0; i &lt; edges.size() ; i ++){</B></FONT>
-            if(edges[i][0]==3){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, pr)!=get_pr(v, pr)){
-                    take++;
-                    merge(u, v, pr);
-                }
-            }
-        }
-        one = pr;
-        two = pr;
-        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==1){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, one)!=get_pr(v, one)){
-                    take++;
-                    merge(u, v, one);
-                }
-            }
-<A NAME="2"></A>            if(edges[i][0]==2){
-                int u = edges[i][1];
-                int v = edges[i][2];
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(get_pr(u, two)!=get_pr(v, two)){
-                    take++;
-                    merge(u, v, two);
-                }
-            }
-            
-        }
-        for(int i =1; i &lt;= n ; i ++){
-            if(i!=1){</B></FONT>
-                if(get_pr(i, one)!=get_pr(i-1, one)){
-                    return -1;
-                }
-                
-                if(get_pr(i, two)!=get_pr(i-1, two)){
-                    return -1;
-                }
-            }
-        }
-        return edges.size()-take;
-        
-        
+    if (parent_or_size_[x] &gt; parent_or_size_[y]) {
+      std::swap(x, y);
     }
+    parent_or_size_[x] += parent_or_size_[y];
+    parent_or_size_[y] = x;
+    --count_;
+    return true;
+  }
+
+  std::vector&lt;std::vector&lt;int&gt;&gt; components() {
+    std::vector&lt;std::vector&lt;int&gt;&gt; comps(count());
+    std::vector&lt;std::vector&lt;int&gt;*&gt; head(size(), nullptr);
+    for (int i = 0, k = 0; i &lt; size(); ++i) {
+      int p = find(i);
+      if (head[p] == nullptr) {
+        head[p] = &amp;comps[k++];
+        head[p]-&gt;reserve(-parent_or_size_[p]);
+      }
+      head[p]-&gt;push_back(i);
+    }
+    return comps;
+  }
+
+ private:
+  int count_;
+  std::vector&lt;int&gt; parent_or_size_;
 };
+
+class Solution {
+ public:
+  int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+    int ans = 0;
+    disjoint_sets alice(n);
+    for (auto&amp; e : edges) {
+      --e[1], --e[2];
+      if (e[0] == 3 &amp;&amp; !alice.merge(e[1], e[2])) {
+        ++ans;
+      }
+    }
+    auto bob = alice;
+    for (auto&amp; e : edges) {
+      if (e[0] == 1 &amp;&amp; !alice.merge(e[1], e[2])) {
+        ++ans;
+      }
+      if (e[0] == 2 &amp;&amp; !bob.merge(e[1], e[2])) {
+        ++ans;
+      }
+    }
+    if (alice.count() != 1 || bob.count() != 1) {
+      return -1;
+    }
+    return ans;
+  }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

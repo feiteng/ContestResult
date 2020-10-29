@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_wnjxyk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>43_wnjxyk.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    set&lt;string&gt; name;
+    set&lt;int&gt; table;
+    map&lt;string, int&gt; order[550];
+    string i2s(int x){
+        if (x == 0) return &quot;0&quot;;
+        string ret = &quot;&quot;;
+        while(x){
+            ret = (char)('0' + x % 10) + ret;
+            x /= 10;
+        }
+        return ret;
+    }
+    int s2i(string x){
+        int ret = 0;
+        for(auto v: x){
+            ret = ret * 10 + v - '0';
+        }
+        return ret;
+    }
+    vector&lt;vector&lt;string&gt;&gt; displayTable(vector&lt;vector&lt;string&gt;&gt;&amp; dat) {
+<A NAME="0"></A>        name.clear(); table.clear();
+        for (int i = 0; i &lt;= 500; i++) order[i].clear();
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto l: dat){
+            name.insert(l[2]), table.insert(s2i(l[1]));
+            order[s2i(l[1])][l[2]] += 1;
+            // printf(&quot;%d\n&quot;, s2i(l[1]));
+        }
+        
+        vector&lt;vector&lt;string&gt;&gt; ans;
+        vector&lt;string&gt; title; title.push_back(&quot;Table&quot;);
+        for (auto n: name) title.push_back(n);
+        ans.push_back(title);
+        
+        for (auto t: table){
+            vector&lt;string&gt; row;
+            row.push_back(i2s(t));
+            for (auto n: name){
+                row.push_back(i2s(order[t][n]));
+            }
+            ans.push_back(row);
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+/*
+[[&quot;David&quot;,&quot;3&quot;,&quot;Ceviche&quot;],[&quot;Corina&quot;,&quot;10&quot;,&quot;Beef Burrito&quot;],[&quot;David&quot;,&quot;3&quot;,&quot;Fried Chicken&quot;],[&quot;Carla&quot;,&quot;5&quot;,&quot;Water&quot;],[&quot;Carla&quot;,&quot;5&quot;,&quot;Ceviche&quot;],[&quot;Rous&quot;,&quot;3&quot;,&quot;Ceviche&quot;]]
+[[&quot;James&quot;,&quot;12&quot;,&quot;Fried Chicken&quot;],[&quot;Ratesh&quot;,&quot;12&quot;,&quot;Fried Chicken&quot;],[&quot;Amadeus&quot;,&quot;12&quot;,&quot;Fried Chicken&quot;],[&quot;Adam&quot;,&quot;1&quot;,&quot;Canadian Waffles&quot;],[&quot;Brianna&quot;,&quot;1&quot;,&quot;Canadian Waffles&quot;]]
+[[&quot;Laura&quot;,&quot;2&quot;,&quot;Bean Burrito&quot;],[&quot;Jhon&quot;,&quot;2&quot;,&quot;Beef Burrito&quot;],[&quot;Melissa&quot;,&quot;2&quot;,&quot;Soda&quot;]]
+*/
+</PRE>
+</BODY>
+</HTML>

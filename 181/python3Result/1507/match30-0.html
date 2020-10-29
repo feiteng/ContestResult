@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>579_anlei.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>579_anlei.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        
+        m, n = len(grid), len(grid[0])
+
+        quene = [(0, 0)]
+        visited =</B></FONT> [[False] * n for _ in range(m)]
+        visited[0][0] = True
+
+        while quene != []:
+
+            x, y = quene.pop(0)
+            if x == m - 1 and y == n - 1:
+                return True
+<A NAME="1"></A>            next_pos = []
+
+            if grid[x][y] == 1:
+                if y - 1 &gt;= 0     and (grid[x][y - 1] == 1 or grid[x][y - 1] == 4 or grid[x][y - 1] == 6) and visited[x]<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[y - 1] == False:
+                    next_pos.append([x, y - 1])
+<A NAME="2"></A>                if y + 1 &lt;= n - 1 and (grid[x][y + 1] == 1 or grid[x][y + 1] == 3 or grid[x][</B></FONT>y - 1] == 5) and visited[x][y + 1] == False:
+                    next_pos.append([x, y + 1])
+            elif grid[x][y] == 2:
+                if x - 1 &gt;= 0     and (grid[x - 1][y] == 2 or grid[x - 1][y] == 3 or grid[x - 1][y] == 4) and visited[x - 1]<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[y] == False:
+                    next_pos.append([x - 1, y])
+<A NAME="3"></A>                if x + 1 &lt;= m - 1 and (grid[x + 1][y] == 2 or grid[x + 1][y] == 5 or grid[x + 1][</B></FONT>y] == 6) and visited[x + 1][y] == False:
+                    next_pos.append([x + 1, y])
+            elif grid[x][y] == 3:
+                if y - 1 &gt;= 0     and (grid[x][y - 1] == 1 or grid[x][y - 1] == 4 or grid[x][y - 1] == 6) and visited[x]<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match30-1.html#3',3,'match30-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[y - 1] == False:
+                    next_pos.append([x, y - 1])
+                if x + 1 &lt;= m - 1 and (grid[x + 1][y] == 2 or grid[x + 1][y] == 5 or grid[x + 1][</B></FONT>y] == 6) and visited[x + 1][y] == False:
+                    next_pos.append([x + 1, y])
+            elif grid[x][y] == 4:
+                if y + 1 &lt;= n - 1 and (grid[x][y + 1] == 1 or grid[x][y + 1] == 3 or grid[x][y + 1] == 5) and visited[x][y + 1] == False:
+                    next_pos.append([x, y + 1])
+                if x + 1 &lt;= m - 1 and (grid[x + 1][y] == 2 or grid[x + 1][y] == 5 or grid[x + 1][y] == 6) and visited[x + 1][y] == False:
+                    next_pos.append([x + 1, y])
+            elif grid[x][y] == 5:
+                if x - 1 &gt;= 0     and (grid[x - 1][y] == 2 or grid[x - 1][y] == 3 or grid[x - 1][y] == 4) and visited[x - 1][y] == False:
+                    next_pos.append([x - 1, y])
+                if y - 1 &gt;= 0     and (grid[x][y - 1] == 1 or grid[x][y - 1] == 4 or grid[x][y - 1] == 6) and visited[x][y - 1] == False:
+                    next_pos.append([x, y - 1])
+            elif grid[x][y] == 6:
+                if x - 1 &gt;= 0     and (grid[x - 1][y] == 2 or grid[x - 1][y] == 3 or grid[x - 1][y] == 4) and visited[x - 1][y] == False:
+                    next_pos.append([x - 1, y])
+                if y + 1 &lt;= n - 1 and (grid[x][y + 1] == 1 or grid[x][y + 1] == 3 or grid[x][y + 1] == 5) and visited[x][y + 1] == False:
+                    next_pos.append([x, y + 1])
+
+            for i in range(len(next_pos)):
+                visited[next_pos[i][0]][next_pos[i][1]] = True
+                quene.append(next_pos[i])
+
+
+        return False
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>293_parfenov.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>293_parfenov.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+#define MOD 1000000007LL
+<A NAME="0"></A>    
+    /* Iterative Function to calculate (x^y)%p  
+in O(log y) */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>unsigned long long power(unsigned long long x, 
+                         int y, int p) 
+{ 
+    unsigned long long res = 1; // Initialize result 
+  
+    x = x % p; // Update x if it is more than or 
+    // equal to p 
+  
+    while (y &gt; 0) { 
+        // If y is odd, multiply x with result 
+        if (y &amp; 1) 
+            res = (res * x) % p; 
+  
+        // y must be even now 
+        y = y &gt;&gt; 1; // y = y/2 
+        x = (x * x) % p; 
+    } 
+    return res; 
+} 
+  
+// Returns n^(-1) mod p 
+unsigned long long modInverse(unsigned long long n, int p) 
+{ 
+    return power(n, p - 2, p); 
+} 
+  
+// Returns nCr % p using Fermat's little 
+// theorem. 
+unsigned long long nCrModPFermat(unsigned long long n, 
+                                 int r, int p) 
+{ 
+    // Base case 
+    if (r == 0) 
+        return 1; 
+  
+    // Fill factorial array so that we 
+    // can find all factorial of r, n 
+    // and n-r 
+    unsigned long long fac[n + 1]; 
+    fac[0] = 1; 
+    for (int i = 1; i &lt;= n; i++) 
+        fac[i] = (fac[i - 1] * i) % p; 
+  
+    return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p; 
+} </B></FONT>
+  
+
+public:
+    int numOfWays(vector&lt;int&gt;&amp; nums)
+    {
+        vector&lt;long long&gt; inv(10000);
+        vector&lt;long long&gt; factorial(10000);
+
+        inv[0] = 1;
+        inv[1] = 1;
+        for (long long i = 2; i &lt; inv.size(); ++i)
+            inv[i] = MOD - (MOD / i) * inv[MOD % i] % MOD;
+
+        factorial[0] = 1;
+        for (int i = 1; i &lt; factorial.size(); i++) {
+            factorial[i] = factorial[i - 1] * i % MOD;
+        }
+
+        return impl(nums, factorial, inv) - 1;
+    }
+
+private:
+    /*long long binomialCoeff(long long n, long long k)
+    {
+        long long res = 1;
+
+        // Since C(n, k) = C(n, n-k) 
+        if (k &gt; n - k)
+            k = n - k;
+
+        // Calculate value of 
+        // [n * (n-1) *---* (n-k+1)] / [k * (k-1) *----* 1] 
+        for (long long i = 0; i &lt; k; ++i) {
+            res *= (n - i);
+            res /= (i + 1);
+        }
+
+        return res % (1000 * 1000 * 1000 + 7);
+    }*/
+
+
+    long long binomial_coefficient(int n, int k, vector&lt;long long&gt;&amp; factorial, vector&lt;long long&gt;&amp; inv) {
+        long long res = factorial[n] * inv[k] % MOD * inv[n - k] % MOD;
+        // cout &lt;&lt; res &lt;&lt; endl;
+        return res;
+    }
+
+
+    long long impl(vector&lt;int&gt;&amp; nums, vector&lt;long long&gt;&amp; factorial, vector&lt;long long&gt;&amp; inv)
+    {
+        if (nums.empty())
+            return 1;
+
+        vector&lt;int&gt; left;
+        vector&lt;int&gt; right;
+
+        for (int i = 1; i &lt; nums.size(); ++i)
+        {
+            if (nums[i] &gt; nums[0])
+                right.push_back(nums[i]);
+            else
+                left.push_back(nums[i]);
+        }
+                
+        long long res = (impl(left, factorial, inv) * impl(right, factorial, inv) % (1000 * 1000 * 1000 + 7)) * nCrModPFermat(nums.size() - 1, left.size(), MOD) % (1000 * 1000 * 1000 + 7);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

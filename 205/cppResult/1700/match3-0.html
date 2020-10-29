@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>308_jasxu.cpp</TITLE>
+ <TITLE>111_cathy009.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>308_jasxu.cpp</CENTER></H3><HR>
+<H3><CENTER>111_cathy009.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int minCost(string s, vector&lt;int&gt;&amp; d) {
-        int len = s.length();
+    int minCost(string s, vector&lt;int&gt;&amp; cost) {
         int res = 0;
-        for(int i=0;i&lt;len;i++)
-        {
-            int cost = d[i];
-            int sum = d[i];
-            while(i+1&lt;len&amp;&amp;s[i]==s[i+1])
-            {
-                i++;
-                sum+=d[i];
-                cost = max(cost, d[i]);
+        for (int i = 0, start = 0; i &lt; s.size(); ++i) {
+            if (i == 0 || s[i] != s[i - 1]) start = i;
+            if (i + 1 == s.size() || s[i] != s[i + 1]) {
+                int len = i - start + 1;
+                if (len &gt; 1) {
+                    int total = 0, mx = INT_MIN;
+                    for (int k = start; k &lt;= i; ++k) {
+                        total += cost[k];
+                        mx = max(mx, cost[k]);
+                    }
+                    res += total - mx;
+                }
             }
-           // cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;sum&lt;&lt;&quot; &quot;&lt;&lt;cost&lt;&lt;endl;
-            res += sum-cost;
         }
         return res;
     }

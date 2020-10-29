@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>173_fiveface.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>173_fiveface.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def numSubmat(self, mat: List[List[int]]) -&gt; int:
+        m, n = len(mat), len(mat[0])
+        def findPrefixCount(p_arr, arr):  
+  
+            for i in range(0, m):  
+                for j in range(n - 1, -1, -1):  
+
+                    if not arr[i][j]:  
+                        continue
+
+                    if j != n - 1:  
+                        p_arr[i][j] += p_arr[i][j + 1]  
+
+                    p_arr[i][j] += arr[i][j]  
+
+        # Function to count the number of  
+        # sub-matrices with all 1s  
+        def matrixAllOne(arr):  
+
+            # Array to store required prefix count of  
+            # 1s from right to left for boolean array  
+            p_arr = [[0 for i in range(n)] for j in range(m)]  
+
+            findPrefixCount(p_arr, arr)  
+
+            # variable to store the final answer  
+            ans = 0
+
+            # Loop to evaluate each column of  
+            # the prefix matrix uniquely.  
+            # For each index of a column we will try to  
+            # determine the number of sub-matrices  
+            # starting from that index and has all 1s 
+            for j in range(0, n):  
+
+                i =</B></FONT> m - 1
+
+                # Stack to store elements and the count  
+                # of the numbers they popped  
+
+                # First part of pair will be the  
+                # value of inserted element.  
+                # Second part will be the count  
+                # of the number of elements pushed  
+                # before with a greater value */ 
+                q = []  
+
+                # variable to store the number of  
+<A NAME="1"></A>                # submatrices with all 1s  
+                to_sum = 0
+
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while i &gt;= 0:  
+
+                    c = 0
+                    while len(q) != 0 and q[-1][0] &gt; p_arr[i][j]:  
+
+                        to_sum -= (q[-1][1] + 1) * (q[-1][0] - p_arr[i][j])  
+
+                        c += q[-1][1] + 1
+                        q.pop()  
+
+                    to_sum += p_arr[i][j]  
+                    ans += to_sum  
+
+                    q.append((p_arr[i][j], c))  
+                    i -= 1
+
+            return ans  
+        return matrixAllOne(m</B></FONT>at)
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>104_2499370956.java</TITLE>
+ <TITLE>153_huntersjm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,84 +15,98 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>104_2499370956.java</CENTER></H3><HR>
+<H3><CENTER>153_huntersjm.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.Arrays;
+
+class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UF ufa = new UF(n);
-        UF ufb = new UF(n);
-        int out = 0;
-        for (int[] e : edges) {
-            if (e[0] == 3) {
-                int v1 = e[1] - 1;
-                int v2 = e[2] - 1;
-<A NAME="1"></A>                if (ufa.isConnected(v1, v2)) {</B></FONT>
-                    out++;
-                } else {
-                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ufa.connect(v1, v2);
-                    ufb.connect(v1, v2);
-                }
+        Arrays.sort(edges, (o1, o2) -&gt; o2[0] - o1[0]);
+        DSU from = new DSU(n);
+        DSU to = new DSU(n);
+        int i = 0;
+        int ans = 0;
+        for (; i &lt; edges.length &amp;&amp; edges[i][0] == 3; i++) {
+            int x = from.find(edges[i][1] - 1);
+            int y = from.find(edges[i][2] - 1);
+            if (x == y) {
+                ans++;
+            } else {
+                from.union(x, y);
+                to.union(x, y);
             }
         }
-        for (int[] e : edges) {
-            if (e[0] != 3) {
-                int v1 = e[1] - 1;
-                int v2 = e[2] - 1;
-                if</B></FONT> (e[0] == 1) {
-                    if (ufa.isConnected(v1, v2)) {
-                        out++;
-                    } else {
-                        ufa.connect(v1, v2);
-                    }
-                } else if (e[0] == 2) {
-                    if (ufb.isConnected(v1, v2)) {
-                        out++;
-<A NAME="2"></A>                    } else {
-                        ufb.connect(v1, v2);
-                    }
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        for (; i &lt; edges.length &amp;&amp; edges[i][0] == 2; i++) {
+            int x = from.find(edges[i][1] - 1);
+            int y = from.find(edges[i][2] - 1);
+            if (x == y) {
+                ans++;
+            } else {
+                from.union(x, y);
             }
         }
-        if (ufa.cc() == 1 &amp;&amp; ufb.cc() == 1) {
-            return out;
-        } else {
-            return -1;
+
+        for (; i &lt; edges.length &amp;&amp; edges[i][0] == 1; i++) {
+            int x = to.find(edges[i][1] - 1);
+            int y = to.find(edges[i][2] - 1);
+            if (x == y) {
+                ans++;
+            } else {
+                to.union(x, y);
+            }
         }
+
+        int f = -1;
+        int t = -1;
+        for (int k = 0; k &lt; n; k++) {
+            if (f != -1 &amp;&amp; from.find(k) != f) {
+                return -1;
+            }
+            f = from.find(k);
+            if (t != -1 &amp;&amp; to.find(k) != t) {
+                return -1;
+            }
+            t = to.find(k);
+        }
+        return ans;
     }
 
-    class UF {
+    static class DSU {
+        int[] parent;
+        int[] rank;
 
-        private int[] root</B></FONT>;
-
-        public UF(int n) {
-            this.root = new int[n];
-<A NAME="3"></A>            for (int i = 0; i &lt; n; i++) {
-                root[i] = i;
-            }
-        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#3',2,'match3-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-
-        private int root(int i) {
-            if (root[i] == i) {
-                return i;
-            }</B></FONT> else {
-                root[i] = root[root[i]];
-                return root(root[i]);
-            }
-<A NAME="4"></A>        }
-
-        public void connect(int i, int j) {
-            root[root(i)] = <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#4',2,'match3-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root(j);
+        public DSU(int N) {
+            parent = new int[N];
+            for (int i = 0; i &lt; N; ++i)
+                parent[i] = i;
+            rank = new int[N];
+            Arrays.fill(rank, 1);
         }
 
-        public boolean isConnected(int i, int j) {
-            return root(i) == root(j);
+        public int find(int v) {
+            if (parent[v] != v) parent[v] = find(parent[v]);
+            return parent[v];
         }
-        
-        pu</B></FONT>blic int cc() {
-            return (int) IntStream.range(0, root.length).map(this::root).distinct().count();
+
+        public int union(int x, int y) {
+            x = find(x);
+            y = find(y);
+            if (x == y) {
+                return x;
+            }
+            if (rank[x] &gt; rank[y]) {
+                rank[x] += rank[y];
+                parent[y] = x;
+                return x;
+            } else {
+                rank[y] += rank[x];
+                parent[x] = y;
+                return y;
+            }
         }
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

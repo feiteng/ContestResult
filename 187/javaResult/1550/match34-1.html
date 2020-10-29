@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>222_hyj0329.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>222_hyj0329.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    class Step {
+        int sum;
+        int[] arr;
+        public Step(int _sum, int[] _arr) {
+            this.sum = _sum;
+            this.arr = _arr;
+<A NAME="2"></A>        }
+    }</B></FONT>
+    
+    public int kthSmallest(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] mat, int k) {
+        int m = mat.length, n = mat[0].length;
+        
+        int cur_sum = 0;
+        for (int i = 0; i &lt; m; i++) {
+            cur_sum += mat[i][0];
+        }</B></FONT>
+<A NAME="1"></A>        
+        int[] cur_arr = new int[m];
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+        PriorityQueue&lt;Step&gt; queue = new PriorityQueue&lt;&gt;((a, b) -&gt; Integer.compare(a.sum, b.sum));
+        queue.offer(new Step(cur_sum, cur_arr));
+        visited.add</B></FONT>(Arrays.toString(cur_arr));
+        
+        while (k &gt; 1) {
+            Step cur = queue.poll();
+            k--;
+            
+            cur_arr = cur.arr;
+            cur_sum = cur.sum;
+
+            for (int i = 0; i &lt; m; i++) {
+                if (cur_arr[i] &lt; n-1) {
+                    int[] nxt_arr = cur_arr.clone();
+                    nxt_arr[i]++;
+                    String key = Arrays.toString(nxt_arr);
+                    if (!visited.contains(key)) {
+                        visited.add(key);
+                        int nxt_sum = cur_sum - mat[i][cur_arr[i]] + mat[i][nxt_arr[i]];
+                        queue.offer(new Step(nxt_sum, nxt_arr));
+                    }
+                }
+            }
+        }
+        
+        return queue.poll().sum;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

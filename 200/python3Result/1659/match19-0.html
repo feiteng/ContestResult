@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>355_becauseiambatman.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>355_becauseiambatman.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxSum(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        mask = 10**9+7
+        cur1, cur2 = 0, 0
+        pos1, pos2 = 0, 0
+        while pos1 &lt; len(nums1) and pos2 &lt; len(nums2):
+            if nums1[pos1] &lt; nums2[pos2]:
+                cur1 += nums1[pos1]
+                pos1 += 1
+            elif nums1[pos1] &gt; nums2[pos2]:
+                cur2 += nums2[pos2]
+                pos2 += 1
+            else:
+                cur = max(cur1, cur2) + nums1[pos1]
+                cur1, cur2 = cur, cur
+                pos1 += 1
+                pos2 +=</B></FONT> 1
+        if pos1 == len(nums1):
+            cur2 += sum(nums2[pos2:])
+        else:
+            cur1 += sum(nums1[pos1:])
+        return max(cur1, cur2) % mask
+</PRE>
+
+</BODY>
+</HTML>

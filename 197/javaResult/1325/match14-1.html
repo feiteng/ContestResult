@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_hao102.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_hao102.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        Map&lt;Integer, List&lt;double[]&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            map.put(i, new ArrayList&lt;&gt;());
+<A NAME="1"></A>        }
+        for (int i = 0; i &lt; edges.length; i++) {</B></FONT>
+            int[] e = edges[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(e[0]).add(new double[]{e[1], succProb[i]});
+            map.get(e[1]).add(new double[]{e[0], succProb[i]});
+        }
+        double[] pro = new double[n]</B></FONT>;
+        pro[start] = 1;
+        
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;Integer&gt;((i1, i2) -&gt; Double.compare(pro[i2], pro[i1]));
+        pq.add(start);
+        //Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        //seen.add(start);
+        while (pq.size() &gt; 0) {
+            int cur = pq.poll();
+            if (cur == end) return pro[end];
+            for (double[] d: map.get(cur)) {
+                int nei = (int)d[0];
+                if (pro[cur] * d[1] &gt; pro[nei]) {
+<A NAME="2"></A>
+                    pro[nei] = pro[cur] * d[1];
+                    pq.add(nei);
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return 0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

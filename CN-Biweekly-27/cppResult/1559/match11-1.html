@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>12_wyj20154348.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>12_wyj20154348.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int g[80][80];
+<A NAME="0"></A>    int dp[80][80][80];
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = grid[0].size();
+        for (int i=0;i&lt;80;i++){
+            for (int j=0;j&lt;80;j++){
+                for (int k=0;k&lt;80;k++){
+                    dp[i][j][k]=-1*100;
+                }
+            }
+        }
+        dp[0][0][m-1] = grid[0][0]+grid[0][m-1];
+        for(int i=1;i&lt;n;i++){
+            for (int j=0;j&lt;m;j++){
+                for (int k=0;k&lt;m;k++){</B></FONT>
+                    if (dp[i-1][j][k]==-1*100) continue;
+                    for (int diffj=-1;diffj&lt;=1;diffj++){
+                        if (j+diffj&lt;0||j+diffj&gt;=m) continue;
+                        for (int diffk=-1;diffk&lt;=1;diffk++){
+                            if (k+diffk&lt;0||diffk+k&gt;=m) continue;
+                            //cout&lt;&lt;&quot;k+diffk=&quot;&lt;&lt;k+diffk&lt;&lt;&quot; &quot;&lt;&lt;j+diffj&lt;&lt;endl;
+                            //cout&lt;&lt;&quot;i=&quot;&lt;&lt;dp[i-1][j][k]&lt;&lt;&quot; &quot;&lt;&lt;grid[i][j+diffj]&lt;&lt;&quot; &quot;&lt;&lt;grid[i][k+diffk]&lt;&lt;endl;
+<A NAME="1"></A>                            int sum =  dp[i-1][j][k]+grid[i][j+diffj]+grid[i][k+diffk];
+                            if (j+diffj==k+diffk) sum-=grid[i][j+diffj];
+                            dp[i][j+diffj][k+diffk] = max(dp[i][j+diffj][k+diffk],sum);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+                }
+            }
+        }
+        int Max = -1*100;
+        for(int i=0;i&lt;m;i++){
+            for (int j=0;j&lt;m;j++){
+                Max = max(Max,dp[n-1][i][j]);
+            }
+        }
+        return Max;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

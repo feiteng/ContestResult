@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>351_westwind2013.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>351_westwind2013.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -&gt; int:
+<A NAME="0"></A>        
+        def check(k):
+            mn = collections.deque()
+            mx = collections<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.deque()
+            for i in range(k - 1):
+                while mn and mn[-1] &gt; nums[i]:
+                    mn.pop()
+                mn.append(nums[i])
+                while mx and mx[-1] &lt; nums[i]:
+                    mx.pop()
+                mx.append(nums[</B></FONT>i])
+            
+            for i in range(k - 1, len(nums)):
+                while mn and mn[-1] &gt; nums[i]:
+                    mn.pop()
+                mn.append(nums[i])
+                while mx and mx[-1] &lt; nums[i]:
+                    mx.pop()
+                mx.append(nums[i])
+                
+                #print(i, mx, mn)
+<A NAME="1"></A>                if mx[0] - mn[0] &lt;= limit:
+                    return True
+                
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if nums[i - k + 1] == mn[0]:
+                    mn.popleft()
+                if nums[i - k + 1] == mx[0]:
+                    mx.popleft(</B></FONT>)
+            #print()
+                    
+            return False
+        
+        
+        left = 0
+        right = len(nums) + 1
+        while left &lt; right:
+            mid = (left + right) // 2
+            if check(mid):
+                left = mid + 1
+            else:
+                right = mid
+        
+        return right - 1
+        
+        
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

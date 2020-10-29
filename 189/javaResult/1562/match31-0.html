@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>457_kamelzcs.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>457_kamelzcs.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+        Map&lt;String, Integer&gt; companyToIndex;
+        List&lt;Set&lt;Integer&gt;&gt; favorCompanies;
+        public List&lt;Integer&gt; peopleIndexes(List&lt;List&lt;String&gt;&gt; favoriteCompanies) {
+            companyToIndex = new HashMap&lt;&gt;();
+            favorCompanies = new ArrayList&lt;&gt;();
+            for(List&lt;String&gt; companies : favoriteCompanies) {
+                Set&lt;Integer&gt; companyIds = new HashSet&lt;&gt;();
+                for (String company : companies) {
+                    companyIds.add(companyToIndex.computeIfAbsent(company, c -&gt; companyToIndex.size()));
+<A NAME="0"></A>                }
+                favorCompanies.add(companyIds);
+                //System.out.println(companyIds);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+            for (int i = 0; i &lt; favorCompanies.size(); i++) {
+                boolean valid = true;
+                for (int j = 0; j &lt; favorCompanies.size(); j++) {
+                    if (j == i) {
+                        continue;
+                    }
+                    if (contains(favorCompanies.get(j), favorCompanies.get(i))) {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    result.add(i);
+                }
+            }
+            return result;
+        }</B></FONT>
+
+        private boolean contains(Set&lt;Integer&gt; parent, Set&lt;Integer&gt; child) {
+           // System.out.println(String.format(&quot;%s %s&quot;, parent, child));
+            Set&lt;Integer&gt; ids = new HashSet&lt;&gt;(parent);
+            ids.retainAll(child);
+            return ids.size() == child.size();
+        }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

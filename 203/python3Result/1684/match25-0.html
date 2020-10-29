@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>435_mohitbhura.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>435_mohitbhura.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        n = len(arr)
+        dp = [[0,0] for _ in range(n+2)]
+        num = [0]*(n+2)
+        d = defaultdict(int)
+        ans = -1
+        for i in range(1,n+1):
+<A NAME="0"></A>            x = arr[i-1]
+            num[x] = 1
+            l = dp[x-1][1]
+            r = dp[x+1]<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0]
+
+            # print(i,l,r)
+            d[l] -= 1
+<A NAME="1"></A>            d[r] -= 1
+            d[dp[x-1][0]] -= 1
+            d[dp[x+1][1]] -=</B></FONT> 1
+            dp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x-1] = [0,0]
+            dp[x+1] = [0,0]
+            d[0] += 4
+
+            d[dp[x-l][0]] -= 1
+            d[dp[x+r][</B></FONT>1]] -= 1
+            dp[x-l][0] = r+l+1
+            dp[x+r][1] = r+l+1
+            d[r+l+1] += 2
+#             if num[x+1] == 1 and num[x-1] == 1:
+#                 l = dp[x-1][1]
+#                 r = dp[x+1][0]
+                
+#                 # print(i,l,r)
+#                 d[l] -= 1
+#                 d[r] -= 1
+#                 d[dp[x-1][0]] -= 1
+#                 d[dp[x+1][1]] -= 1
+#                 dp[x-1] = [0,0]
+#                 dp[x+1] = [0,0]
+#                 d[0] += 4
+                
+#                 d[dp[x-l][0]] -= 1
+#                 d[dp[x+r][1]] -= 1
+#                 dp[x-l][0] = r+l+1
+#                 dp[x+r][1] = r+l+1
+#                 d[r+l+1] += 2
+#             elif num[x+1] == 1:
+#                 r = dp[x+1][0]
+                
+#                 d[r] -= 1
+#                 d[dp[x+1][1]] -= 1
+#                 dp[x+1] = [0,0]
+#                 d[0] += 2
+                
+#                 d[dp[x-l][0]] -= 1
+#                 d[dp[x+r][1]] -= 1
+#                 dp[x-l][0] = r+l+1
+#                 dp[x+r][1] = r+l+1
+#                 d[r+l+1] += 2
+#             elif num[x-1] == 1:
+#                 l = dp[x-1][1]
+                
+#                 d[l] -= 1
+#                 d[dp[x-1][0]] -= 1
+#                 dp[x][1] = dp[x-1][1]+1
+#                 dp[x-1] = [0,0]
+#                 d[0] += 2
+                
+#                 d[dp[x-l][0]] -= 1
+#                 dp[x-l][0] = l+1
+#                 d[l+1] += 1
+                
+#             else:
+#                 dp[x] = [1,1]
+#                 d[1] += 2
+            
+            # print(num)
+            # print(dp)
+            # print(d)
+            
+            if d[m] != 0:
+                ans = i
+        return ans
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

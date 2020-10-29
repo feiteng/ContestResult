@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>49_zdragon.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>49_zdragon.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int ans;
+    int pseudoPalindromicPaths (TreeNode* root) {
+<A NAME="0"></A>        if(root == NULL) return 0;
+        ans = 0;
+        dfs(root, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return ans;
+    }
+    void dfs(TreeNode* root, int x) {
+        x ^= (1 &lt;&lt; root-&gt;val);
+        if(root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL) {
+            if(cal(x)) ans++;
+            return;
+        }
+        if(root-&gt;left != NULL) dfs(root-&gt;left, x);
+        if(root-&gt;right != NULL) dfs(root-&gt;right, x);
+    }
+    bool cal(int x) {</B></FONT>
+        int ans = 0;
+        while(x) {
+            if(x &amp; 1) ans++;
+            x &gt;&gt;= 1;
+        }
+        return ans &lt;= 1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>349_yihongz.java</TITLE>
+ <TITLE>253_mcy4ever.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>349_yihongz.java</CENTER></H3><HR>
+<H3><CENTER>253_mcy4ever.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        int ans = 0;
-        Map&lt;Long, Integer&gt; map1 = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; nums1.length; i++) {
-            for (int j = i + 1; j &lt; nums1.length; j++) {</B></FONT>
-<A NAME="1"></A>                if (!map1.containsKey(1L * nums1[i] * nums1[j])) {
-                    map1.put(1L * nums1[i] * nums1[j], 0);
-                }
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map1.put(1L * nums1[i] * nums1[j], map1.get(1L * nums1[i] * nums1[j]) + 1);
-                
-                // System.out.println(map1.get(1L * nums1[i] * nums1[j]));
-<A NAME="2"></A>            }
+        HashMap&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int x : nums1) {
+            map.put((long)x * (long)x, map.getOrDefault((long)x * (long)x, 0) + 1);
         }
-        for (int i = 0; i &lt; nums2.length; i++) {</B></FONT>
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (map1.containsKey(1L * nums2[i] * nums2[i])) {
-                ans += map1.get(1L * nums2[i] * nums2[i]);
-            }
-        }
-        
-        Map&lt;Long, Integer&gt; map2 = new HashMap&lt;&gt;();
+        int res = 0;
         for (int i = 0; i &lt; nums2.length; i++) {
-            for (int j = i + 1; j &lt; nums2.length; j++) {</B></FONT>
-<A NAME="3"></A>                if (!map2.containsKey(1L * nums2[i] * nums2[j])) {
-                    map2.put(1L * nums2[i] * nums2[j], 0);
-                }
-                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map2.put(1L * nums2[i] * nums2[j], map2.get(1L * nums2[i] * nums2[j]) + 1);
-                // System.out.println(map2.get(1L * nums2[i] * nums2[j]));
-<A NAME="4"></A>            }
-        }
-        for (int i = 0; i &lt; nums1.length; i++) {</B></FONT>
-            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#4',2,'match17-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (map2.containsKey(1L * nums1[i] * nums1[i])) {
-                ans += map2.get(1L * nums1[i] * nums1[i]);
+            for (int j = i + 1; j &lt; nums2.length; j++) {
+                res += map.getOrDefault((long)nums2[i] *  (long)nums2[j], 0);
             }
         }
-        // System.out.println(map1);
-        // System.out.println(map2);
-        // System.out.println();
-        return ans;
+        map = new HashMap&lt;&gt;();
+        for (int x : nums2) {
+            map.put((long)x * (long)x, map.getOrDefault((long)x * (long)x, 0) + 1);
+        }
+        for (int i = 0; i &lt; nums1.length; i++) {
+            for (int j = i + 1; j &lt; nums1.length; j++) {
+                res += map.getOrDefault((long)nums1[i] *  (long)nums1[j], 0);
+            }
+        }
+        return res;
     }
 }</B></FONT>
 </PRE>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_MMMMMMoSky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_MMMMMMoSky.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        char[] str = s.toCharArray();
+
+        // left[i], right[i] 表示字符 i 出现的最左/最右位置
+        // left[i] = -1 表示未出现过
+        int[] left = new int[26];
+        int[] right = new int[26];
+        Arrays.fill(left, -1);
+        for (int i = 0; i &lt; str.length; i++) {
+            int c = str[i] - 'a';
+            if (left[c] &lt; 0) left[c] = i;
+            right[c] = i;
+        }
+
+        // 统计出所有符合条件的子串
+        // intervalR[i] 表示我们要以字符 i 为左端点时, 右端点的位置
+        // intervalR[i] = -1 表示无法做左端点
+        int[] intervalR = new int[str.length];
+        int count = 0;
+        Arrays.fill(intervalR, -1);
+        for (int i = 0; i &lt; str.length; i++) {
+            int c = str[i] - 'a';
+            if (i != left[c]) continue;
+            int r = right[c];
+<A NAME="0"></A>            boolean ok = true;
+            for (int j = i + 1; j &lt;= r; j++) {
+                int c2 = str[j] - 'a';
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (left[c2] &lt; i) {
+                    ok = false;
+                    break;
+                }
+                r = Math.max(r, right[c2]);
+            }
+            if (ok) {</B></FONT>
+                intervalR[i] = r;
+                count++;
+            }
+        }
+
+        int[][] intervals = new int[count][2];
+        for (int i = 0, j = 0; i &lt; str.length; i++) {
+            if (intervalR[i] &gt;= 0) {
+<A NAME="1"></A>                intervals[j][0] = i;
+                intervals[j][1] = intervalR[i];
+                j++;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+
+        // 现在问题变成了选择最多的不相交的区间
+        Arrays.sort(intervals, (o1, o2) -&gt; o1[1] - o2[1]);
+        List&lt;String&gt; res = new</B></FONT> ArrayList&lt;&gt;();
+        int R = -1;
+<A NAME="2"></A>        for (var interval : intervals) {
+            if (interval[0] &gt; R) {
+                R = interval[1];
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>res.add(s.substring(interval[0], interval[1] + 1));
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

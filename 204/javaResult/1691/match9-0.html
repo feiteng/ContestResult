@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>700_Centurion7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>700_Centurion7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minDays(int[][] grid) {
+        int initCount = countComponents(grid);
+        //System.out.println(initCount);
+        if (initCount != 1) return 0;
+        
+        // Single case
+        int ones = 0, m = grid.length, n = grid[0].length;
+<A NAME="0"></A>        int[] rowCnt = new int[m];
+        int[] colCnt = new int[n];
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+<A NAME="1"></A>                if (grid[i][j] == 1) {
+                    ++ones;
+                    g</B></FONT>rid[i][j] = 0;
+                    if (countComponents(grid) == 2) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                        return 1;
+                    }
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        //if (ones == 2) {
+        //    return 2;
+        //}
+        
+        return 2;
+    }
+    
+<A NAME="2"></A>    int countComponents(int[][] grid) {
+        int cnt = 0</B></FONT>, m = grid.length, n = grid[0].length;
+        boolean[][] vis = new boolean[m][n];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == 1 &amp;&amp; !vis[i][j]) {
+                    dfsCountComponents(i, j, grid, vis);
+                    ++cnt;
+                }
+            }
+        }
+        
+<A NAME="3"></A>        return cnt;
+    }
+    
+    void dfsCountComponents(int y, int x, int[][] grid</B></FONT>, boolean[][] vis) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        if (y &lt; 0 || x &lt; 0 || y &gt;= grid.length || x &gt;= grid[0].length || grid[y][x] == 0 || vis[y][x]) {
+            return;
+        }
+        vis[y][x] = true;
+        dfsCountComponents(y + 1, x, grid, vis);
+        dfsCountComponents(y - 1, x, grid, vis);
+        dfsCountComponents(y, x + 1, grid, vis);
+        dfsCountComponents(y, x - 1, grid, vis);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

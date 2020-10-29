@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>566_HDSpray.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>566_HDSpray.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        interval = vector&lt;pair&lt;int, int&gt;&gt;(26, {-1, -1});
+        for (int i = 0; i &lt; s.size(); ++i) {
+            if(i == 0)
+                prefix[i][s[i] - 'a']++;
+            else
+                for(int j = 0; j &lt; 26; ++j){
+                    prefix[i][j] = prefix[i - 1][j];
+                    if(j == s[i] - 'a')++prefix[i][j];
+                }
+            if (interval[s[i]-'a'].first == -1) interval[s[i]-'a'].first = i;
+<A NAME="1"></A>            interval[s[i]-'a'].second = i;
+        }</B></FONT>
+        run();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        sort(interval.begin(), interval.end(), [](auto&amp; l, auto&amp; r) { return l.second &lt; r.second; });
+        vector&lt;string&gt; res;
+        int i = 0;
+        for (; i &lt; interval.size(); ++i) if (interval[i].first != -1) break;
+        int end = -1;
+        for (; i &lt; interval.size(); ++i) {</B></FONT>
+            if (interval[i].first &gt; end) {
+                res.push_back(s.substr(interval[i].first, interval[i].second - interval[i].first + 1));
+                end = interval[i].second;;
+            }
+        }
+        return res;
+    }
+private:
+<A NAME="2"></A>    vector&lt;pair&lt;int, int&gt;&gt; interval;
+    int prefix[100007][26];
+    void run(){
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int k = 1; k &lt;= 40; ++k){
+            for (int i = 0; i &lt; 26; ++i) {
+                if (interval[i].first == -1) continue;
+                int l = interval[i].first , r = interval[i].second;
+                for(int x = 0; x &lt; 26; ++x){
+                    if(prefix[l][x] != prefix[r][x]){
+                        interval[i].first = min(interval[i].first, interval[x].first);
+                        interval[i].second = max(interval[i].second, interval[x].second);
+                    }
+                }
+            }
+        }</B></FONT>
+    }
+};
+</PRE>
+</BODY>
+</HTML>

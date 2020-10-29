@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_Aircy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_Aircy.java</CENTER></H3><HR>
+<PRE>
+class TreeAncestor {
+
+    int n;
+    int table[][];
+    int height;
+
+    public TreeAncestor(int n, int[] parent) {
+        this.n = n;
+        this.height = (int)Math.ceil(Math.log10(n) / Math.log10(2));
+        this.table = new int[n + 1][height + 1];
+<A NAME="0"></A>        for (int i = 0; i &lt; table.length; i++) {
+            Arrays.fill(table[i], -1);
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 2; i &lt;= n; i++) {
+            calculateSparse(parent[i - 1] + 1, i);
+        }
+    }
+
+    private void calculateSparse(int u, int v) {
+        table[v][0] = u;
+        for (int i = 1; i &lt;= height; i++) {
+            table[v][i] = table[table[v][i - 1]][i - 1];
+            if (table[v][i] == -1) break;
+        }
+    }
+
+    public int getKthAncestor(int node, int k) {
+        node ++;
+<A NAME="1"></A>        for (int i = 0; i &lt;= height; i++) {
+            if ((k &amp; (1 &lt;&lt; i)) != 0) {
+                node = table[node][i];
+                if</B></FONT> (node == -1) return -1<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        return node - 1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>597_mzi0.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>597_mzi0.cpp</CENTER></H3><HR>
+<PRE>
+struct cmp {
+    bool operator()(const pair&lt;int, int&gt; &amp;p) const {
+        return p.first * 500 + p.second;
+<A NAME="0"></A>    }
+};
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    int dp[505][505];
+    
+    int solve(vector&lt;int&gt;&amp; A, int start, int end) {
+        if (start == end) return 0;
+        if (dp[start][end] != -1) return dp[start][end];
+        
+        int total = 0;
+        for (int i = start; i &lt;= end; i += 1) total += A[i];</B></FONT>
+        
+<A NAME="1"></A>        int left = 0;
+        int best = 0;
+        for (int i = start; i &lt; end; i += 1) {            
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            left += A[i];
+            int right = total - left;
+            
+            // int solve_left = ;
+            // int solve_right = ;
+            
+            if (left &gt; right) best = max(best, right + solve(A, i+1, end));
+            else if (right &gt; left) best = max(best, left + solve(A, start, i));
+            else best = max(best, max(left + solve(A, start, i), right + solve(A, i+1, end)));
+            
+            // if (start == 0 &amp;&amp; end == A.size() - 1) {
+                // printf(&quot;[%d %d] [left=%d right=%d best=%d]\n&quot;, start, end, left, right, best);
+            // }
+        }
+        return dp[start][end] = best;
+    }
+    
+    int stoneGameV(vector&lt;int&gt;&amp; A) {
+        //unordered_map&lt;pair&lt;int, int&gt;, int, cmp&gt; dp;
+        memset(dp, -1, sizeof dp);</B></FONT>
+        return solve(A, 0, A.size() - 1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

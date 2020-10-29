@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>696_Thare_Lam.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>696_Thare_Lam.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] d = new int[]{0, -1, 0, 1, 0};
+    
+<A NAME="1"></A>    public int minDays(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length</B></FONT>;
+        if (cal(grid, m, n) != 1) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            return 0;
+        }
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    if (cal(grid, m, n) != 1) {
+                        return 1;
+                    }
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+    }
+
+<A NAME="2"></A>    private int cal(int[][] grid</B></FONT>, int m, int n) {
+        boolean[][] visit = new boolean[m][n];
+        int c = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == 1 &amp;&amp; !visit[i][j]) {
+                    ++c;
+                    dfs(grid, visit, m, n, i, j);
+                }
+            }
+        }
+        return c;
+    }
+    
+    private void dfs(int[][] grid, boolean[][] visit, int m, int n</B></FONT>, int x, int y) {
+        visit[x][y] = true;
+        for (int i = 0; i &lt; 4; ++i) {
+            int nx = x + d[i];
+            int ny = y + d[i + 1];
+            if (nx &gt;= 0 &amp;&amp; nx &lt; m &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; n &amp;&amp; grid[nx][ny] == 1 &amp;&amp; !visit[nx][ny]) {
+                dfs(grid, visit, m, n, nx, ny);
+            }
+        }
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_zjthangz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>443_zjthangz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        char[] cs = s.toCharArray();
+        int n = cs.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] lo = new int[26], hi = new int[26];
+        Arrays.fill(lo, -1);
+        for (int i = 0; i &lt; n; i++) {
+            int idx = cs[i] - 'a';
+            if (lo[idx] == -1) lo[idx] = i;
+            hi[idx] = i;
+        }
+        // System.out.println(Arrays.toString(lo));
+        // System.out.println(Arrays.toString(hi));
+        int[] trueHi = new</B></FONT> int[26];
+        for (int i = 0; i &lt; 26; i++) {
+<A NAME="1"></A>            if (lo[i] == -1) continue;
+            trueHi[i] = hi[i];
+            for (int d = lo[i]+1; d &lt; trueHi[i]; d++) {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (lo[cs[d]-'a'] &lt; lo[i]) {
+                    trueHi[i] = -1;
+                    break;
+                }
+                trueHi[i] = Math.max(trueHi[i], hi[cs[d]-'a']);
+            }</B></FONT>
+        }
+        // System.out.println(Arrays.toString(trueHi));
+        List&lt;int[]&gt; list = new ArrayList(26);
+        for (int i = 0; i &lt; 26; i++) {
+            if (lo[i] != -1 &amp;&amp; trueHi[i] != -1) list.add(new int[] {lo[i], trueHi[i]});
+        }
+        Collections.sort(list, (a,b) -&gt; (a[1]-a[0] - (b[1]-b[0])));
+        List&lt;String&gt; ret = new LinkedList();
+        outer:
+        for (int i = 0; i &lt; list.size(); i++) {
+            for (int j = 0; j &lt; i; j++) {
+                if (list.get(j)[0] &gt; list.get(i)[0] &amp;&amp; list.get(j)[0] &lt; list.get(i)[1]
+                   || list.get(j)[1] &gt; list.get(i)[0] &amp;&amp; list.get(j)[1] &lt; list.get(i)[1]) {
+                    continue outer;
+                }
+            }
+            ret.add(s.substring(list.get(i)[0],list.get(i)[1] + 1));
+        }
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

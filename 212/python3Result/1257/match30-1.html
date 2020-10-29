@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_silmue.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_silmue.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def matrixRankTransform(self, mat: List[List[int]]) -&gt; List[List[int]]:
+        n = len(mat)
+        m = len(mat[0])
+        arr = [[mat[i][j], i, j] for i in range(n) for j in range(m)]
+        ans = [[0 for i in range(m)] for j in range(n)]
+        arr.sort(key = lambda x:x[0])
+        mi = [0 for i in range(n)]
+        mj = [0 for i in range(m)]
+        fa = [i for i in range(n*m)]
+        
+        def getfa(x):
+            if not fa[x]==x:
+                fa[x] = getfa(fa[x])
+            return fa[x]
+
+        def merge(a, b):
+            a = getfa(a)
+            b = getfa(b)
+            fa[a] = b
+<A NAME="0"></A>            
+        for i in range(n):
+            tmp = sorted([[mat[i][j], j] for j in range(m)])
+            for j in range(len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(tmp)-1):
+                if tmp[j][0]==tmp[j+1][0]:
+<A NAME="1"></A>                    merge(m*i+tmp[j][1], m*i+tmp[j+1][1])
+        for i in range(m):
+            tmp =</B></FONT> sorted([[mat[j][i], j] for j in range(n)])
+            for j in range(len<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(tmp)-1):
+                if tmp[j][0]==tmp[j+1][0]:
+                    merge(m*tmp[j][1]+i, m*tmp[j+1][1]</B></FONT>+i)
+        dic = dict()
+        for i in range(n*m):
+            t = getfa(i)
+            if t in dic.keys():
+                dic[t].append(i)
+            else:
+                dic[t] = [i]
+        
+        for t in arr:
+            v, x, y = t
+            if ans[x][y]:
+                continue
+            tmp = dic[fa[x*m+y]]
+            mx = 0
+            for tt in tmp:
+                mx = max(mx, mi[tt//m], mj[tt%m])
+            for tt in tmp:
+                ans[tt//m][tt%m] = mx+1
+                mi[tt//m] = mx+1
+                mj[tt%m] = mx+1
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>72_xyxx.cpp</TITLE>
+ <TITLE>144_wuhunantong.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,69 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>72_xyxx.cpp</CENTER></H3><HR>
+<H3><CENTER>144_wuhunantong.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-
-		int give(int par[],int x)
-		{
-				if(par[x]==x)
-						return x;
-				return par[x]=give(par,par[x]);
-		}
-
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; ar) {
-<A NAME="0"></A>				int par1[n+10],par2[n+10];
-				for(int i=0;i&lt;n+5;++i)
-						par1[i]=par2[i]=i;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				int ret=0,c1=0,c2=0;
-				for(int i=0;i&lt;ar.size();++i)
-				{
-						if(ar[i][0]==3)
-						{
-								int p1=give(par1,ar[i][1]),p2=give(par1,ar[i][2]);
-								if(p1!=p2)</B></FONT>
-								{
-										++ret;
-										par1[p2]=p1;
-<A NAME="1"></A>										par2[p2]=p1;
-										++c1,++c2;
-								}
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>						}
-				}
-				for(int i=0;i&lt;ar.size();++i)
-				{
-						if(ar[i][0]==1)
-						{
-								int p1=give(par1,ar[i][1]),p2=give(par1,ar[i][2]);
-								if(p1!=p2)</B></FONT>
-								{
-										++ret;
-<A NAME="2"></A>										par1[p2]=p1;
-										++c1;
-								}
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>						}
-				}
-				for(int i=0;i&lt;ar.size();++i)
-				{
-						if(ar[i][0]==2)
-						{
-								int p1=give(par2,ar[i][1]),p2=give(par2,ar[i][2]);
-								if(p1!=p2)</B></FONT>
-								{
-										++ret;
-										par2[p2]=p1;
-										++c2;
-								}
-						}
-				}
-				if(c1!=n-1||c2!=n-1)
-						return -1;
-				return ar.size()-ret;
-        
+    int f[100010], f1[100010], f2[100010];
+    
+    int find(int k) {
+        return f[k] == k? k : f[k] = find(f[k]);
     }
-};
+    
+    int find1(int k) {
+        return f1[k] == k? k : f1[k] = find1(f1[k]);
+    }
+    
+    int find2(int k) {
+        return f2[k] == k? k : f2[k] = find2(f2[k]);
+    }
+    
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int ans = 0;
+        for(int i = 1; i &lt;= n; i++) f[i] = i;
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 3) {
+                int a = edges[i][1], b = edges[i][2];
+                if(find(a) != find(b)) f[find(a)] = find(b);
+                else ans++;
+            }
+        }
+        for(int i = 1; i &lt;= n; i++) f1[i] = f2[i] = f[i];
+        for(int i = 0; i &lt; edges.size(); i++) {
+            int a = edges[i][1], b = edges[i][2];
+            if(edges[i][0] == 1) {
+                if(find1(a) != find1(b)) f1[find1(a)] = find1(b);
+                else ans++;
+            }
+            else if(edges[i][0] == 2) {
+                if(find2(a) != find2(b)) f2[find2(a)] = find2(b);
+                else ans++;
+            }
+        }
+        for(int i = 1; i &lt;= n; i++) if(find1(f1[i]) != find1(f1[1]) || find2(f2[i]) != find2(f2[1])) return -1;
+        return ans;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

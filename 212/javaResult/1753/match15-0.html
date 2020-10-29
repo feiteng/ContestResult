@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>959_14417335.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>959_14417335.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+  private static final int[] DIRS = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{-1, 0, 1, 0, -1};
+
+  public int minimumEffortPath(int[][] points) {
+    final int R = points.length, C = points[0].length;
+
+    boolean[][] vis = new boolean[R][C];
+    int[][] bests = new int[R][C];
+    for (int[] row : bests)
+      Arrays.fill(row, Integer.MAX_VALUE);
+    bests[0][0] = 0;
+    PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; (a[2] - b[2]));
+    pq.offer(new int[] {0, 0, 0}); // r, c, max cost
+    while (!pq.isEmpty()) {
+      int[] now = pq.poll();
+      if (vis[now[0]][now[1]])
+        continue;
+      vis[now[0]][now[1]] = true;
+      for (int j = 0; j != 4; j++) {
+        int nr = now[0] + DIRS[j], nc = now[1] + DIRS[j + 1];
+        if (nr == R || nr == -1 || nc == C || nc == -1 || vis[nr][nc])
+          continue;
+        int would = Math.max(now[2], Math.abs(points[now[0]][now[1]] - points[nr][nc]));
+        if (bests[nr][nc] &lt;= would)
+          continue;
+        bests[nr][nc] = would;
+        pq.offer(new int[] {nr, nc, would});
+      }
+    }
+    return bests[R - 1][C - 1];
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

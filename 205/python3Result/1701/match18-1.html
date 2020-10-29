@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>112_atf.py</TITLE>
+ <TITLE>185_dl3182.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,79 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>112_atf.py</CENTER></H3><HR>
+<H3><CENTER>185_dl3182.py</CENTER></H3><HR>
 <PRE>
-class UnionFind:
-    def __init__(self, N):
-<A NAME="0"></A>        # Union find with component size
-        # Negative means is a root where value is component size
-        # Otherwise is index to parent
-        self.p = [-1 for i in range(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>N)]
-
-    def find(self, i):
-        # Find root with path compression
-        if self.p[i] &gt;= 0:
-            self.p[i] = self.find(self.p[i])
-            return self.p[i]
-        else:
-            return i
-
-    def union(self, i, j):
-        # Union by size
-        root1 = self.find(j)
-        root2 = self.find(i)
-        if</B></FONT> root1 == root2:
-            return
-        size1 = -self.p[root1]
-        size2 = -self.p[root2]
-        if size1 &lt; size2:
-            self.p[root1] = root2
-            self.p[root2] = -(size1 + size2)
-        else:
-            self.p[root2] = root1
-<A NAME="1"></A>            self.p[root1] = -(size1 + size2)
-
-    def getComponentSize(self, i):
-        return -self.p[self.find(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i)]
-
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        uf1 = UnionFind(n)
-        uf2 = UnionFind(n)
-        discarded = 0
-        for</B></FONT> kind, u, v in edges:
-            u -= 1
-            v -= 1
-            if kind == 3:
-                if uf1.find(u) != uf1.find(v):
-                    uf1.union(u, v)
-                    uf2.union(u, v)
-                else:
-                    discarded += 1
-                    
-        for kind, u, v in edges:
-            u -= 1
-            v -= 1
-            if kind == 1:
+        def find(i,parent):
+            if parent[i]!=i:
+                parent[i]=find(parent[i],parent)
+            return parent[i]
+        
+        def union(i,j,parent):
+            i,j = find(i,parent),find(j,parent)
+            if i!=j:
+                parent[j] = i
                 
-            
-                if uf1.find(u) != uf1.find(v):
-                    uf1.union(u, v)
-                else:
-                    discarded += 1
-            if kind == 2:    
-                if uf2.find(u) != uf2.find(v):
-                    uf2.union(u, v)
-                else:
-                    discarded += 1
+                
+        first,second,third = set(),set(),set()
+        for ty,i,j in edges:
+            if ty==1:
+                first.add((i,j))
+            elif ty==2:
+                second.add((i,j))
+            else:
+                third.add((i,j))
+        res = 0
         
+        parenta = {i:i for i in range(1,n+1)}
+        parentb = {i:i for i in range(1,n+1)}
+    
+                
+        for i,j in third:
+            if find(i,parenta)==find(j,parenta):
+                res+=1
+            else:
+                union(i,j,parenta)
+                union(i,j,parentb)
+                
+        for i,j in first:
+            if find(i,parenta)==find(j,parenta):
+                res+=1
+            else:
+                union(i,j,parenta)
         
-        if uf1.getComponentSize(0) != n or uf2.getComponentSize(0) != n:
+        for i,j in second:
+            if find(i,parentb)==find(j,parentb):
+                res+=1
+            else:
+                union(i,j,parentb)
+        
+        parenta = {i:find(i,parenta) for i in parenta}
+        parentb = {i:find(i,parentb) for i in parentb}
+        
+        if len(set(parenta.values()))!=1 or len(set(parentb.values()))!=1:
             return -1
-        return discarded
+        re</B></FONT>turn res
         
-            
+        
 </PRE>
 
 </BODY>

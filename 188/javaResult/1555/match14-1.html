@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_sevenlol.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>217_sevenlol.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private static final int MOD = (int) 1e9 + 7;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int ways(String[] pizza, int k) {
+        int m = pizza.length, n = pizza[0].length();
+        
+        boolean[][] row = new</B></FONT> boolean[m + 1][n + 1];
+        boolean[][] col = new boolean[m + 1][n + 1];
+        int[][][] dp = new int[51][51][11];
+        for (int i = m - 1; i &gt;= 0; i--) {
+            for (int j = n - 1; j &gt;= 0; j--) {
+<A NAME="1"></A>                char c = pizza[i].charAt(j);
+                row[i][j] = row[i][j + 1] || c == 'A';
+                col[i][j] = col[i + 1][j] || c == 'A';
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dp[i][j][1] = ((dp[i + 1][j][1] == 1) || row[i][j]) ? 1 : 0;
+            }
+        }
+        
+        
+        for (int l = 2; l &lt;= k; l++) {
+            for (int i = m - 1; i &gt;= 0; i--) {
+<A NAME="2"></A>                for (int j = n - 1; j &gt;= 0; j--) {</B></FONT>
+                    // horizontal
+                    boolean h = false;
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int c = i; c &lt; m - 1; c++) {
+                        h |= row[c][j];
+                        if (h) {
+                            dp[i][j][l] += dp[c + 1][j][l - 1];
+                            dp[i][j][l] %= MOD;
+<A NAME="3"></A>                        }
+                    }</B></FONT>
+                    boolean v = false;
+                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int c = j; c &lt; n - 1; c++) {
+                        v |= col[i][c];
+                        if (v) {
+                            dp[i][j][l] += dp[i][c + 1][l - 1];
+                            dp[i][j][l] %= MOD;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return dp[0][0][k];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

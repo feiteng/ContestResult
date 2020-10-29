@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_ruanys.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>280_ruanys.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {
+        int row = heights.size(), col = heights[0].size();
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt;pq;
+<A NAME="1"></A>        pq.push({0, 0});
+        vector&lt;vector&lt;int&gt;&gt;effort(row, vector&lt;int&gt;(col, INT_MAX));
+        effort[0][0] = 0;
+        vector&lt;vector&lt;int&gt;&gt;dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+        
+        while(!pq.empty()) {
+            auto f = pq.top();</B></FONT>
+            pq.pop();
+            int ef = f.first, r = f.second/col, c = f.second%col;
+        //    cout &lt;&lt; &quot;sdad   &quot; &lt;&lt; r &lt;&lt; &quot;, &quot; &lt;&lt; c &lt;&lt; &quot;, &quot; &lt;&lt; ef &lt;&lt; endl;
+            if (r==row-1&amp;&amp;c==col-1)
+<A NAME="2"></A>                return ef;
+            
+            for (auto dir: dirs) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int x = dir[0]+r, y = dir[1]+c;
+                if (x&gt;=0&amp;&amp;x&lt;row&amp;&amp;y&gt;=0&amp;&amp;y&lt;col&amp;&amp;effort[x][y]&gt;max(ef, abs(heights[r][c]-heights[x][y]))) {
+                    effort[x][y] = max(ef, abs(heights[r][c]-heights[x][y]));
+                 //   cout &lt;&lt;x &lt;&lt; &quot;, &quot; &lt;&lt; y &lt;&lt; &quot;, &quot; &lt;&lt; effort[x][y] &lt;&lt; endl;
+                    pq.push({effort[x][y], x*col+y});
+                }
+            }
+            
+        }
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

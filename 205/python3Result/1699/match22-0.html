@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>531_mizard.py</TITLE>
+ <TITLE>428_shiridisaiprasad.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,21 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>531_mizard.py</CENTER></H3><HR>
+<H3><CENTER>428_shiridisaiprasad.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import collections 
 class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        ans = 0
-        ls1 = len(nums1)
-        ls2 = len(nums2)
-        
-<A NAME="0"></A>        pn1 = [num ** 2 for num in nums1]
-        pn2 = [num ** 2 for num in nums2]
-        
-        want1 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= defaultdict(int)
-        for j in range(ls1-1):
-            for k in range(j+1, ls1):
-                want1[nums1[j]*nums1[k]] += 1
-        
-        want2 = defaultdict(int)
-        for j in range(ls2-1):
-<A NAME="1"></A>            for k in range(j+1, ls2):
-                want2[nums2[j]*nums2[k]] +=</B></FONT> 1
-                
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(ls1):
-            ans += want2[pn1[i]]
-        for i in range(ls2):
-            ans += want1[pn2[i]]
-        
-        re</B></FONT>turn ans
+        counts1 = collections.Counter(i*i for i in nums1)
+        counts2 = collections.Counter(i*i for i in nums2)
+        ans = 0 
+        for i in range(0, len(nums1)):
+            for j in range(i+1, len(nums1)):
+                ans += counts2[nums1[i]*nums1[j]] 
+        for i in range(0, len(nums2)):
+            for j in range(i+1, len(nums2)):
+                ans += counts1[nums2[i]*nums2[j]]
+        re</B></FONT>turn ans 
 </PRE>
 
 </BODY>

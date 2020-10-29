@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>479_xenny.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>479_xenny.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    bool flag = false;
+    
+    int f[305][305];
+    
+    bool check(int x,int y,vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+        if (x &gt;= g.size() || y &gt;= g[0].size() || x &lt; 0 || y &lt; 0 || f[x][y]) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    void dfs(int x,int y,vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+        if (x == g.size()-1 &amp;&amp; y == g[0].size()-1) {
+            flag = true;
+            return ;
+        }
+        if (flag) {
+<A NAME="0"></A>            return;
+        }
+        if (f[x][y]) return;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        f[x][y] = 1;
+        if (g[x][y] == 1) {
+            if (check(x,y-1,g) &amp;&amp; (g[x][y-1] == 1 || g[x][y-1] == 4 || g[x][y-1] == 6)) {
+                dfs(x,y-1,g);
+            }
+            if (check(x,y+1,g) &amp;&amp; (g[x][y+1] == 1 || g[x][y+1] == 3 || g[x][y+1] == 5)) {
+                dfs(x,y+1,g);
+            }
+        } else if (g[x][y] == 2) {
+            if (check(x-1,y,g) &amp;&amp; (g[x-1][y] == 2 || g[x-1][y] == 3 || g[x-1][y] == 4)) {
+                dfs(x-1,y,g);
+            }
+            if (check(x+1,y,g) &amp;&amp; (g[x+1][y] == 2 || g[x+1][y] == 5 || g[x+1][y] == 6)) {
+                dfs(x+1,y,g);
+            }
+        } else if (g[x][y] == 3) {
+            if (check(x+1,y,g) &amp;&amp; (g[x+1][y] == 2 || g[x+1][y] == 5 || g[x+1][y] == 6)) {
+                dfs(x+1,y,g);
+            }
+            if (check(x,y-1,g) &amp;&amp; (g[x][y-1] == 1 || g[x][y-1] == 4 || g[x][y-1] == 6)) {
+                dfs(x,y-1,g);
+            }
+        } else if (g[x][y] == 4) {
+            if (check(x,y+1,g) &amp;&amp; (g[x][y+1] == 1 || g[x][y+1] == 3 || g[x][y+1] == 5)) {
+                dfs(x,y+1,g);
+            }
+            if (check(x+1,y,g) &amp;&amp; (g[x+1][y] == 2 || g[x+1][y] == 5 || g[x+1][y] == 6)) {
+                dfs(x+1,y,g);
+            }
+        } else if (g[x][y] == 5) {
+            if (check(x,y-1,g) &amp;&amp; (g[x][y-1] == 1 || g[x][y-1] == 4 || g[x][y-1] == 6)) {
+                dfs(x,y-1,g);
+            }
+            if (check(x-1,y,g) &amp;&amp; (g[x-1][y] == 2 || g[x-1][y] == 3 || g[x-1][y] == 4)) {
+                dfs(x-1,y,g);
+            }
+        } else {</B></FONT>
+            if (check(x-1,y,g) &amp;&amp; (g[x-1][y] == 2 || g[x-1][y] == 3 || g[x-1][y] == 4)) {
+                dfs(x-1,y,g);
+            }
+            if (check(x,y+1,g) &amp;&amp; (g[x][y+1] == 1 || g[x][y+1] == 3 || g[x][y+1] == 5)) {
+                dfs(x,y+1,g);
+            }
+        }
+    }
+    
+    
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        memset(f,0,sizeof f);
+        dfs(0,0,grid);   
+        return flag;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

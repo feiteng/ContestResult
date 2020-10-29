@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>153_Madman_FF.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>153_Madman_FF.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minSwaps(int[][] grid) {
+        int n = grid.length;
+        List&lt;Integer&gt; zeroLens = new ArrayList&lt;Integer&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            int j = n - 1</B></FONT>;
+            while (j &gt;= 0 &amp;&amp; grid[i][j] == 0) j--;
+<A NAME="1"></A>            zeroLens.add(n - 1 - j);
+        }
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int swaps = 0;
+        for (int i = 0; i &lt; n; i++) {
+            int neededLen = n - 1 - i;
+            boolean found = false;
+            for (int j = 0; j &lt; zeroLens.size(); j++) {</B></FONT>
+                if (zeroLens.get(j) &gt;= neededLen) {
+<A NAME="2"></A>                    swaps += j;
+                    zeroLens.remove(j);
+                    found = true;
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>break;
+                }
+            }
+            if (!found) return -1;
+        }
+        
+        return swaps;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

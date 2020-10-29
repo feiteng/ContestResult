@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>421_hastings2k.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>421_hastings2k.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numOfWays(self, nums: List[int]) -&gt; int:
+        mapping = {}
+        def _cal0(x,y):
+            if not x or not y:
+                return 1
+            code = x*10000+y
+            if code not in mapping:
+                res = _cal0(x-1,y)+_cal0(x,y-1)
+                mapping[code] = res
+            return mapping[code]
+<A NAME="0"></A>        def _cal1(arr):
+            if not arr:
+                return 1,0
+            gt <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+            lt = []
+            for i in range(1,len(arr)):
+                if arr[i] &gt; arr[0]:
+                    gt.append(arr[i])
+                else:
+                    lt.append(arr[i])
+            numg,lengthg = _cal1(gt)
+            numl,lengthl = _cal1(lt)
+            return _cal0(lengthg,lengthl)*numg*numl,len(</B></FONT>arr)
+        num,lgth = _cal1(nums)
+        return (num-1)%(10**9+7)
+'''
+[2,1,3]
+1
+
+[3,4,5,1,2]
+5
+
+
+[1,2,3]
+0
+
+[3,1,2,5,4,6]
+19
+
+[9,4,2,1,3,6,5,7,8,14,11,10,12,13,16,15,17,18]
+216212978
+'''
+</PRE>
+
+</BODY>
+</HTML>

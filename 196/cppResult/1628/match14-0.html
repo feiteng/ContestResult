@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>728_hansen111.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>728_hansen111.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numSubmat(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int n=mat.size();
+        int m=mat[0].size();
+        vector&lt;vector&lt;int&gt;&gt;pre(n+1,vector&lt;int&gt;(m+1,0));
+        
+        // for(int i=0;i&lt;n;i++){
+        //     for(int j=0;j&lt;m;j++){
+        //         pre[i+1][j+1]=pre[i+1][j]+pre[i][j+1]-pre[i][j] + mat[i][j];
+        //     }
+        // }
+        // int ans=0;
+        // for(int height=1;height&lt;=n;height++){
+        //     for(int width=1;width&lt;=m;width++){
+        //         for(int i=0;i&lt;n;i++){
+        //             for(int j=0;j&lt;m;j++){
+        //                 if(i+height&lt;=n &amp;&amp; j+width&lt;=m){
+        //                     if(pre[i+height][j+width]-pre[i+height][j]-pre[i][j+width]+pre[i][j]==height*width)
+        //                         ans++;
+        //                 }            
+        //             }
+        //         }
+        //     }
+        // }
+<A NAME="1"></A>        for(int i=0;i&lt;n;i++){
+            for(int j=m-1;j&gt;=0;j--){
+                if(!mat[i][j])continue;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                pre[i][j]=pre[i][j+1]+mat[i][j];
+            }
+        }
+        int ans = 0; 
+  
+        for (int j = 0; j &lt; m; j++) { 
+            
+            int i=n-1;
+            stack&lt;pair&lt;int,int&gt;&gt;s; 
+
+            int sum = 0; 
+
+            while (i &gt;= 0) {
+
+                int c = 0; 
+
+                while (s.size() != 0 and s.top().first &gt; pre[i][j]) { 
+
+                    sum -= (s.top().second + 1)*(s.top().first - pre[i][j]); 
+
+                    c += s.top().second + 1; 
+                    s.pop(); 
+                } 
+
+                sum += pre[i][j]; 
+
+                ans += sum; 
+
+                s.push({pre[i][j], c}); 
+
+                i--; 
+            } 
+        } 
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

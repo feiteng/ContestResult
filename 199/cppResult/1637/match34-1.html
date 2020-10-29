@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_zqy1018.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>25_zqy1018.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int l[105][2], tot;
+    int f[105][105], sum[105];
+    inline int get(int x){
+        if (x &lt;= 1) return 0;
+        if (x &lt;= 9) return 1;
+        if (x &lt;= 99) return 2;
+        return -1;
+    }
+public:
+    int getLengthOfOptimalCompression(string s, int k) {
+        tot = 0;
+        int n = s.length();
+        sum[0] = 0;
+        for (int i = 0; i &lt; n; ){
+            int j = i;
+            while (j &lt; n &amp;&amp; s[i] == s[j])
+                ++j;
+            l[++tot][0] = s[i], l[tot][1] = j - i;
+<A NAME="0"></A>            sum[tot] = sum[tot - 1] + j - i;
+            i = j;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        memset(f, 0x3f,sizeof(f));
+        f[0][0] = 0;
+        for (int i = 1; i &lt;= tot; ++i){
+            for (int j = 0; j &lt;= k; ++j){
+                f[i][j] = f[i - 1][j] + 1 + get(l[i][1]);</B></FONT>
+                if (j &gt;= l[i][1])
+                    f[i][j] = min(f[i][j], f[i - 1][j - l[i][1]]);
+                for (int t = 1; t &lt; l[i][1]; ++t)
+                    if (j &gt;= t)
+                        f[i][j] = min(f[i][j], f[i - 1][j - t] + 1 + get(l[i][1] - t));
+                if (j &gt;= sum[i])
+                    f[i][j] = 0;
+                
+                int th = l[i][1], tr = 0;
+                for (int t = i - 1; t &gt;= 1; --t){
+                    if (j &gt;= sum[i] - sum[t])
+                        f[i][j] = min(f[i][j], f[t][j - sum[i] + sum[t]]);
+                    if (l[t][0] == l[i][0]){
+                        th += l[t][1];
+                        for (int u = tr; u &lt; th + tr; ++u){
+                            if (j &lt; u) break;
+                            f[i][j] = min(f[i][j], f[t - 1][j - u] + 1 + get(th - (u - tr)));
+                        }
+                    }else tr += l[t][1];
+                }
+            }
+        }
+        // cout &lt;&lt; f[2][1] &lt;&lt; endl;
+        return f[tot][k];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

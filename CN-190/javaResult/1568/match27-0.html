@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_Juny1He.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_Juny1He.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+<A NAME="0"></A>class Solution {
+    private int ret = 0;
+    public int pseudoPalindromicPaths (TreeNode root) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] cnt = new int[10];
+        helper(root,cnt);
+<A NAME="1"></A>        return ret;
+    }
+    private void helper(TreeNode root, int[] cnt</B></FONT>){
+        if(root == null) return<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        if(root.left == null &amp;&amp; root.right == null){
+            cnt[root.val]++;
+            if(check(cnt)){
+                ret++;
+            }
+            return;
+        }</B></FONT>
+        cnt[root.val]++;
+        int[] temp1 = cnt.clone();
+<A NAME="2"></A>        helper(root.left,temp1);
+        int[] temp2 = cnt.clone();
+        helper(root.right,temp2);
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    private boolean check(int[] cnt){
+        int c = 0;
+        for(int i = 1; i &lt; 10; i ++){
+            if(cnt[i] % 2 == 1){
+                c++;
+            }
+        }
+        return c &lt;= 1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

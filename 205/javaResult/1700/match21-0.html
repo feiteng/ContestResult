@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>585_levelone.java</TITLE>
+ <TITLE>248_kazuya-w.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>585_levelone.java</CENTER></H3><HR>
+<H3><CENTER>248_kazuya-w.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    /*
-    it seems greedy works?
-    */
     public int minCost(String s, int[] cost) {
-        int ret=0;
-        char prev='#';
-        int maxCost=0;
-        int totalCost=0;</B></FONT>
-        for(int i=0;i&lt;s.length();i++)
-        {
-            if(prev!=s.charAt(i))
-<A NAME="1"></A>            {
-                prev=s.charAt(i);
-                ret+=(totalCost-maxCost);
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>maxCost=cost[i];
-                totalCost=cost[i];
-            }else{
-                maxCost=Math.max(maxCost, cost[i]);
-                totalCost+=cost[i];
+        int a = 0;
+        char[] cs = s.toCharArray();
+        Stack&lt;Integer&gt; st = new Stack&lt;&gt;();
+        st.push(0);
+        for (int i = 1; i &lt; s.length(); i++) {
+            if (cs[st.peek()] != cs[i]) {
+                st.push(i);
+                continue;
             }
-           // System.out.println(ret+&quot;,&quot;+i);
-            
+            if (cost[st.peek()] &lt; cost[i]) {
+                a += cost[st.peek()];
+                st.pop();
+                st.push(i);
+            } else {
+                a += cost[i];
+            }
         }
-        if</B></FONT>(totalCost!=0)
-            ret+=(totalCost-maxCost);
-        return ret;
+        return a;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

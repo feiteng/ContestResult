@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_yunpingwang13.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_yunpingwang13.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int findMaxValueOfEquation(int[][] points, int k) {
+        Deque&lt;Integer&gt; low = new ArrayDeque&lt;&gt;();
+        Deque&lt;Integer&gt; high = new ArrayDeque&lt;&gt;();
+        low.offer(0);
+        high.offer(0);
+        int result = Integer.MIN_VALUE;
+        for (int i = 1;i&lt;points.length;i++) {
+            while (!low.isEmpty() &amp;&amp; points[i-1][1] - points[i-1][0] &gt;= points[low.peekLast()][1] - points[low.peekLast</B></FONT>()][0]) {
+<A NAME="1"></A>                low.pollLast();
+            }
+            low.offer(i-1);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!high.isEmpty() &amp;&amp; points[i][1] + points[i][0] &gt;= points[high.peekLast()][1] + points[high.peekLast()][0]) {
+                high.pollLast();
+            }
+            high.offer</B></FONT>(i);
+            while (!low.isEmpty() &amp;&amp; points[i][0] - points[low.peek()][0] &gt; k) {
+                low.poll();
+            }
+            while (!high.isEmpty() &amp;&amp; points[i][0] - points[high.peek()][0] &gt; k) {
+                high.poll();
+            }
+            if (!high.isEmpty() &amp;&amp; high.peek().equals(low.peek())) {
+                high.poll();
+            }
+            // System.out.println(low);
+            // System.out.println(high);
+            // System.out.println();
+            if (!low.isEmpty() &amp;&amp; !high.isEmpty()) {
+                result = Math.max(result, points[low.peek()][1] + points[high.peek()][1] + Math.abs(points[high.peek()][0] - points[low.peek()][0]));
+            }
+        }
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

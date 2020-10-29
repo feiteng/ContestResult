@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>652_devin2333.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>652_devin2333.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int ways(String[] pizza, int k) {
+        int row = pizza.length;
+        int col = pizza[0].length();
+        
+        long[][][] dp = new</B></FONT> long[row+1][col+1][k];
+        
+        for (int i = row-1; i &gt;= 0; i--) {
+            for (int j = col-1; j &gt;= 0; j--) {
+                if (dp[i+1][j][0] &gt; 0 || dp[i][j+1][0] &gt; 0 || pizza[i].charAt(j) == 'A') {
+                    dp[i][j][0] = 1;
+                }
+            }
+        }
+        
+        if (k == 1) {
+<A NAME="1"></A>            return (int) dp[0][0][0];
+        }
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int cut = 1; cut &lt; k; cut++) {
+            for (int i = row-1; i &gt;= 0; i--) {
+                for (int j = col-1; j &gt;= 0; j--) {
+                    // dp[i][j][cut] = dp[i+1][j][cut] + dp[i][j+1][cut];
+                    boolean hor = false;
+                    for (int i1 = i; i1 &lt; row-1; i1++) {</B></FONT>
+                        for (int index = j; index &lt; col; index++) {
+                            if (hor || pizza[i1].charAt(index) == 'A') {
+                                hor = true;
+<A NAME="2"></A>                                break;
+                            }
+                        }
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (hor) {
+                            dp[i][j][cut] += dp[i1+1][j][cut-1];
+                        }
+                    }
+                    
+                    boolean ver = false;
+                    for (int j1 = j; j1 &lt; col-1; j1++) {</B></FONT>
+                        for (int index = i; index &lt; row; index++) {
+                            if (ver || pizza[index].charAt(j1) == 'A') {
+                                ver = true;
+<A NAME="3"></A>                                break;
+                            }
+                        }
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match30-1.html#3',3,'match30-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (ver) {
+                            dp[i][j][cut] += dp[i][j1+1][cut-1];
+                        }
+                    }
+                }
+            }
+        }</B></FONT>
+
+        long result = 0;
+        for (int i = row-1; i &gt;= 0; i--) {
+            for (int j = col-1; j &gt;= 0; j--) {
+                result += dp[i][j][k-1];
+            }
+        }
+        return (int) (dp[0][0][k-1] % (1000000007));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

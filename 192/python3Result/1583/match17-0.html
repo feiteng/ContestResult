@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>505_Lawliet890.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>505_Lawliet890.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        # m house, n colors, target neibors, 
+        # return min, -1
+        
+        # dp[i][j][k] 前i个房子 j个neighbor，最后一个颜色是k
+        # no considerring: 为0的情况  dp[i][j][k] = dp[i-1][j][k] + sum(dp[i-1][j-1][not k])
+<A NAME="0"></A>        # 不为0  dp[i][j][k] = dp[i-1][j][k] + sum(dp[i-1][j-1][not k]) 但是这个只存在k了，其他的非k都是 max
+        
+        I, J, K = m, target, n
+        dp = [[[sys.maxsize]*(K+1) for __ in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(J+1)] for _ in range(I+1)]
+        
+        for k in range(K+1):
+            dp[0][0][k] = 0
+        
+<A NAME="1"></A>        for i in range(1, I+1):
+            for j in range(</B></FONT>1, J+1):
+<A NAME="2"></A>                if houses[i-1] == 0:
+                    for k in range<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(1, K+1):
+                        dp[i][j][k] = min(dp[i][j][k], dp[i-1][j][k] + cost[i-1][</B></FONT>k-1])
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for x in range(1, K+1):
+                            if x != k:
+                                dp[i][j][k] = min(dp[i][j][k], dp[i-1][</B></FONT>j-1][x]+cost[i-1][k-1])
+                else:
+                    color = houses[i-1]
+                    #print(i-1, j, color, dp[i-1][j][color])
+                    dp[i][j][color] = min(dp[i][j][color], dp[i-1][j][color])
+<A NAME="3"></A>                    for x in range(1, K+1):
+                        if x != color:
+                            #print(i-1, j-1, x, dp[i-1][j-1][x])
+                            dp<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j][color] = min(dp[i][j][color], dp[i-1][j-1][x</B></FONT>])
+        res = min(dp[-1][-1])
+        if res &lt; sys.maxsize: return res
+        return -1
+        
+</PRE>
+
+</BODY>
+</HTML>

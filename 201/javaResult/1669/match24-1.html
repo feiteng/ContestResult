@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>587_hdchen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>587_hdchen.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int minCost(int n, int[] cuts) {
+        Arrays.sort(cuts);
+        int m = cuts.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dp = new int[m][m];
+        return dfs(0, n, cuts, 0, m - 1, dp);
+    }
+<A NAME="1"></A>    private int dfs(int i, int j, int[] cuts, int lo, int hi, int[][] dp) {
+        if (i &gt; j || lo &gt; hi) return 0;
+        if (0 != dp[lo][hi]) return dp[lo][hi];</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int cost = j - i, min = Integer.MAX_VALUE;
+        for (int m = lo; m &lt;= hi; ++m) {
+            min = Math.min(min, dfs(i, cuts[m], cuts, lo, m - 1, dp) + dfs(cuts[m], j, cuts, m + 1, hi, dp));
+        }
+        return dp[lo][hi] = cost + min;
+    }
+}</B></FONT>
+/*
+7
+[1,3,4,5]
+9
+[5,6,1,4,2]
+7249
+[2542,5776,4306,1787,1536,2520,2558,4289,2390,1371,2526,256,3025,1752,1780,2652,4815,5689,2719,7034,7058,1431,5086,1137,481,3977,1047,899,3915,1615,4996,5317,5330,3010,6987,2633,4396,6006,687,4870,434,4876,3067,4006,2043,2519,2881,2083,3784,6733,3129,6723,5936,3139,908,226]
+//
+16
+22
+38626
+*/
+</PRE>
+
+</BODY>
+</HTML>

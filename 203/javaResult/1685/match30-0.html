@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>706_returnnull-2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>706_returnnull-2.java</CENTER></H3><HR>
+<PRE>
+interface IntegerPrefixSumDataStructure{
+    void modify(int idx, int diff);
+    int returnSum(int x, int y);
+    void reset(final int[] arr);
+    void reset(final ArrayList&lt;Integer&gt; arr);
+}
+class PrefixSumSupport{
+    public static int lowBit(int x){
+        return x &amp; (-x);
+    }
+<A NAME="0"></A>    public static long lowBit(long x){
+        return x &amp; (-x);
+    }
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public static int[] generatePrefixSum(final int[] arr){
+        final int n = arr.length;
+        int[] output = new int[n+1];
+        for (int i = 0; i &lt; n; ++i){
+            output[i+1] = output[i] + arr[i];
+        }</B></FONT>
+        return output;
+    }
+    public static long[] generateLongPrefixSum(final int[] arr){
+        final int n = arr.length;
+        long[] output = new long[n+1];
+        for (int i = 0; i &lt; n; ++i){
+            output[i+1] = output[i] + arr[i];
+        }
+        return output;
+    }
+    public static long[] generatePrefixSum(final long[] arr){
+        final int n = arr.length;
+        long[] output = new long[n+1];
+        for (int i = 0; i &lt; n; ++i){
+            output[i+1] = output[i] + arr[i];
+        }
+        return output;
+    }
+}
+class PrefixSum implements IntegerPrefixSumDataStructure{
+    private int[] sumArr;
+    private int arrLength;
+    public PrefixSum(final int[] arr){
+        reset(arr);
+    }
+    public int returnSum(int begin, int end){
+        // if (begin &gt; end){
+        //     throw new IllegalStateException();
+        // }
+        // checkBoundary(begin, arrLength+1);
+        // checkBoundary(end, arrLength+1);
+        // if (begin == end){
+        //     return 0;
+        // }
+        return sumArr[end]-sumArr[begin];
+    }
+    public void modify(int idx, int diff){
+        // checkBoundary(idx, arrLength);
+        idx++;
+        for (; idx &lt; sumArr.length; ++idx){
+            sumArr[idx] += diff;
+        }
+    }
+    private void checkBoundary(int parameter, int limit){
+        if (parameter &lt; 0 || parameter &gt;= limit){
+            throw new ArrayIndexOutOfBoundsException(String.format(&quot;Your input is %d, which is out of the limit %d\n&quot;, parameter, limit));
+        }
+    }
+    public void reset(final int[] arr){
+        this.sumArr = new int[arr.length+1];
+        arrLength = arr.length;
+        for (int i = 0; i &lt; arrLength; ++i){
+            sumArr[i+1] = sumArr[i]+arr[i];
+        }
+    }
+    public void reset(final ArrayList&lt;Integer&gt;arr){
+        reset(arr.stream().mapToInt(i -&gt; i).toArray());
+    }
+}
+class Solution {
+<A NAME="1"></A>    public int stoneGameV(int[] stoneValue) {
+        final int n = stoneValue.length;
+        IntegerPrefixSumDataStructure helper = new PrefixSum(stoneValue);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dp = new int[n+1][n+1];
+        for (int length = 2; length &lt;= n; ++length){
+            for (int begin = 0; begin+length &lt;= n; ++begin){
+                int tmp = Integer.MIN_VALUE;
+                for (int m = begin+1; m &lt; begin+length; ++m){</B></FONT>
+                    // System.out.println(m);
+<A NAME="2"></A>                    int leftSum = helper.returnSum(begin, m);
+                    int rightSum = helper.returnSum(m, begin+length);
+                    // System.out.printf(&quot;leftSum = %d, rightSum = %d\n&quot;, leftSum, rightSum);
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (leftSum &lt; rightSum){
+                        tmp = Math.max(tmp, dp[begin][m] + leftSum);
+                    }
+                    else if (leftSum &gt; rightSum){
+<A NAME="3"></A>                        tmp = Math.max(tmp, dp[m][begin+length] + rightSum);
+                    }
+                    else{
+                        tmp = Math.max</B></FONT>(tmp, <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match30-1.html#3',3,'match30-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(dp[begin][m], dp[m][begin+length]) + leftSum);
+                    }
+                }
+                dp[begin][begin+length] = tmp;
+            }
+        }
+        return dp[0][n];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

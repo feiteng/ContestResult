@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>400_alaric-2.java</TITLE>
+ <TITLE>202_Neymars.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>400_alaric-2.java</CENTER></H3><HR>
+<H3><CENTER>202_Neymars.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String modifyString(String s) {
 
-        char[] chars = s.toCharArray();
-        for (int i = 0; i &lt; chars.length; i++) {
-            if (chars[i] == '?') {
+        int n = s.length();
+        StringBuilder ans = new StringBuilder();
+
+        for (int i = 0; i &lt; n; i++) {
+            if (s.charAt(i) != '?')
+                ans.append(s.charAt(i));
+            else {
+                char a = 'a';
+                boolean flag = false;
                 for (int j = 0; j &lt; 26; j++) {
-                    char ch = (char) ('a' + j);
-                    if</B></FONT> ((i - 1 &lt; 0 || chars[i - 1] != ch) &amp;&amp; 
-                            (i + 1 &gt;= s.length() || chars[i + 1] != ch)) {
-<A NAME="1"></A>                        chars[i] = ch;
-                        break;
-                    }
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                    a = (char) (j + 'a');
+                    if (i &gt; 0 &amp;&amp; ans.charAt(i - 1) == a ||
+                            i &lt; n - 1 &amp;&amp; s.charAt(i + 1) == a)
+                        continue;
+                    flag = true;
+                    break;
+                }
+                ans.append(a);
             }
         }
-        return new String(chars);
+
+        return ans.toString();
+
     }
 }</B></FONT>
 </PRE>

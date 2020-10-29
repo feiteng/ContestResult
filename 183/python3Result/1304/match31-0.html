@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>554_tzu-ping.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>554_tzu-ping.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestDiverseString(self, a: int, b: int, c: int) -&gt; str:
+<A NAME="0"></A>        
+        self.res = ''
+        self.memo = set()
+        queue <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+        if a:
+            heapq.heappush(queue,(-1*a,'a'))
+        if b:
+            heapq.heappush(queue,(-1*b,'b'))
+        if c:
+            heapq.heappush(queue,(-</B></FONT>1*c,'c'))
+        while queue:
+            val,char = heapq.heappop(queue)
+            if len(self.res) &gt;= 2 and self.res[-1] == char and self.res[-2] == char:
+                # do not use char
+                if not queue:
+                    return self.res
+                val2,char2 = heapq.heappop(queue)
+                self.res += char2
+                val2+=1
+                if val2!= 0:
+                    heapq.heappush(queue,(val2,char2))
+            else:
+                val+=1
+                self.res += char
+            if val != 0:
+                heapq.heappush(queue,(val,char))
+        return self.res
+#         def backtrack(a,b,c,cur,pre,prepre):
+#             if (a,b,c) in self.memo:
+#                 return
+            
+#             if a&lt;0 or b&lt;0 or c&lt;0:
+#                 return
+#             doflag = False
+#             if a and not (pre == 'a' and prepre == 'a'):
+#                 doflag = True
+#                 backtrack(a-1,b,c,cur+'a','a',pre)
+#             if b and not (pre == 'b' and prepre == 'b'):
+#                 doflag = True
+#                 backtrack(a,b-1,c,cur+'b','b',pre)
+#             if c and not (pre == 'c' and prepre == 'c'):
+#                 doflag = True
+#                 backtrack(a,b,c-1,cur+'c','c',pre)
+#             if not doflag and len(self.res) &lt; len(cur):
+#                 self.res = cur
+#             self.memo.add((a,b,c))
+#             return 
+
+#         backtrack(a,b,c,'',None,None)
+        return self.res
+</PRE>
+
+</BODY>
+</HTML>

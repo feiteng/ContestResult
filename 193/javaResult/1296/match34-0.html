@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>739_Vaibhav_Domadia.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>739_Vaibhav_Domadia.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class TreeAncestor {
+    
+    int[] rd;
+    int[] par;
+    ArrayList&lt;Integer&gt;[] level;
+    
+    public TreeAncestor(int n, int[] parent) {
+        r</B></FONT>d = new int[n];
+        Arrays.fill(rd, -1);
+        par = parent;
+        level = new ArrayList[n];
+        for(int i=0 ; i&lt;n ; i++) level[i] = new ArrayList&lt;&gt;();
+        for(int i=0 ; i&lt;n ; i++) {
+            if(rd[i] == -1) {
+                init(i);
+            }
+        }
+        rd[0] = 0;
+        level[0].add(0);
+        
+    }
+    
+    private int init(int start) {
+        if(start == 0) {
+            return 0;
+        }
+        else {
+            if(rd[start] == -1) {
+                int lev = 1 + init(par[start]);
+                rd[start] = lev;
+                level[lev].add(start);
+<A NAME="1"></A>            }
+            return rd[start];
+        }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int getKthAncestor(int node, int k) {
+        if(rd[node] &lt; k) {
+<A NAME="2"></A>            return -1;
+        }</B></FONT>
+        else {
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int ans = node;
+            for(int i=0 ; i&lt;k ; i++) {
+                ans = par[ans];
+            }
+            return ans;
+        }</B></FONT>
+    }
+}
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor obj = new TreeAncestor(n, parent);
+ * int param_1 = obj.getKthAncestor(node,k);
+ */
+</PRE>
+
+</BODY>
+</HTML>

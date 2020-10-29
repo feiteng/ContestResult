@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_xitongsys.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_xitongsys.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+<A NAME="0"></A>using namespace std;
+
+typedef int INT;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+typedef pair&lt;ll,ll&gt; pll;
+
+
+const ll MOD = 1000000007;
+ll dp[51][51][11];
+vector&lt;vector&lt;ll&gt;&gt; apples;
+ll R, C, K;
+ll a, b, c, d, e, f, g;
+
+ll query(ll r1, ll c1, ll r2, ll c2){
+	ll res = apples[r2][c2];
+	if(r1 &gt; 0) res -= apples[r1-1][c2];
+	if(c1 &gt; 0) res -= apples[r2][c1-1];
+	if(r1 &gt; 0 &amp;&amp; c1 &gt; 0) res += apples[r1-1][c1-1];
+	return res;
+}
+
+class Solution {
+public:
+    INT ways(vector&lt;string&gt;&amp; pizza, INT k) {
+		R = pizza.size(); C = pizza[0].size();
+		K = k;
+		memset(dp, sizeof(dp), 0);
+
+		apples = vector&lt;vector&lt;ll&gt;&gt;(R, vector&lt;ll&gt;(C, 0));
+		for(ll i=0; i&lt;R; i++){
+			ll rowSum = 0;
+			for(ll j=0; j&lt;C; j++){
+				if(pizza[i][j] == 'A'){
+					rowSum++;
+				}
+				apples[i][j] = rowSum;
+				if(i &gt; 0){
+					apples[i][j] = rowSum + apples[i-1][j];
+				}
+			}
+		}
+
+		
+		for(ll r=R-1; r&gt;=0; r--){
+			for(ll c=C-1; c&gt;=0; c--){
+				ll apple_num = query(r, c, R-1, C-1);
+				if(apple_num &gt; 0){
+					dp[r][c][1] = 1;
+				}else{
+					dp[r][c][1] = 0;
+				}
+				dp[r][c][0] = 0;
+			}
+		}
+
+		for(ll r=R-1; r&gt;=0; r--){
+			for(ll c=C-1; c&gt;=0; c--){
+				for(ll k=2; k&lt;=K; k++){
+					ll res = 0;
+					//horizontal
+					for(ll r2=r; r2&lt;R-1; r2++){
+						ll an = query(r, c, r2, C-1);
+						if(an &gt; 0){
+							res += dp[r2+1][c][k-1];
+						}
+					}
+
+					//vertical
+					for(ll c2=c; c2&lt;C-1; c2++){
+						ll an = query(r, c, R-1, c2);
+						if(an &gt; 0){
+							res += dp[r][c2+1][k-1];
+						}
+					}
+
+					dp[r][c][k] = res % MOD;
+				}
+			}
+		}
+
+		return dp[0][0][K];
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

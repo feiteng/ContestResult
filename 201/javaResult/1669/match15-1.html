@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>147_yunpingwang13.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>147_yunpingwang13.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minCost(int n, int[] cutsN) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] cuts = new int[cutsN.length + 2];
+        Arrays.sort(cutsN);
+        for (int i = 0; i &lt; cutsN.length; i++) {
+            cuts[i + 1] = cutsN[i];
+<A NAME="1"></A>        }
+        c</B></FONT>uts[cuts.length - 1] = n;
+        Integer[][] dp = new Integer[cuts.length][cuts.length];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return helper(0, cuts.length - 1, cuts, dp);
+    }
+    
+    private int helper(int left, int right, int[] cuts, Integer[][] dp) {
+        if (right - left == 1) {
+            return 0;
+        }
+        if (dp[left][right] != null) {
+            return dp[left][right];
+        }
+        int min = Integer.MAX_VALUE;
+        for (int i = left + 1; i &lt; right; i++) {
+            min = Math.min(min, cuts[right] - cuts[left] + helper(left, i, cuts, dp) + helper(i, right, cuts, dp));
+        }
+        dp[left][right] = min;
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>548_rajeshtomar.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>548_rajeshtomar.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    class Node {
+        int u;
+        double p;
+        Node (int u1, double p1) {
+            u = u1;
+            p = p1;
+        }
+    }
+    
+    public double maxProbability(int n, int[][] edges, double[] sp, int start, int end) {
+        // double[] dist = new double[n+1];
+        Map&lt;Integer, Map&lt;Integer, Double&gt;&gt; map = new HashMap&lt;&gt;()</B></FONT>;
+        for (int i = 0; i &lt; edges.length; i++) {
+            int a = edges[i][0];
+            int b = edges[i][1];            
+            map.putIfAbsent(a, new HashMap&lt;&gt;());
+<A NAME="1"></A>            map.putIfAbsent(b, new HashMap&lt;&gt;());
+            map.get(a).put(b, sp[i]);
+            map.get(b).put(a, sp[i]);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+<A NAME="2"></A>        double[] dist = new double[n+1];
+        dist[start] = 1.0;
+        PriorityQueue&lt;Node&gt; pq = new PriorityQueue&lt;&gt;((n1, n2) -&gt; D</B></FONT>ouble.compare(n1.p, n2.p) == 0 ? n1.u - n2.u : Double.compare(n2.p, n1.p));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pq.offer(new Node(start, 1.0));
+        
+        while (!pq.isEmpty()) {
+            Node node = pq.poll();
+            if (node.p &lt; dist[node.u])    continue;</B></FONT>
+            
+            Map&lt;Integer, Double&gt; nbs = map.get(node.u);
+            if (nbs == null || nbs.keySet() == null || nbs.keySet().isEmpty())  continue;
+<A NAME="3"></A>            for (Integer nb : nbs.keySet()) {
+                if (dist[nb] &lt; node.p * nbs.get(nb)) {
+                    dist[nb] = node.p * nbs.get(nb);
+                    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pq.offer(new Node(nb, dist[nb]));
+                }
+            }
+        }
+        return dist[end];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>207_hcchiu.py</TITLE>
+ <TITLE>105_JerryJin2905.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>207_hcchiu.py</CENTER></H3><HR>
+<H3><CENTER>105_JerryJin2905.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UF:
-    def __init__(self, n):
-        self.cache = list(range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n + 1))
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def canReach(self, u, E, ban, vis):
+        vis.add(u)
+        for tp, v in E[u]:
+            if tp != ban and v not in vis:
+                self.canReach(v, E, ban, vis)
+                
+    def dfs(self, u, E, vis):
+        vis.add(u)
+        for tp, v in E[u]:
+            if tp == 3 and v not in vis:
+                self.dfs(v, E, vis)
         
-    def find(self, i):
-        if self.cache[i] != i:
-            self.cache[i] = self.find(self.cache[i])
-        return self.cache[i]
-        
-    def</B></FONT> union(self, i, j):
-        head1 = self.find(i)
-        head2 = self.find(j)
-        self.cache[head1] = head2
-
-class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        result = 0
-        a = UF(n)
-        b = UF(n)
-        for t, i, j in edges:
-            if t == 3:
-                if a.find(i) == a.find(j):
-                    result += 1
-                else:
-                    a.union(i, j)
-                    b.union(i, j)
-                    
-        for t, i, j in edges:
-            if t == 1:
-                if a.find(i) == a.find(j):
-                    result += 1
-                else:
-                    a.union(i, j)
-            elif t == 2:
-<A NAME="1"></A>                if b.find(i) == b.find(j):
-                    result += 1
-                else:
-                    b<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.union(i, j)
-                    
-        if len(set(a.find(i) for i in range(1, n + 1))) == 1 and len(set(b.find(i) for i in range(1, n + 1))) == 1:
-            return</B></FONT> result
-        else:
-            return -1
+        E = defaultdict(list)
+        for tp, u, v, in edges:
+            E[u].append((tp, v))
+            E[v].append((tp, u))
+        
+        for ban in [1, 2]:
+            vis = set()
+            self.canReach(1, E, ban, vis)
+            if len(vis) != n:
+                return -1
+        
+        ans = 0
+        comp = 0
+        seen = set()
+        for u in range(1, n + 1):
+            if not u in seen:
+                vis = set()
+                self.dfs(u, E, vis)
+                seen |= vis
+                ans += len(vis) - 1
+                comp += 1
+        return len(e</B></FONT>dges) - ans - 2 * (comp - 1)
+                
+        
+        
+        
 </PRE>
 
 </BODY>

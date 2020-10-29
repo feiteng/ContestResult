@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>178_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>178_arignote.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+    public int minCost(int n, int[] cuts) {
+        Arrays.sort(cuts);
+        return minCost(0, n, 0, cuts.length - 1, cuts, new HashMap&lt;&gt;());
+    }
+
+    private int minCost(int l, int r, int left, int right, int[] cuts, HashMap&lt;String, Integer&gt; map) {
+        if</B></FONT> (left &gt; right) {
+            return 0;
+<A NAME="1"></A>        } else {
+            if (map.containsKey(l + &quot; &quot; + r + &quot; &quot; + left + &quot; &quot; + right)) {
+                return map.get(l + &quot; &quot; + r + &quot; &quot; + left + &quot; &quot; + right);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            int min = Integer.MAX_VALUE;
+            for (int i = left; i &lt;= right; i++) {
+                min = Math.min(min,
+                        minCost(l, cuts[i], left, i - 1, cuts, map) + minCost(cuts[i], r, i + 1, right, cuts, map));
+            }
+            map.put(l + &quot; &quot; + r + &quot; &quot; + left + &quot; &quot; + right, min + r - l);
+            return min + r - l;
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

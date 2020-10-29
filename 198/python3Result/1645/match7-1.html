@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_amir-6.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_amir-6.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def closestToTarget(self, arr: List[int], target: int) -&gt; int:
+        arr2 = []
+        l = arr[0] -1
+        for v in arr:
+            if v != l:
+                arr2.append(v)
+                l = v
+<A NAME="0"></A>        #print(len(arr), len(arr2))
+        arr = arr2
+        r = abs(-1000000000 - target)
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(len(arr)):
+            ans = arr[i]
+            r = min(r, abs(ans - target))
+            for j in range(i+1, len(arr)):
+                ans = ans &amp; arr[j]
+                r = min(</B></FONT>r, abs(ans - target))
+                if ans == 0 or r == 0:
+                    break
+                if target &gt; ans and target - ans &gt;= r:
+                    break
+            if r == 0:
+                break
+        return r
+</PRE>
+
+</BODY>
+</HTML>

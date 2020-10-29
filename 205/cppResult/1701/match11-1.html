@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>519_StevenDu.cpp</TITLE>
+ <TITLE>117_fallleaves01.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,67 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>519_StevenDu.cpp</CENTER></H3><HR>
+<H3><CENTER>117_fallleaves01.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
+    static const int N=1e5+50;
+    struct Mset
+    {
+        int fa[N];
+        void init(int n)
+        {
+            for (int i=1;i&lt;=n;i++)
+                fa[i]=i;
+        }
+        int getfa(int v)
+        {
+            if (fa[v]==v) return v;
+            return fa[v]=getfa(fa[v]);
+        }
+        bool merge(int a,int b)
+        {
+            int af=getfa(a),bf=getfa(b);
+            if (af==bf) return false;
+            fa[af]=bf;
+            return true;
+        }
+    }m1,m2;
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector&lt;int&gt; afather, bfather;
-        for (int i = 0; i &lt;= n; ++i) {
-            afather.push_back(i);
-            bfather.push_back(i);
-        }
-<A NAME="0"></A>        int result = 0;
-        for (int i = 0; i &lt; edges.size(); ++i) {
-            int x = edges[i][1], y = edges[i][2];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (edges[i][0] == 3) {
-                int afx = getfather(x, afather), afy = getfather(y, afather);
-                int bfx = getfather(x, bfather), bfy = getfather(y, bfather);
-                if (afx == afy &amp;&amp; bfx == bfy) {
-                    result++;
-                }
-                else {
-                    afather[afx] = afy;
-                    bfather[bfx] = bfy;
-                }
-            }     
-<A NAME="2"></A>        }
-        for (int i = 0; i &lt; edges.size(); ++i) {</B></FONT>
-            int x = edges[i][1], y = edges[i][2];
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (edges[i][0] == 1) {
-                int afx = getfather(x, afather), afy = getfather(y, afather);
-                if (afx == afy) {
-                    result++;
-                }
-                else {
-<A NAME="1"></A>                    afather[afx] = afy;
-                }
-            }</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            else if (edges[i][0] == 2) {
-                int bfx = getfather(x, bfather), bfy = getfather(y, bfather);
-                if (bfx == bfy) {
-                    result++;
-                }
-                else {
-                    bfather[bfx] = bfy;
-                }
-            }    
-        }</B></FONT>
-        bool check_all = true;
-        int af = getfather(1, afather), bf = getfather(1, bfather);
-        for (int i = 1; i &lt;= n; ++i) {
-            if (getfather(i, afather) != af || getfather(i, bfather) != bf) {
-                check_all = false;
-                break;
+        int m=edges.size(),ans=0;
+        m1.init(n),m2.init(n);
+        for (int i=0;i&lt;m;i++)
+            if (edges[i][0]==3)
+            {
+                bool tag=m1.merge(edges[i][1],edges[i][2]);
+                m2.merge(edges[i][1],edges[i][2]);
+                if (!tag) ans++;
             }
-        }
-        return check_all ? result : -1;
+        for (int i=0;i&lt;m;i++)
+            if (edges[i][0]==1)
+            {
+                if (!m1.merge(edges[i][1],edges[i][2])) ans++;
+            }
+        for (int i=0;i&lt;m;i++)
+            if (edges[i][0]==2)
+            {
+                if (!m2.merge(edges[i][1],edges[i][2])) ans++;
+            }
+        int f1=m1.getfa(1),f2=m2.getfa(1);
+        for (int i=2;i&lt;=n;i++)
+            if (m1.getfa(i)!=f1||m2.getfa(i)!=f2)
+                return -1;
+        return ans;
     }
-    
-    int getfather(int x, vector&lt;int&gt;&amp; father) {
-        return (x == father[x] ? x : father[x] = getfather(father[x], father));
-    }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

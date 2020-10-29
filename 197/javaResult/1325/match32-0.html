@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>689_mojito-1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>689_mojito-1.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="1"></A>    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        ArrayList&lt;Integer&gt;[] chu = new</B></FONT> ArrayList[n + 1];
+        Map&lt;Integer, Double&gt; m = new HashMap&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt;= n; i++) {
+            chu[i] = new ArrayList&lt;&gt;();
+        }
+        for (int i = 0; i &lt; edges.length; i++) {
+            chu[edges[i][0]].add(edges[i][1]);
+            chu[edges[i][1]].add</B></FONT>(edges[i][0]);
+<A NAME="2"></A>            m.putIfAbsent(edges[i][0] * n + edges[i][1], succProb[i]);
+            m.putIfAbsent(edges[i][1] * n + edges[i][0], succProb[i]);
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ArrayDeque&lt;Integer&gt; ad = new ArrayDeque&lt;&gt;(n + 1);
+        ad.addLast(start);
+        while (!ad.isEmpty()) {
+            int cur = ad.removeFirst();
+            for (int i : chu[cur]) {
+                double gailv = m</B></FONT>.get(start * n + i) == null ? 0 : m.get(start * n + i);
+                double fgail = start == cur ? 1 : m.get(start * n + cur), sgail = cur == i ? 1 : m.get(cur * n + i);
+                if (cur == start || gailv &lt; fgail * sgail) {
+                    if (gailv &lt; fgail * sgail)
+                        m.put(start * n + i, fgail * sgail);
+                    ad.addLast(i);
+                }
+            }
+        }
+        return m.get(start * n + end) == null ? 0.0 : m.get(start * n + end);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

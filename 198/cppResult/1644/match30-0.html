@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>522_hanzhoutang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>522_hanzhoutang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; b(26,-1);
+        vector&lt;int&gt; e(26,-1);
+        for(int i = 0;i&lt;s.size();i++) {
+            int ch = s[i] - 'a';
+            if(b[ch] == -1) {
+                b[ch] = i;</B></FONT>
+            }
+        }
+        for(int i = s.size()-1;i&gt;=0;i--) {
+            int ch = s[i] - 'a';
+            if(e[ch] == -1) {
+                e[ch] = i;
+            }
+        }
+        vector&lt;pair&lt;int,int&gt;&gt; tmp; 
+        for(int i = 0;i&lt;s.size();i++) {
+            int ch = s[i] - 'a';
+            int j = e[ch];
+            if(i != b[ch]) {
+                continue;
+            } 
+            bool first = true; 
+            for(auto p : tmp) {
+                if(p.second&gt;i&amp;&amp;p.second&lt;=j) {
+                    first = false; 
+                    break;
+                }
+            }
+<A NAME="1"></A>            if(!first){
+                continue;
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int k = i;k&lt;j;k++) {
+                int c = s[k] - 'a';
+                if(b[c]&lt;i) {
+                    first = false; 
+                    break;
+                } else {</B></FONT>
+                    j = max(j,e[c]);
+                }
+            }
+            if(first) {
+                tmp.push_back({i,j});
+            }
+        }
+        /*for(auto p : tmp) {
+            cout&lt;&lt;p.first&lt;&lt;&quot; &quot;&lt;&lt;p.second&lt;&lt;endl;
+        }*/
+        sort(tmp.begin(),tmp.end(),[](auto&amp; a, auto&amp; b) {
+            int x = a.second - a.first; 
+            int y = b.second - b.first; 
+            return x&lt;y;
+        });
+        vector&lt;pair&lt;int,int&gt;&gt; ret; 
+        vector&lt;string&gt; r; 
+        for(auto&amp; p : tmp) {
+            bool insert = true; 
+            for(auto x: ret) {
+                if(p.first&lt;=x.first&amp;&amp;p.second&gt;=x.second) {
+                    insert = false; 
+                    break;
+                }
+            }
+            if(insert) {
+                ret.push_back(p);
+                r.push_back(s.substr(p.first,p.second-p.first+1));
+            }
+        }
+        return r;
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

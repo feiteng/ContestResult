@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>631_igor84.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>631_igor84.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;Integer&gt;[] graph = new List[n];
+        List&lt;Double&gt;[] probabilities = new List[n];
+        for (int i = 0; i &lt; n; i++) {
+            graph[i] = new ArrayList&lt;&gt;();
+            probabilities[i] = new ArrayList&lt;&gt;();
+<A NAME="1"></A>        }</B></FONT>
+
+        int m = edges.length;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; m; i++) {
+            int a = edges[i][0];
+            int b = edges[i][1];
+            double p = succProb[i];
+
+            graph[a].add(b);
+            probabilities[a].add(p);
+            
+            graph[b].add(a);
+            probabilities[b].add(p);
+        }
+
+        double[] dp = new double[n];
+        dp[start] = 1;
+
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;()</B></FONT>;
+        queue.add(start);
+<A NAME="2"></A>
+        while (!queue.isEmpty()) {
+            Integer a = queue.poll();
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; graph[a].size(); i++) {
+                Integer b = graph[a].get(i);
+                double p = probabilities[a].get(i);
+
+<A NAME="3"></A>                if (dp[b] &lt; dp[a] * p) {
+                    d</B></FONT>p[b] = dp[a] * p;
+                    queue.add(b);
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match7-1.html#3',3,'match7-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+
+        return dp[end];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

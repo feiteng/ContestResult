@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_stormsunshine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_stormsunshine.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minReorder(int n, int[][] connections) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; edgeMap = new HashMap&lt;Integer, Set&lt;Integer&gt;&gt;();
+        for (int[] connection : connections) {</B></FONT>
+            int node0 = connection[0], node1 = connection[1];
+            Set&lt;Integer&gt; set0 = edgeMap.getOrDefault(node0, new HashSet&lt;Integer&gt;());
+            Set&lt;Integer&gt; set1 = edgeMap.getOrDefault(node1, new HashSet&lt;Integer&gt;());
+            set0.add(node1);
+            set1.add(node0);
+            edgeMap.put(node0, set0);
+            edgeMap.put(node1, set1);
+        }
+        Map&lt;Integer, Integer&gt; nodeLevelMap = new HashMap&lt;Integer, Integer&gt;();
+        nodeLevelMap.put(0, 0);
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;();
+        queue.offer(0);
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            int level = nodeLevelMap.get(node);
+            int nextLevel = level + 1;
+            Set&lt;Integer&gt; set = edgeMap.getOrDefault(node, new HashSet&lt;Integer&gt;());
+            for (int nextNode : set) {
+                if (!nodeLevelMap.containsKey(nextNode)) {
+                    nodeLevelMap.put(nextNode, nextLevel);
+                    queue.offer(nextNode);
+                }
+            }
+        }
+        int reorderCount = 0;
+        for (int[] connection : connections) {
+            int node0 = connection[0], node1 = connection[1];
+            int level0 = nodeLevelMap.get(node0), level1 = nodeLevelMap.get(node1);
+            if (level0 &lt; level1)
+                reorderCount++;
+        }
+        return reorderCount;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>228_stormsunshine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>228_stormsunshine.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; prerequisiteMap = new HashMap&lt;Integer, Set&lt;Integer&gt;&gt;();
+        for (int[] prerequisite : prerequisites) {</B></FONT>
+            int course0 = prerequisite[0], course1 = prerequisite[1];
+            Set&lt;Integer&gt; set = prerequisiteMap.getOrDefault(course0, new HashSet&lt;Integer&gt;());
+            set.add(course1);
+            prerequisiteMap.put(course0, set);
+        }
+        List&lt;Boolean&gt; checkList = new ArrayList&lt;Boolean&gt;();
+        Map&lt;Integer, Boolean&gt; queryMap = new HashMap&lt;Integer, Boolean&gt;();
+<A NAME="1"></A>        int queriesCount = queries.length;
+        for (int i = 0; i &lt; queriesCount; i++) {
+            int[] query = queries[i];
+            boolean isPrerequisite = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>search(prerequisiteMap, queryMap, query[0], query[1], n);
+            checkList.add(isPrerequisite);
+        }
+        return checkList;
+    }
+
+    public boolean search(Map&lt;Integer, Set&lt;Integer&gt;&gt; prerequisiteMap, Map&lt;Integer, Boolean&gt; queryMap, int course0, int course1</B></FONT>, int n) {
+        int key = course0 * n + course1;
+        if (queryMap.containsKey(key))
+            return queryMap.get(key);
+        Set&lt;Integer&gt; set = prerequisiteMap.getOrDefault(course0, new HashSet&lt;Integer&gt;());
+<A NAME="2"></A>        if (set.contains(course1)) {
+            queryMap.put(key, true);
+            return true;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else {
+            for (int nextCourse : set) {
+                if (search(prerequisiteMap, queryMap, nextCourse, course1, n)) {</B></FONT>
+                    queryMap.put(key, true);
+                    return true;
+                }
+            }
+        }
+        queryMap.put(key, false);
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

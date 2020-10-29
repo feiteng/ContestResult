@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>457_nitin_pandey30.java</TITLE>
+ <TITLE>215_fnwjkm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>457_nitin_pandey30.java</CENTER></H3><HR>
+<H3><CENTER>215_fnwjkm.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    Integer[][] dp;
     public int minCost(String s, int[] cost) {
-        int n = s.length();
-        int ans = 0;
-        
-        for(int i = 0 ; i &lt; n ; i++) {
-            if</B></FONT>(i &lt; n-1 &amp;&amp; s.charAt(i) == s.charAt(i+1)) {
-                int j = i+1;
-                while(j+1 &lt; n &amp;&amp; s.charAt(j+1) == s.charAt(i)) {
-                    j++;
-                }
-                int sum = 0;
-                int maxVal = -1;
-                for(int l = i ; l &lt;= j ; l++) {
-                    sum += cost[l];
-                    maxVal = Math.max(maxVal, cost[l]);
-                    // System.out.println(&quot;sum: &quot; + sum + &quot;  max: &quot; + maxVal);
-<A NAME="1"></A>                }
-                ans += sum - maxVal;
-                // System.out.println(i  + &quot; &quot; + j + &quot; &quot; + sum + &quot; &quot; + maxVal);
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i = j;
-            }
+        int len = s.length();
+        dp = new Integer[len + 1][27];
+        return dfs(s, cost, '1', 0);
+    }
+    private int dfs(String s, int[] cost, char pre, int cur) {
+        if (cur == s.length()) {
+            return 0;
         }
-        
-        return ans;
+        int idx = pre == '1' ? 0 : (pre - 'a' + 1);
+        if (dp[cur + 1][idx] != null) {
+            return dp[cur + 1][idx];
+        }
+        int res = Integer.MAX_VALUE;
+        res = Math.min(res, cost[cur] + dfs(s, cost, pre, cur + 1));
+        if (s.charAt(cur) != pre) {
+            res = Math.min(res, dfs(s, cost, s.charAt(cur), cur + 1));
+        }
+        dp[cur + 1][idx] = res;
+        return res;
     }
 }</B></FONT>
 </PRE>

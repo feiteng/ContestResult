@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>101_flyman3046.java</TITLE>
+ <TITLE>268_jumpjump.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>101_flyman3046.java</CENTER></H3><HR>
+<H3><CENTER>268_jumpjump.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        return helper(nums1, nums2) + helper(nums2, nums1);
-    }
-
-    int helper(int[] nums1, int[] nums2) {
-        int res = 0;
-        int n1 = nums1.length</B></FONT>;
-<A NAME="1"></A>        int n2 = nums2.length;
-        Map&lt;Long, Integer&gt; hm = new HashMap&lt;&gt;();
-        for (int v : nums2) {
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>hm.put(1L * v * v, hm.getOrDefault(1L * v * v, 0) + 1);
+        Map&lt;Integer, Integer&gt; map1 = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; map2 = new HashMap&lt;&gt;();
+        for (int num : nums1) {
+            map1.put(num, map1.getOrDefault(num, 0) + 1);
         }
-        for (int j = 0; j &lt; n1; j++) {
-            for (int k = j + 1; k &lt; n1; k++) {
-                long mul = 1L * nums1[j] * nums1[k];
-                res += hm.getOrDefault(mul, 0);
+        for (int num : nums2) {
+            map2.put(num, map2.getOrDefault(num, 0) + 1);
+        }
+        
+        int res = 0;
+        for (int num : nums1) {
+            long sqr = num * (long) num;
+            for (int x : map2.keySet()) {
+                long y = sqr / x;
+                if (x * y == sqr) {
+                    int c1 = map2.get(x);
+                    if (x == y) {
+                        res += c1 * (c1 - 1) / 2;
+                    } else if (x &lt; y) {
+                        res += c1 * map2.getOrDefault((int)y, 0);
+                    }
+                }
+            }
+        }
+        
+        for (int num : nums2) {
+            long sqr = num * (long) num;
+            for (int x : map1.keySet()) {
+                long y = sqr / x;
+                if (x * y == sqr) {
+                    int c1 = map1.get(x);
+                    if (x == y) {
+                        res += c1 * (c1 - 1) / 2;
+                    } else if (x &lt; y) {
+                        res += c1 * map1.getOrDefault((int)y, 0);
+                    }
+                }
             }
         }
         return res;

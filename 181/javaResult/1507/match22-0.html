@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>485_Sun_WuKong.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>485_Sun_WuKong.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean hasValidPath(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        boolean[][] visited = new boolean[m][n];
+        return aux(grid, visited, 0, 0, m, n);
+    }
+    
+    private boolean aux(int[][] grid, boolean[][] visited, int r, int c, int m, int n) {
+        // System.out.println(r + &quot; &quot; + c);
+        if (r == m-1 &amp;&amp; c == n-1) return true;
+<A NAME="0"></A>        if (r &lt; 0 || c &lt; 0 || r &gt;= m || c &gt;= n || visited[r][c]) return false;
+        visited[r][c] = true;
+        boolean can = false;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (grid[r][c] == 1) {
+            if (c-1 &gt;= 0 &amp;&amp; (grid[r][c-1] == 1 || grid[r][c-1] == 4 || grid[r][c-1] == 6)) {
+                can |= aux(grid, visited, r, c-1, m, n);
+            }
+            if (c+1 &lt; n &amp;&amp; (grid[r][c+1] == 1 || grid[r][c+1] == 3 || grid[r][c+1] == 5)) {
+                can |= aux(grid, visited, r, c+1, m, n);
+            }
+        } else if (grid[r][c] == 2) {
+            if (r-1 &gt;= 0 &amp;&amp; (grid[r-1][c] == 2 || grid[r-1][c] == 3 || grid[r-1][c] == 4)) {
+                can |= aux(grid, visited, r-1, c, m, n);
+            }
+            if (r+1 &lt; m &amp;&amp; (grid[r+1][c] == 2 || grid[r+1][c] == 5 || grid[r+1][c] == 6)) {
+                can |= aux(grid, visited, r+1, c, m, n);
+            }
+        } else if (grid[r][c] == 3) {
+            if (c-1 &gt;= 0 &amp;&amp; (grid[r][c-1] == 1 || grid[r][c-1] == 4 || grid[r][c-1] == 6)) {
+                can |= aux(grid, visited, r, c-1, m, n);
+            }
+            if (r+1 &lt; m &amp;&amp; (grid[r+1][c] == 2 || grid[r+1][c] == 5 || grid[r+1][c] == 6)) {
+                can |= aux(grid, visited, r+1, c, m, n);
+            }
+        } else if (grid[r][c] == 4) {
+            if (c+1 &lt; n &amp;&amp; (grid[r][c+1] == 1 || grid[r][c+1] == 3 || grid[r][c+1] == 5)) {
+                can |= aux(grid, visited, r, c+1, m, n);
+            }
+            if (r+1 &lt; m &amp;&amp; (grid[r+1][c] == 2 || grid[r+1][c] == 5 || grid[r+1][c] == 6)) {
+                can |= aux(grid, visited, r+1, c, m, n);
+            }
+            // can = aux(grid, visited, r, c+1, m, n) || aux(grid, visited, r+1, c, m, n);
+        } else if (grid[r][c] == 5) {
+            if (c-1 &gt;= 0 &amp;&amp; (grid[r][c-1] == 1 || grid[r][c-1] == 4 || grid[r][c-1] == 6)) {
+                can |= aux(grid, visited, r, c-1, m, n);
+            }
+            if (r-1 &gt;= 0 &amp;&amp; (grid[r-1][c] == 2 || grid[r-1][c] == 3 || grid[r-1][c] == 4)) {
+<A NAME="1"></A>                can |= aux(grid, visited, r-1, c, m, n);
+            }
+            // can = aux(grid, visited, r, c-1, m, n) || aux(grid, visited, r-1, c, m, n);
+        } else <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{</B></FONT>
+            if (c+1 &lt; n &amp;&amp; (grid[r][c+1] == 1 || grid[r][c+1] == 3 || grid[r][c+1] == 5)) {
+                can |= aux(grid, visited, r, c+1, m, n);
+            }
+            if (r-1 &gt;= 0 &amp;&amp; (grid[r-1][c] == 2 || grid[r-1][c] == 3 || grid[r-1][c] == 4)) {
+                can |= aux(grid, visited, r-1, c, m, n);
+            }
+            // can = aux(grid, visited, r, c+1, m, n) || aux(grid, visited, r-1, c, m, n);
+        }</B></FONT>
+        
+        visited[r][c] = false;
+        return can;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

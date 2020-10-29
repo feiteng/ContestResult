@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>574_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>574_arignote.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+    public int getMaxLen(int[] nums) {
+        int max = 0, </B></FONT>l = 0, r = -1, left = -1, right = -1, count = 0;
+        for (int i = 0; i &lt; nums.length; i++) {
+            if (nums[i] &lt; 0) {
+                if (left == -1) {
+                    left = i;
+                }
+<A NAME="1"></A>                right = i;
+                count++;
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (nums[i] == 0) {
+                if (count % 2 == 0) {
+                    max = Math.max(max, r - l + 1);
+                } else {
+                    max = Math.max(max, Math.max(r - left, right - l));
+                }
+                l = i + 1;
+                count = 0;
+<A NAME="2"></A>                left = r</B></FONT>ight = -1;
+            }
+            r = i;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if (count % 2 == 0) {
+            max = Math.max(max, r - l + 1);
+        } else {
+            max = Math.max(max, Math.max(r - left, right - l));
+        }
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

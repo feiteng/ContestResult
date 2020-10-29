@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>251_x372p.java</TITLE>
+ <TITLE>271_dennanisny.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,131 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>251_x372p.java</CENTER></H3><HR>
+<H3><CENTER>271_dennanisny.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    int[] label;
-    int[] count;
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxNumEdgesToRemove(int n, int[][] edges) {
-        label = new int[n];
-        count = new int[n];
-        for (int i = 0; i &lt; n; i++) {
-            label[i] = i;
-            count[i] = 1;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    class UF {
+        int n;
+        int[] parents, sizes;
+        
+        UF(int n) {
+            this.n = n;
+            parents = new int[n];
+            sizes = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parents[i] = i;
+                sizes[i] = 1;
+            }
         }
         
+        int find(int i) {
+            while (parents[i] != i) {
+                parents[i] = parents[parents[i]];
+                i = parents[i];
+            }
+            return i;
+        }
+        
+        boolean union(int p, int q) {
+            int pRoot = find(p), qRoot = find(q);
+            if (pRoot == qRoot) {
+                return false;
+            } else {
+                parents[pRoot] = qRoot;
+                sizes[qRoot] += sizes[pRoot];
+                return true;
+            }
+        }
+        
+        boolean isComplete() {
+            int max = 0;
+            for (int size : sizes) {
+                max = Math.max(max, size);
+            }
+            return max == n;
+        }
+    }
+    
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        List&lt;int[]&gt; list1 = new ArrayList&lt;&gt;(), list2 = new ArrayList&lt;&gt;(), list3 = new ArrayList&lt;&gt;();
+        for (int[] edge : edges) {
+            if (edge[0] == 1) {
+                list1.add(new int[] {edge[1], edge[2]});
+            } else if (edge[0] == 2) {
+                list2.add(new int[] {edge[1], edge[2]});
+            } else {
+                list3.add(new int[] {edge[1], edge[2]});
+            }
+        }
         int ans = 0;
-        
-        //for type 3:
-        for (int[] edge: edges) {
-            if (edge[0] != 3) {</B></FONT>
-                continue;
-            }
-<A NAME="1"></A>            int i = edge[1]-1;
-            int j = edge[2]-1;
-            
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int pi = find(label, i);
-            int pj = find(label, j);
-            //already connected
-            if (pi == pj) {
+        UF ufAlice = new UF(n), ufBob = new UF(n);
+        for (int[] edge : list3) {
+            int p = edge[0]-1, q = edge[1]-1;
+            boolean flag = true;
+            flag = ufAlice.union(p, q);
+            flag = ufBob.union(p, q);
+            if (!flag) {
                 ans++;
-            } else {</B></FONT>
-                if (count[pi] &gt; count[pj]) {
-                    label[pj] = pi;
-                    count[pi] += count[pj];
-                } else {
-                    label[pi] = pj;
-                    count[pj] += count[pi];
-                }
             }
         }
-        
-        int[] label1 = new int[n];
-        int[] label2 = new int[n];
-        int[] count1 = new int[n];
-        int[] count2 = new int[n];
-        for (int i = 0; i &lt; n; i++) {
-            label1[i] = label[i];
-            label2[i] = label[i];
-            
-            count1[i] = 1;
-            count2[i] = 1;
-        }
-        
-        //for type 1:
-        for (int[] edge: edges) {
-            if (edge[0] != 1) {
-                continue;
-<A NAME="3"></A>            }
-            int i = edge[1]-1;
-            int j = edge[2]-1;
-            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int pi = find(label1, i);
-            int pj = find(label1, j);
-            //already connected
-            if (pi == pj) {
+        for (int[] edge : list1) {
+            int p = edge[0]-1, q = edge[1]-1;
+            if (!ufAlice.union(p, q)) {
                 ans++;
-            } else {</B></FONT>
-                if (count1[pi] &gt; count1[pj]) {
-                    label1[pj] = pi;
-                    count1[pi] += count1[pj];
-<A NAME="2"></A>                } else {
-                    label1[pi] = pj;
-                    count1[pj] += count1[pi];
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
         }
-        
-        //for type 2:
-        for (int[] edge: edges) {
-            if (edge[0] != 2) {</B></FONT>
-                continue;
-<A NAME="4"></A>            }
-            int i = edge[1]-1;
-            int j = edge[2]-1;
-            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#4',2,'match17-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int pi = find(label2, i);
-            int pj = find(label2, j);
-            //already connected
-            if (pi == pj) {
+        for (int[] edge : list2) {
+            int p = edge[0]-1, q = edge[1]-1;
+            if (!ufBob.union(p, q)) {
                 ans++;
-            } else {</B></FONT>
-               if (count2[pi] &gt; count2[pj]) {
-                    label2[pj] = pi;
-                    count2[pi] += count2[pj];
-                } else {
-<A NAME="5"></A>                    label2[pi] = pj;
-                    count2[pj] += count2[pi];
-                }
-            <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#5',2,'match17-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        
-        //check fully connected
-        int p1 = find(label1, 0);
-        int p2 = find(label2, 0);
-        for (int i = 1; i &lt; n; i++) {
-<A NAME="6"></A>            if (p1 != find</B></FONT>(label1, i)) {
-                return -1;
-            }
-            if (p2 != <FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#6',2,'match17-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>find(label2, i)) {
-                return -1;
             }
         }
-        return ans;
-        
-    }
-    
-    private int find(int[] label, int i) {</B></FONT>
-        while(label[i] != i) {
-            i = label[i];
+        if (ufAlice.isComplete() &amp;&amp; ufBob.isComplete()) {
+            return ans;
+        } else {
+            return -1;
         }
-        return i;
     }
-    
-    private void union(int[] label, int i, int j) {
-        int pi = find(label, i);
-        int pj = find(label, j);
-        label[pi] = pj;
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

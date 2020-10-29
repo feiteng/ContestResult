@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>313_zzucainiao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>313_zzucainiao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int dp[51][101][51];
+    int numOfArrays(int n, int m, int k) {
+        memset(dp, 0, sizeof(dp));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 1; i &lt;= m ;++i) {
+            dp[0][i][1] = 1;
+        }
+        for(int i = 0; i &lt; n; ++i) {
+            for(int j = 1; j &lt;= m; ++j) {
+                for(int kk = 1; kk &lt;= k; ++kk) {
+                    for(int c = 1; c &lt;= m; ++c) {
+                        if(c &gt; j) {
+                            dp[i+1][c][kk+1] += dp[i][j][kk];
+                            dp[i+1][c][kk+1] %= 1000000007;
+                        } else {
+                            dp[i+1][j][kk] += dp[i][j][kk];
+                            dp[i+1][j][kk] %= 1000000007;
+                        }
+                        
+                    }
+                }
+            }
+        }
+        int re = 0;
+        for(int i = 1; i &lt;= m; ++i) {
+            re += dp[n-1][i][k];
+            re %= 1000000007;
+        }
+        return re;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

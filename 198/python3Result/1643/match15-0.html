@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>419_YaoyaoChang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>419_YaoyaoChang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -&gt; List[int]:
+        links = collections.defaultdict(list)
+        for a, b in edges:
+            links[a].append(b)
+            links[b].append(a)
+        visited =</B></FONT> [False] * n
+        res = [0] * n
+        def dfs(node):
+            if visited[node]:
+                # return []
+                return collections.defaultdict(int)
+            visited[node] = True
+            count = collections.defaultdict(int)
+            # lis = [labels[node]]
+            count[labels[node]] = 1
+<A NAME="1"></A>            for neigh in links[node]:
+                # lis.extend(dfs(neigh))
+                sub_count = dfs(neigh)
+                for k, v in sub_count<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.items():
+                    count[k] += v
+            # for c in lis:
+            #     if c == labels[node]:
+            #         res[node] += 1
+            # print(node, lis)
+            res[node] = count[labels[node]]
+            return count
+        dfs(0)
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

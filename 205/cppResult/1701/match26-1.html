@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>120_MesbahTanvir.cpp</TITLE>
+ <TITLE>129_vieta.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>120_MesbahTanvir.cpp</CENTER></H3><HR>
+<H3><CENTER>129_vieta.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int get_pr(int n, vector &lt; int &gt; &amp;p){
-        //cout &lt;&lt; p[n] &lt;&lt;&quot; &quot;&lt;&lt;n&lt;&lt;endl;
-        if(p[n]==n) return n;
-        return p[n] = get_pr(p[n], p);
+    int fnd (vector&lt;int&gt;&amp; cur, int x) {
+        int px = cur[x];
+        if (px != x) cur[px] = fnd(cur, px);
+        return cur[x] = cur[px];
     }
-    void merge(int n, int m, vector&lt;int&gt;&amp;p){</B></FONT>
-        int p1 = get_pr(n, p);
-        int p2 = get_pr(m, p);
-        p[p1]=p2;
+    int unn (vector&lt;int&gt;&amp; cur, vector&lt;int&gt;&amp; rnk, int x, int y) {
+        // cout &lt;&lt; x &lt;&lt;&quot; &quot;&lt;&lt; y&lt;&lt;&quot;\n&quot;;
+        int px = fnd(cur,x);
+        int py = fnd(cur,y);
+        if (px == py) return 0;
+        if (rnk[px] &lt; rnk[py]) swap(px,py);
+        if (rnk[px] == rnk[py]) rnk[px]++;
+        cur[py] = px;
+        return 1;
+    }
+    int ps(vector&lt;int&gt;&amp; cur, vector&lt;int&gt;&amp; rnk, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int ty, int n) {
+        // cout &lt;&lt; &quot;now &quot;&lt;&lt;ty&lt;&lt;&quot;\n&quot;;
+        int sd=0;
+        for (auto e : edges) {
+            if (e[0] != ty) continue;
+            sd +=unn(cur,rnk,cur[e[1]-1],cur[e[2]-1]);
+        }
+        return sd;
     }
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector &lt; int &gt; pr, one, two;
-        pr.resize(n+2);
-<A NAME="1"></A>        for(int i =1; i &lt;= n; i ++){
-            pr[i] = i;
+        vector&lt;int&gt; cur1(n, 0), rnk1(n, 0);
+        for (int i = 0; i &lt; n; i++) {
+            cur1[i] = i;
+            rnk1[i] = 1;
         }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int take = 0;
-        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==3){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, pr)!=get_pr(v, pr)){</B></FONT>
-                    take++;
-                    merge(u, v, pr);
-                }
-            }
-<A NAME="2"></A>        }
-        one = pr;
-        two = pr;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==1){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, one)!=get_pr(v, one)){</B></FONT>
-                    take++;
-                    merge(u, v, one);
-                }
-            }
-            if(edges[i][0]==2){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, two)!=get_pr(v, two)){
-                    take++;
-                    merge(u, v, two);
-                }
-            }
-            
-        }
-        for(int i =1; i &lt;= n ; i ++){
-            if(i!=1){
-                if(get_pr(i, one)!=get_pr(i-1, one)){
-                    return -1;
-                }
-                
-                if(get_pr(i, two)!=get_pr(i-1, two)){
-                    return -1;
-                }
-            }
-        }
-        return edges.size()-take;
-        
-        
+        vector&lt;int&gt; cur2, rnk2;
+        int sh = ps(cur1,rnk1,edges,3,n);
+        // cout&lt;&lt;sh&lt;&lt;&quot;\n&quot;;
+        cur2 = cur1;
+        rnk2 = rnk1;
+        int lf = ps(cur1,rnk1,edges,1,n);
+        int rf = ps(cur2,rnk2,edges,2,n);
+        // cout &lt;&lt; lf &lt;&lt;&quot; &quot;&lt;&lt; rf&lt;&lt;&quot;\n&quot;;
+        if (lf + sh != n-1 || rf + sh != n-1) return -1;
+        return edges.size() - (2 * (n - 1) - sh);
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

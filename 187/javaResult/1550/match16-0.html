@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>721_divadxl7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>721_divadxl7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int kthSmallest(int[][] mat, int k) {
+        PriorityQueue&lt;state&gt;PQ = new PriorityQueue&lt;&gt;();
+        int[]index = new int[mat.length];
+        int num = 0;
+        for(int i = 0;i&lt;mat.length;i++){
+            num+=mat[i][0];
+<A NAME="0"></A>            index[i]=0;
+        }
+        HashSet&lt;String&gt;used = new HashSet&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PQ.add(new state(index,num));
+        int ans = 0;
+        while(k!=0&amp;&amp;PQ.size()!=0){
+            state temp = PQ.poll();
+            int s = used.size()</B></FONT>;
+            used.add(Arrays.toString(temp.index));
+            if(used.size()==s)
+<A NAME="1"></A>                continue;
+            //System.out.println(temp.val+&quot; &quot;+k+&quot; &quot;+Arrays.toString(temp.index)+&quot; &quot;+used.size());
+            ans = temp.val;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0;i&lt;mat.length;i++){
+                if(temp.index[i]==mat[0].length-1)
+                    continue;
+                int[]temparr = temp.index.clone();
+                temparr[i]++;
+                PQ.add(new state(temparr,temp.val-mat[i][temparr[i]-1]+mat[i][temparr[i]]));
+            }
+            k--;
+        }
+        //System.out.println(ans);
+        return ans;
+        
+        
+        
+        
+    }
+    static class state implements Comparable&lt;state&gt;{
+        int[]index;
+        int val;
+        public state(int[]i, int v){
+            index = i;
+            val = v;
+        }</B></FONT>
+        public int compareTo(state s){
+            return val-s.val;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

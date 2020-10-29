@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>697_milu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>697_milu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    
+    int minimumEffortPath(vector&lt;vector&lt;int&gt;&gt;&amp; heights) {</B></FONT>
+        int m = heights.size(), n = heights.front().size();
+        vector&lt;vector&lt;int&gt;&gt; distances(m, vector&lt;int&gt;(n, INT_MAX));
+        priority_queue&lt;vector&lt;int&gt;, vector&lt;vector&lt;int&gt;&gt;, greater&lt;vector&lt;int&gt;&gt;&gt; mqueue;
+        
+        mqueue.push({0, 0, 0});
+        distances[0][0] = 0;
+        
+        while (!mqueue.empty()) {
+            vector&lt;int&gt; curr = mqueue.top();
+            mqueue.pop();
+<A NAME="1"></A>            if (curr[1] == m-1 &amp;&amp; curr[2] == n-1)
+                return curr[0];
+            for (auto &amp;dir: dirs) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int x = curr[1] + dir[0], y = curr[2] + dir[1];
+                if (x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n) {
+                    int dist = max(curr[0], abs(heights[x][y] - heights[curr[1]][curr[2]]));
+                    if (dist &lt; distances[x][y]) {
+                        distances[x][y] = dist;
+                        mqueue.push({dist, x, y});
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

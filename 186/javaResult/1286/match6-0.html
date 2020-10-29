@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>317_guoqiaomixian.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>317_guoqiaomixian.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int constrainedSubsetSum(int[] nums, int k) {
+        int n = nums.length;
+        
+        Deque&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        int maxi = - 1 &lt;&lt; 3</B></FONT>0, run = 0;
+        
+        for(int i = 0; i &lt; n; i++)
+        {
+            // for(int[] qq : q) System.out.println(Arrays.toString(qq));
+            int cur = nums[i];
+<A NAME="1"></A>            while(!q.isEmpty() &amp;&amp; q.peekFirst()[0] + k &lt; i) q.pollFirst();
+            if(!q.isEmpty()) cur += Math.max(0, q.peekFirst()[1]);
+            maxi = Math.max(maxi, cur);
+            while(!q.isEmpty() &amp;&amp; q.peekLast()[1] &lt; cur) q.pollLast()<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            // if(q.isEmpty()) 
+                q.offer(new int[]{i, cur});
+        }
+        
+        return maxi;
+    }   
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

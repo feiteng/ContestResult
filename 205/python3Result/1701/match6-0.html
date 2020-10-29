@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>532_Dwang0629.py</TITLE>
+ <TITLE>143_enzo64.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,61 +15,78 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>532_Dwang0629.py</CENTER></H3><HR>
+<H3><CENTER>143_enzo64.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DSU:
-    def __init__(self, n):
-        self.p = list(range(n + 1))
-        self.isolated_nodes = n
-        
-    def find(self, x):
-        if x != self.p[x]:
-            self.p[x] = self.find(self.p[x])
-        return self.p[x]
-    
-    def union(self, x, y):
-        xr = self.find(x)
-        yr = self.find(y)
-        
-        if xr != yr:
-            self.</B></FONT>isolated_nodes -= 1
-            
-        self.p[xr] = yr
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        #keep two union for Bob and Alice
-        #add edges to the dsu, if the two nodes are already in a union, we can delete the edge
-        #always add type3 first
-        edges.sort(reverse = True)
         
-        dsuA = DSU(n)
-        dsuB = DSU(n)
-        res = 0
-        for [t, n1, n2] in edges:
-            if t == 3:
-                #handle Alice
-                if dsuA.find(n1) == dsuA.find(n2) and dsuB.find(n1) == dsuB.find(n2):
-                    #don't add the edge
-                    res += 1
-                else:
-                    dsuA.union(n1, n2)
-                    dsuB.union(n1, n2)
-            elif t == 1:
-                #Alice
-                if dsuA.find(n1) == dsuA.find(n2):
-                    res += 1
-                else:
-                    dsuA.union(n1, n2)
-            else:
-                if dsuB.find(n1) == dsuB.find(n2):
-                    res += 1
-                else:
-                    dsuB.union(n1, n2)
-                    
-        return res if dsuA.isolated_nodes == 1 and dsuB.isolated_nodes == 1 else -1
-                
+        f = [i for i in range(n)]
         
+        def gf(i):
+            if(f[i] == i):
+                return i
+            ff = gf(f[i])
+            f[i] = ff
+            return ff
+        
+        def blk():
+            r = 0
+            for i in range(n):
+                if(f[i] == i):
+                    r += 1
+            return r
+        
+        r3 = 0
+        
+        for i in range(len(edges)):
+            edges[i][1] -= 1
+            edges[i][2] -= 1
+        
+        for tu in edges:
+            if(tu[0] == 3):
+                x, y = gf(tu[1]), gf(tu[2])
+                if(x == y):
+                    r3 += 1
+                else:
+                    f[x] = y
+        
+        r1 = 0
+        
+        for tu in edges:
+            if(tu[0] == 1):
+                x, y = gf(tu[1]), gf(tu[2])
+                if(x == y):
+                    r1 += 1
+                else:
+                    f[x] = y
+        
+        if(blk() != 1):
+            return -1
+        
+        for i in range(n):
+            f[i] = i
+        for tu in edges:
+            if(tu[0] == 3):
+                x,y = gf(tu[1]), gf(tu[2])
+                f[x] = y
+        
+        r2 = 0
+        
+        for tu in edges:
+            if(tu[0] == 2):
+                x, y = gf(tu[1]), gf(tu[2])
+                if(x == y):
+                    r2 += 1
+                else:
+                    f[x] = y
+        
+        
+        if(blk() != 1):
+            return -1        
+        
+        re</B></FONT>turn r1 + r2 + r3
+        
+            
 </PRE>
 
 </BODY>

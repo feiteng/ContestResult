@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>441_vieta.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>441_vieta.cpp</CENTER></H3><HR>
+<PRE>
+int dp[600][600];
+int value[600];
+
+class Solution {
+<A NAME="0"></A>public:
+    int stoneGameV(vector&lt;int&gt;&amp; stoneValue) {
+        int n = stoneValue.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        value[0] = 0;
+        for (int i = 0; i &lt; n; i++) {
+            value[i + 1] = value[i] + stoneValue[i];
+        }
+<A NAME="1"></A>        for (int g = 1; g &lt; n; g++) {
+            for (int l = 0; l + g &lt; n; l++) {
+                int r = l + g;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                dp[l][r] = 0;
+                for (int i = l; i + 1 &lt;= r; i++) {
+                    int rv = value[r+1] - value[i+1];
+                    int lv = value[i+1] - value[l];
+                    if (lv == rv) {
+                        dp[l][r] = max(dp[l][r],max(dp[l][i],dp[i+1][r]) + lv);
+                    } else if (lv &lt; rv) {
+                        dp[l][r] = max(dp[l][r],lv + dp[l][i]);
+                    } else {
+                        dp[l][r] = max(dp[l][r],rv + dp[i+1][r]);
+                    }
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

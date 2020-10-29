@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>120_MesbahTanvir.cpp</TITLE>
+ <TITLE>122_xyz_zhzho.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,101 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>120_MesbahTanvir.cpp</CENTER></H3><HR>
+<H3><CENTER>122_xyz_zhzho.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int get_pr(int n, vector &lt; int &gt; &amp;p){
-<A NAME="0"></A>        //cout &lt;&lt; p[n] &lt;&lt;&quot; &quot;&lt;&lt;n&lt;&lt;endl;
-        if(p[n]==n) return n;
-        return p[n] = get_pr(p[n], p);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
-    void merge(int n, int m, vector&lt;int&gt;&amp;p){
-        int p1 = get_pr(n, p);
-        int p2 = get_pr(m, p);
-        p[p1]=p2;
+    
+    int f[100010];
+    
+    int fa[100010];
+    int fb[100010];
+    
+    
+    int Find(int x) {
+        if (f[x] == x) return x;
+       else return f[x] = Find(f[x]);
     }
+    
+    int FindA(int x) {
+        if (fa[x] == x) return x;
+       else return fa[x] = FindA(fa[x]);
+    }
+    
+    int FindB(int x) {
+       if (fb[x] == x) return x;
+       else return fb[x] = FindB(fb[x]);
+    }
+    
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector &lt; int &gt; pr, one, two;
-<A NAME="1"></A>        pr.resize(n+2);
-        for(int i =1; i &lt;= n; i ++){</B></FONT>
-            pr[i] = i;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        int take = 0;
-        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==3){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, pr)!=get_pr(v, pr)){</B></FONT>
-                    take++;
-                    merge(u, v, pr);
-                }
-            }
-<A NAME="2"></A>        }
-        one = pr;
-        two = pr;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i =0; i &lt; edges.size() ; i ++){
-            if(edges[i][0]==1){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, one)!=get_pr(v, one)){</B></FONT>
-                    take++;
-                    merge(u, v, one);
-                }
-            }
-            if(edges[i][0]==2){
-                int u = edges[i][1];
-                int v = edges[i][2];
-                if(get_pr(u, two)!=get_pr(v, two)){
-                    take++;
-                    merge(u, v, two);
-                }
-            }
-            
+        for(int i = 1; i &lt;= n; i ++) {
+            f[i] = i;
         }
-        for(int i =1; i &lt;= n ; i ++){
-            if(i!=1){
-                if(get_pr(i, one)!=get_pr(i-1, one)){
-                    return -1;
+        
+        int ans = 0;
+        
+        int g = n;
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 3) {
+                int x = Find(edges[i][1]);
+                int y = Find(edges[i][2]);
+                if(x==y) {
+                    ans++;
+                    continue;
                 }
                 
-                if(get_pr(i, two)!=get_pr(i-1, two)){
-                    return -1;
-                }
+                f[x]=y;
+                g--;
             }
         }
-        return edges.size()-take;
         
         
+        for(int i = 1; i &lt;= n; i ++) {
+            fa[i]=f[i];
+            fb[i]=f[i];
+        }
+        
+        
+        int ga = g;
+        int gb = g;
+        
+        
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 1) {
+                int x = FindA(edges[i][1]);
+                int y = FindA(edges[i][2]);
+                if(x==y) {
+                    ans++;
+                    continue;
+                }
+                
+                fa[x]=y;
+                ga--;
+            }
+        }
+        
+        if(ga != 1) return -1;
+        
+        
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 2) {
+                int x = FindB(edges[i][1]);
+                int y = FindB(edges[i][2]);
+                if(x==y) {
+                    ans++;
+                    continue;
+                }
+                
+                fb[x]=y;
+                gb--;
+            }
+        }
+        
+          if(gb != 1) return -1;
+        
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

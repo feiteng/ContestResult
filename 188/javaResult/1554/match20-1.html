@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_Charlesna.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_Charlesna.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minTime(int n, int[][] edges, List&lt;Boolean&gt; has) {
+        List&lt;Integer&gt;[] graph = new List[n];
+        for (int i = 0; i &lt; n; i++) {
+            graph[i] = new ArrayList&lt;&gt;();
+        }
+        for (int[] e : edges) {</B></FONT>
+            graph[e[0]].add(e[1]);
+            graph[e[1]].add(e[0]);
+        }
+        
+        boolean[] visited = new boolean[n];
+<A NAME="1"></A>        visited[0] = true;
+        int res = helper(graph, has, 0, visited);
+        return res == -1 ? 0 : res;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private int helper(List&lt;Integer&gt;[] graph, List&lt;Boolean&gt; has, int cur, boolean[] visited) {
+        int res = 0</B></FONT>;
+        for (int next : graph[cur]) {
+            if (visited[next]) continue;
+            visited[next] = true;
+            int val = helper(graph, has, next, visited);
+            if (val != -1) {
+                res += val + 2;
+            }
+        }
+        
+        //System.out.println(cur + &quot; &quot; + res);
+        return res == 0 ? has.get(cur) ? 0 : -1 : res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>644_codeguy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>644_codeguy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        int[][] chars = new int[26][2];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0;i&lt;s.length();i++){
+            char c = s.charAt(i);
+            if(chars[c-'a'][0]==0){
+                c</B></FONT>hars[c-'a'][0] = i+1;
+                chars[c-'a'][1] = i+1;
+            }
+<A NAME="1"></A>            else
+                chars[c-'a'][1] = i+1;
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0;i&lt;26;i++){
+            if(chars[i][0]==0)
+                continue;
+            int left = chars[i][0],right = chars[i][1];
+            for</B></FONT>(;left&lt;right;left++){
+                char c = s.charAt(left);
+                if(chars[c-'a'][0]==0)
+                    continue;
+                chars[i][0] = Math.min(chars[i][0],chars[c-'a'][0]);
+                chars[i][1] = Math.max(chars[i][1],chars[c-'a'][1]);
+            }
+        }
+                for(int i = 0;i&lt;26;i++){
+            if(chars[i][0]==0)
+                continue;
+            int left = chars[i][0],right = chars[i][1];
+            for(;left&lt;right;left++){
+                char c = s.charAt(left);
+                if(chars[c-'a'][0]==0)
+                    continue;
+                chars[i][0] = Math.min(chars[i][0],chars[c-'a'][0]);
+                chars[i][1] = Math.max(chars[i][1],chars[c-'a'][1]);
+            }
+        }
+                for(int i = 0;i&lt;26;i++){
+            if(chars[i][0]==0)
+                continue;
+            int left = chars[i][0],right = chars[i][1];
+            for(;left&lt;right;left++){
+                char c = s.charAt(left);
+                if(chars[c-'a'][0]==0)
+                    continue;
+                chars[i][0] = Math.min(chars[i][0],chars[c-'a'][0]);
+                chars[i][1] = Math.max(chars[i][1],chars[c-'a'][1]);
+            }
+        }
+                for(int i = 0;i&lt;26;i++){
+            if(chars[i][0]==0)
+                continue;
+            int left = chars[i][0],right = chars[i][1];
+            for(;left&lt;right;left++){
+                char c = s.charAt(left);
+                if(chars[c-'a'][0]==0)
+                    continue;
+                chars[i][0] = Math.min(chars[i][0],chars[c-'a'][0]);
+                chars[i][1] = Math.max(chars[i][1],chars[c-'a'][1]);
+            }
+        }
+                for(int i = 0;i&lt;26;i++){
+            if(chars[i][0]==0)
+                continue;
+            int left = chars[i][0],right = chars[i][1];
+            for(;left&lt;right;left++){
+                char c = s.charAt(left);
+                if(chars[c-'a'][0]==0)
+                    continue;
+                chars[i][0] = Math.min(chars[i][0],chars[c-'a'][0]);
+                chars[i][1] = Math.max(chars[i][1],chars[c-'a'][1]);
+            }
+        }
+        // for(int i = 0;i&lt;26;i++){
+        //        System.out.println(i+&quot; &quot;+chars[i][0]+&quot; &quot;+chars[i][1]);
+        //     }
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        boolean[] bools = new boolean[s.length()];
+        int flag = 1;
+        while(flag == 1){
+            int min = s.length()+1,target = 0;
+            for(int i = 0;i&lt;26;i++){
+                if(chars[i][0] == 0)
+                    continue;
+                if(chars[i][1] - chars[i][0]&lt;min){
+                    target = i;
+                    min = chars[i][1] - chars[i][0];
+                }
+            }
+            if(min == s.length()+1)
+                break;
+            for(int i = chars[target][0]-1;i&lt;chars[target][1];i++){
+                if(bools[i]==true){
+                    flag = 0;
+                    break;
+                }
+            }
+            
+            if(flag == 0){
+                chars[target][0] = 0;
+                chars[target][1] = 0;
+                flag = 1;
+                continue;
+            }
+            for(int i = chars[target][0]-1;i&lt;chars[target][1];i++){
+                bools[i]=true;
+            }
+            res.add(s.substring(chars[target][0]-1,chars[target][1]));
+            chars[target][0] = 0;
+            chars[target][1] = 0;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

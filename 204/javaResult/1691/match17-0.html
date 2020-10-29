@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>199_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>199_huntersjm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+    public int minDays(int[][] grid) {
+        if (check(grid, 1)) {
+<A NAME="1"></A>            return 0;
+        }</B></FONT>
+
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int kk = 2;
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                if (grid[i][j] == kk) {
+                    grid[i][j] = 0;
+                    if (check(grid, kk)) {
+                        return 1;
+                    }
+                    kk++;
+                    grid[i][j] = kk;
+                }
+            }
+        }
+        return 2;
+<A NAME="2"></A>    }
+
+    private boolean check(int[][] grid</B></FONT>, int kk) {
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean ex = false;
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                if (grid[i][j] == kk) {</B></FONT>
+                    if (ex) {
+                        return true;
+<A NAME="3"></A>                    }
+                    dfs(grid, i, j, kk);
+                    ex = true;
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return !ex;
+    }
+
+    private int[][] dis = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    private void dfs(int[][] grid, int i, int j, int kk) {</B></FONT>
+        if (i &gt;= 0 &amp;&amp; j &gt;= 0 &amp; i &lt; grid.length &amp;&amp; j &lt; grid[0].length &amp;&amp; grid[i][j] == kk) {
+            grid[i][j]++;
+            for (int[] di : dis) {
+                dfs(grid, i + di[0], j + di[1], kk);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>303_guoyihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>303_guoyihua.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public static final long MOD = 1000000007L;
+    
+    public int ways(String[] pizza, int k) {
+        int m = pizza.length, n = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pizza[0].length();
+        long[][][] cache = new long[m][n][k];
+        int[][][][] hasApple = new int[m][n][m][n];
+        
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {</B></FONT>
+                for (int l = 0; l &lt; k; l++) {
+                    cache[i][j][l] = -1L;
+                }
+            }
+        }
+        
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                for (int l = 0; l &lt; m; l++) {
+                    for (int q = 0; q &lt; n; q++) {
+                        hasApple[i][j][l][q] = -1;
+                    }
+                }
+            }
+        }
+<A NAME="1"></A>        
+        int result = (int)(countWays(0, 0, 0, cache, m, n, k, hasApple, pizza) % MOD);
+        return result;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public long countWays(int x, int y, int nCut, long[][][] cache, int m, int n</B></FONT>, int k, int[][][][] hasApple, String[] pizza) {
+        if (x == m - 1 &amp;&amp; y == n - 1) {
+            if (nCut == k - 1) {
+                if (hasApple(x, y, hasApple, pizza, m, n)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        }
+        
+        if (nCut == k - 1) {
+            if (hasApple(x, y, hasApple, pizza, m, n)) {
+                return 1;
+<A NAME="2"></A>            } else {
+                return 0;
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        if (cache[x][y][nCut] &gt;= 0) {
+            return cache[x][y][nCut];
+        }
+        
+        long result = 0;
+<A NAME="3"></A>        
+        // horizontal
+        for (int i = x + 1; i &lt; m; i++) {
+            if (hasApple</B></FONT>(x, y, hasApple, pizza, i, n)) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#3',2,'match35-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                result += countWays(i, y, nCut + 1, cache, m, n, k, hasApple, pizza);
+                result %= MOD;
+            }
+        }
+<A NAME="4"></A>            
+        // vertical
+        for (int j = y + 1; j &lt; n; j++) {
+            if</B></FONT> (<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#4',2,'match35-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>hasApple(x, y, hasApple, pizza, m, j)) {
+                result += countWays(x, j, nCut + 1, cache, m, n, k, hasApple, pizza);
+                result %= MOD;
+            }
+        }
+        
+        result %= MOD;
+        cache[x][y][nCut] = result;
+        
+        return result;
+    }
+    
+    public boolean hasApple(int x, int y, int[][][][] hasApple, String[] pizza, int m</B></FONT>, int n) {
+        if (hasApple[x][y][m-1][n-1] &gt;= 0) {
+            return hasApple[x][y][m-1][n-1] == 1;
+        }
+        
+        for (int i = x; i &lt; m; i++) {
+            for (int j = y; j &lt; n; j++) {
+                if (pizza[i].charAt(j) == 'A') {
+                    hasApple[x][y][m-1][n-1] = 1;
+                    return true;
+                }
+            }
+        }
+        
+        hasApple[x][y][m-1][n-1] = 0;
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

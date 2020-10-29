@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_scut_dell.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_scut_dell.java</CENTER></H3><HR>
+<PRE>
+import java.lang.reflect.Array;
+import java.util.*;
+
+class Solution {
+<A NAME="0"></A>
+    private int[] p = new int[101];
+    void init(int n) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0;i &lt; n;i++) {
+            p[i] = i;
+        }
+    }
+    int find_set(int a) {
+        if (p[a] == a) {</B></FONT>
+            return a;
+        } else {
+            return p[a] = find_set(p[a]);
+        }
+    }
+    void union_set(int a, int b) {
+        a = find_set(a);
+        b = find_set(b);
+        p[a] = b;
+    }
+    List&lt;Integer&gt; mst(int[][] edges, TreeMap&lt;Integer, List&lt;Integer&gt;&gt; map, int n) {
+        init(n);
+        List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
+        Integer c = map.firstKey();
+        while (c != null) {
+<A NAME="1"></A>            List&lt;Integer&gt; list = map.get(c);
+            List&lt;Integer&gt; a = new ArrayList&lt;&gt;();
+            List&lt;Integer&gt; b = new ArrayList&lt;&gt;();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int x: list) {
+                if (find_set(edges[x][0]) == find_set(edges[x][1])) {
+                    b.add(x);
+                }</B></FONT> else {
+                    union_set(edges[x][0], edges[x][1]);
+                    a.add(x);
+                    ret.add(x);
+                }
+            }
+            list.clear();
+            list.addAll(b);
+            list.addAll(a);
+            c = map.ceilingKey(c + 1);
+        }
+        return ret;
+    }
+
+    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
+        Map&lt;Integer, Integer&gt; counter = new HashMap&lt;&gt;();
+
+        TreeMap&lt;Integer, List&lt;Integer&gt;&gt; map = new TreeMap&lt;&gt;();
+        for (int i = 0;i &lt; edges.length;i++) {
+            int[] edge = edges[i];
+            int finalI = i;
+            map.compute(edge[2], (k, v) -&gt; {
+                if (v == null) {
+                    v = new ArrayList&lt;&gt;();
+                }
+                v.add(finalI);
+                return v;
+            });
+        }
+
+        for (int i = 0;i &lt; n;i++) {
+            List&lt;Integer&gt; list = mst(edges, map, n);
+            for (int a: list) {
+                counter.compute(a, (k, v) -&gt; {
+                    if (v == null) {
+                        return 1;
+                    }
+                    return v + 1;
+                });
+            }
+        }
+
+        List&lt;List&lt;Integer&gt;&gt; ret = Arrays.asList(new ArrayList&lt;&gt;(), new ArrayList&lt;&gt;());
+        for (Map.Entry&lt;Integer, Integer&gt; it: counter.entrySet()) {
+            if (it.getValue() == n) {
+                ret.get(0).add(it.getKey());
+            } else {
+                ret.get(1).add(it.getKey());
+            }
+        }
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

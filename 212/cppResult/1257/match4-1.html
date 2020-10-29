@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1_hank55663.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1_hank55663.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int f[1005];
+    int Max[1005];
+    int Find(int x){
+        if(f[x]==x)return x;
+        return f[x]=Find(f[x]);
+    }
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        vector&lt;vector&lt;int&gt; &gt; ans(matrix.size(),vector&lt;int&gt;(matrix[0].size()));
+        map&lt;int,vector&lt;pair&lt;int,int&gt;&gt; &gt; m;
+        for(int i = 0;i&lt;matrix.size();i++){
+            for(int j = 0;j&lt;matrix[0].size();j++){
+                m[matrix[i][j]].push_back(make_pair(i,j));
+            }
+        }
+        int col[505],row[505];
+<A NAME="0"></A>        fill(col,col+505,0);
+        fill(row,row+505,0);
+        int n=matrix.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto &amp;it:m){
+            for(auto &amp;it2:it.second){
+                f[it2.first]=it2.first;
+                Max[it2.first]=row[it2.first];
+                f[it2.second+n]=it2.second+n;
+                Max[it2.second+n]=col[it2.second];
+<A NAME="1"></A>            }
+            for(auto &amp;it2:it.second){</B></FONT>
+                int a=Find(it2.first),b=Find(it2.second+n);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(a!=b){
+                    f[a]=b;
+                    Max[b]=max(Max[b],Max[a]);
+                }
+            }
+            for(auto it2:it.second){
+                ans[it2.first][it2.second]=Max[Find(it2.first)]+1;
+                row[it2.first]=col[it2.second]=ans[it2.first][it2.second];
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_hyp1231.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_hyp1231.py</CENTER></H3><HR>
+<PRE>
+from collections import Counter
+<A NAME="0"></A>
+def check(nums, x, m, k):
+    flag = [True if _ &lt;= x else False for _ in nums]
+    tot <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0
+    cur = 0
+    for f in flag:
+        if f:
+            cur += 1
+            if cur &gt;= k:
+                cur -= k
+                tot += 1
+        else:
+            cur = 0
+    r</B></FONT>eturn tot &gt;= m
+
+class Solution:
+    def minDays(self, bloomDay: List[int], m: int, k: int) -&gt; int:
+        if len(bloomDay) &lt; m * k: return -1
+        c = Counter(bloomDay)
+        days = list(c.keys())
+<A NAME="1"></A>        days.sort()
+        l = 0
+        r = len(days) - 1
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while l &lt; r:
+            mid = (l + r) // 2
+            if check(bloomDay, days[mid], m, k):
+                r = mid
+            else:
+                l = mid + 1
+        return days[l</B></FONT>]
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>366_majestyhao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>366_majestyhao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool dfs(vector&lt;vector&lt;int&gt;&gt; &amp;g, int r, int c, vector&lt;vector&lt;bool&gt;&gt; &amp;v) {
+        // cout &lt;&lt; r &lt;&lt; &quot; &quot; &lt;&lt; c &lt;&lt; endl;
+<A NAME="0"></A>        v[r][c] = true;
+        const int M = g.size(), N = g[0].size();
+        if (r == M - 1 &amp;&amp; c == N - 1) return true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        switch(g[r][c]) {
+            case 1:
+                if (c &lt; N - 1 &amp;&amp; (g[r][c + 1] == 3 || g[r][c + 1] == 5 || g[r][c + 1] == 1) &amp;&amp; !v[r][c + 1]) return dfs(g, r, c + 1, v);
+                else if (c &gt; 0 &amp;&amp; (g[r][c - 1] == 4 || g[r][c - 1] == 6 || g[r][c - 1] == 1) &amp;&amp; !v[r][c - 1]) return dfs(g, r, c - 1, v);
+                else return false;
+            case 2:
+                if (r &lt; M - 1 &amp;&amp; (g[r + 1][c] == 5 || g[r + 1][c] == 6 || g[r + 1][c] == 2) &amp;&amp; !v[r + 1][c]) return dfs(g, r + 1, c, v);
+                else if (r &gt; 0 &amp;&amp; (g[r - 1][c] == 3 || g[r - 1][c] == 4 || g[r - 1][c] == 2) &amp;&amp; !v[r - 1][c]) return dfs(g, r - 1, c, v);
+                else return false;
+            case 3:
+                if (r &lt; M - 1 &amp;&amp; (g[r + 1][c] == 5 || g[r + 1][c] == 6 || g[r + 1][c] == 2) &amp;&amp; !v[r + 1][c]) return dfs(g, r + 1, c, v);
+                else if (c &gt; 0 &amp;&amp; (g[r][c - 1] == 4 || g[r][c - 1] == 6 || g[r][c - 1] == 1) &amp;&amp; !v[r][c - 1]) return dfs(g, r, c - 1, v);
+                else return false;
+            case 4:
+                if (r &lt; M - 1 &amp;&amp; (g[r + 1][c] == 5 || g[r + 1][c] == 6 || g[r + 1][c] == 2) &amp;&amp; !v[r + 1][c]) return dfs(g, r + 1, c, v);
+                else if (c &lt; N - 1 &amp;&amp; (g[r][c + 1] == 3 || g[r][c + 1] == 5 || g[r][c + 1] == 1) &amp;&amp; !v[r][c + 1]) return dfs(g, r, c + 1, v);
+                else return false;  
+            case 5:
+                if (r &gt; 0 &amp;&amp; (g[r - 1][c] == 3 || g[r - 1][c] == 4 || g[r - 1][c] == 2) &amp;&amp; !v[r - 1][c]) return dfs(g, r - 1, c, v);
+                else if (c &gt; 0 &amp;&amp; (g[r][c - 1] == 4 || g[r][c - 1] == 6 || g[r][c - 1] == 1) &amp;&amp; !v[r][c - 1]) return dfs(g, r, c - 1, v);
+                else return false;  </B></FONT>
+            default:
+                if (r &gt; 0 &amp;&amp; (g[r - 1][c] == 3 || g[r - 1][c] == 4 || g[r - 1][c] == 2) &amp;&amp; !v[r - 1][c]) return dfs(g, r - 1, c, v);
+                else if (c &lt; N - 1 &amp;&amp; (g[r][c + 1] == 3 || g[r][c + 1] == 5 || g[r][c + 1] == 1) &amp;&amp; !v[r][c + 1]) return dfs(g, r, c + 1, v);
+                else return false;  
+        }
+        return false;
+    }
+    
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        const int M = grid.size(), N = grid[0].size();
+        vector&lt;vector&lt;bool&gt;&gt; v(M, vector&lt;bool&gt;(N, false));
+        return dfs(grid, 0, 0, v);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

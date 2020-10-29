@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>715_yeahpeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>715_yeahpeng.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    #define DEBUG
+    #ifdef DEBUG
+    #define dg(x) cout &lt;&lt; #x &lt;&lt; &quot; = &quot; &lt;&lt; x &lt;&lt; endl
+    #define dg2(x1, x2) cout &lt;&lt; #x1 &lt;&lt; &quot; = &quot; &lt;&lt; x1 &lt;&lt; &quot;, &quot; &lt;&lt; #x2 &lt;&lt; &quot; = &quot; &lt;&lt; x2 &lt;&lt; endl
+    #define dg3(x1, x2, x3) cout &lt;&lt; #x1 &lt;&lt; &quot; = &quot; &lt;&lt; x1 &lt;&lt; &quot;, &quot; &lt;&lt; #x2 &lt;&lt; &quot; = &quot; &lt;&lt; x2 &lt;&lt; &quot;, &quot; &lt;&lt; #x3 &lt;&lt; &quot; = &quot; &lt;&lt; x3 &lt;&lt; endl
+    #define dgarr(arr, n) arrout(arr, n);
+    #else
+    #define dg(x) ;
+    #define dg2(x1, x2) ;
+    #define dg3(x1, x2, x3) ;
+    #define dgarr(arr, n) ;
+    #endif
+    typedef long long ll;
+    template &lt;typename T&gt;
+    void arrout(T arr[], int len){
+	    for (int i = 0; i &lt;= len; ++i)
+		    cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;
+	    cout &lt;&lt; endl;
+    }
+public:
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; flag(n, vector&lt;int&gt;(m, 0));
+
+        queue&lt;pair&lt;int, int&gt;&gt; q;
+        q.push(make_pair(0, 0));
+        flag[0][0] = 1;
+        while(!q.empty()) {
+            pair&lt;int, int&gt; top = q.front();
+            q.pop();
+            int x = top.first;
+            int y = top.second;
+            if(x == n - 1 &amp;&amp;  y == m - 1){
+                return true;
+            }
+            // dg2(x, y);
+            int val = grid[x][y];
+<A NAME="0"></A>     
+            if(val == 1) {
+                int xt = x;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int xy = y + 1;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 3 || grid[xt][xy] == 5 ||  grid[xt][xy] == 1 )){
+                    q.push(make_pair(xt, xy));
+                }
+                xt = x;
+                xy = y - 1;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 4 || grid[xt][xy] == 6 ||  grid[xt][xy] == 1)){
+                    q.push(make_pair(xt, xy));
+<A NAME="1"></A>                } 
+            } else if(val == 2) {
+                int xt = x + 1;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int xy = y;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 5 || grid[xt][xy] == 6 || grid[xt][xy] == 2)){
+                    q.push(make_pair(xt, xy));
+                }
+                xt = x - 1;
+                xy = y;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 3 || grid[xt][xy] == 4 || grid[xt][xy] == 2)){
+                    q.push(make_pair(xt, xy));
+<A NAME="2"></A>                }                
+            } else if(val == 3){
+                int xt = x + 1;</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int xy = y;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 5 || grid[xt][xy] == 6 || grid[xt][xy] == 2)){
+                    q.push(make_pair(xt, xy));
+                }
+                xt = x;
+                xy = y - 1;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 4 || grid[xt][xy] == 6 ||  grid[xt][xy] == 1)){
+                    q.push(make_pair(xt, xy));
+<A NAME="3"></A>                }       
+            } else if( val == 4) {
+                int xt = x;</B></FONT>
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match8-1.html#3',3,'match8-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int xy = y + 1;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 3 || grid[xt][xy] == 5 ||  grid[xt][xy] == 1 ) ){
+                    q.push(make_pair(xt, xy));
+                }
+                xt = x + 1;
+                xy = y;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp;  (grid[xt][xy] == 5 || grid[xt][xy] == 6 || grid[xt][xy] == 2)){
+                    q.push(make_pair(xt, xy));
+<A NAME="4"></A>                } 
+            } else if( val == 5) {
+                int xt = x - 1;</B></FONT>
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match8-1.html#4',3,'match8-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int xy = y;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp;  (grid[xt][xy] == 3 || grid[xt][xy] == 4 || grid[xt][xy] == 2)){
+                    q.push(make_pair(xt, xy));
+                }
+                xt = x;
+                xy = y - 1;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 4 || grid[xt][xy] == 6 ||  grid[xt][xy] == 1)){
+                    q.push(make_pair(xt, xy));
+<A NAME="5"></A>                } 
+            } else {
+                int xt = x - 1;</B></FONT>
+<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match8-1.html#5',3,'match8-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int xy = y;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp;  (grid[xt][xy] == 3 || grid[xt][xy] == 4 || grid[xt][xy] == 2)){
+                    q.push(make_pair(xt, xy));
+                }
+                xt = x;
+                xy = y + 1;
+                if(isValid(xt, xy, n, m, flag) &amp;&amp; (grid[xt][xy] == 3 || grid[xt][xy] == 5 ||  grid[xt][xy] == 1 )){
+                    q.push(make_pair(xt, xy));
+                }            
+            }
+        }
+        return false;
+    }</B></FONT>
+    
+    
+    bool isValid(int x, int y, int n, int m, vector&lt;vector&lt;int&gt;&gt;&amp; flag){
+        if(0 &lt;= x &amp;&amp; x &lt; n &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; m &amp;&amp; !flag[x][y]){
+            flag[x][y] = 1;
+            return true;
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

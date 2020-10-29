@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_zscnash.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>34_zscnash.cpp</CENTER></H3><HR>
+<PRE>
+vector&lt;pair&lt;int,int&gt; &gt; v[50005];
+class Solution {
+public:
+	int dfs(int x,int fa)
+	{
+		int ret=0;
+		for (int i=0;i&lt;v[x].size();++i)
+<A NAME="0"></A>		{
+			int y=v[x][i].first;
+			if (y!=fa){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (v[x][i].second==0) ret++;
+				ret+=dfs(y,x);
+			}
+		}
+		return ret;
+	}
+    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; ee) {
+		for (int i=0;i&lt;n;++i) v[i].clear();
+		for (int i=0;i&lt;n-1;++i)</B></FONT>
+		{
+			v[ee[i][0]].push_back(make_pair(ee[i][1],0));
+			v[ee[i][1]].push_back(make_pair(ee[i][0],1));
+		}
+		return dfs(0,-1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

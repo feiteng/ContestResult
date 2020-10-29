@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>466_punit3199.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>466_punit3199.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    static long mod=1000000007;
+    static long[] fact;
+    static long power(long x,long y,long p) 
+    { 
+        long res = 1; 
+        x = x % p; 
+        while (y &gt; 0) { 
+            if (y % 2 == 1) 
+<A NAME="0"></A>                res = (res * x) % p; 
+            y = y &gt;&gt; 1;
+            x = (x * x) % p; 
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} 
+        return res; 
+    } 
+    static long inv(long n) 
+    { 
+        return power((long)n,mod-2,mod); 
+    } 
+<A NAME="1"></A>    static long func(int x,int y)
+    {</B></FONT>
+        return (((fact[x+y]*inv(fact[x]))%mod)*inv(fact[y]))%mod;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    static long count(ArrayList&lt;Integer&gt; ar)
+    {
+        if(ar.size()&lt;=1)
+            return 1;
+        ArrayList&lt;Integer&gt; arr=new ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt;left=new</B></FONT> ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt; right=new ArrayList&lt;&gt;();
+<A NAME="2"></A>        arr.add(ar.get(0));
+        for(int i=1;i&lt;ar.size();i++)
+        {
+            arr.add(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ar.get(i));
+            if(ar.get(i)&lt;ar.get(0))
+                left.add(ar.get(i));
+            else
+                right.add(ar.get(i));</B></FONT>
+        }
+        // System.out.println(arr.get(0)+&quot; &quot;+left.size()+&quot; &quot;+right.size());
+        long res=(((count(left)*count(right))%mod)*func(left.size(),right.size()))%mod;
+        return res;
+    }
+    public int numOfWays(int[] nums) {
+        ArrayList&lt;Integer&gt; arr=new ArrayList&lt;&gt;();
+        for(int i=0;i&lt;nums.length;i++)
+        {
+            arr.add(nums[i]);
+        }
+        // System.out.println(arr);
+        fact=new long[1001];
+        long res=1;
+        fact[0]=1;
+        for(int i=1;i&lt;=1000;i++)
+        {
+            res=(res*i)%mod;
+            fact[i]=res;
+        }
+        return (int)((count(arr)-1+mod)%mod);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>201_lixuanji.py</TITLE>
+ <TITLE>134_laekov_prc.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>201_lixuanji.py</CENTER></H3><HR>
+<H3><CENTER>134_laekov_prc.py</CENTER></H3><HR>
 <PRE>
-from collections import Counter
-
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def t1(self, a, b):
+        n = len(a)
+        csum = dict()
+        for i in range(n):
+            for j in range(i + 1, n):
+                v = a[i] * a[j]
+                if v not in csum:
+                    csum[v] = 1
+                else:
+                    csum[v] += 1
+        ans = 0
+        for i in b:
+            s = i ** 2
+            if s in csum:
+                ans += csum[s]
+        return ans
+    
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        c1 = Counter([x*x for x in nums1])
-        c2 = Counter<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>([x*x for x in nums2])
-        
-        ret = 0
-        
-        for i in range(len(nums1)):
-            for j in range(i+1, len(nums1)):
-                ret += c2[nums1[i]*nums1[j]]
-                
-        for i in range(len(nums2)):
-            for j in range(i+1, len(nums2)):
-                ret += c1[nums2[i]*nums2[j]]
-        
-        re</B></FONT>turn ret
+        return self.t1(nums1, nums2) + self.t1(n</B></FONT>ums2, nums1)
 </PRE>
 
 </BODY>

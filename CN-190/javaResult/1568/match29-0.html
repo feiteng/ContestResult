@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>410_imeth.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>410_imeth.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int res = 0;
+<A NAME="0"></A>    
+    public int pseudoPalindromicPaths (TreeNode root) {
+        if(root == null) return 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] count = new int[9];
+        count[root.val-1]++;
+        helper(root, count);
+        return res;
+    }
+    
+    public void helper(TreeNode root, int[] count){
+        if(root.left == null &amp;&amp; root.right == null){</B></FONT>
+            if(checkIt(count)){
+                res++;
+            }
+            return;
+        }
+        if(root.left != null){
+            count[root.left.val-1] ++;
+            helper(root.left, count);
+            count[root.left.val-1] --;
+        }
+        if(root.right != null){
+<A NAME="1"></A>            count[root.right.val-1]++;
+            helper(root.right, count);
+            count[root.right.val-1] --;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    }
+    
+    public boolean checkIt(int[] count){
+        boolean flag = false;
+        for(int i : count){
+            if(i % 2 == 1){
+                if(flag){
+                    return false;
+                }else{
+                    flag = true;
+                }
+            }
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

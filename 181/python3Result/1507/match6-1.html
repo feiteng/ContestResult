@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>205_Hai_dee.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>205_Hai_dee.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        
+        if len(grid) == 1 and len(grid[0]) == 1:
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return True
+        
+        neighbours = {
+            1: [(0, -1), (0, 1)],
+            2: [(-1, 0), (1, 0)],
+            3: [(0, -1), (1, 0)],
+            4: [(1, 0), (0, 1)],
+            5: [(0, -1), (-1, 0)],
+            6: [(-1, 0), (0, 1)]
+        }
+        
+        max_row =</B></FONT> len(grid) - 1
+        max_col = len(grid[0]) - 1
+<A NAME="1"></A>        
+        target = (len(grid) - 1, len(grid[0]) -1)
+        
+        seen = {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(0, 0)}
+        stack = [(0, 0)]
+        while stack:
+            row, col = stack.pop()
+            for dr, dc in neighbours[grid[row][col]]:
+                new_row =</B></FONT> row + dr
+                new_col = col + dc
+                if new_row &gt; max_row or new_col &gt; max_col or new_row &lt; 0 or new_col &lt; 0:
+                    continue
+                # Otherwise, we need to investigate the new neighhour to ensure it has the
+                # connection we require.
+                cell = (new_row, new_col)
+                # It does, if one of its neighbours is the cell we just came out of!
+                for dr2, dc2 in neighbours[grid[new_row][new_col]]:
+                    if new_row + dr2 == row and new_col + dc2 == col:
+                        break
+                else:
+                    # It's not actually reachable.
+                    continue
+
+                if cell == target:
+                    return True
+                if cell not in seen:
+                    seen.add(cell)
+                    stack.append(cell)
+        
+        return False
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>394_zhiqiang_.py</TITLE>
+ <TITLE>235_Siddhant_Khare.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>394_zhiqiang_.py</CENTER></H3><HR>
+<H3><CENTER>235_Siddhant_Khare.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        prev = 0
-        res = 0
-        for i in range(1,len(s)):
-            if s[i] == s[prev]:
-                if cost[i] &lt; cost[prev]:
-                    res += cost[i]
-                else:
-                    res +=</B></FONT> cost[prev]
-                    prev = i
-            else:
-                prev = i
+        
+        # lenght
+        
+        n = len(s)
+        j = 0
+        
+        # in it answer
+        
+        ans = 0
+    
+        # new defs
+        
+        def cut(i, j):
+            tt = 0
+            
+            # maximum array
+            
+            mx = cost[i]
+            
+            # range i to j
+            for k in range(i, j):
+                tt += cost[k]
+                mx = max(mx, cost[k])
                 
-        return res
+                # exit
+                
+            return tt - mx
+    
+    # for looping
+    
+        for i in range(n):
+            
+            # cont
+            
+            if s[i] == s[j]: continue
+                
+                # answer
+                
+            ans += cut(j, i)
+            j = i
+     # answer
+    
+        ans += cut(j, n)
+        
+        # exit
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

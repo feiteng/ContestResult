@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>516_dryou-zhou.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>516_dryou-zhou.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minSwaps(self, grid: List[List[int]]) -&gt; int:
+        N=len(grid)
+        #慢慢来，也就是说，对于第j列，需要有j个0位于对角线上方
+        #所以可以先统计下，如果某列j的全部0数目小于j的话，那就说明无论如何也完成不了，return-1
+        #接着可以统计每一行的末尾0的数目，
+        for j in range(N):
+            cur=0
+            for i in range(N):
+                if grid[i][j]==0:
+                    cur+=1
+            if cur&lt;j:
+<A NAME="0"></A>                return -1
+        
+        num=[]
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(N):
+            cur=0
+            for j in range(N-1,-1,-1):
+                if grid[i][j]==0:
+                    cur+=1
+                else:
+                    break
+            num.append(cur)
+        result=0
+        #现在要将之构成排列
+        for i in range(</B></FONT>N):
+            if num[i] &lt; N-i-1:
+                flag=True
+                #这个时候就要想办法换行了，找到在它之后的，第一个满足要求的j，这两者换行，然后num[i+1:j+1]=num[i:j]
+                for j in range(i+1,len(num)):
+<A NAME="1"></A>                    if num[j] &gt;= N-i-1:
+                        result+=(j-i)
+                        num[i+1:j+1]=num[i:j]
+                        flag<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=False
+                        break
+                if flag:
+                    return -1
+        re</B></FONT>turn result
+                        
+                
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

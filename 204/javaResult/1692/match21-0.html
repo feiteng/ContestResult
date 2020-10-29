@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>541_SSG-2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>541_SSG-2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    long fac[];
+    private int MOD=1000000007;
+    long pow(long a, long b) {
+        long x = 1, y = a;
+        while(b &gt; 0) {
+        if(b%2 == 1) {
+        x=(x*y);
+        if(x&gt;MOD) x%=MOD;
+        }
+        y = (y*y);
+        if(y&gt;MOD)
+        y%=MOD;
+        b /= 2;
+        }
+        return x;
+    }
+long inv(long a) {
+return pow(a,MOD-2);
+}
+    private long intL(int a,int b){
+<A NAME="0"></A>        long ans=fac[a+b];
+        ans=(ans*inv(fac[a]))%MOD;
+        ans=(ans*inv(fac[b]))%MOD;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans%MOD;
+    }
+    private long find(List&lt;Integer&gt; A){
+        if(A.size()&lt;=1)
+            return 1;
+<A NAME="1"></A>        List&lt;Integer&gt; B=new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; C=new ArrayList&lt;&gt;();
+        for(int i=1;i&lt;A.size</B></FONT>();i++)
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(A.get(i)&gt;A.get(0))
+                C.add(A.get(i));
+            else
+                B.add(A.get(i));</B></FONT>
+        return ((find(B)*find(C))%MOD*intL(B.size(),C.size()))%MOD;
+    }
+    public int numOfWays(int[] a) {
+        int n=a.length;
+        fac=new long[1001];
+<A NAME="2"></A>        fac[0]=1;
+        for(int i=1;i&lt;1001;i++){
+            fac[i]=(i*fac[i-1])%MOD;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        List&lt;Integer&gt; A=new ArrayList&lt;&gt;();
+        for(int i:a)
+            A.add(i);
+        return (int)((MOD+find(A)-1)%MOD);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

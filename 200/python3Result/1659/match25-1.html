@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>631_ZMXZZ.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>631_ZMXZZ.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maxSum(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        l1 = len(nums1)
+        l2 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(nums2)
+        length = max(l1, l2)
+        top = [0] * (l1 + 1)
+        bot = [0] * (l2 + 1)
+        one = l1 - 1
+        two = l2 - 1
+        while one &gt;= 0 and two &gt;= 0:
+            if (nums1[one] &gt; nums2[two]):
+                top[one] += (nums1[one] + top[</B></FONT>one + 1])
+                one -= 1
+            elif (nums1[one] &lt; nums2[two]):
+<A NAME="1"></A>                bot[two] += (nums2[two] + bot[two + 1])
+                two -= 1
+            else:
+                top<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[one] += (nums1[one] + top[one + 1])
+<A NAME="2"></A>                bot[two] += (nums2[two] + bot[two + 1])
+                top[one] = max(top[one], bot[two])
+                bot[</B></FONT>two] = top[one]
+                one <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>-= 1
+                two -= 1
+        while one &gt;= 0:
+            top[one] += (nums1[one] + top[one + 1])
+            one -= 1
+        while two &gt;= 0:
+            bot[two] += (nums2[two] + bot[two + 1])
+            two -= 1
+        return max(top[0], bot[0</B></FONT>]) % 1000000007;
+</PRE>
+
+</BODY>
+</HTML>

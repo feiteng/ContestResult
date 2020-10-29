@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_Sd-Invol.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>2_Sd-Invol.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int Q = 1e9 + 7;
+<A NAME="0"></A>    int f[55][105][55];
+    int numOfArrays(int n, int m, int K) {
+        f[0][0][0] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0 ; i &lt; n ; ++ i) {
+<A NAME="1"></A>            for (int j = 0 ; j &lt;= m ; ++ j) {
+                for (int k = 0 ; k &lt;= i ; ++ k) {</B></FONT>
+                    if (!f[i][j][k]) continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for (int l = 1 ; l &lt;= m ; ++ l) {
+                        if (l &gt; j) {
+                            f[i + 1][l][k + 1] += f[i][j][k];
+                            f[i + 1][l][k + 1] %= Q;
+                        } else {
+                            f[i + 1][j][k] += f[i][j][k];
+                            f[i + 1][j][k] %= Q;
+                        }
+                        
+                    
+                    }
+                }
+            }
+        }
+        int res = 0;
+        for (int i = 0 ; i &lt;= m ; ++ i) {
+            res += f[n][i][K];
+            res %= Q;
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

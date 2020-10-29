@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>159_chenhao4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>159_chenhao4.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+ public:
+  const int M = 1e9 + 7;
+  int f[1010][1010];
+  int c[1010][1010];
+  int numOfWays(vector&lt;int&gt; &amp;nums) {
+    memset(f, 0, sizeof f);
+    memset(c, 0, sizeof c);
+    c[0][0] = 1;
+    for (int i = 1; i &lt; 1001; ++i) {
+      c[i][0] = 1;
+      c[i][i] = 1;
+      for (int j = 1; j &lt; i; ++j) {
+        c[i][j] = (0ll + c[i - 1][j] + c[i - 1][j - 1]) % M;
+      }
+    }
+    f[0][0] = 1;
+<A NAME="0"></A>    return (dfs(nums) - 1 + M) % M;
+  }
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  int dfs(vector&lt;int&gt; &amp;nums) {
+    int n = nums.size();
+    if (n == 0) return 1;
+    int root = nums[0];
+
+    vector&lt;int&gt; left, right;
+    for (int i = 1; i &lt; n; ++i) {
+      if (nums[i] &lt; root) {
+        left.push_back(nums[i]);
+      } else {
+        right.push_back(nums[i]);
+      }
+    }
+    // if (f[n][left.size()] != 0) return f[n][left.size()];
+    // printf(&quot;n %d l %d\n&quot;, n, (int)left.size());
+    // int &amp;ans = f[n][left.size()];
+    int ans = 0;
+    // if (n == 44)
+    //   printf(&quot;n %d l %d c %d left %d right %d\n&quot;, n, (int)left.size(),
+    //          c[n - 1][left.size()], dfs(left), dfs(right));
+    ans = 1ll * (1ll * dfs(left) * dfs(right) % M) * c[n - 1][left.size()] % M;</B></FONT>
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

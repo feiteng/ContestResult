@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>85_cszclin.cpp</TITLE>
+ <TITLE>119_w285714.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>85_cszclin.cpp</CENTER></H3><HR>
+<H3><CENTER>119_w285714.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-<A NAME="0"></A>    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        unordered_map&lt;long long int, int&gt; um1, um2;
-        int n1 = nums1.size(), n2 = nums2.size();
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long int base = 1;
-        for (int i = 0; i &lt; n1; i++) {
-            for (int j = i + 1; j &lt; n1; j++) {
-                
-                um1[base * nums1[i] * nums1[j]]++;
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        unordered_map&lt;long long,int&gt; m1,m2;
+        for(int q:nums1)
+            ++m1[q];
+        for(int q:nums2)
+            ++m2[q];
+        int res=0;
+        for(long long q:nums1){
+            for(auto&amp; z:m2){
+                if(z.first&gt;q)
+                    continue;
+                if(z.first==q){
+                    res+=z.second*(z.second-1)/2;
+                }
+                else if(q*q%z.first==0){
+                    long long t=q*q/z.first;
+                    if(m2.count(t)){
+                        res+=z.second*m2[t];
+                    }
+                }
             }
         }
-        for (int i = 0; i &lt; n2; i++) {
-            for (int j = i + 1; j &lt; n2; j++) {
-<A NAME="1"></A>                um2[base * nums2[i] * nums2[j]]++;
+        for(long long q:nums2){
+            for(auto&amp; z:m1){
+                if(z.first&gt;q)
+                    continue;
+                if(z.first==q){
+                    res+=z.second*(z.second-1)/2;
+                }
+                else if(q*q%z.first==0){
+                    long long t=q*q/z.first;
+                    if(m1.count(t)){
+                        res+=z.second*m1[t];
+                    }
+                }
             }
-        }</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
-        for (int i = 0; i &lt; n1; i++) {
-            res += um2[base * nums1[i] * nums1[i]];
-        }
-        for (int i = 0; i &lt; n2; i++) {
-            res += um1[base * nums2[i] * nums2[i]];
         }
         return res;
     }

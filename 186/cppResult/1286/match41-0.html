@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>722_Arpan_Bhowmik.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>722_Arpan_Bhowmik.cpp</CENTER></H3><HR>
+<PRE>
+int tree[400005];
+void update(int node, int b, int e, int i, int j, int val)
+{
+    if(i&gt;e || j&lt;b) return;
+    if(b&gt;=i &amp;&amp; e&lt;=j)
+    {
+        tree[node]=val;
+        return;
+    }
+    int mid=(b+e)&gt;&gt;1;
+    int Left=node&lt;&lt;1;
+    int Right=Left+1;
+    update(Left, b, mid, i, j, val);
+    update(Right, mid+1, e, i, j, val);
+    tree[node]=max(tree[Left],tree[Right]);
+}
+
+void build(int node, int b, int e)
+{
+    if(b==e)
+    {
+        tree[node]=-1e9-5;
+        return;
+    }
+    int mid=(b+e)&gt;&gt;1;
+    int Left=node&lt;&lt;1;
+    int Right=Left+1;
+    build(Left, b, mid);
+    build(Right, mid+1, e);
+    tree[node]=max(tree[Left],tree[Right]);
+}
+
+int query(int node, int b, int e, int i, int j)
+{
+    if(i&gt;e || j&lt;b) return -1e9-5;
+    if(b&gt;=i &amp;&amp; e&lt;=j) return tree[node];
+    int mid=(b+e)&gt;&gt;1;
+    int Left=node&lt;&lt;1;
+    int Right=Left+1;
+<A NAME="0"></A>    return max(query(Left, b, mid, i, j),query(Right, mid+1, e, i, j));
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match41-1.html#0',3,'match41-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int constrainedSubsetSum(vector&lt;int&gt;&amp; nums, int k) {
+        build(1,1,(int)nums.size());
+        int ans=nums[0];
+        update(1,1,(int)nums.size(),1,1,ans);
+        for(int i=1; i&lt;nums.size(); i++)
+        {
+            int en=i,st=(i+1)-k;</B></FONT>
+            if(st&lt;=0) st=1;
+            int temp=query(1,1,(int)nums.size(),st,en);
+            temp=max(temp+nums[i],nums[i]);
+            update(1,1,(int)nums.size(),i+1,i+1,temp);
+            ans=max(ans,temp);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

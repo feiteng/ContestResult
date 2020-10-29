@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_Time-Limit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>43_Time-Limit.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct Node {
+        int cnt;
+        int len;
+        int pre;
+        Node() : cnt(0), len(0), pre(0) {}
+    };
+    Node dp[100001];
+    
+    struct Seg {
+        int l;
+        int r;
+        Seg(int l_, int r_) : l(l_), r(r_) {}
+    };
+    
+    int left[26];
+    int right[26];
+    unordered_set&lt;int&gt; inc[26];
+    
+    void update(int goal) {
+        int &amp;L = left[goal];
+        int &amp;R = right[goal];
+        
+        queue&lt;int&gt; q;
+        q.push(goal);
+        bool mark[26] = {false};
+        mark[goal] = true;
+        while(q.empty() == false) {
+            int f = q.front();
+            q.pop();
+            L = min(left[f], L);
+            R = max(right[f], R);
+            
+            for(auto it = inc[f].begin(); it != inc[f].end(); ++it) {
+                if(mark[*it] == false) {
+                    mark[*it] = true;
+                    q.push(*it);
+                }
+            }
+        }
+    }
+    
+<A NAME="0"></A>    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        memset(left, 0x7f7f, sizeof(left));
+        memset(right, 0, sizeof(right));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; s.size(); i++) {
+            int pos = s[i]-'a';
+            left[pos] = min(left[pos], i+1);
+            right[pos] = max(right[pos], i+1);
+        }
+        for(int i = 0; i &lt; 26; i++) {
+            for(int l = left[i]-1; l &lt; right[i]; l++) {
+                if(inc[i].find(s[l]-'a') == inc[i].end()) {</B></FONT>
+                    inc[i].insert(s[l]-'a');
+<A NAME="1"></A>                }
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; 26; i++) {
+            //printf(&quot;b: i: %d, L: %d, R: %d\n&quot;, i, left[i], right[i]);
+            update(i);
+            //printf(&quot;e: i: %d, L: %d, R: %d\n&quot;, i, left[i], right[i]);
+        }
+        
+        for(int i = 1; i &lt;= s.size(); i++) {
+            int pos = s[i-1]-'a';
+            if(right[pos] == i) {</B></FONT>
+                Node tmp;
+                tmp.cnt = dp[left[pos]-1].cnt + 1;
+                tmp.len = dp[left[pos]-1].len + right[pos] - left[pos]+1;
+                tmp.pre = left[pos]-1;
+                
+                if(tmp.cnt &gt; dp[i-1].cnt
+                    || (tmp.cnt == dp[i-1].cnt &amp;&amp; tmp.len &lt; dp[i-1].len)) {
+                    dp[i] = tmp;
+                } else {
+                    dp[i] = dp[i-1];
+                }
+            } else {
+                dp[i] = dp[i-1];
+            }
+        }
+        
+        //cout &lt;&lt; dp[s.size()].cnt &lt;&lt; &quot; &quot; &lt;&lt; dp[s.size()].len &lt;&lt; endl;
+        //for(int i = 0; i &lt;= s.size(); i++) {
+        //    cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; dp[i].pre &lt;&lt; endl;
+        //}
+        
+        int pos = dp[s.size()].pre;
+        int sum = dp[s.size()].len;
+        vector&lt;string&gt; anw;
+        do {
+            int L = pos+1;
+            int R = right[s[L-1]-'a'];
+            string str = s.substr(L-1, R-L+1);
+            //cout &lt;&lt; str &lt;&lt; endl;
+            
+            sum -= str.size();
+            anw.push_back(std::move(str));
+            pos = dp[pos].pre;
+        }while(sum &gt; 0);
+        
+        return anw;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

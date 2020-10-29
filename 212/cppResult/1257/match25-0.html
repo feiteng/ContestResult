@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>188_jljljljljl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>188_jljljljljl.cpp</CENTER></H3><HR>
+<PRE>
+bool cmp(pair&lt;int, pair&lt;int, int&gt;&gt;&amp; a, pair&lt;int, pair&lt;int, int&gt;&gt;&amp; b)
+{
+    if(a.first != b.first)
+        return a.first &lt; b.first;
+    else if(a.second.second != b.second.second)
+        return a.second.second &lt; b.second.second;
+    else
+        return a.second.first &lt; b.second.first;
+<A NAME="0"></A>}
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; matrix)
+    {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        
+        vector&lt;int&gt; rowRank(m, 0), colRank(n, 0);
+        vector&lt;vector&lt;int&gt;&gt; v;
+        for(int i = 0; i &lt; m; i++)</B></FONT>
+        {
+            for(int j = 0; j &lt; n; j++)
+            {
+                v.push_back({matrix[i][j], i, j});
+            }
+        }
+        sort(v.begin(), v.end());
+    
+        
+        vector&lt;vector&lt;int&gt;&gt; ret(m, vector&lt;int&gt;(n));
+        int prev = INT_MIN;
+        vector&lt;pair&lt;int, pair&lt;int, int&gt;&gt;&gt; tmp;
+        for(int i = 0; i &lt; v.size(); i++)
+        {
+            int x = v[i][1], y = v[i][2], w = v[i][0];
+            if(w == prev)
+            {
+                int r, c;
+                r = rowRank[x] + 1;
+                c = colRank[y] + 1;
+                int rank = max(r, c);
+                tmp.push_back({rank, {x, y}});
+            }
+            else
+            {
+                prev = w;
+                helper(tmp, rowRank, colRank, ret);
+                tmp.clear();
+                int r, c;
+                r = rowRank[x] + 1;
+                c = colRank[y] + 1;
+                int rank = max(r, c);
+                tmp.push_back({rank, {x, y}});
+            }
+        }
+        
+        helper(tmp, rowRank, colRank, ret);
+        
+        return ret;
+    }
+    
+<A NAME="1"></A>    
+    void helper(vector&lt;pair&lt;int, pair&lt;int, int&gt;&gt;&gt;&amp; tmp, vector&lt;int&gt;&amp; rowRank, vector&lt;int&gt;&amp; colRank, vector&lt;vector&lt;int&gt;&gt;&amp; ret)
+    {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        bool stop = false;
+        while(!stop)
+        {
+            stop = true;
+            sort(tmp.rbegin(), tmp.rend(), cmp);
+            for(int j = 0; j &lt; tmp.size(); j++)
+            {
+                int rank = tmp[j].first, xx = tmp[j].second.first, yy = tmp[j].second.second;</B></FONT>
+                rank = max(rank, rowRank[xx]);
+                rank = max(rank, colRank[yy]);
+                if(rank != tmp[j].first)
+                {
+                    stop = false;
+                    tmp[j].first = rank;
+                }
+                rowRank[xx] = rank;
+                colRank[yy] = rank;
+                ret[xx][yy] = rank;
+            }
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

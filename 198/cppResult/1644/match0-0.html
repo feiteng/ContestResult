@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>432_duangduang1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>432_duangduang1.cpp</CENTER></H3><HR>
+<PRE>
+
+const int maxn = 1e5 + 7;
+<A NAME="0"></A>class Solution {
+public:
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    struct node {
+        int l, r;   
+        bool operator &lt; (const node&amp; a) const {
+            if( r == a.r ) return l &lt; a.l;
+            return r &lt; a.r;
+    }
+    }p[30];
+    
+    
+        
+    int vis[30];
+    int sum[maxn][26];
+    
+    vector&lt;string&gt; maxNumOfSubstrings( string s ) 
+	{
+        int len = s.size();
+        memset(vis, 0, sizeof(vis));
+        memset(sum, 0, sizeof(sum));
+        
+        for (int i = 0; i &lt; 26; i++) p[i].l = p[i].r = -1;
+        for ( int i = 0; i &lt; len; i++ ) 
+		{
+            if(p[s[i] - 'a'].l == -1) p[s[i] - 'a'].l = i; 
+            for ( int j = 0; j &lt; 26; j++ ) 
+			{
+                sum[i + 1][j] = sum[i][j];
+            }
+            sum[i + 1][s[i] - 'a']++;
+        }
+        
+        for ( int i = len - 1; i &gt;= 0; i-- ) </B></FONT>
+        {
+<A NAME="1"></A>        	if( p[s[i] - 'a'].r == -1 ) p[s[i] - 'a'].r = i;
+        }
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for ( int i = 0; i &lt; 26; i++ ) 
+		{
+            if( p[i].l == -1 ) continue;
+            while ( true ) 
+			{
+                bool flag = true;
+                for ( int j = 0; j &lt; 26; j++ ) 
+				{
+                    if( i == j || p[j].l == -1 ) continue;
+                    if( sum[p[i].r + 1][j] - sum[p[i].l][j] &gt; 0 &amp;&amp; (p[j].l &lt; p[i].l || p[j].r &gt; p[i].r) ) 
+					{
+                        p[i].l = min(p[i].l, p[j].l);
+                        p[i].r = max(p[i].r, p[j].r);
+                        flag = false;
+                    }
+                }
+                if( flag ) break;
+            }
+            
+        }
+        sort(p, p + 26);
+        int top = 0;
+        while ( top &lt; 26 &amp;&amp; p[top].l == -1 ) top++;
+        int ans = 0, pre = -1;
+        for ( int i = top; i &lt; 26; i++ ) 
+		{
+            if( pre &lt; p[i].l ) 
+			{
+                pre = p[i].r;
+                vis[i] = 1;
+            }
+        }
+        vector&lt;string&gt; res;
+        for ( int i = 0; i &lt; 26; i++ ) 
+		{
+            if( vis[i] ) 
+			{
+                string ss = s.substr(p[i].l,p[i].r-p[i].l+1);</B></FONT>
+                res.push_back(ss);
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

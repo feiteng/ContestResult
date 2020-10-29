@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>225_danieldumitran.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>225_danieldumitran.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+
+#ifndef LOCALRUN
+#define printf(format, ...)
+#endif
+
+#ifdef LOCALRUN
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+#endif
+
+using namespace std;
+
+#define MOD 1000000007
+
+class Solution {
+private:
+
+public:
+  Solution() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+  }
+
+  int numSubseq(vector&lt;int&gt;&amp; nums, int target) {
+    const int n = nums.size();
+<A NAME="0"></A>    sort(nums.begin(), nums.end());
+
+    vector&lt;unsigned int&gt; pow(n);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    pow[0] = 1;
+    for (int i = 1; i &lt; n; ++i)
+      pow[i] = (pow[i - 1] * 2) % MOD;
+
+    int result = 0;
+    int last = n - 1;
+    for (int first = 0; first &lt;= last; ++first) {
+      while (first &lt;= last &amp;&amp; nums[first] + nums[last] &gt; target) --last;
+      if (first &gt; last) break;
+
+      result = result + pow[last - first];
+      result %= MOD;
+    }
+
+    return result;
+  }
+};</B></FONT>
+
+#ifdef LOCALRUN
+void run_test(vector&lt;int&gt; n, int t) {
+  printf(&quot;%d\n&quot;, Solution().numSubseq(n, t));
+}
+
+int main() {
+  run_test({3,5,6,7}, 9);
+  return 0;
+}
+#endif
+</PRE>
+</BODY>
+</HTML>

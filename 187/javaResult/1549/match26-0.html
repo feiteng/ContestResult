@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_533-5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>431_533-5.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        PriorityQueue&lt;Integer&gt; que_min = new PriorityQueue&lt;&gt;();
+<A NAME="0"></A>        PriorityQueue&lt;Integer&gt; que_max = new PriorityQueue&lt;&gt;((o1, o2) -&gt; (o2 - o1));
+        
+        if(nums.length == 0)    return 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n = nums.length;
+        int l = 0, r = 0, len = 0, ans = 0;
+        
+        while(r &lt; n) {
+            que_min.add(nums[r]);   que_max.add(nums[r]);   len += 1;   r += 1;
+            while(que_max.peek() - que_min.peek() &gt; limit) {
+                que_min.remove(nums[l]);    que_max.remove(nums[l]);
+                l++;    len -= 1;
+            }
+            ans = Math.max(ans, len);
+        }
+        
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

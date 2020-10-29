@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>426_gfxcc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>426_gfxcc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def avoidFlood(self, rains: List[int]) -&gt; List[int]:
+        rst = [-1] * len(rains)
+        dry, full = [], {}
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i, lack in enumerate(rains):
+            if lack &gt; 0:
+                if lack in full:
+                    prev = full[lack]
+                    idx = bisect.bisect(dry, prev)
+                    if idx &gt;= len(dry): return []
+                    rst[dry[</B></FONT>idx]] = lack
+                    del dry[idx]
+                full[lack] = i
+            else:
+                dry.append(i)
+        for i in dry:
+            rst[i] = 1
+        return rst
+</PRE>
+
+</BODY>
+</HTML>

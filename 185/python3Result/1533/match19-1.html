@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>312_chuan-chih.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>312_chuan-chih.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def displayTable(self, orders: List[List[str]]) -&gt; List[List[str]]:
+        food = set()
+        table = collections.defaultdict(collections.Counter)
+        for _, i, dish in orders:
+            food.add(dish)
+            table[int(i)][dish] += 1
+        food = sorted(</B></FONT>food)
+        food_d = {f: i for i, f in enumerate(food)}
+        num = sorted(table.keys())
+        first = ['Table']
+        first.extend(food)
+        ans = [first]
+        for n in num:
+            row = [str(n)]
+            l = [0] * len(food)
+            for k, v in table[n].items():
+                k = food_d[k]
+                l[k] = v
+            row.extend(str(m) for m in l)
+            ans.append(row)
+        return ans
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

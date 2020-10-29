@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>393_lifuhuang.py</TITLE>
+ <TITLE>105_JerryJin2905.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>393_lifuhuang.py</CENTER></H3><HR>
+<H3><CENTER>105_JerryJin2905.py</CENTER></H3><HR>
 <PRE>
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def modifyString(self, s: str) -&gt; str:
-        s = [ch for ch in s]
-        def getChar(i):
-            prev = s[i - 1] if i != 0 else &quot;!&quot;
-<A NAME="0"></A>            nxt = s[i + 1] if i &lt; len(s) - 1 else &quot;!&quot;
-            for ch in &quot;abcdefghijklmnopqrstuvwxyz&quot;:
-                if ch != prev and ch != nxt:
-                    re<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>turn ch
-
+        stk = []
         for i, ch in enumerate(s):
-            if ch == '?':
-                s[i] = getChar(i)
-
-        return ''.join(s</B></FONT>)
-        
+            if ch != '?':
+                stk.append(ch)
+            else:
+                last = '' if not stk else stk[-1]
+                back = '' if i + 1 &gt;= len(s) else s[i + 1]
+                for i in range(26):
+                    cand = chr(ord('a') + i)
+                    if cand != last and cand != back:
+                        stk.append(cand)
+                        break
+        return ''.join(s</B></FONT>tk)
 </PRE>
 
 </BODY>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>717_ericlong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>717_ericlong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int psa[51][51];
+    int dp[2][51][51][51][51];
+    bool isEmpty(int a, int b, int c, int d) {
+        return psa[b][d] - psa[b][c-1] - psa[a-1][d] + psa[a-1][c-1] == 0;
+    }
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+        k--;
+        int row = pizza.size(), col = pizza[0].length();
+        for (int i = 0; i &lt; row; i++) {
+            for (int j = 0; j &lt; col; j++) {
+<A NAME="0"></A>                if (pizza[i][j]=='A') psa[i+1][j+1]++;
+            }
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt;= row; i++) {
+            for (int j = 1; j &lt;= col; j++) {
+                psa[i][j] += psa[i-1][j] + psa[i][j-1] - psa[i-1][j-1];
+            }
+        }
+        for (int i = 1; i &lt;= row; i++) {
+            for (int j = i; j &lt;= row; j++) {
+                for (int k = 1; k &lt;= col; k++) {</B></FONT>
+                    for (int l = k; l &lt;= col; l++) {
+                        dp[0][i][j][k][l] = !isEmpty(i,j,k,l);
+                    }
+                }
+            }
+        }
+        for (int q = 1; q &lt;= k; q++) {
+            for (int a = 1; a &lt;= row; a++) {
+<A NAME="1"></A>                    int b = row;
+                    for (int c = 1; c &lt;= col; c++) {
+                            int d=col;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                            dp[q%2][a][b][c][d] = 0;
+                            for (int i = a; i &lt; b; i++) {
+                                // cut after i
+                                if (!isEmpty(a,i,c,d)) {
+                                    dp[q%2][a][b][c][d] += dp[1-q%2][i+1][b][c][d];
+                                    dp[q%2][a][b][c][d] %= 1000000007;
+                                }
+                            }
+                            for (int i = c; i &lt; d; i++) {
+                                if (!isEmpty(a,b,c,i)) {
+                                    dp[q%2][a][b][c][d] += dp[1-q%2][a][b][i+1][d];
+                                    dp[q%2][a][b][c][d] %= 1000000007;
+                                }
+                            
+                        
+                    }</B></FONT>
+                }
+            }
+        }
+        return dp[k%2][1][row][1][col];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

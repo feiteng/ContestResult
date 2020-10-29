@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>954_tangentyh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>954_tangentyh.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        int m = heights.length, n = heights[0].length;
+        int[][] dp = new int[m][n];
+        boolean[][] visited = new boolean[m][n]</B></FONT>;
+        visited[0][0] = true;
+<A NAME="1"></A>        Queue&lt;int[]&gt; q = new PriorityQueue&lt;&gt;((a, b) -&gt; Integer.compare(a[0], b[0]));
+        if (m &gt; 1) q.offer(new int[] { Math.abs(heights[1][0] - heights[0][0]), n });
+        if (n &gt; 1) q.offer(new int[] { Math.abs(heights[0][1] - heights[0][0]), 1 });
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!q.isEmpty() &amp;&amp; !visited[m - 1][n - 1]) {
+            int[] path = q.poll();
+            int w = path[0], ser = path[1];
+            int i = ser / n</B></FONT>, j = ser % n;
+<A NAME="2"></A>            if (visited[i][j]) continue;
+            visited[i][j] = true;
+            dp[i][j] = w;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (i &gt; 0 &amp;&amp; !visited[i - 1][j]) {
+                q.offer(new int[] { Math.max(w, Math.abs(heights[i][j] - heights[i - 1][j])), (i - 1) * n + j });
+            }
+            if (j &gt; 0 &amp;&amp; !visited[i][j - 1]) {
+                q.offer(new int[] { Math.max(w, Math.abs(heights[i][j] - heights[i][j - 1])), i * n + j - 1 });
+            }
+            if (i + 1 &lt; m &amp;&amp; !visited[i + 1][j]) {
+                q.offer(new int[] { Math.max(w, Math.abs(heights[i][j] - heights[i + 1][j])), (i + 1) * n + j });
+            }
+            if (j + 1 &lt; n &amp;&amp; !visited[i][j + 1]) {
+                q.offer(new int[] { Math.max(w, Math.abs(heights[i][j] - heights[i][j + 1])), i * n + j + 1 });
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

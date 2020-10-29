@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>67_arignote.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    public int cherryPickup(int[][] grid) {
+        int[][][] dp = new int[grid.length][grid[0].length][grid[0].length];
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+<A NAME="0"></A>                for (int k = 0; k &lt; grid[0].length; k++) {
+                    dp[i][j][k] = -10000000;
+                }
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        dp[0][0][grid[0].length - 1] = grid[0][0] + grid[0][grid[0].length - 1];
+        for (int i = 1; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+<A NAME="1"></A>                for (int k = 0; k &lt; grid[0].length; k++) {
+                    if (j == k) {</B></FONT>
+                        dp[i][j][k] = grid[i][j] + Math.max(get(dp, i - 1, j - 1, k - 1),
+                                Math.max(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>get(dp, i - 1, j - 1, k),
+                                        Math.max(get(dp, i - 1, j - 1, k + 1), Math.max(get(dp, i - 1, j, k),
+                                                Math.max(get(dp, i - 1, j, k + 1), get(dp, i - 1, j + 1, k + 1))))));
+                    }</B></FONT> else {
+                        int max = -1000000;
+                        for (int n = -1; n &lt;= 1; n++) {
+                            for (int m = -1; m &lt;= 1; m++) {
+                                max = Math.max(max, get(dp, i - 1, j + n, k + m));
+<A NAME="2"></A>                            }
+                        }
+                        dp[i][j][k] = grid[i][j] + grid[i][k] + max;
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+        int max = 0;
+        for (int i = 0; i &lt; grid[0].length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                max = Math.max(max, dp[grid.length - 1][i][j]);
+            }
+        }
+        return max;
+    }</B></FONT>
+
+    private int get(int[][][] dp, int i, int j, int k) {
+        return j &lt; 0 || j &gt;= dp[0].length || k &lt; 0 || k &gt;= dp[0].length ? -1000000 : dp[i][j][k];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

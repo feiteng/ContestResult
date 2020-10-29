@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>255_SimpleAsDp.py</TITLE>
+ <TITLE>122_Eser.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,19 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>255_SimpleAsDp.py</CENTER></H3><HR>
+<H3><CENTER>122_Eser.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-<A NAME="0"></A>        
-        stack = []
-        ans = 0
-        for i in range(len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(s)):
-            if stack and s[stack[-1]]==s[i]:
-                if cost[i]&lt;cost[stack[-1]]:
-                    ans += cost[i]
-                else:
-                    ans += cost[stack[-1]]
-                    stack.pop()
-                    stack.append(i)
-            else:
-                stack.append(i)
-        
-        
-        re</B></FONT>turn ans
-    
-            
-                    
-                
-        
+        lo = hi = 0
+        allcost = sum(cost)
+        remain = 0
+        s += &quot;$&quot;
+        for hi in range(len(s)):
+            if s[hi] != s[lo]:
+                remain += max(cost[lo:hi])
+                lo = hi
+        re</B></FONT>turn allcost - remain
 </PRE>
 
 </BODY>

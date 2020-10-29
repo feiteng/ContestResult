@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_kotomord.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_kotomord.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+        class SJS{
+        int[] par;
+<A NAME="0"></A>
+        SJS(int n){
+            par = new int[n];
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i&lt;n; ++i) {
+                par[i] = i;
+            }
+        }
+
+<A NAME="1"></A>        int parent(int i){
+            if</B></FONT>(par[i]==i) return i;
+            return par[i] = parent(par[i]);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        boolean add(int i, int j) {
+            i = parent(i);
+            j = parent</B></FONT>(j);
+            if(i==j) return false;
+            par[i] = j;
+            return true;
+        }
+    }
+
+    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
+       int[][] edgesN = new int[edges.length][4];
+       for(int i = 0; i&lt;edges.length; ++i) {
+           for(int j = 0; j&lt;3; ++j) edgesN[i][j] = edges[i][j];
+           edgesN[i][3] = i;
+       }
+       Arrays.sort(edgesN, new Comparator&lt;int[]&gt;() {
+           @Override
+           public int compare(int[] ints, int[] t1) {
+               return ints[2]-t1[2];
+           }
+       });
+       int minW = 0;
+       SJS s1 = new SJS(n);
+       for(int[] e: edgesN) {
+           if(s1.add(e[0], e[1])) minW+=e[2];
+       }
+       System.out.println(minW);
+       Set&lt;Integer&gt; crits = new HashSet&lt;&gt;();
+       for(int i = 0; i&lt;edgesN.length; ++i) {
+           SJS s = new SJS(n);
+           int cnt = n;
+           int v = 0;
+           int p = 0;
+           for(int[] e: edgesN) {
+               if(p++ == i) continue;
+               if(s.add(e[0], e[1])) {
+                   v+=e[2];
+                   --cnt;
+               }
+           }
+           System.out.println(cnt + &quot; &quot; + v + &quot; &quot; + edgesN[i][3]);
+           if(cnt &gt; 1 || v!=minW)
+               crits.add(edgesN[i][3]);
+
+       }
+       
+       Set&lt;Integer&gt; pseudos = new HashSet&lt;&gt;();
+       for(int i = 0; i&lt;edgesN.length; ++i) {
+           if(crits.contains(edgesN[i][3])) continue;
+           SJS s = new SJS(n);
+           int cnt = n-1;
+           int v = edgesN[i][2];
+           s.add(edgesN[i][0], edgesN[i][1]);
+           for(int[] e: edgesN) {
+               if(s.add(e[0], e[1])) {
+                   v+=e[2];
+                   --cnt;
+               }
+           }
+           if(cnt == 1 &amp;&amp; v == minW) pseudos.add(edgesN[i][3]);
+       }
+
+       List&lt;List&lt;Integer&gt;&gt; ret = new ArrayList&lt;&gt;();
+       ret.add(new ArrayList&lt;&gt;(crits));
+       ret.add(new ArrayList&lt;&gt;(pseudos));
+       return ret;
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

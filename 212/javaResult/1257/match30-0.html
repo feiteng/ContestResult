@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>183_danile53.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>183_danile53.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    int[] rowRank;
+    int[] rowVal;
+    int[] colRank;
+<A NAME="0"></A>    int[] colVal;
+    int[][] rank;
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int[][] matrixRankTransform(int[][] matrix) {
+        // loop positiosn from smallest value
+        // keep rowRank[i] as the biggest rank seen in row i
+        // keep rowVal[i] as the val of the biggest rank in row i
+        // keep same for columns
+        // calc rank[r][c] from those
+
+
+        int rows = matrix.length, cols = matrix[0].length;
+        var map = new TreeMap&lt;Integer, List&lt;Position&gt;&gt;();
+        for (int r=0; </B></FONT>r&lt;rows; r++)
+            for (int c=0; c&lt;cols; c++) {
+                map.putIfAbsent(matrix[r][c], new ArrayList&lt;&gt;());
+                map.get(matrix[r][c]).add(new Position(r, c));
+            }
+
+
+        rowRank = new int[rows];
+        rowVal = new int[rows];
+        colRank = new int[cols];
+        colVal = new int[cols];
+        rank = new int[rows][cols];
+
+        for (Integer key : map.keySet()) {
+            int val = key;
+            List&lt;Position&gt; positions = map.get(val);
+            
+            boolean keepRanking = true;
+            while (keepRanking) {
+                keepRanking = false;
+                for (var pos : positions) {
+                    if (doRanking(val, pos))
+                        keepRanking = true;
+<A NAME="1"></A>                }
+            } 
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return rank;
+    }
+    
+    private boolean doRanking(int val, Position pos) {
+        int byRow = rank(val, rowRank[pos.row], rowVal[pos.row]);
+        int byCol = rank</B></FONT>(val, colRank[pos.col], colVal[pos.col]);
+        int thisRank = Math.max(byRow, byCol);
+        if (thisRank == rank[pos.row][pos.col])
+            return false;
+        rank[pos.row][pos.col] = thisRank;
+        rowRank[pos.row] = thisRank;
+        rowVal[pos.row] = val;
+        colRank[pos.col] = thisRank;
+        colVal[pos.col] = val;
+        return true;
+    }
+
+<A NAME="2"></A>    private static int rank(int thisVal, int otherRank, int otherVal) {
+        if (otherRank == 0) return 1;
+        if (otherVal == thisVal) return otherRank;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return otherRank + 1;
+    }
+
+    private static class Position {
+        int row;
+        int col;
+        Position(int r, int c) {
+            row = r;
+            col = c;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

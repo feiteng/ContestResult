@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_Chanchal_Maji.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_Chanchal_Maji.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def numSubmat(self, mat: List[List[int]]) -&gt; int:
+        m, n = len(mat), len(mat[0])
+        prefix = [[0 for j in range(n)] for i in range(m)]
+        for i in range(m):
+            for j in range(n-1, -1, -1):
+                if mat[i][j] == 0:
+                    continue
+                if j != n-1:
+                    prefix[i][j] += prefix[i][j+1]
+                prefix[i][j] += mat[i][j]
+        res = 0
+        for j in range(n):
+            i = m - 1
+            q = []
+<A NAME="1"></A>            s = 0
+            while i &gt;= 0:
+                c = 0
+<A NAME="2"></A>                while</B></FONT> q and q<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[-1][0] &gt; prefix[i][j]:
+                    s -= (q[-1][1] + 1) * (q[-1][0] - prefix[i][j])
+                    c += q[-1][</B></FONT>1] + 1
+                    _ = q<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.pop()
+                s += prefix[i][j]
+                res += s
+                q.append((prefix[i][j], c))
+                i -= 1
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

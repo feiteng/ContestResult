@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>476_meiyiyan.py</TITLE>
+ <TITLE>131_keyurpotdar.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>476_meiyiyan.py</CENTER></H3><HR>
+<H3><CENTER>131_keyurpotdar.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-<A NAME="0"></A>        
-        total_cost = 0
-        candidate_cost = []
-        for i, ch in enumerate<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(s):
-            if i != 0 and s[i] == s[i - 1]:
-                candidate_cost.append(cost[i])
-            else:
-                if len(candidate_cost) &gt; 1:
-                    total_cost += sum(candidate_cost) - max(candidate_cost)
-                candidate_cost = [cost[i]]
-        if len(candidate_cost) &gt; 1:
-            total_cost += sum(candidate_cost) - max(candidate_cost)
-        
-        
-        re</B></FONT>turn total_cost
+        i = 0
+        ans = 0
+        for k, g in itertools.groupby(s):
+            l = len(list(g))
+            if l &gt; 1:
+                ans += sum(heapq.nsmallest(l - 1, cost[i:i + l]))
+            i += l
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

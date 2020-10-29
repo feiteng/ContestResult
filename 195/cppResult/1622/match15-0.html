@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_zzb111.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_zzb111.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int get_f(vector&lt;vector&lt;int&gt;&gt;&amp; po , int a,int b){
+<A NAME="0"></A>    return po[a][1] + po[b][1] + (abs(po[a][0]-po[b][0]));
+    }
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int findMaxValueOfEquation(vector&lt;vector&lt;int&gt;&gt;&amp; po, int k) {
+    int n = po.size();
+    vector&lt;int&gt; d(n+10);
+    int st=0,ed=-1;
+<A NAME="1"></A>    int ans = -1e9;
+    for (int i=0;i&lt;n;i++)
+        {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            while ( (st&lt;=ed) &amp;&amp; ( po[ d[st] ][0] &lt; po[i][0] -k ) )
+                st++;
+            if ( st&lt;=ed )
+                ans = max( ans , get_f( po , d[st] , i) );
+            while ( ( st&lt;=ed) &amp;&amp; ( po[i][1]-po[i][0] &gt;= po[ d[ed] ][1] - po[ d[ed] ][0] ) )
+                ed--;
+            d[++ed]= i;
+        }
+    // reverse(po.begin(),po.end());
+    // for (int i=0;i&lt;n;i++)
+    //     po[i][0]= - po[i][0];
+    // for (int i=0;i&lt;n;i++)
+    //     {
+    //         while ( (st&lt;=ed) &amp;&amp; ( po[ d[st] ][0] &lt; po[i][0] -k ) )
+    //             st++;
+    //         if ( st&lt;=ed )
+    //             ans = max( ans , get_f( po , d[st] , i)  );
+    //         while ( ( st&lt;=ed) &amp;&amp; ( po[i][1]-po[i][0] &gt;= po[ d[ed] ][1] - po[ d[ed] ][0] ) )
+    //             ed--;
+    //     }
+    return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

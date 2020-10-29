@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>509_oldcrow0613.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>509_oldcrow0613.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        if len(set(houses)) &gt; target:
+            return -1
+        
+        dp = [[[float('inf')]*(target+1) for i in range(n)] for j in range(m)]
+        
+        #dp[i][j][k]: house_i, color_j, group_k
+        
+        # initialize
+        color = houses[0]
+        if color == 0:
+            for j in range(n):
+                dp[0][j][1] = cost[0][j]
+        else:
+            color -= 1
+            dp[0][color][1] = 0
+        
+        #print(dp[0])
+        for i in range(1, m):
+<A NAME="0"></A>            color = houses[i]
+            if color != 0:
+                color -= 1
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for j in range(n):
+                    for k in range(1, target+1):
+<A NAME="1"></A>                        if color == j:
+                            dp[i][color][k] = min(dp[i][color][k], dp[i-1][</B></FONT>j][k])
+                        else:
+                            dp[i][color]<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[k] = min(dp[i][color][k], dp[i-1][j][k-</B></FONT>1])
+                            
+            else:
+                for color in range(n):
+                    for j in range(n):
+<A NAME="2"></A>                        for k in range(1, target+1):
+                            #print(color, j, k)
+                            if color == j:
+                                dp<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][color][k] = min(dp[i][color][k], dp[i-1][j][k] + cost[i][color])
+                            else:
+                                dp[i][color][k] = min(dp[i][color][k], dp[i-1][j][k-1] + cost[i][</B></FONT>color])
+            #print(i, dp[i])
+            
+        #print(dp)
+        res = []
+        for j in range(n):
+            res.append(dp[m-1][j][target])
+        if min(res) &gt; 10000*m:
+            return -1
+        return min(res)
+            
+                
+                    
+            
+                
+                    
+</PRE>
+
+</BODY>
+</HTML>

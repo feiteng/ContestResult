@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_AtCoderTheBestOJEver.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_AtCoderTheBestOJEver.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int MOD = (int)1e9 + 7;
+    
+    string ss1, ss2, sevi;
+    int tg;
+    int dp[600][87][2][2];
+    int to[87][87];
+    
+    int cal(int snum, int cur) {
+        string s = sevi.substr(0, snum);
+        s += (cur + 'a');
+        for (int i = 0; i &lt; (int)s.length(); i++) {
+            bool OK = true;
+            for (int j = 0; j &lt; tg &amp;&amp; i + j &lt; (int)s.length(); j++) {
+                if (s[i + j] != sevi[j])
+                    OK = false;
+            }
+            if (OK)
+                return ((int)s.length() - i);
+        }
+<A NAME="0"></A>        return 0;
+    }
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int dfs(int pos, int n, int snum, int flg1, int flg2) {
+        if (snum == tg) return 0;
+        if (pos == n) return 1;
+        int&amp; ans = dp[pos][snum][flg1][flg2];
+        if (dp[pos][snum][flg1][flg2] != -1) return ans;
+        ans = 0;  </B></FONT>
+        int h = 25, l = 0;
+        if (flg1) h = ss2[pos] - 'a';
+        if (flg2) l = ss1[pos] - 'a';
+        for (int i = l; i &lt;= h; i++) {
+            int nflg1 = flg1;
+            int nflg2 = flg2;
+            if (flg1 &amp;&amp; i &lt; h) nflg1 = 0;
+            if (flg2 &amp;&amp; i &gt; l) nflg2 = 0;
+            int nsnum = to[snum][i];
+            //printf(&quot;snum = %d i = %d n = %d\n&quot;, snum, i, nsnum);
+            ans = (ans + dfs(pos + 1, n, nsnum, nflg1, nflg2)) % MOD;
+        }
+        return ans;
+    }
+<A NAME="1"></A>    
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+        ss1 = s1, ss2 = s2;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        tg = (int)evil.size();
+        sevi = evil;
+        for (int i = 0; i &lt; tg; i++) {
+            for (int j = 0; j &lt; 26; j++) {
+                to[i][j] = cal(i, j);
+            }</B></FONT>
+        }
+        memset(dp, -1, sizeof(dp));
+        return dfs(0, n, 0, 1, 1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

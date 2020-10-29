@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>256_yuruiyin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>256_yuruiyin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+   <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int rowCount;
+    private int colCount;
+    private Integer[][][] memo;
+    private int[][] grid;
+
+    private int dp(int curCol1, int curCol2, int curRow) {
+        if (curCol1 &lt; 0 || curCol1 &gt;= colCount || curCol2 &lt; 0 || curCol2 &gt;= colCount) {
+            return 0;
+        }
+
+        if (curRow == rowCount) {
+            return 0;
+        }
+
+        if (memo[curCol1][curCol2][curRow] != null) {</B></FONT>
+            return memo[curCol1][curCol2][curRow];
+        }
+
+        int ans = 0;
+        if (curCol1 == curCol2) {
+            ans += grid[curRow][curCol1];
+        } else {
+            ans += grid[curRow][curCol1] + grid[curRow][curCol2];
+<A NAME="1"></A>        }
+
+        int max = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int dy1 = -1; dy1 &lt;= 1; dy1++) {
+            for (int dy2 = -1; dy2 &lt;= 1; dy2++) {
+                max = Math.max(max, dp(curCol1 + dy1, curCol2 + dy2, curRow + 1));
+            }
+<A NAME="2"></A>        }</B></FONT>
+
+        memo[curCol1][curCol2][curRow] = ans + max;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return memo[curCol1][curCol2][curRow];
+    }
+
+    public int cherryPickup(int[][] grid) {
+        rowCount = grid.length;
+        colCount = grid[0].length;
+        this.grid = grid;
+
+        memo = new</B></FONT> Integer[colCount][colCount][rowCount];
+        return dp(0, colCount - 1, 0);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

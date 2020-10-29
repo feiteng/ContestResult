@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>72_xyxx.cpp</TITLE>
+ <TITLE>142_hhhyyyfff.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,69 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>72_xyxx.cpp</CENTER></H3><HR>
+<H3><CENTER>142_hhhyyyfff.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-
-		int give(int par[],int x)
-		{
-				if(par[x]==x)
-						return x;
-				return par[x]=give(par,par[x]);
-		}
-
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; ar) {
-				int par1[n+10],par2[n+10];
-				for(int i=0;i&lt;n+5;++i)
-						par1[i]=par2[i]=i;
-				int ret=0,c1=0,c2=0;
-				for(int i=0;i&lt;ar.size();++i)
-				{
-						if(ar[i][0]==3)
-						{
-<A NAME="0"></A>								int p1=give(par1,ar[i][1]),p2=give(par1,ar[i][2]);
-								if(p1!=p2)
-								{
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>										++ret;
-										par1[p2]=p1;
-										par2[p2]=p1;
-										++c1,++c2;
-								}
-						}
-<A NAME="1"></A>				}
-				for(int i=0;i&lt;ar.size();++i)
-				{</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>						if(ar[i][0]==1)
-						{
-								int p1=give(par1,ar[i][1]),p2=give(par1,ar[i][2]);
-								if(p1!=p2)
-								{
-										++ret;
-										par1[p2]=p1;
-										++c1;
-								}
-						}</B></FONT>
-<A NAME="2"></A>				}
-				for(int i=0;i&lt;ar.size();++i)
-				{
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>						if(ar[i][0]==2)
-						{
-								int p1=give(par2,ar[i][1]),p2=give(par2,ar[i][2]);
-								if(p1!=p2)
-								{
-										++ret;
-										par2[p2]=p1;
-										++c2;
-								}
-						}
-				}
-				if(c1!=n-1||c2!=n-1)</B></FONT>
-						return -1;
-				return ar.size()-ret;
-        
+    vector&lt;pair&lt;int, int&gt;&gt; e[100001];
+    bool v[100001];
+    
+    int dfs(int x, int tp) {
+        if (v[x]) return 0;
+        int ret = 1;
+        v[x] = 1;
+        for (pair&lt;int, int&gt; i : e[x])
+            if ((i.first &amp; tp) == tp)
+                ret += dfs(i.second, tp);
+        return ret;
     }
-};
+    
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        for (int i = 1; i &lt;= n; ++i) e[i].clear();
+        for (vector&lt;int&gt; i : edges) {
+            e[i[1]].push_back(make_pair(i[0], i[2]));
+            e[i[2]].push_back(make_pair(i[0], i[1]));
+        }
+        memset(v, 0, sizeof(v));
+        if (dfs(1, 1) != n) return -1;
+        memset(v, 0, sizeof(v));
+        if (dfs(1, 2) != n) return -1;
+        int ans = 0;
+        memset(v, 0, sizeof(v));
+        for (int i = 1; i &lt;= n; ++i)
+            if (!v[i])
+                ans += dfs(i, 3) - 1;
+        return edges.size() - (2 * n - 2 - ans);
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

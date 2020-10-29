@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>580_ya-zhou-zhong-feng-ha-da-di.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>580_ya-zhou-zhong-feng-ha-da-di.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Node{
+        boolean hasApple;
+        int minSize;
+
+        public Node(boolean hasApple,int minSize){
+            this.hasApple = hasApple;
+            this.minSize = minSize;
+<A NAME="1"></A>        }
+    }</B></FONT>
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minTime(int n, int[][] edges, List&lt;Boolean&gt; hasApple) {
+        Map&lt;Integer,List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int[] eachEdge : edges){</B></FONT>
+            List&lt;Integer&gt; list = map.get(eachEdge[0]);
+<A NAME="2"></A>            if(list == null){
+                list = new ArrayList&lt;&gt;();
+            }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.add(eachEdge[1]);
+            map.put(eachEdge[0],list);
+        }
+
+        Node dfs = dfs(0, map, hasApple);
+        return dfs.minSize;
+    }
+
+    private Node dfs(Integer root,Map&lt;Integer,List&lt;Integer&gt;&gt; map,List&lt;Boolean&gt; hasApple</B></FONT>){
+        List&lt;Integer&gt; list = map.get(root);
+        if(list == null || list.size() == 0){
+            if(hasApple.get(root)){
+                return new Node(true,0);
+            }else{
+                return new Node(false,0);
+
+            }
+
+        }
+
+        int res = 0;
+        for (int eachChild: list){
+            Node dfs = dfs(eachChild, map,hasApple);
+            if(!dfs.hasApple){
+                continue;
+            }
+
+            res += dfs.minSize;
+            res += 2;
+        }
+
+        if(res != 0){
+<A NAME="3"></A>            return new Node(true,res);
+        }
+
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match16-1.html#3',3,'match16-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(hasApple.get(root)){
+            return new Node(true,0);
+        }
+
+        return new Node(false,0);
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

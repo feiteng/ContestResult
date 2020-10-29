@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>603_ljr1226.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>603_ljr1226.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A>class Solution {
+   int[][] dir1 = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{{0,0},{0,1},{-1,0},{0,-1},{1,0},{-1,0},{0,1}};
+    int[][] dir2 = {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{0</B></FONT>,0},{0,-1},{1,0},{1,0},{0,1},{0,-1},{-1,0}</B></FONT>};
+    public boolean hasValidPath(int[][] grid) {
+
+        int x =0, y =0;
+        int m =grid.length,n=grid[0].length;
+        return dfs(0,0,new HashSet&lt;Integer&gt;(),grid,m,n,0,0);
+
+    }
+
+    private boolean dfs(int x, int y, HashSet&lt;Integer&gt; seen,int[][] grid,int m,int n,int px,int py) {
+        if (!valid(x,y,m,n)||seen.contains(x*n+y)) return false;
+
+        seen.add(x*n+y);
+        int r = grid[x][y];
+        int x1= x+dir1[r][0],y1= y+dir1[r][1];
+        int x2= x+dir2[r][0],y2= y+dir2[r][1];
+        //System.out.println(x+&quot;  &quot;+y+&quot;  &quot;+x1+&quot;  &quot;+y1+&quot;  &quot;+x2+&quot;  &quot;+y2);
+        if (x!=0||y!=0){
+            if (!((x1==px&amp;&amp;y1==py)||(x2==px&amp;&amp;y2==py))) return false;
+        }
+        if (x==m-1&amp;&amp;y==n-1) return true;
+        return dfs(x1,y1,seen,grid,m,n,x,y)|| dfs(x2,y2,seen,grid,m,n,x,y);
+
+    }
+    private boolean valid(int x,int y,int m,int n){
+        return x&gt;=0&amp;&amp;y&gt;=0&amp;&amp;x&lt;m&amp;&amp;y&lt;n;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>400_alaric-2.java</TITLE>
+ <TITLE>208_necoramen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>400_alaric-2.java</CENTER></H3><HR>
+<H3><CENTER>208_necoramen.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String modifyString(String s) {
 
-        char[] chars = s.toCharArray();
-        for (int i = 0; i &lt; chars.length; i++) {
-            if (chars[i] == '?') {
-<A NAME="1"></A>                for (int j = 0; j &lt; 26; j++) {</B></FONT>
-                    char ch = (char) ('a' + j);
-                    if ((i - 1 &lt; 0 || chars[i - 1] != ch) &amp;&amp; 
-                            (i + 1 &gt;= s.length() || chars[i + 1] != ch)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                        chars[i] = ch;
-                        break;
-                    }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; s.length(); i++) {
+
+
+            if (s.charAt(i) != '?') {
+                sb.append(s.charAt(i));
+            } else {
+                char c = 'a';
+                while (i &gt; 0 &amp;&amp; sb.charAt(i - 1) == c
+                        || i + 1 &lt; s.length() &amp;&amp; s.charAt(i + 1) == c) {
+                    c++;
                 }
+
+                sb.append(c);
             }
         }
-        return new String(chars);
+        return sb.toString();
+
     }
 }</B></FONT>
 </PRE>

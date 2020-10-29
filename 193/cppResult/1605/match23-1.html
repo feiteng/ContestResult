@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>12_lucifer1004.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>12_lucifer1004.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>typedef long long ll;
+
+class Solution {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int minDays(vector&lt;int&gt;&amp; bloomDay, int m, int k) {
+        int n = bloomDay.size();
+        if (n / k &lt; m)
+            return -1;
+        int l = 1, r = 1e9;</B></FONT>
+        auto check = [&amp;](int x) {
+            vector&lt;bool&gt; flower(n);
+<A NAME="0"></A>            for (int i = 0; i &lt; n; ++i)
+                if (bloomDay[i] &lt;= x)
+                    flower[i] = true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int bunch = 0, curr = 0;
+            for (int i = 0; i &lt; n; ++i) {
+                if (flower[i])
+                    curr++;
+                else {
+                    bunch += curr / k;
+                    curr = 0;
+                }
+            }
+<A NAME="2"></A>            bunch += curr / k;
+            return bunch;
+        };</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (l &lt;= r) {
+            int mid = (l + r) &gt;&gt; 1;
+            if (check(mid) &lt; m)
+                l = mid + 1;
+            else
+                r = mid - 1;
+        }
+        return l;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

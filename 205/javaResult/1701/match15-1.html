@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>293_keepPace.java</TITLE>
+ <TITLE>285_dreamyjpl.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>293_keepPace.java</CENTER></H3><HR>
+<H3><CENTER>285_dreamyjpl.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF {
-        int[] parents;
-        int num;
-        UF (int n) {
-            parents = new int[n];
-            num = n;
-            for (int i =0; i &lt; n; i += 1) {
-                parents[i] = i;
-            }
-        }
-        int find(int x) {</B></FONT>
-            int p = x;
-            while (parents[p] != p) {
-                p = parents[p];
-            }
-            while (x != p) {
-<A NAME="1"></A>                parents[x] = p;
-                x = parents[x];
-            }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return p;
-        }
-        void union(int x, int y) {
-            int paX = find(x);
-            int paY = find(y);
-            if</B></FONT> (paX == paY) return;
-            parents[paX] = paY;
-            num -= 1;
-        }
-        boolean isConnected(int x, int y) {
-            return find(x) == find(y);
-        }
-    }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        Arrays.sort(edges, (a, b) -&gt; b[0] - a[0]);
-<A NAME="2"></A>        UF uf1 = new UF(n);
-        UF uf2 = new UF(n);
-        int ret = 0;
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int[] edge : edges) {
-            int type = edge[0];
-            int u = edge[1] - 1;
-            int v = edge[2] - 1;
-            if (type == 3) {
-                if (uf1.isConnected</B></FONT>(u, v) &amp;&amp; uf2.isConnected(u, v)) {
-                    ret += 1;
-<A NAME="3"></A>                } else {
-                    uf1.union(u, v);
-                    uf2.union(u, v);
-                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#3',2,'match15-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            } else if (type == 1) {
-                if (uf1.isConnected(u, v)) {
-                    ret += 1;
-                }</B></FONT> else {
-                    uf1.union(u, v);
-                }
+        if (edges == null || edges.length &lt; n - 1) return -1;
+        List&lt;List&lt;int[]&gt;&gt; lists = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 3; i++) {
+            lists.add(new ArrayList&lt;&gt;());
+        }
+        for (int[] edge : edges) {
+            lists.get(edge[0] - 1).add(new int[]{edge[1], edge[2]});
+        }
+        int[] ids = new int[n + 1];
+        for (int i = 0; i &lt; ids.length; i++) ids[i] = i;
+        int res = 0;
+        for (int i = 0; i &lt; lists.get(2).size(); i++) {
+            int[] e = lists.get(2).get(i);
+            if (!union(ids, e[0], e[1])) {
+                res++;
             } else {
-                if (uf2.isConnected(u, v)) {
-                    ret += 1;
-                } else {
-                    uf2.union(u, v);
-                }
+                n--;
             }
         }
-        if (uf1.num != 1 || uf2.num != 1) return -1;
-        return ret;
+        if (n == 1) {
+            return res + lists.get(0).size() + lists.get(1).size();
+        }
+        int val1 = validation(lists.get(0), ids.clone(), n);
+        if (val1 == -1) return -1;
+        res += val1;
+        int val2 = validation(lists.get(1), ids.clone(), n);
+        if (val2 == -1) return -1;
+        return res + val2;
     }
-}
+    
+    int validation(List&lt;int[]&gt; list, int[] ids, int n) {
+        int res = 0;
+        for (int i = 0; i &lt; list.size(); i++) {
+            int[] e = list.get(i);
+            if (!union(ids, e[0], e[1])) {
+                res++;
+            } else {
+                n--;
+            }
+        }
+        return n == 1 ? res : -1;
+    }
+    
+    private boolean union(int[] ids, int i, int j) {
+        int iRoot = find(ids, i);
+        int jRoot = find(ids, j);
+        if (iRoot == jRoot) return false;
+        ids[iRoot] = jRoot;
+        return true;
+    }
+    private int find(int[] ids, int i) {
+        if(ids[i] == i) return i;
+        ids[i] = find(ids, ids[i]);
+        return ids[i];
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_LarryNY.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>18_LarryNY.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        graph = collections.defaultdict(list)
+<A NAME="0"></A>        heap = []
+        
+        for (u, v), w in zip(edges, succProb):
+            graph<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[u].append((v, w))
+            graph[v].append((u, w))
+        
+        distance = [0.0] * n
+<A NAME="1"></A>        heapq.heappush(heap, (-</B></FONT>1.0, start))
+        distance[start] = 1.0
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while len(heap) &gt; 0:
+            p, node = heapq.heappop(heap)
+            p = -p
+            
+            if node == end:
+                return p
+            
+            if distance[node] &gt; p:
+<A NAME="2"></A>                c</B></FONT>ontinue
+        
+            for v, w in graph[node]:
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if distance[v] &lt; p * w:
+                    distance[v] = p * w
+                    heapq.heappush(heap, (-(p*w), v))
+        
+        re</B></FONT>turn 0
+</PRE>
+
+</BODY>
+</HTML>

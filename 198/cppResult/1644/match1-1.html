@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_EDIEEE.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>141_EDIEEE.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int sum[100005][26];
+    
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;pair&lt;int, int&gt;&gt; inter(26, {-1, -1});
+        for (int i = 0; i &lt; s.size(); ++i) {
+            if(i == 0)sum[i][s[i] - 'a']++;
+            else
+                for(int j = 0; j &lt; 26; ++j){
+                    sum[i][j] = sum[i - 1][j];
+                    if(j == s[i] - 'a')++sum[i][j];
+                }
+<A NAME="2"></A>            if (inter[s[i]-'a'].first == -1) inter[s[i]-'a'].first = i;
+            inter[s[i]-'a'].second = i;
+        }</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int k = 1; k &lt;= 40; ++k){
+            for (int i = 0; i &lt; 26; ++i) {
+                if (inter[i].first == -1) continue;
+                /*for (int l = inter[i].first; l &lt;= inter[i].second; ++l) {
+                    inter[i].first = min(inter[i].first, inter[s[l]-'a'].first);
+                    inter[i].second = max(inter[i].second, inter[s[l]-'a'].second);
+                }*/
+                int l = inter[i].first , r = inter[i].second;
+                for(int x = 0; x &lt; 26; ++x){
+                    if(sum[l][x] != sum[r][x]){
+                        inter[i].first = min(inter[i].first, inter[x].first);
+                        inter[i].second = max(inter[i].second, inter[x].second);
+                    }
+<A NAME="1"></A>                }
+            }
+        }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sort(inter.begin(), inter.end(), [](auto&amp; a, auto&amp; b) { return a.second &lt; b.second; });
+        vector&lt;string&gt; res;
+        int i = 0;
+        for (; i &lt; inter.size(); ++i) if (inter[i].first != -1) break;
+        int curr_end = -1;
+        for (; i &lt; inter.size(); ++i) {</B></FONT>
+            int st = inter[i].first, e = inter[i].second;
+            if (st &gt; curr_end) {
+                res.push_back(s.substr(st, e - st + 1));
+                curr_end = e;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

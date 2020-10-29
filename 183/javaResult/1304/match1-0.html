@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>600_Hccct.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>600_Hccct.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String longestDiverseString(int a, int b, int c) {
+        int max = Math.max(a, Math.max(b, c));
+        int total = a + b + c;
+        if(max - 2 &lt;= (total - max) * 2) {
+            return build(a, b, c);
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while(a + b + c != 0){
+            max = Math.max(a, Math.max(b, c));
+            char temp = '0';
+            if(a == max){
+                sb.append(&quot;aa&quot;);
+                a -= 2;
+                if(b &gt; c){
+                    b--;
+                    sb.append(&quot;b&quot;);
+                }else{
+                    if(c == 0) return sb.toString();
+                    c--;
+                    sb.append(&quot;c&quot;);
+                }
+            }else if(b == max){
+                sb.append(&quot;bb&quot;);
+                b -= 2;
+                if(a &gt; c){
+                    a--;
+                    sb.append(&quot;a&quot;);
+                }else{
+                    if(c == 0) return sb.toString();
+                    c--;
+                    sb.append(&quot;c&quot;);
+                }
+            }else{
+                sb.append(&quot;cc&quot;);
+                c -= 2;
+                if(b &gt; a){
+                    b--;
+                    sb.append(&quot;b&quot;);
+                }else{
+                    if(a == 0) return sb.toString();
+                    a--;
+                    sb.append(&quot;a&quot;);
+                }
+            }
+        }
+        return sb.toString();
+    }
+    
+    private String build(int a, int b, int c){
+        StringBuilder sb = new StringBuilder();
+        while(a + b + c != 0){
+            int max = Math.max(a, Math.max(b, c));
+            char temp = '0';
+            if(max == a) temp = 'a';
+            else if(max == b) temp = 'b';
+            else temp = 'c';
+            
+            if(temp == 'a'){
+                if(sb.length() == 0 || (a &gt;= 2 &amp;&amp; sb.charAt(sb.length() - 1) != temp)){
+                    sb.append(&quot;aa&quot;);
+                    a -= 2;
+                }
+                else{
+                    sb.append(&quot;a&quot;);
+                    a--;
+                }
+                
+                if(b &gt; c){
+                    sb.append(&quot;b&quot;);
+                    b--;
+                }else{
+                    if(c == 0) return sb.toString();
+                    else{
+                        sb.append(&quot;c&quot;);
+                        c--;
+                    }
+                }
+            }else if(temp == 'b'){
+                if(sb.length() == 0 || (b &gt;= 2 &amp;&amp; sb.charAt(sb.length() - 1) != temp)){
+                    sb.append(&quot;bb&quot;);
+                    b -= 2;
+                }
+                else{
+                    sb.append(&quot;b&quot;);
+                    b--;
+                }
+                
+                if(a &gt; c){
+                    sb.append(&quot;a&quot;);
+                    a--;
+                }else{
+                    if(c == 0) return sb.toString();
+                    else{
+                        sb.append(&quot;c&quot;);
+                        c--;
+                    }
+                }
+            }else{
+                if(sb.length() == 0 || (c &gt;= 2 &amp;&amp; sb.charAt(sb.length() - 1) != temp)){
+                    sb.append(&quot;cc&quot;);
+                    c -= 2;
+                }
+                else{
+                    sb.append(&quot;c&quot;);
+                    c--;
+                }
+                
+                if(b &gt; a){
+                    sb.append(&quot;b&quot;);
+                    b--;
+                }else{
+                    if(a == 0) return sb.toString();
+                    else{
+                        sb.append(&quot;a&quot;);
+                        a--;
+                    }
+                }
+            }
+        }
+        return sb.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

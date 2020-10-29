@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>605_window0105.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>605_window0105.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="1"></A>    public int minimumEffortPath(int[][] heights) {
+        int n = heights.length;
+        int m = heights[0].length;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] state = new int[n][m];
+        for (int i = 0; i &lt; state.length; i++) {
+            Arrays.fill(state[i], -1);
+        }
+<A NAME="0"></A>        Queue&lt;int[]&gt; queue = new</B></FONT> ArrayDeque&lt;&gt;();
+<A NAME="2"></A>        state[0][0] = 0;
+        queue.offer(new int[]{0, 0});
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}</B></FONT>};
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            for (int[] dir : dirs) {
+                int nextRow = cur[0] + dir[0];
+                int nextCol = cur[1] + dir[1];
+                if (nextRow &gt;= 0 &amp;&amp; nextCol &gt;= 0 &amp;&amp; nextRow &lt; n &amp;&amp; nextCol &lt; m) {
+                    int cost = Math.max(state[cur[0]][cur[1]], Math.abs(heights[cur[0]][cur[1]] - heights[nextRow][nextCol]));
+                    if (state[nextRow][nextCol] == -1 || state[nextRow][nextCol] &gt; cost) {
+                        state[nextRow][nextCol]= cost;
+                        queue.offer(new int[]{nextRow, nextCol});
+                    }
+                }
+            }
+        }
+        return state[n - 1][m - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

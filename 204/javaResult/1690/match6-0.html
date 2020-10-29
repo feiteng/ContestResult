@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>598_sciops.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>598_sciops.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int getMaxLen(int[] nums) {
+        int left = -1, right = -1, tot = 0;
+        int ans = 0, lastZero = -1;
+        for(int i = 0; i &lt;= nums.length; i++) {
+            if(i == nums.length || nums[i] == 0) {
+                if(tot%2 == 0) {
+<A NAME="1"></A>                    ans = Math.max(ans, i - lastZero-1);
+                } else {</B></FONT>
+                    int partial = Math.max(right - lastZero - 1, i - left - 1);
+                    ans = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(ans, partial);
+                }
+                left = -1;
+                right = -1;
+                tot = 0;
+                lastZero = i;
+            }
+            else if(nums[i]&lt;0) {
+<A NAME="2"></A>                tot++;
+                if</B></FONT>(left == -1) left = i;
+                right = i;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

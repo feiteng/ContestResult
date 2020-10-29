@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>306_ye15.py</TITLE>
+ <TITLE>148_delphih.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>306_ye15.py</CENTER></H3><HR>
+<H3><CENTER>148_delphih.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def modifyString(self, s: str) -&gt; str:
-        s = list(s)
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i, c in enumerate(s):
-            if c == &quot;?&quot;: 
-                for cc in &quot;abc&quot;: 
-                    if (i == 0 or s[i-1] != cc) and (i+1 == len(s) or s[i+1] != cc): 
-                        s[i] = cc
-                        break 
-        return &quot;&quot;.join(s</B></FONT>)
+        ans = []
+        for i, c in enumerate(s):
+            if s[i] == &quot;?&quot;:
+                ss = set()
+                if i &gt; 0: ss.add(ans[i-1])
+                if i + 1 &lt; len(s) and s[i+1] != &quot;?&quot;: ss.add(s[i+1])
+                for j in range(26):
+                    if chr(j+97) not in ss:
+                        ans.append(chr(j+97))
+                        break
+            else:
+                ans.append(c)
+        return &quot;&quot;.join(a</B></FONT>ns)
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>570_n2hawk.py</TITLE>
+ <TITLE>431_shiridisaiprasad.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,21 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>570_n2hawk.py</CENTER></H3><HR>
+<H3><CENTER>431_shiridisaiprasad.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import collections 
 class Solution:
-<A NAME="0"></A>    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        ans = 0
-        cnt = collections.Counter([x**2 for x in nums1])
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(len(nums2)):
-            for j in range(i+1, len(nums2)):
-<A NAME="1"></A>                ans += cnt[nums2[i] * nums2[j</B></FONT>]]
-                
-        cnt = collections.Counter([x**2 for x in nums2])
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(len(nums1)):
+    def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        counts1 = collections.Counter(i*i for i in nums1)
+        counts2 = collections.Counter(i*i for i in nums2)
+        ans = 0 
+        for i in range(0, len(nums1)):
             for j in range(i+1, len(nums1)):
-                ans += cnt[nums1[i] * nums1[j]]
-        re</B></FONT>turn ans
-                
+                ans += counts2[nums1[i]*nums1[j]] 
+        for i in range(0, len(nums2)):
+            for j in range(i+1, len(nums2)):
+                ans += counts1[nums2[i]*nums2[j]]
+        re</B></FONT>turn ans 
 </PRE>
 
 </BODY>

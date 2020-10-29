@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_jiayindeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_jiayindeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; z_function(string s) 
+    {
+        int n = (int)s.length();
+<A NAME="1"></A>        vector&lt;int&gt; z(n);
+        for (int i = 1, l = 0, r = 0; i &lt; n; ++i)</B></FONT>
+        {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (i &lt;= r) z[i] = min(r - i + 1, z[i - l]);
+            while (i + z[i] &lt; n &amp;&amp; s[z[i]] == s[i + z[i]]) ++z[i];
+            if (i + z[i] - 1 &gt; r) l = i, r = i + z[i] - 1;
+        }
+        return z;
+    }
+    string longestPrefix(string s) {
+        vector&lt;int&gt; z=z_function(s);</B></FONT>
+        int n=s.length();
+        int ansIndex=-1;
+        for(int i=n-1;i&gt;0;--i)
+        {
+            if(z[i]==n-i)
+                ansIndex=i;
+        }
+        string ans;
+        if(ansIndex!=-1)
+            ans=s.substr(ansIndex);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

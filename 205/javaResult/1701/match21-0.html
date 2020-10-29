@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>553_sakuragi1111.java</TITLE>
+ <TITLE>254_mcy4ever.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,110 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>553_sakuragi1111.java</CENTER></H3><HR>
+<H3><CENTER>254_mcy4ever.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int find(int[] father, int x) {
+        if (father[x] == x) {
+            return x;
+        } else {
+            return father[x] = find(father, father[x]);
+        }
+    }
+    public boolean union(int[] father, int[] rank, int x, int y) {
+        int fx = find(father, x);
+        int fy = find(father, y);
+        if (fx == fy) {
+            return false;
+        }
+        if (rank[fx] &lt; rank[fy]) {
+            int t = fx;
+            fx = fy;
+            fy =t;
+        } else if (rank[fx] == rank[fy]) {
+            rank[fx]++;
+        }
+        father[fy] = fx;
+        return true;
+    } 
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int ans = 0;
-        UF ufa = new UF(n);
-        UF ufb = new UF(n);
-        
-        List&lt;int[]&gt; A = new ArrayList&lt;&gt;();
-        List&lt;int[]&gt; B = new ArrayList&lt;&gt;();
-        List&lt;int[]&gt; C = new ArrayList&lt;&gt;();
-        
-        for (int[] e : edges){
-            if (e[0] == 3) {
-                C.add(e);
-            } else if (e[0] == 1) {
-                A.add(e);
+        int[] father = new int[n];
+        int[] rank = new int[n];
+        int[] father1 = new int[n];
+        int[] rank1 = new int[n];
+        int[] father2 = new int[n];
+        int[] rank2 = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            father[i] = i;
+            father1[i] = i;
+            father2[i] = i;
+        }
+        int num1 = n;
+        int num2 = n;
+        int num = 0;
+        for (int[] e : edges) {
+            if (e[0] == 1) {
+                num1 -= union(father1, rank1, e[1] - 1, e[2] - 1) ? 1 : 0;
+            } else if (e[0] == 2) {
+                num2 -= union(father2, rank2, e[1] - 1, e[2] - 1) ? 1 : 0;
             } else {
-                B.add(e);
-<A NAME="0"></A>            }
-        }
-        
-        for (int[] e : C) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if (ufa.connected(e[1],e[2]) &amp;&amp; ufb.connected(e[1],e[2])) {
-                ans++;
-            } else {
-                ufa.union(e[1],e[2]);
-                ufb.union(e[1],e[2]);
-<A NAME="1"></A>            }
-        }</B></FONT>
-        
-        for (int[] e : A) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if (ufa.connected(e[1],e[2])) {
-                ans++;
-            }else {
-                ufa.union(e[1],e[2]);
-<A NAME="2"></A>            }
-        }</B></FONT>
-        
-        for (int[] e : B) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if (ufb.connected(e[1],e[2])) {
-                ans++;
-            } else {
-                ufb.union(e[1],e[2]);
+                num1 -= union(father1, rank1, e[1] - 1, e[2] - 1) ? 1 : 0;
+                num2 -= union(father2, rank2, e[1] - 1, e[2] - 1) ? 1 : 0;
+                num += union(father, rank, e[1] - 1, e[2] - 1) ? 1 : 0;
             }
-        }</B></FONT>
-
-<A NAME="3"></A>        return ufa.count == 1 &amp;&amp; ufb.count == 1 ? ans : -1;
-    }
-    
-    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public static class UF {
-        
-        private int[] id;
-        private int[] weight;
-        private int count;
-
-        public UF(int N) {
-            id = new int[N+1];
-            weight = new int[N+1];
-            for (int i = 0; i &lt;= N; i++) {
-                // 每个点最初与自己相连
-                id[i] = i;
-                weight[i] = 1;
-            }
-<A NAME="4"></A>            count = N;
         }
-
-        public boolean connected(int p</B></FONT>, <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match21-1.html#4',3,'match21-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int q) {
-            return find(p) == find(q);
-        }
-
-        public int count() {
-            return this.count;
-        }
-
-        // 找到p所在component的标识符
-        public int find(int p</B></FONT>) {
-            int old = p;
-            while (id[p] != p)
-                p = id[p];
-            // 路径压缩，将所有的叶直接连在根上
-            while (id[old] != old) {
-                int t = old;
-                old = id[old];
-                id[t] = p;
-            }
-            return p;
-        }
-
-        // quick union的结果会形成一片森林
-        public void union(int p, int q) {
-            int pRoot = find(p);
-            int qRoot = find(q);
-            if (weight[pRoot] &lt; weight[qRoot]) {
-                id[pRoot] = qRoot;
-                weight[qRoot] += weight[pRoot];
-            } else {
-                id[qRoot] = pRoot;
-                weight[pRoot] += weight[qRoot];
-            }
-            --count;
+        if (num1 &gt; 1 || num2 &gt; 1) {
+            return -1;
+        } else {
+            return edges.length - (2 * n - 2 - num);
         }
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

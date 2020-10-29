@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>507_linstenst.java</TITLE>
+ <TITLE>248_kazuya-w.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>507_linstenst.java</CENTER></H3><HR>
+<H3><CENTER>248_kazuya-w.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String modifyString(String s) {
-<A NAME="1"></A>        StringBuffer sb = new StringBuffer();
-        char[] ch = s.toCharArray();
-        int n = ch.length</B></FONT>;
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; n; i++){
-            if(ch[i] != '?'){
-                sb.append(ch[i]);
-            }else{
-                for(int j = 0; j &lt; 26; j++){</B></FONT>
-                    char c = (char)('a' + j);
-                    if(i &gt; 0 &amp;&amp; c == sb.charAt(i - 1)) continue;
-<A NAME="2"></A>                    if(i + 1 &lt; n &amp;&amp; c == ch[i + 1]) continue;
-                    sb.append(c);
-                    break;
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        int n = s.length();
+        char[] cs = s.toCharArray();
+        if (n == 1) {
+            if (cs[0] == '?') return &quot;a&quot;;
+            return s;
+        }
+
+        for (int i = 0; i &lt; n; i++) {
+            if (cs[i] != '?') continue;
+
+            for (int j = 0; j &lt; 26; j++) {
+                char c = (char)('a' + j);
+
+                if (i == 0) {
+                    if (c != cs[i+1]) {
+                        cs[i] = c;
+                        break;
+                    }
+                } else if (i == n - 1) {
+                    if (c != cs[i-1]) {
+                        cs[i] = c;
+                        break;
+                    }
+                } else {
+                    if (c != cs[i+1] &amp;&amp; c != cs[i-1]) {
+                        cs[i] = c;
+                        break;
+                    }
+                }
             }
         }
-        
-        return sb.toString();
+        return new String(cs);
     }
 }</B></FONT>
 </PRE>

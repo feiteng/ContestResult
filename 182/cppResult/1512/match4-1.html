@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_arpit040199.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_arpit040199.cpp</CENTER></H3><HR>
+<PRE>
+
+#define ll long long
+#define pp pair&lt;ll,ll&gt;
+#define ld long double
+#define fi first
+#define se second
+#define pb push_back
+#define all(x) (x).begin() , (x).end()
+#define rep(i,a,b) for( ll i = a ; i &lt; b ; i+=1 )
+<A NAME="0"></A>#define sz(v) (ll)(v.size())
+#define hell (ll)1000000007
+#define slld(x) scanf(&quot;%lld&quot;,&amp;x)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UndergroundSystem {
+public:
+    map&lt;pair&lt;string,string&gt;,ll &gt; mapa;
+    map&lt;ll,pair&lt;string,ll&gt; &gt; entry;
+    map&lt;pair&lt;string,string&gt;,ll &gt; cnt;
+    UndergroundSystem() {
+        mapa.clear();
+        entry.clear();
+        cnt.clear();
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        entry[id]={stationName,t};
+    }
+    
+<A NAME="1"></A>    void checkOut(int id, string stationName, int t) {</B></FONT>
+        string tmp=entry[id].fi;
+        ll tim=t-entry[id].se;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        mapa[{tmp,stationName}]+=tim;
+        cnt[{tmp,stationName}]++;
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        return ((double)mapa[{startStation,endStation}]*1.0)/(1.0*cnt[{startStation,endStation}]);
+    }
+};</B></FONT>
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj-&gt;checkIn(id,stationName,t);
+ * obj-&gt;checkOut(id,stationName,t);
+ * double param_3 = obj-&gt;getAverageTime(startStation,endStation);
+ */
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>177_yi-zhi-xiao-ruo-ji.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>177_yi-zhi-xiao-ruo-ji.cpp</CENTER></H3><HR>
+<PRE>
+
+#define lson rt &lt;&lt; 1
+#define rson rt &lt;&lt; 1 | 1
+#define mid ((l + r) &gt;&gt; 1)
+#define Lson l, mid, lson
+#define Rson mid + 1, r, rson
+
+const int maxn = 1e5 + 10;
+int sum[maxn &lt;&lt; 2];
+void pushup(int rt) {
+    sum[rt] = sum[rson] &amp; sum[lson];
+}
+void build(int l, int r, int rt, vector&lt;int&gt;&amp; arr) {
+    if (l == r) {
+        sum[rt] = arr[l-1];
+        return;
+    }
+    build(Lson, arr), build(Rson, arr);
+    pushup(rt);
+}
+int query(int L, int R, int l, int r, int rt) {
+    if (L &lt;= l &amp;&amp; R &gt;= r) {
+        return sum[rt];
+    }
+    int ret = (1 &lt;&lt; 30) - 1;
+    if (L &lt;= mid) ret &amp;= query(L, R, Lson);
+    if (R &gt; mid) ret &amp;= query(L, R, Rson);
+<A NAME="0"></A>    return ret;
+}
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int closestToTarget(vector&lt;int&gt;&amp; arr, int target) {
+        int n = arr.size();
+        int ret = 0x3f3f3f3f;
+        for (auto it : arr) {
+            ret = min(ret, abs(it - target));</B></FONT>
+        }
+        build(1, n, 1, arr);
+
+        for (int tagl = 1; tagl &lt;= n; tagl++) {
+            int l = tagl, r = n, ans = 0x3f3f3f3f, idx = -1;
+            while (l &lt;= r) {
+                int m = (l + r) / 2;
+                int qres = query(tagl, m, 1, n, 1);
+                int t = qres - target;
+                if (t &gt; 0) {
+                    ans = qres;
+                    idx = m;
+                    l = mid + 1;
+                }
+                else if (t == 0) {
+                    return 0;
+                }
+                else if (t &lt; 0) {
+                    r = mid - 1;
+                }
+            }
+            if (ans != 0x3f3f3f3f) {
+                ret = min(ret, abs(ans - target));
+                if (idx != n) {
+                    ans &amp;= arr[idx];
+                    ret = min(ret, abs(ans - target));
+                }
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_iejepwy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_iejepwy.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean hasAllCodes(String s, int k) {
+        if(s.length()&lt;=k){
+            return false;
+        }
+        int[] ans=new int[1&lt;&lt;k];
+        int cur=0;
+        for(int i=0;i&lt;k;i++){
+            cur*=2;
+            cur+=(s.charAt(i)-'0');
+        }
+        ans[cur]=1;
+        for(int i=k;i&lt;s.length();i++){
+            cur&amp;=((1&lt;&lt;(k-1))-1);
+            cur*=2;
+<A NAME="0"></A>            cur+=(s.charAt(i)-'0');
+            // System.out.println(cur);
+            ans[cur]=1;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        for(int i=0;i&lt;ans.length;i++){
+            if(ans[i]==0){
+                return false;
+            }
+        }
+        return true;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

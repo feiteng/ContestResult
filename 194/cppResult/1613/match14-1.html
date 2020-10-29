@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_suiyuan1992.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>40_suiyuan1992.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    vector&lt;int&gt;f;
+    int pd(int x){
+        if(x!=f[x]){
+            f[x] = pd(f[x]);
+        }
+        return f[x];
+    }
+    int h(int n, vector&lt;pair&lt;vector&lt;int&gt;, int&gt;&gt;&amp; e, int idx, bool add) {
+        int ret = 0;
+        f = vector&lt;int&gt;(n);
+        for(int i=0;i&lt;n;i++){
+            f[i] = i;
+        }
+        if (idx!=-1&amp;&amp;add){
+            int px = pd(e[idx].first[0]);
+            int py = pd(e[idx].first[1]);
+<A NAME="0"></A>            f[px] = py;
+            ret += e[idx].first[2];
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;e.size();i++){
+            if(i==idx)continue;
+            int px = pd(e[i].first[0]);
+            int py = pd(e[i].first[1]);
+            if(px==py)continue;
+            f[px] = py;
+            ret+=e[i].first[2];</B></FONT>
+        }
+        for(int i=1;i&lt;n;i++)if(pd(i)!=pd(0))return 1000000007;
+        return ret;
+    }
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;pair&lt;vector&lt;int&gt;, int&gt;&gt; e;
+        int idx = 0;
+<A NAME="1"></A>        for(auto tt : edges){
+            e.push_back(make_pair(tt, idx++));
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sort(e.begin(),e.end(), [](pair&lt;vector&lt;int&gt;, int&gt; a, pair&lt;vector&lt;int&gt;, int&gt; b) {
+            return a.first[2] &lt; b.first[2];
+        });
+        int mi = h(n, e, -1, 0);
+        vector&lt;int&gt;ans1,ans2;
+        unordered_set&lt;int&gt;st;
+        for(int i=0;i&lt;e.size();i++){</B></FONT>
+            int tt = h(n, e, i, 0);
+            if(tt&gt;mi){
+                ans1.push_back(e[i].second);
+                st.insert(e[i].second);
+            }
+        }
+        for(int i=0;i&lt;e.size();i++){
+            int tt = h(n, e, i, 1);
+            if(tt==mi&amp;&amp;st.find(e[i].second)==st.end())ans2.push_back(e[i].second);
+        }
+        return {ans1, ans2};
+    }
+};
+</PRE>
+</BODY>
+</HTML>

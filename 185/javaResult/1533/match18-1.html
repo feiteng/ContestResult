@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.*;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+
+
+        TreeSet&lt;Integer&gt; tables = new TreeSet&lt;&gt;();
+        Map&lt;String, Map&lt;Integer, Integer&gt;&gt; map = new TreeMap&lt;&gt;();
+
+        for (List&lt;String&gt; order : orders) {
+
+<A NAME="1"></A>            int table = Integer.parseInt</B></FONT>(order.get(1));
+            tables.add(table);
+
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String food = order.get(2);
+<A NAME="2"></A>            if (!map.containsKey(food)) {
+                map.put(food, new HashMap&lt;&gt;());
+            }</B></FONT>
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(food).put(table, 1 + map.get(food).getOrDefault(table, 0));
+        }
+
+<A NAME="3"></A>        List&lt;List&lt;String&gt;&gt; ans = new ArrayList&lt;&gt;();
+        ans.add</B></FONT>(new ArrayList&lt;&gt;());
+        ans.get(0).add(&quot;Table&quot;);
+        ans.get(0).addAll(<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.keySet());
+
+        for (int table : tables) {
+
+<A NAME="4"></A>            List&lt;String&gt; row = new ArrayList&lt;&gt;();
+            row.add(Integer.toString(table));
+            for (String food</B></FONT> : map.keySet()) {
+                int cnt = <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#4',2,'match18-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(food).getOrDefault(table, 0);
+                row.add(Integer.toString(cnt));
+            }
+
+            ans.add(row);
+        }
+        return ans;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

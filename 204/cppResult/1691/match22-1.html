@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_rupakthakur97.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>200_rupakthakur97.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int n, m;
+    void dfs(int r, int c, vector&lt;vector&lt;int&gt;&gt;&amp; g, vector&lt;vector&lt;bool&gt;&gt;&amp; vis){
+        vis[r][c]=1;
+        if(r&gt;0 and g[r-1][c]==1 and vis[r-1][c]==0){
+            dfs(r-1, c, g, vis);
+        }
+        if(c&gt;0 and g[r][c-1]==1 and vis[r][c-1]==0){
+            dfs(r, c-1, g, vis);
+        }
+        if(r&lt;n-1 and g[r+1][c]==1 and vis[r+1][c]==0){
+            dfs(r+1, c, g, vis);
+        }
+<A NAME="0"></A>        if(c&lt;m-1 and g[r][c+1]==1 and vis[r][c+1]==0){
+            dfs(r, c+1, g, vis);
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    int minDays(vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+        n = g.size();
+        m = g[0].size();
+        int count=0;
+        vector&lt;vector&lt;bool&gt;&gt; vis(n, vector&lt;bool&gt; (m,0));
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;m;j++){
+                if(g[i][j]==1 and vis[i][j]==0){
+                    dfs(i, j, g, vis);
+                    count++;
+                }
+            }
+        }
+        if(count&gt;1) return 0;
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;m;j++){</B></FONT>
+<A NAME="1"></A>                if(g[i][j]==1){
+                    g[i][j]=0;
+                    vector&lt;vector&lt;bool&gt;&gt; vs(n, vector&lt;bool&gt; (m,0));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    int c =0;
+                    for(int x=0;x&lt;n;x++){
+                        for(int y=0;y&lt;m;y++){
+                            if(g[x][y]==1 and vs[x][y]==0){
+                                dfs(x,y,g,vs);
+                                c++;
+                            }
+                        }
+                    }
+                    if(c&gt;1)return 1;
+                    g[i][j]=1;
+                }
+            }</B></FONT>
+        }
+        return 2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

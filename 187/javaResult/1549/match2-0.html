@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>578_letskode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>578_letskode.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        int lss = 0;
+        Deque&lt;Integer&gt; minDeque = new LinkedList();
+        Deque&lt;Integer&gt; maxDeque = new LinkedList();
+        int left = 0;
+<A NAME="1"></A>        int right = 0;
+        while(right&lt;nums.length) {</B></FONT>
+            int value = nums[right];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(!minDeque.isEmpty() &amp;&amp; minDeque.peekFirst() &gt; value) {
+                minDeque.poll();
+            }
+            minDeque.addFirst(value);
+            
+            while(!maxDeque.isEmpty() &amp;&amp; maxDeque.peekFirst() &lt; value) {
+                maxDeque.poll();
+            }
+            maxDeque.addFirst</B></FONT>(value);
+            
+            int diff = Math.abs(minDeque.peekLast() - maxDeque.peekLast());
+
+            while(diff &gt; limit) {
+                int lValue = nums[left];
+                if(minDeque.peekLast().equals(lValue)) {
+                    minDeque.pollLast();
+                }
+                
+                if(maxDeque.peekLast().equals(lValue)) {
+                    maxDeque.pollLast();
+                }
+                
+<A NAME="2"></A>                if(!minDeque.isEmpty())
+                    diff = Math.abs(minDeque.peekLast() - maxDeque.peekLast());
+                else 
+                    diff=0<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                
+                left++;
+            }
+            
+            lss = Math.max(lss, right-left+1);
+            
+            right++;
+        }
+            return lss;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

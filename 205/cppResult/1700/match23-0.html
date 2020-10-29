@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>249_gunawanlie.cpp</TITLE>
+ <TITLE>130_vieta.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>249_gunawanlie.cpp</CENTER></H3><HR>
+<H3><CENTER>130_vieta.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.length();
-<A NAME="1"></A>        int totalCost = 0;
-        int start = 0;</B></FONT>
-        for (int i=1; i&lt;n; i++) {
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (s[i]!=s[i-1]) {
-                int maxCost = -1;
-                int c = 0;
-                for (int j=start; j&lt;=i-1; j++) {
-<A NAME="2"></A>                    c += cost[j];
-                    maxCost = max(cost[j], maxCost);
-                }</B></FONT>
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                totalCost += c - maxCost;
-                start=i;
+        int cs = 0;
+        int mx = 0;
+        char prv = '-';
+        int res = 0;
+        for (int i = 0; i &lt; s.size(); i++) {
+            if (s[i] == prv) {
+                cs += cost[i];
+                mx = max(mx, cost[i]);
             }
+            else {
+                res += cs - mx;
+                cs = cost[i];
+                mx = cost[i];
+            }
+            prv = s[i];
         }
-        
-        int maxCost = -1;
-        int c = 0;
-        for (int j=start; j&lt;=n-1; j++) {
-            c += cost[j];
-            maxCost = max(cost[j], maxCost);
-        }
-        totalCost += c - maxCost;
-        
-        return totalCost;
+        res += cs - mx;
+        return res;
     }
 };</B></FONT>
 </PRE>

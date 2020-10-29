@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>626_DavidElaine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>626_DavidElaine.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Pair{
+        public int node;
+        public double p;
+        public Pair(int n, double p){
+            this.node=n;
+<A NAME="1"></A>            this.p=p;
+        }
+    }</B></FONT>
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        Map&lt;Integer, List&lt;Pair&gt;&gt; map = new HashMap&lt;Integer, List&lt;Pair&gt;&gt;();
+        for (int i=0;i&lt;edges.length;++i) {</B></FONT>
+            map.putIfAbsent(edges[i][0], new ArrayList&lt;Pair&gt;());
+            map.get(edges[i][0]).add(new Pair(edges[i][1],succProb[i]));
+            
+            map.putIfAbsent(edges[i][1], new ArrayList&lt;Pair&gt;());
+            map.get(edges[i][1]).add(new Pair(edges[i][0],succProb[i]));
+        }
+        
+<A NAME="2"></A>        double[] p=new double[n];
+        Arrays.fill(p, 0.0);
+        p[start]=1.0;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;Pair&gt; nodes=new PriorityQueue&lt;Pair&gt;((a,b)-&gt;(Double.compare(b.p,a.p)));
+        nodes.add(new Pair(start, p[start]));
+        //for (int i=0;i&lt;n;i++) nodes.add(new Pair(i, i==start?1.0:0.0));
+        while (!nodes.isEmpty()) {
+            Pair pair=nodes.poll();
+            if</B></FONT>(pair.node==end) return pair.p;
+            if (pair.p==0.0) return 0.0;
+            if (!map.containsKey(pair.node)) continue;
+            for (Pair pa:map.get(pair.node)) {
+<A NAME="3"></A>                double tmp=p[pair.node]*pa.p;
+                if (tmp&gt;p[pa.node]){
+                    p[pa.node]=tmp;
+                    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nodes.add(new Pair(pa.node, tmp));
+                }
+            }
+        }
+        return 0.0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

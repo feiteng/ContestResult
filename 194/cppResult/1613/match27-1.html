@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>129_noxe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>129_noxe.cpp</CENTER></H3><HR>
+<PRE>
+int const N = 111;
+<A NAME="0"></A>int const M = 222;
+int n, m;
+typedef long long ll;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int parents[N];
+int find(int a) { return parents[a] &lt; 0 ? a : parents[a] = find(parents[a]); }
+void uni(int a, int b) {
+  a = find(a), b = find(b); if (a == b) return;</B></FONT>
+  if (parents[a] &lt; parents[b]) { parents[a] += parents[b], parents[b] = a; }
+  else { parents[b] += parents[a], parents[a] = b; }
+}
+void init() { for (int i = 0; i &lt;= n; ++i) parents[i] = -1; }
+int e[10010][3];
+struct Node {
+    int a, b, c;
+    friend bool operator&lt;(Node x, Node y) {
+        return x.c &lt; y.c;
+    }
+} p[M];
+
+class Solution {
+public:
+<A NAME="1"></A>    int q;
+    int mst(int st) {
+        sort(p + st, p + q);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
+        init();
+        for (int i = 0; i &lt; q; ++i) {
+            int ra = find(p[i].a);
+            int rb = find(p[i].b);
+            if (ra != rb) {
+                uni(ra, rb);
+                ret += p[i].c;
+            }
+        }</B></FONT>
+        if (-parents[find(0)] != n) return 1e9;
+        return ret;
+    }
+    
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int _n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        n = _n, m = edges.size();
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; 3; ++j) {
+                e[i][j] = edges[i][j];
+            }
+            p[i].a = e[i][0];
+            p[i].b = e[i][1];
+            p[i].c = e[i][2];
+        }
+        q = m;
+        int z = mst(0); 
+        vector&lt;int&gt; v1, v2;
+        vector&lt;vector&lt;int&gt; &gt; ans;
+        for (int i = 0; i &lt; m; ++i) {
+            q = 0;
+            for (int j = 0; j &lt; m; ++j) {
+                if (i != j) {
+                    p[q].a = e[j][0]; p[q].b = e[j][1]; p[q].c = e[j][2]; ++q;
+                }
+            }
+            int t = mst(0);
+            // printf(&quot;i=%d,t=%d\n&quot;,i,t);
+            if (t &gt; z) {
+                v1.push_back(i); continue;
+            }
+            q = 0;
+            for (int j = 0; j &lt; m; ++j) {
+                p[q].a = e[j][0]; p[q].b = e[j][1]; p[q].c = e[j][2]; ++q;
+            }
+            swap(p[0], p[i]);
+            t = mst(1);
+            if (t == z) {
+                v2.push_back(i);
+            }
+        }
+        ans.push_back(v1);
+        ans.push_back(v2);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

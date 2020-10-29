@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>707_window0105.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>707_window0105.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int stoneGameV(int[] stoneValue) {
+        int n = stoneValue.length;
+        int[] sum = new int[n];
+        sum[0] = stoneValue[0];
+        for (int i = 1; i &lt; stoneValue.length; i++) {
+<A NAME="1"></A>            sum[i] = sum[i - 1] + stoneValue[i];
+        }        
+        int[][] dp = new</B></FONT> int[n][n];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = n - 1; i &gt;= 0; i--) {
+            for (int j = i + 1; j &lt; n; j++) {
+                for (int k = i; k &lt; j; k++) {
+                    int leftSum = sum[k] - sum[i] + stoneValue[i];
+                    int rightSum = sum[j] - sum[k];
+                    if (leftSum &lt; rightSum) {
+                        dp[i][j] = Math.max(leftSum + dp[i][k], dp[i][j]);
+<A NAME="2"></A>                    } else if (leftSum == rightSum) {
+                        dp[i][j] = Math.max</B></FONT>(leftSum + Math.max(dp[i][k], dp[k + 1][j]), dp[i][j]);
+                    } else {
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dp[i][j] = Math.max(rightSum + dp[k + 1][j], dp[i][j]);
+                    }
+                }
+            }
+        }
+        
+        return dp[0][n - 1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

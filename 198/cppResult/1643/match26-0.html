@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>93_CosmicWolf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>93_CosmicWolf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    vector&lt;vector&lt;int&gt;&gt; conn;
+    vector&lt;int&gt; ans;
+    
+<A NAME="0"></A>    vector&lt;int&gt; dfs(int node, int from, string&amp; labels) {
+        //cout &lt;&lt; &quot;node: &quot; &lt;&lt; node &lt;&lt; &quot; from: &quot; &lt;&lt; from &lt;&lt; endl;
+        vector&lt;int&gt; sums(26, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        sums[(int)(labels[node] - 'a')]++;
+        for (int x : conn[node]) {
+            if (x == from) continue;
+            vector&lt;int&gt; tmp = dfs(x, node, labels);
+            for (int i = 0; i &lt; 26; ++i) {
+                sums[i] += tmp[i];
+            }
+        }
+        ans[node] = sums[labels[node] - 'a'];
+        return sums;
+    }
+public:
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, string labels) {
+        conn = vector&lt;vector&lt;int&gt;&gt;(n);
+        for (auto x : edges) {
+            conn[x[0]].push_back(x[1]);
+            conn[x[1]].push_back(x[0]);
+        }</B></FONT>
+        ans = vector&lt;int&gt;(n);
+        vector&lt;int&gt; sums(26, 0);
+        dfs(0, -1, labels);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

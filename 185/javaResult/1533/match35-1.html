@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>560_devin2333.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>560_devin2333.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+        // dish : (table : count)
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;String, Map&lt;String, Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        Set&lt;Integer&gt; tables = new HashSet&lt;&gt;();
+
+        for (List&lt;String&gt; order : orders) {
+            String table = order.get(1);
+            String dish = order.get</B></FONT>(2);
+            if (!map.containsKey(dish)) {
+<A NAME="1"></A>                map.put(dish, new HashMap&lt;&gt;());
+            }
+            Map&lt;String, Integer&gt; tableMap = map.get(dish);
+            int count = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>tableMap.getOrDefault(table, 0) + 1;
+            tableMap.put(table, count);
+            tables.add(Integer.valueOf(table));
+        }
+        LinkedList&lt;String&gt; dishList = new LinkedList&lt;&gt;(map.keySet());
+        Collections.sort</B></FONT>(dishList);
+        List&lt;String&gt; header = new ArrayList&lt;&gt;();
+        header.add(&quot;Table&quot;);
+        header.addAll(dishList);
+        List&lt;Integer&gt; tableList = new LinkedList&lt;&gt;(tables);
+<A NAME="2"></A>        Collections.sort(tableList);
+
+        List&lt;List&lt;String&gt;&gt; result = new LinkedList&lt;&gt;();
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>result.add(header);
+        for (Integer table : tableList) {
+<A NAME="3"></A>            List&lt;String&gt; row = new ArrayList&lt;&gt;();
+            row.add(String.valueOf(table));
+            for (String dish : dishList) {</B></FONT>
+                row.add(String.valueOf(<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#3',2,'match35-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(dish).getOrDefault(String.valueOf(table), 0)));
+            }
+            result.add(row);
+        }
+        return result;       
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

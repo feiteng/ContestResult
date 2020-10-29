@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_rohit970819.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_rohit970819.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int maxSum(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long ans = 0;
+        long long sum1 = 0, sum2 = 0;
+        int ptr1 = 0, ptr2 = 0;
+        while(ptr1&lt;nums1.size() &amp;&amp; ptr2&lt;nums2.size()){
+            if(nums1[ptr1]&lt;nums2[ptr2])
+                sum1+=nums1[ptr1++];
+            else if(nums1[ptr1]&gt;nums2[ptr2])
+                sum2+=nums2[ptr2++];
+            else
+            {
+                ans += max(sum1, sum2) + nums1[ptr1];
+                ptr1++;
+<A NAME="1"></A>                ptr2++;
+                sum1 = 0;
+                sum2 = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        while(ptr1&lt;nums1.size())
+            sum1 += nums1[ptr1++];
+        while(ptr2&lt;nums2.size())
+            sum2 += nums2[ptr2++];
+        
+        ans += max(sum1, sum2);
+        return ans%1000000007;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>144_luo122174088.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>144_luo122174088.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String stoneGameIII(int[] stoneValue) {
+        int sum = 0;
+        for(int num : stoneValue){
+<A NAME="0"></A>            sum += num;
+        }
+        
+        int[] dp = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[stoneValue.length];
+        Arrays.fill(dp, Integer.MIN_VALUE);
+        int max = search(stoneValue, dp, 0);
+        
+        if(max == sum - max){
+            return &quot;Tie&quot;;
+        }else if(max &gt; sum - max){
+            return &quot;Alice&quot;;
+        }else{
+            return &quot;Bob&quot;;
+<A NAME="1"></A>        }
+    }
+    
+    private int search(int[] nums, int[] dp</B></FONT>, int start)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        if(start &gt;= nums.length){
+            return 0;
+        }
+        if(dp[start] != Integer.MIN_VALUE){
+            return dp[start];
+        }
+        
+        // try to take some stones
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int i=start;i</B></FONT>&lt;Math.min(nums.length, start+3);i++){
+            sum += nums[i];
+            
+            // find the remaining value
+            int remaining = Integer.MAX_VALUE;
+<A NAME="2"></A>            for(int j = i+1;j&lt;=i+3;j++){
+                remaining = Math.min(remaining, search(nums, dp, j+1));
+            }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>max = Math.max(max, sum + remaining);
+        }
+        dp[start] = max;
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

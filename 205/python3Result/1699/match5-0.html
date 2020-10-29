@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>229_mohitsvnit093.py</TITLE>
+ <TITLE>112_atf.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>229_mohitsvnit093.py</CENTER></H3><HR>
+<H3><CENTER>112_atf.py</CENTER></H3><HR>
 <PRE>
-from collections import Counter
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        count1 = Counter([num*num for num in nums1])
-        count2 = Counter<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>([num*num for num in nums2])
         
-        ans = 0
-        for i in range(len(nums1)):
-            for j in range(i+1, len(nums1)):
-                ans+=count2[nums1[i]*nums1[j]]
+        n1 = len(nums1)
+        n2 = len(nums2)
+        pairs1 = Counter()
+        for j in range(n2):
+            for k in range(j + 1, n2):
+                pairs1[nums2[j] * nums2[k]] += 1
+        pairs2 = Counter()
+        for j in range(n1):
+                for k in range(j + 1, n1):
+                    pairs2[nums1[j] * nums1[k]] += 1
+ 
+                 
+        count = 0
+        for i in range(n1):
+            count += pairs1[nums1[i] ** 2]       
+        for i in range(n2):
+                          count += pairs2[nums2[i] ** 2]
         
-        for i in range(len(nums2)):
-            for j in range(i+1, len(nums2)):
-                ans+=count1[nums2[i]*nums2[j]]
-        
-        re</B></FONT>turn ans
-        
+
+        re</B></FONT>turn count
 </PRE>
 
 </BODY>

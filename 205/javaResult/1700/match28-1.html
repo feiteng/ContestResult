@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>182_kasperyang.java</TITLE>
+ <TITLE>214_bluesky999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>182_kasperyang.java</CENTER></H3><HR>
+<H3><CENTER>214_bluesky999.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int minCost(String ss, int[] cost) {
-        char[] s = ss.toCharArray();
-        int n = cost.length;
-        int sum = cost[0];
-        int max = cost[0]</B></FONT>;
-        int res = 0;
-        
-        for (int i = 1; i &lt; n; i++) {
-            if (s[i] == s[i - 1]) {
-                sum += cost[i];
-                max = Math.max(max, cost[i]);
-<A NAME="1"></A>            } else {
-                res += sum - max;
-                
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sum = cost[i];
-                max = cost[i];
-            }
-        }
-        
-        res += sum - max;
-        
-        return res;
-    }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.Arrays;
+
+class Solution {
+	public int minCost(String s, int[] cost) {
+		int total = cost[0];
+		int max = cost[0];
+		int sum = 0;
+		for (int i = 1; i &lt; s.length(); i++) {
+			total += cost[i];
+			if (s.charAt(i) == s.charAt(i - 1))
+				max = Math.max(max, cost[i]);
+			else {
+				sum += max;
+				max = cost[i];
+			}
+            // tr(i, total, sum, max);
+		}
+		sum += max;
+		return total - sum;
+	}
+
+	public static void tr(Object... o) {
+		System.out.println(Arrays.deepToString(o));
+	}
 }</B></FONT>
 </PRE>
 

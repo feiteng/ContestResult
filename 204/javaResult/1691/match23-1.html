@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>102_DylanSmith.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>102_DylanSmith.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minDays(int[][] grid) {
+        if (!connected(grid)) {
+            return 0;
+        }
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    if (!connected(grid)) {
+                        return 1;
+                    }
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+    }
+<A NAME="1"></A>    public boolean connected(int[][] grid) {
+        boolean filled = false</B></FONT>;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                if (grid[i][j] == 1 &amp;&amp; !visited[i][j]) {
+                    if (filled) {
+                        return false;
+<A NAME="2"></A>                    }
+                    fill</B></FONT>(grid, visited, i, j);
+                    filled = true;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return true;
+    }
+    public void fill(int[][] grid, boolean[][] visited, int i</B></FONT>, int j) {
+        visited[i][j] = true;
+        int[] x = new int[]{0, 1, 0, -1}, y = new int[]{1, 0, -1, 0};
+        for (int k = 0; k &lt; 4; k++) {
+            if (i + x[k] &gt;= 0 &amp;&amp; i + x[k] &lt; grid.length &amp;&amp; j + y[k] &gt;= 0 &amp;&amp; j + y[k] &lt; grid[0].length) {
+                if (grid[i + x[k]][j + y[k]] == 1 &amp;&amp; !visited[i + x[k]][j + y[k]]) {
+                    fill(grid, visited, i + x[k], j + y[k]);
+                }
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

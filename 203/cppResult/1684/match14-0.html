@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>658_kongburusi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>658_kongburusi.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int fa[110000],sz[110000];
+    int ct[110000];//记录长度为i的组的个数
+    int vis[110000];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int ffind(int x)
+    {
+        if(fa[x]==x) return x;
+        return fa[x]=ffind(fa[x]);
+    }
+    void mmerge(int x,int y){
+        int fx=ffind(x);
+        int fy=ffind(y);
+        if(fx!=fy){
+            ct[sz[fx]]--;ct[sz[fy]]--;
+            fa[fy]=fx;
+            sz[fx]+=sz[fy];sz[fy]=0;
+            ct[sz[fx]]++;
+        }
+    }</B></FONT>
+    
+    int findLatestStep(vector&lt;int&gt;&amp; arr, int m) {
+        memset(fa,-1,sizeof(fa));
+<A NAME="1"></A>        memset(sz,0,sizeof(sz));
+        memset(ct,0,sizeof(ct));
+        memset(vis,0,sizeof(vis));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans=-1;
+        for(int i=0;i&lt;arr.size();i++){
+            int now=arr[i];
+            vis[now]=1;fa[now]=now;sz[now]=1;ct[1]++;</B></FONT>
+            if(now-1&gt;=1&amp;&amp;vis[now-1]) mmerge(now,now-1);
+            if(now+1&lt;=arr.size()&amp;&amp;vis[now+1]) mmerge(now,now+1);
+            if(ct[m]) ans=i+1;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

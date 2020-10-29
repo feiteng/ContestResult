@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>485_ayaphis.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>485_ayaphis.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.*;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;List&lt;String&gt;&gt; displayTable(List&lt;List&lt;String&gt;&gt; orders) {
+        TreeMap&lt;Integer, HashMap&lt;String, Integer&gt;&gt; tables = new TreeMap&lt;&gt;();
+        TreeSet&lt;String&gt; foods = new TreeSet&lt;&gt;();
+        for (List&lt;String&gt; order : orders) {
+<A NAME="1"></A>            Integer tableName = Integer.valueOf(order.get</B></FONT>(1));
+            tables.putIfAbsent(tableName, new HashMap&lt;&gt;());
+            HashMap&lt;String, Integer&gt; table = tables.get(tableName);
+            String food = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>order.get(2);
+            foods.add(food);
+            table.put(food, table.getOrDefault(food, 0) + 1);
+        }
+        List&lt;List&lt;String&gt;&gt; ret = new ArrayList&lt;&gt;();
+        List&lt;String&gt; head = new ArrayList&lt;&gt;();
+        head.add(&quot;Table&quot;);
+<A NAME="2"></A>        for (String food</B></FONT> : foods) {
+            head.add(food);
+        }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ret.add(head);
+        for (int key : tables.keySet()) {
+            List&lt;String&gt; line = new ArrayList&lt;&gt;();
+<A NAME="3"></A>            line.add(String.valueOf</B></FONT>(key));
+            HashMap&lt;String, Integer&gt; table = tables.get(key);
+            for (String food : foods) {
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#3',2,'match32-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>line.add(String.valueOf(table.getOrDefault(food,0)));
+            }
+            ret.add(line);
+        }
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>609_shua-zi-34.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>609_shua-zi-34.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[105][25][105];//第i个，涂j色，前i个共有k个街区
+    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        memset(dp,0x3f,sizeof(dp));
+        if(houses[0]==0){
+<A NAME="0"></A>            for(int i=0;i&lt;n;i++){
+                dp[0][i][1] = cost[0][i];
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }else{
+             dp[0][houses[0]-1][1] = 0;
+        }
+        for(int i=1;i&lt;m;i++){
+            if(houses[i]!=0){
+<A NAME="1"></A>                int col = houses[i]-1;
+                for(int k=1;k&lt;=i+1;k++){</B></FONT>
+                    int mi = 0x3f3f3f3f;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for(int j=0;j&lt;n;j++){
+                        if(col==j){ //颜色相同
+                            mi = min(mi,dp[i-1][j][k]);
+                        }else{ //颜色不同
+                            mi = min(mi,dp[i-1][j][k-1]);
+                        }
+<A NAME="2"></A>                    }</B></FONT>
+                    dp[i][col][k] = mi;
+                    //cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;col&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot; &quot;&lt;&lt;dp[i][col][k]&lt;&lt;endl;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }else{
+<A NAME="3"></A>                for(int k=1;k&lt;=i+1;k++){
+                    for(int j=0;j&lt;n;j++){</B></FONT>
+                        int mi = 0x3f3f3f3f;
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#3',2,'match7-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        for(int l=0;l&lt;n;l++){
+                            if(j==l){ //颜色相同
+                                 mi = min(mi,dp[i-1][l][k]+cost[i][j]);
+                            }else{    
+                                mi = min(mi,dp[i-1][l][k-1]+cost[i][j]);
+                            }
+<A NAME="4"></A>                        }</B></FONT>
+                        dp[i][j][k]=mi;
+                      //  cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot; &quot;&lt;&lt;dp[i][j][k]&lt;&lt;endl;
+<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#4',2,'match7-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    }
+                }
+            }
+        }
+        int res=0x3f3f3f3f;
+        for(int i=0;i&lt;n;i++){
+            
+           // cout&lt;&lt;dp[m-1][i][target]&lt;&lt;endl;
+            res = min(res,dp[m-1][i][target]);
+        }
+        return res==0x3f3f3f3f ? -1:res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

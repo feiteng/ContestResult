@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>136_ryanhe312.cpp</TITLE>
+ <TITLE>123_sunsetcolors.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>136_ryanhe312.cpp</CENTER></H3><HR>
+<H3><CENTER>123_sunsetcolors.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    typedef long long ll;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+#define IO std::ios::sync_with_stdio(false); cin.tie(0)
+#define ll long long
+#define SZ(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rep(i, l, r) for (int i = l; i &lt;= r; i++)
+#define per(i, l, r) for (int i = l; i &gt;= r; i--)
+#define mset(s, _) memset(s, _, sizeof(s))
+#define pb push_back
+#define pii pair &lt;int, int&gt;
+<A NAME="0"></A>#define mp(a, b) make_pair(a, b)
+#define INF 0x3f3f3f3f
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>inline int read() {
+  int x = 0, neg = 1; char op = getchar();
+  while (!isdigit(op)) { if (op == '-') neg = -1; op = getchar(); }
+  while (isdigit(op)) { x = 10 * x + op - '0'; op = getchar(); }
+  return neg * x;
+}
+inline void print(int x) {
+  if (x &lt; 0) { putchar('-'); x = -x; }
+  if (x &gt;= 10) print(x / 10);
+  putchar(x % 10 + '0');
+}
+
+class Solution {
+public:
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        vector&lt;ll&gt; mul1,mul2;
-        int n1=nums1.size(),n2=nums2.size();
-<A NAME="1"></A>        for(int i=0;i&lt;n1;i++){
-            for(int j=i+1;j&lt;n1;j++){</B></FONT>
-                mul1.push_back((ll)nums1[i]*(ll)nums1[j]);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+      map&lt;ll,ll&gt; memo;
+      int n = SZ(nums1),m = SZ(nums2);
+      for(int i = 0 ; i &lt; n ; i++){
+        for(int j = i + 1 ; j &lt; n ; j++){
+          ll tmp = 1ll * nums1[i] * nums1[j];
+          memo[tmp]++;
         }
-        sort(mul1.begin(),mul1.end());
-        for(int i=0;i&lt;n2;i++){
-            for(int j=i+1;j&lt;n2;j++){</B></FONT>
-                mul2.push_back((ll)nums2[i]*(ll)nums2[j]);
-<A NAME="2"></A>            }
+      }
+      int ans = 0;
+      for(int i = 0 ; i &lt; m ; i++){
+        ll tmp = 1ll * nums2[i] * nums2[i];
+        ans += memo[tmp];
+      }
+      memo.clear();
+      for(int i = 0 ; i &lt; m ; i++){
+        for(int j = i + 1 ; j &lt; m ; j++){
+          ll tmp = 1ll * nums2[i] * nums2[j];
+          memo[tmp]++;
         }
-        sort(mul2.begin(),mul2.end());
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt=0;
-        for(int i=0;i&lt;n1;i++){
-            cnt+=upper_bound(mul2.begin(),mul2.end(),ll(nums1[i])*ll(nums1[i]))-lower_bound(mul2.begin(),mul2.end(),ll(nums1[i])*ll(nums1[i]));
-        }
-        for(int i=0;i&lt;n2;i++){
-            cnt+=upper_bound(mul1.begin(),mul1.end(),ll(nums2[i])*ll(nums2[i]))-lower_bound(mul1.begin(),mul1.end(),ll(nums2[i])*ll(nums2[i]));
-        }
-        return cnt;
+      }
+      for(int i = 0 ; i &lt; n ; i++){
+        ll tmp= 1ll * nums1[i] * nums1[i];
+        ans += memo[tmp];
+      }
+      return ans;
     }
 };</B></FONT>
 </PRE>

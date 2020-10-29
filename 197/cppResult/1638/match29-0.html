@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>732_xiaocanglan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>732_xiaocanglan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>typedef double db;
+const int maxn=1000;
+const int maxm=30;
+const db PI=acos(-1.0);
+
+class Solution {
+public:
+	
+	db X,Y,X1,Y1;
+	int n;
+	db dis[100];
+	
+	struct point{
+    db x,y;
+    point(){}
+    point( db _x,db _y ):x(_x),y(_y){ }
+    point operator - ( point p ) { return point(x-p.x,y-p.y) ; }
+    db dis() { return sqrt(x*x+y*y); }
+	}a[maxn],ans[maxn];
+	db getMinDis( point p )
+	{
+	    double res=0;
+	    for( int i=0;i&lt;n;i++ ) res+=(p-a[i]).dis();
+	    return res;
+	}
+	db SA()
+	{
+	    for( int i=0;i&lt;maxm;i++ )
+	    {
+	        ans[i].x=( rand()%1000+1 )/1000.0*X;
+	        ans[i].y=( rand()%1000+1 )/1000.0*Y;
+	        dis[i]=getMinDis(ans[i]);       
+	    }
+	    db delta=max(X-X1,Y-Y1),d=0.8;
+	    while( delta&gt;0.0001 )
+	    {
+	        for( int i=0;i&lt;maxm;i++ )
+	        {
+	            for( int j=0;j&lt;maxm;j++ )
+	            {
+	                point t=ans[i];
+	                db angle=rand()%1000/1000.0*2*PI;
+	                db dx=delta*cos(angle)*(rand()%1000/1000.0);
+	                db dy=delta*sin(angle)*(rand()%1000/1000.0);
+	                t.x+=dx;t.y+=dy;
+	                if( t.x&lt;X1 || t.x&gt;X || t.y&lt;Y1 || t.y&gt;Y ) continue;
+	                db tmp=getMinDis(t);
+	                db delta2=tmp-dis[i];
+	                if( delta2&lt;0 ) dis[i]=tmp,ans[i]=t;
+	                else if( tmp&gt;dis[i] &amp;&amp; exp( -delta2/delta )*RAND_MAX&gt;rand() );
+	                else t.x-=dx,t.y-=dy;
+	            }
+	        }
+	        delta*=d;
+	    }
+	    db res=5000000;
+<A NAME="1"></A>	    for( int i=0;i&lt;maxm;i++ ){</B></FONT>
+            res=min(res,dis[i]);
+        } 
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	    return res;
+	}
+
+    double getMinDistSum(vector&lt;vector&lt;int&gt;&gt;&amp; positions) {
+		n=positions.size();
+        X1=10000,Y1=10000;
+		if( positions.size()==1 ) return 0;
+		for( int i=0;i&lt;positions.size();i++ ) 
+		{
+			a[i].x=positions[i][0];
+			a[i].y=positions[i][1];
+			 X=max(X,a[i].x);Y=max(Y,a[i].y);
+            X1=min(X1,a[i].x);Y1=min(Y1,a[i].y);
+		}
+		if( fabs(X-X1)&lt;1e-5 &amp;&amp; fabs(Y-Y1)&lt;1e-5 ) 
+        {
+            cout&lt;&lt;&quot;1&quot;&lt;&lt;endl;
+            return 0;
+        }
+		return SA();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

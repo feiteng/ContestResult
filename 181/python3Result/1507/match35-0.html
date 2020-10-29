@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>478_xuhr.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>478_xuhr.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+<A NAME="1"></A>    def __init__(self):
+        self.dt = {            
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>1: [(1, (0, 1)), (1, (0, -1)), (3, (0, 1)), (4, (0, -1)), (5, (0, 1)), (6, (0, -1))],
+            2: [(2, (1, 0)), (2, (-1, 0)), (3</B></FONT>, (<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>-1, 0)), (4, (-1, 0)), (5, (1, 0)), (6, (1, 0))],
+            3: [(1, (0, -1)), (2, (1, 0)), (4, (0, -1)), (5, (1, 0)), (6, (1, 0))],
+            4: [(1</B></FONT>, (0, 1)), (2, (1, 0)), (3, (0, 1)), (5, (1, 0)), (6, (1, 0))],
+            5: [(1, (0, -1)), (2, (-1, 0)), (3, (-1, 0)), (4, (-1, 0)), (6, (0, -1))],
+            6: [(1, (0, 1)), (2, (-1, 0)), (3, (-1, 0)), (4, (-1, 0)), (5, (0, 1))],
+        }
+        
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        m, n = len(grid), len(grid[0])
+        return self.dfs(grid, 0, 0, m, n, set())
+    
+    def dfs(self, grid, i, j, m, n, visited):
+        if i == m - 1 and j == n - 1:
+            return True
+        
+        visited.add((i, j))        
+        for nv, nPos in self.dt[grid[i][j]]:
+            ni, nj = i + nPos[0], j + nPos[1]
+            if 0 &lt;= ni &lt; m and 0 &lt;= nj &lt; n and grid[ni][nj] == nv and (ni, nj) not in visited:
+                if self.dfs(grid, ni, nj, m, n, visited):
+                    return True
+        visited.remove((i, j))
+        
+        return False
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

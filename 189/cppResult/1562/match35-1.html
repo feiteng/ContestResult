@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_Megumi-cs.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>51_Megumi-cs.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;&amp; favoriteCompanies) {
+        map&lt;string,int&gt; p;int cnt=1;
+        for(int i=0;i&lt;favoriteCompanies.size();i++){
+            for(int j=0;j&lt;favoriteCompanies[i].size();j++){</B></FONT>
+                if(!p[favoriteCompanies[i][j]]) p[favoriteCompanies[i][j]]=cnt++;
+            }
+        }
+        vector&lt;int&gt; s[favoriteCompanies.size()];
+        for(int i=0;i&lt;favoriteCompanies.size();i++){
+            for(int j=0;j&lt;favoriteCompanies[i].size();j++){
+                s[i].push_back(p[favoriteCompanies[i][j]]);
+            }
+            sort(s[i].begin(),s[i].end());
+<A NAME="1"></A>        }
+        
+        vector&lt;int&gt; ans;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;favoriteCompanies.size();i++){
+            bool fg=true;
+            for(int j=0;j&lt;favoriteCompanies.size();j++){
+                if(i==j) continue;</B></FONT>
+                int p=0,q=0;
+                while(p&lt;s[i].size()&amp;&amp;q&lt;s[j].size()){
+                    if(s[i][p]==s[j][q]){
+                        p++;q++;
+                    }else{
+                        if(s[i][p]&lt;s[j][q]){
+<A NAME="2"></A>                            break;
+                        }
+                        q++;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    }
+                }
+                if(p==s[i].size()){
+                    fg=false;break;
+                }
+            }
+            if(fg) ans.push_back(i);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

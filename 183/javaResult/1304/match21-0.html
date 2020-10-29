@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>709_darcylmx.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>709_darcylmx.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    static Comparator cpt = new Comparator(){
+        @Override
+<A NAME="0"></A>        public int compare(Object o1, Object o2){
+            Pair a1 = (Pair)o1, a2 = (Pair)o2;
+            return Integer.compare(a2.n, a1.n);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+<A NAME="1"></A>    };
+    public String longestDiverseString(int a, int b, int c) {
+        PriorityQueue&lt;Pair&gt; q = new</B></FONT> PriorityQueue(cpt);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int total = a + b + c, cc = 0;
+        char last = ' ';
+        if(a &gt; 0)q.add(new Pair(a, 'a'));
+        if(b &gt; 0)q.add(new Pair(b, 'b'));
+        if(c &gt; 0)q.add(new Pair(c, 'c'));
+        StringBuilder stb = new StringBuilder();
+        while(!q.isEmpty()){
+            Pair p = q.remove</B></FONT>(), p2 = null;
+            if(cc == 2 &amp;&amp; last == p.c){
+                if(q.isEmpty()) break;
+                p2 = p;
+                p = q.remove();
+            }
+            stb.append(p.c);
+<A NAME="2"></A>            p.n--;
+            cc = (last == p.c) ? cc + 1 : 1;
+            last = p.c;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(p.n &gt; 0){
+                q.add(p);
+            }
+            if(p2 != null){
+                q.add(p2);
+            }</B></FONT>
+        }
+        return stb.toString();
+    }
+}
+
+class Pair{
+    Pair(int n, char c){
+        this.n = n;
+        this.c = c;
+    }
+    int n;
+    char c;
+}
+</PRE>
+
+</BODY>
+</HTML>

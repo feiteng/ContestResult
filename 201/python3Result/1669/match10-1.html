@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>359_JerryJin2905.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>359_JerryJin2905.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>INF = float('inf')
+class Solution:
+    def minCost(self, n: int, cuts: List[int]) -&gt; int:
+        cuts<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.sort()
+        @lru_cache(None)
+        def dp(lo, hi, left, right):
+            if lo &gt; hi:
+                return 0
+            
+            if lo == hi:
+                return right - left
+            
+            ans = INF
+            for i in range(lo, hi + 1):
+                ans = min(ans, dp(lo, i - 1, left, cuts[i]) + dp(i + 1, hi, cuts[i], right))
+            return ans + right - left
+        return dp(0, len(c</B></FONT>uts) - 1, 0, n)
+</PRE>
+
+</BODY>
+</HTML>

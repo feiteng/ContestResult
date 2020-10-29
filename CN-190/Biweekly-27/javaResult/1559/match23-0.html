@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>863_shi-zhe.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>863_shi-zhe.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int c;
+    Integer[][][] dp;
+    public int cherryPickup(int[][] grid) {
+        
+        c = grid[0].length;
+<A NAME="0"></A>        dp = new Integer[c][c][grid.length];
+        int i = 0;
+        int j = c-1;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return dfs(i, j, 0, grid);
+    }
+    
+<A NAME="1"></A>    int[] d = {-1, 0, 1};
+    
+    int dfs(int i, int j, int l, int[][] grid</B></FONT>) {
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (l &gt;= grid.length) {
+            return 0;
+        }
+        if (dp[i][j][l] != null) {
+            return dp[i][j][l];
+        }
+        int cur = 0</B></FONT>;
+        cur += grid[l][i];
+<A NAME="2"></A>        if (i != j) {
+            cur += grid[l][j];
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int max = 0;
+        for (int di = 0; di &lt; 3; ++di) {
+<A NAME="3"></A>            for (int dj = 0; dj &lt; 3; ++dj) {
+                int ti = i + d[di];
+                int tj = j + d[dj];
+                if</B></FONT> (isValid(ti) &amp;&amp; isValid(tj)) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    max = Math.max(max, dfs(ti, tj, l+1, grid));
+                }
+            }
+        }
+        dp[i][j][l] = max + cur;
+        return max + cur;
+    }</B></FONT>
+    
+    boolean isValid(int i) {
+        return i &gt;= 0 &amp;&amp; i &lt; c;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

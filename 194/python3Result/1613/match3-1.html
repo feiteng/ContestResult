@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_nthistle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_nthistle.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DS:
+    def __init__(self, n):
+        self.rank = [1]*n
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.parent = [i for i in range(n)]
+    
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[</B></FONT>x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        xp = self.find(x)
+        yp = self.find(y)
+        
+        if xp == yp:
+            return
+        
+        if self.rank[xp] &lt; self.rank[yp]:
+            self.parent[xp] = yp
+        elif self.rank[xp] &gt; self.rank[yp]:
+            self.parent[yp] = xp
+        else:
+            self.parent[yp] = xp
+            self.rank[xp] = self.rank[xp] + 1
+    
+    def copy(self):
+        ds = DS(len(self.rank))
+        ds.rank = [r for r in self.rank]
+        ds.parent = [p for p in self.parent]
+        return ds
+
+
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        edge_idxs = list(range(len(edges)))
+        edge_idxs.sort(key = lambda idx : edges[idx][2])
+        #edges = edges.sort(key = lambda edge : edge[2])
+        ds = DS(n)
+        i = 0
+        critical = []
+        pseudo_critical = []
+        while i &lt; len(edge_idxs):
+            same_weight = [edge_idxs[i]]
+            w = edges[edge_idxs[i]][2]
+            i += 1
+            while i &lt; len(edges) and edges[edge_idxs[i]][2] == w:
+                same_weight.append(edge_idxs[i])
+                i += 1
+            candidates = []
+            for edge_idx in same_weight:
+                edge = edges[edge_idx]
+                p1 = ds.find(edge[0])
+                p2 = ds.find(edge[1])
+                if p1 != p2:
+                    candidates.append((edge_idx, p1, p2))
+            prev = ds.copy()
+            for j,(cedge,p1,p2) in enumerate(candidates):
+                cur = prev.copy()
+                for k in range(j+1,len(candidates)):
+                    cur.union(candidates[k][1],candidates[k][2])
+                if cur.find(p1) != cur.find(p2):
+                    critical.append(cedge)
+                else:
+                    pseudo_critical.append(cedge)
+                prev.union(p1,p2)
+            for cedge,p1,p2 in candidates:
+                ds.union(p1,p2)
+        return critical, pseudo_critical
+        
+</PRE>
+
+</BODY>
+</HTML>

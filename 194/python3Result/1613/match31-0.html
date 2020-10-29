@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>134_kweezy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>134_kweezy.py</CENTER></H3><HR>
+<PRE>
+from heapq import heappush, heappop
+
+def prims(n, adj, must = None):
+    frontier = []
+    vs = set()
+    ans = 0
+    def process_vertex(ve):
+        for edge in adj[ve]:
+            if edge[0] in vs:
+                continue
+            heappush(frontier, (edge[1], edge[0]))
+        vs.add(ve)
+    if must is not None:
+        ans += must[2]
+        process_vertex(must[0])
+        process_vertex(must[1])
+    else:
+        process_vertex(0)
+    while len(vs) &lt; n:
+        if len(frontier) == 0:
+            return 100000000000000000
+        w, u = heappop(frontier)
+        if u in vs:
+            continue
+        #print(&quot;add&quot;, u, &quot;with weight&quot;, w)
+        ans += w
+        process_vertex(u)
+    #print(ans)
+    return ans
+    
+def make_adj(n, edges):
+    adj = [[] for i in range(n)]
+    for edge in edges:
+        u, v, w = edge
+        adj[u].append((v, w))
+        adj[v].append((u, w))
+<A NAME="0"></A>    return adj
+
+def remove_edge(edges, i):
+    return [edge for j, edge in enumerate(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>edges) if j!=i]
+
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        adj = make_adj(n, edges)
+        minimum = prims(n, adj)
+        crit = []
+        pseu =</B></FONT> []
+        print(minimum)
+        for i in range(len(edges)):
+            if prims(n, adj, edges[i]) == minimum:
+                pseu.append(i)
+            e = remove_edge(edges, i)
+            #print(e)
+            adj_p = make_adj(n, e)
+            #print(adj_p)
+            if prims(n, adj_p) &gt; minimum:
+                crit.append(i)
+        return [crit, list(set(pseu) - set(crit))]
+</PRE>
+
+</BODY>
+</HTML>

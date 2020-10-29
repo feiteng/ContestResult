@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>205_joshualian1989.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>205_joshualian1989.py</CENTER></H3><HR>
+<PRE>
+from collections import Counter
+class UnionFind():
+<A NAME="0"></A>    def __init__(self):
+        self.uf, self.rank, self.size = {}, {}, {}
+        self.roots = set()
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.size_cnt = Counter()
+        
+    def add(self, x):
+<A NAME="1"></A>        if x not in self.uf:
+            self.uf[x], self.rank[x], self.size[x] =</B></FONT> x, 0, 1
+            self.roots.add(x)
+            self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.size_cnt[1] += 1
+        
+    def find(self, x):
+        self.add(x)
+        if x != self.uf[x]:
+            self.uf[x] = self.find(self.uf[x])
+        return self.uf[x]
+
+    def union(self, x, y):  
+        xr, yr = self.find(x), self.find(y)
+        if xr == yr: return
+        self.size_cnt[self.size[xr]] -= 1
+        self.size_cnt[self.size[yr]] -= 1
+        if self.rank[xr] &lt;= self.rank[yr]:
+            self.uf[xr] = yr
+            self.size[yr] += self.size[xr]
+            self.size_cnt[self.size[yr]] += 1
+            self.rank[yr] += (self.rank[xr] == self.rank[yr])
+            self.roots.</B></FONT>discard(xr)
+        else:
+            self.uf[yr] = xr
+            self.size[xr] += self.size[yr]
+            self.size_cnt[self.size[xr]] += 1
+            self.roots.discard(yr)
+
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        uf, ans = UnionFind(), -1
+<A NAME="2"></A>        for step, i in enumerate(arr, 1):
+            if i not in uf.uf:
+                uf.add(i)
+                size =<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> 1
+            if i - 1 in uf.uf:
+                uf.union(i, i - 1)
+            if i + 1 in uf.uf:
+                uf.union(i, i + 1)
+            if uf.size_cnt[m] &gt; 0:
+                ans = step
+        re</B></FONT>turn ans
+        
+</PRE>
+
+</BODY>
+</HTML>

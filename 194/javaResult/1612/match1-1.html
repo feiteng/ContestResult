@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>270_changeme.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>270_changeme.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] avoidFlood(int[] rains) {
+        int[] res = new int[rains.length];
+        
+        TreeSet&lt;Integer&gt; toDry = new TreeSet&lt;&gt;();
+        Map&lt;Integer, Integer&gt; full = new HashMap&lt;&gt;();
+        
+        for (int i = 0; i &lt; res.length; i++) {
+<A NAME="1"></A>            if (rains[i] == 0) {
+                toDry.add</B></FONT>(i);
+            } else {
+                if (full.containsKey(rains[i])) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    int prev = full.get(rains[i]);
+                    
+                    Integer toD = toDry.ceiling(prev + 1);
+                    if (toD == null) {
+                        return new int[0];
+                    }
+                    res[toD] = rains[i];
+                    toDry.remove</B></FONT>(toD);
+                }
+<A NAME="2"></A>                full.put(rains[i], i);
+                res[i] = -1;
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int i = 0; i &lt; res.length; i++) {
+            if (res[i] == 0) {
+                res[i] = 1;
+            }
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

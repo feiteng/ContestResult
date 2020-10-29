@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>154_jackiesteed.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>154_jackiesteed.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    class Node{
+        int x;
+        int y;
+        
+        public Node(int px, int py){
+            x = px;
+            y = py;
+        }
+    }
+    
+    class State{
+        int val;
+        Node node;
+        
+        public State(int v, Node n){
+            val = v;
+            node = n;
+        }
+    }
+    
+    class Cal{
+        int idx;
+        int val;
+        
+        public Cal(int i, int v){
+            idx = i;
+            val = v;
+        }
+    }
+    
+    int find(int x, int[] parent){
+        int tmp = x;
+        while(parent[x] != -1){
+            x = parent[x];
+        }
+        
+        // while(parent[tmp] != -1){
+        //     int t = parent[tmp];
+        //     parent[tmp] = x;
+        //     tmp = t;
+        // }
+        
+        return x;
+<A NAME="6"></A>    }
+    
+    
+    void merge(int a, int b, <FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#6',2,'match1-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] parent){
+        int r1 = find(a, parent);
+        int r2 = find(b, parent);
+        if(r1 == r2){
+            return;
+        }</B></FONT>
+        parent[r1] = r2;
+    }
+    
+    int comp(int x, int y){
+        return x * 600 + y;
+    }
+<A NAME="0"></A>    
+    
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int[][] matrixRankTransform(int[][] matrix) {
+        int N = matrix.length;
+        int M = matrix[0].length;
+        
+<A NAME="1"></A>        int[] parent = new int[600 * 600];
+        for(int i = 0; i &lt; 600 * 600; i++){</B></FONT>
+            parent[i] = -1;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        for(int i = 0; i &lt; N; i++){
+            List&lt;Cal&gt; cals = new ArrayList();
+            for(int j = 0; j &lt; M; j++){
+                cals.add</B></FONT>(new Cal(j, matrix[i][j]));
+            }
+            cals.sort(new Comparator&lt;Cal&gt;(){
+                
+                public int compare(Cal a, Cal b){
+                    if(a.val != b.val){
+                        return a.val - b.val;
+                    }
+<A NAME="2"></A>                    return a.idx - b.idx;
+                }
+            });
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int j = 1; j &lt; M; j++){
+<A NAME="3"></A>                Cal a = cals.get(j - 1);
+                Cal b = cals.get(j);
+                if(a.val == b.val){
+                    merge(comp</B></FONT>(i, a.idx), <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#3',2,'match1-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>comp(i, b.idx), parent);
+                }
+            }
+        }
+        for(int i = 0; i &lt; M; i++){
+            List&lt;Cal&gt; cals = new ArrayList();
+            for(int j = 0; j &lt; N; j++){
+                cals.add</B></FONT>(new Cal(j, matrix[j][i]));
+            }
+            cals.sort(new Comparator&lt;Cal&gt;(){
+                
+                public int compare(Cal a, Cal b){
+                    if(a.val != b.val){
+                        return a.val - b.val;
+                    }
+<A NAME="4"></A>                    return a.idx - b.idx;
+                }
+            });
+            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#4',2,'match1-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int j = 1; j &lt; N; j++){
+                Cal a = cals.get(j - 1);
+                Cal b = cals.get(j);
+                if(a.val == b.val){
+                    merge(comp</B></FONT>(a.idx, i), comp(b.idx, i), parent);
+                }
+            }
+            
+        }
+        
+        
+        
+        
+        
+        int[][] order = new int[N][M];
+        List&lt;Node&gt; list = new ArrayList();
+        for(int i = 0; i &lt; N; i++){
+            for(int j = 0; j &lt; M; j++){
+                list.add(new Node(i, j));
+            }
+        }
+        
+        list.sort(new Comparator&lt;Node&gt;(){
+            public int compare(Node a, Node b){
+                int va = matrix[a.x][a.y];
+                int vb = matrix[b.x][b.y];
+                if(va != vb){
+                    return va - vb;
+                }
+                if(a.x != b.x){
+                    return a.x - b.x;
+                }
+                return a.y - b.y;
+            }
+        });
+        
+        Node[] row = new Node[N];
+        Node[] col = new Node[M];
+        
+        for(int i = 0; i &lt; list.size(); i++){
+            Node node = list.get(i);
+            int x = node.x;
+            int y = node.y;
+            
+            
+            int t = Math.max(calc(row[x], matrix[x][y], matrix, parent, order), calc(col[y], matrix[x][y], matrix, parent, order));
+            
+            int p = find(comp(x, y), parent);
+            int x1 = p / 600;
+            int y1 = p % 600;
+<A NAME="5"></A>            order[x1][y1] = Math.max(order[x1][y1], t);
+            row[x] = node;
+            col[y] = node;
+        <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#5',2,'match1-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        int[][] result= new int[N][M];
+        for(int i = 0; i &lt; N; i++){
+            for(int j = 0; j &lt; M; j++){</B></FONT>
+                int p = find(comp(i, j), parent);
+                int x = p / 600;
+                int y = p % 600;
+                result[i][j] = order[x][y];
+            }
+        }
+        
+        return result;
+    }
+    
+    int calc(Node node, int val, int[][] matrix, int[] parent, int[][] order){
+        int result = 0;
+        if(node == null){
+            return 1;
+        }
+        int p = find(comp(node.x, node.y), parent);
+        int x = p / 600;
+        int y = p % 600;
+        if(matrix[node.x][node.y] == val){
+            return order[x][y];
+            
+        }
+        return order[x][y] + 1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

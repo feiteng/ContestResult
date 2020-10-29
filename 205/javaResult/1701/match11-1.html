@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_arignote.java</TITLE>
+ <TITLE>201_Neymars.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,89 +15,105 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_arignote.java</CENTER></H3><HR>
+<H3><CENTER>201_Neymars.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 
+    private int ans;
+    private int[] f1;
+    private int[] f2;
+
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UnionFind uf1 = new UnionFind(n)</B></FONT>, uf2 = new UnionFind(n), uf3 = new UnionFind(n);
-        int count = 0;
-        for (int[] edge : edges) {
-            if (edge[0] == 3) {
-                if (uf3.find(edge[1] - 1) != uf3.find(edge[2] - 1)) {
-                    uf1.union(edge[1] - 1, edge[2] - 1);
-                    uf2.union(edge[1] - 1, edge[2] - 1);
-<A NAME="1"></A>                    uf3.union(edge[1] - 1, edge[2] - 1);
-                } else {
-                    count++;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            }
-        }
-        for (int[] edge : edges) {</B></FONT>
-            if (edge[0] == 1) {
-                if (uf1.find(edge[1] - 1) != uf1.find(edge[2] - 1)) {
-<A NAME="2"></A>                    uf1.union(edge[1] - 1, edge[2] - 1);
-                } else {
-                    count++;
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            } else if (edge[0] == 2) {
-                if (uf2.find(edge[1] - 1) != uf2.find(edge[2] - 1)) {</B></FONT>
-                    uf2.union(edge[1] - 1, edge[2] - 1);
-                } else {
-                    count++;
-                }
-<A NAME="3"></A>            }
-        }
-        for (int i = 0; i &lt; n; i++) {
-            if (uf1.find(0) != uf1.find(i) || uf2.find(0) != <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#3',2,'match11-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>uf2.find(i)) {
-                return -1;
-            }
-        }
-        return count;
-    }
 
-    class UnionFind {
-        private int count = 0;
-        private int[] parent, rank;
+        f1 = new int[n + 1];
+        f2 = new int[n + 1];
 
-        public UnionFind(int n) {
-            count = n;
-            parent = new int[n];
-<A NAME="4"></A>            rank = new int[n];
-            for (int i = 0; i &lt; n; i++) {
-                p</B></FONT>arent[i] = i;
-            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#4',2,'match11-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int m = edges.length;
+        int size1 = 0, size2 = 0, size3 = 0;
+
+        for (int i = 0; i &lt;= n; i++)
+            f1[i] = f2[i] = i;
+
+        for (int i = 0; i &lt; m; i++) {
+            if (edges[i][0] == 1) size1++;
+            else if (edges[i][0] == 2) size2++;
+            else size3++;
         }
 
-<A NAME="5"></A>        public int find(int p) {
-            while (p != parent[p]) {</B></FONT>
-                parent[p] = parent[parent[p]];
-                <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#5',2,'match11-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>p = parent[p];
-            }
-            return p;
-        }
+        int len1 = 0, len2 = 0, len3 = 0;
+        int[][] edges1 = new int[size1][2];
+        int[][] edges2 = new int[size2][2];
+        int[][] edges3 = new int[size3][2];
 
-        public void union(int p, int q) {
-            int rootP = find(p);
-            int rootQ = find(q);
-            if</B></FONT> (rootP == rootQ)
-                return;
-            if (rank[rootQ] &gt; rank[rootP]) {
-                parent[rootP] = rootQ;
+        for (int i = 0; i &lt; m; i++) {
+            if (edges[i][0] == 1) {
+                edges1[len1][0] = edges[i][1];
+                edges1[len1++][1] = edges[i][2];
+            } else if (edges[i][0] == 2) {
+                edges2[len2][0] = edges[i][1];
+                edges2[len2++][1] = edges[i][2];
             } else {
-                parent[rootQ] = rootP;
-                if (rank[rootP] == rank[rootQ]) {
-                    rank[rootP]++;
-                }
+                edges3[len3][0] = edges[i][1];
+                edges3[len3++][1] = edges[i][2];
             }
-            count--;
         }
 
-        public int count() {
-            return count;
+        work(3, edges3);
+        work(1, edges1);
+        work(2, edges2);
+
+        int last1 = f1[find1(1)], last2 = f2[find2(1)];
+
+        //System.out.println(ans);
+
+        for (int i = 1; i &lt;= n; i++) {
+            int t1 = f1[find1(i)];
+            int t2 = f2[find2(i)];
+            if (t1 != last1 || t2 != last2)
+                return -1;
+        }
+
+        return m - ans;
+
+    }
+
+    private void work(int id, int[][] edges) {
+
+        int n = edges.length;
+
+        for (int i = 0; i &lt; n; i++) {
+            int t1 = find1(edges[i][0]);
+            int t2 = find1(edges[i][1]);
+            int t3 = find2(edges[i][0]);
+            int t4 = find2(edges[i][1]);
+            if (id == 1 &amp;&amp; f1[t1] != t2) {
+                ans++;
+                f1[t1] = t2;
+            }
+            if (id == 2 &amp;&amp; f2[t3] != t4) {
+                ans++;
+                f2[t3] = t4;
+            }
+            if (id == 3 &amp;&amp; (f1[t1] != t2 || f2[t3] != t4)) {
+                ans++;
+                f1[t1] = t2;
+                f2[t3] = t4;
+            }
         }
     }
-}
+
+    private int find1(int x) {
+        if (f1[x] == x)
+            return x;
+        return f1[x] = find1(f1[x]);
+    }
+
+    private int find2(int x) {
+        if (f2[x] == x)
+            return x;
+        return f2[x] = find2(f2[x]);
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

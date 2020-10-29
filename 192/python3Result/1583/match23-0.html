@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>568_dogma.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>568_dogma.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        dp = [[[float('inf')] * n for _ in range(m)] for _ in range(target)]
+        if houses[0] &gt; 0:
+            dp[0][0][houses[0]-1] = 0
+        else:
+            for k in range(n):
+<A NAME="0"></A>                dp[0][0][k] = cost[0][k]
+        for j in range(1, m):
+            if houses[j] &gt; 0:
+                c <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= houses[j] - 1
+                for i in range(target):
+<A NAME="1"></A>                    if i == 0:
+                        dp[i][j][c] = dp[i][j-1][</B></FONT>c]
+<A NAME="2"></A>                    else:
+                        dp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j][c] = min(dp[i][j-1][c], min(dp[i-1][j-1][k] for k in range(</B></FONT>n) if k!= c)) 
+            else:
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for k in range(n):
+                    for i in range(target):
+<A NAME="3"></A>                        if i == 0:
+                            dp[i][j][k] = dp[i][j-1][k] + cost[j][</B></FONT>k]
+                        else:
+                            dp<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j][k] = min(dp[i][j-1][k], min(dp[i-1][j-1][k1] for k1 in range(n) if k1!= k)) + cost[j][</B></FONT>k]
+        ans = min(dp[target-1][m-1])
+        return ans if ans &lt; float('inf') else -1
+                
+</PRE>
+
+</BODY>
+</HTML>

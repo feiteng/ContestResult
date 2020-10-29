@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>186_siyy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>186_siyy.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -&gt; int:
+        le = len(houses)
+        INF = float('inf')
+
+        dp = [[[INF]*(n+1) for _ in range(target+1)] for _ in range(le+1)]
+        dp[0][0] = [0]*(n+1)
+        
+        for i in range(1, le+1):
+            for j in range(1, target+1):
+                for k in range(1, n+1):    
+                    nowc = houses[i-1]
+<A NAME="1"></A>                    
+                    if nowc==0:
+                        for kk in range(1, n+1):
+                            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if kk!=k:
+                                dp[i][j][k] = min(dp[i][j][k], dp[i-1][j-1][kk]+cost[i-1][k-1])
+                            else:
+                                dp[i][j][k] = min(dp[i-1][j][kk]+cost[i-1][k-1], dp[i][j][k</B></FONT>])
+<A NAME="0"></A>                        
+
+                    else:
+                        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if k!=nowc:
+                            dp[i][j][nowc] = min(dp[i-1][j-1][k], dp[i][j][nowc])
+                        else:
+                            dp[i][j][nowc] = min(dp[i][j][nowc], dp[i-1][j][</B></FONT>nowc])
+        res = min(dp[-1][-1])
+        return res if res!=INF else -1
+</PRE>
+
+</BODY>
+</HTML>

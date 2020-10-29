@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>657_LifeExtender.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>657_LifeExtender.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+  public int kthSmallest(int[][] mat, int K) {
+    // {val, row, col}
+    Queue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; Integer.compare</B></FONT>(b, a));
+    final int rows = mat.length, cols = mat[0].length;
+    for (int col = 0; col &lt; cols; ++col) {
+      pq.add(mat[0][col]);
+<A NAME="1"></A>      if (pq.size() &gt; K) pq.remove();
+    }
+    for (int row = 1; row &lt; rows; ++row) {
+      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>final Queue&lt;Integer&gt; nextPq = new PriorityQueue&lt;&gt;((a, b) -&gt; Integer.compare(b, a));
+      while (!pq.isEmpty()) {
+        final int toRemove = pq.remove();
+        for (int col = 0; col &lt; cols; ++col) {
+          nextPq.add(toRemove + mat[row][col]);
+          if (nextPq.size</B></FONT>() &gt; K) nextPq.remove();
+        }
+      }
+      pq = nextPq;
+    }
+    assert !pq.isEmpty();
+    return pq.peek();
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

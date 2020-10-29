@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>506_sweetiee.java</TITLE>
+ <TITLE>286_dreamyjpl.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,78 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>506_sweetiee.java</CENTER></H3><HR>
+<H3><CENTER>286_dreamyjpl.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UnionFind {
-    int[] roots;
-    int count;
-
-    public UnionFind(int n) {
-        roots = new int[n];
-        count = n;
-        for (int i = 0; i &lt; n; i++) {
-            roots[i] = i;
-        }
-    }
-
-    int find(int i) {</B></FONT>
-        if (i == roots[i]) {
-<A NAME="1"></A>            return i;
-        }
-        roots[i] = find(roots[i]);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return roots[i];
-    }
-
-
-    boolean union(int p, int q) {
-        int pRoot = find(p);
-        int qRoot = find(q);
-        if</B></FONT> (pRoot != qRoot) {
-            roots[pRoot] = qRoot;
-            count -= 1;
-            return true;
-        }
-        return false;
-    }
-}
-
-class Solution {
-    int ans = 0;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-<A NAME="2"></A>        UnionFind unionFind = new UnionFind(n);
-        UnionFind unionFind2 = new UnionFind(n);
-        ans = edges.length;
-        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int[] edge : edges) {
-            int type = edge[0];
-            int u = edge[1] - 1;
-            int v = edge[2] - 1;
-            if (type == 3) {
-                if (unionFind.union</B></FONT>(u, v)) {
-                    ans -= 1;
-                }
-                unionFind2.union(u, v);
-            }
+        if (edges == null || edges.length &lt; n - 1) return -1;
+        List&lt;List&lt;int[]&gt;&gt; lists = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 3; i++) {
+            lists.add(new ArrayList&lt;&gt;());
         }
         for (int[] edge : edges) {
-            int type = edge[0];
-            int u = edge[1] - 1;
-            int v = edge[2] - 1;
-<A NAME="3"></A>            if (type == 1) {
-                if (unionFind.union(u, v)) {
-                    ans -= 1;
-                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match15-1.html#3',3,'match15-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>};
-            } else if (type == 2) {
-                if (unionFind2.union(u, v)) {
-                    ans -= 1;
-                }</B></FONT>
+            lists.get(edge[0] - 1).add(new int[]{edge[1], edge[2]});
+        }
+        int[] ids = new int[n + 1];
+        for (int i = 0; i &lt; ids.length; i++) ids[i] = i;
+        int res = 0;
+        for (int i = 0; i &lt; lists.get(2).size(); i++) {
+            int[] e = lists.get(2).get(i);
+            if (!union(ids, e[0], e[1])) {
+                res++;
+            } else {
+                n--;
             }
         }
-        if (unionFind.count != 1 || unionFind2.count != 1) {
-            return -1;
+        if (n == 1) {
+            return res + lists.get(0).size() + lists.get(1).size();
         }
-        return ans;
+        int val1 = validation(lists.get(0), ids.clone(), n);
+        if (val1 == -1) return -1;
+        res += val1;
+        int val2 = validation(lists.get(1), ids.clone(), n);
+        if (val2 == -1) return -1;
+        return res + val2;
     }
-}
+    
+    int validation(List&lt;int[]&gt; list, int[] ids, int n) {
+        int res = 0;
+        for (int i = 0; i &lt; list.size(); i++) {
+            int[] e = list.get(i);
+            if (!union(ids, e[0], e[1])) {
+                res++;
+            } else {
+                n--;
+            }
+        }
+        return n == 1 ? res : -1;
+    }
+    
+    private boolean union(int[] ids, int i, int j) {
+        int iRoot = find(ids, i);
+        int jRoot = find(ids, j);
+        if (iRoot == jRoot) return false;
+        ids[iRoot] = jRoot;
+        return true;
+    }
+    private int find(int[] ids, int i) {
+        if(ids[i] == i) return i;
+        ids[i] = find(ids, ids[i]);
+        return ids[i];
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>171_caoboxiao.py</TITLE>
+ <TITLE>185_dl3182.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>171_caoboxiao.py</CENTER></H3><HR>
+<H3><CENTER>185_dl3182.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        def calc(a1, a2):
-            m = collections.defaultdict(int)
-            for x in a1:
-<A NAME="1"></A>                m[x ** 2] += 1
-            n =</B></FONT> len(a2)
-            ret = 0
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(n):
-                for j in range(i + 1, n):
-                    x = a2[i] * a2[j]
-                    if x in m:
-                        ret += m[x]
-            return ret
-        return calc(nums1, nums2) + calc(n</B></FONT>ums2, nums1)
+        counts1,counts2 = collections.Counter(),collections.Counter()
+        for i in range(len(nums1)):
+            for j in range(i+1,len(nums1)):
+                counts1[nums1[i]*nums1[j]]+=1
+        for i in range(len(nums2)):
+            for j in range(i+1,len(nums2)):
+                counts2[nums2[i]*nums2[j]]+=1
+                
+        res = 0
+        cur1,cur2 = collections.Counter(nums1),collections.Counter(nums2)
+        for i in cur1.keys():
+            if i**2 in counts2:
+                res+=cur1[i]*counts2[i**2]
+        
+        for i in cur2.keys():
+            if i**2 in counts1:
+                res+=cur2[i]*counts1[i**2]
+        re</B></FONT>turn res
 </PRE>
 
 </BODY>

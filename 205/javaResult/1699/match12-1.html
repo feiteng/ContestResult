@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>226_pranavgupta194.java</TITLE>
+ <TITLE>187_aureole999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>226_pranavgupta194.java</CENTER></H3><HR>
+<H3><CENTER>187_aureole999.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-<A NAME="1"></A>        int ans = 0;
-        HashMap&lt;Long,Integer&gt; map1sqr = new HashMap&lt;&gt;();
-        for(int i :nums1){</B></FONT>
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map1sqr.put(i*1l*i,map1sqr.getOrDefault(i*1l*i,0)+1);
+        return get(nums1, nums2) + get(nums2, nums1);
+    }
+    
+    private int get(int[] nums1, int[] nums2) {
+        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int a : nums1) {
+            map.put((long)a * a, map.getOrDefault((long)a * a, 0) + 1);
         }
-<A NAME="2"></A>        for(int i = 0;i&lt;nums2.length;i++){
-            for(int j = i+1;j&lt;nums2.length;j++){
-                long mul = nums2[i] * 1l * nums2[j]</B></FONT>;
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(map1sqr.containsKey(mul)){
-                    ans += map1sqr.get(mul);
-                }
-            }
-<A NAME="3"></A>        }
-        HashMap&lt;Long,Integer&gt; map2sqr = new HashMap&lt;&gt;();
-        for(int i :nums2){</B></FONT>
-            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#3',2,'match12-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map2sqr.put(i*1l*i,map2sqr.getOrDefault(i*1l*i,0)+1);
-        }
-<A NAME="4"></A>        for(int i = 0;i&lt;nums1.length;i++){
-            for(int j = i+1;j&lt;nums1.length;j++){
-                long mul = nums1[i] * 1l * nums1[j]</B></FONT>;
-                <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#4',2,'match12-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(map2sqr.containsKey(mul)){
-                    ans += map2sqr.get(mul);
+        int sum = 0;
+        for (int i = 0; i &lt; nums2.length - 1; i++) {
+            for (int j = i + 1; j &lt; nums2.length; j++) {
+                long s = (long)nums2[i] * nums2[j];
+                //System.out.println(s);
+                if (map.containsKey(s)) {
+                    sum += map.get(s);
                 }
             }
         }
-        return ans;
+        return sum;
     }
 }</B></FONT>
 </PRE>

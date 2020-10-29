@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_MMMMMMoSky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>320_MMMMMMoSky.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxDotProduct(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int m = nums2.length;
+        int[][] f = new</B></FONT> int[n + 1][m + 1];
+<A NAME="1"></A>        for (int i = 0; i &lt;= n; i++) {
+            Arrays.fill(f[i], -0x3f3f3f3f);
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>f[1][1] = nums1[0] * nums2[0];
+        for (int i = 2; i &lt;= n; i++) {
+            f[i][1] = Math.max(nums1[i - 1] * nums2[0], f[i - 1][1]);
+        }
+        for (int j = 2; j &lt;= m; j++) {
+            f[1][j] = Math.max(nums1[0] * nums2[j - 1], f[1][j - 1]);
+        }
+        for (int i = 2; i &lt;= n; i++) {
+            for (int j = 2; j &lt;= m; j++) {
+<A NAME="2"></A>                // f[i][j] 表示 nums1 的前 i 个和 nums2 的前 j 个的最优解
+                f[i][j] = Math.max</B></FONT>(f[i][j], f[i - 1][j]);
+                f[i][j] = Math.max(f[i][j], f[i][j - 1]);
+                f[i][j] = Math.max(f[i][j], <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.max(0, f[i - 1][j - 1]) + nums1[i - 1] * nums2[j - 1]);
+                // System.out.printf(&quot;%d %d %d\n&quot;, i, j, f[i][j]);
+            }
+        }
+        return f[n][m];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

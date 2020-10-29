@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>279_frostfrog.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>279_frostfrog.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+        n, m = len(pizza), len(pizza[0])
+        acc = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n):
+            ac = 0
+            for j in range(m):
+                c = pizza[i][j] == 'A'
+                ac += c
+                acc[i+1][j+1] = ac + acc[i][j+1]
+                
+        print(acc)
+        def v(x, y):
+            return acc[n][m] - acc[n][y] - acc[x][m] + acc[x][y]
+        R = 10 ** 9 + 7 
+        @lru_cache(None)
+        def dfs(x, y, k):
+<A NAME="0"></A>            vv = v(x, y)
+            if k == 1:
+                return int(vv != 0)
+            if vv == 0: r<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn 0
+            
+            c = 0
+            for i in range(x + 1, n):
+                if acc[i][m] - acc[x][m] - acc[i][y] + acc[x][y]: 
+                    c += dfs(i, y, k-1)
+            for j in range(y + 1, m):
+                if acc[n][j] - acc[n][y] - acc[x][j] + acc[x][y]: 
+                    c += dfs(x, j, k-1)
+            
+            return c % R
+        
+        
+        return dfs(0</B></FONT>, 0, k)
+        
+            
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

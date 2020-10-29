@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>231_qing-244.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>231_qing-244.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+vector&lt;string&gt; getFolderNames(vector&lt;string&gt; &amp;names)
+<A NAME="0"></A>{
+    unordered_map&lt;string, int&gt; hash;
+    vector&lt;string&gt; ans(names.size());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; names.size(); i++)
+    {
+        if (hash.count(names[i]) == 0)
+        {
+            hash[names[i]] = 0;
+            ans[i] = names[i];
+        }
+        else
+        {
+            int num = hash[names[i]] + 1;
+            while (true)
+            {
+                string nn = names[i] + &quot;(&quot; + to_string(num) + &quot;)&quot;;
+                if (hash.count(nn) == 0)
+                {
+                    ans[i] = nn;
+                    hash[nn] = 0;
+                    hash[names[i]] = num;
+                    break;
+                }
+                num++;
+            }
+        }
+    }
+    return ans;
+}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

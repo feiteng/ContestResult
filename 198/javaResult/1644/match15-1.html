@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>538_hdchen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>538_hdchen.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class Data {
+        int num, length;
+<A NAME="0"></A>        List&lt;int[]&gt; pos = new LinkedList();
+        public Data(int n, int l, List&lt;int[]&gt; p) { num = n; length = l; pos = p; }
+    }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        char[] cs = s.toCharArray();
+        int[] start = new int[26], end = new int[26];
+        Arrays.fill(start, -1);
+        for (int i = 0; i &lt; cs.length; ++i) {
+            int j = cs[i] - 'a';
+            if (-1 == start[j]) start[j] = i;</B></FONT>
+            if (i &gt; end[j]) end[j] = i;
+        }        
+        Map&lt;Integer, Data&gt; dp = new HashMap();
+        List&lt;String&gt; res = new LinkedList();
+        for (int[] p : dfs(cs, 0, start, end, dp).pos) res.add(new String(cs, p[0], p[1] - p[0] + 1));
+        return res;
+    }
+    private Data dfs(char[] cs, int from, int[] start, int[] end, Map&lt;Integer, Data&gt; dp) {
+        if (from == cs.length) return null;
+        Data cached = dp.get(from);
+        if (null != cached) return cached;
+<A NAME="1"></A>        int num = 0, len = 0;
+        int[] pos = null;
+        Data cdata = null;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = from; i &lt; cs.length; ++i) {
+            int j = cs[i] - 'a';
+            if (i != start[j]) continue;
+            int p = end[j], </B></FONT>k = start[j], s = start[j];
+            while (k &lt;= p) {
+                p = Math.max(p, end[cs[k] - 'a']);
+                s = Math.min(s, start[cs[k] - 'a']);
+                k++;
+            }
+            if (s != start[j]) continue;
+            int cnum = 1, clen = k - start[j];
+            Data data = dfs(cs, k, start, end, dp);            
+            if (null != data) {
+                cnum += data.num;
+                clen += data.length;
+            }
+            if (num &lt; cnum || (num == cnum &amp;&amp; len &gt; clen)) {
+                num = cnum;
+                len = clen;
+                cdata = data;
+                pos = new int[]{start[j], k - 1};
+            }
+        }
+        List&lt;int[]&gt; res = new LinkedList();
+        if (null != pos) res.add(pos);
+        if (null != cdata) res.addAll(cdata.pos);        
+        cdata = new Data(num, len, res);
+        dp.put(from, cdata);
+        return cdata;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

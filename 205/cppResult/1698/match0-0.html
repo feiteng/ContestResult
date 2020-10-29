@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>133_tylerwang.cpp</TITLE>
+ <TITLE>99_OTTFF.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>133_tylerwang.cpp</CENTER></H3><HR>
+<H3><CENTER>99_OTTFF.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>// Author: Tyler Wang
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
- public:
-  string modifyString(string s) {
-    for (int i = 0; i &lt; s.size(); ++i) {
-      if (s[i] == '?') {
-        for (char c = 'a'; c &lt;= 'z'; ++c) {
-          if ((i == 0 || s[i - 1] != c) &amp;&amp;
-              (i + 1 == s.size() || s[i + 1] != c)) {
-            s[i] = c;
-            break;
-          }
-        }
-      }
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    char get(char a,char b)
+    {
+        for(char c='a';c&lt;='z';c++)
+            if(c!=a&amp;&amp;c!=b) return c;
+        return ' ';
     }
-    return s;
-  }
+    string modifyString(string s) {
+        int n=s.length();
+        string ans;
+        for(int i=0;i&lt;n;i++)
+        {
+            if(s[i]!='?') ans+=s[i];
+            else
+            {
+                char pre,nxt;
+                if(i!=0&amp;&amp;s[i-1]!='?') pre=s[i-1];
+                else if(i!=0&amp;&amp;s[i-1]=='?') pre=ans[i-1];
+                else pre=' ';
+                if(i!=n-1&amp;&amp;s[i+1]!='?') nxt=s[i+1];
+                else nxt=' ';
+                ans+=get(pre,nxt);
+            }
+        }
+        return ans;
+    }
 };</B></FONT>
 </PRE>
 </BODY>

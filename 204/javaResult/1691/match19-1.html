@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>195_HenryLee4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>195_HenryLee4.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minDays(int[][] grid) {
+    if(count(grid) != 1){
+      return 0;
+<A NAME="1"></A>    }
+    int n = grid.length;
+    int m = grid[0].length;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0 ; i &lt; n ; i++){
+      for(int j = 0; j &lt; m ; j++){
+        if(grid[i][j] == 1){
+          grid[i][j] = 0;
+          if(count(grid) != 1){
+            return 1;
+          }
+          grid[i][j] = 1;
+        }
+      }
+    }
+    return 2;
+  }
+
+  priva</B></FONT>te int count(int[][] grid){
+    int n = grid.length;
+<A NAME="2"></A>    int m = grid[0].length;
+    boolean[][] seen = new boolean[n][m];
+    int cnt = 0;
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0 ; i &lt; n ; i++){
+      for(int j = 0 ; j &lt; m ; j++) {
+        if (grid[i][j] == 1 &amp;&amp; !seen[i][j]) {
+          dfs(grid, seen, i, j);
+          cnt++;
+        }
+      }
+    }
+<A NAME="0"></A>    return cnt;
+  }</B></FONT>
+  
+  <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}</B></FONT>};
+  
+  private void dfs(int[][] grid, boolean[][] seen, int r, int c){
+    int n = grid.length;
+    int m = grid[0].length;
+    seen[r][c] = true;
+<A NAME="3"></A>    for(int[] dir: dirs){
+      int nr = r + dir[0];
+      int nc = c + dir[1];
+      <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(nr &lt; 0 || nr &gt;= n || nc &lt; 0 || nc &gt;= m || grid[nr][nc] == 0 || seen[nr][nc]){
+        continue;
+      }
+      dfs(grid, seen, nr, nc);
+    }
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

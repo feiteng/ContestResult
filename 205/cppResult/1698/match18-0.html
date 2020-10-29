@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>176_dexterdreeeam.cpp</TITLE>
+ <TITLE>116_MohammedShoaib.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>176_dexterdreeeam.cpp</CENTER></H3><HR>
+<H3><CENTER>116_MohammedShoaib.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    string modifyString(string s)
-    {
-        int len = s.size();
-        for (int i = 0; i &lt; len; ++i)
-        {
-            if (s[i] == '?')
-            {
-                char c1 = i - 1 &gt;= 0 ? s[i - 1] : ' ';
-                char c2 = i + 1 &lt; len ? s[i + 1] : ' ';
-
-                if (c1 != 'a' &amp;&amp; c2 != 'a')
-                {
-                    s[i] = 'a';
-                }
-                else if (c1 != 'b' &amp;&amp; c2 != 'b')
-                {
-                    s[i] = 'b';
-                }
-                else
-                {
-                    s[i] = 'c';
-                }
-            }
-        }
-        return s;
-    }
+	string modifyString(string s) {
+		int n = s.length();
+		char prev = ' ';
+		for (int i = 0; i &lt; n; i++) {
+			if (s[i] != '?') {
+				prev = s[i];
+				continue;
+			}
+			char next = ' ';
+			for (int j = i + 1; j &lt; n; j++)
+				if (s[j] != '?') {
+					next = s[j];
+					break;
+				}
+			for (char c = 'a'; c &lt;= 'z'; c++)
+				if (c != prev &amp;&amp; c != next) {
+					prev = c;
+					break;
+				}
+			for (char c = 'a'; c &lt;= 'z'; c++)
+				if (c != prev &amp;&amp; c != next) {
+					next = c;
+					break;
+				}
+			for (int j = i; j &lt; n &amp;&amp; s[j] == '?'; j++) {
+				if ((j - i) &amp; 1)
+					s[j] = next;
+				else
+					s[j] = prev;
+			}
+		}
+		return s;
+	}
 };</B></FONT>
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>438_marvinbai.java</TITLE>
+ <TITLE>248_kazuya-w.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,87 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>438_marvinbai.java</CENTER></H3><HR>
+<H3><CENTER>248_kazuya-w.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int maxNumEdgesToRemove(int n, int[][] edges) {
-        Arrays.sort(edges, (a, b) -&gt; (b[0] - a[0]));
-        int[] roots1 = new int[n + 1];
-        int[] roots2 = new int[n + 1];
-        for(int i = 1; i &lt;= n; i++) {
-            roots1[i] = i;
-            roots2[i] = i;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    class UnionFind {
+        private int[] parent, size;
+        UnionFind(int n) {
+            this.parent = new int[n+1];
+            this.size = new int[n+1];
+            for (int i = 0; i &lt;= n; i++) {
+                parent[i] = i;
+                size[i] = 1; 
+            }
         }
-        Set&lt;String&gt; set1 = new HashSet&lt;&gt;();
-        Set&lt;String&gt; set2 = new HashSet&lt;&gt;();
-        int n1 = n, n2 = n;
-        int res = 0;
-<A NAME="0"></A>        for(int[] e : edges) {
-            //System.out.println(e[0] + &quot;:&quot; + e[1] + &quot;:&quot; + e[2]);
-            if(e[0] == 1) {
-                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int root_a = find(e[1], roots1);
-                int root_b = find(e[2], roots1);
-                /*
-                System.out.println(&quot;root_a1 = &quot; + root_a);
-                System.out.println(&quot;root_b1 = &quot; + root_b);
-                */
-                if(root_a == root_b) {
-                    res++;
-                } else {
-<A NAME="1"></A>                    roots1[root_a] = root_b;
-                    n1--;
-                }
-            }</B></FONT> else <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(e[0] == 2) {
-                int root_a = find(e[1], roots2);
-                int root_b = find(e[2], roots2);
-                /*
-                System.out.println(&quot;root_a2 = &quot; + root_a);
-                System.out.println(&quot;root_b2 = &quot; + root_b);
-                */
-                if(root_a == root_b) {
-                    res++;
-                } else {
-                    roots2[root_a] = root_b;
-                    n2--;
-                }
+
+        boolean connected(int v, int w) {
+            return root(v) == root(w);
+        }
+
+        boolean union(int v, int w) {
+            int rv = root(v);
+            int rw = root(w);
+            if (rv == rw) return false;
+            if (size[rv] &gt; size[rw]) {
+                size[rv] += size[rw];
+                parent[rw] = parent[rv];
             } else {
-                int root_a1 = find(e[1], roots1);
-                int root_b1 = find</B></FONT>(e[2], roots1);
-                int root_a2 = find(e[1], roots2);
-                int root_b2 = find(e[2], roots2);
-                /*
-                System.out.println(&quot;root_a1 = &quot; + root_a1);
-                System.out.println(&quot;root_b1 = &quot; + root_b1);
-                System.out.println(&quot;root_a2 = &quot; + root_a2);
-                System.out.println(&quot;root_b2 = &quot; + root_b2);
-                */
-                if(root_a1 != root_b1) {
-                    roots1[root_a1] = root_b1;
-                    n1--;
-                }
-                if(root_a2 != root_b2) {
-                    roots2[root_a2] = root_b2;
-                    n2--;
-                }
-<A NAME="2"></A>                if(root_a1 == root_b1 &amp;&amp; root_a2 == root_b2) {
-                    res++;
-                }
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                size[rw] += size[rv];
+                parent[rv] = parent[rw];
+            }
+            return true;
         }
-        //System.out.println(n1 + &quot; &quot; + n2);
-        if(n1 != 1 || n2 != 1) return -1;
-        return res;
-    }
-    
-    private int find(int i, int[] roots) {</B></FONT>
-        int j = i;
-        while(roots[i] != i) {
-            i = roots[i];
+        
+        private int size(int v) {
+            return size[root(v)];
         }
-        roots[j] = i;
-        return i;
+
+        private int root(int v) {
+            while (parent[v] != parent[parent[v]]) parent[v] = parent[parent[v]];
+            return parent[v];            
+        }        
     }
-}
+
+    public int maxNumEdgesToRemove(int n, int[][] es) {
+        UnionFind uf1 = new UnionFind(n), uf2 = new UnionFind(n);
+        int count = 0;
+        for (int[] e: es) {
+            if (e[0] == 3) {
+                if (uf1.union(e[1], e[2]) &amp;&amp; uf2.union(e[1], e[2])) count++;
+            } 
+        }
+        
+        for (int[] e: es) {
+            switch (e[0]) {
+                case 1:
+                    if (uf1.union(e[1], e[2])) count++;
+                    break;
+                case 2:
+                    if (uf2.union(e[1], e[2])) count++;
+                    break;                    
+            }
+        }
+        
+        if (uf1.size(1) != n || uf2.size(1) != n) return -1;
+        return es.length - count;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

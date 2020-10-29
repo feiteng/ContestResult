@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>133_battleheart-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>133_battleheart-2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string stoneGameIII(vector&lt;int&gt;&amp; stoneValue) {
+        int n=stoneValue.size();
+        vector&lt;int&gt; tot(n+1,0);
+        for (int i=n-1;i&gt;=0;--i){</B></FONT>
+            tot[i]=tot[i+1]+stoneValue[i];
+<A NAME="1"></A>        }
+        vector&lt;int&gt; Alice(n+1,0);
+        vector&lt;int&gt; Bob(n+1,0);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        Alice[n-1]=stoneValue[n-1];
+        Bob[n-1]=stoneValue[n-1];
+        for (int i=n-2;i&gt;=0;--i){
+            Alice[i]=stoneValue[i]+tot[i+1]-Bob[i+1];
+            if (i+2&lt;=n) Alice[i]=max(Alice[i],stoneValue[i]+stoneValue[i+1]+tot[i+2]-Bob[i+2]);
+            if (i+3&lt;=n) Alice[i]=max(Alice[i],stoneValue[i]+stoneValue[i+1]+stoneValue[i+2]+tot[i+3]-Bob[i+3]);</B></FONT>
+            Bob[i]=stoneValue[i]+tot[i+1]-Alice[i+1];
+            if (i+2&lt;=n) Bob[i]=max(Bob[i],stoneValue[i]+stoneValue[i+1]+tot[i+2]-Alice[i+2]);
+            if (i+3&lt;=n) Bob[i]=max(Bob[i],stoneValue[i]+stoneValue[i+1]+stoneValue[i+2]+tot[i+3]-Alice[i+3]);
+        }
+        if (Alice[0]*2&gt;tot[0]) return &quot;Alice&quot;;
+        else if (Alice[0]*2&lt;tot[0]) return &quot;Bob&quot;;
+        else return &quot;Tie&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

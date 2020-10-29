@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_Leooom.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>249_Leooom.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numPoints(int[][] points, int r) {
+        double[][] p = new double[points.length][2];
+        int n = p.length;
+        for (int i = 0; i &lt; n; i++) {
+            p[i][0] = points[i][0];
+<A NAME="0"></A>            p[i][1] = points[i][1];
+            // System.out.println(&quot;x = &quot; + p[i][0] + &quot; y = &quot; + p[i][1]);
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 1;
+        
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                // System.out.println(dist(p[i],p[j]));
+                // System.out.println(dist(p[i],p[j]) &gt; 2.0 * r);
+                if (dist(p[i],p[j]) &gt; 2.0 * r) continue;
+<A NAME="1"></A>                double[] center = getCenter(p[i],p[j], r);
+                int count = 0;
+                for (int k = 0; k &lt; n; k++) {
+                    if (dist</B></FONT>(center, p[k]) &lt; 1.0 * r + 1e-8) count++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+                }
+                // System.out.println(count);
+                res = Math.max(res, count);
+            }
+        }
+        return res;
+    }
+    
+    public double dist(double[] a, double[] b</B></FONT>) {
+<A NAME="2"></A>        return Math.sqrt(Math.pow(a[0]-b[0],2) + Math.pow(a[1]-b[1],2));
+    }
+    
+    public double[] getCenter(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double[] a, double[] b, int r) {
+        double[] mid = new double[]{(a[0] + b[0])/2, (a[1] + b[1])/2};
+        double angle = Math.atan2(a[0]-b[0], b[1]-a[1]);
+        double d = Math.sqrt(r * r - Math.pow(dist(a,mid),2));
+        return new double[]{mid[0] + d * Math.cos(angle), mid[1] + d * Math.sin(angle)};
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

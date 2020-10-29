@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>225_FlashBacksLevi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>225_FlashBacksLevi.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 1e5 + 7;
+class Solution {
+public:
+    int minTime(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;bool&gt;&amp; a) {
+        apple = a;
+        for(vector&lt;int&gt;&amp; e : edges){
+            g[e[0]].push_back(e[1]);
+            g[e[1]].push_back(e[0]);
+        }
+        dfs(0 , -1);
+        return ret;
+    }
+private:
+    vector&lt;int&gt; g[maxn];
+<A NAME="0"></A>    long long ret = 0;
+    bool ok[maxn];
+    vector&lt;bool&gt; apple;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void dfs(int v , int p){
+        ok[v] |= apple[v];
+        for(int u : g[v]){
+            if(u != p){
+                dfs(u , v);
+                ok[v] |= ok[u];
+                if(ok[u])ret += 2;
+            }
+        }
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

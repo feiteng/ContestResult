@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>148_Akatsuki_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>148_Akatsuki_.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        int n = s.size();
+        vector&lt;vector&lt;int&gt;&gt; pos(26);
+        vector&lt;unordered_set&lt;int&gt;&gt; has(26);
+        vector&lt;pair&lt;int, int&gt;&gt; range(26, pair&lt;int, int&gt;(n, 0));
+        for(int i = 0; i &lt; n; i++) {
+            range[s[i]-'a'].first = min(range[s[i]-'a'].first, i);
+            range[s[i]-'a'].second = max(range[s[i]-'a'].second, i);
+            pos[s[i]-'a'].push_back(i);
+        }
+        for(int i = 0; i &lt; 26; i++) {
+            pos[i].push_back(n);
+        }
+        for(int i = 0; i &lt; 26; i++) {
+            int l = range[i].first, r = range[i].second;
+            while(l &lt;= r) {
+                has[i].insert(s[l]-'a');
+                int nxt = r+1;
+                for(int j = 0; j &lt; 26; j++) {
+                    if(!has[i].count(j)) {
+<A NAME="0"></A>                        nxt = min(nxt, *upper_bound(begin(pos[j]), end(pos[j]), l));
+                    }
+                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                l = nxt;
+            }
+        }
+        vector&lt;pair&lt;int, int&gt;&gt; segment;
+        for(int i = 0; i &lt; 26; i++) {
+            vector&lt;bool&gt; vis(26);
+            queue&lt;int&gt; q;
+            q.push(i);
+            vis[i] = true;
+            int l = n, r = 0;</B></FONT>
+            while(!q.empty()) {
+                int u = q.front(); q.pop();
+                l = min(l, range[u].first);
+                r = max(r, range[u].second);
+                for(auto v: has[u]) {
+                    if(!vis[v]) {
+                        vis[v] = true;
+                        q.push(v);
+                    }
+                }
+            }
+            if(l &lt;= r) {
+                segment.push_back(make_pair(l, r));
+<A NAME="1"></A>            }
+        }
+        sort(begin(segment), end(segment), [](const pair&lt;int, int&gt; &amp;a, const pair&lt;int, int&gt; &amp;b) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            return a.second-a.first &lt; b.second-b.first;
+        });
+        vector&lt;pair&lt;int, int&gt;&gt; ans;
+        for(auto seg: segment) {
+            bool ok = true;
+            for(auto pre: ans) {
+                if(max(seg.first, pre.first) &lt;= min(seg.second, pre.second)) {
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok) {
+                ans.push_back(seg);
+            }
+        }</B></FONT>
+        vector&lt;string&gt; ret;
+        for(auto seg: ans) {
+            ret.push_back(s.substr(seg.first, seg.second-seg.first+1));
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

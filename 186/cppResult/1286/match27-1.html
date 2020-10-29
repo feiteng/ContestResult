@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_site1997.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_site1997.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int INF = 0x3f3f3f3f;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int constrainedSubsetSum(vector&lt;int&gt;&amp; nums, int k) {
+        int ans = -INF;
+        deque&lt; pair&lt;int, int&gt; &gt; dq;
+        for (int i=0; i&lt;nums.size(); i++) {</B></FONT>
+            // get rid of idx
+            while (!dq.empty() &amp;&amp; dq.back().first &lt; i-k)
+                dq.pop_back();
+            int dpVal = nums[i];
+            if (!dq.empty() &amp;&amp; dq.back().second &gt; 0)
+                dpVal += dq.back().second;
+            // printf(&quot;%d : %d\n&quot;, i, dpVal);
+            ans = max(ans, dpVal);
+            // insert current dpVal
+            while (!dq.empty() &amp;&amp; dq.front().second &lt; dpVal)
+                dq.pop_front();
+            dq.push_front(make_pair(i, dpVal));
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

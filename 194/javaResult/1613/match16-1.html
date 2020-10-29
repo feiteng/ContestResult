@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>102_haroldli.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>102_haroldli.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; criq = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; pseu_criq = new</B></FONT> ArrayList&lt;&gt;();
+        
+<A NAME="1"></A>        int mst = MST(Integer.MAX_VALUE, Integer.MAX_VALUE, edges, n);
+        
+        for (int i = 0; i &lt; edges.length; i ++) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int notInclude = MST(Integer.MAX_VALUE, i, edges, n);
+            int mustInclude = MST(i, Integer.MAX_VALUE, edges, n);
+            
+            if (notInclude &gt; mst || notInclude == -1) {
+                criq.add(i);
+            } else if (</B></FONT>mustInclude == mst) {
+                pseu_criq.add(i);
+            }
+        }
+        
+        result.add(criq);
+        result.add(pseu_criq);
+        
+        return result;
+    }
+    
+    private int find(int node, int[] parent) {
+        if (node == parent[node]) {
+            return node;
+<A NAME="2"></A>        }
+        parent[node] = find(parent[node], parent);
+        return parent[node];
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private int MST(int mustIncludeEdge, int NotIncludeEdge, int[][] edges, int n) {
+        int result = 0</B></FONT>;
+        int[] parent = new int[n];
+        for (int i = 0; i &lt; n; i ++) {
+            parent[i] = i;
+        }
+        
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; (a[2] - b[2]));
+        
+        for (int i = 0; i &lt; edges.length; i ++) {
+            if (i != NotIncludeEdge) {
+                pq.offer(edges[i]);
+            }
+        }
+        
+        if (mustIncludeEdge != Integer.MAX_VALUE) {
+            int start = edges[mustIncludeEdge][0];
+            int end = edges[mustIncludeEdge][1];
+            int ps = find(start, parent), pe = find(end, parent);
+            result += edges[mustIncludeEdge][2];
+            parent[ps] = pe;
+        }
+        
+        while (!pq.isEmpty()) {
+            int[] edge = pq.poll();
+            int pa = find(edge[0], parent), pb = find(edge[1], parent);
+            if (pa == pb) {
+                continue;
+            }
+            
+            result += edge[2];
+            parent[pa] = pb;
+        }
+        
+        for (int i = 1; i &lt; n; i ++) {
+            if (find(i - 1, parent) != find(i, parent)) {
+                return -1;
+            }
+        }
+        
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

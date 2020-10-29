@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>110_taobingxue.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>110_taobingxue.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+public:
+    int minDays(vector&lt;int&gt;&amp; bloomDay, int m, int k) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int l = 0, r = 1000000001;
+        while (l &lt;= r) {
+            int mid = (l + r) / 2;
+            if (check(bloomDay, m, k, mid)) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+<A NAME="0"></A>        return l &lt;= 1000000000 ? l : -1;</B></FONT>
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool check(vector&lt;int&gt;&amp; bloomDay, int m, int k, int d) {
+        int c = 0;
+        int s = 0;
+        for (int i = 0; i &lt; bloomDay.size(); ++i) {
+            if (bloomDay[i] &lt;= d) {
+                ++c;
+                if (c == k) {
+                    ++s;
+                    c = 0;
+                }
+            } else {
+                c = 0;
+            }
+        }
+        return s &gt;= m;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

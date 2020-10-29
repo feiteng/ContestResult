@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>392_eastflag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>392_eastflag.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String longestPrefix(String s) {
+        int n = s.length(); 
+        int longestPostfix[] = new int[n]; 
+          
+        longestPostfix[0] = 0;
+        int length = 0; 
+        int i = 1; 
+        while (i &lt; n) 
+        { 
+            if (s.charAt(i) == s.charAt(length)) 
+            { 
+                length++; 
+                longestPostfix[i] = length; 
+                i++; 
+            } 
+              
+            else
+            {  
+                if (length != 0) 
+                { 
+                    length = longestPostfix[length-1]; 
+                } 
+                else 
+                { 
+                    longestPostfix[i] = 0; 
+                    i++; 
+                } 
+            } 
+        }</B></FONT> 
+       
+        return s.substring(0, longestPostfix[n-1]); 
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

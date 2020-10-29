@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>588_fang2018.java</TITLE>
+ <TITLE>104_2499370956.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,83 +15,84 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>588_fang2018.java</CENTER></H3><HR>
+<H3><CENTER>104_2499370956.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int[] parent = new int[n + 1];
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt;= n; i++) parent[i] = i;
-        int res = 0;
-        int count = n;
-<A NAME="1"></A>        for (int[] e : edges) {
-            if</B></FONT> (e[0] == 3) {
-                int u = e[1], v = e[2];
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    res++;
-                }
-                else {
-                    parent[pu] = pv;
-                    count--;
-                }
-            }</B></FONT>
-        }
-<A NAME="2"></A>        for (int[] e : edges) {
-            if (e[0] == 1) {
-                int u = e[1], v = e[2];
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    res++;
-                }
-                else {
-                    parent[pu] = pv;
-                    count--;
-                }
-            }</B></FONT>
-        } 
-        //System.out.println(count);
-        if (count != 1) return -1; 
-        for (int i = 0; i &lt;= n; i++) parent[i] = i;
-        count = n;
+        UF ufa = new UF(n);
+        UF ufb = new UF(n);
+        int out = 0;
         for (int[] e : edges) {
             if (e[0] == 3) {
-                int u = e[1], v = e[2];
-                int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    ;
-                }
-                else {
-                    parent[pu] = pv;
-                    count--;
+                int v1 = e[1] - 1;
+                int v2 = e[2] - 1;
+                if (ufa.isConnected(v1, v2)) {
+                    out++;
+                } else {
+                    ufa.connect(v1, v2);
+                    ufb.connect(v1, v2);
                 }
             }
         }
-<A NAME="3"></A>        for (int[] e : edges) {
-            if (e[0] == 2) {
-                int u = e[1], v = e[2];
-                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int pu = find(parent, u);
-                int pv = find(parent, v);
-                if (pu == pv) {
-                    res++;
-                }
-                else {
-                    parent[pu] = pv;
-                    count--;
+        for (int[] e : edges) {
+            if (e[0] != 3) {
+                int v1 = e[1] - 1;
+                int v2 = e[2] - 1;
+                if (e[0] == 1) {
+                    if (ufa.isConnected(v1, v2)) {
+                        out++;
+                    } else {
+                        ufa.connect(v1, v2);
+                    }
+                } else if (e[0] == 2) {
+                    if (ufb.isConnected(v1, v2)) {
+                        out++;
+                    } else {
+                        ufb.connect(v1, v2);
+                    }
                 }
             }
-        } 
-        //System.out.println(count);
-        if (count != 1) return -1; 
-        return res;
+        }
+        if (ufa.cc() == 1 &amp;&amp; ufb.cc() == 1) {
+            return out;
+        } else {
+            return -1;
+        }
     }
-    private int find(int[] parent, int v) {
-        if</B></FONT> (parent[v] != v)  parent[v] = find(parent, parent[v]);
-        return parent[v];
+
+    class UF {
+
+        private int[] root;
+
+        public UF(int n) {
+            this.root = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                root[i] = i;
+            }
+        }
+
+        private int root(int i) {
+            if (root[i] == i) {
+                return i;
+            } else {
+                root[i] = root[root[i]];
+                return root(root[i]);
+            }
+        }
+
+        public void connect(int i, int j) {
+            root[root(i)] = root(j);
+        }
+
+        public boolean isConnected(int i, int j) {
+            return root(i) == root(j);
+        }
+        
+        public int cc() {
+            return (int) IntStream.range(0, root.length).map(this::root).distinct().count();
+        }
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

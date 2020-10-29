@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>745_pjequilibrium.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>745_pjequilibrium.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -&gt; List[int]:
+        ans <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [0] * n
+        g = defaultdict(list)
+        for u, v in edges:
+            g[u].append(v)
+<A NAME="1"></A>            g[v].append(u)
+        
+        vis =</B></FONT> set([0])
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def dfs(node):
+            count = Counter([labels[node]])
+            for nei in g[node]:
+                if nei not in vis:
+                    vis.add(nei)
+                    count += dfs(nei)
+            ans[node] = count[labels[node]]
+            r</B></FONT>eturn count
+        dfs(0)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

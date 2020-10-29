@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>485_ayaphis.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>485_ayaphis.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numOfArrays(int n, int m, int k) {
+        if (k == 0 || m &lt; k) {
+<A NAME="0"></A>            return 0;
+        }
+        //      length-1  max_m-1  devided -1
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long[][][] dp = new long[n][m][k];
+
+        for (int mm = 0; mm &lt; m; mm++) {
+            dp[0][mm][0] = 1;
+        }
+        for (int nn = 0; nn &lt; n - 1; nn++) {
+            for (int kk = 0; kk &lt; k; kk++) {
+<A NAME="1"></A>                for (int mm = 0; mm &lt; m; mm++) {</B></FONT>
+                    dp[nn][mm][kk] = dp[nn][mm][kk] % 1000000007;
+                    dp[nn + 1][mm][kk] += dp[nn][mm][kk] * (mm + 1);
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (kk + 1 &lt; k) {
+                        for (int mmm = mm + 1; mmm &lt; m; mmm++) {
+                            dp[nn + 1][mmm][kk + 1] += dp[nn][mm][kk];
+                        }
+                    }
+                }
+            }
+        }
+        
+        long ret = 0;
+        for (int mm = 0; mm &lt; m; mm++) {
+            ret += dp[n - 1][mm][k - 1];
+        }
+        return (int) (ret % 1000000007);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

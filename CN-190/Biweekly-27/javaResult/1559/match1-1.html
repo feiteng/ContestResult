@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>527_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>527_huntersjm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int cherryPickup(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        return walk(grid, new int[m][n][n], new boolean[m][n][n], 0, 0, n - 1);
+    }
+
+    private int walk(int[][] grid, int[][][] dp, boolean[][][] visit, int layer, int x, int y) {
+        if (x &lt; 0 || y &lt; 0 || x &gt;= grid[0].length || y &gt;= grid[0].length) {
+            return 0;
+        }
+        if (visit[layer][x][y]) {
+            return dp[layer][x][y];
+        }
+        int ans = 0;
+        if (layer &lt; grid.length - 1) {
+            for (int i = -1; i &lt;= 1; i++) {
+                for (int j = -1; j &lt;= 1; j++) {
+                    ans = Math.max(walk(grid, dp, visit, layer + 1, x + i, y + j), ans);
+                }
+            }
+        }
+        if (x == y) {
+            ans += grid[layer][x];
+        } else {
+            ans += grid[layer][x] + grid[layer][y];
+        }
+        v</B></FONT>isit[layer][x][y] = true;
+        dp[layer][x][y] = ans;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

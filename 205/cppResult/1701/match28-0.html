@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>82_TryoneTry.cpp</TITLE>
+ <TITLE>125_polonez.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>82_TryoneTry.cpp</CENTER></H3><HR>
+<H3><CENTER>125_polonez.cpp</CENTER></H3><HR>
 <PRE>
-const int maxn = 1e5+5;
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    //vector&lt;pair&lt;int,int&gt; &gt; e[100005];
+    //int vis[100005];
+    pair&lt;int,pair&lt;int,int&gt; &gt; a[100005];
+    int f1[100005],f2[100005];
 public:
-    int pre[maxn],pre2[maxn];
-    int Find(int x){
-        return pre[x]==x?x:pre[x] = Find(pre[x]);
+    /*
+    void dfs(int x, int bad, int id)
+    {
+        vis[x]=id;
+        for (auto y:e[x])
+        {
+            if (vis[y.first] &lt; id &amp;&amp; y.second != bad)
+                dfs(y.first, bad, id);
+        }
     }
-
+    bool check(int n, int id)
+    {
+        for (int i = 1; i &lt;= n; i ++)
+            if (vis[i]&lt;id) return false;
+        return true;
+    }
+    */
+    int findset(int *f, int x)
+    {
+        if (!f[x]) return x;
+        f[x] = findset(f, f[x]);
+        return f[x];
+    }
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-<A NAME="0"></A>        for(int i = 1;i &lt;= n;++i)pre[i] = i;
-        int need = 0;
-        for(auto &amp;x:edges){
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(x[0]==3){
-                int a = Find(x[1]);
-                int b = Find(x[2]);
-                if(a!=b){
-                    pre[a]=b;
-                    need++;
-<A NAME="1"></A>                }
-            }
-        }</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 1;i &lt;= n;++i)pre2[i] = pre[i];
-        for(auto &amp;x:edges){
-            if(x[0]==1){
-                int a = Find(x[1]);
-                int b = Find(x[2]);
-                if(a!=b){
-                    pre[a]=b;
-                    need++;</B></FONT>
+        int m = edges.size();
+        for (int i = 0; i &lt; m; i ++)
+        {
+            int w = edges[i][0], u = edges[i][1], v = edges[i][2];
+            if (w==3) w = 0;
+            /*
+            e[u].push_back(make_pair(v,w));
+            e[v].push_back(make_pair(u,w));
+            */
+            a[i] = make_pair(w, make_pair(u,v));
+        }
+        /*
+        int id=1;
+        dfs(1,1,1);
+        if (!check(n, id)) return -1;
+        ++ id;
+        dfs(1,2,id);
+        if (!check(n, id)) return -1;
+        */
+        sort(a,a+m);
+        int ca = n, cb = n, ret = 0;
+        for (int i = 0; i &lt; m; i ++)
+        {
+            pair&lt;int,pair&lt;int,int&gt; &gt; x = a[i];
+            int need = 1;
+            if (x.first != 1)
+            {
+                int p = findset(f1, x.second.first), q = findset(f1, x.second.second);
+                //printf(&quot;%d %d %d %d %d\n&quot;, x.first, x.second.first, x.second.second, p,q);
+                if (p != q)
+                {
+                    if (rand() % 2) f1[p]=q; else f1[q]=p;
+                    need = 0;
+                    ca --;
                 }
             }
-        }
-        int cnt = 0;
-        for(int i = 1;i &lt;= n;++i){
-            if(pre[i]==i)cnt++;
-        }
+            if (x.first != 2)
+            {
+                int p = findset(f2, x.second.first), q = findset(f2, x.second.second);
+                                //printf(&quot;%d %d %d %d %d\n&quot;, x.first, x.second.first, x.second.second, p,q);
 
-<A NAME="2"></A>
-        for(int i = 1;i &lt;= n;++i)pre[i] = pre2[i];
-        for(auto &amp;x:edges){
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(x[0]==2){
-                int a = Find(x[1]);
-                int b = Find(x[2]);
-                if(a!=b){
-                    pre[a]=b;
-                    need++;
-                }
-            }</B></FONT>
+                if (p != q)
+                {
+                    if (rand() % 2) f2[p]=q; else f2[q]=p;
+                    need = 0;
+                    cb --;
+                }                
+            }
+            ret += need;
         }
-        cnt=0;
-        for(int i = 1;i &lt;= n;++i){
-            if(pre[i]==i)cnt++;
-        }
-        if(cnt&gt;1)return -1;
-        return edges.size()-need;
+        //printf(&quot;\n&quot;);
+        if (ca &gt; 1 || cb &gt; 1) return -1;
+        else return ret;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

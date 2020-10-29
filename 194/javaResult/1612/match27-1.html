@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>340_ccas.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>340_ccas.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+   int[] IMPOSSIBLE = new int[0];
+    //Use the hashMap to remember the lakes and the date
+    //Use TreeSet to remember all dryDates
+    //
+    public int[] avoidFlood(int[] rains) {
+        int[] ret = new int[rains.length];
+<A NAME="0"></A>        int len = rains.length;
+        TreeSet&lt;Integer&gt; dryDates = new TreeSet&lt;Integer&gt;();
+        Map&lt;Integer,Integer&gt; lakesDateMap = new HashMap&lt;Integer,Integer&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0;i&lt;len;i++){
+
+            int rain = rains[i];
+//System.out.println(&quot;rain is &quot; + rain);
+            if(rain == 0){
+                dryDates.add(i);
+                continue;
+            }
+            
+            //lake haven't fill yet, no need to fix.
+<A NAME="1"></A>            if(!lakesDateMap.containsKey(rain)){
+                lakesDateMap.put</B></FONT>(rain, i);
+                ret[i] = -1;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>continue;
+            }
+            
+            //lake has filled before.... need to find a dry date to dry it.
+            int lastFillDate = lakesDateMap.get(rain);
+            Integer dryDate = dryDates.ceiling(lastFillDate);
+            if(dryDate == null){
+//System.out.println(&quot;impossible&quot;);
+                return</B></FONT> IMPOSSIBLE;
+            }
+            
+<A NAME="2"></A>            lakesDateMap.put(rain, i);
+            dryDates.remove(dryDate);
+            ret[dryDate] = rain;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ret[i] = -1;
+            
+        }
+        
+        for(int dryDate: dryDates){
+            ret[dryDate] = 1;
+        }
+        //PrintUtils.print(ret);
+        
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

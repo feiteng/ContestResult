@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_ahsu198.py</TITLE>
+ <TITLE>152_kuro10.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>28_ahsu198.py</CENTER></H3><HR>
+<H3><CENTER>152_kuro10.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        one_counts = collections.defaultdict(int)
-        two_counts = collections.defaultdict(int)
+        nums1_sq, nums2_sq = collections.Counter(), collections.Counter()
+        for n1 in nums1:
+            nums1_sq[n1 ** 2] += 1
+        for n2 in nums2:
+            nums2_sq[n2 ** 2] += 1
+        ans = 0
         
         for i in range(len(nums1)):
-            for j in range(i + 1, len(nums1)):
-                one_counts[nums1[i] * nums1[j]] += 1
-                
-        for i in range(len(nums2)):
-            for j in range(i + 1, len(nums2)):
-                two_counts[nums2[i] * nums2[j]] += 1
-                
-                
-        res = 0
-        for</B></FONT> n in nums1:
-            double = n * n
-            res += two_counts[double]
-        for n in nums2:
-            double = n * n
-            res += one_counts[double]
+            for j in range(i+1, len(nums1)):
+                ans += nums2_sq[nums1[i] * nums1[j]]
             
-        return res
+        for i in range(len(nums2)):
+            for j in range(i+1, len(nums2)):
+                ans += nums1_sq[nums2[i] * nums2[j]]
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

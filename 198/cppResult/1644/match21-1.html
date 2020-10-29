@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_yinxiaobao97.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_yinxiaobao97.cpp</CENTER></H3><HR>
+<PRE>
+class qj{
+public:
+    int l, r;
+    qj(int ll,int rr):l(ll), r(rr){
+    }
+    bool operator&lt; (qj&amp; o){
+        return (r-l)&lt;(o.r-o.l);
+    }
+};
+
+class Solution {
+public:
+    int vis[100007];
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        vector&lt;qj&gt; aa;
+        vector&lt;string&gt; res;
+<A NAME="0"></A>        memset(vis,0,sizeof(vis));
+        int inx[27][2], n=s.size();
+        for(int i=0;i&lt;27;++i)inx[i][0]=1008611, inx[i][1]=-1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;n;++i){
+            int c=s[i]-'a';
+            inx[c][0]=min(inx[c][0], i);
+<A NAME="1"></A>            inx[c][1]=max(inx[c][1], i);
+        }
+        
+        for(int c=0;c&lt;='z'-'a';++c)if(inx[c][1]&gt;=0){</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+            int l = inx[c][0], r= inx[c][1];
+            int need=1;
+            while(need){
+                need=0;
+                for(int i=l;i&lt;=r;++i){
+                    int nl=inx[s[i]-'a'][0], nr =inx[s[i]-'a'][1];</B></FONT>
+                    if(nl &lt; l) l=nl, need=1;
+                    if(nr &gt; r) r=nr, need=1;
+                }
+            }
+            
+            qj tmp(l,r);
+            
+            aa.push_back(tmp);
+        }
+        
+        sort(aa.begin(), aa.end());
+        for(qj&amp; e:aa){
+            int ok=1;
+            for(int i=e.l;i&lt;=e.r;++i)if(vis[i]){
+                ok=0;
+                break;
+            }
+            if(ok){
+                res.push_back(s.substr(e.l, e.r-e.l+1));
+                for(int i=e.l;i&lt;=e.r;++i)vis[i]=1;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

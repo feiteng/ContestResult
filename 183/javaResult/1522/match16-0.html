@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>543_AndreZWei.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>543_AndreZWei.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String stoneGameIII(int[] stoneValue) {
+        int n = stoneValue.length;
+        int[] dp = new int[n+1];
+        dp[n] = 0;
+        for (int i = n-1; i&gt;=0; i--) {</B></FONT>
+<A NAME="1"></A>            int max = Integer.MIN_VALUE;
+            if (i+1 &lt;= n) {
+                max = Math.max(max, stoneValue[i] - dp[i+1]);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            if (i+2 &lt;= n) {
+                max = Math.max(max, stoneValue[i]+stoneValue[i+1] - dp[i+2]);
+            }
+            if (i+3 &lt;= n) {
+                max = Math.max(max, stoneValue[i]+stoneValue[i+1]+stoneValue[i+2] - dp[i+3]);
+            }</B></FONT>
+            dp[i] = max;
+        }
+        
+        /*for (int i = 0; i &lt; n; i++) {
+            System.out.print(dp[i] + &quot; &quot;);
+        }*/
+        if (dp[0] &gt; 0) return &quot;Alice&quot;;
+        if (dp[0] &lt; 0) return &quot;Bob&quot;;
+        return &quot;Tie&quot;;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

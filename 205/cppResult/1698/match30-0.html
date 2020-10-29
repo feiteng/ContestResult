@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>317_helloworld201801.cpp</TITLE>
+ <TITLE>786_st0rm23.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>317_helloworld201801.cpp</CENTER></H3><HR>
+<H3><CENTER>786_st0rm23.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     string modifyString(string s) {
-<A NAME="1"></A>        int n = s.size();
-        for (int i = 0; i &lt; n; ++i) {
-            if (s[i] != '?') {</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            } else {
-                for (char c = 'a'; c != 'z' + 1; ++c) {
-                    if ((i == 0 or s[i - 1] != c) and (i == n - 1 or s[i + 1] != c)) {
-                        s[i] = c;
+        int n = s.size();
+        for (int i=0; i&lt;n; ++i) {
+            if (s[i] == '?') {</B></FONT>
+<A NAME="1"></A>                char left = i == 0 ? 'a' : s[i-1];
+                char right = i == n-1 ? 'a' : s[i+1];
+                if (right == '?') right = 'a';
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (char k='a'; k&lt;='z'; ++k) {
+                    if (k != left &amp;&amp; k != right) {
+                        s[i] = k;
                         break;
                     }
                 }

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_siyy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_siyy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        m, n = len(grid), len(grid[0])
+        q = [(0, 0)]
+        rec =</B></FONT> set()
+        rec.add((0, 0))
+        
+        nex = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        
+        for x, y in q:
+            # print(q)
+            if x==m-1 and y==n-1:
+                return True
+            di = grid[x][y]
+            for i, v in enumerate(nex):
+                nx, ny = v
+                xx, yy = nx+x, ny+y
+                if -1&lt;xx&lt;m and -1&lt;yy&lt;n and (xx, yy) not in rec:
+                    # print(xx, yy, i)
+<A NAME="1"></A>                    ndi = grid[xx][yy]
+                    if i==0:
+                        # print(di, ndi)
+                        if di in [<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>1, 4, 6] and ndi in [1, 3, 5]:
+                            q.append((xx, yy))
+                            rec.add((xx, yy))
+                    elif i==1:
+                        # print(di, ndi)
+                        if di in [2, 3, 4] and ndi in [2, 5, 6]:
+                            # print('here')
+<A NAME="2"></A>                            q.</B></FONT>append((xx, yy))
+                            rec.add((xx, yy))
+                    elif i==2:
+                        if di in [<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>1, 3, 5] and ndi in [1, 4, 6]:
+                            q.append((xx, yy))
+                            rec.add((xx, yy))
+                    elif i==3:
+                        if di in [2, 5, 6] and ndi in [2, 3, 4]:
+                            q.</B></FONT>append((xx, yy))
+                            rec.add((xx, yy))
+            
+        
+        
+        return False
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_REWFALTQ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_REWFALTQ.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minSwaps(int[][] grid) {
+<A NAME="0"></A>        //sanity
+        int row = grid.length;
+        int col = grid[0].length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        for (int r = 0; r &lt; row; r++) {
+            int num = 0;
+<A NAME="1"></A>            for (int c = col - 1; c &gt;= 0; c--) {
+                if (grid[r][c] == 1) {</B></FONT>
+                    num = c;
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>break;
+                }
+            }
+            list.add(num);
+<A NAME="2"></A>        }
+        int swaps = 0</B></FONT>;
+        for (int r = 0; r &lt; row; r++) {
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = r; i &lt; row; i++) {
+                if (list.get(i) &lt;= r) {
+                    swaps += i - r;
+                    int num = list.get(i);
+                    list.remove(i);
+                    list.add(r, num);
+                    break;
+                }
+            }
+            if (list.get(r) &gt; r) {
+                return -1;
+            }
+        }
+        return swaps;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

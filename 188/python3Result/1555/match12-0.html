@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>549_kekw.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>549_kekw.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def ways(self, pizza: List[str], k: int) -&gt; int:
+<A NAME="0"></A>        MOD = 10 ** 9 + 7
+        M, N = len(pizza), len(pizza[0])
+        total_num_apples = 0
+        prefix <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [[0] * (N + 1) for _ in range(M + 1)]
+        for i in range(M):
+<A NAME="1"></A>            for j in range(N):
+                prefix[i + 1][j + 1] = prefix[i][j + 1] + prefix[i + 1][j] - prefix[i][j] + (1 if pizza[i][</B></FONT>j] == 'A' else 0)
+                if pizza[i][j] == 'A':
+                    total_num_apples +=<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> 1
+        
+        def get_apple_count(i, j):
+            return prefix[-1][-1] - prefix[-1][j] - prefix[i][-1] + prefix[i][j]
+
+        @lru_cache(None)
+        def dp(x, y, k):
+            if</B></FONT> get_apple_count(x, y) &lt; k:
+                return 0
+            
+            if k == 1 and get_apple_count(x, y) &gt; 0:
+                return 1
+            
+            count = 0
+            
+            for new_x in range(x + 1, M):
+                if get_apple_count(x, y) - get_apple_count(new_x, y) == 0:
+                    continue
+                count += dp(new_x, y, k - 1)
+                count %= MOD
+            
+            for new_y in range(y + 1, N):
+                if get_apple_count(x, y) - get_apple_count(x, new_y) == 0:
+                    continue
+                
+                count += dp(x, new_y, k - 1)
+                count %= MOD
+        
+            return count % MOD
+        
+        return dp(0, 0, k)
+</PRE>
+
+</BODY>
+</HTML>

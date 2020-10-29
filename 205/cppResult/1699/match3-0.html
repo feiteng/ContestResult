@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>376_Asagi.cpp</TITLE>
+ <TITLE>113_jiayindeng.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>376_Asagi.cpp</CENTER></H3><HR>
+<H3><CENTER>113_jiayindeng.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    int helper(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        unordered_map&lt;long long, int&gt; dict;
-        for (long long i: nums2)
-            dict[i * i]++;
-        int ans = 0;
-        for (int i = 0; i &lt; nums1.size(); ++i)
-            for (int j = i + 1; j &lt; nums1.size(); ++j) {
-                long long tmp = nums1[i];
-                tmp *= nums1[j];
-                if (dict.find(tmp) != dict.end())
-                    ans += dict[tmp];
-            }
-        return ans;
-    }
+<A NAME="0"></A>#define ll long long
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        return helper(nums1, nums2) + helper(nums2, nums1);
+        unordered_map&lt;ll,ll&gt; ma1,ma2;
+        for(auto x:nums1)
+            ma1[1ll*x*x]++;
+        for(auto x:nums2)
+            ma2[1ll*x*x]++;
+        ll ans=0;
+        for(int j=0;j&lt;nums1.size();++j)
+            for(int k=j+1;k&lt;nums1.size();++k)
+                ans+=ma2[1ll*nums1[j]*nums1[k]];
+        for(int j=0;j&lt;nums2.size();++j)
+            for(int k=j+1;k&lt;nums2.size();++k)
+                ans+=ma1[1ll*nums2[j]*nums2[k]];
+        return ans;
     }
 };</B></FONT>
 </PRE>

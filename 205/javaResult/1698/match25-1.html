@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>391_cyhw.java</TITLE>
+ <TITLE>221_zjlxxwh.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>391_cyhw.java</CENTER></H3><HR>
+<H3><CENTER>221_zjlxxwh.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String modifyString(String s) {
-        StringBuilder sb = new StringBuilder();
-<A NAME="1"></A>        for(int i = 0; i &lt; s.length(); i++) {
-            char ch = s.charAt(i);
-            if</B></FONT>(ch == '?') {
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char left = i &gt; 0 ? sb.charAt(i - 1) : '.';
-<A NAME="2"></A>                char right = i + 1&lt; s.length() ? s.charAt(i + 1) : '.';
-                for(int j = 0; j &lt; 26; j++) {</B></FONT>
-                    char toReplace = (char)('a' + j);
-                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(toReplace != left &amp;&amp; toReplace != right) {
-                        sb.append(toReplace);
+        char[] chs = s.toCharArray();
+        for (int i = 0; i &lt; s.length(); i++) {
+            if (chs[i] == '?') {
+                for (char ch = 'a'; ch &lt;= 'z'; ch++) {
+                    if ((i == 0 || chs[i - 1] != ch) &amp;&amp; (i == s.length() - 1 || chs[i + 1] != ch)) {
+                        chs[i] = ch;
                         break;
                     }
                 }
-            }</B></FONT> else sb.append(ch);
+            }
         }
-        return sb.toString();
+        return new String(chs);
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>743_zwliew.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>743_zwliew.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    // vector&lt;vector&lt;int&gt;&gt; dp;
+public:
+    int constrainedSubsetSum(vector&lt;int&gt;&amp; nums, int k) {
+        // dp = vector&lt;vector&lt;int&gt;&gt;(nums.size() + 1, vector&lt;int&gt;(k + 1, -1e9));
+        // for (int i = 0; i &lt;= k; ++i) {
+        //     dp[0][i] = 0;
+        // }
+        // int ans = -1e9;
+        // for (int i = 1; i &lt;= nums.size(); ++i) {
+        //     for (int j = k; j &gt;= 1; --j) {
+        //         dp[i][j] = max(0, dp[i - 1][1]) + nums[i - 1];
+        //         if (j &lt; k) {
+        //             dp[i][j] = max(dp[i][j], dp[i - 1][j + 1]);
+        //         }
+        //     }
+        //     ans = max(ans, dp[i - 1][1] + nums[i - 1]);
+        // }
+        // return ans;
+        
+        int ans = -1e9;
+        multiset&lt;int&gt; prev;
+        deque&lt;int&gt; window;
+        for (int i = 0; i &lt; nums.size(); ++i) {
+            if (window.size() &gt; k) {</B></FONT>
+                int popped = window.front();
+                prev.erase(prev.find(popped));
+                window.pop_front();
+            }
+            int cur = nums[i] + max(0, (prev.size() ? *prev.rbegin() : 0));
+            window.push_back(cur);
+            prev.emplace(cur);
+            ans = max(ans, cur);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>199_guoyihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>199_guoyihua.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String arrangeWords(String text) {
+        String[] words = text.split(&quot; &quot;);
+        List&lt;Word&gt; list = new ArrayList&lt;&gt;();
+        
+        for (int i = 0; i &lt; words.length; i++) {</B></FONT>
+            if (i == 0) {
+                list.add(new Word(words[i].toLowerCase(), i));
+            } else {
+                list.add(new Word(words[i], i));
+            }
+        }
+<A NAME="1"></A>        
+        Collections.sort(list, new Comparator&lt;Word&gt;() {
+            @Override
+            public int compare(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Word s1, Word s2) {
+                if (s1.s.length() == s2.s.length()) {
+                    return s1.pos - s2.pos;
+                }
+                
+                return s1.s.length() - s2.s.length();
+            }</B></FONT>
+        });
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for (Word w : list) {
+            if (sb.length() == 0) {
+                char c = w.s.charAt(0);
+                sb.append(Character.toUpperCase(c));
+                if (w.s.length() &gt; 1) {
+                    sb.append(w.s.substring(1));
+                }
+            } else {
+                sb.append(&quot; &quot;);
+                sb.append(w.s);
+<A NAME="2"></A>            }
+        }
+        
+        return <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.toString();
+    }
+    
+    class Word {
+        String s;
+        int pos;
+        
+        public Word(String s, int pos) {
+            this.s = s;
+            this.pos = pos;
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

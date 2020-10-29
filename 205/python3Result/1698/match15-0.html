@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>444_fiveface.py</TITLE>
+ <TITLE>229_mohitsvnit093.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>444_fiveface.py</CENTER></H3><HR>
+<H3><CENTER>229_mohitsvnit093.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from string import ascii_lowercase as alphas
 class Solution:
     def modifyString(self, s: str) -&gt; str:
-        N = len(s)
-<A NAME="0"></A>        res = list(s)
-        for i in range(N):
-            if res[i] == '?':
-                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for j in range(26):
-                    ch = chr(ord('a') + j)
-                    if (i == 0 or res[i-1] != ch) and (i &gt;= N-1 or res[i+1] != ch):
-                        res[i] = ch
-                        break
-        return ''.join(r</B></FONT>es)
+        s = &quot;$&quot;+s+&quot;$&quot;
+        arr = [[s[0], 1]]
+        
+        def getProperString(prev, last, l):
+            res = &quot;&quot;
+            while l &gt; 0:
+               
+                if l == 1:
+                    for char in alphas:
+                        if char != prev and char != last:
+                            res+=char
+                            break
+                else:
+                    for char in alphas:
+                        if char != prev:
+                            res+=char
+                            prev = char
+                            break
+                l-=1
+            return res
+                    
+        
+        for i in range(1, len(s)):
+            if s[i] == arr[-1][0]:
+                arr[-1][1]+=1
+            else:
+                arr.append([s[i], 1])
+        # print(arr)
+        res = &quot;&quot;
+        for i in range(1, len(arr)-1):
+            if arr[i][0] != &quot;?&quot;:
+                res+=arr[i][0]
+            else:
+                res+=getProperString(arr[i-1][0], arr[i+1][0], arr[i][1])
+        re</B></FONT>turn res
+            
         
         
 </PRE>

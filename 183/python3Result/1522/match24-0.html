@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>434_RogerWWW.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>434_RogerWWW.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+import sys
+sys.setrecursionlimit(100000)
+
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        # diff = [0] * (len(stoneValue) + 1)
+        # rev_val = reversed(stoneValue)
+        # optimal_result = [0] * (len(stoneValue) + 1)
+        optimal_result_from = [0] * (len(stoneValue)+4)
+<A NAME="0"></A>        
+        for idx in reversed(range(len(stoneValue))):
+            optimal_result_from[idx] = max([
+                sum(stoneValue[idx:idx+(i+1)]) - optimal_result_from<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[idx+(i+1)]
+                for i in range(3)
+            ])
+        
+#         @lru_cache(maxsize=None) # or @lru_cache(None)
+#         def optimal_result_from(idx):
+#             rem_count = len(stoneValue) - idx
+#             if rem_count &lt;= 0:
+#                 return 0
+#             if rem_count == 1:
+#                 return stoneValue[idx]
+#             # if rem_count == 2:
+#             #     return max(
+#             #         sum(stoneValue[idx:idx+2]),
+#             #         sum(stoneValue[idx:idx+1]) - optimal_result_from(idx+1)
+#             #     )
+#             return max([
+#                 sum(stoneValue[idx:idx+(i+1)]) - optimal_result_from(idx+(i+1))
+#                 for i in range(3)
+#             ])
+        
+#         # alice
+#         # [0, i) is taken
+#         def optimal_result(i, player):
+#             if i &lt;= 0:
+#                 return 0
+#             if i &lt;= 3:
+#                 return stoneValue[:i]
+#             opponent = 1 - player
+#             return max(
+#                 -result(i-1, opponent) + sum(stoneValue[i-1:i]),
+#                 -result(i-2, opponent) + sum(stoneValue[i-2:i]),
+#                 -result(i-3, opponent) + sum(stoneValue[i-3:i])
+#             )
+#             if i == 1:
+#                 return 
+        
+        alice_optimal_result = optimal_result_from[0]
+        if alice_optimal_result &gt; 0:
+            return &quot;Alice&quot;
+        elif alice_optimal_result == 0:
+            return &quot;Tie&quot;
+        else:
+            ret</B></FONT>urn &quot;Bob&quot;
+</PRE>
+
+</BODY>
+</HTML>

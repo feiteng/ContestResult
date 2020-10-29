@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_2499370956.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+<A NAME="0"></A> */
+class Solution {
+    public int countPairs(TreeNode root, int distance) {
+        return <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(root, distance).getTotalPairs();
+    }
+
+    private Result dfs(TreeNode root, int distance) {
+        if</B></FONT> (root.left == null &amp;&amp; root.right == null) {
+            return new Result(true, new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0);
+        } else if (root.left != null &amp;&amp; root.right != null) {
+            Result lr = dfs(root.left, distance);
+            Result rr = dfs(root.right, distance);
+            int[] countByDepth = new int[10];
+            for (int i = 0; i &lt; 9; i++) {
+                countByDepth[i + 1] = lr.getCountByDepth()[i] + rr.getCountByDepth()[i];
+            }
+            int totalPairs = lr.getTotalPairs() + rr.getTotalPairs();
+            for (int i = 0; i &lt; 9; i++) {
+                for (int j = 0; i + j + 2 &lt;= distance; j++) {
+                    totalPairs += lr.getCountByDepth()[i] * rr.getCountByDepth()[j];
+                }
+            }
+            return new Result(false, countByDepth, totalPairs);
+        } else {
+            Result result;
+            if (root.left != null) {
+                result = dfs(root.left, distance);
+            } else {
+                result = dfs(root.right, distance);
+            }
+            for (int i = 9; i &gt; 0; i--) {
+                result.getCountByDepth()[i] = result.getCountByDepth()[i - 1];
+            }
+            result.getCountByDepth()[0] = 0;
+            return result;
+        }
+    }
+
+    class Result {
+        boolean isLeaf;
+        int[] countByDepth;
+        int totalPairs;
+
+        public Result(boolean isLeaf, int[] countByDepth, int totalPairs) {
+            this.isLeaf = isLeaf;
+            this.countByDepth = countByDepth;
+            this.totalPairs = totalPairs;
+        }
+
+        public boolean isLeaf() {
+            return isLeaf;
+        }
+
+        public int[] getCountByDepth() {
+            return countByDepth;
+        }
+
+        public int getTotalPairs() {
+            return totalPairs;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

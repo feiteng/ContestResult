@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_zhuynan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>32_zhuynan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int dp[50010];
+    int dfs(int pos, int n, vector&lt;int&gt;&amp; stone, vector&lt;int&gt;&amp; suffix) {
+        if (pos &gt;= n) return 0;
+        if (dp[pos] != -0x3f3f3f3f) return dp[pos];
+        
+        int ret = -0x3f3f3f3f, tmp = 0;
+<A NAME="1"></A>        for (int i = pos; i &lt;= min(pos + 2, n-1); ++i) {</B></FONT>
+            tmp += stone[i];
+            int s = (i + 1 &gt;= n ? 0 : suffix[i+1]) - dfs(i+1, n, stone, suffix);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int cur = tmp + s;
+            ret = max(ret, cur);
+        }
+        return dp[pos] = ret;
+    }
+    string stoneGameIII(vector&lt;int&gt;&amp; stone) {
+        int sum = 0, n = stone.size();
+        for (int i = 0; i &lt; n; ++i) dp[i] = -0x3f3f3f3f;</B></FONT>
+        for (auto x: stone) sum += x;
+        vector&lt;int&gt; suffix(n, 0);
+        suffix[n-1] = stone[n-1];
+        for (int i = n-2; i &gt;= 0; --i) suffix[i] = suffix[i+1] + stone[i];
+        
+        int Max = dfs(0, n, stone, suffix);
+        if (Max &gt; sum - Max) return &quot;Alice&quot;;
+        else if (Max &lt; sum - Max) return &quot;Bob&quot;;
+        else return &quot;Tie&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_Dregathar.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_Dregathar.py</CENTER></H3><HR>
+<PRE>
+import heapq
+class Solution:
+    def kthSmallest(self, mat: List[List[int]], k: int) -&gt; int:
+        h = []
+        s = set()
+        n = len(mat[0])
+        heapq.heappush(h,(sum(x[0] for x in mat),[0 for x in mat]))
+        cur = 0
+        while cur &lt; k:
+            #print(h)
+            cur_sum,nums = heapq.heappop(h)
+            cur += 1
+<A NAME="0"></A>            if cur == k:
+                return cur_sum
+            for i in range(len(nums)):
+                arr = nums.copy<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>()
+                if arr[i] + 1 &lt; n:
+                    arr[i] += 1
+                    t = tuple(arr)
+                    if t not in s:
+                        new_sum = cur_sum + mat[i][arr[i]] - mat[i][arr[i]-1]
+                        heapq.heappush(h,(new_sum,arr))
+                        s.add(t)</B></FONT>
+            
+                       
+</PRE>
+
+</BODY>
+</HTML>

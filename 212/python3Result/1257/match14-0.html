@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_jevancc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_jevancc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def matrixRankTransform(self, mat: List[List[int]]) -&gt; List[List[int]]:
+        p = {}
+        def fp(a):
+            if a not in p:
+                p[a] = a
+                return a
+            elif p[a] == a:
+                return a
+            else:
+                p[a] = fp(p[a])
+                return p[a]
+            
+        def uu(a, b):
+            pa, pb = fp(a), fp(b)
+            p[pa] = pb
+        
+        N = len(mat)
+        M = len(mat[0])
+        rk = [[1 for _ in range(M)] for _ in range(N)]
+        cells = []
+        for i in range(N):
+            for j in range(M):
+                cells.append([mat[i][j], i, j])
+        cells.sort()
+        cells = deque(cells)
+        q = deque([[i, j] for _, i, j in cells])
+        rk[cells[0][1]][cells[0][2]] = 1
+        cmx = defaultdict(lambda: [-1e99, 0])
+        rmx = defaultdict(lambda: [-1e99, 0])
+        
+        while q:
+    
+            i, j = q.popleft()
+            v = mat[i][j]
+            r = cmx[i][1] if cmx[i][0] == v else cmx[i][1] + 1
+            r = max(r, rmx[j][1] if rmx[j][0] == v else rmx[j][1] + 1)
+<A NAME="0"></A>            
+            rk[i][j] = r
+            if (cmx[i][0] == v and cmx[i][1] != r) or (rmx[j][0] == v and rmx[j][1] != r):
+<A NAME="1"></A>                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for ii in range(0, N):
+                    if mat[ii][j] == mat[i][j] and rk[ii][j] &lt; rk[i][j]:
+                        rk[ii][j] = rk[i][</B></FONT>j]
+                        q.appendleft([i<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>i, j])
+                for jj in range(0, M):
+                    if mat[i][jj] == mat[i][j] and rk[i][jj] &lt; rk[i][j]:
+                        rk[i][jj] = rk[i][</B></FONT>j]
+                        q.appendleft([i, jj])
+            cmx[i] = [v, r]
+            rmx[j] = [v, r]
+
+        return rk
+</PRE>
+
+</BODY>
+</HTML>

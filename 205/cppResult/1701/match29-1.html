@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>103_illenium-k.cpp</TITLE>
+ <TITLE>100_OTTFF.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,73 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>103_illenium-k.cpp</CENTER></H3><HR>
+<H3><CENTER>100_OTTFF.cpp</CENTER></H3><HR>
 <PRE>
-#define maxn 1000005
-#define rep(i,a,b) for(int i=a;i&lt;=b;i++)
-
-int f[maxn],f1[maxn],f2[maxn];
-
-inline int F(int x)
-{
-    if(f[x]==x) return x;
-<A NAME="0"></A>    return f[x]=F(f[x]);
-}
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>inline int F1(int x)
-{
-    if(f1[x]==x) return x;
-    return f1[x]=F1(f1[x]);
-}
-
-inline int F2(int x)
-{
-    if(f2[x]==x) return x;
-    return f2[x]=F2(f2[x]);
-}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int M=1e5+5;
+int tmp[M],uf[M];
 
 class Solution {
 public:
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {</B></FONT>
-        rep(i,1,n) f[i]=i;
-        int ans=0;
-        for(int i=0;i&lt;edges.size();i++)
+    int find(int x)
+    {
+        return x==uf[x]?x:uf[x]=find(uf[x]);
+    }
+    int merge(int x,int y)
+    {
+        x=find(x); y=find(y);
+        if(x==y) return 1;
+        uf[x]=y;
+        return 0;
+    }
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        // sort(edges.begin(),edges.end(),[](const auto &amp;a,const auto &amp;b){
+        //    return a[0]&gt;b[0]; 
+        // });
+        for(int i=0;i&lt;=n;i++) uf[i]=i;
+        int m=edges.size();
+        int ans=m;
+        int i=0;
+        for(int i=0;i&lt;m;i++)
         {
-            if(edges[i][0]==3)
-            {
-                int u=edges[i][1],v=edges[i][2],tx=F(u),ty=F(v);
-                if(tx==ty) ans++;
-                else f[tx]=ty;
-            }
+            if(edges[i][0]!=3) continue;
+            ans-=merge(edges[i][1],edges[i][2]);
         }
-        
-        rep(i,1,n) f1[i]=f[i],f2[i]=f[i];
-        for(int i=0;i&lt;edges.size();i++)
-<A NAME="1"></A>        {
-            if(edges[i][0]==1)
-            {
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int u=edges[i][1],v=edges[i][2],tx=F1(u),ty=F1(v);
-                if(tx==ty) ans++;
-                else f1[tx]=ty;
-            }
-        }
-        
-        for(int i=0;i&lt;edges.size();i++)</B></FONT>
+        for(int i=1;i&lt;=n;i++)
+            tmp[i]=uf[i];
+        for(i=0;i&lt;m;i++)
         {
-            if(edges[i][0]==2)
-            {
-                int u=edges[i][1],v=edges[i][2],tx=F2(u),ty=F2(v);
-                if(tx==ty) ans++;
-                else f2[tx]=ty;
-            }
+            if(edges[i][0]!=2) continue;
+            ans-=merge(edges[i][1],edges[i][2]);
         }
         int cnt=0;
-        rep(i,1,n) if(i==f1[i]) cnt++; if(cnt!=1) return -1;
+        for(int i=1;i&lt;=n;i++)
+            if(uf[i]==i) cnt++;
+        if(cnt&gt;=2) return -1;
+        for(int i=1;i&lt;=n;i++)
+            uf[i]=tmp[i];
+        for(int i=0;i&lt;m;i++)
+        {
+            if(edges[i][0]!=1) continue;
+            ans-=merge(edges[i][1],edges[i][2]);
+        }
         cnt=0;
-        rep(i,1,n) if(i==f2[i]) cnt++; if(cnt!=1) return -1;
-        return ans;
+        for(int i=1;i&lt;=n;i++)
+            if(uf[i]==i) cnt++;
+        if(cnt&gt;=2) return -1;
+        return m-ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

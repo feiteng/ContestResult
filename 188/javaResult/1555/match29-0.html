@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>752_Chrisify.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>752_Chrisify.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int m, n;
+    int MOD = 1000000007;
+    
+    public int ways(String[] pizza, int k) {
+        m = pizza.length;
+        n = pizza[0].length();
+        Integer[][][] memo = new Integer[m][n][k];
+        int[][] count = new int[m + 1][n + 1];
+        for (int i = 1; i &lt;= m; i++) {
+            for (int j = 1; j &lt;= n; j++ ) {
+                count[i][j] = count[i - 1][j] + count[i][j - 1] - count[i - 1][j - 1];
+                if (pizza[i - 1].charAt(j - 1) == 'A') {
+                    count[i][j]++;
+<A NAME="0"></A>                }
+            }
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return dfs(0, 0, 0, k, memo, count);
+    }
+    
+    private int dfs(int i, int j, int cur, int k, Integer[][][] memo, int[][] count</B></FONT>) {
+        if (cur == k - 1) {
+            return 1;
+        }
+        if (i == m || j == n) {
+            return 0;
+        }
+        // System.out.println(&quot;*********&quot;);
+        // System.out.println(&quot;i = &quot; + i);
+        // System.out.println(&quot;j = &quot; + j);
+        // System.out.println(&quot;cur = &quot; + cur);
+<A NAME="1"></A>        if (memo[i][j][cur] != null) {
+            return memo[i][j][cur];
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = 0;
+        // horizontal cut, [i, row] is given out, [row+1, m-1][j, n-1] is left
+        for (int row = i; row &lt; m - 1; row++) {
+<A NAME="2"></A>            if (countRec(count, i, row, j, n - 1) &gt;= 1 &amp;&amp; countRec(count, row + 1, m - 1, j, n - 1) &gt;= k - cur - 1) {
+                res += dfs</B></FONT>(row + 1, j, cur + 1, k, memo, count);
+                res %= MOD;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        // vertical cut, [j, col] is given out, [i, m - 1][col + 1, n - 1] is left
+        for (int col = j; col &lt; n - 1; col++) {
+<A NAME="3"></A>            if (countRec(count, i, m - 1, j, col) &gt;= 1 &amp;&amp; countRec(count, i, m - 1, col + 1, n - 1) &gt;= k - cur - 1) {
+                res += dfs</B></FONT>(i, col + 1, cur + 1, k, memo, count);
+                res %= MOD;
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match29-1.html#3',3,'match29-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        memo[i][j][cur] = res;
+        // System.out.println(&quot;*********&quot;);
+        // System.out.println(&quot;i = &quot; + i);
+        // System.out.println(&quot;j = &quot; + j);
+        // System.out.println(&quot;cur = &quot; + cur);
+        // System.out.println(&quot;res = &quot; + res);
+        return res;
+    }
+    
+    private int countRec(int[][] count, int i1, int i2, int j1, int j2) {
+        return count[i2 + 1][j2 + 1] - count[i2 + 1][j1] - count[i1][j2 + 1] + count[i1][j1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

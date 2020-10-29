@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>528_forlastdance.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>528_forlastdance.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = self.right = None
+
+def add(node, x):
+    if x &lt; node.val:
+        if node.left is None:
+            node.left = TreeNode(x)
+        else:
+            add(node.left, x)
+    elif x &gt; node.val:
+        if node.right is None:
+            node.right = TreeNode(x)
+        else:
+            add(node.right, x)
+
+
+class Solution:
+    def numOfWays(self, nums: List[</B></FONT>int]) -&gt; int:
+        def nCr(n,r):
+<A NAME="1"></A>            f = math.factorial
+            return f(n) // f(r) // f(n-r)
+
+        r <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= TreeNode(nums[0])
+        for x in nums[1:]:
+            add(r, x)
+
+        def cal(node):
+            if node is None: return 0, 1
+            node_num_l, resl = cal(node.left)
+            node_num_r, resr = cal(node.right)
+            node_num = node_num_l + node_num_r + 1
+            res = resl*resr*int(</B></FONT>nCr(node_num_l + node_num_r, node_num_l))
+            return node_num, res
+        return (cal(r)[1] - 1) % (10**9 + 7)
+
+        
+</PRE>
+
+</BODY>
+</HTML>

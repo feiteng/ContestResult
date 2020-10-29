@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_chenhao4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_chenhao4.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;vector&lt;string&gt;&gt; displayTable(vector&lt;vector&lt;string&gt;&gt;&amp; orders) {
+        map&lt;int, map&lt;string, int&gt;&gt; mp;
+        set&lt;string&gt; foods;
+        for (auto order : orders) {
+            mp[stoi(order[1])][order[2]]++;
+            foods.insert(order[2]);
+        }
+        vector&lt;vector&lt;string&gt;&gt; table;
+        vector&lt;string&gt; item;
+        item.push_back(&quot;Table&quot;);
+        for (auto food : foods) {
+            item.push_back(food);
+        }
+        table.push_back(item);
+        for (auto p : mp) {
+            vector&lt;string&gt; item;
+            item.push_back(to_string(p.first));
+            for (auto food : foods) {</B></FONT>
+                item.push_back(to_string(p.second[food]));
+            }
+            table.push_back(item);
+        }
+        return table;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

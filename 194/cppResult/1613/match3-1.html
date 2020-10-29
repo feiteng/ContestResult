@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>112_acw_yxc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>112_acw_yxc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    vector&lt;int&gt; p;
+    
+    int find(int x) {
+        if (p[x] != x) p[x] = find(p[x]);
+<A NAME="1"></A>        return p[x];
+    }
+    
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int work1(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int k) {
+        for (int i = 0; i &lt; n; i ++ ) p[i] = i;
+        
+        int res = 0;
+        for (int i = 0; i &lt; edges.size(); i ++ ) {
+            if (edges[i][3] == k) continue;
+            int a = edges[i][1], b = edges[i][2], w = edges[i][0];</B></FONT>
+            if (find(a) != find(b)) {
+                p[find(a)] = find(b);
+                res += w;
+            }
+        }
+        
+        return res;
+    }
+    
+    int work2(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int k) {
+        for (int i = 0; i &lt; n; i ++ ) p[i] = i;
+        
+        int res = 0;
+        
+        for (int i = 0; i &lt; edges.size(); i ++ ) {
+            if (edges[i][3] == k) {
+                int a = edges[i][1], b = edges[i][2], w = edges[i][0];
+                p[find(a)] = find(b);
+                res += w;
+                
+                break;
+            }
+        }
+        
+        for (int i = 0; i &lt; edges.size(); i ++ ) {
+            int a = edges[i][1], b = edges[i][2], w = edges[i][0];
+            if (find(a) != find(b)) {
+                p[find(a)] = find(b);
+                res += w;
+            }
+        }
+        
+<A NAME="0"></A>        return res;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int m = edges.size();
+        for (int i = 0; i &lt; m; i ++ ) {
+            swap(edges[i][0], edges[i][2]);
+            edges[i].push_back(i);
+        }</B></FONT>
+        
+        sort(edges.begin(), edges.end());
+        
+        p = vector&lt;int&gt;(n);
+        
+        vector&lt;int&gt;res1, res2;
+        int cost = work1(n, edges, -1);
+        
+        for (int i = 0; i &lt; m; i ++ ) {
+            if (work1(n, edges, i) != cost) res1.push_back(i);
+            else if (work2(n, edges, i) == cost) res2.push_back(i);
+        }
+        
+        return vector&lt;vector&lt;int&gt;&gt;({res1, res2});
+    }
+};
+</PRE>
+</BODY>
+</HTML>

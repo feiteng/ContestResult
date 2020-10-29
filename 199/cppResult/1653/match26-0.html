@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>66_hhhyyyfff.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>66_hhhyyyfff.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    vector&lt;int&gt; son;
+    int f[1100], d[1100], cnt;
+public:
+    void dfs(TreeNode* root, int fa, int de) {
+        if (root == nullptr) return;
+        f[++cnt] = fa;
+        d[cnt] = de;
+        int cur = cnt;
+        dfs(root-&gt;left, cur, de + 1);
+        dfs(root-&gt;right, cur, de + 1);
+<A NAME="0"></A>        if (root-&gt;left == nullptr &amp;&amp; root-&gt;right == nullptr) son.push_back(cur);
+    }
+    int countPairs(TreeNode* root, int distance) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        cnt = 0;
+        int ans = 0;
+        son.clear();
+        dfs(root, 0, 1);
+        int n = son.size();
+        for (int i = 0; i &lt; n; ++i)
+            for (int j = i + 1; j &lt; n; ++j) {</B></FONT>
+                int x = son[i], y = son[j], s = 0;
+                if (d[x] &gt; d[y]) swap(x, y);
+                while (d[x] &lt; d[y]) y = f[y], ++s;
+                while (x != y) {
+                    x = f[x];
+                    y = f[y];
+                    s += 2;
+                }
+                if (s &lt;= distance) ++ans;
+            }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

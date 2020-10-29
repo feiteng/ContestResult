@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>522_cloudye.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>522_cloudye.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minCost(vector&lt;int&gt;&amp; houses, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        vector&lt; vector&lt; vector&lt; int &gt; &gt; &gt; dp( m + 1, vector&lt; vector&lt; int &gt; &gt;( m + 1, vector&lt; int &gt;( n + 1, 2000000000 ) ) );
+        for( int i = 1; i &lt;= n; i ++ )
+        {
+            if( houses[ 0 ] == 0 ) dp[ 1 ][ 1 ][ i ] = cost[ 0 ][ i - 1 ];
+            else                   dp[ 1 ][ 1 ][ houses[ 0 ] ] = 0;</B></FONT>
+        }
+<A NAME="1"></A>        
+        for( int i = 2; i &lt;= m; i ++ )
+        {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for( int j = 1; j &lt;= min( i, target ); j ++ )
+            {
+                if( houses[ i - 1 ] != 0 )
+                {
+                    for( int x = 1; x &lt;= n; x ++ )
+<A NAME="2"></A>                    {</B></FONT>
+                        if( houses[ i - 1 ] == x ) dp[ i ][ j ][ houses[ i - 1 ] ] = min( dp[ i ][ j ][ houses[ i - 1 ] ], dp[ i - 1 ][ j ][ houses[ i - 1 ] ] );
+                        else
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                            dp[ i ][ j ][ houses[ i - 1 ] ] = min( dp[ i ][ j ][ houses[ i - 1 ] ], dp[ i - 1 ][ j - 1 ][ x ] );
+                    }
+                    continue;
+                }
+                for( int k = 1; k &lt;= n; k ++ )
+                {
+                    for( int x = 1; x &lt;= n; x ++ )
+                    {</B></FONT>
+                        if( x == k )
+                            dp[ i ][ j ][ k ] = min( dp[ i ][ j ][ k ], dp[ i - 1 ][ j ][ k ] + cost[ i - 1 ][ k - 1 ] );
+<A NAME="3"></A>                        else
+                            dp[ i ][ j ][ k ] = min( dp[ i ][ j ][ k ], dp[ i - 1 ][ j - 1 ][ x ] + cost[ i - 1 ][ k - 1 ] );
+                    }
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match22-1.html#3',3,'match22-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        int goal = -1;
+        for( int i = 1; i &lt;= n; i ++ )
+        {
+            if( dp[ m ][ target ][ i ] &gt;= 2000000000 ) continue;</B></FONT>
+            if( goal == -1 ) goal = dp[ m ][ target ][ i ];
+            else goal = min( goal, dp[ m ][ target ][ i ] ); 
+        }
+        return goal;
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

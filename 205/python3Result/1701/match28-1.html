@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>383_spxyj.py</TITLE>
+ <TITLE>147_delphih.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,76 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>383_spxyj.py</CENTER></H3><HR>
+<H3><CENTER>147_delphih.py</CENTER></H3><HR>
 <PRE>
-class Solution:
-    def init(self,n):
-        self.pre=[i for i in range(n)]
-        self.rank=[0]*n
-    def find(self,x):
-        if self.pre[x]==x:
-            return x
-        self.pre[x]=self.find(self.pre[x])
-        return self.pre[x]
-    def is_same(self,x,y):
-        return self.find(x)==self.find(y)
-    def union(self,x,y):
-        root1=self.find(x)
-        root2=self.find(y)
-        if root2==root1:
-            return
-        if self.rank[root1]&gt;self.rank[root2]:
-            self.pre[root2]=root1
-        else:
-            self.pre[root1]=root2
-            if self.rank[root2]==self.rank[root1]:
-                self.rank[root1]+=1
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind:
+    def __init__(self, n):
+        self.id = list(range(n))
+        self.sz, self.count = [1] * n, n
 
+    def find(self, p):
+        if self.id[p] != p: self.id[p] = self.find(self.id[p])
+        return self.id[p]
+    
+    def union(self, p, q):
+        i, j = self.find(p), self.find(q)
+        if i == j: return False
+        if self.sz[i] &lt; self.sz[j]:
+            self.id[i] = j; self.sz[j] += self.sz[i]
+        else:
+            self.id[j] = i; self.sz[i] += self.sz[j]
+        self.count -= 1
+        return True
+        
+    def compare(self, p, q):
+        return self.find(p) == self.find(q)
+    
+    def copy(self):
+        uf2 = UnionFind(len(self.id))
+        uf2.id, uf2.sz, uf2.count = self.id.copy(), self.sz.copy(), self.count
+        return uf2
+        
+class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-<A NAME="0"></A>        res=0
-        # for Alice
-        self.init(n+1)
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for edge in edges:
-            if edge[0]==3:
-                if self.is_same(edge[1],edge[2]):
-                    res+=1
-                else:
-                    self.union(edge[1],edge[2])
-        for edge in edges:
-            if edge[0]==1:
-                if self.is_same(edge[1],edge[2]):
-                    res+=1
-                else:
-                    self.union(edge[1],edge[2])
-        flag=</B></FONT>False
-        for i in range(1,n+1):
-            if not self.is_same(1,i):
-                flag=True
-<A NAME="1"></A>                break
-        if flag:
-            return -1
-        self.init<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n + 1)
-        for edge in edges:
-            if edge[0] == 3:
-                if self.is_same(edge[1], edge[2]):
-                    # res += 1
-                    pass
-                else:
-                    self.union(edge[1], edge[2])
-        for edge in edges:
-            if edge[0] == 2:
-                if self.is_same(edge[1], edge[2]):
-                    res += 1
-                else:
-                    self.union(edge[1], edge[2]</B></FONT>)
-        flag = False
-        for i in range(1, n + 1):
-            if not self.is_same(1, i):
-                flag = True
-                break
-        if flag:
-            return -1
-        return res
+        uf = UnionFind(n)
+        ans = 0
+        for t, u, v in edges:
+            if t != 3: continue
+            if not uf.union(u-1, v-1): ans += 1
+        uf1, uf2 = uf.copy(), uf.copy()
+        for t, u, v in edges:
+            if t == 1:
+                if not uf1.union(u-1, v-1): ans += 1
+            elif t == 2:
+                if not uf2.union(u-1, v-1): ans += 1
+        return ans if uf1.count == 1 and uf2.c</B></FONT>ount == 1 else -1
 </PRE>
 
 </BODY>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>669_jasonshieh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>669_jasonshieh.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] findDiagonalOrder(List&lt;List&lt;Integer&gt;&gt; vec) {
+        
+        int m = vec.size();
+        
+        Queue&lt;int[]&gt; qu = new LinkedList&lt;&gt;();
+        qu.offer(new int[]{0, 0});
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; visited = new HashMap&lt;&gt;();
+<A NAME="0"></A>        List&lt;Integer&gt; arrayList = new ArrayList&lt;&gt;();
+        int i1 = 0, j1 = 1;
+        int i2 = 1, j2 = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(!qu.isEmpty()){
+            
+            int[] curVec = qu.poll();
+            int i = curVec[0], j = curVec[1];
+            if(!visited.containsKey(i)) visited.put(i, new HashSet&lt;&gt;());
+            if(visited.get(i).contains(j)) continue;
+            if(i &lt; 0 || i &gt;= m) continue;
+            if(vec.get(i).size() &lt;= j) continue;
+            arrayList.add(vec.get(i).get(j));
+            visited.get(i).add(j);
+            qu.offer(new int[]{i + i2, j + j2});
+            qu.offer(new int[]{i + i1, j + j1});
+        }
+        
+        int sizeN = arrayList.size();
+        int[] res = new int[sizeN];
+        
+        for(int i = 0</B></FONT>; i &lt; sizeN; i++){
+            res[i] = arrayList.get(i);
+        }
+        
+        return res;
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>148_ph52.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>148_ph52.py</CENTER></H3><HR>
+<PRE>
+from typing import List
+
+
+class Solution:
+    def minDays(self, grid: List[List[int]]) -&gt; int:
+        # size of the grid
+        N = len(grid)
+        M = len(grid[0])
+
+        # the total number of land
+        total = sum([sum(row) for row in grid])
+
+        # check if the grid is connected by `count` lands
+        def isConnected(count: int) -&gt; bool:
+            for x in range(N):
+                for y in range(M):
+                    # for the first land
+                    if grid[x][y] == 1:
+                        # use bfs to visit the graph
+                        visited = set()
+                        visited.add((x, y))
+                        q = [(x, y)]
+<A NAME="0"></A>                        while q:
+                            i, j = q.pop()
+                            for ni, nj in [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]:
+                                if 0 &lt;= ni &lt; N and 0 &lt;= nj &lt; M and ((<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ni, nj) not in visited) and grid[ni][nj] == 1:
+                                    visited.add((ni, nj))
+                                    q.append((ni,</B></FONT> nj))
+<A NAME="1"></A>                        return len(visited) == count
+            return False
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if not isConnected(total):
+            return 0
+        for px in range(N):
+            for py in range(M):
+                if grid[px][py] == 1:
+                    # assume we remove this land
+                    grid[px][py] = 0
+                    if not isConnected(total - 1):
+                        return 1
+                    grid[px][py] = 1
+        re</B></FONT>turn 2
+</PRE>
+
+</BODY>
+</HTML>

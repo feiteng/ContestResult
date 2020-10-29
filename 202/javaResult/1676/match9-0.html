@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_chongliangtao1002.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>74_chongliangtao1002.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int n) {
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer(n);
+        visited.add(n);
+        int ret = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i += 1) {
+                int cur = queue.poll();
+<A NAME="1"></A>                if (cur == 0) {
+                    return ret;
+                }</B></FONT>
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!visited.contains(cur - 1)) {
+                    queue.offer(cur - 1);
+                    visited.add(cur - 1);
+                }
+                if (cur % 2 == 0 &amp;&amp; !visited.contains(cur / 2)) {
+                    queue.offer(cur / 2);
+                    visited.add(cur / 2);
+                }
+                if (cur % 3 == 0 &amp;&amp; !visited.contains(cur - cur / 3 * 2)) {
+                    queue.offer(cur - cur / 3 * 2);
+                    visited.add(cur - cur / 3 * 2);
+                }
+            }</B></FONT>
+            ret += 1;
+        }
+        return -1;
+        // int[] dp = new int[n + 1];
+        // dp[1] = 1;
+        // for (int i = 2; i &lt;= n; i += 1) {
+        //     dp[i] = Integer.MAX_VALUE;
+        //     dp[i] = Math.min(dp[i], dp[i - 1] + 1);
+        //     if (i % 2 == 0) {
+        //         dp[i] = Math.min(dp[i], dp[i / 2] + 1);
+        //     }
+        //     if (i % 3 == 0) {
+        //         dp[i] = Math.min(dp[i], dp[i - i / 3 * 2] + 1);
+        //     }
+        // }
+        // return dp[n];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

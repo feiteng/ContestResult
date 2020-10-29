@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_O_O_O_O.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_O_O_O_O.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findLatestStep(self, arr: List[int], m: int) -&gt; int:
+        n = len(arr)
+        tar = [0] * n
+        parents = list(range(n))
+        sizes = [1] * n
+<A NAME="0"></A>        cnts = defaultdict(int)
+        ans = -1
+        step = 1
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def find(p):
+            if parents[p] != p:
+                parents[p] = find(parents[p])
+            return parents[p]
+        def union(p, q):
+            nonlocal ans, step
+            rp, rq = find(p), find(</B></FONT>q)
+            if rp != rq:
+                parents[rq] = rp
+                cnts[sizes[rq]] -= 1
+                cnts[sizes[rp]] -= 1
+                sizes[rp] += sizes[rq]
+<A NAME="1"></A>                cnts[sizes[rp]] += 1
+                
+        for k in arr:
+            k <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>-= 1
+            tar[k] = 1
+            cnts[1] += 1
+            if k &gt; 0 and tar[k-1] == 1:
+                union(k, k-1)
+            if k &lt; n-1 and tar[k+1] == 1:
+                union(k, k+1)
+            if cnts[m] &gt; 0:
+                # print('union', m, cnts[m])
+                ans =</B></FONT> step
+            step += 1
+            # print(cnts)
+            # print(sizes)
+            # print(tar)
+        return ans
+        
+                
+</PRE>
+
+</BODY>
+</HTML>

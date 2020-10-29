@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>628_katapan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>628_katapan.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import collections, heapq
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -&gt; float:
+        to = collections.defaultdict(list)
+        for i, e in enumerate(edges):
+            to[e[0]].append((e[1], 1.0/succProb[i]))
+            to[e[1]].append((e[0], 1.0/succProb[i]))
+        heap = []
+        heapq.heappush(heap, (1, start))
+        visited = [float('inf')]*n
+        while heap:
+            p, n = heapq.heappop(heap)
+            visited[</B></FONT>n] = p
+            if n == end:
+                return 1/p
+            for nn, np in to[n]:
+                a = p*np
+                if visited[nn] &gt; a:
+                    visited[nn] = a
+                    heapq.heappush(heap, (a, nn))
+        return 0
+                
+</PRE>
+
+</BODY>
+</HTML>

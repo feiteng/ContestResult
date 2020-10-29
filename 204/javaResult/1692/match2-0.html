@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_TheRaven.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_TheRaven.java</CENTER></H3><HR>
+<PRE>
+import java.math.*;
+<A NAME="0"></A>class Solution {
+    long mod = 1000000007L;
+    BigInteger M = BigInteger.valueOf(mod);
+<A NAME="1"></A>    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int numOfWays(int[] nums) {
+        TreeNode root = new TreeNode(nums[0]);
+        for (int i = 1; i&lt;nums.length; ++i) insert(root, nums[i]);</B></FONT>
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>root.size();
+        long ans = recurseAns(root);
+        return (int)((ans + mod - 1) % mod);
+    }
+    
+    public long recurseAns(TreeNode root) {</B></FONT>
+        int Lsize = (root.left == null) ? 0 : root.left.size;
+        int Rsize = (root.right == null) ? 0 : root.right.size;
+        int N = root.size - 1;
+        long val = chooseL(N, Lsize);
+        long Lans = (root.left == null) ? 1 : recurseAns(root.left);
+        long Rans = (root.right == null) ? 1 : recurseAns(root.right);
+        val *= Lans;
+        val %= mod;
+        val *= Rans;
+        val %= mod;
+<A NAME="2"></A>        return val;
+    }
+    
+    public void insert(TreeNode root, <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int i) {
+        if (i &lt; root.val) {
+            if (root.left == null) {
+                root.left = new TreeNode(i);
+            } else {
+                insert(root.left, i);
+            }
+        } else {
+            if (root.right == null) {
+                root.right = new TreeNode(i);
+            } else {
+                insert(root.right, i);
+            }
+<A NAME="3"></A>        }
+    }</B></FONT>
+
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match2-1.html#3',3,'match2-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class TreeNode {
+        TreeNode left;
+        TreeNode right;
+        int val;
+        int size;
+        public TreeNode(int v) {
+            val = v;
+            size = 1;
+        }
+        publ</B></FONT>ic int size() {
+            int Lsize = (left == null) ? 0 : left.size();
+            int Rsize = (right == null) ? 0 : right.size();
+            size = Lsize + Rsize + 1;
+            return size;
+        }
+    }
+
+	
+	public BigInteger choose (long n, long k) {
+		BigInteger ans= BigInteger.ONE;
+		if (n-k &lt; k) k = n-k;
+		for (long n2 = n; n2 &gt;n-k; --n2) ans = ans.multiply(BigInteger.valueOf(n2));
+		for (long k2 = k; k2 &gt; 0; --k2) ans = ans.divide(BigInteger.valueOf(k2));
+		return ans;
+	}
+	public long chooseL(long n, long k) {
+		return choose(n,k).mod(M).longValue();
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

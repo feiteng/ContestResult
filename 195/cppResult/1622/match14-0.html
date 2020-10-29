@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_zerotrac2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2_zerotrac2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>using PII = pair&lt;int, int&gt;;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int findMaxValueOfEquation(vector&lt;vector&lt;int&gt;&gt;&amp; points, int k) {
+        // yi + yj + |xi - xj|   (i &lt; j)
+        // = max (-xj + yj + xi + yi, xj + yj - xi + yi)
+        int n = points.size();
+        int l = 0;
+        int ans = INT_MIN;</B></FONT>
+        deque&lt;PII&gt; pp, mp;
+<A NAME="1"></A>        pp.emplace_back(points[0][0], points[0][0] + points[0][1]);
+        mp.emplace_back(points[0][0], -points[0][0] + points[0][1]);
+        for (int i = 1; i &lt; n; ++i) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            vector&lt;int&gt;&amp; pt = points[i];
+            while (!pp.empty() &amp;&amp; pt[0] - pp.front().first &gt; k) {
+                pp.pop_front();
+            }
+            if (!pp.empty()) {
+                ans = max(ans, -pt[0] + pt[1] + pp.front().second);
+            }
+            while (!mp.empty() &amp;&amp; pt[0] - mp.front().first &gt; k) {
+                mp.pop_front();
+            }</B></FONT>
+            if (!mp.empty()) {
+                ans = max(ans, pt[0] + pt[1] + mp.front().second);
+            }
+            while (!pp.empty() &amp;&amp; pt[0] + pt[1] &gt;= pp.back().second) {
+                pp.pop_back();
+            }
+            pp.emplace_back(pt[0], pt[0] + pt[1]);
+            while (!mp.empty() &amp;&amp; -pt[0] + pt[1] &gt;= mp.back().second) {
+                mp.pop_back();
+            }
+            mp.emplace_back(pt[0], -pt[0] + pt[1]);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

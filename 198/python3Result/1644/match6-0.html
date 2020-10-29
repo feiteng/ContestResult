@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>543_logicalmath333.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>543_logicalmath333.py</CENTER></H3><HR>
+<PRE>
+import heapq
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        # might need to use dp
+        # maybe we need to find all of the possible substrings first
+        
+        # we need the first and last positions of each character
+        # [1, 5]
+        # [2, 6]
+        # basically we need to do merge intervals
+        # [1,1]
+        # [2,2]
+        # then after merge intervals, need to figure out which ones will result in the most disjoint intervals
+        # probably need to choose the smallest ones first
+        
+        #firstPos = {}
+        #lastPos = {}
+        # we need to look at the positions of each character
+        
+        pos_dict = {}
+        
+        for idx, c in enumerate(s):
+            if c not in pos_dict:
+                pos_dict[c] = [idx, idx]
+                
+            pos_dict[c][1] = idx
+            
+        intervals = [(interval[1] - interval[0], interval[0], interval[1]) for interval in pos_dict.values()]
+        
+        # we should sort by start index
+        intervals.sort(key = lambda x : x[1])
+        
+        print(intervals)
+        
+        merged_intervals = []
+        # merged intervals, we need to look at the characters
+        for interval in intervals:
+            start = tmp_start = interval[1]
+            end = tmp_end = interval[2]
+<A NAME="0"></A>            i = tmp_start
+            while i &lt; tmp_end:
+                c = s[i]
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if pos_dict[c][0] &lt; start:
+                    start = pos_dict[c][0]
+                if pos_dict[c][1] &gt; end:
+                    end = pos_dict[c][</B></FONT>1]
+
+                i += 1            
+            # we need to continually inspect the stuff between start and tmp_start
+            # and the stuff between tmp_end and end
+            while start != tmp_start or end != tmp_end:
+                i = old_start = start
+                j = old_end = end
+<A NAME="1"></A>                
+                while i &lt; tmp_start:
+                    c = s[i]
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if pos_dict[c][0] &lt; start:
+                        start = pos_dict[c][0]
+                    if pos_dict[c][1] &gt; end:
+                        end = pos_dict[c][</B></FONT>1]
+                    i += 1
+                
+                while j &gt; tmp_end:
+                    c = s[j]
+                    if pos_dict[c][0] &lt; start:
+                        start = pos_dict[c][0]
+                    if pos_dict[c][1] &gt; end:
+                        end = pos_dict[c][1]
+                    j -= 1
+                    
+                tmp_end = old_end
+                tmp_start = old_start
+                
+            merged_intervals.append((end - start, start, end))
+                    
+        print(merged_intervals)   
+        
+        #print(intervals)
+        
+        # maybe just choose the smallest intervals
+        
+        heapq.heapify(merged_intervals)
+        ans = []
+        while merged_intervals:
+            interval = heapq.heappop(merged_intervals)
+            #print(interval)
+            
+            intersect = 0
+            for a_int in ans:
+                if a_int[1] &lt;= interval[1] &lt;= a_int[2] or a_int[1] &lt;= interval[2] &lt;= a_int[2] or \
+                   interval[1] &lt;= a_int[1] &lt;= interval[2] or interval[1] &lt;= a_int[2] &lt;= interval[2]:
+                    intersect = 1
+                    break
+            
+            if intersect == 0:
+                ans.append(interval)
+        #print(interval)
+        #print(ans)
+                
+        return [s[i[1]:(i[2] + 1)] for i in ans]
+            
+        '''
+        # now we merge the intervals
+        intervals.sort(key=lambda x: x[0])
+        
+        merge_intervals = []
+        start = intervals[0][0]
+        end = intervals[0][1]
+        
+        for interval in intervals[1:]:
+            if interval[0] &lt; end:
+                end = max(interval[1], end)
+            else:
+                merge_intervals.append([start, end])
+                start, end = interval
+                
+        merge_intervals.append([start, end])
+        
+            
+        # now the intervals are merged                
+        '''
+</PRE>
+
+</BODY>
+</HTML>

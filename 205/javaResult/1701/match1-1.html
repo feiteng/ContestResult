@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>209_KKKXY.java</TITLE>
+ <TITLE>103_2499370956.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,64 +15,84 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>209_KKKXY.java</CENTER></H3><HR>
+<H3><CENTER>103_2499370956.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public int maxNumEdgesToRemove(int n, int[][] edges) {
-        int[] par = new int[n];
-        int sol = 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) par[i] = i;
-        int nc = n;
-        int t3 = 0;
-<A NAME="1"></A>        for (int[] e : edges) {
-            if</B></FONT> (e[0] != 3) continue;
-            t3++;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int root1 = find(par, e[1] - 1);
-            int root2 = find(par, e[2] - 1);
-            if (root1 == root2) {
-                sol++;
-            } else {
-                par[root1] = root2;
-                nc--;
-            }
-        }</B></FONT>
-        if (nc == 1) return sol + edges.length - t3;
-        
-        int nc2 = nc;
-        int[] par2 = new int[n];
-        for (int i = 0; i &lt; n; i++) par2[i] = par[i];
-<A NAME="2"></A>        for (int[] e : edges) {
-            if (e[0] == 3) continue;
-            if (e[0] == 1) {
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int root1 = find(par, e[1] - 1);
-                int root2 = find(par, e[2] - 1);
-                if (root1 == root2) {
-                    sol++;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        UF ufa = new UF(n);
+        UF ufb = new UF(n);
+        int out = 0;
+        for (int[] e : edges) {
+            if (e[0] == 3) {
+                int v1 = e[1] - 1;
+                int v2 = e[2] - 1;
+                if (ufa.isConnected(v1, v2)) {
+                    out++;
                 } else {
-                    par[root1] = root2;
-<A NAME="3"></A>                    nc--;
+                    ufa.connect(v1, v2);
+                    ufb.connect(v1, v2);
                 }
-            }</B></FONT> else {
-                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#3',2,'match1-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int root1 = find(par2, e[1] - 1);
-                int root2 = find(par2, e[2] - 1);
-                if (root1 == root2) {
-                    sol++;
-                } else {
-                    par2[root1] = root2;
-                    nc2--;
-                }
-                
             }
         }
-        if (nc != 1 || nc2 != 1) return -1;
-        return sol;
+        for (int[] e : edges) {
+            if (e[0] != 3) {
+                int v1 = e[1] - 1;
+                int v2 = e[2] - 1;
+                if (e[0] == 1) {
+                    if (ufa.isConnected(v1, v2)) {
+                        out++;
+                    } else {
+                        ufa.connect(v1, v2);
+                    }
+                } else if (e[0] == 2) {
+                    if (ufb.isConnected(v1, v2)) {
+                        out++;
+                    } else {
+                        ufb.connect(v1, v2);
+                    }
+                }
+            }
+        }
+        if (ufa.cc() == 1 &amp;&amp; ufb.cc() == 1) {
+            return out;
+        } else {
+            return -1;
+        }
     }
-    
-    public int find(int[] par, int a) {
-        if</B></FONT> (par[a] == a) return a;
-        return par[a] = find(par, par[a]);
+
+    class UF {
+
+        private int[] root;
+
+        public UF(int n) {
+            this.root = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                root[i] = i;
+            }
+        }
+
+        private int root(int i) {
+            if (root[i] == i) {
+                return i;
+            } else {
+                root[i] = root[root[i]];
+                return root(root[i]);
+            }
+        }
+
+        public void connect(int i, int j) {
+            root[root(i)] = root(j);
+        }
+
+        public boolean isConnected(int i, int j) {
+            return root(i) == root(j);
+        }
+        
+        public int cc() {
+            return (int) IntStream.range(0, root.length).map(this::root).distinct().count();
+        }
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

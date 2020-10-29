@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>173_albeXL.cpp</TITLE>
+ <TITLE>143_wuhunantong.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>173_albeXL.cpp</CENTER></H3><HR>
+<H3><CENTER>143_wuhunantong.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
+    int f[100010], f1[100010], f2[100010];
     
-    struct union_find
-    {
-        vector&lt;int&gt; p;
-
-        union_find(int n) : p(n, -1) {}
-
-        bool join(int u, int v)
-        {
-            if ((u = root(u)) == (v = root(v)))
-                return false;
-            if (p[u] &gt; p[v])
-                swap(u, v);
-            p[u] += p[v];
-            p[v] = u;
-            return true;
-        }
-
-        int root(int u)
-        {
-            return p[u] &lt; 0 ? u : p[u] = root(p[u]);
-        }
-    };
-<A NAME="0"></A>    
+    int find(int k) {
+        return f[k] == k? k : f[k] = find(f[k]);
+    }
+    
+    int find1(int k) {
+        return f1[k] == k? k : f1[k] = find1(f1[k]);
+    }
+    
+    int find2(int k) {
+        return f2[k] == k? k : f2[k] = find2(f2[k]);
+    }
+    
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        union_find ds1(n), ds2(n);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
-        
-        for(int i = 0; i &lt; edges.size(); i++){
-            if(edges[i][0] == 3){
-                int a = edges[i][1] - 1, b = edges[i][2] - 1;
-<A NAME="1"></A>                if(!ds1.join(a, b))</B></FONT>
-                    ans++;
-                ds2.join(a, b);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-        
-        for(int i = 0; i &lt; edges.size(); i++){
-            if(edges[i][0] == 1){
-<A NAME="2"></A>                int a = edges[i][1] - 1, b = edges[i][2] - 1;
-                if(!ds1.join(a, b))</B></FONT>
-                    ans++;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-        
-        for(int i = 0; i &lt; edges.size(); i++){
-            if(edges[i][0] == 2){
-                int a = edges[i][1] - 1, b = edges[i][2] - 1;
-                if(!ds2.join(a, b))</B></FONT>
-                    ans++;
+        int ans = 0;
+        for(int i = 1; i &lt;= n; i++) f[i] = i;
+        for(int i = 0; i &lt; edges.size(); i++) {
+            if(edges[i][0] == 3) {
+                int a = edges[i][1], b = edges[i][2];
+                if(find(a) != find(b)) f[find(a)] = find(b);
+                else ans++;
             }
         }
-        
-        set&lt;int&gt; r1, r2;
-        for(int i = 0; i &lt; n; i++){
-            r1.insert(ds1.root(i));
-            r2.insert(ds2.root(i));
+        for(int i = 1; i &lt;= n; i++) f1[i] = f2[i] = f[i];
+        for(int i = 0; i &lt; edges.size(); i++) {
+            int a = edges[i][1], b = edges[i][2];
+            if(edges[i][0] == 1) {
+                if(find1(a) != find1(b)) f1[find1(a)] = find1(b);
+                else ans++;
+            }
+            else if(edges[i][0] == 2) {
+                if(find2(a) != find2(b)) f2[find2(a)] = find2(b);
+                else ans++;
+            }
         }
-        
-        if(r1.size() &gt; 1 || r2.size() &gt; 1)
-            ans = -1;
-        
+        for(int i = 1; i &lt;= n; i++) if(find1(f1[i]) != find1(f1[1]) || find2(f2[i]) != find2(f2[1])) return -1;
         return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

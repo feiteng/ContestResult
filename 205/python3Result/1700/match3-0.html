@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>579_Shf.py</TITLE>
+ <TITLE>109_Andrew-Angrew.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>579_Shf.py</CENTER></H3><HR>
+<H3><CENTER>109_Andrew-Angrew.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def minCost(self, s: str, cost: List[int]) -&gt; int:
-        prev = '?'
-        prev_costs = [0]
-        res = 0
-        for i, c in enumerate(s):
-            if c == prev:
-                prev_costs.append(cost[i])
+        prev_char = None
+        max_block_cost = 0
+        remained_cost = 0
+        for char, char_cost in zip(s, cost):
+            if char == prev_char:
+                max_block_cost = max(max_block_cost, char_cost)
             else:
-                res += sum(prev_costs) - max(prev_costs)
-                prev = c
-                prev_costs = [cost[i]]
-        res += sum(prev_costs) - max(prev_costs)
-        re</B></FONT>turn res
+                remained_cost += max_block_cost
+                max_block_cost = char_cost
+                prev_char = char
+        remained_cost += max_block_cost
+        return sum(c</B></FONT>ost) - remained_cost
 </PRE>
 
 </BODY>

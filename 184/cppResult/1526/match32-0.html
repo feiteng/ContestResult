@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>574_killer_z.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>574_killer_z.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string entityParser(string text) {
+<A NAME="0"></A>        string res;
+        int n = text.length();
+        int i = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (i &lt; n) {
+            if (text[i] == '&amp;') {
+                if (match(text, &quot;&amp;quot;&quot;, i)) {
+                    res.push_back('\&quot;');
+                    i += 6;
+                } else if (match(text, &quot;&amp;apos;&quot;, i)) {
+                    res.push_back('\'');
+                    i += 6;
+                } else if (match(text, &quot;&amp;amp;&quot;, i)) {
+                    res.push_back('&amp;');
+                    i += 5;
+                } else if (match(text, &quot;&amp;gt;&quot;, i)) {
+                    res.push_back('&gt;');
+                    i += 4;
+                } else if (match(text, &quot;&amp;lt;&quot;, i)) {
+                    res.push_back('&lt;');
+                    i += 4;
+                } else if (match(text, &quot;&amp;frasl;&quot;, i)) {
+                    res.push_back('/');
+                    i += 7;
+                } else {
+                    res.push_back(text[i]);
+                    i++;
+                }
+            } else {
+                res.push_back(text[i]);
+                i++;
+            }
+        }
+        return res;
+    }</B></FONT>
+    
+    bool match(string&amp; s, string pat, int i) {
+        int n = s.length(), m = pat.length();
+        if (i + m &gt; n) return false;
+        for (int j = 0; j &lt; m; j++) {
+            if (pat[j] != s[i+j]) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

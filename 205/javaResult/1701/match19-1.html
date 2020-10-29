@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>381_Hughstudy.java</TITLE>
+ <TITLE>262_800.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,87 +15,110 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>381_Hughstudy.java</CENTER></H3><HR>
+<H3><CENTER>262_800.java</CENTER></H3><HR>
 <PRE>
-<A NAME="3"></A>class Solution {
-    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private class DSU{
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    class UF {
+        int N;
         int[] parent;
-
-        public DSU(int N) {
-<A NAME="4"></A>            parent = new int[N];
-            for (int i = 0</B></FONT>; i &lt; N; ++i) {
+        int[] size;
+        int components;
+        
+        public UF(int N) {
+            this.N = N;
+            parent = new int[N];
+            size = new int[N];
+            for (int i = 0; i &lt; N; i++) {
                 parent[i] = i;
-            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#4',2,'match19-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                size[i] = 1;
+            }
+            components = N;
         }
-
-        public int find(int x) {
-            if (parent[x] != x) parent[x] = find(parent[x]);
-            return parent[x];
+        
+        public int find(int t) {
+            while (parent[t] != t) {
+                t = parent[t];
+            }
+            return t;
         }
-
-        public void union(int x, int y) {
-            parent[find(x)] = find(y);
-        }
-    }</B></FONT>
-
-    private void copy(DSU u1, DSU u2) {
-        int len = u1.parent.length;
-        for (int i = 0; i &lt; len; ++i) {
-            u2.parent[i] = u1.parent[i];
+        
+        public void union(int i, int j) {
+            int iRoot = find(i);
+            int jRoot = find(j);
+            if (iRoot != jRoot) {
+                if (size[iRoot] &gt; size[jRoot]) {
+                    parent[jRoot] = iRoot;
+                    size[iRoot] += size[jRoot];
+                }
+                else {
+                    parent[iRoot] = jRoot;
+                    size[jRoot] += size[iRoot];
+                }
+                components--;
+            }
         }
     }
-
+    
+    
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-        if (n &lt;= 1) {
-            return edges.length;
-        }
-
-<A NAME="1"></A>        DSU uf = new DSU(n);
-        int res = 0;
-        for (int[] e : edges) {
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (e[0] == 3) {
-                if (uf.find(e[1] - 1) == uf.find(e[2] - 1)) {
-                    ++res;
-                } else {
-                    uf.union(e[1] - 1, e[2] - 1);
+        UF alice = new UF(n);
+        UF bob = new UF(n);
+        int used = 0;
+        List&lt;int[]&gt; type1 = new ArrayList&lt;&gt;();
+        List&lt;int[]&gt; type2 = new ArrayList&lt;&gt;();
+        
+        for (int[] edge : edges) {
+            if (edge[0] == 1) {
+                type1.add(edge);
+            }
+            else if (edge[0] == 2) {
+                type2.add(edge);
+            }
+            else {
+                int iRoot = alice.find(edge[1] - 1);
+                int jRoot = alice.find(edge[2] - 1);
+                if (iRoot != jRoot) {
+                    used++;
+                    alice.union(edge[1] - 1, edge[2] - 1);
+                    bob.union(edge[1] - 1, edge[2] - 1);
                 }
             }
         }
-
-<A NAME="0"></A>        DSU uA = new</B></FONT> DSU(n);
-        copy(uf, uA);
-        for (int[] e : edges) {
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (e[0] == 1) {
-                if (uA.find(e[1] - 1) == uA.find(e[2] - 1)) {
-                    ++res;
-                } else {
-                    uA.union(e[1] - 1, e[2] - 1);
-                }
-            }
-        }</B></FONT>
-
-<A NAME="2"></A>        DSU uB = new DSU(n);
-        copy(uf, uB);
-        for (int[] e : edges) {
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (e[0] == 2) {
-                if (uB.find(e[1] - 1) == uB.find(e[2] - 1)) {
-                    ++res;
-                } else {
-                    uB.union(e[1] - 1, e[2] - 1);
-                }
-            }
-        }</B></FONT>
-
-        int a = uA.find(0), b = uB.find(0);
-        for (int i = 0; i &lt; n; ++i) {
-            if (a != uA.find(i) || b != uB.find(i)) {
-                return -1;
+        
+        if (alice.components == 1) {
+            return edges.length - used;
+        }
+        
+        for (int[] edge : type1) {
+            int iRoot = alice.find(edge[1] - 1);
+            int jRoot = alice.find(edge[2] - 1);
+            if (iRoot != jRoot) {
+                used++;
+                alice.union(edge[1] - 1, edge[2] - 1);
             }
         }
-
-        return res;
+        
+        if (alice.components &gt; 1) {
+            return -1;
+        }
+        
+        for (int[] edge : type2) {
+            int iRoot = bob.find(edge[1] - 1);
+            int jRoot = bob.find(edge[2] - 1);
+            if (iRoot != jRoot) {
+                used++;
+                bob.union(edge[1] - 1, edge[2] - 1);
+            }
+        }
+        
+        if (bob.components &gt; 1) {
+            return -1;
+        }
+        
+        return edges.length - used;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

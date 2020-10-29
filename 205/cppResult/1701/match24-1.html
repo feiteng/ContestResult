@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>447_agoodusername.cpp</TITLE>
+ <TITLE>134_A_Le_K.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,90 +15,178 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>447_agoodusername.cpp</CENTER></H3><HR>
+<H3><CENTER>134_A_Le_K.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-public:
-    
-    
-int find(vector&lt;int&gt;&amp;pre, int k)  
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static const int __ = []() { std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return 0; }();
+
+typedef long long ll; typedef unsigned int ui; typedef unsigned long long ull; typedef pair&lt;int ,int&gt; pii; typedef pair&lt;ll, ll&gt; pll; typedef double rl;
+typedef pii int2; typedef tuple&lt;int, int, int&gt; int3; typedef tuple&lt;int, int, int, int&gt; int4; typedef tuple&lt;int, int, int, int, int&gt; int5;
+typedef pll ll2; typedef tuple&lt;ll, ll, ll&gt; ll3; typedef tuple&lt;ll, ll, ll, ll&gt; ll4; typedef tuple&lt;ll, ll, ll, ll, ll&gt; ll5;
+typedef vector&lt;int&gt; vi; typedef vector&lt;pii&gt; vii; typedef vector&lt;ll&gt; vll; typedef vector&lt;pll&gt; vll_ll; typedef vector&lt;vi&gt; vvi; typedef vector&lt;vii&gt; vvii; typedef vector&lt;vll&gt; vvll; typedef vector&lt;vll_ll&gt; vvll_ll;
+
+#define pb push_back
+#define mp make_pair
+#define eb emplace_back
+#define xx first
+#define yy second
+#define FOR(i, start, end) for(auto i=(start); i&lt;(end); i++)
+#define g0(x) get&lt;0&gt;(x)
+#define g1(x) get&lt;1&gt;(x)
+#define g2(x) get&lt;2&gt;(x)
+#define g3(x) get&lt;3&gt;(x)
+#define g4(x) get&lt;4&gt;(x)
+
+template&lt;typename A&gt; string to_string(A* ptr) { stringstream ss; ss &lt;&lt; &quot;0x&quot; &lt;&lt; std::setw(16) &lt;&lt; std::setfill ('0') &lt;&lt; std::hex &lt;&lt; (uint64_t)(uintptr_t)ptr; return ss.str(); }
+string to_string(char c) { return ((string)&quot;'&quot;+c)+ &quot;'&quot;; }
+template &lt;typename A, typename B&gt; string to_string(pair&lt;A, B&gt; p);
+template &lt;typename A, typename B, typename C&gt; string to_string(tuple&lt;A, B, C&gt; p);
+template &lt;typename A, typename B, typename C, typename D&gt; string to_string(tuple&lt;A, B, C, D&gt; p);
+string to_string(const string&amp; s) { return '&quot;' + s + '&quot;'; }
+string to_string(const char* s) { return to_string((string) s); }
+string to_string(bool b) { return (b ? &quot;true&quot; : &quot;false&quot;); }
+string to_string(vector&lt;bool&gt; v) {
+    bool first = true; string res = &quot;{&quot;;
+	for (int i = 0; i &lt; static_cast&lt;int&gt;(v.size()); i++) { if (!first) { res += &quot;, &quot;; } first = false; res += to_string(v[i]); }
+	res += &quot;}&quot;; return res;
+}
+template &lt;size_t N&gt; string to_string(bitset&lt;N&gt; v) { string res = &quot;&quot;; for (size_t i = 0; i &lt; N; i++) { res += static_cast&lt;char&gt;('0' + v[i]); } return res; }
+template &lt;typename A&gt; string to_string(A v) {
+	bool first = true; string res = &quot;{&quot;;
+	for (const auto &amp;x : v) {
+		if (!first) { res += &quot;, &quot;; }
+		first = false; res += to_string(x);
+	}
+	res += &quot;}&quot;; return res;
+}
+template &lt;typename A, typename B&gt; string to_string(pair&lt;A, B&gt; p) { return &quot;(&quot; + to_string(p.first) + &quot;, &quot; + to_string(p.second) + &quot;)&quot;; }
+template &lt;typename A, typename B, typename C&gt; string to_string(tuple&lt;A, B, C&gt; p) { return &quot;(&quot; + to_string(get&lt;0&gt;(p)) + &quot;, &quot; + to_string(get&lt;1&gt;(p)) + &quot;, &quot; + to_string(get&lt;2&gt;(p)) + &quot;)&quot;; }
+template &lt;typename A, typename B, typename C, typename D&gt;
+string to_string(tuple&lt;A, B, C, D&gt; p) { return &quot;(&quot; + to_string(get&lt;0&gt;(p)) + &quot;, &quot; + to_string(get&lt;1&gt;(p)) + &quot;, &quot; + to_string(get&lt;2&gt;(p)) + &quot;, &quot; + to_string(get&lt;3&gt;(p)) + &quot;)&quot;; }
+void debug_out() { cout &lt;&lt; endl; }
+template &lt;typename Head, typename... Tail&gt; void debug_out(Head H, Tail... T) { cout &lt;&lt; &quot; &quot; &lt;&lt; to_string(H); debug_out(T...); }
+
+#define popc __builtin_popcountll
+//#define popc __builtin_popcount
+//#define clz __builtin_clzll
+//#define clz __builtin_clz
+inline int bitLength(uint32_t val) { return 32 - __builtin_clz  (val); }
+inline int bitLength(uint64_t val) { return 64 - __builtin_clzll(val); }
+
+#if 1
+#define dbg(...) cout &lt;&lt; &quot;[&quot; &lt;&lt; #__VA_ARGS__ &lt;&lt; &quot;]:&quot;, debug_out(__VA_ARGS__)
+#else
+#define dbg(...) 42
+#endif
+
+const int A=1, B=2, AB=3;
+
+bool can_a(int tp)
 {
-	if(pre[k]==k)	return k; 
-	return pre[k]=find(pre, pre[k]); 
+    return tp==A || tp==AB;
 }
 
-    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; E) {
-       // sort(E.begin(), E.end());
-<A NAME="0"></A>       // reverse(E.begin(), E.end());
+bool can_b(int tp)
+{
+    return tp==B || tp==AB;
+}
+
+class Solution {
+    vector&lt;vector&lt;pii&gt;&gt; E;
+    int n;
+    
+    void dfs(int curr, int type, vector&lt;bool&gt;&amp; visited)
+    {
+        if(visited[curr]) return;
+        visited[curr]=true;
         
-        vector&lt;int&gt; a(n + 1, 0), b(n+1, 0);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt;= n; i++) a[i] = b[i] = i;
-        
-        int ans =0 ;
-        
-        int C = 2 * n;
-        for (int i = 0; i &lt; E.size(); i++) {
-         //   if (C == 2) {ans ++; continue;}
-<A NAME="1"></A>            int t = E[i][0];
-            int x = E[i][1], y = E[i][2];</B></FONT>
-            //cout &lt;&lt; t &lt;&lt; &quot;! &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (t == 3) {
-                int u = find(a,x);
-                int v = find(a,y);
-             //   cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; v &lt;&lt; endl;
-                int uu = find(b,x);
-                int vv = find(b,y);
-                if (u != v) {
-                    a[u] = v;
-                    b[uu] = vv;</B></FONT>
-                    C -= 2;
-                    
-            //        cout &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
-                }
-                else ans ++;
+        for(auto [next, tp]: E[curr])
+        {
+            if(type==1)
+            {
+                if(can_a(tp)) dfs(next, type, visited);
             }
-            
-
-        }
-        
-          for (int i = 0; i &lt; E.size(); i++) {
-         //   if (C == 2) {ans ++; continue;}
-            int t = E[i][0];
-            int x = E[i][1], y = E[i][2];
-<A NAME="2"></A>          
-            
-            if (t == 1) {
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int u = find(a,x);
-                int v = find(a,y);
-
-                if (u != v) {
-                    a[u] = v;
-                    C --;
-             //       cout &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
-                }
-                else ans ++;
-            }
-            
-           if (t == 2) {</B></FONT>
-                int u = find(b,x);
-                int v = find(b,y);
-
-                if (u != v) {
-                    b[u] = v;
-                    C--;
-              //      cout &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
-                }
-                else ans ++;
+            else
+            {
+                if(can_b(tp)) dfs(next, type, visited);
             }
         }
-        
-     //   cout &lt;&lt; C &lt;&lt; endl;
-        
-        if ( C &gt; 2) return -1;
-        else return ans;
-        
     }
-};
+    
+    void dfsAB(int curr, vector&lt;bool&gt;&amp; visited, int&amp; res)
+    {
+        //if(visited[curr]) return;
+        
+        for(auto [next, tp]: E[curr])
+        {
+            if(tp!=AB) continue;
+            if(visited[next]) continue;
+            
+            visited[next]=true;
+            res++;
+            
+            dfsAB(next, visited, res);
+        }
+    }
+    
+public:
+    int maxNumEdgesToRemove(int n_, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        n=n_;
+        E=vector&lt;vector&lt;pii&gt;&gt;(n+1);
+        
+        for(auto v: edges)
+        {
+            assert(v.size()==3);
+            int tp=v[0], a=v[1], b=v[2];
+            
+            E[a].pb({b, tp});
+            E[b].pb({a, tp});
+        }
+        
+        vector&lt;bool&gt; visited(n+1, false);
+        dfs(1, 1, visited);
+        
+        for(int i=1; i&lt;=n; i++)
+        {
+            if(!visited[i]) return -1;
+            visited[i]=false;
+        }
+        
+        dfs(1, 2, visited);
+        for(int i=1; i&lt;=n; i++)
+        {
+            if(!visited[i]) return -1;
+            visited[i]=false;
+        }
+        
+        int m=edges.size();
+        int res=0;
+        
+        int comp=0;
+        for(int i=1; i&lt;=n; i++)
+        {
+            if(!visited[i])
+            {
+                visited[i]=true;
+                dfsAB(i, visited, res);
+                comp++;
+            }
+        }
+        
+        
+        dbg(m, res, comp);
+        
+        res+=2*(comp-1);
+        
+        dbg(res);
+        
+        //vector&lt;bool&gt; visitedA(n+1, false), visitedB(n+1, false);
+        //v
+        
+        //for(int )
+        
+        return m-res;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

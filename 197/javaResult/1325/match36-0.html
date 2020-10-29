@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>173_coder_amateur.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>173_coder_amateur.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private class State {
+        int cur;
+        double p;
+        public State(int cur, double p) {
+            this.cur = cur;
+            this.p = p;
+<A NAME="0"></A>        }
+    }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        PriorityQueue&lt;State&gt; pq = new</B></FONT> PriorityQueue&lt;&gt;(new Comparator&lt;State&gt;(){
+            @Override
+            public int compare(State s1, State s2) {
+                if (s1.p == s2.p) return 0;
+                return s1.p &lt; s2.p ? 1 : -1;
+            }
+        });
+        
+<A NAME="1"></A>        List&lt;List&lt;double[]&gt;&gt; graph = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) graph.add(new ArrayList&lt;&gt;());
+        for (int i = 0; i &lt; edges.length; i++) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>graph.get(edges[i][0]).add(new double[]{edges[i][1], succProb[i]});
+            graph.get(edges[i][1]).add(new double[]{edges[i][0], succProb[i]});
+        }</B></FONT>
+        
+        pq.offer(new State(start, 1.0));
+<A NAME="2"></A>        double[] visited = new double[n];
+        Arrays.fill(visited, 0.0);
+        visited[start] = 1;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match36-1.html#2',3,'match36-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!pq.isEmpty()) {
+            State s = pq.poll();
+            if (s.cur == end) return s.p;
+            // visited[s.cur] = s.p;
+            for (double[] adj: graph.get(s.cur)) {
+                int next = (int)adj[0]</B></FONT>;
+                double prob = adj[1];
+<A NAME="3"></A>                if (s.p * prob &gt; visited[next]) {
+                    visited[next] = s.p * prob;
+                    pq.offer(new State(next, s.p * prob));
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match36-1.html#3',3,'match36-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        
+        return 0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

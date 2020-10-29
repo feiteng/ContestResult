@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>524_noobcj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>524_noobcj.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    static int cmp(pair&lt;pair&lt;int,int&gt;, int&gt; &amp;a, pair&lt;pair&lt;int,int&gt;, int&gt; &amp;b){
+        if(a.first.second == b.first.second)return a.first.first &lt; b.first.first;
+        return a.first.second &lt; b.first.second;
+    }
+<A NAME="0"></A>    
+    vector&lt;string&gt; maxNumOfSubstrings(string s) {
+        vector&lt;int&gt; start(26,-1), end(26,-1), count(26,0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;s.length();i++){
+            if(start[s[i]-'a']==-1)start[s[i]-'a']=i;
+            //count[s[i]-'a']++;
+        }
+        for(int i=s.length()-1;i&gt;=0;i--){
+            if(end[s[i]-'a']==-1)end[s[i]-'a']=i;
+            //count[s[i]-'a']++;
+        }
+        for(int i=0;i&lt;26;i++){
+            if(start[i]==-1)continue;</B></FONT>
+            int f=1;
+            while(f){
+<A NAME="1"></A>                f=0;
+                for(int j=start[i];j&lt;=end[i];j++){
+                    end[i] = max(end[i],end[s[j]-'a']);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if(end[s[j]-'a'] &gt; end[i]){
+                        end[i] = end[s[j]-'a'];
+                        f=1;
+                    }
+                    if(start[s[j]-'a'] &lt; start[i]){
+                        start[i] = start[s[j]-'a'];
+                        f=1;
+                    }
+                }
+            }
+        }
+        //return vector&lt;string&gt;(0);
+        vector&lt;pair&lt;pair&lt;int,int&gt;, int&gt;&gt; in;</B></FONT>
+        for(int i=0;i&lt;26;i++){
+            if(start[i]!=-1)in.push_back(make_pair(make_pair(start[i],end[i]), i));
+        }
+        //return vector&lt;string&gt;(0);
+        sort(in.begin(), in.end(), cmp);
+        int l = INT_MAX, r = INT_MIN;
+        vector&lt;int&gt; ch;
+        for(int i=0;i&lt;in.size();i++){
+            int a = in[i].first.first, b = in[i].first.second;
+            int c = in[i].second;
+            //cout&lt;&lt;a&lt;&lt;&quot;,&quot;&lt;&lt;b&lt;&lt;&quot;,&quot;&lt;&lt;c&lt;&lt;endl;
+            if(a&gt;r){
+                ch.push_back(c);
+                r = b;
+            }
+        }
+        //for(auto x : ch)cout&lt;&lt;x&lt;&lt;endl;
+        //cout&lt;&lt;ch.size()&lt;&lt;endl;
+        vector&lt;string&gt; ans;
+        for(int i=0;i&lt;ch.size();i++){
+            int c = ch[i];
+            string te=&quot;&quot;;
+            for(int j=start[c];j&lt;=end[c];j++){
+                te += s[j];
+            }
+            ans.push_back(te);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

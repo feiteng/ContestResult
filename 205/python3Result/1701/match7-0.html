@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>306_ye15.py</TITLE>
+ <TITLE>141_meladrama.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>306_ye15.py</CENTER></H3><HR>
+<H3><CENTER>141_meladrama.py</CENTER></H3><HR>
 <PRE>
-class UnionFind:
-<A NAME="0"></A>    def __init__(self, n):
-        self.parent = list(range(n))
-        self.rank = [1]*n
-        self.count =<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> n
-        
-    def find(self, p):
-        if p != self.parent[p]: 
-            self.parent[p] = self.find(self.parent[p])
-        return self.parent[p]
-    
-    def union(self, p, q):
-        prt, qrt = self.find(</B></FONT>p), self.find(q)
-        if prt == qrt: return 
-        self.count -= 1
-        if self.rank[prt] &gt; self.rank[qrt]: prt, qrt = qrt, prt
-        self.parent[prt] = qrt
-        self.rank[qrt] += self.rank[prt]
-
-        
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        ufa = UnionFind(n) # for Alice
-        ufb = UnionFind(n) # for Bob
-        
-        ans = 0
-        
-        edges.sort(reverse=True) 
-<A NAME="1"></A>        for t, u, v in edges: 
-            u -= 1
-            v -= 1
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if t == 3: # Alice &amp; Bob
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: 
-<A NAME="2"></A>                    ufa.union(u, v)
-                    ufb.union(</B></FONT>u, v)
-            elif t == 2: # Bob only
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match7-1.html#2',3,'match7-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if ufb.find(u) == ufb.find(v): ans += 1
-                else: ufb.union(u, v)
-            else: # Alice only
-                if ufa.find(u) == ufa.find(v): ans += 1
-                else: ufa.union(u,</B></FONT> v)
-                    
-        return ans if ufa.count == 1 and ufb.count == 1 else -1
+        a=[[] for _ in range(n+1)]
+        for k,i,j in edges:
+            a[i].append((j,k))
+            a[j].append((i,k))
+        d,st=[1]*(n+1),[1]
+        d[0],d[1]=0,0
+        while st:
+            i=st.pop()
+            for j,k in a[i]:
+                if k!=2 and d[j]:
+                    d[j]=0
+                    st.append(j)
+        if any(x for x in d): return -1
+        d,st=[1]*(n+1),[1]
+        d[0],d[1]=0,0
+        while st:
+            i=st.pop()
+            for j,k in a[i]:
+                if k!=1 and d[j]:
+                    d[j]=0
+                    st.append(j)
+        if any(x for x in d): return -1
+        d,s=[1]*(n+1),0
+        for i in range(1,n+1):
+            if d[i]:
+                st,d[i]=[i],0
+                while st:
+                    i=st.pop()
+                    for j,k in a[i]:
+                        if k==3 and d[j]:
+                            d[j],s=0,s+1
+                            st.append(j)
+        return len(e</B></FONT>dges)-(2*n-2-s)
 </PRE>
 
 </BODY>

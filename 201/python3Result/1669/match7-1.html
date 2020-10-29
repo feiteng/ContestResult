@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>529_ferrarima.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>529_ferrarima.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>INF=999999999999999999
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minCost(self, n: int, cuts: List[int]) -&gt; int:
+        cuts.append(n)
+        cuts.append(0)
+        cuts.sort()
+        pn=len(cuts)-1
+        f=[[INF for _ in range(pn)] for _ in range(pn)]
+        for i in range(pn):
+            f[i][i]=0
+        for width in range(2,pn+1):
+<A NAME="1"></A>            for leftIdx in range(pn):
+                rightIdx=</B></FONT>leftIdx+width-1
+                if rightIdx&gt;=pn: break
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for sepIdx in range(leftIdx,rightIdx):
+                    f[leftIdx][rightIdx]=min(f[leftIdx][rightIdx],f[leftIdx][sepIdx]+f[sepIdx+1][rightIdx]+cuts[rightIdx+1]-cuts[leftIdx])
+        return f[0][p</B></FONT>n-1]
+</PRE>
+
+</BODY>
+</HTML>

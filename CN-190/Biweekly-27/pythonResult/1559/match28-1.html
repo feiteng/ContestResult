@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>366_fanciest.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>366_fanciest.py</CENTER></H3><HR>
+<PRE>
+class Solution(object):
+    def cherryPickup(self, grid):
+        &quot;&quot;&quot;
+        :type grid: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        M,N= len(grid), len(grid[0])
+        memo = {}
+        def dp(i,j, row):
+            key = (i,j, row)
+            # print (i,j, row)
+            if key in memo:
+                return memo[key]
+            board = grid[row][i]
+            if i!=j:
+                board += grid[row][j]
+<A NAME="0"></A>            if row == M-1:
+                return board
+            ans = board
+            for pos in [<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(i-1,j),(i,j),(i+1,j),(i-1,j-1),(i,j-1),(i+1,j-1),(i-1,j+1),(i,j+1),(i+1,j+1)]:
+                if 0&lt;=pos[0]&lt;N and 0&lt;=pos[1]&lt;N and pos[0]!=pos[</B></FONT>1]:
+                    ans = max(ans, board + dp(pos[0], pos[1], row+1))
+            memo[key] = ans
+            return ans
+        ans = dp(0,N-1,0)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

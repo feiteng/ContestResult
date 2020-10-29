@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_ZihanWang98.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_ZihanWang98.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int mod = 1_000_000_007;
+        public int[] prefixFunction(String s) {
+            int[] p = new int[s.length()];
+            int k = 0;
+            for (int i = 1; i &lt; s.length(); i++) {
+                while (k &gt; 0 &amp;&amp; s.charAt(k) != s.charAt(i))
+                    k = p[k - 1];
+                if (s.charAt(k) == s.charAt(i))
+                    ++k;
+                p[i] = k;
+            }
+            return p;
+        }
+        public int findGoodStrings(int n, String s1, String s2, String evil) {
+            if (s1.compareTo(s2) &gt; 0) return 0;
+            int[] P = prefixFunction(evil);
+//            System.err.println(Arrays.toString(P));
+            dp = new int[evil.length() + 1][n + 1];
+            for (int[] a: dp) Arrays.fill(a, -1);
+            int c1 = findStringsBelow(n, s1.toCharArray(), evil.toCharArray(), P, 0, 0, true);
+//            System.err.println(c1);
+<A NAME="0"></A>            for (int[] a: dp) Arrays.fill(a, -1);
+            int c2 = findStringsBelow(n, s2.toCharArray(), evil.toCharArray(), P, 0, 0, true);
+//            System.err.println(c2);
+            int C = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>add(mod - c1, c2);
+            if (!s1.contains(evil)) C++;
+            return C;
+        }
+        int add (int a, int b</B></FONT>) {
+            int c = a + b;
+            if (c &gt;= mod) return c - mod;
+            return c;
+        }
+        int[][] dp;
+        public int findStringsBelow(int n, char[] s, char[] p, int[] prefixFunction, int atP, int atN, boolean same) {
+            if (!same &amp;&amp; dp[atP][atN] != -1) return dp[atP][atN];
+            if (atP == p.length) return 0;
+            if (atN == n) return 1;
+            int start = 'a', end = same ? s[atN]: 'z';
+            int ans = 0;
+            for (int i = start; i &lt;= end; i++) {
+                if (i == p[atP]) {
+                    ans = add(ans, findStringsBelow(n, s, p, prefixFunction, atP + 1, atN + 1, same &amp;&amp; i == end));
+                } else {
+                    int nextAtP = atP;
+                    while (nextAtP &gt; 0 &amp;&amp; i != p[nextAtP]) nextAtP = prefixFunction[nextAtP - 1];
+                    if (i == p[nextAtP]) nextAtP++;
+                    ans = add(ans, findStringsBelow(n, s, p, prefixFunction, nextAtP, atN + 1, same &amp;&amp; i == end));
+                }
+            }
+            return dp[atP][atN] = ans;
+        }
+}
+</PRE>
+
+</BODY>
+</HTML>

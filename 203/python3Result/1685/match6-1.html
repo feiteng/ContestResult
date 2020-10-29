@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_Eser.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_Eser.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def stoneGameV(self, stoneValue: List[int]) -&gt; int:
+        presum <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [0]
+        for v in stoneValue:
+            presum.append(presum[-1] + v)
+        @lru_cache(None)
+        def dfs(lo, hi):
+            if lo == hi - 1:
+                return 0
+            cur = 0
+            for m in range(lo+1, hi): #[lo, m), [m, hi)
+                l = presum[m] - presum[lo]
+                r = presum[hi] - presum[m]
+                if l &lt; r:
+                    cur = max(cur, l+dfs(lo, m))
+                elif l &gt; r:
+                    cur = max(cur, r+dfs(m, hi))
+                else:
+                    cur = max(cur, l+max(dfs(lo, m), dfs(m, hi)))
+            return cur
+        return dfs(0, len(s</B></FONT>toneValue))
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>685_alexlin87.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>685_alexlin87.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    Map&lt;Long, Integer&gt; result = new HashMap&lt;&gt;();
+    public int minCost(int n, int[] cuts) {
+        Arrays.sort(cuts);
+<A NAME="1"></A>        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return helper(cuts, 0, cuts.length - 1, 0, n);
+    }
+    private int helper(int[] cuts, int cl, int cr, int sl, int sr</B></FONT>) {
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(cl &gt; cr) {
+            return 0;
+        }
+        long state = sr;
+        state *= (long)1e6;
+        state += sl;
+        if(result.containsKey(state)) {
+<A NAME="2"></A>            return result.get(state);
+        }</B></FONT>
+        int diff = sr - sl;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int totalCost = diff;
+        int minCost = Integer.MAX_VALUE;
+        
+        for(int i = cl; i &lt;= cr; i++) {
+            minCost = Math.min(minCost, helper(cuts, cl, i - 1, sl, cuts[i]) + helper(cuts, i + 1, cr, cuts[i], sr));    
+        }
+        totalCost += minCost;
+        result.put(state, totalCost);
+        return totalCost;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

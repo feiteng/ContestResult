@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>574_lcxyj.cpp</TITLE>
+ <TITLE>142_hhhyyyfff.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>574_lcxyj.cpp</CENTER></H3><HR>
+<H3><CENTER>142_hhhyyyfff.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int minCost(string s, vector&lt;int&gt;&amp; cost) {
-<A NAME="1"></A>        int n=s.size();
-        int ans=0;
-        for(int i=0;i&lt;n;i++){</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(i+1&lt;n&amp;&amp;s[i+1]==s[i]){
-                int j=i;
-                int mx=cost[i];
-                int sum=cost[i];
-                while(j+1&lt;n&amp;&amp;s[j+1]==s[i]){
-                    mx=max(mx,cost[j+1]);
-                    sum+=cost[j+1];
-                    j++;
-                }
-                ans+=sum-mx;
-                i=j;
-                
-            }</B></FONT>
+        vector&lt;int&gt; f(26), g(26);
+        for (int i = 0; i &lt; s.length(); ++i) {
+            for (int j = 0; j &lt; 26; ++j)
+                g[j] = f[j] + cost[i];
+            for (int j = 0; j &lt; 26; ++j)
+                if (j != s[i] - 'a')
+                    g[s[i] - 'a'] = min(g[s[i] - 'a'], f[j]);
+            f = g;
         }
-        return  ans;
+        int ans = 1e9;
+        for (int i = 0; i &lt; 26; ++i) ans = min(ans, f[i]);
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

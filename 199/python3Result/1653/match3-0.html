@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>79_yuan-zhi-b.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>79_yuan-zhi-b.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countPairs(self, root: TreeNode, distance: int) -&gt; int:
+        res=0
+        def dfs(node):
+            nonlocal res
+            if not node:
+                return {}
+            if not node.left and not node.right:
+<A NAME="0"></A>                return {0:1}
+            left,right=dfs(node.left),dfs(node.right)
+            res+=sum(left[l]*right[r] for l in left for r in right if l+r+2&lt;=distance)
+            cur<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=defaultdict(int)
+            for key in left:
+                cur[key+1]+=left[key]
+            for key in right:
+                cur[key+1]+=right[key]
+            return cur
+        dfs(root)
+        return</B></FONT> res
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_llcode-3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_llcode-3.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+        List&lt;Integer&gt;[] lEdges = new List[n];
+        for(int i=0; i &lt; lEdges.length; i++) {
+            lEdges[i] = new ArrayList&lt;&gt;();
+        }
+        for(int[] e : edges) {
+            lEdges[e[0]].add(e[1]);
+            lEdges[e[1]].add(e[0]);
+        }
+<A NAME="1"></A>        int[] result = new int[n];
+        int[][] counter = new</B></FONT> int[n][26];
+        boolean[] visited = new boolean[n];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(0, lEdges, result, counter, labels, visited);
+        return result;
+    }
+    
+    void dfs(int cur, List&lt;Integer&gt;[] lEdges, int[] result, int[][]counter, String labels</B></FONT>, boolean[] visited) {
+        int label = labels.charAt(cur) - 'a';
+        visited[cur] = true;
+        if (lEdges[cur].size() == 0) {
+            result[cur] = 1;
+            ++counter[cur][label];
+            return ;
+        }
+<A NAME="2"></A>        counter[cur][label] = 1;
+        for(int e : lEdges[cur]) {
+            if (! visited[e]) {
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(e, lEdges, result, counter, labels, visited);
+                for(int i=0; i &lt; 26; i++) {
+                    counter[cur][i] += counter[e][i];
+                }
+            }
+        }
+        r</B></FONT>esult[cur] = counter[cur][label];
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

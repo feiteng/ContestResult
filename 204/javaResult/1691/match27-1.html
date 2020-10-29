@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>105_darkaimagic.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>105_darkaimagic.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int[][] g;
+    int row, col;
+    int[][] dir = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    void dfs(int r, int c) {</B></FONT>
+        g[r][c] = -1;
+        for (int d = 0; d &lt; 4; d++) {
+            int tr = r + dir[d][0], tc = c + dir[d][1];
+            if (tr &lt; 0 || tr &gt;= row || tc &lt; 0 || tc &gt;= col)
+<A NAME="1"></A>                continue;
+            if (g[tr][tc] != 1)
+                continue;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(tr, tc);
+        }
+    }
+<A NAME="2"></A>    int cal() {
+        int cnt = 0;
+        for (int r = 0</B></FONT>; r &lt; row; r++)
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int c = 0; c &lt; col; c++) {
+                if (g[r][c] == 1) {
+                    cnt++;
+                    dfs(r, c);
+                }
+            }</B></FONT>
+<A NAME="3"></A>        for (int r = 0; r &lt; row; r++)
+            for (int c = 0; c &lt; col; c++)
+                if (g[r][c] == -1)
+                    g[r][c] = 1<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        return cnt;
+    }
+    public int minDays(int[][] grid) {
+        g = grid;
+        row = g.length;
+        col = g[0].length;
+        if (cal() &gt; 1)
+<A NAME="4"></A>            return 0;
+        for (int r = 0; r &lt; row; r++)
+            for (int c = 0</B></FONT>; c &lt; col; c++)
+                <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#4',2,'match27-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (g[r][c] == 1) {
+                    g[r][c] = 0;
+                    if (cal() &gt; 1)
+                        return 1;
+                    g[r][c] = 1;
+                }</B></FONT>
+        return 2;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

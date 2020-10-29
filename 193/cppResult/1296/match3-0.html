@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>387_blueattack.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>387_blueattack.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class TreeAncestor {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int cnt=0,f[50010][21],dep[50010],head[50010];
+    struct node
+    {
+        int to,next;
+    }e[100050];
+    void add(int x,int y)
+    {
+        e[cnt].to=y;
+        e[cnt].next=head[x];
+        head[x]=cnt++;
+    }
+    void dfs(int u,int father)//预处理得到f数组，u表示当前搜索到的点，father表示u的父节点
+    {
+        dep[u]=dep[father]+1;//u的父节点深度+1就是u的深度
+        f[u][0]=father;//u向上跳2^0步(1步)，为father点
+        for(int i=1;i&lt;=20;i++)//u与其祖先的距离最大不超过2^20
+            f[u][i]=f[f[u][i-1]][i-1];//dp的思想：u向上跳2^i步相当于u向上跳2^(i-1)步，再向上跳2^(i-1)步
+        for(int i=head[u];i!=-1;i=e[i].next)//遍历与u相连的点
+        {
+            int v=e[i].to;
+            if(v!=father)dfs(v,u);//如果当前遍历的点v不是father点，则可以向下继续搜索
+        }
+    }
+    int get_fa(int x,int k)
+    {
+        int t=dep[x]-k;
+        for(int i=20;i&gt;=0;i--)//倍增向上跳跃，求祖先
+<A NAME="1"></A>            if(dep[f[x][i]]&gt;t)x=f[x][i];
+        return f[x][0];
+    }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    TreeAncestor(int n, vector&lt;int&gt;&amp; parent) {
+        memset(head,-1,sizeof(head));
+        for(int i=1;i&lt;n;i++)
+        {
+            add(i+1,parent[i]+1);
+            add(parent[i]+1,i+1);
+        }
+        memset(f,0,sizeof(f));
+        dfs(1,0);
+    }
+    
+    int getKthAncestor(int node, int k) {</B></FONT>
+        return get_fa(node+1,k)-1;
+    }
+};
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor* obj = new TreeAncestor(n, parent);
+ * int param_1 = obj-&gt;getKthAncestor(node,k);
+ */
+</PRE>
+</BODY>
+</HTML>

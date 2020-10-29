@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>105_dezhonger.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>105_dezhonger.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    String s1, s2, evil;
+    String[] sss;
+    int[] bit;
+    int mod = 10_0000_0007;
+    long[][] dp = new long[600][600];
+
+
+    int[] f(String a) {
+        int len = a.length();
+        int[] b = new int[len];
+        for (int i = 0; i &lt; len; i++) {
+            b[len - i - 1] = a.charAt(i) - 'a';
+        }
+        return b;
+    }
+
+    private int h(String str) {
+        return isPreFix(str, evil);
+    }
+
+    private int isPreFix(String a, String b) {
+        int len1 = a.length();
+        int len2 = b.length();
+        if (len1 == 0) return 0;
+        for (int i = Math.min(len1, len2); i &gt;= 1; i--) {
+//            String c = b.substring(0, i);
+            String d = a.substring(len1 - i, len1);
+            if (d.equals(sss[i])) return i;
+//            if (c.equals(d)) return i;
+        }
+        return 0;
+    }
+
+    long dfs(int pos, String str, boolean limit) {
+        if (pos == -1) {
+            int hvalue = h(str);
+            if (hvalue == evil.length()) return 0;
+            return 1;
+        }
+        int hvalue = h(str);
+        if (hvalue == evil.length()) return 0;
+        if (!limit &amp;&amp; dp[pos][hvalue] != -1) return dp[pos][hvalue];
+        int last = limit ? bit[pos] : 25;
+        long result = 0;
+        for (int i = 0; i &lt;= last; i++) {
+            String nxt = &quot;&quot;;
+            if (str.length() &lt; evil.length()) {
+                nxt = new StringBuilder().append(str).append((char) (i + 'a')).toString();
+            } else {
+                nxt = new StringBuilder().append(str.substring(1)).append((char) (i + 'a')).toString();
+            }
+            result += dfs(pos - 1, nxt, limit &amp;&amp; i == last);
+            result %= mod;
+        }
+<A NAME="0"></A>        if (!limit) {
+            dp[pos][hvalue] = result;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return result;
+    }
+
+    public int findGoodStrings(int n, String s1, String s2, String evil) {
+        if (s1.compareTo(s2) &gt; 0) return 0;
+        int len = evil.length</B></FONT>();
+        String[] sss = new String[len+1];
+        for (int i = 1; i &lt;= len; i++) sss[i] = evil.substring(0, i);
+        this.sss = sss;
+        this.s1 = s1;
+        this.s2 = s2;
+        this.evil = evil;
+        int[] a = f(s1);
+        int[] b = f(s2);
+
+        //cal(s2)
+        for (int i = 0; i &lt; dp.length; i++) Arrays.fill(dp[i], -1);
+        this.bit = b;
+        long r1 = dfs(n - 1, &quot;&quot;, true);
+
+
+        //cal(s1)
+        for (int i = 0; i &lt; dp.length; i++) Arrays.fill(dp[i], -1);
+        this.bit = a;
+        long r2 = dfs(n - 1, &quot;&quot;, true);
+
+        int add = 1;
+        if (s1.contains(evil)) {
+            add = 0;
+        }
+        int result = (int) ((r1 + mod - r2 + add) % mod);
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

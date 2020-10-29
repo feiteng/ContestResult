@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_azala.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>210_azala.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Node:
+    def __init__(self, l, r):
+        self.l = l
+        self.r = r
+        self.val = 0
+        self.left = None
+        self.right =</B></FONT> None
+    def tick(self, p):
+        if p &lt; self.l or p &gt; self.r:
+            return
+        self.val += 1
+        if self.left:
+            self.left.tick(p)
+        if self.right:
+            self.right.tick(p)
+            
+def getval(node, l, r):
+    if r &lt; node.l or l &gt; node.r:
+        return 0
+    if l &lt;= node.l and r &gt;= node.r:
+        return node.val
+    ret = 0
+    for ch in [node.left, node.right]:
+        if ch:
+            ret += getval(ch, l, r)
+    # print(node.l, node.r, l, r, ret)
+    return ret
+
+def makenode(l, r):
+    n = Node(l, r)
+    if l == r:
+        return n
+    n.left = makenode(l, (l+r)//2)
+    n.right = makenode((l+r)//2 + 1, r)
+    return n
+    
+class Solution:
+    def minInteger(self, num: str, k: int) -&gt; str:
+        dg = [[] for _ in range(10)]
+        ln = len(num)
+        for i in range(ln-1, -1, -1):
+            c = num[i]
+            n = ord(c) - ord('0')
+            dg[n].append(i)
+        
+        root = makenode(0, ln-1)
+        
+        order = []
+        while 1:
+            # print(dg)
+            for i in range(10):
+                if dg[i]:
+                    gv = getval(root, 0, dg[i][-1])
+                    # print(dg[i][-1], gv)
+                    df = dg[i][-1] - gv
+                    if df &lt;= k:
+                        k -= df
+                        order.append(str(i))
+                        root.tick(dg[i][-1])
+                        dg[i].pop()
+                        break
+            if len(order) == ln:
+                return ''.join(order)
+        return ''.join(order)
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

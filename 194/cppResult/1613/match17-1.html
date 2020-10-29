@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_Akatsuki_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_Akatsuki_.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; par;
+    vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; G;
+    vector&lt;bool&gt; critical;
+    vector&lt;bool&gt; uncritical;
+    bool found;
+    int find(int x) {
+        return par[x] == x ? x : (par[x] = find(par[x]));
+    }
+    bool unite(int x, int y) {
+        x = find(x), y = find(y);
+        if(x == y) {
+            return false;
+        } else {
+            par[x] = y;
+            return true;
+        }
+    }
+    bool dfs(int u, int f, int x, int w) {
+        if(u == x) return true;
+        for(auto v: G[u]) {
+            if(v[0] == f) continue;
+            if(dfs(v[0], u, x, w)) {
+                if(v[2] == w) {
+                    uncritical[v[1]] = true;
+                    found = true;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e) {
+        par.resize(n);
+        G = vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;(n);
+<A NAME="0"></A>        iota(par.begin(), par.end(), 0);
+        int m = e.size();
+        vector&lt;vector&lt;int&gt;&gt; edges = e;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; m; i++) {
+            edges[i].push_back(i);
+        }
+        sort(edges.begin(), edges.end(), [](const vector&lt;int&gt; &amp;a, const vector&lt;int&gt; &amp;b) {
+            return a[2] &lt; b[2]; 
+        });</B></FONT>
+        critical = vector&lt;bool&gt;(m);
+        uncritical = vector&lt;bool&gt;(m);
+        for(int i = 0; i &lt; m; i++) {
+            if(unite(edges[i][0], edges[i][1])) {
+                critical[i] = true;
+                G[edges[i][0]].push_back({edges[i][1], i, edges[i][2]});
+                G[edges[i][1]].push_back({edges[i][0], i, edges[i][2]});
+            }
+        }
+        for(int i = 0; i &lt; m; i++) {
+            if(!critical[i]) {
+                found = false;
+                dfs(edges[i][0], -1, edges[i][1], edges[i][2]);
+                if(found) {
+                    uncritical[i] = true;
+<A NAME="1"></A>                }
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt;&gt; ans(2);
+        for(int i = 0; i &lt; m; i++) {
+            if(uncritical[i]) {
+                ans[1].push_back(edges[i][3]);
+            } else if(critical[i]) {
+                ans[0].push_back(edges[i][3]);
+            }
+        }
+        return ans;</B></FONT>
+    }
+};
+</PRE>
+</BODY>
+</HTML>

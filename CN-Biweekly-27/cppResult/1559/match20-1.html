@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_anlewy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_anlewy.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[80][80][80];
+    bool ok[80][80][80];
+<A NAME="0"></A>    int ddd[9] = {-1, 0, 1};
+    int cherryPickup(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size(), n = grid[0].size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][n-1] = grid[0][n-1] + grid[0][0];
+        ok[0][0][n-1] = true;
+        for (int row = 1; row &lt; m; row++) {
+            for (int i = 0; i &lt; n; i++) {
+                for (int j = 0; j &lt; n; j++) {</B></FONT>
+                    if (i == j) {
+                        dp[row][i][j] = grid[row][i];
+                    } else {
+<A NAME="1"></A>                        dp[row][i][j] = grid[row][i] + grid[row][j];
+                    }
+                    int maxV = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for (int k = 0; k &lt; 3; k++) {
+                        for (int kk = 0; kk &lt; 3; kk++) {
+                            if (0 &lt;= i+ddd[k] &amp;&amp; i+ddd[k] &lt; n &amp;&amp; 0 &lt;= j+ddd[kk] &amp;&amp; j+ddd[kk] &lt; n &amp;&amp; ok[row-1][i+ddd[k]][j+ddd[kk]]) {</B></FONT>
+                                maxV = max(maxV, dp[row-1][i+ddd[k]][j+ddd[kk]]);
+                                ok[row][i][j] = 1;
+                            }
+                        }
+                    }
+                    if (ok[row][i][j])
+<A NAME="2"></A>                        dp[row][i][j] += maxV;
+                    else
+                        dp[row][i][j] = 0;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                ans = max(ans, dp[m-1][i][j]);
+                // cout &lt;&lt; dp[m-1][i][j] &lt;&lt; &quot; &quot;;
+            }
+            // cout &lt;&lt; endl;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

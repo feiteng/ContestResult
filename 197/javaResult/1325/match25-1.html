@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>339_MMMMMMoSky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>339_MMMMMMoSky.java</CENTER></H3><HR>
+<PRE>
+<A NAME="3"></A><FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Node {
+    public int id;
+    public double prob;
+
+    public Node(int id, double prob) {
+        this.id = id;
+        this.prob = prob;
+<A NAME="0"></A>    }
+}</B></FONT>
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        Map&lt;Integer, List&lt;Node&gt;&gt; neighbors = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            neighbors.put(i, new ArrayList&lt;&gt;());
+        }
+<A NAME="1"></A>        for (int i = 0; i &lt; edges.length; i++) {
+            int a = edges[i][0]</B></FONT>, b = edges[i][1];
+            double p = succProb[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>neighbors.get(a).add(new Node(b, p));
+            neighbors.get(b).add(new Node(a, p));
+        }
+<A NAME="2"></A>
+        Map&lt;Integer, Double&gt; res = new HashMap&lt;&gt;()</B></FONT>;
+        Set&lt;Integer&gt; calculated = new HashSet&lt;&gt;();
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>PriorityQueue&lt;Node&gt; heap = new PriorityQueue&lt;&gt;((n1, n2) -&gt; Double.compare(n2.prob, n1.prob));
+        heap.add(new Node(start, 1.0));
+        while (!heap.isEmpty()) {
+            Node cur = heap.poll</B></FONT>();
+            if (calculated.contains(cur.id)) {
+                continue;
+            }
+            res.put(cur.id, cur.prob);
+            calculated.add(cur.id);
+            for (Node nxt : neighbors.get(cur.id)) {
+                double newProb = cur.prob * nxt.prob;
+                if (newProb &gt; res.getOrDefault(nxt.id, 0.0)) {
+                    res.put(nxt.id, newProb);
+                    heap.add(new Node(nxt.id, newProb));
+                }
+            }
+        }
+        return res.getOrDefault(end, 0.0);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

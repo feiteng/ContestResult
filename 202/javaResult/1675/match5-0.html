@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>741_huanglin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>741_huanglin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+
+        int n = position.length;
+        int r = position[n - 1] - position[0];
+
+        int l = 0;
+        while (l &lt; r) {
+            int mid = l + (r - l + 1 &gt;&gt; 1);
+            if (checkValid(position, m , mid)) {
+                l = mid;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return l;
+    }
+
+    private boolean checkValid(int[] position, int m, int mid) {
+        int count = m;
+        count--;
+        int pre = position[0];
+        for (int pos : position) {
+            if (pos - pre &gt;= mid) {
+                pre = pos;
+                count--;
+            }
+            if (count == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

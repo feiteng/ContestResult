@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>113_everything_now.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>113_everything_now.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minCost(vector&lt;int&gt;&amp; house, vector&lt;vector&lt;int&gt;&gt;&amp; cost, int m, int n, int target) {
+        int dp[105][20][105];
+        
+        memset(dp, 0x3f3f3f3f, sizeof(dp));
+<A NAME="1"></A>        
+        if (house[0] != 0){</B></FONT>
+            int color = house[0] -1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            dp[0][color][1] = 0;
+        }
+        else{
+            for(int color = 0; color &lt; n; color++){
+                dp[0][color][1] = cost[0][color];
+            }
+        }
+        
+        for (int i = 1; i &lt; m; i++){</B></FONT>
+            //如果house[i]已经涂色
+            if (house[i] != 0){
+                int color = house[i] - 1;
+                //讨论前一个house[i-1]
+                for (int j = 0; j &lt; n; j++){
+                    //如果house[i]和house[i-1]同色
+                    if (j == color){
+<A NAME="3"></A>                        for (int k = 1; k &lt;= target; k++){
+                            dp[i][color][k] = min(dp[i][color][k], dp[i-1][color][k]);
+                        }
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#3',2,'match34-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    }
+                    //如果不同色
+                    else{
+                        for (int k = 1; k &lt;= target; k++){
+                            dp[i][color][k] = min(dp[i][color][k], dp[i-1][j][k-1]);
+                        }
+                    }
+                }
+            }</B></FONT>
+<A NAME="2"></A>            //如果house[i]没有涂色
+            else{
+                for(int color = 0; color &lt; n; color++){
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for (int lColor = 0; lColor &lt; n; lColor++){
+                        for(int k = 1; k &lt;= target; k++){
+                            if(color == lColor){</B></FONT>
+                                dp[i][color][k] = min(dp[i][color][k], dp[i-1][lColor][k] + cost[i][color]);
+                            }
+                            else{
+                                dp[i][color][k] = min(dp[i][color][k], dp[i-1][lColor][k-1] + cost[i][color]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        int res = 0x3f3f3f3f;
+        for(int color = 0; color &lt; n; color++){
+            res = min(res, dp[m-1][color][target]);
+        }
+        if (res == 0x3f3f3f3f)
+            return -1;
+        else 
+            return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

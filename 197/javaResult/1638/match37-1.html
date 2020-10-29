@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_soshellon.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>364_soshellon.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    double dist(double x,double y, int[][] pos){
+        double res = 0.0;
+        for(int[] p:pos){
+            double dx = x-p[0];
+            double dy = y-p[1];
+            res+=Math.sqrt(dx*dx+dy*dy);
+        }
+        return res;
+<A NAME="2"></A>    }
+    public double getMinDistSum(int[][] pos) {</B></FONT>
+        if(pos.length==1) return 0.0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#2',2,'match37-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double x=0.0;
+        double y = 0.0;
+        for(int[] p:pos){
+            x +=p[0];
+            y +=p[1];
+        }
+        x/=pos.length;
+        y/=pos.length;
+        
+        double min=dist</B></FONT>(x,y, pos);
+        int k=0;
+        while(k&lt;pos.length){
+            for(int i=0;i&lt;pos.length&amp;&amp;i!=k;i++){
+               double d = dist(pos[i][0],pos[i][1],pos);
+                if(d&lt;min){
+                    min = d;
+                    x = pos[i][0];
+                    y = pos[i][1];
+                }
+<A NAME="1"></A>            }
+            k++;
+        }
+<A NAME="3"></A>        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double[] dx = new double[]{0.00001,0,-0.00001,0};
+        double[] dy = new double[]{0,0.00001,0,-0.00001};
+        double lower = 1</B></FONT>;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#3',2,'match37-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int flag = 0;
+        double gra = 10000;
+        while(gra&gt;lower){
+            flag = 0;
+            for(int i=0;i&lt;4;i++){
+                double nx = x+gra*dx[i];
+                double ny = y+gra*dy[i];
+                double d = dist(nx,ny,pos);
+                if(d&lt;min){
+                    min = d;
+                    x = nx;
+                    y = ny;
+                    flag = 1;
+                    break;
+                }
+            }
+            if</B></FONT>(flag==0) gra/=2;
+        }
+        return min;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

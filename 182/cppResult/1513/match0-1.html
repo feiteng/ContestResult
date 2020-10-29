@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_z-jo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_z-jo.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[510][60][2][2];
+    int t[60][26];
+    const int MOD = 1000000007;
+
+    void update(int &amp;x, int y) {
+        x += y;
+        if (x &gt;= MOD) {
+            x -= MOD;
+        }
+<A NAME="0"></A>    }
+
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = evil.size();
+        for (int i = 0; i &lt; m; i++) {
+            string res = &quot;&quot;;
+            for (int j = 0; j &lt; i; j++) {</B></FONT>
+                res += evil[j];
+            }
+            for (int j = 0; j &lt; 26; j++) {
+                t[i][j] = 0;
+                string res2 = res;
+                res2 += ('a' + j);
+                for (int k = m - 1; k &gt;= 0; k--) {
+                    bool isMatch = true;
+                    int pos = (int)res2.size() - 1;
+                    for (int l = k; l &gt;= 0; l--) {
+                        if (pos &lt; 0 || evil[l] != res2[pos]) {
+                            isMatch = false;
+                            break;
+                        }
+                        pos--;
+                    }
+                    if (isMatch) {
+                        t[i][j] = k + 1;
+                        break;
+                    }
+                }
+            }
+<A NAME="1"></A>        }
+
+        memset(dp, 0, sizeof(dp));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][1][1] = 1;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                for (int down = 0; down &lt;= 1; down++) {
+                    for (int up = 0; up &lt;= 1; up++) {
+                        int L = 0, R = 25;</B></FONT>
+                        if (down) {
+                            L = (i &lt; s1.size() ? s1[i] - 'a' : -1);
+                        }
+                        if (up) {
+                            R = (i &lt; s2.size() ? s2[i] - 'a' : -1);
+                        }
+                        for (int k = L; k &lt;= R; k++) {
+<A NAME="2"></A>                            if (k &lt; 0) continue;
+                            if (t[j][k] == m) continue;
+                            update(dp[i + 1][t[j][k]][down &amp;&amp; (k == L)][up &amp;&amp; (k == R)], dp[i][j][down][up]);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+                }
+            }
+        }
+
+        int sum = 0;
+        for (int i = 0; i &lt; m; i++) {
+            for (int down = 0; down &lt; 2; down++) {
+                for (int up = 0; up &lt; 2; up++) {
+                    update(sum, dp[n][i][down][up]);
+                }
+            }
+        }
+
+        return sum;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

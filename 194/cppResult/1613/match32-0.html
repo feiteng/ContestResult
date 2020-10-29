@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_xiaowuc1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2_xiaowuc1.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;algorithm&gt;
+#include &lt;bitset&gt;
+#include &lt;cassert&gt;
+#include &lt;chrono&gt;
+#include &lt;cstring&gt;
+#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;queue&gt;
+#include &lt;random&gt;
+#include &lt;set&gt;
+#include &lt;stack&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+// BEGIN NO SAD
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
+#define f first
+#define s second
+typedef vector&lt;int&gt; vi;
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+// END NO SAD
+// REMEMBER CLEAR GLOBAL STATE
+typedef pair&lt;pii, int&gt; metadata;
+typedef pair&lt;int, metadata&gt; edge;
+int par[105];
+<A NAME="0"></A>void init(int n) {
+  for(int i = 0; i &lt; n; i++) par[i] = i;
+}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int find(int x) {
+  return par[x] == x ? x : (par[x] = find(par[x]));
+}
+bool merge(int x, int y) {
+  x = find(x);
+  y = find(y);
+  if(x == y) return false;
+  par[x] = y;
+  return true;
+}</B></FONT>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; redges) {
+      vector&lt;edge&gt; edges;
+      for(int i = 0; i &lt; sz(redges); i++) {
+        vector&lt;int&gt; out = redges[i];
+        edges.emplace_back(out[2], metadata(pii(out[0], out[1]), i));
+      }
+      sort(all(edges));
+      init(n);
+      int realweight = 0;
+      for(edge out: edges) {
+        if(merge(out.second.first.first, out.second.first.second)) realweight += out.first;
+      }
+      vector&lt;int&gt; lhs, rhs;
+      // find all critical
+      for(int a = 0; a &lt; sz(edges); a++) {
+        init(n);
+        int nmerge = 0;
+        int nowweight = 0;
+        for(int i = 0; i &lt; sz(edges); i++) {
+          if(i == a) continue;
+          if(merge(edges[i].second.first.first, edges[i].second.first.second)) {
+            nmerge++;
+            nowweight += edges[i].first;
+          }
+        }
+        if(nmerge != n-1 || nowweight &gt; realweight) {
+          lhs.push_back(edges[a].second.second);
+        }
+      }
+      // find all candidates
+      vector&lt;int&gt; canappear;
+      init(n);
+      for(int i = 0; i &lt; sz(edges);) {
+        int j = i;
+        while(j &lt; sz(edges) &amp;&amp; edges[i].first == edges[j].first) j++;
+        for(int k = i; k &lt; j; k++) {
+          if(find(edges[k].second.first.first) != find(edges[k].second.first.second)) {
+            canappear.push_back(edges[k].second.second);
+          }
+        }
+        for(int k = i; k &lt; j; k++) merge(edges[k].second.first.first, edges[k].second.first.second);
+        i = j;
+      }
+      for(int out: canappear) {
+        bool in = false;
+        for(int out2: lhs) in |= out == out2;
+        if(!in) rhs.push_back(out);
+      }
+      vector&lt;vector&lt;int&gt;&gt; ret;
+      ret.push_back(lhs);
+      ret.push_back(rhs);
+      return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

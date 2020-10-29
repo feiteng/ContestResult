@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>457_happymark.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>457_happymark.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numOfWays(self, nums: List[int]) -&gt; int:
+        import operator as op
+        from functools import reduce
+        def nw(nums):
+            def ncr(n, r):
+                r = min(r, n-r)
+<A NAME="0"></A>                numer = reduce(op.mul, range(n, n-r, -1), 1)
+                denom = reduce(op.mul, range(1, r+1), 1)
+                return numer // denom  # or / in Python 2
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if len(nums)&lt;=2:
+                return 1
+            i=nums[0]
+            al=[]
+            bl=[]
+            for j in range(1,len(nums)):
+                if nums[j]&lt;i:
+                    al.append(nums[j])
+                else:
+                    bl.append(nums[j</B></FONT>])
+            a=nw(al)
+            #print(al,bl)
+            b=nw(bl)
+            #print(a,b)
+            return ncr(len(al)+len(bl),len(al))*a*b%1000000007
+        return nw(nums)-1
+    
+    
+</PRE>
+
+</BODY>
+</HTML>

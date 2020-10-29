@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_arignote.java</TITLE>
+ <TITLE>249_abhigyankole.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,89 +15,117 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_arignote.java</CENTER></H3><HR>
+<H3><CENTER>249_abhigyankole.java</CENTER></H3><HR>
 <PRE>
-<A NAME="2"></A>class Solution {
-<A NAME="3"></A>
-    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UnionFind uf1 = new UnionFind(n), uf2 = new UnionFind(n), uf3 = new</B></FONT> UnionFind(n);
-        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#3',2,'match23-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count = 0;
-        for (int[] edge : edges) {
-            if (edge[0] == 3) {
-                if (uf3.find(edge[1] - 1) != uf3.find(edge[2] - 1)) {
-                    uf1.union(edge[1] - 1, edge[2] - 1);
-                    uf2.union(edge[1] - 1, edge[2] - 1);
-                    uf3.union(edge[1] - 1, edge[2] - 1);
-                }</B></FONT> else {
-                    count++;
-                }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list1;
+    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list2;
+    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; listC;
+    int v1[];
+    int v2[];
+    int v[];
+    int nc;
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        list1=new ArrayList&lt;&gt;();
+        list2=new ArrayList&lt;&gt;();
+        listC=new ArrayList&lt;&gt;();
+        v1=new int[n];
+        v=new int[n];
+        
+        v2=new int[n];
+        for(int i=0;i&lt;n;i++)
+        {
+            list2.add(new ArrayList&lt;&gt;());
+            list1.add(new ArrayList&lt;&gt;());
+            listC.add(new ArrayList&lt;&gt;());
+        }
+        for(int i=0;i&lt;edges.length;i++)
+        {
+            if(edges[i][0]==1)
+            {
+                list1.get(edges[i][1]-1).add(edges[i][2]-1);
+                list1.get(edges[i][2]-1).add(edges[i][1]-1);
+            }
+            else if(edges[i][0]==2)
+            {
+                list2.get(edges[i][1]-1).add(edges[i][2]-1);
+                list2.get(edges[i][2]-1).add(edges[i][1]-1);
+            }
+            else
+            {
+                listC.get(edges[i][1]-1).add(edges[i][2]-1);
+                listC.get(edges[i][2]-1).add(edges[i][1]-1);
             }
         }
-        for (int[] edge : edges) {
-            if (edge[0] == 1) {
-                if (uf1.find(edge[1] - 1) != uf1.find(edge[2] - 1)) {
-<A NAME="4"></A>                    uf1.union(edge[1] - 1, edge[2] - 1);
-                } else {
-                    count++;
-                <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#4',2,'match23-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            } else if (edge[0] == 2) {
-                if (uf2.find(edge[1] - 1) != uf2.find(edge[2] - 1)) {
-                    uf2.union</B></FONT>(edge[1] - 1, edge[2] - 1);
-                } else {
-                    count++;
-                }
-            }
-        }
-        for (int i = 0; i &lt; n; i++) {
-            if (uf1.find(0) != uf1.find(i) || uf2.find(0) != uf2.find(i)) {
+        dfs1(0);
+        dfs2(0);
+        for(int i=0;i&lt;n;i++)
+        {
+            if(v1[i]==0||v2[i]==0)
+            {
                 return -1;
             }
         }
-        return count;
-    }
-
-    class UnionFind {
-        private int count = 0;
-        private int[] parent, rank;
-
-        public UnionFind(int n) {
-            count = n;
-<A NAME="0"></A>            parent = new int[n];
-            rank = new int[n];
-            for (int i = 0; i &lt; n; i++) {
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>parent[i] = i;
+        int ans=0;
+        int comp=0;
+        for(int i=0;i&lt;n;i++)
+        {
+            if(v[i]==0)
+            {
+                comp++;
+                nc=0;
+                dfs(i);
+                ans+=(nc-1);
             }
         }
-
-        public int find(int p) {
-            while (p != parent[p]) {
-                parent[p] = parent[parent[p]];
-                p = parent[p];
-            }
-            return p;
-        }
-
-        public void union(int p, int q) {
-            int rootP = find(p);
-            int rootQ = find(q);
-            if</B></FONT> (rootP == rootQ)
-                return;
-            if (rank[rootQ] &gt; rank[rootP]) {
-                parent[rootP] = rootQ;
-            } else {
-                parent[rootQ] = rootP;
-<A NAME="1"></A>                if (rank[rootP] == rank[rootQ]) {
-                    rank[rootP]++;
-                }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            count--;
-        }
-
-        public int count() {
-            return count;
-        }</B></FONT>
+        int req=ans+2*(comp-1);
+        return edges.length-req;
     }
-}
+    void dfs1(int node)
+    {
+        if(v1[node]==1)
+            return;
+        v1[node]=1;
+        ArrayList&lt;Integer&gt; l1=list1.get(node);
+        ArrayList&lt;Integer&gt; lc=listC.get(node);
+        for(int i:l1)
+        {
+            dfs1(i);
+        }
+        for(int i:lc)
+        {
+            dfs1(i);
+        }
+    }
+    void dfs2(int node)
+    {
+        if(v2[node]==1)
+            return;
+        v2[node]=1;
+        ArrayList&lt;Integer&gt; l2=list2.get(node);
+        ArrayList&lt;Integer&gt; lc=listC.get(node);
+        for(int i:l2)
+        {
+            dfs2(i);
+        }
+        for(int i:lc)
+        {
+            dfs2(i);
+        }
+    }
+    void dfs(int node)
+    {
+        if(v[node]==1)
+            return;
+        nc++;
+        v[node]=1;
+        ArrayList&lt;Integer&gt; lc=listC.get(node);
+        for(int i:lc)
+        {
+            dfs(i);
+        }
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

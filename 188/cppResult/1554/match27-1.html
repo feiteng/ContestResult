@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_plus2047.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>74_plus2047.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long int lld;
+#define frontof(c, k) (c).begin(), (c).begin() + (k)
+#define allof(c) (c).begin(), (c).end()
+#define len(container) int((container).size())
+#define asmin(var, val) var = min(var, val)
+#define asmax(var, val) var = max(var, val)
+#define rep(i, N) for (int i = 0; i &lt; int(N); ++i)
+#define inv(i, N) for (int i = int(N) - 1; i &gt;= 0; --i)
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    typedef vector&lt;vector&lt;int&gt;&gt; Mat;
+    
+    int minTime(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;bool&gt;&amp; hasApple) {
+        Mat G(n);
+        for(auto&amp; v: edges) {
+            G[v[0]].push_back(v[1]);
+            G[v[1]].push_back(v[0]);
+        }
+        return dfs(G, hasApple, 0, -1);
+    }
+    
+    int dfs(Mat&amp; G, vector&lt;bool&gt;&amp; has, int node, int parent) {
+        int sub = 0;</B></FONT>
+        for(int n: G[node]) {
+            if(n != parent) {
+                sub += dfs(G, has, n, node);
+            }
+        }
+        int delta = node == 0 ? 0 : 2;
+        if(sub != 0) {
+            return sub + delta;
+        } else {
+            return has[node] ? delta : 0;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

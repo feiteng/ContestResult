@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>432_nekochen0.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>432_nekochen0.py</CENTER></H3><HR>
+<PRE>
+'''
+1 2 3 7
+
+7
+7, 0
+f(-1) -&gt; 7, 0
+
+3 7
+3, 7
+10, 0
+f(-2) -&gt; 10, 0
+
+2 3 7
+2, 10
+5, 7
+12, 0
+f(-3) -&gt; 12, 0
+
+1 2 3 7
+1, 12 # (1, 0) + swap(f(-3))
+3, 10 # (1+2, 0) + swap(f(-2))
+6, 7  # (1+2+3, 0) + swap(f(-1))
+-&gt; 6, 7
+
+
+'''
+
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        v = stoneValue
+        n = len(v)
+        f = [None] * (n + 1)
+        f[-1] = (0, 0)
+        
+        for i in range(len(v)-1, -1, -1):
+            c = []
+            for j in range(i, min(i+3, n)):
+                # print(f'i {i}  j {j}')
+                j += 1
+<A NAME="0"></A>                b, a = f[j]
+                a += sum(v[i:j])
+                c.append((a, b))
+            f[i] = max(c, key=lambda z:z<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0] - z[1])
+            # print(f)
+        # print(f)
+        a, b = f[0]
+        if a &gt; b:
+            return 'Alice'
+        if b &gt; a:
+            return 'Bob'
+        re</B></FONT>turn 'Tie'
+</PRE>
+
+</BODY>
+</HTML>

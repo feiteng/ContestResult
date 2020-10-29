@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_yuuki.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_yuuki.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minReorder(int n, vector&lt;vector&lt;int&gt;&gt;&amp; connections) {
+        vector&lt;vector&lt;int&gt;&gt; vi(n);
+        vector&lt;vector&lt;int&gt;&gt; vo(n);
+        for(auto p: connections){
+            vo[p[0]].push_back(p[1]);
+            vi[p[1]].push_back(p[0]);
+        }
+        vector&lt;bool&gt; flag(n,true);
+        flag[0]=false;
+        queue&lt;int&gt; q;
+        q.push(0);
+<A NAME="0"></A>        int ans=0;
+        while(!q.empty()){
+            int len=q.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int pp=0;pp&lt;len;pp++){
+                int head=q.front();
+                q.pop();
+                for(auto i: vo[head]){
+                    if(flag[i]){
+                        ans++;
+                        flag[i]=false;
+                        q.push(i);
+                    }
+                }</B></FONT>
+                for(auto i: vi[head]){
+                    if(flag[i]){
+                        flag[i]=false;
+                        q.push(i);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

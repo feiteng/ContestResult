@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>547_WanGong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>547_WanGong.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int minDays(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (!conn(grid)) {
+            return 0;
+        }
+        
+        for (int i = 0; i &lt; grid.size(); ++i) {
+            for (int j = 0; j &lt; grid[i].size(); ++j) {
+                if (grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    if (!conn(grid)) {
+                        return 1;
+                    }
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        
+        
+        for (int i = 0; i &lt; grid.size(); ++i) {
+            for (int j = 0; j &lt; grid[i].size(); ++j) {
+                if (grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    for (int p = 0; p &lt; grid.size(); ++p) {
+                        for (int q = 0; q &lt; grid[p].size(); ++q) {
+                            if (grid[p][q] == 1) {
+                                grid[p][q] = 0;
+                                if (!conn(grid)) {
+                                    return 2;
+                                }       
+                                grid[p][q] = 1;
+                            }
+                        }
+                    }
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        
+<A NAME="1"></A>        return -1;
+    }</B></FONT>
+    
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool conn(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = 0;
+        for (int i = 0; i &lt; grid.size(); ++i) {
+            for (int j = 0; j &lt; grid[i].size(); ++j) {
+                if (grid[i][j] == 1) {</B></FONT>
+                    ++n;
+                    check(grid, i, j);
+                }
+                if (n &gt; 1) {
+                    break;
+                }
+            }
+        }
+        
+        
+        for (int i = 0; i &lt; grid.size(); ++i) {
+            for (int j = 0; j &lt; grid[i].size(); ++j) {
+                if (grid[i][j] == 2) {
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        
+        return n == 1;
+    }
+    
+    void check(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int i, int j) {
+        vector&lt;int&gt; dir{1, 0, -1, 0, 1};
+        for (int k = 0; k &lt; 4; ++k) {
+            int m = i + dir[k];
+            int n = j + dir[k + 1];
+            if (m &gt;= 0 &amp;&amp; m &lt; grid.size() &amp;&amp; n &gt;= 0 &amp;&amp; n &lt; grid.back().size() &amp;&amp; grid[m][n] == 1) {
+                grid[m][n] = 2;
+                check(grid, m, n);
+            }
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

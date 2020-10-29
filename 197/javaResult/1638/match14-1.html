@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>521_ChelsieZ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>521_ChelsieZ.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public double getMinDistSum(int[][] positions) {
+        int n= positions.length;
+        Point current = new Point();
+        // int sx = Integer.MAX_VALUE;
+        // int lx = 0;
+<A NAME="0"></A>        // int sy = Integer.MAX_VALUE;
+        // int ly = 0;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int[] p : positions) {
+            current.x += p[0];
+            current.y += p[1];
+        }
+        current.x /=n;
+        current.y /=n;
+        
+        double minDist = distSum(positions, current);
+        
+        int k=0;
+<A NAME="1"></A>        while(k&lt;n) {
+            for(int i=0; i&lt;n &amp;&amp; i!=k; i++) {
+                Point point= new Point();</B></FONT>
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>point.x = positions[i][0];
+                point.y = positions[i][1];
+                double dist = distSum(positions, point);
+                if(dist &lt; minDist){
+                    minDist = dist;
+                    current.x = point.x;
+                    current.y = point.y;
+                }
+            }
+            k++;
+        }
+        
+        double test = 50;
+        double limit = 0.00001;
+        int flag = 0;
+        
+        double[][] testp= { { -1.0, 0.0 }, 
+                       { 0.0, 1.0 }, 
+                       { 1.0, 0.0 }, 
+                       { 0.0, -1.0 } }; 
+        while(test &gt; limit) {
+<A NAME="2"></A>            flag = 0;
+            for(int i=0; i&lt;4; i++) {
+                Point newpoint= new Point();</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>newpoint.x = current.x + test*testp[i][0];
+                newpoint.y = current.y + test*testp[i][1];
+                double dist = distSum(positions, newpoint);
+                 if(dist &lt; minDist){
+                    minDist = dist;
+                    current.x = newpoint.x;
+                    current.y = newpoint.y;
+                    flag=1;
+                     break;
+                }
+            }
+            if</B></FONT>(flag == 0) test=test/2;
+        }
+<A NAME="3"></A>        return minDist;
+    }
+    
+    public double distSum(<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] positions, Point p) {
+        double sum = 0;
+        for(int[] point : positions) {
+            double distx = Math.abs(point[0]-p.x);
+            double disty = Math.abs(point[1] - p.y);
+            sum+= Math.sqrt(distx*distx + disty*disty);
+        }
+        return sum;
+    }</B></FONT>
+    
+    public class Point {
+        double x;
+        double y;
+        // public Point(double x, double y){
+        //     this.x = x;
+        //     this.y = y;
+        // }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

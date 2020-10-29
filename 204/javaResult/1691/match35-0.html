@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>596_husilan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>596_husilan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDays(int[][] grid) {
+        if(!isConnected(grid)){
+            return 0;
+        }
+        int m=grid.length;
+        int n=grid[0].length;
+        for(int i=0;i&lt;m;i++){
+            for(int j=0;j&lt;n;j++){
+                if(grid[i][j]==1){
+                    grid[i][j]=0;
+                    if(!isConnected(grid)){
+                        return 1;
+                    }
+                    grid[i][j]=1;
+                }
+            }
+        }
+        return 2;
+    }
+    
+    public boolean isConnected(int[][] grid){
+        int m=grid.length;
+<A NAME="1"></A>        int n=grid[0].length;
+        int x=-1;</B></FONT>
+        int y=-1;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int count=0;
+        for(int i=0;i&lt;m;i++){
+            for(int j=0;j&lt;n;j++){
+                if(grid[i][j]==1){</B></FONT>
+                    count++;
+                    if(x==-1&amp;&amp;y==-1){
+                        x=i;
+                        y=j;
+                    }
+                }
+            }
+        }
+<A NAME="2"></A>        if(count==0){
+            return false;
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match35-1.html#2',3,'match35-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] direction={{1,0},{-1,0},{0,1},{0,-1}</B></FONT>};
+        boolean[][] visited=new boolean[m][n];
+        Queue&lt;int[]&gt; queue=new LinkedList&lt;int[]&gt;();
+        queue.add(new int[]{x,y});
+        visited[x][y]=true;
+        int temp=1;
+        while(queue.size()&gt;0){
+<A NAME="3"></A>            int size=queue.size();
+            for(int i=0;i&lt;size;i++){
+                int[] point=queue.poll();
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match35-1.html#3',3,'match35-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int k=0;k&lt;direction.length;k++){
+                    int newX=direction[k][0]+point[0];
+                    int newY=direction[k][1]+point[1];
+                    if(newX&lt;0||newX&gt;=m||newY&lt;0||newY&gt;=n||grid[newX][newY]==0||visited[newX][newY]){
+                        continue;
+                    }</B></FONT>
+                    visited[newX][newY]=true;
+                    temp++;
+                    queue.add(new int[]{newX,newY});
+                }
+            }
+        }
+        return temp==count?true:false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

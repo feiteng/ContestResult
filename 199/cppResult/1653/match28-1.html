@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_LayCurse.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10_LayCurse.cpp</CENTER></H3><HR>
+<PRE>
+#pragma GCC optimize (&quot;Ofast&quot;)
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+void *wmem;
+char memarr[96000000];
+template&lt;class T&gt; inline void walloc1d(T **arr, int x, void **mem = &amp;wmem){
+  static int skip[16] = {0, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+  (*mem) = (void*)( ((char*)(*mem)) + skip[((unsigned long long)(*mem)) &amp; 15] );
+  (*arr)=(T*)(*mem);
+  (*mem)=((*arr)+x);
+}
+template&lt;class S&gt; inline void arrInsert(const int k, int &amp;sz, S a[], const S aval){
+  int i;
+  sz++;
+  for(i=sz-1;i&gt;k;i--){
+    a[i] = a[i-1];
+  }
+  a[k] = aval;
+}
+template&lt;class S, class T&gt; inline void arrInsert(const int k, int &amp;sz, S a[], const S aval, T b[], const T bval){
+  int i;
+  sz++;
+  for(i=sz-1;i&gt;k;i--){
+    a[i] = a[i-1];
+  }
+  for(i=sz-1;i&gt;k;i--){
+    b[i] = b[i-1];
+  }
+  a[k] = aval;
+  b[k] = bval;
+}
+template&lt;class S, class T, class U&gt; inline void arrInsert(const int k, int &amp;sz, S a[], const S aval, T b[], const T bval, U c[], const U cval){
+  int i;
+  sz++;
+  for(i=sz-1;i&gt;k;i--){
+    a[i] = a[i-1];
+  }
+  for(i=sz-1;i&gt;k;i--){
+    b[i] = b[i-1];
+  }
+  for(i=sz-1;i&gt;k;i--){
+    c[i] = c[i-1];
+  }
+  a[k] = aval;
+  b[k] = bval;
+  c[k] = cval;
+}
+template&lt;class S, class T, class U, class V&gt; inline void arrInsert(const int k, int &amp;sz, S a[], const S aval, T b[], const T bval, U c[], const U cval, V d[], const V dval){
+  int i;
+  sz++;
+  for(i=sz-1;i&gt;k;i--){
+    a[i] = a[i-1];
+  }
+  for(i=sz-1;i&gt;k;i--){
+    b[i] = b[i-1];
+  }
+  for(i=sz-1;i&gt;k;i--){
+    c[i] = c[i-1];
+  }
+  for(i=sz-1;i&gt;k;i--){
+    d[i] = d[i-1];
+  }
+  a[k] = aval;
+  b[k] = bval;
+  c[k] = cval;
+  d[k] = dval;
+}
+struct graph{
+  int N;
+  int *es;
+  int **edge;
+  void setEdge(int N__, int M, int A[], int B[], void **mem = &amp;wmem){
+    int i;
+    N = N__;
+    walloc1d(&amp;es, N, mem);
+    walloc1d(&amp;edge, N, mem);
+    for(i=(0);i&lt;(N);i++){
+      es[i] = 0;
+    }
+    for(i=(0);i&lt;(M);i++){
+      es[A[i]]++;
+      es[B[i]]++;
+    }
+    for(i=(0);i&lt;(N);i++){
+      walloc1d(&amp;edge[i], es[i], mem);
+    }
+    for(i=(0);i&lt;(N);i++){
+      es[i] = 0;
+    }
+    for(i=(0);i&lt;(M);i++){
+      edge[A[i]][es[A[i]]++] = B[i];
+      edge[B[i]][es[B[i]]++] = A[i];
+    }
+  }
+  void getDist(int root, int res[], void *mem = wmem){
+    int i;
+    int j;
+    int k;
+    int*q;
+    int s;
+    int z;
+    walloc1d(&amp;q, N, &amp;mem);
+    for(i=(0);i&lt;(N);i++){
+      res[i]=-1;
+    }
+    res[root]=0;
+    s=0;
+    z=1;
+    q[0]=root;
+    while(z){
+      i=q[s++];
+      z--;
+      for(j=(0);j&lt;(es[i]);j++){
+        k=edge[i][j];
+        if(res[k]&gt;=0){
+          continue;
+        }
+        res[k]=res[i]+1;
+        q[s+z++]=k;
+      }
+    }
+  }
+}
+;
+#define main dummy_main
+int main(){
+  wmem = memarr;
+  return 0;
+}
+#undef main
+
+;
+graph g;
+int n;
+int m;
+int a[100000];
+int b[100000];
+int lf[100000];
+int dist[100000];
+void dfs(TreeNode *node, int nd){
+  if(node-&gt;left != NULL){
+    arrInsert(m, m, a, nd, b, n);
+    dfs(node-&gt;left, n++);
+  }
+  if(node-&gt;right != NULL){
+    arrInsert(m, m, a, nd, b, n);
+    dfs(node-&gt;right, n++);
+  }
+<A NAME="0"></A>  lf[nd] = 0;
+  if(node-&gt;left == NULL &amp;&amp; node-&gt;right == NULL){
+    lf[nd] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  }
+}
+class Solution{
+  public:
+  int countPairs(TreeNode* root, int distance){
+    int i;
+    dummy_main();
+    int res = 0;
+    n = m = 0;</B></FONT>
+    dfs(root, n++);
+    g.setEdge(n,m,a,b);
+    for(i=(0);i&lt;(n);i++){
+      if(lf[i]){
+        int j;
+        g.getDist(i, dist);
+        for(j=(0);j&lt;(n);j++){
+          if(i!=j &amp;&amp; lf[j] &amp;&amp; dist[j] &lt;= distance){
+            res++;
+          }
+        }
+      }
+    }
+    return res / 2;
+  }
+}
+;
+// cLay varsion 20200509-1
+
+// --- original code ---
+// #define main dummy_main
+// {}
+// #undef main
+// 
+// struct TreeNode {
+//   int val;
+//   TreeNode *left;
+//   TreeNode *right;
+//   TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//   TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//   TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+// };
+// 
+// graph g;
+// int n, m, a[1d5], b[1d5], lf[1d5];
+// int dist[1d5];
+// 
+// void dfs(TreeNode *node, int nd){
+//   if(node-&gt;left != NULL){
+//     arrInsert(m, m, a, nd, b, n);
+//     dfs(node-&gt;left, n++);
+//   }
+//   if(node-&gt;right != NULL){
+//     arrInsert(m, m, a, nd, b, n);
+//     dfs(node-&gt;right, n++);
+//   }
+//   lf[nd] = 0;
+//   if(node-&gt;left == NULL &amp;&amp; node-&gt;right == NULL) lf[nd] = 1;
+// }
+// 
+// class Solution {
+// public:
+//   int countPairs(TreeNode* root, int distance) {
+//     dummy_main();
+// 
+//     int res = 0;
+//     n = m = 0;
+//     dfs(root, n++);
+// 
+//     g.setEdge(n,m,a,b);
+//     rep(i,n) if(lf[i]){
+//       g.getDist(i, dist);
+//       rep(j,n) if(i!=j &amp;&amp; lf[j] &amp;&amp; dist[j] &lt;= distance) res++;
+//     }
+// 
+//     return res / 2;
+//   }
+// };
+</PRE>
+</BODY>
+</HTML>

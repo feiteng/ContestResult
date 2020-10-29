@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>415_slinSSS.java</TITLE>
+ <TITLE>258_s3m7.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>415_slinSSS.java</CENTER></H3><HR>
+<H3><CENTER>258_s3m7.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long,Integer&gt; set1 = new HashMap();
-        Map&lt;Long,Integer&gt; set2 = new HashMap();
-        for(int i:nums1) set1.put(((long)i)*i,set1.getOrDefault(((long)i)*i,0)+1);
-        for(int i:nums2) set2.put(((long)i)*i,set2.getOrDefault(((long)i)*i,0)+1);
-<A NAME="1"></A>        int ans=0;
-        for(int i=0;i&lt;nums1.length;i++){
-            for(int j=i+1;j&lt;nums1.length;j++){</B></FONT>
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(set2.containsKey(((long)nums1[i])*nums1[j])) ans +=  set2.get(((long)nums1[i])*nums1[j]);
-            }
-<A NAME="2"></A>        }
-        for(int i=0;i&lt;nums2.length;i++){
-            for(int j=i+1;j&lt;nums2.length;j++){</B></FONT>
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(set1.containsKey(((long)nums2[i])*nums2[j])) ans +=  set1.get(((long)nums2[i])*nums2[j]);
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+        return getCount(nums1, nums2) + getCount(nums2, nums1);
+    }
+    
+    public int getCount(int[] nums1, int[] nums2) {
+        Map&lt;Integer, Integer&gt; count = new HashMap&lt;&gt;();
+        int c = 0;
+        for (int i : nums1) {
+            count.clear();
+            for (int j : nums2) {
+                count.put(j, count.getOrDefault(j, 0) + 1);
+                if (j == 0 || ((long)i * i) % j != 0L) continue;
+                int s = (int)(((long)i * i) / j);
+                if (s != j)
+                    c += count.getOrDefault(s, 0);
+                else 
+                    c += count.get(s) - 1;
             }
         }
-        return ans;
+        return c;
     }
 }</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>337_ben_kwok_cy.py</TITLE>
+ <TITLE>200_lixuanji.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>337_ben_kwok_cy.py</CENTER></H3><HR>
+<H3><CENTER>200_lixuanji.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import Counter
+
+class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        ways1 = Counter()
-        ways2 = Counter()
-<A NAME="1"></A>        
+        c1 = Counter([x*x for x in nums1])
+        c2 = Counter([x*x for x in nums2])
+        
+        ret = 0
+        
         for i in range(len(nums1)):
-            for j in range(i+1, len(</B></FONT>nums1)):
-                p = nums1<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i] * nums1[j]
-                ways1[p] += 1
-<A NAME="2"></A>        
+            for j in range(i+1, len(nums1)):
+                ret += c2[nums1[i]*nums1[j]]
+                
         for i in range(len(nums2)):
-            for j in range(i+1, len(</B></FONT>nums2)):
-                p = nums2<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i] * nums2[j]
-                ways2[p] += 1
+            for j in range(i+1, len(nums2)):
+                ret += c1[nums2[i]*nums2[j]]
         
-        res = 0
-        for n in nums1:
-            res += ways2[n * n]
-        for n in nums2:
-            res += ways1[n * n]
-        
-        re</B></FONT>turn res
-        
-        
+        re</B></FONT>turn ret
 </PRE>
 
 </BODY>

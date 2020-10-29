@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>333_10152160137.java</TITLE>
+ <TITLE>104_arignote.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,21 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>333_10152160137.java</CENTER></H3><HR>
+<H3><CENTER>104_arignote.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public int minCost(String s, int[] cost) {
-        int[] count = new int[s.length()];
-        int ret = 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char prev = '-';
-        int i = 1;
-        boolean same = false;
-        while (i &lt; s.length()) {
-            int sum = 0, max = 0;
-            while (i &lt; s.length() &amp;&amp; s.charAt(i - 1) == s.charAt(i)) {</B></FONT>
-                if (!same) {
-                    same = true;
-                    sum += cost[i - 1];
-<A NAME="1"></A>                    max = Math.max(max, cost[i - 1]);
-                }
-                sum += cost[i];
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>max = Math.max(max, cost[i]);
-                i++;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+    public int minCost(String s, int[] cost) {
+        int sum = 0, max = 0;
+        for (int i = 0; i &lt; s.length(); i++) {
+            if (i &gt; 0 &amp;&amp; s.charAt(i) != s.charAt(i - 1)) {
+                sum -= max;
+                max = 0;
             }
-            same = false;
-            ret += (sum - max);
-            i++;
+            sum += cost[i];
+            max = Math.max(max, cost[i]);
         }
-        return ret;
+        return sum - max;
     }
 }</B></FONT>
 </PRE>

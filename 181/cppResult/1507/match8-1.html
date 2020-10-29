@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>315_AtCoderTheBestOJEver.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>315_AtCoderTheBestOJEver.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool visit[345][345];
+    int N, M;
+    bool check(int x, int y, vector&lt;int&gt; OK, vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        if (x &lt; 0 || x == N) return false;
+        if (y &lt; 0 || y == M) return false;
+        for (int i : OK)
+            if (grid[x][y] == i) 
+                return true;
+        return false;
+    }
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        N = (int)grid.size();
+        if (!N) return false;
+        M = (int)grid[0].size();
+        if (!M) return false;
+        queue&lt;pair&lt;int, int&gt;&gt; qu;
+        memset(visit, 0, sizeof(visit));
+        qu.push(make_pair(0, 0));
+        while (!qu.empty()) {
+            auto tp = qu.front();
+            qu.pop();
+            int x = tp.first, y = tp.second;
+            if (visit[x][y] == 1) continue;
+            assert(!visit[x][y]);
+<A NAME="0"></A>           // printf(&quot;x = %d y = %d\n&quot;, x, y);
+            visit[x][y] = 1;
+            if (grid[x][y] == 1) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int nx = x, ny = y + 1;
+                if (check(nx, ny, {1, 3, 5}, grid))
+                    qu.push(make_pair(nx, ny));
+                nx = x, ny = y - 1;
+                if (check(nx, ny, {1, 4, 6}, grid))
+<A NAME="1"></A>                    qu.push(make_pair(nx, ny));
+                
+            } else if (grid[x][y] == 2) {
+                int nx = x + 1, ny = y;</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                if (check(nx, ny, {2, 5, 6}, grid))
+                    qu.push(make_pair(nx, ny));
+                nx = x - 1, ny = y;
+                if (check(nx, ny, {2, 4, 3}, grid))
+<A NAME="2"></A>                    qu.push(make_pair(nx, ny));
+                
+            } else if (grid[x][y] == 3) {
+                int nx = x + 1, ny = y;</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                if (check(nx, ny, {2, 5, 6}, grid))
+                    qu.push(make_pair(nx, ny));
+                nx = x, ny = y - 1;
+                if (check(nx, ny, {1, 4, 6}, grid))
+<A NAME="3"></A>                    qu.push(make_pair(nx, ny));
+                
+            } else if (grid[x][y] == 4) {
+                int nx = x, ny = y + 1;</B></FONT><FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#3',2,'match8-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                if (check(nx, ny, {1, 3, 5}, grid))
+                    qu.push(make_pair(nx, ny));
+                nx = x + 1, ny = y;
+                if (check(nx, ny, {2, 5, 6}, grid))
+<A NAME="4"></A>                    qu.push(make_pair(nx, ny));
+                
+            } else if (grid[x][y] == 5) {
+                int nx = x - 1, ny = y;</B></FONT><FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#4',2,'match8-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                if (check(nx, ny, {2, 4, 3}, grid))
+                    qu.push(make_pair(nx, ny));
+                nx = x, ny = y - 1;
+                if (check(nx, ny, {1, 4, 6}, grid))
+<A NAME="5"></A>                    qu.push(make_pair(nx, ny));
+                
+            } else {
+                int nx = x, ny = y + 1;</B></FONT><FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#5',2,'match8-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                if (check(nx, ny, {1, 3, 5}, grid))
+                    qu.push(make_pair(nx, ny));
+                nx = x - 1, ny = y;
+                if (check(nx, ny, {2, 4, 3}, grid))
+                    qu.push(make_pair(nx, ny));
+            }
+        }
+        return visit[N - 1][M - 1];
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

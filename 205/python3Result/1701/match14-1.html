@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>143_enzo64.py</TITLE>
+ <TITLE>206_hcchiu.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,78 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>143_enzo64.py</CENTER></H3><HR>
+<H3><CENTER>206_hcchiu.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF:
+    def __init__(self, n):
+        self.cache = list(range(n + 1))
+        
+    def find(self, i):
+        if self.cache[i] != i:
+            self.cache[i] = self.find(self.cache[i])
+        return self.cache[i]
+        
+    def union(self, i, j):
+        head1 = self.find(i)
+        head2 = self.find(j)
+        self.cache[head1] = head2
+
 class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        
-        f = [i for i in range(n)]
-        
-        def gf(i):
-            if(f[i] == i):
-                return i
-            ff = gf(f[i])
-            f[i] = ff
-            return ff
-        
-        def blk():
-            r = 0
-            for i in range(n):
-                if(f[i] == i):
-                    r += 1
-            return r
-        
-        r3 = 0
-        
-        for i in range(len(edges)):
-            edges[i][1] -= 1
-            edges[i][2] -= 1
-        
-        for tu in edges:
-            if(tu[0] == 3):
-                x, y = gf(tu[1]), gf(tu[2])
-<A NAME="1"></A>                if(x == y):
-                    r3 += 1
+        result = 0
+        a = UF(n)
+        b = UF(n)
+        for t, i, j in edges:
+            if t == 3:
+                if a.find(i) == a.find(j):
+                    result += 1
                 else:
-                    f[x] = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>y
-        
-        r1 = 0
-        
-        for tu in edges:
-            if(tu[0] == 1):
-                x, y = gf(tu[1]), gf(tu[2])
-                if(x == y):
-                    r1 += 1
+                    a.union(i, j)
+                    b.union(i, j)
+                    
+        for t, i, j in edges:
+            if t == 1:
+                if a.find(i) == a.find(j):
+                    result += 1
                 else:
-                    f[x] = y</B></FONT>
-        
-        if(blk() != 1):
-            return -1
-        
-        for i in range(n):
-            f[i] = i
-        for tu in edges:
-            if(tu[0] == 3):
-                x,y = gf(tu[1]), gf(tu[2])
-                f[x] = y
-<A NAME="0"></A>        
-        r2 = 0
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for tu in edges:
-            if(tu[0] == 2):
-                x, y = gf(tu[1]), gf(tu[2])
-                if(x == y):
-                    r2 += 1
+                    a.union(i, j)
+            elif t == 2:
+                if b.find(i) == b.find(j):
+                    result += 1
                 else:
-                    f[x] = y</B></FONT>
-        
-        
-        if(blk() != 1):
-            return -1        
-        
-        return r1 + r2 + r3
-        
-            
+                    b.union(i, j)
+                    
+        if len(set(a.find(i) for i in range(1, n + 1))) == 1 and len(set(b.find(i) for i in range(1, n + 1))) == 1:
+            return result
+        else:
+            ret</B></FONT>urn -1
 </PRE>
 
 </BODY>

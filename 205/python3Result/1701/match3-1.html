@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>467_yav126.py</TITLE>
+ <TITLE>108_Andrew-Angrew.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,81 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>467_yav126.py</CENTER></H3><HR>
+<H3><CENTER>108_Andrew-Angrew.py</CENTER></H3><HR>
 <PRE>
-class UnionFind:
-    def __init__(self):
-        self.parents = dict()
-<A NAME="0"></A>    def findParent(self, node):
-        if node not in self.parents:
-            self.parents[node] = node
-        elif self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.parents[node] != node:
-            self.parents[node] = self.findParent(self.parents[node])
-        return self.parents[node]
-    def addPair(self, node1, node2):
-        parent1 = self.findParent(node1)
-        parent2 = self.findParent(node2)
-<A NAME="1"></A>        if parent1 != parent2:
-            self.</B></FONT>parents[parent1] = parent2
-    def connected(self, node1, node2):
-        return self.findParent(node1) == self.findParent(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>node2)
-            
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class DSU:
+    def __init__(self, elem_count):
+        self.parents = [i for i in range(elem_count)]
+        self.sizes = [1] * elem_count
+    
+    def component_id(self, elem):
+        while self.parents[elem] != elem:
+            elem = self.parents[elem]
+        return elem
+    
+    def is_connected(self, a, b):
+        return self.component_id(a) == self.component_id(b)
+    
+    def join(self, a, b):
+        a = self.component_id(a)
+        b = self.component_id(b)
+        if a == b:
+            return
+        if self.sizes[a] &lt; self.sizes[b]:
+            a, b = b, a
+        self.parents[b] = a
+        self.sizes[a] += self.sizes[b]
+    
+    def clone(self):
+        clone_ = DSU(len(self.parents))
+        clone_.sizes = self.sizes[:]
+        clone_.parents = self.parents[:]
+        return clone_
 
 class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        edges.sort(reverse=True)
-        aliceUF = UnionFind()
-        bobUF = UnionFind()
-        numEdgesRemoved = 0
-        for</B></FONT> edge in edges:
-            edgeType = edge[0]
-            node1 = edge[1]
-            node2 = edge[2]
-            if edgeType == 1:
-                if aliceUF.connected(node1, node2):
-                    numEdgesRemoved += 1
-<A NAME="2"></A>                else:
-                    aliceUF.addPair(node1, node2)
-            elif edgeType == 2:
-                if bobUF<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.connected(node1, node2):
-                    numEdgesRemoved += 1
+        alice_edges = []
+        bob_edges = []
+        common_edges = []
+        components = DSU(n)
+        edges_to_delete = 0
+        for edge_type, u, v in edges:
+            if edge_type == 1:
+                alice_edges.append((u - 1, v - 1))
+            elif edge_type == 2:
+                bob_edges.append((u - 1, v - 1))
+            else:
+                if components.is_connected(u - 1, v - 1):
+                    edges_to_delete += 1
                 else:
-                    bobUF.addPair(node1, node2)
-            elif edgeType == 3:
-                if aliceUF.connected(node1, node2) and bobUF.connected(node1, node2):
-                    numEdgesRemoved +=</B></FONT> 1
-                if not aliceUF.connected(node1, node2):
-                    aliceUF.addPair(node1, node2)
-                if not bobUF.connected(node1, node2):
-                    bobUF.addPair(node1, node2)
+                    components.join(u - 1, v - 1)
         
-        aliceParent = 0
-        if 1 not in aliceUF.parents:
+        alice_components = components.clone()
+        for a, b in alice_edges:
+            if alice_components.is_connected(a, b):
+                edges_to_delete += 1
+            else:
+                alice_components.join(a, b)
+        if max(alice_components.sizes) &lt; n:
             return -1
-        else:
-            aliceParent = aliceUF.findParent(1)
         
-        bobParent = 0
-        if 1 not in bobUF.parents:
+        for a, b in bob_edges:
+            if components.is_connected(a, b):
+                edges_to_delete += 1
+            else:
+                components.join(a, b)
+        if max(components.sizes) &lt; n:
             return -1
-        else:
-            bobParent = bobUF.findParent(1)
-        for i in range(2, n+1):
-            if aliceUF.findParent(i) != aliceParent:
-                return -1
-            elif bobUF.findParent(i) != bobParent:
-                return -1
-        
-        return numEdgesRemoved
-                
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-            
+        re</B></FONT>turn edges_to_delete
 </PRE>
 
 </BODY>

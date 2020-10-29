@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>120_raynor30.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>120_raynor30.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>template &lt;typename A, typename B&gt;
+string to_string(pair&lt;A, B&gt; p);
+ 
+template &lt;typename A, typename B, typename C&gt;
+string to_string(tuple&lt;A, B, C&gt; p);
+ 
+template &lt;typename A, typename B, typename C, typename D&gt;
+string to_string(tuple&lt;A, B, C, D&gt; p);
+ 
+string to_string(const string&amp; s) {
+  return '&quot;' + s + '&quot;';
+}
+ 
+string to_string(const char* s) {
+  return to_string((string) s);
+}
+ 
+string to_string(bool b) {
+  return (b ? &quot;true&quot; : &quot;false&quot;);
+}
+ 
+string to_string(vector&lt;bool&gt; v) {
+  bool first = true;
+  string res = &quot;{&quot;;
+  for (int i = 0; i &lt; static_cast&lt;int&gt;(v.size()); i++) {
+    if (!first) {
+      res += &quot;, &quot;;
+    }
+    first = false;
+    res += to_string(v[i]);
+  }
+  res += &quot;}&quot;;
+  return res;
+}
+ 
+template &lt;size_t N&gt;
+string to_string(bitset&lt;N&gt; v) {
+  string res = &quot;&quot;;
+  for (size_t i = 0; i &lt; N; i++) {
+    res += static_cast&lt;char&gt;('0' + v[i]);
+  }
+  return res;
+}
+ 
+template &lt;typename A&gt;
+string to_string(A v) {
+  bool first = true;
+  string res = &quot;{&quot;;
+  for (const auto &amp;x : v) {
+    if (!first) {
+      res += &quot;, &quot;;
+    }
+    first = false;
+    res += to_string(x);
+  }
+  res += &quot;}&quot;;
+  return res;
+}
+ 
+template &lt;typename A, typename B&gt;
+string to_string(pair&lt;A, B&gt; p) {
+  return &quot;(&quot; + to_string(p.first) + &quot;, &quot; + to_string(p.second) + &quot;)&quot;;
+}
+ 
+template &lt;typename A, typename B, typename C&gt;
+string to_string(tuple&lt;A, B, C&gt; p) {
+  return &quot;(&quot; + to_string(get&lt;0&gt;(p)) + &quot;, &quot; + to_string(get&lt;1&gt;(p)) + &quot;, &quot; + to_string(get&lt;2&gt;(p)) + &quot;)&quot;;
+}
+ 
+template &lt;typename A, typename B, typename C, typename D&gt;
+string to_string(tuple&lt;A, B, C, D&gt; p) {
+  return &quot;(&quot; + to_string(get&lt;0&gt;(p)) + &quot;, &quot; + to_string(get&lt;1&gt;(p)) + &quot;, &quot; + to_string(get&lt;2&gt;(p)) + &quot;, &quot; + to_string(get&lt;3&gt;(p)) + &quot;)&quot;;
+}
+ 
+void debug_out() { cout &lt;&lt; endl; }
+ 
+template &lt;typename Head, typename... Tail&gt;
+void debug_out(Head H, Tail... T) {
+  cout &lt;&lt; &quot; &quot; &lt;&lt; to_string(H);
+  debug_out(T...);
+}</B></FONT>
+<A NAME="1"></A> 
+#define dbg(...) cout &lt;&lt; &quot;[&quot; &lt;&lt; #__VA_ARGS__ &lt;&lt; &quot;]:&quot;, debug_out(__VA_ARGS__)
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+  double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+    vector&lt;vector&lt;pair&lt;int,double&gt;&gt;&gt; adj(n);
+    for (int i = 0; i &lt; edges.size(); ++i) {</B></FONT>
+      adj[edges[i][0]].emplace_back(edges[i][1], succProb[i]);
+      adj[edges[i][1]].emplace_back(edges[i][0], succProb[i]);
+    }
+//    dbg(adj);
+    priority_queue&lt;tuple&lt;double,int&gt;&gt; pq;
+    vector&lt;double&gt; dist(n, -1);
+    dist[start] = 1;
+    pq.emplace(1.0, start);
+    while (pq.size()){
+      auto [p,from] = pq.top(); pq.pop();
+//      dbg(p,from);
+      if (from == end) return p;
+      for (auto&amp; [to,p2] : adj[from]){
+        if (p*p2 &gt; dist[to]) {
+          dist[to] = p*p2;
+          pq.emplace(p*p2,to);
+        }
+      }
+    }
+    return 0;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

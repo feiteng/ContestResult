@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_han2999.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>200_han2999.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String stoneGameIII(int[] st) {
+        int n = st.length;
+        int sum = 0;
+        for(int k : st) sum += k;
+        int alice = dfs(st, 0, 0, sum);
+        int bob = sum - alice;
+        if(alice == bob) return &quot;Tie&quot;;
+        if(alice &gt; bob) return &quot;Alice&quot;;
+        return &quot;Bob&quot;;
+    }
+    
+    Integer[][] f = new Integer[50010][2];
+    
+    int dfs(int[] ary, int pos, int player, int rest)
+    {
+        int n = ary.length;
+        if(pos &gt;= n) return rest;
+        if(f[pos][player] != null) return f[pos][player];   
+        int a = ary[pos], b = pos + 1 &lt; n ? ary[pos + 1] : 0,
+            c = pos + 2 &lt; n ? ary[pos + 2] : 0;
+        
+        int ans = 1 &lt;&lt; 20; 
+        
+        ans = Math.min(ans, dfs(ary, pos + 1, 1 - player, rest - a));
+        ans = Math.min(ans, dfs(ary, pos + 2, 1 - player, rest - a - b));
+        ans = Math.min(ans, dfs(ary, pos + 3, 1 - player, rest - a - b - c));
+        
+        return f[pos][player] = rest - ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

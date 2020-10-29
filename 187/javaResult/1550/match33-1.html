@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>208_YuhanWu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>208_YuhanWu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int kthSmallest(int[][] mat, int k) {
+        int n = mat.length;
+        int m = mat[0].length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Integer&gt; res = firstK(mat, 0, n-1, k);
+        return res.get(k-1);
+    }
+    
+    public List&lt;Integer&gt; firstK(int[][] mat, int lo, int hi, int k){
+        if(lo==hi){
+            List&lt;Integer&gt; res = new ArrayList();
+            for(int i=0; i&lt;k &amp;&amp; i&lt;mat[0].length; i++){
+                res.add(mat[lo][i]);
+            }
+            return res;
+        }
+        
+        int mid = lo + (hi-lo)/2;
+        List&lt;Integer&gt; nums1 = firstK(mat, lo, mid, k);
+        List&lt;Integer&gt; nums2 = firstK(mat, mid+1, hi, k);
+        
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((a,b)-&gt;(nums1.get(a[0])+nums2.get(a[1])-nums1.get(b[0])-nums2.get(b[1])));</B></FONT>
+        int n = nums1.size();
+        int m = nums2.size();
+        if(n==0 || m==0){
+            return new ArrayList();
+        }
+        for(int i=0; i&lt;n; i++){
+            pq.offer(new int[]{i,0});
+        }
+        List&lt;Integer&gt; res = new ArrayList();
+        int count = 0;
+        while(count&lt;Math.min(k, n*m)){
+<A NAME="1"></A>            int[] cur = pq.poll();
+            res.add(nums1.get(cur[0])+nums2.get(cur[1]));
+            if(++cur[1]&lt;m){
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.offer(cur);
+            }
+            count++;
+        }
+        return res;       
+    }
+    
+    // public List&lt;List&lt;Integer&gt;&gt; kSmallestPairs(int[] nums1, int[] nums2, int k) {
+    //     PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((a,b)-&gt;(nums1[a[0]]+nums2[a[1]]-nums1[b[0]]-nums2[b[1]]));
+    //     int n = nums1.length;
+    //     int m = nums2.length;
+    //     if(n==0 || m==0){
+    //         return new ArrayList();
+    //     }
+    //     for(int i=0; i&lt;n; i++){
+    //         pq.offer(new int[]{i,0});
+    //     }
+    //     List&lt;Integer&gt; res = new ArrayList();
+    //     int count = 0;
+    //     while(count&lt;Math.min(k, n*m)){
+    //         int[] cur = pq.poll();
+    //         res.add(nums1[cur[0]]+nums2[cur[1]]);
+    //         if(++cur[1]&lt;m){
+    //             pq.offer(cur);
+    //         }
+    //         count++;
+    //     }
+    //     return res;
+    // }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

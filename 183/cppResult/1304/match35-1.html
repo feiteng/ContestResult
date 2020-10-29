@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>352_votrubac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>352_votrubac.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string longestDiverseString(int a, int b, int c, char aa = 'a', char bb = 'b', char cc = 'c') {</B></FONT>
+        if (a &lt; b)
+            return longestDiverseString(b, a, c, bb, aa, cc);
+        if (a &lt; c)
+            return longestDiverseString(c, b, a, cc, bb, aa);
+        if (b &lt; c)
+            return longestDiverseString(a, c, b, aa, cc, bb);
+        
+        return string(min(2, a), aa) + (b == 0 ? &quot;&quot; : 
+            a - min(2, a) &gt; b - 1 ? bb + longestDiverseString(a - min(2, a), b - 1, c, aa, bb, cc) :
+            longestDiverseString(a - min(2, a), b, c, aa, bb, cc));
+    }
+};
+</PRE>
+</BODY>
+</HTML>

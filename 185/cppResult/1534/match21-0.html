@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>596_CosmicWolf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>596_CosmicWolf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minNumberOfFrogs(string croakOfFrogs) {
+        int c = 0, r = 0, o = 0, a = 0, ans = 0, maxAns = 0;
+        for (int i = 0; i &lt; croakOfFrogs.length(); ++i) {
+<A NAME="0"></A>            if (croakOfFrogs[i] == 'c') {
+                ++ans;
+                maxAns = max(ans, maxAns);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                ++c;
+            } else if (croakOfFrogs[i] == 'r') {
+                if (c &lt;= 0) {
+                    return -1;
+                } else {
+                    --c;
+                    ++r;
+                }
+            } else if (croakOfFrogs[i] == 'o') {
+                if (r &lt;= 0) {
+                    return -1;
+                } else {
+                    --r;
+                    ++o;
+                }
+            } else if (croakOfFrogs[i] == 'a') {
+                if (o &lt;= 0) {
+                    return -1;
+                } else {
+                    --o;
+                    ++a;
+                }
+            } else if (croakOfFrogs[i] == 'k') {
+                if (a &lt;= 0) {
+                    return -1;
+                } else {
+                    --a;</B></FONT>
+                    --ans;
+                }
+            }
+        }
+        if (c &gt; 0 || r &gt; 0 || o &gt; 0 || a &gt; 0) {
+            return -1;
+        }
+        return maxAns;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

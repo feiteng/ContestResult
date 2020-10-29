@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>609_morphism.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>609_morphism.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int findLatestStep(const vector&lt;int&gt;&amp; arr, const int m) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            const int n = arr.size();
+            vector&lt;int&gt; bounds(n+1, 0);
+            int count = 0;
+            int answer = -1;
+            for (int step = 1; step &lt;= n; ++step) {</B></FONT>
+<A NAME="1"></A>                const int num = arr.at(step-1);
+                const int left = (num&gt;1 &amp;&amp; bounds.at(num-1) != 0) ? bounds.at(num-1) : num;
+                const int right = (num&lt;n &amp;&amp; bounds.at(num+1) != 0) ? bounds.at(num+1) : num;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                bounds.at(left) = right;
+                bounds.at(right) = left;
+                if (num - left == m) count--;
+                if (right - num == m) count--;
+                if (right - left + 1 == m) count++;
+                if (count &gt; 0) answer = step;
+                //cout &lt;&lt; left &lt;&lt; ' ' &lt;&lt; right &lt;&lt; ' ' &lt;&lt; step &lt;&lt; '\n';
+            }
+        return answer;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>243_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>243_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minSwaps(int[][] grid) {
+        final int N = grid.length;
+<A NAME="1"></A>        int[] target = new int[N];
+        for (int i = 0; i &lt; N; ++i) {</B></FONT>
+            int pos = -1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = N - 1; j &gt;= 0; --j) {
+                if (grid[i][j] == 1) {
+                    pos = j;
+                    break;
+                }
+            }</B></FONT>
+            // if (pos &lt; 0) {
+<A NAME="2"></A>            //     return -1;
+            // }
+            target[i] = pos;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        // System.out.println(Arrays.toString(target));
+        int swaps = 0;
+<A NAME="3"></A>        for (int i = 0; i &lt; N; ++i) {
+            int want = -1;
+            for (int j = i; j &lt; N; ++j) {</B></FONT>
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#3',2,'match34-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (target[j] &lt;= i) {
+                    want = j;
+                    break;
+                }
+            }
+            if (want &lt; 0) {
+                return -1;
+            }</B></FONT>
+            for (int j = want; j &gt; i; --j) {
+                swap(target, j, j - 1);
+                ++swaps;
+            }
+        }
+        return swaps;
+        // // boolean[] seen = new boolean[N];
+        // // for (int i = 0; i &lt; N; ++i) {
+        // //     if (seen[target[i]]) {
+        // //         return -1;
+        // //     }
+        // //     seen[target[i]] = true;
+        // // }
+        // int swaps = 0;
+        // while (true) {
+        //     boolean swapped = false;
+        //     for (int i = 1; i &lt; N; ++i) {
+        //         if (target[i] &lt; target[i - 1]) {
+        //             swap(target, i, i - 1);
+        //             ++swaps;
+        //             swapped = true;
+        //         }
+        //     }
+        //     if (!swapped) {
+        //         break;
+        //     }
+        // }
+        // for (int i = 0; i &lt; N; ++i) {
+        //     if (target[i] &gt; i) {
+        //         return -1;
+        //     }
+        // }
+        // return swaps;
+    }
+    
+    private static void swap(int[] A, int i, int j) {
+        int tmp = A[i];
+        A[i] = A[j];
+        A[j] = tmp;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

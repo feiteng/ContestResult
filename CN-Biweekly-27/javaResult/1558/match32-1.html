@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_Joseph1314.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>179_Joseph1314.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+   void getPreList(int n,<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Integer&gt;[] pre,int cur,boolean[][] ok){
+        //List&lt;Integer&gt; res=new ArrayList&lt;&gt;();
+        Queue&lt;Integer&gt; que=new LinkedList&lt;&gt;();
+       boolean[] vis=new boolean[n];
+        for(int fa:pre[cur]){</B></FONT>
+            que.add(fa);
+            vis[fa]=true;
+        }
+        
+        while(!que.isEmpty()){
+            int u=que.poll();
+            ok[u][cur]=true;
+            for(int f:pre[u]) if(!vis[f]){
+                que.add(f);
+                vis[f]=true;
+            }
+        }
+    }
+    public List&lt;Boolean&gt; checkIfPrerequisite(int n, int[][] prerequisites, int[][] queries) {
+        boolean[][] ok=new boolean[n][n];
+        List&lt;Integer&gt;[] pre=new List[n];
+        for(int i=0;i&lt;n;i++) pre[i]=new ArrayList&lt;&gt;();
+        for(int[] it:prerequisites){
+            int a=it[0];
+            int b=it[1];
+            pre[b].add(a);
+        }
+        for(int i=0;i&lt;n;i++){
+<A NAME="1"></A>            getPreList(n,pre,i,ok);
+        }
+        List&lt;Boolean&gt; res=new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int[] q:queries){
+            res.add(ok[q[0]][q[1]]);
+        }
+        return res;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>471_jfguo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>471_jfguo.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;utility&gt;
+#include &lt;queue&gt;
+#include &lt;map&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+typedef long long LL;
+typedef unsigned int UINT32;
+
+int acc[51][51];
+int f[11][51][51];
+
+int M = 1000000007;
+
+class Solution {
+public:
+<A NAME="0"></A>int ways(vector&lt;string&gt;&amp; pizza, int k) {
+    memset(acc, 0, sizeof(acc));
+    int row = pizza.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int col = pizza[0].length();
+
+    for (int i = row - 1; i &gt;= 0; --i) {
+        for (int j = col - 1; j &gt;= 0; --j) {
+            acc[i][j] = acc[i][j+1] + acc[i+1][j] - acc[i+1][j+1] + (pizza[i][j] == 'A');</B></FONT>
+        }
+    }
+<A NAME="1"></A>
+    memset(f, 0, sizeof(f));
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = row - 1; i &gt;= 0; --i) {
+        for (int j = col - 1; j &gt;= 0; --j) {
+            f[0][i][j] = acc[i][j] &gt; 0;
+        }
+    }
+
+<A NAME="2"></A>    for (int l = 1; l &lt;= k-1; ++l) {
+        for (int i = row - 1; i &gt;= 0; --i) {
+            for (int j = col - 1; j &gt;= 0; --j) {</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int t = 0;
+
+                for (int x = i; x &lt;= row-2; ++x) {
+                    if (acc[i][j] - acc[x+1][j]&gt; 0) {
+                        t += f[l-1][x+1][j];
+                        t %= M;
+                    }
+                }
+
+                for (int y = j; y &lt;= col-2; ++y) {
+                    if (acc[i][j] - acc[i][y+1]  &gt; 0) {
+                        t += f[l-1][i][y+1];
+                        t %= M;
+                    }
+                }
+                f[l][i][j] = t;</B></FONT>
+            }
+        }
+    }
+
+    return f[k-1][0][0];
+}
+};
+
+</PRE>
+</BODY>
+</HTML>

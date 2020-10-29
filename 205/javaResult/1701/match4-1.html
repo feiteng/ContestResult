@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>104_2499370956.java</TITLE>
+ <TITLE>152_hiromi_ayase.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,84 +15,114 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>104_2499370956.java</CENTER></H3><HR>
+<H3><CENTER>152_hiromi_ayase.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int maxNumEdgesToRemove(int n, int[][] edges) {
-        UF ufa = new UF(n);
-        UF ufb = new UF(n);
-        int out = 0;
-        for (int[] e : edges) {
-            if</B></FONT> (e[0] == 3) {
-                int v1 = e[1] - 1;
-                int v2 = e[2] - 1;
-                if (ufa.isConnected(v1, v2)) {
-                    out++;
-                } else {
-<A NAME="1"></A>                    ufa.connect(v1, v2);
-                    ufb.connect(v1, v2);
-                }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.Arrays;
+
+class Solution {
+
+  public static void main(String[] args) {
+    int[][] e = { { 1, 1, 2 }, { 2, 2, 3 }, { 2, 3, 4 }, { 1, 3, 5 }, { 3, 2, 6 }, { 2, 3, 7 }, { 3, 7, 8 },
+        { 3, 2, 9 }, { 2, 4, 10 }, { 2, 9, 11 }, { 1, 2, 12 }, { 3, 4, 13 }, { 2, 2, 7 }, { 1, 1, 9 }, { 1, 2, 13 },
+        { 2, 7, 13 }, { 3, 2, 3 }, { 1, 7, 10 }, { 2, 8, 11 }, { 1, 2, 7 }, { 2, 1, 9 }, { 2, 2, 9 }, { 1, 5, 6 },
+        { 2, 4, 9 }, { 1, 7, 8 }, { 1, 4, 6 }, { 1, 4, 9 }, { 3, 7, 13 }, { 2, 2, 8 }, { 2, 2, 6 }, { 1, 1, 10 },
+        { 1, 1, 11 }, { 2, 5, 10 }, { 1, 2, 9 }, { 2, 1, 2 }, { 1, 3, 4 }, { 3, 6, 8 }, { 3, 6, 13 }, { 1, 3, 8 },
+        { 1, 1, 6 }, { 3, 3, 9 }, { 1, 2, 3 }, { 1, 11, 13 } };
+     int n = 13;
+
+     System.out.println(new Solution().maxNumEdgesToRemove(n, e));
+  }
+
+  public int maxNumEdgesToRemove(int n, int[][] edges) {
+    int ret = kruskal(edges, n);
+    return ret;
+  }
+
+  public static int kruskal(int[][] edges, int n) {
+    Arrays.sort(edges, (o1, o2) -&gt; o2[0] - o1[0]);
+
+    DisjointSet ds1 = new DisjointSet(n); // alice
+    DisjointSet ds2 = new DisjointSet(n); // bob
+
+    int p = edges.length;
+
+    int d = 0;
+    for (int i = 0; i &lt; p; i++) {
+      int type = edges[i][0];
+      int u = edges[i][1] - 1;
+      int v = edges[i][2] - 1;
+
+      if (type == 1) {
+        if (!ds1.equiv(u, v)) {
+          ds1.union(u, v);
+          d++;
         }
-        for (int[] e : edges) {
-            if (e[0] != 3) {</B></FONT>
-                int v1 = e[1] - 1;
-                int v2 = e[2] - 1;
-                if (e[0] == 1) {
-                    if (ufa.isConnected(v1, v2)) {
-                        out++;
-                    } else {
-                        ufa.connect(v1, v2);
-                    }
-                } else if (e[0] == 2) {
-                    if (ufb.isConnected(v1, v2)) {
-                        out++;
-                    } else {
-<A NAME="2"></A>                        ufb.connect(v1, v2);
-                    }
-                }
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+      } else if (type == 2) {
+        if (!ds2.equiv(u, v)) {
+          ds2.union(u, v);
+          d++;
         }
-        if (ufa.cc() == 1 &amp;&amp; ufb.cc() == 1) {
-            return out;
-        } else {
-            return -1;
+      } else {
+        if (!ds2.equiv(u, v)) {
+          ds1.union(u, v);
+          ds2.union(u, v);
+          d++;
         }
+      }
+    }
+    if (ds1.count() &gt; 1 || ds2.count() &gt; 1) {
+      return -1;
+    } else {
+      return p - d;
+    }
+  }
+
+  static class DisjointSet {
+    public int[] upper;
+
+    public DisjointSet(int n) {
+      upper = new int[n];
+      Arrays.fill(upper, -1);
     }
 
-    class UF {
-
-        private int[] root;
-
-        public UF(int n) {
-            this.root = new</B></FONT> int[n];
-            for (int i = 0; i &lt; n; i++) {
-                root[i] = i;
-            }
-        }
-
-        private int root(int i) {
-            if (root[i] == i) {
-                return i;
-            } else {
-                root[i] = root[root[i]];
-                return root(root[i]);
-            }
-<A NAME="3"></A>        }
-
-        public void connect(int i, int j) {
-            root[root(i)] = <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#3',2,'match4-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root(j);
-        }
-
-        public boolean isConnected(int i, int j) {
-            return root(i) == root(j);
-        }
-        
-        pu</B></FONT>blic int cc() {
-            return (int) IntStream.range(0, root.length).map(this::root).distinct().count();
-        }
+    public DisjointSet(DisjointSet ds) {
+      this.upper = Arrays.copyOf(ds.upper, ds.upper.length);
     }
-}
+
+    public int root(int x) {
+      return upper[x] &lt; 0 ? x : (upper[x] = root(upper[x]));
+    }
+
+    public boolean equiv(int x, int y) {
+      return root(x) == root(y);
+    }
+
+    public boolean union(int x, int y) {
+      x = root(x);
+      y = root(y);
+      if (x != y) {
+        if (upper[y] &lt; upper[x]) {
+          int d = x;
+          x = y;
+          y = d;
+        }
+        // w[x] += w[y];
+        upper[x] += upper[y];
+        upper[y] = x;
+      }
+      return x == y;
+    }
+
+    public int count() {
+      int ct = 0;
+      for (int u : upper) {
+        if (u &lt; 0)
+          ct++;
+      }
+      return ct;
+    }
+  }
+}</B></FONT>
 </PRE>
 
 </BODY>

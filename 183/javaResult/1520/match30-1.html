@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>29_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>29_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	private String getNext(String s) {
+		int index = s.length() - 1;
+		while (index &gt;= 0 &amp;&amp; s.charAt(index) == '1') {
+			index --;			
+		}
+		if (index &lt; 0) {
+			StringBuilder builder = new StringBuilder();
+			builder.append(1);
+			for (int i = 0;i &lt; s.length();i ++) {
+				builder.append(0);
+			}
+			return builder.toString();			
+		} else {
+			StringBuilder builder = new StringBuilder(s.substring(0 , index));
+			builder.append(1);
+			for (int i = index + 1;i &lt; s.length();i ++) {
+				builder.append(0);
+			}
+			return builder.toString();			
+		}
+<A NAME="0"></A>	}
+	
+    public int numSteps(String s) {
+<A NAME="1"></A>    	int<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> ans = 0;
+    	while (!s.equals(&quot;1&quot;)) {
+    		if (s.charAt(s.length() - 1) == '0') {
+    			s = s.substring(0 </B></FONT>, s.length() - 1); <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>   					
+    			ans ++;
+    		} else {
+    			s = getNext(s);
+    			ans ++;
+    		}
+    	}    	
+    	return ans;
+    }
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

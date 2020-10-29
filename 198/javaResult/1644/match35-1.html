@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>406_william5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>406_william5.java</CENTER></H3><HR>
+<PRE>
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+class Solution {
+  public static void main(String args[]) throws Exception {
+    Solution sol = new Solution();
+    Scanner sc = new Scanner(new File(&quot;input.txt&quot;));
+    String input = sc.next();
+    System.out.println(sol.maxNumOfSubstrings(input));
+  }
+  
+  ArrayList&lt;Interval&gt; intervals;
+  String s;
+<A NAME="0"></A>  
+  public List&lt;String&gt; maxNumOfSubstrings(String s) {
+    int[] los = new int[256];
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] his = new int[256];
+    for (int i = 0; i &lt; los.length; i++) {
+      los[i] = 999999;
+      his[i] = -1;
+    }
+    for (int i = 0</B></FONT>; i &lt; s.length(); i++) {
+      char ch = s.charAt(i);
+      los[ch] = Math.min(los[ch], i);
+      his[ch] = Math.max(his[ch], i);
+    }
+    this.s = s;
+    this.intervals = new ArrayList&lt;&gt;();
+    
+    for (char ch = 'a'; ch &lt;= 'z'; ch++){
+      Interval interval = getInterval(ch, los, his, s);
+      if (interval != null) {
+        intervals.add(interval);
+      }
+    }
+    Collections.sort(intervals, (i1, i2) -&gt; i1.start - i2.start);
+    Result result = solve(0);
+    List&lt;String&gt; ret = new ArrayList&lt;&gt;();
+    while (result != null) {
+      ret.add(s.substring(result.curr.start, result.curr.end + 1));
+      result = result.next;
+    }
+    return ret;
+  }
+  
+  HashMap&lt;Integer, Result&gt; dpTable = new HashMap&lt;&gt;();
+  public Result solve(int index) {
+    if (index &gt;= intervals.size()) {
+      return null;
+    }
+    if (dpTable.containsKey(index)) {
+      return dpTable.get(index);
+    }
+    
+    Interval curr = intervals.get(index);
+    Result result1 = solve(index + 1);
+    int nextIndex = index + 1;
+    for (;nextIndex &lt; intervals.size(); nextIndex++) {
+      if (intervals.get(nextIndex).start &gt; curr.end) {
+        break;
+      }
+    }
+    Result result2 = new Result(solve(nextIndex), curr);
+    dpTable.put(index, Result.getBetter(result1, result2));
+    return dpTable.get(index);
+  }
+  
+  public Interval getInterval(char ch, int[] los, int[] his, String s) {
+    int lo = los[ch];
+    int hi = his[ch];
+    
+    if (hi == -1) {
+      return null;
+    }
+    
+    int newLo = lo;
+    int newHi = hi;
+    for (int i = lo; i &lt;= hi; i++) {
+      char curr = s.charAt(i);
+      newLo = Math.min(los[curr], newLo);
+      newHi = Math.max(his[curr], newHi);
+    }
+    while (newLo &lt; lo || newHi &gt; hi) {
+      for (int i = lo; i &gt;= newLo; i--) {
+        char curr = s.charAt(i);
+        newLo = Math.min(los[curr], newLo);
+<A NAME="1"></A>        newHi = Math.max(his[curr], newHi);
+      }
+      lo = newLo;
+      <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = hi; i &lt;= newHi; i++) {
+        char curr = s.charAt(i);
+        newLo = Math.min(los[curr], newLo);
+        newHi = Math.max(his[curr], newHi);
+      }
+      hi = newHi;
+    }</B></FONT>
+    
+    return new Interval(lo, hi);
+  }
+
+  static class Interval {
+    int start;
+    int end;
+
+    public Interval(int s, int e) {
+      this.start = s;
+      this.end = e;
+    }
+    
+    public String toString() {
+      return String.format(&quot;(%d, %d)&quot;, start, end);
+    }
+    
+    public int length() {
+      return end - start + 1;
+    }
+  }
+  
+  static class Result {
+    Result next;
+    Interval curr;
+    int length;
+    int count;
+    
+    public Result(Result next, Interval curr) {
+      this.next = next;
+      this.curr = curr;
+      this.length = curr.length() + (next == null ? 0 : next.length);
+      this.count = 1 + (next == null ? 0 : next.count);
+    }
+    
+    public static Result getBetter(Result result1, Result result2) {
+      if (result1 == null) {
+        return result2;
+      }
+      if (result2 == null) {
+        return result1;
+      }
+      if (result1.count == result2.count) {
+        return result1.length &lt; result2.length ? result1 : result2;
+      }
+      return result1.count &gt; result2.count ? result1 : result2;
+    }
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

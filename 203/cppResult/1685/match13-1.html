@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>222_kangbb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>222_kangbb.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int DP(vector&lt;vector&lt;int&gt;&gt;&amp; dp, vector&lt;int&gt;&amp; s, vector&lt;int&gt;&amp; sum, int a, int b) {
+        int n = s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (a == b) return 0;
+        if (dp[a][b] != -1) return dp[a][b];
+        
+        // [a .. i] &amp; [i + 1 .. b]
+        int tmp = 0;
+        for (int i = a; i &lt; b; ++i) {
+            int l = sum[i] - sum[a - 1];
+            int r = sum[b] - sum[i];
+            // cout &lt;&lt; a &lt;&lt; &quot; &quot;&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;b&lt;&lt;&quot; &quot;&lt;&lt;l&lt;&lt;&quot; &quot;&lt;&lt;r&lt;&lt;endl;
+            if (l &gt; r) {
+                tmp = max(tmp, DP(dp, s, sum, i + 1, b) + r);
+            } else if (l &lt; r) {
+                tmp = max(tmp, DP(dp, s, sum, a, i) + l);
+<A NAME="1"></A>            } else {
+                tmp = max(tmp, DP(dp, s, sum, i + 1, b) + r);</B></FONT>
+                tmp = max(tmp, DP(dp, s, sum, a, i) + l);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        
+        return dp[a][b] = tmp;
+    }
+    
+    int stoneGameV(vector&lt;int&gt;&amp; stoneValue) {
+        int n = stoneValue.size();
+        //   [6,2,3,4,5,5]
+        //  0 6 8 11 ...
+        vector&lt;int&gt; sum(n + 1, 0);
+        vector&lt;vector&lt;int&gt;&gt; dp(n + 2, vector&lt;int&gt;(n + 2, -1));
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            sum[i + 1] = sum[i] + stoneValue[i];
+            // cout&lt;&lt;i + 1&lt;&lt;&quot; &quot;&lt;&lt;sum[i+1]&lt;&lt;endl;
+        }
+        return DP(dp, stoneValue, sum, 1, n);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

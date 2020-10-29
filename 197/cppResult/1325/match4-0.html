@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>662_CodeTerminator.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>662_CodeTerminator.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define ff first
+#define ss second
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {
+        vector&lt;pair&lt;int,double&gt;&gt;v[n] ;
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            int x=edges[i][0] ;
+            int y=edges[i][1] ;
+            
+            v[x].push_back({y,succProb[i]}) ;
+            v[y].push_back({x,succProb[i]}) ;
+        }
+        
+        set&lt;pair&lt;double,int&gt;&gt;s ;</B></FONT>
+        s.insert({1.0,start}) ;
+        
+        double d[n] ;
+        for(int i=0;i&lt;n;i++)
+        {
+            d[i]=0.0 ;
+            
+        }
+        
+        d[start]=1.0 ;
+        
+        while(!s.empty())
+        {
+<A NAME="1"></A>            auto it=s.end() ;
+            it-- ;
+            int sr=(*it).ss ;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            double prob=(*it).ff ;
+            //cout&lt;&lt;sr&lt;&lt;&quot; &quot;&lt;&lt;prob&lt;&lt;endl ;
+            
+            for(auto j:v[sr])
+            {
+                if(j.ss*prob&gt;d[j.ff])
+                {
+                    d[j.ff]=j.ss*prob ;
+                    s.insert({d[j.ff],j.ff}) ;
+                }
+            }
+            
+            s.erase(it) ;
+        }
+        
+        return d[end] ;
+        
+        
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

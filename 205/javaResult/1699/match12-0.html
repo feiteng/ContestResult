@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>549_rexue70.java</TITLE>
+ <TITLE>188_aureole999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>549_rexue70.java</CENTER></H3><HR>
+<H3><CENTER>188_aureole999.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        int res = 0;
-<A NAME="1"></A>        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int num : nums1) {</B></FONT>
-            Long prodKey = Long.valueOf(num) * Long.valueOf(num);
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.put(prodKey, map.getOrDefault(prodKey, 0) + 1);
+        return get(nums1, nums2) + get(nums2, nums1);
+    }
+    
+    private int get(int[] nums1, int[] nums2) {
+        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int a : nums1) {
+            map.put((long)a * a, map.getOrDefault((long)a * a, 0) + 1);
         }
-        // System.out.println(map.toString());
-<A NAME="2"></A>        for (int i = 0; i &lt; nums2.length; i++) {
-            for (int j  = i + 1; j &lt; nums2.length; j++) {
-                Long prodKey = Long.valueOf(nums2[i]) * Long.valueOf(nums2[j])</B></FONT>;
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (map.containsKey(prodKey)) {
-                    res += map.get(prodKey);
+        int sum = 0;
+        for (int i = 0; i &lt; nums2.length - 1; i++) {
+            for (int j = i + 1; j &lt; nums2.length; j++) {
+                long s = (long)nums2[i] * nums2[j];
+                //System.out.println(s);
+                if (map.containsKey(s)) {
+                    sum += map.get(s);
                 }
             }
         }
-        // System.out.println(res);
-<A NAME="3"></A>        Map&lt;Long, Integer&gt; map2 = new HashMap&lt;&gt;();
-        for (int num : nums2) {</B></FONT>
-            Long prodKey = Long.valueOf(num) * Long.valueOf(num);
-            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match12-1.html#3',3,'match12-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map2.put(prodKey, map2.getOrDefault(prodKey, 0) + 1);
-        }
-        // System.out.println(map2.toString());
-        for (int i = 0; i &lt; nums1.length; i++) {
-<A NAME="4"></A>            for (int j  = i + 1; j &lt; nums1.length; j++) {
-                Long prodKey = Long.valueOf(nums1[i]) * Long.valueOf(nums1[j])</B></FONT>;
-                // System.out.println(prodKey);
-                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match12-1.html#4',3,'match12-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (map2.containsKey(prodKey)) {
-                    res += map2.get(prodKey);
-                }
-            }
-        }
-        return res;
+        return sum;
     }
 }</B></FONT>
 </PRE>

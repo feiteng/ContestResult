@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>115_LarryNY.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>115_LarryNY.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        e = collections.defaultdict(list)
+        p = [x for x in range(n)]
+        
+        def ufind(x, parent):
+            if x == parent[x]:
+                return x
+            
+            parent[x] = ufind(parent[x], parent)
+            return parent[x]
+
+        def uunion(x, y, parent):
+            xp, yp = ufind(x, parent), ufind(y, parent)
+<A NAME="0"></A>            parent[xp] = yp
+        
+        consider = set()
+        step <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0
+        def dfs(visited, ew, sin, back, node, parent_edge):
+            visited[node] = True
+            nonlocal step
+            sin[node] = step
+            back[node] = step
+            step += 1
+            
+            for y, index in ew[node]:
+                if</B></FONT> index == parent_edge:
+<A NAME="1"></A>                    continue
+                    
+                if visited[y]:
+                    back[node] = min(back[node], sin<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[y])
+                else:
+                    dfs(visited, ew, sin, back, y, index)
+                    back[node] = min(back[node], back[y])
+                    
+                    if back[y] &gt; sin[node]:
+                        consider.add(</B></FONT>index)
+                
+        
+        must = []
+        maybe = []
+        def get_cycles(edges):
+            ew = collections.defaultdict(list)
+            
+            for u, v, index in edges:
+                ew[u].append((v, index))
+                ew[v].append((u, index))
+
+            visited = [False] * n
+            sin  = [-1] * n
+            back = [-1] * n
+            
+            for x in ew:
+                if not visited[x]:
+                    dfs(visited, ew, sin, back, x, -1)        
+        
+        index = 0
+        for u, v, w in edges:
+            e[w].append((u, v, index))
+            index += 1
+                        
+        for w in range(0, 1001):
+            current = p[:]
+            
+            for u, v, _ in e[w]:
+                uunion(u, v, current)
+                
+            done = True
+            for x in range(n):
+                if ufind(x, current) != ufind(0, current):
+                    done = False
+
+            ew = []
+            for u, v, index in e[w]:
+                up = ufind(u, p)
+                vp = ufind(v, p)
+
+                up, vp = min(up, vp), max(up, vp)
+                if up != vp:
+                    ew.append((up, vp, index))
+                        
+            consider = set()
+            get_cycles(ew)
+            #print(consider)
+
+            for u, v, index in e[w]:
+                up = ufind(u, p)
+                vp = ufind(v, p)
+
+                up, vp = min(up, vp), max(up, vp)
+                if up != vp:
+                    if index not in consider:
+                        maybe.append(index)
+                    else:
+                        must.append(index)
+                    
+            for u, v, index in e[w]:
+                up = ufind(u, p)
+                vp = ufind(v, p)
+
+                up, vp = min(up, vp), max(up, vp)
+                if up != vp:
+                    uunion(u, v, p)
+            if done:
+                return [must, maybe]
+ 
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>188_aureole999.java</TITLE>
+ <TITLE>208_necoramen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>188_aureole999.java</CENTER></H3><HR>
+<H3><CENTER>208_necoramen.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.Arrays;
+
+class Solution {
     public int minCost(String s, int[] cost) {
-        char[] ch = s.toCharArray();
-        char prev = '0';
-        int max = 0;
-        int sum = 0;
-        int res = 0;
-        for (int i = 0; i &lt; ch.length; i++) {
-            if (ch[i] == prev) {
-                sum += cost[i];
-                max = Math.max(max, cost[i]);
-            } else {
-                res += sum - max;
-                max = cost[i];
-                sum = max;
-            }</B></FONT>
-            prev = ch[i];
+
+
+        int[][] dp = new int[s.length()][26];
+        Arrays.fill(dp[0], cost[0]);
+        dp[0][s.charAt(0) - 'a'] = 0;
+        for (int i = 1; i &lt; s.length(); i++) {
+            for (int j = 0; j &lt; 26; j++) {
+                int minCost = Integer.MAX_VALUE;
+                minCost = Math.min(minCost, dp[i - 1][j] + cost[i]);
+                if (s.charAt(i) - 'a' == j) {
+
+                    for (int prev = 0; prev &lt; 26; prev++) {
+                        if (prev == j) {
+                            continue;
+                        }
+                        minCost = Math.min(minCost, dp[i - 1][prev]);
+                    }
+                }
+                dp[i][j] = minCost;
+            }
         }
-        res += sum - max;
-        return res;
+
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i &lt; 26; i++) {
+            min = Math.min(min, dp[s.length() - 1][i]);
+        }
+
+        return min;
+
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

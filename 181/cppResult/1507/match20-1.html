@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>314_pigeon_hole.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>314_pigeon_hole.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public: 
+    bool check(int i,int j,int n,int m)
+    {
+        return (i &gt;= 0 &amp;&amp; j &gt;= 0 &amp;&amp; i &lt; n &amp;&amp; j &lt; m);
+    }
+    
+    bool path(int i,int j,int n,int m,vector&lt;vector&lt;int&gt;&gt; &amp;mat,map&lt;pair&lt;int,int&gt;,int&gt; &amp;visited)
+    {
+        if(!check(i,j,n,m))
+            return false;
+        //cout &lt;&lt; &quot;hell\n&quot;;
+        if(i == n - 1 &amp;&amp; j == m - 1)
+<A NAME="0"></A>            return true;
+        if(visited[{i,j}])
+            return false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        visited[{i,j}] = 1;
+        bool a = false,b = false;
+        if(mat[i][j] == 1)
+        {
+            if(check(i,j - 1,n,m) &amp;&amp; (mat[i][j - 1] == 1 || mat[i][j - 1] == 4 || mat[i][j - 1] == 6))
+                a = path(i,j - 1,n,m,mat,visited);
+            if(check(i,j + 1,n,m) &amp;&amp; (mat[i][j + 1] == 1 || mat[i][j + 1] == 3 || mat[i][j + 1] == 5))
+                b = path(i,j + 1,n,m,mat,visited);
+        }
+        else if(mat[i][j] == 2)
+        {
+            if(check(i - 1,j,n,m) &amp;&amp; (mat[i - 1][j] == 2 || mat[i - 1][j] == 3 || mat[i - 1][j] == 4))
+                a = path(i - 1,j,n,m,mat,visited);
+            if(check(i + 1,j,n,m) &amp;&amp; (mat[i + 1][j] == 2 || mat[i + 1][j] == 5 || mat[i + 1][j] == 6))
+                b = path(i + 1,j,n,m,mat,visited);
+        }
+        else if(mat[i][j] == 3)
+        {
+            if(check(i,j - 1,n,m) &amp;&amp; (mat[i][j - 1] == 1 || mat[i][j - 1] == 4 || mat[i][j - 1] == 6))
+                a = path(i,j - 1,n,m,mat,visited);
+            if(check(i + 1,j,n,m) &amp;&amp; (mat[i + 1][j] == 2 || mat[i + 1][j] == 5 || mat[i + 1][j] == 6))
+                b = path(i + 1,j,n,m,mat,visited);
+        }
+        else if(mat[i][j] == 4)
+        {
+            if(check(i,j + 1,n,m) &amp;&amp; (mat[i][j + 1] == 1 || mat[i][j + 1] == 3 || mat[i][j + 1] == 5))
+                a = path(i,j + 1,n,m,mat,visited);
+            if(check(i + 1,j,n,m) &amp;&amp; (mat[i + 1][j] == 2 || mat[i + 1][j] == 5 || mat[i + 1][j] == 6))
+                b = path(i + 1,j,n,m,mat,visited);
+        }
+        else if(mat[i][j] == 5)
+        {
+            if(check(i,j - 1,n,m) &amp;&amp; (mat[i][j - 1] == 1 || mat[i][j - 1] == 4 || mat[i][j - 1] == 6))
+                a = path(i,j - 1,n,m,mat,visited);
+            if(check(i - 1,j,n,m) &amp;&amp; (mat[i - 1][j] == 2 || mat[i - 1][j] == 3 || mat[i - 1][j] == 4))
+                b = path(i - 1,j,n,m,mat,visited);
+        }
+        else if(mat[i][j] == 6)</B></FONT>
+        {
+            if(check(i - 1,j,n,m) &amp;&amp; (mat[i - 1][j] == 2 || mat[i - 1][j] == 3 || mat[i - 1][j] == 4))
+                a = path(i - 1,j,n,m,mat,visited);
+            if(check(i,j + 1,n,m) &amp;&amp; (mat[i][j + 1] == 1 || mat[i][j + 1] == 3 || mat[i][j + 1] == 5))
+                b = path(i,j + 1,n,m,mat,visited);
+        }
+        return (a | b);
+    }
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        map&lt;pair&lt;int,int&gt;,int&gt; visited;
+        int n = grid.size();
+        int m = grid[0].size();
+        return path(0,0,n,m,grid,visited);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

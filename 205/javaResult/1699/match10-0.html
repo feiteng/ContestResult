@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>548_wumingly.java</TITLE>
+ <TITLE>208_necoramen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>548_wumingly.java</CENTER></H3><HR>
+<H3><CENTER>208_necoramen.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>import java.util.ArrayList;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.List;
+import java.util.TreeMap;
 
 class Solution {
-    public int numTriplets(int[] n1, int[] n2) {
-        return com(n1, n2) + com(n2, n1);
+    public int numTriplets(int[] nums1, int[] nums2) {
+
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        return count(nums1, nums2) + count(nums2, nums1);
+
     }
 
-<A NAME="1"></A>    int com(int a[], int b[]) {
+    private int count(int[] arr1, int[] arr2) {
 
-        int ret = 0</B></FONT>;
-        HashMap&lt;Long, Integer&gt; map = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new HashMap&lt;&gt;();
-        for (int i=0; i&lt;a.length; ++i) {
-            long tmp = a[i];
-            tmp *= tmp;
-            map.put(tmp, map.getOrDefault(tmp, 0)+1);
-        }</B></FONT>
-        for (int j=0; j&lt;b.length; ++j) {
-<A NAME="2"></A>            for (int k=j+1; k&lt;b.length; ++k) {
-                long tmp = b[j];
-                tmp *= b[k];
-                ret += <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.getOrDefault(tmp, 0);
+        TreeMap&lt;Long, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int n : arr2) {
+            map.put((long) n, map.getOrDefault((long) n, 0) + 1);
+        }
+
+        int ans = 0;
+        for (int n : arr1) {
+
+            long n2 = (long) n * n;
+            for (long m : map.keySet()) {
+                if (n2 / m &lt; m) {
+                    break;
+                } else if (m * m == n2) {
+                    int cnt = map.get(m);
+                    ans += cnt * (cnt - 1) / 2;
+                } else if (n2 % m == 0 &amp;&amp; map.containsKey(n2 / m) &amp;&amp; m &lt; n2 / m) {
+                    ans += map.get(n2 / m) * map.get(m);
+                }
             }
         }
-        return ret;
+        return ans;
+
+
     }
 }</B></FONT>
 </PRE>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_kai-chieh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_kai-chieh.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class TreeAncestor {
+    vector&lt;vector&lt;int&gt;&gt; anc;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
+    TreeAncestor(int n, vector&lt;int&gt;&amp; parent) {
+        anc.resize(n);
+        for (int i = 0; i &lt; n; i++) {
+            anc[i].resize(20);
+            anc[i][0] = parent[i];
+        }
+        for (int p = 1 ; p &lt; 20; p++) {
+            for (int i = 0; i &lt; n; i++) {
+                if (anc[i][p - 1] == -1) {
+                    anc[i][p] = -1;
+                } else {
+                    anc[i][p] = anc[anc[i][p - 1]][p - 1];    
+                }
+            }
+        }
+    }
+    
+    int getKthAncestor(int node, int k) {
+        for (int i = 0; i &lt; 20; i++) {
+            if (k &amp; (1 &lt;&lt; i)) {
+                node = anc[node][i];</B></FONT>
+            }
+            if (node == -1) return -1;
+        }
+        return node;
+    }
+};
+
+/**
+ * Your TreeAncestor object will be instantiated and called as such:
+ * TreeAncestor* obj = new TreeAncestor(n, parent);
+ * int param_1 = obj-&gt;getKthAncestor(node,k);
+ */
+</PRE>
+</BODY>
+</HTML>

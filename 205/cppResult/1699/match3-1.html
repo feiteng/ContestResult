@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>273_vipjml.cpp</TITLE>
+ <TITLE>112_jiayindeng.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>273_vipjml.cpp</CENTER></H3><HR>
+<H3><CENTER>112_jiayindeng.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    int dp(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2){
-         unordered_map&lt;long long,int&gt; mm;
-        for(long long n:nums1) mm[n*n]++;
-        int ans=0;
-        for(int j=0;j&lt;nums2.size();j++)
-            for(int k=j+1;k&lt;nums2.size();k++){
-                long long t1=nums2[j],t2=nums2[k];
-                if(mm.find(t1*t2)!=mm.end()) ans+=mm[t1*t2];
-            }
-        return ans;
-    }
+<A NAME="0"></A>#define ll long long
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        return dp(nums1,nums2)+dp(nums2,nums1);
+        unordered_map&lt;ll,ll&gt; ma1,ma2;
+        for(auto x:nums1)
+            ma1[1ll*x*x]++;
+        for(auto x:nums2)
+            ma2[1ll*x*x]++;
+        ll ans=0;
+        for(int j=0;j&lt;nums1.size();++j)
+            for(int k=j+1;k&lt;nums1.size();++k)
+                ans+=ma2[1ll*nums1[j]*nums1[k]];
+        for(int j=0;j&lt;nums2.size();++j)
+            for(int k=j+1;k&lt;nums2.size();++k)
+                ans+=ma1[1ll*nums2[j]*nums2[k]];
+        return ans;
     }
 };</B></FONT>
 </PRE>

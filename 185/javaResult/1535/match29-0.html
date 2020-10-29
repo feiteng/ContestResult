@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>556_Joe0577.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>556_Joe0577.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    int mod = 1_000_000_007;
+    Long[][][] memo;
+    public int numOfArrays(int n, int m, int k) {
+        memo = new Long[101][101][101];
+        return (int)dfs(0, k, m, n, 0);
+    }
+    
+    private long dfs(int idx, int k, int m, int n, int curMax</B></FONT>) {
+        if (k &lt; 0) return 0;
+        if (idx == n) {
+            if (k == 0) {
+<A NAME="1"></A>                return 1;
+            }
+            return 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        if (memo[idx][k][curMax] != null) {
+            return memo[idx][k][curMax];
+        }
+        
+        long curRes = 0;
+        for (int i = 1; i &lt;= m; i++) {
+            if (i &gt; curMax) {</B></FONT>
+<A NAME="2"></A>                curRes += dfs(idx + 1, k - 1, m, n, i);
+                curRes %= mod;
+            } else {
+                curRes += <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(idx + 1, k, m, n, curMax);
+                curRes %= mod;
+            }
+        }
+        memo[idx][k][curMax] = curRes;
+        return curRes;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

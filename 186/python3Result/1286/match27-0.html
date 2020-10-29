@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>749_ChelseaChenC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>749_ChelseaChenC.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def constrainedSubsetSum(self, nums: List[int], k: int) -&gt; int:
+<A NAME="0"></A>        n = len(nums)
+        ans = nums[0]
+        prev_sums = collections.deque([(0, nums[0])])
+        for end_idx in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(1, n):
+            while prev_sums[0][0] &lt; end_idx - k:
+                prev_sums.popleft()
+            #print(end_idx, prev_sums)
+            max_sum = max(prev_sums[0][1], 0) + nums[</B></FONT>end_idx]
+            #print(end_idx, max_sum, prev_sums, prev_sums[0][1])
+            while len(prev_sums) &gt; 0 and (prev_sums[0][1] &lt;= max_sum or prev_sums[0][0] &lt;= end_idx - k):
+                prev_sums.popleft()
+            prev_sums.append((end_idx, max_sum))
+            ans = max(ans, max_sum)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

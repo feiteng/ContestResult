@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>414_vineet_sharma.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>414_vineet_sharma.cpp</CENTER></H3><HR>
+<PRE>
+// C / C++ program for Dijkstra's shortest path algorithm for adjacency 
+// list representation of graph 
+
+// Program to find Dijkstra's shortest path using 
+// priority_queue in STL 
+#include&lt;bits/stdc++.h&gt; 
+using namespace std; 
+# define INF 0x3f3f3f3f 
+
+// iPair ==&gt; Integer Pair 
+<A NAME="0"></A>
+// This class represents a directed graph using 
+// adjacency list representation 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Graph 
+{ 
+	int V; // No. of vertices 
+
+	// In a weighted graph, we need to store vertex 
+	// and weight pair for every edge 
+	list&lt; pair&lt;int, double&gt; &gt; *adj; 
+
+public: 
+	Graph(int V); // Constructor 
+
+	// function to add an edge to graph 
+	void addEdge(int u, int v, double w); 
+
+	// prints shortest path from s 
+	double shortestPath(int s,int end); 
+}; 
+
+// Allocates memory for adjacency list 
+Graph::Graph(int V) 
+<A NAME="1"></A>{ 
+	this-&gt;V = V; 
+	adj = new list&lt;pair&lt;int, double&gt;&gt; [V]; </B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} 
+
+void Graph::addEdge(int u, int v, double w) 
+{ 
+	adj[u].push_back(make_pair(v, w)); 
+	adj[v].push_back(make_pair(u, w)); 
+} 
+
+// Prints shortest paths from src to all other vertices 
+double Graph::shortestPath(int src,int end) 
+{ 
+	// Create a priority queue to store vertices that 
+	// are being preprocessed. This is weird syntax in C++. 
+	// Refer below link for details of this syntax 
+	// https://www.geeksforgeeks.org/implement-min-heap-using-stl/ 
+	priority_queue&lt; pair&lt;double, int&gt; &gt; pq; </B></FONT>
+
+	// Create a vector for distances and initialize all 
+	// distances as infinite (INF) 
+	vector&lt;double&gt; dist(V,0 ); 
+
+	// Insert source itself in priority queue and initialize 
+	// its distance as 0. 
+	pq.push(make_pair(0, src)); 
+	dist[src] = 0; 
+
+	while (!pq.empty()) 
+	{ 
+		// The first vertex in pair is the minimum distance 
+		// vertex, extract it from priority queue. 
+		// vertex label is stored in second of pair (it 
+		// has to be done this way to keep the vertices 
+		// sorted distance (distance must be first item 
+		// in pair) 
+		int u = pq.top().second;
+        double d =pq.top().first;
+        //cout&lt;&lt;u&lt;&lt;&quot; &quot;&lt;&lt;d&lt;&lt;&quot;\n&quot;;
+		pq.pop(); 
+        if(u==end)
+            return d;
+		// 'i' is used to get all adjacent vertices of a vertex 
+		list&lt; pair&lt;int, double&gt; &gt;::iterator i; 
+		for (i = adj[u].begin(); i != adj[u].end(); ++i) 
+		{ 
+			// Get vertex label and weight of current adjacent 
+			// of u. 
+			int v = (*i).first; 
+			double weight = (*i).second; 
+			// If there is shorted path to v through u. 
+            if(dist[u]==0)
+            {
+                dist[v]=weight;
+<A NAME="2"></A>                //cout&lt;&lt;dist[v]&lt;&lt;&quot;,&quot;&lt;&lt;v&lt;&lt;&quot;\n&quot;;
+                pq.push(make_pair(dist[v], v)); 
+            }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			else if (dist[v] &lt; dist[u] * weight) 
+			{ 
+				// Updating distance of v 
+				dist[v] = dist[u] * weight; 
+				pq.push(make_pair(dist[v], v)); 
+			} 
+		}
+	} 
+
+	// Print shortest distances stored in dist[]
+    /* 
+	printf(&quot;Vertex Distance from Source\n&quot;); 
+	for (int i = 0; i &lt; V; ++i) 
+		printf(&quot;%d \t\t %d\n&quot;, i, dist[i]);*/
+    return 0;
+} 
+
+class Solution {
+public:
+    double maxProbability(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, vector&lt;double&gt;&amp; succProb, int start, int end) {</B></FONT>
+        Graph g(n);
+        int i;
+        for(i=0;i&lt;edges.size();i++)
+        {
+            g.addEdge(edges[i][0],edges[i][1],succProb[i]);
+        }
+        return g.shortestPath(start,end); 
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>347_xtdong1001.java</TITLE>
+ <TITLE>201_Neymars.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>347_xtdong1001.java</CENTER></H3><HR>
+<H3><CENTER>201_Neymars.java</CENTER></H3><HR>
 <PRE>
-<A NAME="2"></A>class Solution {
-    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int numTriplets(int[] nums1, int[] nums2) {
-<A NAME="0"></A>        return helper(nums1, nums2) + helper(nums2, nums1);
-    }</B></FONT>
-    
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int helper(int[] nums1, int[] nums2) {
-        int res = 0;
-        for(int n1 : nums1) {
-            HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-<A NAME="1"></A>            long sq = (long)n1 * (long)n1;
-            
-            for(int n2 : nums2) {</B></FONT>
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(sq % n2 == 0) {
-                    int j = (int)(sq/(long)n2);
-                    res += map.getOrDefault(j, 0);
-                }
-                map.put(n2, map.getOrDefault(n2, 0)+1);
-            }
-        }
-        return res;
-    }</B></FONT>
-}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numTriplets(int[] nums1, int[] nums2) {
+
+        return work(nums1, nums2) + work(nums2, nums1);
+
+    }
+
+    private int work(int[] nums1, int[] nums2) {
+
+        int ans = 0;
+        int n = nums1.length;
+        int m = nums2.length;
+        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+
+
+        for (int i = 0; i &lt; n; i++)
+            map.put((long) nums1[i] * nums1[i], map.getOrDefault((long) nums1[i] * nums1[i], 0) + 1);
+
+        for (int i = 0; i &lt; m; i++)
+            for (int j = i + 1; j &lt; m; j++)
+                ans += map.getOrDefault((long) nums2[i] * nums2[j], 0);
+
+        return ans;
+
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>482_Priyansh02.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>482_Priyansh02.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    static bool cmo(pair&lt;int,char&gt; &amp;p1,pair&lt;int,char&gt; &amp;p2){
+        return p1.first &lt; p2.first;
+    }
+    
+    string longestDiverseString(int a, int b, int c) {
+        string ans = &quot;&quot;;
+        vector&lt;pair&lt;int,char&gt;&gt; v(3);
+        v[0] = make_pair(a,'a');
+        v[1] = make_pair(b,'b');
+        v[2] = make_pair(c,'c');
+        
+<A NAME="0"></A>        while(v[2].first&gt;0 || v[1].first&gt;0 || v[0].first&gt;0){
+            int l = ans.size();
+            char d = '#';
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(ans.size()&gt;=2 &amp;&amp; ans[l-2]==ans[l-1]) d = ans[l-1];
+            sort(v.begin(),v.end(),cmo);
+            
+      //      cout &lt;&lt; d &lt;&lt; &quot; &quot; &lt;&lt; v[2].first &lt;&lt; &quot; &quot; &lt;&lt; v[1].first &lt;&lt; &quot; &quot; &lt;&lt; v[0].first &lt;&lt; endl;
+            
+            if(v[2].second != d &amp;&amp; v[2].first&gt;0) {ans+=v[2].second;v[2].first--;}
+            else if(v[1].second != d &amp;&amp; v[1].first&gt;0) {ans+=v[1].second;v[1].first--;}
+            else if(v[0].second != d &amp;&amp; v[0].first&gt;0) {ans+=v[0].second;v[0].first--;}
+            else break;
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

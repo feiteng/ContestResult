@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>261__mrsn_.cpp</TITLE>
+ <TITLE>125_jljljljljl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>261__mrsn_.cpp</CENTER></H3><HR>
+<H3><CENTER>125_jljljljljl.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    #define ll long long
-<A NAME="0"></A>    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
-        map&lt;ll,ll&gt; mp1,mp2;
-        for(auto e: nums1) mp1[1LL*e*e]++;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto e: nums2) mp2[1LL*e*e]++;
+    long long ll = 1;
+    int numTriplets(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) 
+    {
+        int ret = 0;
+        ret += solve(nums1, nums2);
+        ret += solve(nums2, nums1);
+        return ret;
+    }
+    
+    int solve(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2)
+    {
+        unordered_map&lt;long long, int&gt; sq;
+        for(int i = 0; i &lt; nums1.size(); i++)
+        {
+            long long val = ll * nums1[i] * nums1[i];
+            sq[val]++;
+        }
         
-        int ans = 0;
-        for(int i = 0; i &lt; nums1.size(); i++){
-            for(int j = i+1; j &lt; nums1.size(); j++){
-                if (mp2[1LL*nums1[i]*nums1[j]]) ans+= mp2[1LL*nums1[i]*nums1[j]];
+        unordered_map&lt;long long, int&gt; mul;
+        for(int i = 0; i &lt; nums2.size(); i++)
+        {
+            for(int j = i + 1; j &lt; nums2.size(); j++)
+            {
+                long long val = ll * nums2[i] * nums2[j];
+                mul[val]++;
             }
         }
-        for(int i = 0; i &lt; nums2.size(); i++){
-            for(int j = i+1; j &lt; nums2.size(); j++){
-                if (mp1[1LL*nums2[i]*nums2[j]]) ans+= mp1[1LL*nums2[i]*nums2[j]];
+        
+        int ret = 0;
+        for(auto&amp; [key, val] : sq)
+        {
+            if(mul.count(key))
+            {
+                ret += val * mul[key];
             }
         }
-        
-        return ans;
-        
+        return ret;
     }
 };</B></FONT>
 </PRE>

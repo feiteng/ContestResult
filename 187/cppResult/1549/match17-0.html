@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>584_finaldie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>584_finaldie.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int longestSubarray(vector&lt;int&gt;&amp; nums, int limit) {
+      multiset&lt;int&gt; memo;
+      //cout &lt;&lt; &quot;----&quot; &lt;&lt; endl;
+      
+      // two-pointer maintain a window, for each step we 
+      // need to know the max/min in the window
+      int longest = 0;
+      
+      for (int i = 0, j = 0; i &lt; nums.size(); i++) {
+        while (j &lt; nums.size()) {
+          memo.insert(nums[j++]);</B></FONT>
+          
+          if (*memo.rbegin() - *memo.begin() &lt;= limit) {
+            longest = max(longest, j - i);
+            //cout &lt;&lt; &quot;i: &quot; &lt;&lt; i &lt;&lt; &quot;, j: &quot; &lt;&lt; j &lt;&lt; &quot;, len: &quot; &lt;&lt; j - i &lt;&lt; &quot;, longest: &quot; &lt;&lt; longest &lt;&lt; endl;
+          } else break;
+        }
+        
+        memo.erase(memo.equal_range(nums[i]).first);
+      }
+      
+      return longest;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

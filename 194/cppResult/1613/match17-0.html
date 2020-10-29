@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>77_blackskygg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>77_blackskygg.cpp</CENTER></H3><HR>
+<PRE>
+class UnionFind {
+public:
+    UnionFind(int n) {
+        rank = vector&lt;int&gt;(n, 1);
+        f.resize(n);
+        for (int i = 0; i &lt; n; ++i) f[i] = i;
+    }
+    
+    int Find(int x) {
+        if (x == f[x]) return x;
+        else return f[x] = Find(f[x]);
+    }
+    
+    void Union(int x, int y) {
+        int fx = Find(x), fy = Find(y);
+        if (fx == fy) return;
+        if (rank[fx] &gt; rank[fy]) swap(fx, fy);
+        f[fx] = fy;
+        if (rank[fx] == rank[fy]) rank[fy]++;
+    }
+    
+private:
+    vector&lt;int&gt; f, rank;
+};
+
+<A NAME="0"></A>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; findCriticalAndPseudoCriticalEdges(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; edges.size(); ++i) {
+            edges[i].push_back(i);
+        }
+        sort(edges.begin(), edges.end(), [](const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) {
+<A NAME="1"></A>            return a[2] &lt; b[2];
+        });</B></FONT>
+        int origin_mst = GetMST(n, edges, -1);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; critical, non_critical;
+        for (int i = 0; i &lt; edges.size(); ++i) {
+            if (origin_mst &lt; GetMST(n, edges, i)) {
+                critical.push_back(edges[i][3]);
+            } else if (origin_mst == GetMST(n, edges, -1, i)) {
+                non_critical.push_back(edges[i][3]);
+            }
+        }
+        return {critical, non_critical};</B></FONT>
+    }
+    
+private:
+    int GetMST(const int n, const vector&lt;vector&lt;int&gt;&gt;&amp; edges, int blockedge, int pre_edge = -1) {
+        UnionFind uf(n);
+        int weight = 0;
+        if (pre_edge != -1) {
+            weight += edges[pre_edge][2];
+            uf.Union(edges[pre_edge][0], edges[pre_edge][1]);
+        }
+        for (int i = 0; i &lt; edges.size(); ++i) {
+            if (i == blockedge) continue;
+            const auto&amp; edge = edges[i];
+            if (uf.Find(edge[0]) == uf.Find(edge[1])) continue;
+            uf.Union(edge[0], edge[1]);
+            weight += edge[2];
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            if (uf.Find(i) != uf.Find(0)) return 1e9+7;
+        }
+        return weight;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

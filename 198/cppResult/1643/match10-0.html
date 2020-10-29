@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>710_jiayindeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>710_jiayindeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; ans;
+    vector&lt;vector&lt;int&gt; &gt; edg;
+    vector&lt;bool&gt; vis;
+    vector&lt;int&gt; dfs(int now,int n,vector&lt;vector&lt;int&gt;&gt;&amp; edges, string &amp;labels)
+    {
+        vis[now]=true;
+        vector&lt;int&gt; ret(26,0);
+        ret[labels[now]-'a']++;
+        for(int i=0;i&lt;edg[now].size();++i)
+        {
+            if(!vis[edg[now][i]])
+            {
+                vector&lt;int&gt; tmp=dfs(edg[now][i],n,edges,labels);
+                for(int j=0;j&lt;26;++j)
+                    ret[j]+=tmp[j];
+            }
+        }
+        ans[now]=ret[labels[now]-'a'];
+        return ret;
+    }
+    vector&lt;int&gt; countSubTrees(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, string labels) {</B></FONT>
+        edg.resize(n);
+        vis.resize(n,0);
+        ans.resize(n);
+        for(int i=0;i&lt;n-1;++i)
+        {
+            edg[edges[i][0]].push_back(edges[i][1]);
+            edg[edges[i][1]].push_back(edges[i][0]);
+        }
+        dfs(0,n,edges,labels);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

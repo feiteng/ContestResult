@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>158_X_Chen6.py</TITLE>
+ <TITLE>106_JerryJin2905.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>158_X_Chen6.py</CENTER></H3><HR>
+<H3><CENTER>106_JerryJin2905.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def numTriplets(self, nums1: List[int], nums2: List[int]) -&gt; int:
-        s1 = collections.defaultdict(int)
-        for num in nums1:
-<A NAME="0"></A>            s1[num**2] += 1
-            
-        s2 = collections.defaultdict(int)
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for num in nums2:
-            s2[num**2] += 1
-        
         ans = 0
-        for i in range(len(nums1)):
-            for j in range(i+1, len(nums1)):
-                ans += s2[nums1[i] * nums1[j]]
-        
+        prod1 = defaultdict(int)
         for i in range(len(nums2)):
-            for j in range(i+1, len(nums2)):
-                ans += s1[nums2[i] * nums2[j]]
+            for j in range(i + 1, len(nums2)):
+                prod1[nums2[i] * nums2[j]] += 1
+        
+        for num in nums1:
+            ans += prod1[num * num]
+        
+        prod2 = defaultdict(int)
+        for i in range(len(nums1)):
+            for j in range(i + 1, len(nums1)):
+                prod2[nums1[i] * nums1[j]] += 1
+        
+        for num in nums2:
+            ans += prod2[num * num]
         re</B></FONT>turn ans
 </PRE>
 

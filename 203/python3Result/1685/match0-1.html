@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_angel30818.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>486_angel30818.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def stoneGameV(self, stoneValue: List[int]) -&gt; int:
+        ps = [0]
+        
+        for n in stoneValue:
+            ps.append(ps[-1] + n)
+        
+        mem = {}
+        def dp(i, j):
+            # one stone left
+            if i &gt;= j:
+                return 0
+            
+            if (i,j) in mem:
+                return mem[i,j]
+            
+            res = 0
+            ## take at least one stone at i, until j-1
+            for mid in range(i, j):
+                leftsum = ps[mid+1]-ps[i]
+                rightsum = ps[j+1]-ps[mid+1]
+                if leftsum &gt; rightsum:
+                    res = max(res, rightsum + dp(mid+1, j))
+                
+                elif leftsum &lt; rightsum:
+                    res = max(res, leftsum + dp(i, mid))
+                
+                else:
+                    res = max(res, leftsum + max(dp(i, mid), dp(mid+1, j)))
+            mem[i,j] = res
+            return res    
+                
+        return dp(0, len(s</B></FONT>toneValue)-1)
+                
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

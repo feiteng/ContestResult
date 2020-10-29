@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>613_Halobin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>613_Halobin.cpp</CENTER></H3><HR>
+<PRE>
+#define mmax(a,b)  (((a)&gt;(b))?(a):(b))
+class Solution {
+public:
+    
+    int stoneGameV(vector&lt;int&gt;&amp; stoneValue) {
+        // clock_t startTime,endTime;
+<A NAME="0"></A>        // startTime = clock();//计时开始
+        int n = stoneValue.size();
+        int dp[505][505];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int sum[505];
+        sum[0] = stoneValue[0];
+        for(int i=1;i&lt;n;i++)    sum[i] = sum[i-1]+stoneValue[i];
+<A NAME="1"></A>        for(int l=1;l&lt;n;l++){
+            for(int i=0;i+l&lt;n;i++){
+                int j=i+l;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                dp[i][j]=0;
+                for(int k=i;k&lt;j;k++){
+                    int suml =  sum[k]-sum[i]+stoneValue[i];
+                    int sumr =  sum[j]-sum[k+1]+stoneValue[k+1];
+                    if(suml&lt;sumr){
+                        dp[i][j] = mmax(dp[i][j],dp[i][k]+suml);
+                    }else if(suml&gt;sumr){
+                        dp[i][j] = mmax(dp[i][j],dp[k+1][j]+sumr);
+                    }else{
+                        dp[i][j] = mmax(dp[i][j],dp[i][k]+suml);</B></FONT>
+                        dp[i][j] = mmax(dp[i][j],dp[k+1][j]+sumr);
+                    }
+                }
+            }
+        }
+        // endTime = clock();//计时结束
+        // cout &lt;&lt; &quot;The run time is: &quot; &lt;&lt;(double)(endTime - startTime) / CLOCKS_PER_SEC &lt;&lt; &quot;s&quot; &lt;&lt; endl;
+        return dp[0][n-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

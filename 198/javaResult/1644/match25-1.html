@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>574_hum.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>574_hum.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        int[][] tmp = new int[26][2];
+        for (int i = 0; i &lt; 26; i++) {
+            Arrays.fill(tmp[i], (int) (1e5 + 100));
+        }</B></FONT>
+        TreeSet&lt;Integer&gt;[] set = new TreeSet[26];
+        for (int i = 0; i &lt; 26; i++) {
+            set[i] = new TreeSet&lt;&gt;();
+        }
+        int len = s.length();
+        for (int i = 0; i &lt; len; i++) {
+            int idx = s.charAt(i) - 'a';
+            set[idx].add(i);
+        }
+        int[][] t = new int[26][2];
+        for (int i = 0; i &lt; 26; i++) {
+            Arrays.fill(t[i], (int) (1e5 + 100));
+        }
+        while (true) {
+            boolean f = false;
+            for (int i = 0; i &lt; 26; i++) {
+                if (set[i].size() == 0) {
+                    continue;
+                }
+                int t1 = set[i].first();
+                int t2 = set[i].last();
+                for (int j = 0; j &lt; 26; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    TreeSet&lt;Integer&gt; treeSet = set[j];
+                    Integer higher = treeSet.higher(t1);
+                    if (higher != null &amp;&amp; higher &lt; t2) {
+                        t1 = Math.min(t1, set[j].first());
+<A NAME="1"></A>                        t2 = Math.max(t2, set[j].last());
+                    }
+                    Integer lower = treeSet.lower(t2);
+                    if (lower != null &amp;&amp; lower &gt; t1) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                        t1 = Math.min(t1, set[j].first());
+                        t2 = Math.max(t2, set[j].last());
+                    }
+                }</B></FONT>
+
+                if (set[i].first() != t1) {
+                    f = true;
+                    set[i].add(t1);
+                }
+                if (set[i].last() != t2) {
+                    f = true;
+                    set[i].add(t2);
+<A NAME="2"></A>                }
+                t[i][0] = t1;
+                t[i][1] = t2;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if (!f) {
+                break;
+            }
+        }
+        Integer[] idx = new Integer[26]</B></FONT>;
+        for (int i = 0; i &lt; 26; i++) {
+            idx[i] = i;
+        }
+        Arrays.sort(idx, Comparator.comparingInt(a -&gt; t[a][1]));
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        int end = t[idx[0]][1];
+        result.add(s.substring(t[idx[0]][0], t[idx[0]][1] + 1));
+        for (int i = 1; i &lt; 26; i++) {
+            int start = t[idx[i]][0];
+            if (start == (int) 1e5 + 100) {
+                continue;
+            }
+            if (start &gt; end) {
+                result.add(s.substring(start, t[idx[i]][1] + 1));
+                end = t[idx[i]][1];
+            }
+        }
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

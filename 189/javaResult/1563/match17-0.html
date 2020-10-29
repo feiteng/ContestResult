@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>271_kobale.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>271_kobale.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    class Point {
+        double x;
+        double y;
+        public Point(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    
+    public int numPoints(int[][] points, int r) {</B></FONT>
+        int ans = 1;
+        int num = points.length;	
+        for (int i = 0; i &lt; num; i++) {
+<A NAME="1"></A>            for (int j = i + 1; j &lt; num; j++) {
+                Point x = new Point(points[i][0], points[i][1]);
+                Point y = new Point(points[j][0], points[j][1]);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (dist(x, y) &gt; 2.0 * r) continue;
+                Point center = GetCircleCenter(x, y, r);
+<A NAME="2"></A>                int cnt = 0;
+                for (int k = 0; k &lt; num;k++) {</B></FONT>
+                    Point m = new Point(points[k][0], points[k][1]);
+                    if (dist(center, m) &lt; 1.0 * r + <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.pow(10, -8)) cnt++;
+                }
+
+                ans = Math.max(ans, cnt);
+            }
+        }
+        return ans;
+<A NAME="3"></A>    }</B></FONT>
+    
+    private double dist(Point p1, Point p2) {
+	    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.po<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>w(p1.y - p2.y, 2));
+    }
+    
+    private Point GetCircleCenter(Point p1, Point p2, int r) {
+        Point mid = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+        double angle = Math.atan2(p1.x - p2.x, p2.y - p1.y);
+        double d = Math.sqrt(r * r - Math.pow(dist(p1, mid), 2));
+        return new Point(mid.x + d * Math.cos(angle), mid.y + d * Math.sin(angle));
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

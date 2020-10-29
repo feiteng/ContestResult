@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>84_14417335.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>84_14417335.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+  
+   <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private static class TreeNode {
+    private TreeNode l, r;
+    private final int s, m, e;
+    private int value;
+
+    private TreeNode(int s1, int e1) {
+      s = s1;
+      e = e1;
+<A NAME="1"></A>      m</B></FONT> = (s1 + e1) &gt;&gt;&gt; 1;
+    }
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private int find(int f, int t) {
+      if (f &gt; t)
+        return Integer.MAX_VALUE;
+      if (f == s &amp;&amp; t == e)
+        return value;
+      if (l == null) {
+        l = new TreeNode(s, m);
+<A NAME="2"></A>        r = new TreeNode(m + 1, e);
+      }
+      return l.find(Math.max(f, s), Math.min(t, m)) &amp; r.find(Math.max(f, m + 1), Math.min</B></FONT>(t, e));
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    private int set(int f, int t, int raw) {
+      if (f &gt; t)
+        return value;
+      if (f == s &amp;&amp; t == e)
+        return value = raw;
+      if (l == null) {
+        l = new TreeNode(s, m);
+        r = new TreeNode(m + 1, e);
+      }
+      return value = l.set(Math.max(f, s), Math.min(t, m), raw)
+          &amp; r.set(Math.max(f, m + 1), Math.min(t, e), raw);
+    }</B></FONT>
+  }
+
+
+  public int closestToTarget(int[] arr, int target) {
+    final TreeNode TREE = new TreeNode(0, arr.length - 1);
+    for (int i = 0; i != arr.length; i++) {
+      if (arr[i] == target)
+        return 0;
+      TREE.set(i, i, arr[i]);
+    }
+    int res = Integer.MAX_VALUE;
+    for (int e = arr.length - 1; e != -1; e--) {
+      int idx = helper(TREE, target, e);
+<A NAME="3"></A>      final int best = TREE.find(idx, e);
+      res = Math.min(res, Math.abs(target - best));
+      if (idx - 1 &gt;= 0)
+        res = <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match4-1.html#3',3,'match4-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.min(res, Math.abs((best &amp; arr[idx - 1]) - target));
+      if (res == 0)
+        return res;
+    }
+    return res;
+  }
+
+  private int helper(final TreeNode TREE, final int TARGET, final int R) {
+    int l = 0, r = R;
+    while (l &lt;= r) {
+      int m = (l + r) &gt;&gt;&gt; 1;
+      int val = TREE.find(m, R);
+      if (val &lt; TARGET)
+        l = m + 1;
+      else
+        r = m - 1;
+    }
+    return l;
+  }</B></FONT>
+
+  
+  
+}
+</PRE>
+
+</BODY>
+</HTML>

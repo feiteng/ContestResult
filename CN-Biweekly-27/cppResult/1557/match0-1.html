@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_KiligQ.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_KiligQ.cpp</CENTER></H3><HR>
+<PRE>
+
+class Solution {
+public:
+    bool hasAllCodes(string s, int k) {
+<A NAME="0"></A>        int used[1 &lt;&lt; 20];
+        memset(used,0,size(used));
+        int cur = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mask = (1 &lt;&lt; k) - 1;
+        for(int i = 0; i &lt; k &amp;&amp; i &lt; s.size(); i++){
+            cur &lt;&lt;= 1;
+            cur |= (s[i] - '0');
+        }
+        used[cur] = 1;
+        // cout&lt;&lt;cur&lt;&lt;endl;
+        for(int i = k; i &lt; s.size(); i++){
+            // cout&lt;&lt;i&lt;&lt;endl;
+            // cout&lt;&lt;cur&lt;&lt;endl;
+            cur &lt;&lt;= 1;
+            // cout&lt;&lt;cur&lt;&lt;endl;
+            cur |= (s[i] - '0');
+            cur &amp;= mask;
+            used[cur] = 1;
+        }
+        for(int i = 0; i &lt; (1&lt;&lt;k); i++){
+            // cout&lt;&lt;i&lt;&lt;endl;
+            if(used[i]==0)return false;
+        }
+        return true;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

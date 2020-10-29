@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>165_esddse.py</TITLE>
+ <TITLE>121_Eser.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,63 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>165_esddse.py</CENTER></H3><HR>
+<H3><CENTER>121_Eser.py</CENTER></H3><HR>
 <PRE>
-from collections import defaultdict
-import copy
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-<A NAME="0"></A>          
-        parent = [i for i in range(n+1)]
-            
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def find(i):
-            if i != parent[i]:
-                parent[i] = find(parent[i])
-            return parent[i]
-                
-        def union(i, j):
-            pi, pj = find(i), find(</B></FONT>j)
-            if pi != pj:
-                parent[pi] = pj
-                return 1
-            return 0
+        n += 1
+        p = [*range(n)]
+        rank = [0] * n
+        def find(x):
+            if p[x] != x:
+                p[x] = find(p[x])
+            return p[x]
+        def union(x, y):
+            xp, yp = find(x), find(y)
+            if xp != yp:
+                if rank[xp] &gt; rank[yp]:
+                    p[yp] = xp
+                else:
+                    p[xp] = yp
+                    if rank[xp] == rank[yp]:
+                        rank[yp] += 1
+
+        alice = []
+        bob = []
+        used = 0
+        for e in edges:
+            if e[0] == 3:
+                if find(e[1]) != find(e[2]):
+                    used += 1
+                    union(e[1], e[2])
+            elif e[0] == 1:
+                alice.append(e)
+            else:
+                bob.append(e)
+
+        ori_p, ori_rank = [find(x) for x in p], rank[:]
+        # print(p, alice, bob)
+        for _, x, y in alice:
+            if find(x) != find(y):
+                used += 1
+                union(x, y)
+        # print(p)
+        if len(set([find(x) for x in p])) != 2:
+            return -1
         
-        cnt3 = 0
-        for t, i, j in edges:
-            if t == 3:
-                cnt3 += union(i, j)
-        # print(&quot;parent3:&quot;, parent)
-        parent3 = copy.deepcopy(parent)
+        p, rank = ori_p, ori_rank
+        for _, x, y in bob:
+            if find(x) != find(y):
+                used += 1
+                union(x, y)
+        # print(p)
+        if len(set([find(x) for x in p])) != 2:
+            return -1
         
-<A NAME="1"></A>        cnt1 = 0
-        for t, i, j in edges:
-            if t == 1:
-                cnt1 += union(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i, j)
-        # print(&quot;parent1:&quot;, parent)
-        p = find(1)
-        for i in range(1, n+1):
-            if find(i) != p:
-                return -1
-        
-        
-        parent =</B></FONT> copy.deepcopy(parent3)
-<A NAME="2"></A>        cnt2 = 0
-        for t, i, j in edges:
-            if t == 2:
-                cnt2 += union(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i, j)
-        # print(&quot;parent2:&quot;, parent)
-        p = find(1)
-        for i in range(1, n+1):
-            if find(i) != p:
-                return -1
-        
-        
-        return</B></FONT> len(edges) - (cnt1 + cnt2 + cnt3)
-        
-        
-        
-        
-        
+        return len(e</B></FONT>dges) - used
 </PRE>
 
 </BODY>

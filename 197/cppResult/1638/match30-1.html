@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>485_kumarayushsupercool.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>485_kumarayushsupercool.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    struct Point { 
+    double x, y; 
+    }; 
+<A NAME="1"></A>Point test_point[4] = { { -1.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 0.0, -1.0 } };  
+double lower_limit = 0.00001; 
+double distSum(Point p, Point arr[], int n) </B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{ 
+    double sum = 0; 
+    for (int i = 0; i &lt; n; i++) { 
+        double distx = abs(arr[i].x - p.x); 
+        double disty = abs(arr[i].y - p.y); 
+        sum += sqrt((distx * distx) + (disty * disty)); 
+    } 
+    return sum; 
+} 
+    double getMinDistSum(vector&lt;vector&lt;int&gt;&gt;&amp; pos) {
+        // int n=pos.size();
+        // double x=0,y=0,res=0;
+        // for(int i=0;i&lt;n;i++){
+        //     x=(x+pos[i][0]);
+        //     y=(y+pos[i][1]);
+        // }
+        // x/=n;
+        // y/=n;
+        // cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;endl;
+        // for(int i=0;i&lt;n;i++){
+        //     res+=sqrt(pow((x-pos[i][0]),2) + pow((y-pos[i][1]),2));
+        // }
+        // return res;
+        int n=pos.size();</B></FONT>
+        Point arr[n];
+        for(int i=0;i&lt;n;i++){
+            arr[i].x=pos[i][0];
+            arr[i].y=pos[i][1];
+<A NAME="2"></A>        }
+        Point current_point; 
+  
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; n; i++) { 
+        current_point.x += arr[i].x; 
+        current_point.y += arr[i].y; 
+    } 
+  
+    // Here current_point becomes the 
+    // Geographic MidPoint 
+    // Or Center of Gravity of equal 
+    // discrete mass distributions 
+    current_point.x /= n; 
+    current_point.y /= n; 
+  
+    // minimum_distance becomes sum of 
+    // all distances from MidPoint to 
+    // all given points 
+    double minimum_distance =  distSum(current_point, arr, n); 
+  
+    int k = 0; 
+    while (k &lt; n) { 
+        for (int i = 0; i &lt; n, i != k; i++) { 
+            Point newpoint; 
+            newpoint.x = arr[i].x; 
+            newpoint.y = arr[i].y; 
+            double newd =  
+                   distSum(newpoint, arr, n); 
+            if (newd &lt; minimum_distance) { 
+                minimum_distance = newd; 
+                current_point.x = newpoint.x; 
+                current_point.y = newpoint.y; 
+            } 
+        } 
+        k++; 
+    } 
+  
+    // Assume test_distance to be 1000 
+    double test_distance = 1000; 
+    int flag = 0; 
+  
+    // Test loop for approximation starts here 
+    while (test_distance &gt; lower_limit) { 
+  
+        flag = 0; 
+  
+        // Loop for iterating over all 4 neighbours 
+        for (int i = 0; i &lt; 4; i++) { 
+  
+            // Finding Neighbours done 
+            Point newpoint; 
+            newpoint.x = current_point.x 
+                 + (double)test_distance * test_point[i].x; 
+            newpoint.y = current_point.y 
+                 + (double)test_distance * test_point[i].y; 
+  
+            // New sum of Euclidean distances 
+            // from the neighbor to the given 
+            // data points 
+            double newd = distSum(newpoint, arr, n); 
+  
+            if (newd &lt; minimum_distance) { 
+  
+                // Approximating and changing 
+                // current_point 
+                minimum_distance = newd; 
+                current_point.x = newpoint.x; 
+                current_point.y = newpoint.y; 
+                flag = 1; 
+                break; 
+            } 
+        } 
+  
+        // This means none of the 4 neighbours 
+        // has the new minimum distance, hence 
+        // we divide by 2 and reiterate while 
+        // loop for better approximation 
+        if (flag == 0) 
+            test_distance /= 2; 
+    } 
+        return minimum_distance;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

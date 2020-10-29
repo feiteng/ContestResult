@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_Dymonchyk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10_Dymonchyk.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int dx[6][2] = {{0, 0}, {-1, 1}, {0, 1}, {0, 1}, {0, -1}, {0, -1}};
+    int dy[6][2] = {{-1, 1}, {0, 0}, {-1, 0}, {1, 0}, {-1, 0}, {1, 0}};</B></FONT>
+    
+    bool can(int x, int y, int nx, int ny, int w) {
+        for (int t = 0; t &lt; 2; ++t) {
+            int nx2 = x + dx[w - 1][t];
+            int ny2 = y + dy[w - 1][t];
+            if (nx == nx2 &amp;&amp; ny == ny2) return true;
+        }
+        return false;
+    }
+    
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        bool used[302][302] = {0};
+        vector&lt;pair&lt;int, int&gt;&gt; q;
+        used[0][0] = true;
+        q.push_back({0, 0});
+        
+<A NAME="1"></A>        int n = grid.size(), m = grid[0].size();
+        for (int i = 0; i &lt; q.size(); ++i) {
+            int x = q[i].first, y = q[i].second;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int t = 0; t &lt; 2; ++t) {
+                int nx = x + dx[grid[x][y] - 1][t];
+                int ny = y + dy[grid[x][y] - 1][t];
+                if (nx &gt;= 0 &amp;&amp; nx &lt; n &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; m &amp;&amp; !used[nx][ny] &amp;&amp; can(nx, ny, x, y, grid[nx][ny])) {
+                    used[nx][ny] = true;
+                    q.push_back({nx, ny});
+                }
+            }
+        }
+        
+        return used[n - 1][m - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

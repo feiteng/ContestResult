@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>277_muhandae.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>277_muhandae.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>
+    static int MOD = 1000000007;
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int numOfArrays(int n, int m, int k) {
+      long[][][] mem = new long[n][m][k];
+      for(int i=0; i&lt;m; i++) {
+        mem[0][i][0] = 1;
+      }
+      for(int i=1; i&lt;n; i++) {
+        for(int j=0; j&lt;k; j++) {
+          for(int l=0; l&lt;m; l++) {
+            long res = 0;
+<A NAME="1"></A>            for(int z=0; z&lt;l; z++) {</B></FONT>
+              res += (j &gt; 0 ? mem[i-1][z][j-1] : 0);
+              res %= MOD;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            res += ((l+1)*mem[i-1][l][j]);
+            res %= MOD;
+            mem[i][l][j] = res;
+          }
+        }
+      }
+      long res = 0;
+      for(int i=0; i&lt;m; i++) {
+        res += mem[n-1][i][k-1];
+        res %= MOD;
+      }
+      return (int) res;
+    }
+  }</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_mohitbhura.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>484_mohitbhura.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minDays(self, n: int) -&gt; int:
+        # d = {1:1,2:2,3:2}
+        # for i in range(4,10**5):
+        #     d[i] = 1+d[i-1]
+        #     if i%2 == 0:
+        #         d[i] = min(d[i],1+d[i//2])
+        #     if i%3 == 0:
+        #         d[i] = min(d[i],1+d[i//3])
+<A NAME="0"></A>        
+        d = {1:1,2:2,3:2}
+        def solve(n):
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if n in d:
+                return d[n]
+            
+            ret = n
+            if n%2 == 0:
+                ret = min(ret,1+solve(n//2))
+            else:
+                ret = min(ret,2+solve((n-1)//2))
+            if n%3 == 0:
+                ret = min(ret,1+solve(n//3))
+            elif n%3 == 1:
+                ret = min(ret,2+solve((n-1)//3))
+            else:
+                ret = min(ret,3+solve((n-2)//3))
+            d[n] = ret
+            return ret
+        return solve(n</B></FONT>)
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

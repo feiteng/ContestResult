@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>510_xjiang2020.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>510_xjiang2020.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -&gt; List[int]:
+        
+        adj <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= defaultdict(list)
+        for e in edges:
+            adj[e[0]].append(e[1])
+            adj[e[1]].append(e[0])
+        results =</B></FONT> [0] * n
+        visited = [False] * n
+        
+<A NAME="1"></A>        def hash_label(s):
+            return ord(s) - ord('a')
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def dfs(node):
+            visited[node] = True
+            
+            # # leave node
+            # if node not in adj:
+            #     stats = [0]*26
+            #     stats[hash_label(labels[node])] = 1
+            #     results[node] = 1
+            #     return stats
+            
+            nei_stats = [0]*26
+            nei_stats[hash_label(labels[node])] += 1
+<A NAME="2"></A>            for nei in adj[node]:
+                if not visited[</B></FONT>nei]:
+                    si = dfs(nei)
+                    nei_stats = [nei+sii for nei, sii in zip(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nei_stats, si)]
+                
+            results[node] = nei_stats[hash_label(labels[node])]
+                
+            return nei_stats
+        
+        dfs(0)
+        
+
+        re</B></FONT>turn results
+</PRE>
+
+</BODY>
+</HTML>

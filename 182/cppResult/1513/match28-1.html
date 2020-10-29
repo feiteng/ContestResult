@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_zscnash.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_zscnash.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	int next[1005];
+	int f[1005][55];
+	int a[1005];
+	int ev[1000];
+	int evlen;
+	int mod=1e9+7;
+	void worknext(string s)
+<A NAME="0"></A>	{
+		int i,j;
+		int len=s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		j=next[0]=-1;
+		i=0;
+		while (i&lt;len)
+		{
+			while (-1!=j&amp;&amp;s[i]!=s[j]) j=next[j];
+			next[++i]=++j;
+		}
+	}
+	int work(string x,string y)
+	{
+		int i,j,ans=0;</B></FONT>
+		int m=x.size();
+		worknext(x);
+		int n=y.size();
+		i=j=0;
+		while (i&lt;n)
+		{
+			while (-1!=j&amp;&amp;y[i]!=x[j]) j=next[j];
+			++i;++j;
+			if (j&gt;=m)
+			{
+				ans++;
+				j=next[j];
+			}
+		}
+		return ans;
+	}
+	int dfs(int pos,int pre,bool flag)
+	{
+		if (pos&lt;=0) return 1;
+<A NAME="1"></A>		if (!flag&amp;&amp;f[pos][pre]!=-1) return f[pos][pre];
+		int maxx;
+		if (flag) maxx=a[pos];else maxx=25;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		int now=0;
+		for (int i=0;i&lt;=maxx;++i)
+		{
+			int cur=pre;
+			while (-1!=cur&amp;&amp;i!=ev[cur]) cur=next[cur];
+			++cur;
+			if (cur!=evlen) now+=dfs(pos-1,cur,flag&amp;&amp;(i==maxx)),now%=mod;</B></FONT>
+		}
+		if (!flag) f[pos][pre]=now;
+		return now;
+	}
+ 	int calc(string s)
+	{
+		for (int i=0;i&lt;s.size();++i)
+		{
+			a[s.size()-i]=s[i]-'a';
+		}
+		a[0]=s.size();
+		return dfs(a[0],0,true);
+	}
+	bool check(string s1,string s2)
+	{
+		if (work(s1,s2)&gt;0) return true;
+		else return false;
+	}
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+    	memset(f,-1,sizeof(f));
+    	evlen=evil.size();
+    	for (int i=0;i&lt;evil.size();++i) ev[i]=evil[i]-'a'; 
+    	worknext(evil);
+        int ans=calc(s2)-calc(s1);
+        if (ans&lt;0) ans+=mod;
+        ans%=mod;
+        if (!check(evil,s1)) ans++;
+        ans%=mod;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

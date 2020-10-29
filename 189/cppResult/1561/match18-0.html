@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>758_astrowu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>758_astrowu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string arrangeWords(string text) {
+        istringstream iss(text);
+        vector&lt;pair&lt;string, int&gt;&gt; v;
+        string t;
+<A NAME="0"></A>        int cnt = 0;
+        while(iss&gt;&gt;t) {
+            if (isupper(t[0])) t[0] = tolower(t[0]);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            v.push_back({t, cnt++});
+        }
+        
+        sort(begin(v), end(v), [](const auto &amp; a, const auto &amp; b) {
+            return a.first.size() &lt; b.first.size() || a.first.size() == b.first.size() &amp;&amp; a.second &lt; b.second;
+        });
+        
+        string res;
+        for (auto &amp; x: v) {
+            res += x.first + &quot; &quot;;
+        }</B></FONT>
+        
+        res.pop_back();
+        res[0] = toupper(res[0]);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

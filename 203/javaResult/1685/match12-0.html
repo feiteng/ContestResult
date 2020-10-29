@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>475_xxdabc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>475_xxdabc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int INF = Integer.MAX_VALUE;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int stoneGameV(int[] stoneValue) {
+        int n = stoneValue.length;
+        int[] a = new int[n + 1];
+        for(int i = 1; i &lt;= n; i++){
+            a[i] = a[i - 1] + stoneValue[i - 1];
+        }
+        int[][] dp = new int[n + 1][n + 1];
+        for(int len = 2; len &lt;= n; len++){
+<A NAME="1"></A>            for(int i = 1; i + len - 1 &lt;= n; i++){
+                int l = i</B></FONT>; int r = i + len - 1;
+                //dp[l][r] = INF;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int k = l; k &lt; r; k ++){
+                    //dp[l][r] = Math.max(dp[l][r], Math.min(dp[l][k], dp[k + 1][r]) + Math.min(a[k] - a[l - 1], a[r] - a[k]));
+                    int left = a[k] - a[l - 1];
+                    int right = a[r] - a[k];
+                    if(left &gt; right){
+                        dp[l][r] = Math.max(dp[l][r], dp[k + 1][r] + right);
+                    }else if(left &lt; right){
+                        dp[l][r] = Math.max(dp[l][r], dp[l][k] + left);
+                    }else{</B></FONT>
+                        int left_sum = Math.max(dp[l][r], dp[k + 1][r] + right);
+                        int right_sum = Math.max(dp[l][r], dp[l][k] + left);
+                        /*if(r - k - 1 &gt; k - l){
+                            dp[l][r] = Math.max(dp[l][r], dp[k + 1][r] + right);
+                        }else if(r - k - 1 &lt; k - l){
+                            dp[l][r] = Math.max(dp[l][r], dp[l][k] + left);
+<A NAME="2"></A>                        }else{ 
+                            dp[l][r] = Math.max(dp[l][r], Math.max(left_sum, right_sum));
+                        }*/
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dp[l][r] = Math.max(dp[l][r], Math.max(left_sum, right_sum));
+                    }
+                }
+            }
+        }
+        return dp[1][n];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

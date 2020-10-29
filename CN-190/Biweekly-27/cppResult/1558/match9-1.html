@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_hansen111.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>321_hansen111.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+<A NAME="0"></A>        vector&lt;bool&gt;ans;
+        
+        vector&lt;vector&lt;bool&gt;&gt;dist(n,vector&lt;bool&gt;(n));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto x:prerequisites){
+            dist[x[0]][x[1]]=true;
+        }
+        for(int k=0;k&lt;n;k++){
+            for(int i=0;i&lt;n;i++){
+                for(int j=0;j&lt;n;j++){
+                    if(dist[i][k] &amp;&amp; dist[k][j])dist[i][j]=true;
+                }
+            }
+        }
+        for(auto qu:queries){    
+            ans.push_back(dist[qu[0]][qu[1]]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

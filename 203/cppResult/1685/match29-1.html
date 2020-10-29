@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>390_xu932.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>390_xu932.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int dp(vector&lt;int&gt;&amp; stone, vector&lt;vector&lt;int&gt;&gt;&amp; mem, int i, int j, int sum) {
+        if (i &gt;= j)             return 0;
+        if (mem[i][j] != -1)    return mem[i][j];</B></FONT>
+        mem[i][j] = 0;
+<A NAME="1"></A>        int running = 0;
+        for (int cut = i; cut &lt; j; cut++) {
+            running += stone[cut];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            sum -= stone[cut];
+            if (running &lt; sum) {
+                mem[i][j] = max(mem[i][j], running + dp(stone, mem, i, cut, running));
+            } else if (running &gt; sum) {
+                mem[i][j] = max(mem[i][j], sum + dp(stone, mem, cut + 1, j, sum));
+<A NAME="2"></A>            } else {
+                mem[i][j] = max(mem[i][j], running + dp(stone, mem, i, cut, running));</B></FONT>
+                mem[i][j] = max(mem[i][j], sum + dp(stone, mem, cut + 1, j, sum));
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        return mem[i][j];
+    }
+    
+    int stoneGameV(vector&lt;int&gt;&amp; stoneValue) {
+        int n = stoneValue.size();
+        vector&lt;vector&lt;int&gt;&gt; mem(n, vector&lt;int&gt;(n, -1));
+        int sum = 0;</B></FONT>
+        for (int i = 0; i &lt; n; i++)     sum += stoneValue[i];
+        
+        return dp(stoneValue, mem, 0, n - 1, sum);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_aropan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_aropan.cpp</CENTER></H3><HR>
+<PRE>
+class TFenwick {
+public:
+    int n;
+    vector&lt;int&gt; s;
+<A NAME="0"></A>    TFenwick(int n) : n(n) {
+        s = vector&lt;int&gt;(n + 1, 0);
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void modify(int x) {
+        for (int i = x + 1; i &lt;= n; i += i &amp; -i) {
+            s[i] += 1;
+        }
+    }
+    int get(int x) {</B></FONT>
+        int ret = 0;
+        for (int i = x + 1; i &gt;= 1; i -= i &amp; -i) {
+            ret += s[i];
+        }
+        return ret;
+    }
+};
+class Solution {
+public:
+    string minInteger(string num, int k) {
+        string ans = &quot;&quot;;
+<A NAME="1"></A>        int n = num.size();
+        TFenwick f(n);
+        queue&lt;int&gt; q[10];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++i) {
+            q[num[i] - '0'].push(i);
+        }
+<A NAME="2"></A>
+        for (int i = 0; i &lt; n; ++i) {
+            int x;</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (x = 0; x &lt; 10; ++x) {
+                if (!q[x].size()) {
+                    continue;
+                }
+                int v = q[x].front() - f.get(q[x].front());
+                if (v &lt;= k) {
+                    f.modify(q[x].front());
+                    q[x].pop();
+                    k -= v;</B></FONT>
+                    break;
+                }
+            }
+            ans += (char)(x + '0');
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

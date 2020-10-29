@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>283_tonghuikang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>283_tonghuikang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGameIII(self, stoneValue: List[int]) -&gt; str:
+        # right to left, advantage for ending at position, i.e. amount greater if ending at position
+        
+<A NAME="0"></A>        stoneValue = [0,0,0] + stoneValue[::-1]
+        advantage = [0 for _ in stoneValue]
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(3,len(stoneValue)):
+            advantage[i] = max(-advantage[i-3] + stoneValue[i] + stoneValue[i-1] + stoneValue[i-2],
+                               -advantage[i-2] + stoneValue[i] + stoneValue[i-1],
+                               -advantage[i-1] + stoneValue[</B></FONT>i]) 
+            
+        if advantage[-1] &lt; 0:
+            return &quot;Bob&quot;
+        if advantage[-1] &gt; 0:
+            return &quot;Alice&quot;
+        return &quot;Tie&quot;
+        
+</PRE>
+
+</BODY>
+</HTML>

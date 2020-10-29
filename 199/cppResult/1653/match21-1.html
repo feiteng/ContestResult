@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_aropan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_aropan.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; dfs(TreeNode* x, int distance, int&amp; answer) {
+        vector&lt;int&gt; d(distance + 1, 0);
+        if (!x-&gt;left &amp;&amp; !x-&gt;right) {
+            d[0] = 1;
+        }
+        for (auto&amp; y : {x-&gt;left, x-&gt;right}) {
+<A NAME="0"></A>            if (!y) {
+                continue;
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            vector&lt;int&gt; a = dfs(y, distance, answer);
+            for (int i = 0; i &lt;= distance; ++i) {
+                for (int j = 0; i + j &lt;= distance; ++j) {</B></FONT>
+                    answer += d[i] * a[j];
+                }
+            }
+            for (int i = 0; i &lt;= distance; ++i) {
+                d[i] += a[i];
+            }
+        }
+        for (int i = distance; i &gt; 0; --i) {
+            d[i] = d[i - 1];
+        }
+        d[0] = 0;
+        return d;
+    }
+
+    int countPairs(TreeNode* root, int distance) {
+        int ret = 0;
+        dfs(root, distance, ret);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

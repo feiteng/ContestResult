@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>660_lan-ren-xu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>660_lan-ren-xu.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        m = {}       
+        for i, c in enumerate(s):
+            if c in m.keys():
+                m[c][1] = i
+            else:
+                m[c] = [i, i]
+                
+        m = dict(sorted(m.items(), key = lambda x: x[1][0] - x[1][1]))
+        #print(m)
+        for c in m.keys():
+            #print(c)
+            idx = m[c]
+            tmp_max = idx[1]
+            tmp_min = idx[0]
+            for i in range(idx[0], idx[1]):
+                tmp_max = max(tmp_max, m[s[i]][1])
+                tmp_min = min(tmp_min, m[s[i]][0])
+                
+            m[c][1] = tmp_max
+            m[c][0] = tmp_min
+        
+<A NAME="0"></A>        arr = [m[k] for k in m.keys()]
+        
+        #print(m)
+        arr = sorted(arr, key = lambda x: (x<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[1], x[1] - x[0]))
+        #print(arr)
+        curr_idx = -1
+        result = []
+        for idx  in arr:
+            if curr_idx &lt; idx[0]:
+                result.append(s[idx[0]: idx[1] + 1])
+                curr_idx = idx[1]
+        re</B></FONT>turn result
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

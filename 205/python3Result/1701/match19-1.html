@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>337_ben_kwok_cy.py</TITLE>
+ <TITLE>177_Seayahh.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,86 +15,89 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>337_ben_kwok_cy.py</CENTER></H3><HR>
+<H3><CENTER>177_Seayahh.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class disjoint_set:
     def __init__(self, n):
-        self.parents = [i for i in range(n)]
+        self.rank = [0] * n
         self.size = [1] * n
-
-    def find(self, i):
-        while i != self.parents[i]:
-            self.parents[i] = self.parents[self.parents[i]] # path halving
-            i = self.parents[i]
-        return i
+        self.max = 1
+        self.parent = [i for i in range(n)]
     
-    def union(self, a, b):        
-        aPar = self.find(a)
-        bPar = self.find(b)
-        
-        if</B></FONT> aPar == bPar:
-            return False
-        
-<A NAME="1"></A>        # union by size
-        if self.size[aPar] &gt; self.size[bPar]:
-            self.parents[bPar] = aPar
-            self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.size[aPar] += self.size[bPar]
+    def find(self, x):
+        if x != self.parent[x]:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        x, y = self.find(x), self.find(y)
+        if x == y:
+            return
+        if self.rank[x] &gt; self.rank[y]:
+            self.parent[y] = x
+            self.size[x] += self.size[y]
         else:
-            self.parents[aPar] = bPar
-            self.size[bPar] += self.size[</B></FONT>aPar]
-        
-        return True
+            self.parent[x] = y
+            self.size[y] += self.size[x]
+            if self.rank[x] == self.rank[y]:
+                self.rank[y] += 1
+        self.max = max(self.max, self.size[x], self.size[y])
+    
+    def group(self):
+        s = set()
+        for x in self.parent:
+            s.add(self.find(x))
+        return len(s)
+    
+    def get_max(self):
+        return self.max
 
 class Solution:
-    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:        
-        adj1 = defaultdict(set)
-        adj2 = defaultdict(set)
-        adj3 = defaultdict(set)
+    def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
+        d1 = disjoint_set(n+1)
+        d2 = disjoint_set(n+1)
+        ans = 0
+        for e in edges:
+            if e[0] != 3:
+                continue
+            r11 = d1.find(e[1])
+            r12 = d1.find(e[2])
+
+            r21 = d2.find(e[1])
+            r22 = d2.find(e[2])
+
+            if r11 == r12 and r21 == r22:
+                ans += 1
+                continue
+
+            d1.union(e[1], e[2])
+            d2.union(e[1], e[2])
         
-        for typ,a,b in edges:
-            if typ == 1:
-                adj1[a].add(b)
-                adj1[b].add(a)
-            elif typ == 2:
-                adj2[a].add(b)
-                adj2[b].add(a)
-            else:
-                adj3[a].add(b)
-                adj3[b].add(a)
+        def tr(d, t):
+            cur = 0
+            for e in edges:
+                if e[0] != t:
+                    continue
+                r1 = d.find(e[1])
+                r2 = d.find(e[2])
+
+                if r1 == r2:
+                    cur += 1
+                    continue
+
+                d.union(e[1], e[2])
+            return cur
         
-        type1 = UnionFind(n+1)
-        type2 = UnionFind(n+1)
-        res = 0
-        
-        for a in adj3:
-            for b in adj3[a]:
-                if type1.union(a,b):
-                    type2.union(a,b)
-                    res += 1
-                    
-        for a in adj2:
-            for b in adj2[a]:
-                if type2.union(a,b):
-                    res += 1
-                    
-        for a in adj1:
-            for b in adj1[a]:
-                if type1.union(a,b):
-                    res += 1
-        
-        # print(res)
-        # print(type1.size)
-        
-        return len(edges) - res if (max(type1.size) == n and max(type2.size) == n) else -1
-        
-        &quot;&quot;&quot;
-        if there's a type 3, you just need that one
-        if there's only one edge possible you have to take it
-        if there's more than one edge possible:
-            prefer type 3
-        &quot;&quot;&quot;
-        
-        
+        ans += tr(d1, 1)
+        ans += tr(d2, 2)
+
+        # print(d1.group(), d2.group())
+        if d1.group() != 2 or d2.group() != 2:
+            return -1
+
+        re</B></FONT>turn ans
+
+
 </PRE>
 
 </BODY>

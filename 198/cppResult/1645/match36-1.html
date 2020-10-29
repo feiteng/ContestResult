@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_l33tcod3r69.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>321_l33tcod3r69.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int closestToTarget(vector&lt;int&gt;&amp; arr, int k) {
+        int ans = INT_MAX;  
+        int n = arr.size();
+        vector&lt;int &gt; dif;
+        int mn = INT_MAX;
+        for(int i=0; i&lt;n; i++){
+            int v = abs(k-arr[i]);
+            if(v &lt; mn){
+                mn = v;
+                dif.clear();
+                dif.push_back(i);
+            }else if(v == mn &amp;&amp; arr[dif.back()] != arr[i]){
+                dif.push_back(i);
+            }
+        }
+        
+        int f = 0;
+        for(int i=0; i&lt;dif.size(); i++){
+            if(dif[i] == 0){
+                f = 1;
+                break;
+            }
+        }
+        if(f == 0){
+            dif.push_back(0);
+<A NAME="0"></A>        }
+        
+        // Check all possible sub-arrays 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; dif.size(); i++) { 
+            int X = arr[dif[i]]; 
+            // cout&lt;&lt;X&lt;&lt;&quot;\n&quot;;
+            for (int j = dif[i]; j &lt; n; j++) { 
+                X &amp;= arr[j]; 
+
+                // Find the overall minimum 
+                ans = min(ans, abs(k - X)); 
+
+                // No need to perform more AND operations 
+                // as |k - X| will increase 
+                if (X &lt;= k) 
+                    break; 
+            } 
+        } 
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

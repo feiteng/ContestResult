@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>370_apoi2333.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>370_apoi2333.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minSwaps(self, grid: List[List[int]]) -&gt; int:
+        n = len(grid)
+        zeros = []  # (numzero, numrow)
+        for i in range(n):
+            nzero = 0
+            for j in range(n - 1, -1, -1):
+                if grid[i][j] == 0:
+                    nzero += 1
+                else:
+                    break
+            zeros.append(nzero)
+        requirement =</B></FONT> list(range(n - 1, -1, -1))
+        szeros = sorted(zeros)[::-1]
+        for i in range(n):
+            if requirement[i] &gt; szeros[i]: # check if possible
+                return -1
+<A NAME="1"></A>        nstep = 0
+        #print(zeros)
+        # greedily choose the nearest satisfied one
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(n - 1):
+            for j in range(len(zeros)):
+                if zeros[j] &gt;= n - 1 - i:
+                    nstep += j
+                    zeros.pop(j)
+                    br</B></FONT>eak
+        return nstep
+                    
+            
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

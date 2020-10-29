@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>270_matchalatte.py</TITLE>
+ <TITLE>147_delphih.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>270_matchalatte.py</CENTER></H3><HR>
+<H3><CENTER>147_delphih.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def modifyString(self, s: str) -&gt; str:
-        res = [ch for ch in s]
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i, v in enumerate(res):
-            if v =='?':
-                for ch in 'abcd':
-                    if (i == 0 or res[i-1] != ch) and (i == len(res) - 1 or res[i+1] != ch):
-                        res[i] = ch
+        ans = []
+        for i, c in enumerate(s):
+            if s[i] == &quot;?&quot;:
+                ss = set()
+                if i &gt; 0: ss.add(ans[i-1])
+                if i + 1 &lt; len(s) and s[i+1] != &quot;?&quot;: ss.add(s[i+1])
+                for j in range(26):
+                    if chr(j+97) not in ss:
+                        ans.append(chr(j+97))
                         break
-        return ''.join(r</B></FONT>es)
+            else:
+                ans.append(c)
+        return &quot;&quot;.join(a</B></FONT>ns)
 </PRE>
 
 </BODY>

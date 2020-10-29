@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>70_plus2047.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>70_plus2047.py</CENTER></H3><HR>
+<PRE>
+def kmpInit(pattern, nextArr):
+<A NAME="0"></A>    nextArr[0] = 0
+    i, j = 1, 0
+    while i &lt; len(pattern):
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while j and pattern[j] != pattern[i]:
+            j = nextArr[j - 1]
+        if pattern[i] == pattern[j]:
+            j += 1
+        nextArr[i] =</B></FONT> j
+        i += 1
+
+class Solution:
+    def findGoodStrings(self, n: int, s1: str, s2: str, evil: str) -&gt; int:
+        from functools import lru_cache
+        
+        m = len(evil)
+        mod = int(1E9 + 7)
+        nextArr = [0] * m
+        kmpInit(evil, nextArr)
+        
+        @lru_cache(None)
+        def cnt(idx, pre1, pre2, preE):
+            if preE == m:
+                return 0
+            if idx == n:
+                return 1
+            
+            total = 0
+            first = ord(s1[idx]) if pre1 else ord('a')
+            last = ord(s2[idx]) if pre2 else ord('z')
+            
+            for ci in range(first, last + 1):
+                c = chr(ci)
+                
+                _pre1 = pre1 and c == s1[idx]
+                _pre2 = pre2 and c == s2[idx]
+
+                _preE = preE
+                while _preE and c != evil[_preE]:
+                    _preE = nextArr[_preE - 1]
+                if c == evil[_preE]:
+                    _preE += 1
+                # _preE = preE + 1 if c == evil[preE] else (1 if c == evil[0] else 0)
+
+                total += cnt(idx + 1, _pre1, _pre2, _preE)
+                total %= mod
+            
+            return total
+        
+        return cnt(0, True, True, 0);
+</PRE>
+
+</BODY>
+</HTML>

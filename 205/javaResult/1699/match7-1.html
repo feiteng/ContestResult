@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>188_aureole999.java</TITLE>
+ <TITLE>215_fnwjkm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>188_aureole999.java</CENTER></H3><HR>
+<H3><CENTER>215_fnwjkm.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        return get(nums1, nums2) + get(nums2, nums1);
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    
-<A NAME="1"></A>    private int get(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int a : nums1) {</B></FONT>
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put((long)a * a, map.getOrDefault((long)a * a, 0) + 1);
+        Arrays.sort(nums1); Arrays.sort(nums2);
+        int res1 = helper(nums1, nums2);
+        int res2 = helper(nums2, nums1);
+        return res1 + res2;
+    }
+    private int helper(int[] nums1, int[] nums2) {
+        int res = 0;
+        for (int i = 0;i &lt; nums1.length;i++) {
+            res += find(nums2, (long)nums1[i] * nums1[i]);
         }
-        int sum = 0;
-        for (int i = 0; i &lt; nums2.length - 1; i++) {
-            for (int j = i + 1; j &lt; nums2.length; j++) {
-                long s = (long)nums2[i] * nums2[j];
-                //System.out.println(s);
-                if (map.containsKey(s)) {
-                    sum += map.get(s);
+        return res;
+    }
+    private int find(int[] nums, long target) {
+        int res = 0;
+        int left = 0, right = nums.length - 1;
+        while (left &lt; right) {
+            long cur = (long)nums[left] * nums[right];
+            if (cur &lt; target) {
+                left++;
+            } else if (cur &gt; target) {
+                right--;
+            } else {
+                if (nums[left] == nums[right]) {
+                    res += (right - left + 1) * (right - left) / 2;
+                    return res;
                 }
+                int i = left, j = right;
+                while (left &lt; right &amp;&amp; nums[left] == nums[left + 1]) {
+                    left++;
+                }
+                while (left &lt; right &amp;&amp; nums[right] == nums[right - 1]) {
+                    right--;
+                }
+                res += (left - i + 1) * (j - right + 1);
+                left++;right--;
             }
         }
-        return sum;
+        return res;
     }
 }</B></FONT>
 </PRE>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_Hexadecimal.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>34_Hexadecimal.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        se = set(s)
+        #b = sorted([[s.find(i), s.rfind(i), i] for i in se])
+        d = {i: [s.find(i), s.rfind(i)] for i in se}
+        st = []
+        b = []
+        r = -1
+        for i, c in enumerate(s):
+            x, y = d[c]
+            if i == x:
+                st.append([c, x, y])        
+            st[-1][1] = min(st[-1][1], x) 
+            st[-1][2] = max(st[-1][2], y)
+            #if s == &quot;abcdabcd&quot;:print(st,x,y,r)
+            if i == y:
+                if st[-1][1] &lt;= x and st[-1][2] &lt;= y and st[-1][1] &gt; r:
+                    b.append(s[st[-1][1]: y + 1])
+<A NAME="0"></A>                    r = y
+                    #if s == &quot;abcdabcd&quot;:print(b)
+                if len(st) &gt; 1:
+                    st<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[-2][1] = min(st[-2][1], st[-1][1])
+                    st[-2][2] = max(st[-2][2], st[-1][</B></FONT>2])
+                st.pop()
+        return b
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>391_code_hard123.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>391_code_hard123.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxNonOverlapping(vector&lt;int&gt;&amp; nums, int target) {
+        int len = nums.size();
+        vector&lt;int&gt; dp(len, 0);
+        unordered_map &lt; int , int &gt; pref_sum;
+        pref_sum[0] = -1;
+        int pref = 0;
+        for(int i = 0; i &lt; len; ++i) {
+            pref += nums[i];</B></FONT>
+<A NAME="1"></A>            if(i &gt; 0) {
+                dp[i] = dp[i - 1];
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int reqd = pref - target;
+            if(pref_sum.find(reqd) != pref_sum.end()) {
+                int indx = pref_sum[reqd];
+                dp[i] = max(dp[i], 1 + (indx &gt;= 0 ? dp[indx] : 0));
+            } 
+            pref_sum[pref] = i;
+        }
+        return dp[len - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

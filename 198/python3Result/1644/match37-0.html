@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>422_ddoudle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>422_ddoudle.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+        first = {}
+        last <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= {}
+        for i in range(len(s)):
+            if s[i] not in first:
+                first[s[i]] = i
+            last[s[i]] = i
+        
+        intvs =</B></FONT> []
+        
+        pairs = []
+        for k, v in first.items():
+            pairs.append(v)
+        pairs.sort()
+        # print(pairs)
+        for idx in pairs:
+            ch = s[idx]
+            if first[ch] == last[ch]:
+                intvs.append([1,idx,last[ch]])
+            else:
+                lst = last[ch]
+                for iidx in pairs:
+                    if idx &lt; iidx &lt; lst:
+                        lst = max(lst, last[s[iidx]])                
+                for cch in s[idx:lst+1]:
+                    if first[cch] &lt; idx: break
+                else:
+                    intvs.append([lst-idx+1, idx, lst])
+        # print(intvs)
+        intvs.sort()
+        res = []
+        for length, fst, lst in intvs:
+            for ffst, llst in res:
+                if not (fst &gt; llst or lst &lt; ffst):                    
+                    break
+            else:
+                res.append([fst, lst])
+                    
+        rres = []
+        for fst, lst in res:
+            rres.append(s[fst:lst+1])
+        return rres
+        
+</PRE>
+
+</BODY>
+</HTML>

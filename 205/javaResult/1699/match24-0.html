@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>580_danny0.java</TITLE>
+ <TITLE>248_kazuya-w.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>580_danny0.java</CENTER></H3><HR>
+<H3><CENTER>248_kazuya-w.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-  public int numTriplets(int[] nums1, int[] nums2) {
-    return countTriblets(nums1, nums2) + countTriblets(nums2, nums1);
-  }
+    public int numTriplets(int[] a1, int[] a2) { 
+        return num(a1, a2) + num(a2, a1);
+    }
 
-  private int countTriblets(int[] nums1, int[] nums2) {</B></FONT>
-<A NAME="1"></A>    HashMap&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
-    int count=0;
-    for(int n:nums1) {
-      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.put((long)n*n, map.getOrDefault((long)n*n,0)+1);
+    private int num(int[] a1, int[] a2) {
+        Map&lt;Long, Integer&gt; h = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; a1.length; i++) {
+            long x = (long) a1[i] * a1[i];
+            h.put(x, h.getOrDefault(x, 0) + 1);
+        }
+        int count = 0;
+        for (int i = 0; i &lt; a2.length; i++) {
+            for (int j = i+1; j &lt; a2.length; j++) {
+                count += h.getOrDefault((long) a2[i] * a2[j], 0);
+            }
+        }
+        return count;
     }
-    for (int j=0; j&lt;nums2.length; j++) {
-<A NAME="2"></A>      for (int k=j+1;k&lt;nums2.length; k++) {
-        long t = (long)nums2[j]*nums2[k];
-        if (map.containsKey</B></FONT>(t))
-          count += map.get(t)<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-      }
+    
+    private boolean ok(int[] a, int[] b, int i, int j, int k) {
+        return (long) a[i] * a[i] == (long) b[j] * b [k];
     }
-    return count;
-  }
 }</B></FONT>
 </PRE>
 

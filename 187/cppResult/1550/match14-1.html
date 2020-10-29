@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>534_luckcul.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>534_luckcul.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        int n = mat.size(); 
+        int m = mat[0].size(); 
+        vector&lt;int&gt; v[2]; </B></FONT>
+        int now_idx = 0; 
+        v[0].push_back(0); 
+<A NAME="1"></A>        for(int i = 0; i &lt; n; i++) {
+            // cout&lt;&lt;&quot;i : &quot;&lt;&lt;i&lt;&lt;endl;
+            int next_idx = 1-now_idx; 
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int upper = min(200, int(v[now_idx].size()) ); 
+            // cout&lt;&lt;&quot;\t vi m :&quot;&lt;&lt;upper&lt;&lt;&quot;, &quot;&lt;&lt;m&lt;&lt;endl;
+            for(int vi = 0; vi &lt; upper; vi++) {
+                for(int j = 0; j &lt; m; j++) {
+                    v[next_idx].push_back(v[now_idx][vi] + mat[i][j]); 
+                }
+            }
+            sort(v[next_idx].begin(), v[next_idx].end()); 
+            v[now_idx].clear(); 
+            now_idx = next_idx; 
+        }</B></FONT>
+        return v[now_idx][k-1]; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

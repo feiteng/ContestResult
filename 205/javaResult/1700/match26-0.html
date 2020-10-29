@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>269_jumpjump.java</TITLE>
+ <TITLE>220_HenryLee4.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>269_jumpjump.java</CENTER></H3><HR>
+<H3><CENTER>220_HenryLee4.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int minCost(String s, int[] cost) {
+        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
+        int n = s.length();
+        char[] chars = s.toCharArray();
         int res = 0;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>char[] ss = s.toCharArray();
-        int n = ss.length;
-        for (int i = 0; i &lt; n;) {
-            char c = ss[i];
-<A NAME="1"></A>            int max = cost[i];
-            int sum = cost[i]</B></FONT>;
-            int j = i + 1;
-            while (j &lt; n &amp;&amp; ss[j] == c) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                max = Math.max(cost[j], max);
-                sum += cost[j];
-                j++;
+        for(int i = 0 ; i &lt; n ; i++){
+            if(!stack.isEmpty() &amp;&amp; chars[stack.peek()] == chars[i]){
+                if(cost[stack.peek()] &lt; cost[i]){
+                    res += cost[stack.peek()];
+                    stack.pop();
+                    stack.push(i);
+                } else {
+                    res += cost[i];
+                }
+            } else {
+                stack.push(i);
             }
-            res += sum - max;
-            i = j;
         }
         return res;
     }

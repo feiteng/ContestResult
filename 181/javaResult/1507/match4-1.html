@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+<A NAME="1"></A>	    public boolean hasValidPath(int[][] a) {
+	        int n = a.length, m = a[0].length;
+	        
+	        int[][][] ds = {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	        		{{0, -1}, {0, 1}},
+	        		{{-1, 0}, {1, 0}},
+	        		{{0, -1}, {1, 0}},
+<A NAME="0"></A>	        		{{0, 1}, {1, 0}},
+	        		{{0, -1}, {-1, 0}},
+	        		{{0, 1}, {-1, 0}}
+	        };</B></FONT><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+<A NAME="2"></A>	        
+	        boolean[][] ved = new boolea</B></FONT>n[n][m];
+	        Queue&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+	        q.add(n<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ew int[]{0, 0});
+	        ved[0][0] = true;
+	        while(!q.isEmpty()){
+	        	int[] cur = q.poll();</B></FONT>
+	        	int r = cur[0], c = cur[1];
+	        	int num = a[r][c]-1;
+	        	for(int[] d : ds[num]){
+	        		int nr = r + d[0], nc = c + d[1];
+	        		if(nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m &amp;&amp; !ved[nr][nc]){
+	        			boolean rok = false;
+	        			for(int[] ld : ds[a[nr][nc]-1]){
+	        				if(nr + ld[0] == r &amp;&amp; nc + ld[1] == c){
+	        					rok = true;
+	        				}
+	        			}
+	        			if(rok){
+<A NAME="3"></A>		        			ved[nr][nc] = true;
+		        			q.add(new int[]{nr, nc});
+	        			}
+	        		}<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#3',2,'match4-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	        	}
+	        }
+	        return ved[n-1][m-1];
+	    }
+	}	</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

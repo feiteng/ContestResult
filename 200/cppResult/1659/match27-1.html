@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>420_lichunzhu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>420_lichunzhu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int mod = 1000000007;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxSum(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        int n = nums1.size(), m = nums2.size();
+        int i = 0, j = 0;</B></FONT>
+        vector&lt;long long&gt;f[2];
+<A NAME="1"></A>        for (i = 0; i &lt; 2; i++) {
+            f[i].resize(max(n, m) + 1, 0);
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        i = 0;
+        while (i &lt; n || j &lt; m) {
+            if (j &gt;= m || (i &lt; n &amp;&amp; nums1[i] &lt; nums2[j])) {
+                f[0][i + 1] = f[0][i] + nums1[i];
+                ++i;
+            } else if (i &gt;= n || (j &lt; m &amp;&amp; nums2[j] &lt; nums1[i])) {
+                f[1][j + 1] = f[1][j] + nums2[j];
+                ++j;
+            } else {
+                f[0][i+1] = max(f[0][i], f[1][j]) + nums1[i];
+                f[1][j+1] = max(f[0][i], f[1][j]) + nums2[j];
+                ++i;
+                ++j;
+            }
+        }</B></FONT>
+        return max(f[0][n], f[1][m]) % mod;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

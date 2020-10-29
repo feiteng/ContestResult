@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_lixuanji.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164_lixuanji.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>MODULUS = 10**9 + 7
+
+def make_nCr_mod(max_n=5 * 10**5 + 100, mod=10**9 + 7):
+    fact, inv_fact <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [0] * (max_n + 1), [0] * (max_n + 1)
+    fact[0] = 1
+    for i in range(max_n):
+        fact[i + 1] = fact[i] * (i + 1) % mod
+
+    inv_fact[-1] = pow(fact[-1], mod - 2, mod)
+    for i in reversed(range(max_n)):
+        inv_fact[i] = inv_fact[i + 1] * (i + 1) % mod
+
+    def nCr_mod(n, r):
+        res = 1
+        while n or r:
+            a, b = n % mod, r % mod
+            if a &lt; b:
+                return 0
+            res = res * fact[a] % mod * inv_fact[b] % mod * inv_fact[a - b] % mod
+            n //= mod
+            r //= mod
+        return res
+
+    return nCr_mod
+
+ncr =</B></FONT> make_nCr_mod()
+
+class Solution:
+    def num(self, nums):
+        if len(nums) &lt;= 1: return 1
+        
+        left = []
+        right = []
+        
+        pivot = nums[0]
+        for n in nums[1:]:
+            if n &lt; pivot:
+                left += [n]
+            else:
+                assert(n &gt; pivot)
+                right += [n]
+                
+        
+        a = self.num(left)
+        b = self.num(right)
+                
+        return (a*b*ncr(len(left) + len(right), len(left))) % MODULUS
+        
+        
+        
+    def numOfWays(self, nums: List[int]) -&gt; int:
+        ret = self.num(nums) - 1
+        ret %= MODULUS
+        ret += MODULUS
+        ret %= MODULUS
+        
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

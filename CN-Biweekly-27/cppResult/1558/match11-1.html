@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>174_Athinker.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>174_Athinker.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites, vector&lt;vector&lt;int&gt;&gt;&amp; queries)
+    {
+        map&lt;int,set&lt;int&gt;&gt;par;//
+        map&lt;int,set&lt;int&gt;&gt;next;
+        vector&lt;int&gt;inCount(n,0);</B></FONT>
+        for(auto&amp; pre:prerequisites){
+            inCount[pre[1]]++;
+            next[pre[0]].insert(pre[1]);
+<A NAME="1"></A>            par[pre[1]].insert(pre[0]);
+        }
+        queue&lt;int&gt;Q;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;n;i++){
+            if(inCount[i]==0){
+                Q.push(i);
+            }
+        }
+        while(!Q.empty()){
+            int t=Q.front();</B></FONT>
+            Q.pop();
+            if(next.count(t)==0){
+                continue;
+            }
+            for(auto num:next[t]){
+                inCount[num]--;
+                if(par.count(t)){
+                    for(auto num2:par[t]){
+                    par[num].insert(num2);
+                    }
+<A NAME="2"></A>                }
+                if(inCount[num]==0){
+                    Q.push(num);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        vector&lt;bool&gt;res;
+        for(auto&amp;query:queries){
+            if(par[query[1]].count(query[0])){
+                res.push_back(true);
+            }
+            else{
+                res.push_back(false);
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

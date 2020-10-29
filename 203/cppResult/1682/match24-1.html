@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_beginner1010.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_beginner1010.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; mostVisited(int n, vector&lt;int&gt;&amp; rounds) {
+<A NAME="1"></A>        map&lt;int,int&gt; M;
+        for(int i = 1; i &lt; rounds.size(); i ++) {
+            int x = rounds[i - 1];</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int y = rounds[i];
+            while(x != y) {
+                M[x] ++;
+                x = (x + 1);
+                if(x == n + 1) x = 1;
+            }
+        }
+        M[rounds.back()] ++;
+        int mx = -1;
+        for(auto p: M) {
+            mx = max(mx, p.second);
+        }
+        vector&lt;int&gt; ans;
+        for(auto p: M) if(p.second == mx) {</B></FONT>
+            ans.push_back(p.first);
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

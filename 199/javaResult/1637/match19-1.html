@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>40_2499370956.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int getLengthOfOptimalCompression(String s, int k) {
+        int n = s.length();
+        Map[][] maps = new</B></FONT> Map[n + 1][k + 1];
+        for (int j = 0; j &lt;= k; j++) {
+            maps[0][j] = new HashMap&lt;Key, Integer&gt;();
+        }
+        ((Map&lt;Key, Integer&gt;) maps[0][0]).put(new Key(' ', 1), 0);
+
+        List&lt;Integer&gt; diffCount = Arrays.asList(1, 9, 99);
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt;= k; j++) {
+                Map&lt;Key, Integer&gt; map = new HashMap&lt;&gt;();
+                maps[i + 1][j] = map;
+                // keep char
+                for (Map.Entry&lt;Key, Integer&gt; e : ((Map&lt;Key, Integer&gt;) maps[i][j]).entrySet()) {
+                    char c = s.charAt(i);
+                    int count = 1 + (e.getKey().getC() == c ? e.getKey().getCount() : 0);
+                    Key key = new Key(c, count);
+                    int diff = (e.getKey().getC() != c || (e.getKey().getC() == c &amp;&amp; diffCount.contains(e.getKey().getCount()))) ? 1 : 0;
+                    map.put(key, Math.min(e.getValue() + diff, map.getOrDefault(key, Integer.MAX_VALUE)));
+                }
+                // remove char
+                if (j &gt; 0) {
+                    for (Map.Entry&lt;Key, Integer&gt; e : ((Map&lt;Key, Integer&gt;) maps[i][j - 1]).entrySet()) {
+                        Key key = e.getKey();
+                        map.put(key, Math.min(e.getValue(), map.getOrDefault(key, Integer.MAX_VALUE)));
+                    }
+                }
+            }
+        }
+
+        int out = Integer.MAX_VALUE;
+        for (int j = 0; j &lt;= k; j++) {
+            for (Map.Entry&lt;Key, Integer&gt; e : ((Map&lt;Key, Integer&gt;) maps[n][j]).entrySet()) {
+                out = Math.min(out, e.getValue());
+            }
+        }
+        return out;
+    }
+    
+    class Key {
+        char c;
+        int count;
+
+        public Key(char c, int count) {
+            this.c = c;
+            this.count = count;
+        }
+
+        public char getC() {
+            return c;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Key key = (Key) o;
+            return c == key.c &amp;&amp;
+                    count == key.count;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(c, count);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

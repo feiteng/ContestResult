@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>547_deltacancri.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>547_deltacancri.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<A NAME="1"></A>    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;pair&lt;int,int&gt;&gt; q;
+        vector&lt;vector&lt;int&gt;&gt; d = {{0,-1},{0,1},{-1,0},{1,0}};
+        vector&lt;vector&lt;int&gt;&gt; moves = {{0,0},{0,1},{2,3},{0,3},{1,3},{0,2},{1,2}};</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        vector&lt;vector&lt;int&gt;&gt; froms = {{0,0},{0,1},{2,3},{1,2},{0,2},{1,3},{0,3}};</B></FONT>
+        q.push({0,0});
+        int m = grid.size();
+        int n = grid[0].size();
+        int vis[m][n];
+        for(int i = 0 ; i &lt; m; i++)for(int j = 0; j &lt; n; j++)vis[i][j] = 0;
+        while(!q.empty()){
+            auto t = q.front();
+            q.pop();
+            int x = t.first;
+            int y = t.second;
+            //cout &lt;&lt; x &lt;&lt; y &lt;&lt; endl;
+<A NAME="2"></A>            if(x == m-1 &amp;&amp; y == n-1)return true;
+            for(auto v : moves[grid[x][y]]){
+                int nx = x + d[v][0];
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int ny = y + d[v][1];
+                if(0 &lt;= nx &amp;&amp; nx &lt; m &amp;&amp; 0 &lt;= ny &amp;&amp; ny &lt; n &amp;&amp; !vis[nx][ny] &amp;&amp; find(froms[grid[nx][ny]].begin(), froms[grid[nx][ny]].end(),v) != froms[grid[nx][ny]].end()){
+                    vis[nx][ny] = 1;
+                    q.push({nx,ny});
+                }
+            }
+        }
+        return false;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

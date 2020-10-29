@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>169_Over-Lord.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>169_Over-Lord.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 110;
+const int INF = 0x3f3f3f3f;
+int g[N][N];
+
+class Solution {
+public:
+<A NAME="0"></A>    vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;&amp; pre, vector&lt;vector&lt;int&gt;&gt;&amp; q) {
+        memset(g, 0x3f, sizeof g);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; pre.size(); i ++ )
+        {
+            int a = pre[i][0], b = pre[i][1];
+            g[a][b] = 1;
+        }
+        
+        for (int i = 0; i &lt; n; i ++ ) g[i][i] = 0;</B></FONT>
+        
+        floyd(n);
+<A NAME="1"></A>        
+        vector&lt;bool&gt; ans;
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; q.size(); i ++ )
+        {
+            int a = q[i][0], b = q[i][1];
+            
+            if (g[a][b] &gt;= INF / 2) ans.push_back(false);
+            else ans.push_back(true);
+        }
+        
+        return ans;
+    }</B></FONT>
+    
+    void floyd(int n)
+    {
+        for (int k = 0; k &lt; n; k ++ )
+            for (int i = 0; i &lt; n; i ++ )
+                for (int j = 0; j &lt; n; j ++ )
+                    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

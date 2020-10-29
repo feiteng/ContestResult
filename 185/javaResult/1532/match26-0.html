@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>494_FanbinM.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>494_FanbinM.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String reformat(String s) {
+        Queue&lt;Character&gt; q1 = new LinkedList&lt;&gt;();
+<A NAME="1"></A>        Queue&lt;Character&gt; q2 = new LinkedList&lt;&gt;();
+        
+        for (char c : s.toCharArray()) {</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (c &gt;= 'a' &amp;&amp; c &lt;= 'z') {
+                q1.offer(c);
+            } else {
+                q2.offer(c);
+            }
+        }</B></FONT>
+        
+        if (Math.abs(q1.size() - q2.size()) &gt; 1) 
+            return &quot;&quot;;
+        
+        if (q1.size() &gt;= q2.size())
+            return helper(q1, q2);
+        else
+            return helper(q2, q1);
+<A NAME="2"></A>    }
+    
+    public String helper(Queue&lt;Character&gt; q1, Queue&lt;Character&gt; q2) {
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>StringBuilder res = new StringBuilder();
+        while (!q1.isEmpty() &amp;&amp; !q2.isEmpty()) {
+            res.append(q1.poll());
+            res.append(q2.poll());
+        }</B></FONT>
+        while (!q1.isEmpty()) {
+            res.append(q1.poll());
+        }
+        return res.toString();
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

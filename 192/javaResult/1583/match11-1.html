@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>33_arignote.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    public int minCost(int[] houses, int[][] p, int n, int m, int k) {
+        int c[] = new int[n + 1];
+        for (int i = 0; i &lt; n; i++) {
+<A NAME="0"></A>            c[i + 1] = houses[i];
+        }
+        c[0] = -1;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long dp[][][] = new long[n + 1][m][n + 5];
+        for (int i = 0; i &lt; n + 1; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                for (int l = 0; l &lt; n + 5; l++) {
+                    dp[i][j][l] = (long) 1e16;
+                }
+            }
+        }</B></FONT>
+<A NAME="1"></A>        for (int i = 0; i &lt; m; i++) {
+            dp[0][i][1] = 0;
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt;= n; i++) {
+            if (c[i] == 0) {
+                for (int j = 0; j &lt; m; j++) {
+                    for (int ka = 0; ka &lt; n + 4; ka++) {
+                        for (int l = 0; l &lt; m; l++) {
+                            if (l == j || i == 1) {</B></FONT>
+<A NAME="2"></A>                                dp[i][l][ka] = Math.min(dp[i - 1][j][ka] + p[i - 1][l], dp[i][l][ka]);
+                            } else {
+                                dp[i][l][ka + 1] = Math.min(dp[i - 1][j][ka] + p[i - 1][l], dp[i][l][ka + 1]);
+                            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                        }
+<A NAME="3"></A>                    }
+                }
+            } else {</B></FONT>
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#3',2,'match11-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; m; j++) {
+                    for (int ka = 0; ka &lt; n + 4; ka++) {
+                        if (c[i] - 1 == j || i == 1) {
+                            dp[i][c[i] - 1][ka] = Math.min(dp[i - 1][j][ka], dp[i][c[i] - 1][ka]);
+                        } else {
+                            dp[i][c[i] - 1][ka + 1] = Math.min(dp[i - 1][j][ka], dp[i][c[i] - 1][ka + 1]);
+                        }
+                    }
+                }
+            }
+        }
+        long ans = Long.MAX_VALUE;
+        for (int j = 0; j &lt; m; j++) {
+            ans = Math.min(ans, dp[n][j][k]);
+        }
+        return (int) (ans == (long) 1e16 ? -1 : ans);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

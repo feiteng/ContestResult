@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>243_window0105.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>243_window0105.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int size;
+    public int kthSmallest(int[][] mat, int k) {
+        this.size = k;
+        PriorityQueue&lt;Cell&gt; minHeap = new PriorityQueue&lt;&gt;();
+        List&lt;Integer&gt; origin = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; mat.length; i++) {
+            origin.add(0);
+        }
+<A NAME="0"></A>        Set&lt;List&lt;Integer&gt;&gt; set = new HashSet&lt;&gt;();
+        set.add(origin);
+        minHeap.offer(new Cell(origin, mat));
+        while (k &gt; 1 ) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            Cell cur = minHeap.poll();
+            for (int i = 0; i &lt; mat.length; i++) {
+                if (mat[i].length &gt; cur.array.get(i) + 1) {
+<A NAME="1"></A>                    List&lt;Integer&gt; newList = new ArrayList&lt;&gt;(cur.array);
+                    newList.set(i, cur.array.get(i) + 1);
+                    if (set.add(newList)) {</B></FONT>
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>minHeap.offer(new Cell(newList, mat));
+                    }                    
+                }
+            }
+<A NAME="2"></A>            
+            k--;
+        }</B></FONT>
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return minHeap.peek().sum;
+        
+    }
+    static class Cell implements Comparable&lt;Cell&gt;{
+        int sum;        
+        List&lt;Integer&gt; array;
+        Cell(List&lt;Integer&gt; array, int[][] mat) {
+            t</B></FONT>his.array = array;
+            int minVal = Integer.MAX_VALUE;            
+            sum = 0;
+            for (int i =0; i &lt; array.size(); i++) {                
+                sum += mat[i][array.get(i)];
+            }
+        }
+        @Override
+        public int compareTo(Cell another) {
+            return this.sum - another.sum;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

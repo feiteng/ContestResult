@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_lostleaf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>21_lostleaf.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -&gt; List[List[int]]:
+        _edges = edges
+        edges = [e + [i] for i, e in enumerate(edges)]
+        edges.sort(key=lambda x: x[2])
+        def find_anc(anc, i):
+            if anc[i] == i:
+                return i
+            j = find_anc(anc, anc[i])
+            anc[i] = j
+            return j
+        
+        def mst(rm, inc):
+            anc = list(range(n))
+            cost, cnt = 0, 0
+            
+            if inc != -1:
+                u, v, c = _edges[inc]
+                cost = c
+                cnt = 1
+                anc[u] = v
+                
+            for u, v, c, i in edges:
+                if i == rm or i == inc:
+                    continue
+<A NAME="0"></A>                if find_anc(anc, u) != find_anc(anc, v):
+                    anc[anc[u]] = anc[v]
+                    cost += c
+                    cnt +<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 1
+            return cost, cnt
+                
+        best_cost, _ = mst(-1, -1)
+        crit, non_crit = [], []
+        
+        for i in range(len(edges)):
+            cost, cnt = mst(</B></FONT>i, -1)
+            if cnt &lt; n - 1 or cost &gt; best_cost:
+                crit.append(i)
+            else:
+                cost, cnt = mst(-1, i)
+                if cost == best_cost and cnt == n - 1:
+                    non_crit.append(i)
+                
+        return crit, non_crit
+</PRE>
+
+</BODY>
+</HTML>

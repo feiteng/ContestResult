@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>428_cncodinghope.cpp</TITLE>
+ <TITLE>103_illenium-k.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,97 +15,71 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>428_cncodinghope.cpp</CENTER></H3><HR>
+<H3><CENTER>103_illenium-k.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DS {
-public:
-    vector&lt;int&gt; parent;
-    vector&lt;int&gt; height;
-    int n;
-    DS(int n) : parent(n), height(n, 0) {
-        this-&gt;n = n;
-        for (int i = 0; i &lt; n; i++) {
-            parent[i] = i;
-        }
-    }
-    
-    DS(DS&amp; ds) : parent(ds.parent), height(ds.height), n(ds.n) {}
-    
-    int find(int i) {
-        if (parent[i] != i) {
-            parent[i] = find(parent[i]);
-        }
-        return parent[i];
-    }
-    
-    void combine(int i, int j) {
-        i = find(i);
-        j = find(j);
-        if (height[i] &lt; height[j]) {
-            parent[i] = j;
-        } else {
-            parent[j] = i;
-            if (height[i] == height[j]) height[i]++;
-        }
-    }
-    
-    bool check() {
-        // print();
-        int p = parent[1];
-        for (int i = 2; i &lt; n; i++) {
-            if (p != find(i)) return false;
-        }
-        return true;
-    }</B></FONT>
-    
-    void print() {
-        for (int i = 1; i &lt; n; i++) {
-            cout &lt;&lt; i &lt;&lt; &quot;\t&quot;;
-        }
-        cout &lt;&lt; endl;
-        for (int i = 1; i &lt; n; i++) {
-            cout &lt;&lt; parent[i] &lt;&lt; &quot;\t&quot;;
-<A NAME="1"></A>        }
-        cout &lt;&lt; endl;
-    }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>};
+<A NAME="0"></A>#define maxn 1000005
+#define rep(i,a,b) for(int i=a;i&lt;=b;i++)
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int f[maxn],f1[maxn],f2[maxn];
+
+inline int F(int x)
+{
+    if(f[x]==x) return x;
+    return f[x]=F(f[x]);
+}
+
+inline int F1(int x)
+{
+    if(f1[x]==x) return x;
+    return f1[x]=F1(f1[x]);
+}
+
+inline int F2(int x)
+{
+    if(f2[x]==x) return x;
+    return f2[x]=F2(f2[x]);
+}
 
 class Solution {
 public:
-    int buildG(vector&lt;pair&lt;int, int&gt;&gt;&amp; edges, DS&amp; ds) {
-        int count = 0;
-        for (auto &amp;p : edges) {
-            if (ds.find(p.first) != ds.find(p.second)) {
-                count++;
-            }
-            ds.combine(p.first, p.second);
-        }
-        return count;
-    }
-    
     int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        vector&lt;pair&lt;int, int&gt;&gt; alice, bob, common;
-        for (auto &amp;e : edges) {
-            if (e[0] == 1) {
-                alice.push_back({e[1], e[2]});
-            } else if (e[0] == 2) {
-                bob.push_back({e[1], e[2]});
-            } else {
-                common.push_back({e[1], e[2]});
+        rep(i,1,n) f[i]=i;
+        int ans=0;
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            if(edges[i][0]==3)
+            {
+                int u=edges[i][1],v=edges[i][2],tx=F(u),ty=F(v);
+                if(tx==ty) ans++;
+                else f[tx]=ty;
             }
         }
-        vector&lt;int&gt; visited(n + 1, false);
-        DS mst(n + 1);
         
-        int ret = edges.size();
-        ret -= buildG(common, mst);
-        // mst.print();
-        DS copy(mst);
-        ret -= buildG(alice, copy);
-        ret -= buildG(bob, mst);
-        if (copy.check() &amp;&amp; mst.check())    return ret;
-        return -1;
+        rep(i,1,n) f1[i]=f[i],f2[i]=f[i];
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            if(edges[i][0]==1)
+            {
+                int u=edges[i][1],v=edges[i][2],tx=F1(u),ty=F1(v);
+                if(tx==ty) ans++;
+                else f1[tx]=ty;
+            }
+        }
         
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            if(edges[i][0]==2)
+            {
+                int u=edges[i][1],v=edges[i][2],tx=F2(u),ty=F2(v);
+                if(tx==ty) ans++;
+                else f2[tx]=ty;
+            }
+        }
+        int cnt=0;
+        rep(i,1,n) if(i==f1[i]) cnt++; if(cnt!=1) return -1;
+        cnt=0;
+        rep(i,1,n) if(i==f2[i]) cnt++; if(cnt!=1) return -1;
+        return ans;
     }
 };</B></FONT>
 </PRE>

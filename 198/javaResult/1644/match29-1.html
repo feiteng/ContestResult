@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>136_philip2207.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>136_philip2207.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;String&gt; maxNumOfSubstrings(String s) {
+        Map&lt;Character, Integer&gt; minIndex = new HashMap&lt;&gt;();
+        Map&lt;Character, Integer&gt; maxIndex = new HashMap&lt;&gt;();
+        
+        int N = s.length();
+        for (int i = 0; i &lt; N; i++) {
+            char c = s.charAt(i);
+            
+            minIndex.putIfAbsent(c, i);
+            maxIndex.put(c, i);
+        }
+        
+<A NAME="0"></A>        PriorityQueue&lt;Character&gt; minHeap = new PriorityQueue&lt;&gt;((a, b) -&gt; Integer.compare(maxIndex.get(a) - minIndex.get(a), maxIndex.get(b) - minIndex.get(b)));
+        minHeap.addAll(minIndex.keySet());
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TreeSet&lt;Integer&gt; encountered = new TreeSet&lt;&gt;();
+        List&lt;String&gt; substrings = new ArrayList&lt;&gt;();
+        while (!minHeap.isEmpty()) {
+            char c = minHeap.poll();
+            int min = minIndex.get(c);
+            int max = maxIndex.get(c);
+            
+            if</B></FONT> (min+1 &gt;= max) {
+                substrings.add(s.substring(min, max+1));
+                encountered.add(min);
+                encountered.add(max);
+                continue;
+            }
+            
+            Integer higher = encountered.higher(min);
+            if (higher != null &amp;&amp; higher &lt; max) {
+                continue;
+            }
+
+            Integer lower = encountered.lower(max);
+            if (lower != null &amp;&amp; lower &gt; min) {
+                continue;
+            }
+            
+            boolean canAdd = true;
+            for (int i = min+1; i &lt; max; i++) {
+                char c2 = s.charAt(i);
+                if (c2 == c) {
+                    continue;
+                }
+                
+                int nextMin = minIndex.get(c2);
+                if (nextMin &lt; min) {
+                    canAdd = false;
+                    break;
+                }
+                
+                int nextMax = maxIndex.get(c2);
+                if (nextMax &lt; max) {
+                    continue;
+                }
+                max = nextMax;
+                
+                lower = encountered.lower(max);
+                if (lower != null &amp;&amp; lower &gt; min) {
+                    canAdd = false;
+                    break;
+                }
+<A NAME="1"></A>            }
+            
+            if (canAdd) {
+                substrings.add(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.substring(min, max+1));
+                encountered.add(min);
+                encountered.add(max);
+            }
+        }
+        
+        
+        return substrings;
+    }</B></FONT>
+    
+    public void dfs() {
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

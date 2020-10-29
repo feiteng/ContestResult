@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_simpleson.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>59_simpleson.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -&gt; int:
+        R,C = len(heights),len(heights[0])
+        BFS= [(0,0,0)]
+        been =</B></FONT> {(0,0):None}
+        res = 0
+        while(BFS):
+            cost,r,c = heapq.heappop(BFS)
+<A NAME="1"></A>            if cost&gt;res:res=cost
+            if r==R-1 and c==C-1:
+                return res
+            been<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[r,c] = cost
+            for nr,nc in [(r+1,c),(r-1,c),(r,c+1),(r,c-1)]:
+                if 0&lt;=nr&lt;R and 0&lt;=nc&lt;C and (nr,nc) not in been:
+                    ncost = abs(heights[nr][nc]-heights[r][c])
+                    heapq.heappush(BFS,(ncost</B></FONT>,nr,nc))
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

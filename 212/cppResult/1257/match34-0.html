@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>80_Akatsuki_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>80_Akatsuki_.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>struct Node{
+    int v, x, y;
+    bool operator &lt; (const Node &amp;rhs) const {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return v &lt; rhs.v;
+    }
+};
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int n = mat.size(), m = mat[0].size();
+        vector&lt;vector&lt;int&gt;&gt; ans(n, vector&lt;int&gt;(m, -1));
+        vector&lt;Node&gt; tmp;
+<A NAME="1"></A>        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; m; j++) {</B></FONT>
+                tmp.push_back({mat[i][j], i, j});
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        map&lt;int, unordered_set&lt;int&gt;&gt; row[n], col[m];
+        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; m; j++) {</B></FONT>
+                row[i][mat[i][j]].insert(j);
+                col[j][mat[i][j]].insert(i);
+            }
+        }
+        vector&lt;int&gt; idx_r(n, 1), idx_c(m, 1);
+        sort(begin(tmp), end(tmp));
+        for(auto [val, x, y]: tmp) {
+            if(ans[x][y] != -1) {
+                continue;
+            }
+            vector&lt;pair&lt;int, int&gt;&gt; q;
+            q.push_back(make_pair(x, y));
+            int mx = 0;
+            for(int i = 0; i &lt; (int)q.size(); i++) {
+                auto [u, v] = q[i];
+                mx = max(mx, max(idx_r[u], idx_c[v]));
+                for(auto it = row[u][val].begin(); it != row[u][val].end(); ) {
+                    int j = *it;
+                    q.push_back(make_pair(u, j));
+                    row[u][val].erase(it++);
+                }
+                for(auto it = col[v][val].begin(); it != col[v][val].end(); ) {
+                    int j = *it;
+                    q.push_back(make_pair(j, v));
+                    col[v][val].erase(it++);
+                }
+            }
+            for(int i = 0; i &lt; (int)q.size(); i++) {
+                auto [u, v] = q[i];
+                ans[u][v] = mx;
+                idx_r[u] = idx_c[v] = mx+1;
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>580_DylanSmith.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>580_DylanSmith.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int minNumberOfFrogs(String croakOfFrogs) {
+        int max = 0;
+        int[] freq = new int[5];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (char c : croakOfFrogs.toCharArray()) {
+            if (c == 'c') {
+<A NAME="1"></A>                freq[0]++;
+                max = Math.max(max, freq[0]);
+            }</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c == 'r') {
+                freq[1]++;
+                if (freq[0] &lt; freq[1]) {
+                    return -1;
+                }
+            }</B></FONT>
+            if (c == 'o') {
+                freq[2]++;
+                if (freq[1] &lt; freq[2]) {
+                    return -1;
+                }
+            }
+            if (c == 'a') {
+                freq[3]++;
+                if (freq[2] &lt; freq[3]) {
+                    return -1;
+                }
+            }
+            if (c == 'k') {
+                freq[4]++;
+                if (freq[3] &lt; freq[4]) {
+                    return -1;
+                }
+<A NAME="2"></A>                for (int i = 0; i &lt; 5; i++) {
+                    freq[i]--;
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        if (freq[0] &gt; 0) {
+            return -1;
+        }
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

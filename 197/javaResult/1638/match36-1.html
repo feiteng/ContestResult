@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>129_elvinyang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>129_elvinyang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution
+{
+    private static double err = 1e-5;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private static double[][] mv = new double[][]{
+            new double[]{-1.0, 0.0},
+            new double[]{0.0, 1.0},
+            new double[]{1.0, 0.0},
+<A NAME="0"></A>            new double[]{0.0, -1.0}
+    };
+
+    private double distSum(double[] p</B></FONT>, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double[][] points)
+    {
+        double sum = 0;
+        for (int i = 0; i &lt; points.length; i++)
+        {
+            double dx = Math.abs(points[i][0] - p[0]);
+            double dy = Math.abs(points[i][1] - p[1]);
+            sum += Math.sqrt((dx * dx) + (dy * dy));
+        }
+
+        return sum;
+    }</B></FONT>
+<A NAME="2"></A>
+    private double getGeoMedian(double[][] points)
+    {
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double[] cur = new double[2];
+
+        for (int i = 0; i &lt; points.length; i++)
+        {
+            cur[0] += points[i][0];
+            cur[1] += points[i][1];
+        }
+
+        cur[0] /= points.length;
+        cur[1] /= points.length;
+
+        double res = distSum</B></FONT>(cur, points);
+<A NAME="3"></A>
+        int k = 0;
+        while (k &lt; points.length)
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            for (int i = 0; i &lt; points.length &amp;&amp; i != k; i++)
+            {
+                double[] newPoitn = {points[i][0], points[i][1]};
+                double dist = distSum(newPoitn, points);
+                if (dist &lt; res)
+                {
+                    res = dist;
+                    cur[0] = newPoitn[0];
+                    cur[1] = newPoitn[1];
+                }
+            }
+<A NAME="4"></A>            k++;
+        }</B></FONT>
+
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#4',2,'match36-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double test = 800;
+        boolean f;
+
+        while (test &gt; err)
+        {
+            f = false;
+            for (int i = 0; i &lt; 4; i++)
+            {
+<A NAME="5"></A>                double[] newpoint = new</B></FONT> double[2];
+                newpoint[0] = cur[0] + test * mv[i][0];
+                newpoint[1] = cur[1] + test * mv[i][1];
+                <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#5',2,'match36-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double newd = distSum(newpoint, points);
+
+                if (newd &lt; res)
+                {
+                    res = newd;
+                    cur[0] = newpoint[0];
+                    cur[1] = newpoint[1];
+                    f = true;
+                    break;
+                }
+            }
+
+            if (!f) test /= 2;
+        }
+        return res;
+    }</B></FONT>
+
+    public double getMinDistSum(int[][] pos)
+    {
+        double[][] dbpos = new double[pos.length][pos[0].length];
+        for (int i = 0; i &lt; pos.length; i++)
+        {
+            for (int j = 0; j &lt; pos[0].length; j++)
+            {
+                dbpos[i][j] = pos[i][j];
+            }
+        }
+        return getGeoMedian(dbpos);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

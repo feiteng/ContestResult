@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_ttzztztz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>34_ttzztztz.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int ways(vector&lt;string&gt;&amp; pizza, int k) {
+        memset(f, 0xff, sizeof f);
+        
+        return dfs(pizza, 0, 0, k);
+    }
+private:
+    const int MOD = 1e9+7;
+    long long f[51][51][15];
+    long long dfs(const vector&lt;string&gt;&amp; p, int i, int j, int k) {
+        if (i &gt;= p.size() || j &gt;= p[i].size()) return 0;
+        if (f[i][j][k] != -1) return f[i][j][k];
+        if (k == 1) {
+            bool haveApple = false;
+            for (int a = i; a &lt; p.size(); a++) {
+                for (int b = j; b &lt; p[a].size(); b++) {
+                    if (p[a][b] == 'A') {
+                        haveApple = true;
+                        break;
+                    }
+                }
+<A NAME="0"></A>                if (haveApple) break;
+            }
+            return f[i][j][k] = (haveApple ? 1 : 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        long long answer = 0;
+        
+        bool haveApple = false;
+        for (int a = i; a &lt; p.size(); a++) {
+            if (!haveApple) {
+                for (int b = j; b &lt; p[a].size(); b++) {
+                    if (p[a][b] == 'A') {
+                        haveApple = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (haveApple) {
+                answer += dfs(p, a + 1, j, k - 1);
+                answer %= MOD;
+            }
+        }
+        
+        haveApple = false;
+        for (int b = j; b &lt; p[i].size(); b++) {
+            if (!haveApple) {
+                for (int a = i; a &lt; p.size(); a++) {
+                    if (p[a][b] == 'A') {
+                        haveApple = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (haveApple) {
+                answer += dfs(p, i, b + 1, k - 1);
+                answer %= MOD;
+            }
+        }</B></FONT>
+        
+        return f[i][j][k] = answer;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

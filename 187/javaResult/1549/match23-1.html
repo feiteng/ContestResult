@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>146_HenryLee4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>146_HenryLee4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        int n = nums.length;
+<A NAME="1"></A>        Deque&lt;Integer&gt; max = new ArrayDeque&lt;&gt;(), min = new ArrayDeque&lt;&gt;();
+        int res =</B></FONT> 0, l = 0 , r = 0;
+        while(r &lt; n){
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(!max.isEmpty() &amp;&amp; nums[r] &gt;= nums[max.peekLast()]){
+                max.pollLast();
+            }
+            max.addLast(r);
+            while(!min.isEmpty() &amp;&amp; nums[r] &lt;= nums[min.peekLast()]){
+<A NAME="2"></A>                min.pollLast();
+            }
+            min.addLast</B></FONT>(r);
+            while(nums[max.peekFirst()] - nums[min.peekFirst()] &gt; limit)<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                if(max.peekFirst() == l){
+                    max.pollFirst();
+                }
+                if(min.peekFirst() == l){
+                    min.pollFirst();
+                }
+                l++;
+            }</B></FONT>
+            res = Math.max(res, r - l + 1);
+            r++;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

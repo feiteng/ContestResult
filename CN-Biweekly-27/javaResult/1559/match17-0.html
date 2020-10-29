@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>251_edkeeper.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>251_edkeeper.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int cherryPickup(int[][] grid) {
+        int l = grid[0].length;
+        int r = grid.length;
+<A NAME="0"></A>        int[] dirs = {-1,0,1};
+        int[][][] dp = new int[r][l][l];
+        for (int i = 0; i &lt; r; i++) {
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = 0; j &lt; l; j++) {
+                for (int k = 0; k &lt; l; k++) {
+                    dp[i][j][k] = -0x3f3f3f3f;
+                }
+            }</B></FONT>
+        }
+        dp[0][0][l - 1] = grid[0][0] + grid[0][l - 1];
+        for (int i = 1; i &lt; r; i++) {
+<A NAME="1"></A>            int jm = Math.min(i + 1, l);
+            for (int j = 0; j &lt; jm; j++) {
+                int km = Math.max(l - i - 1, 0);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = km; k &lt; l; k ++) {
+                    for (int dir : dirs) {
+                        for (int dir2 : dirs){
+                            int dj = dir + j</B></FONT>;
+                            int dk = dir2 + k;
+                            if (dj &lt; 0 || dj &gt;= l || dk &lt; 0 || dk &gt;= l) {
+                                continue;
+                            }
+                            if (j == k) {
+                                dp[i][j][k] = Math.max(dp[i][j][k], dp[i - 1][dj][dk] + grid[i][j]);
+                            } else {
+                                dp[i][j][k] = Math.max(dp[i][j][k], dp[i - 1][dj][dk] + grid[i][j] + grid[i][k]);
+<A NAME="2"></A>                            }
+                        }
+                    }
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        int ans = -0x3f3f3f3f;
+        for (int i = 0; i &lt; l; i++) {
+            for (int j = 0; j &lt; l; j++) {
+                ans = Math.max(ans, dp[r-1][i][j]);
+            }
+        }
+        return ans;
+    }
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

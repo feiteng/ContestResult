@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_737.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_737.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+const int N=(1&lt;&lt;10)|7;
+class Solution {
+public:
+    int ans,cloc;
+    int dep[N];
+    int a[N][N];
+    int dfs(TreeNode* rt,int dis,int d)
+    {
+        int u=cloc++;
+        dep[u]=d;
+        a[u][0]=1;
+        if(rt-&gt;left)
+        {
+            a[u][0]=0;
+            int v=dfs(rt-&gt;left,dis,d+1);
+            for(int i=1;i&lt;N;++i)
+                a[u][i]+=a[v][i-1];
+        }
+        if(rt-&gt;right)
+        {
+            a[u][0]=0;
+            int v=dfs(rt-&gt;right,dis,d+1);
+<A NAME="0"></A>            for(int i=0;i&lt;dis-1;++i)
+                for(int j=0;j&lt;=dis-1-i;++j)
+                    ans+=a[v][i]*a[u][j];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int i=1;i&lt;N;++i)
+                a[u][i]+=a[v][i-1];
+        }
+        return u;
+    }
+    int countPairs(TreeNode* root, int distance) {
+        ans=cloc=0;
+        dfs(root,distance,0);
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

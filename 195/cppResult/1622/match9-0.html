@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>85_ddmike.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>85_ddmike.cpp</CENTER></H3><HR>
+<PRE>
+struct tmp1 //运算符重载&lt;
+<A NAME="0"></A>{
+    int x;
+    int value;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    tmp1(int a, int b) {x = a; value = b;}
+    bool operator&lt;(const tmp1&amp; a) const
+    {
+        return value &lt; a.value; //大顶堆
+    }
+};
+
+class Solution {
+public:
+    int findMaxValueOfEquation(vector&lt;vector&lt;int&gt;&gt;&amp; points, int k) {
+        priority_queue&lt;tmp1&gt; pq;
+        int first_x = points[0][0];
+        int ans = -300000000;
+        for (int i = 0; i &lt; points.size(); ++i)
+        {
+            while (!pq.empty() &amp;&amp; points[i][0] - pq.top().x &gt; k)
+            {
+                pq.pop();
+            }
+            if (!pq.empty())
+            {
+                ans = max(ans, points[i][1] + points[i][0] - first_x + pq.top().value);
+            }
+            pq.push(tmp1(points[i][0], points[i][1] + first_x - points[i][0]));
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

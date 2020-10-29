@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>349_yihongz.py</TITLE>
+ <TITLE>148_lostleaf.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,18 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>349_yihongz.py</CENTER></H3><HR>
+<H3><CENTER>148_lostleaf.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def modifyString(self, s: str) -&gt; str:
-        s = [x for x in s]
-<A NAME="0"></A>        for i in range(len(s)):
-            if s[i] == '?':
-                for c in 'abc':
-                    if (i == 0 or s[i-1] != c) and (i == len(s) - 1 or s<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i+1] != c):
-                        s[i] = c
-                        break
-        return ''.join(s</B></FONT>)
+        l = len(s)
+        s = ' ' + s + ' '
+        ans = [' ']
+        for i, c in enumerate(s[1:-1], 1):
+            # print(i, c)
+            if c != '?':
+                ans.append(c)
+                continue
+            pre, nxt = ans[i - 1], s[i + 1]
+            for j in range(26):
+                c1 = chr(j + 97)
+                if c1 != pre and c1 != nxt:
+                    ans.append(c1)
+                    break
+        # print(ans)
+        return ''.join(ans[1</B></FONT>:])
 </PRE>
 
 </BODY>

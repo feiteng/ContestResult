@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_0am.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>37_0am.py</CENTER></H3><HR>
+<PRE>
+import heapq
+import collections
+import functools
+import copy
+import math
+from typing import List
+
+
+class Solution:
+
+
+
+
+
+    def maxNumOfSubstrings(self, s: str) -&gt; List[str]:
+
+
+        # pairs of first and last character
+        good_segments = []
+        beg_points = []
+
+        @functools.lru_cache(None)
+        def my_function(first_elem):
+            # If any segments begin with this, we consider taking them
+            # We also always consider passing to the next element
+            # We return the indices of the best strings
+            if first_elem == len(s):
+                return ([], 0, 0)
+            best_sol = ([], 0, 0)
+            for segment in good_segments:
+                if segment[0] == first_elem:
+                    option = my_function(segment[1] + 1)
+                    num_segments = option[1] + 1
+                    tot_len = option[2] + segment[1] - segment[0] + 1
+                    if num_segments &gt; best_sol[1] or num_segments == best_sol[1] and tot_len &lt; best_sol[2]:
+                        my_list = copy.copy(option[0])
+                        my_list.append(segment)
+                        best_sol = (my_list, num_segments, tot_len)
+
+            best_so_far = len(s)
+            for pos_point in beg_points:
+                if first_elem &lt; pos_point  &lt;= best_so_far:
+                    best_so_far = pos_point
+
+            if best_sol[1] == 0:
+                return my_function(best_so_far)
+            else:
+                option = my_function(best_so_far)
+                num_segments = option[1]
+                tot_len = option[2]
+                if num_segments &gt; best_sol[1] or num_segments == best_sol[1] and tot_len &lt; best_sol[2]:
+                    my_list = copy.copy(option[0])
+                    best_sol = (my_list, num_segments, tot_len)
+
+                return best_sol
+
+        my_function.cache_clear()
+<A NAME="0"></A>
+        ans = []
+        last_index_for_char = collections.defaultdict(int)
+        first_index_for_char <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= {}
+        for i in range(len(s)):
+            if s[i] not in first_index_for_char:
+                first_index_for_char[s[i]] = i
+            last_index_for_char[s[i]] = i
+
+        segments_to_create =</B></FONT> set()
+        for char in first_index_for_char:
+            begin_range = first_index_for_char[char]
+            end_range = last_index_for_char[char]
+            idx = begin_range
+            while idx &lt;= end_range:
+                if first_index_for_char[s[idx]] &lt; begin_range:
+                    break
+                if last_index_for_char[s[idx]] &gt; end_range:
+                    end_range = last_index_for_char[s[idx]]
+                if idx == end_range:
+                    segments_to_create.add((begin_range, end_range))
+                idx += 1
+
+
+        good_segments = list(segments_to_create)
+        beg_points = set(x[0] for x in good_segments)
+        ans, irrel_0, irrel_1 = my_function(0)
+        return[s[x[0]:x[1]+ 1] for x in ans]
+
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>200_chendongcharlie.cpp</TITLE>
+ <TITLE>132_tylerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>200_chendongcharlie.cpp</CENTER></H3><HR>
+<H3><CENTER>132_tylerwang.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
-    int minCost(string s, vector&lt;int&gt;&amp; cost) {
-        int n = s.size();
-<A NAME="1"></A>        int ans = 0;
-        for (int i = 0;i &lt; n-1; i++)</B></FONT>
-            if (s[i] == s[i+1]){
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int j = i+1;
-                int costSum = cost[i];
-                int maxCost = cost[i];
-                while(j &lt; n &amp;&amp; s[j] == s[i]){
-                    costSum += cost[j];
-                    maxCost = max(maxCost, cost[j]);
-                    j++;
-                }       
-                ans += (costSum - maxCost);
-                i = j-1;
-            }     </B></FONT>
-        return ans;
+<A NAME="0"></A>// Author: Tyler Wang
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+ public:
+  int minCost(string s, vector&lt;int&gt;&amp; cost) {
+    vector&lt;int&gt; dp(26);
+    for (int i = 0; i &lt; s.size(); ++i) {
+      vector&lt;int&gt; ndp(26);
+      for (int j = 0; j &lt; 26; ++j) {
+        ndp[j] = dp[j] + cost[i];
+      }
+      int k = s[i] - 'a';
+      for (int j = 0; j &lt; 26; ++j) {
+        if (j != k) {
+          ndp[k] = min(ndp[k], dp[j]);
+        }
+      }
+      dp = move(ndp);
     }
-};
+    return *min_element(dp.begin(), dp.end());
+  }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

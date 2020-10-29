@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_pikay.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_pikay.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; peopleIndexes(vector&lt;vector&lt;string&gt;&gt;&amp; favoriteCompanies) {
+        int n = favoriteCompanies.size();
+        map&lt;string,int&gt; m;
+        int idx = 0;
+        vector&lt;bitset&lt;505&gt;&gt; bs(n);
+        for(int i=0;i&lt;n;i++) {</B></FONT>
+            for(auto s:favoriteCompanies[i]) {
+                if(m.find(s)==m.end()) {
+                    m[s]=idx;
+<A NAME="1"></A>                    idx++;
+                }
+                bs[i].set(m[s]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        vector&lt;int&gt; ans;
+        bool flag;
+        for(int i=0;i&lt;n;i++) {
+            flag = true;
+            for(int j=0;j&lt;n;j++) {
+                if( (i!=j) &amp;&amp; (bs[i] | bs[j]) == bs[j] ) {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag) ans.push_back(i);
+        }
+        return ans;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

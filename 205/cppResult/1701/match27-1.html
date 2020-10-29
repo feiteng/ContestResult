@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>190_tiantian-t.cpp</TITLE>
+ <TITLE>125_jljljljljl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,107 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>190_tiantian-t.cpp</CENTER></H3><HR>
+<H3><CENTER>125_jljljljljl.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF
+{
+public:
+    vector&lt;int&gt; v;
+    vector&lt;int&gt; size;
+    int cnt;
+    
+    UF(int n)
+    {
+        v = vector&lt;int&gt;(n);
+        size = vector&lt;int&gt;(n, 1);
+        for(int i = 1; i &lt; n; i++)
+            v[i] = i;
+        cnt = n - 1;
+    }
+    
+    int find(int i)
+    {
+        while(v[i] != i)
+            i = v[i];
+        return i;
+    }
+    
+    void unite(int i, int j)
+    {
+        i = find(i);
+        j = find(j);
+        if(i == j)
+            return;
+        if(size[i] &gt; size[j])
+            swap(i, j);
+        v[i] = j;
+        size[j] += size[i];
+        cnt--;
+    }
+    
+    bool same(int i, int j)
+    {
+        i = find(i);
+        j = find(j);
+        return i == j;
+    }
+};
 
-const int maxn = 1e5 + 5;
 
 class Solution {
 public:
-  int fa[maxn];
-  int siz[maxn];
-  int find(int x) {
-    return x == fa[x] ? x : fa[x] = find(fa[x]);
-  }
-  bool add (int x, int y) {
-    int fx = find(x), fy = find(y);
-    if (fx == fy) return false;
-    if (fx &gt; fy) swap(fx, fy);
-    fa[fy] = fx;
-<A NAME="0"></A>    siz[fx] += siz[fy];
-    return true;
-  }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-    int ans = 0;
-    vector&lt;vector&lt;int&gt;&gt; v1, v2, v3;
-    for (int i = 0; i &lt; edges.size(); i++) {
-      if (edges[i][0] == 1) v1.push_back(edges[i]);
-<A NAME="1"></A>      else if (edges[i][0] == 2) v2.push_back(edges[i]); 
-      else v3.push_back(edges[i]);
-    }</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 1; i &lt;= n; i++) fa[i] = i, siz[i] = 1;
-
-    for (int i = 0; i &lt; v3.size(); i++) {
-      if (!add(v3[i][1], v3[i][2])) ans++;
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges)
+    {
+        UF uf(n + 1);
+        int add = 0;
+        for(int i = 0; i &lt; edges.size(); i++)
+        {
+            if(edges[i][0] == 3)
+            {
+                if(!uf.same(edges[i][1], edges[i][2]))
+                {
+                    add++;
+                    uf.unite(edges[i][1], edges[i][2]);
+                }
+            }
+        }
+        
+        UF ufa = uf;
+        UF ufb = uf;
+        
+        for(int i = 0; i &lt; edges.size(); i++)
+        {
+            if(edges[i][0] == 1)
+            {
+                if(!ufa.same(edges[i][1], edges[i][2]))
+                {
+                    add++;
+                    ufa.unite(edges[i][1], edges[i][2]);
+                }
+            }
+        }
+        
+        for(int i = 0; i &lt; edges.size(); i++)
+        {
+            if(edges[i][0] == 2)
+            {
+                if(!ufb.same(edges[i][1], edges[i][2]))
+                {
+                    add++;
+                    ufb.unite(edges[i][1], edges[i][2]);
+                }
+            }
+        }
+        
+        if(ufa.cnt != 1 || ufb.cnt != 1)
+            return -1;
+        
+        int ret = edges.size();
+        ret -= add;
+        
+        return ret;
     }
-
-    for (int i = 0; i &lt; v1.size(); i++) {
-      if (!add(v1[i][1], v1[i][2])) ans++;
-    }</B></FONT>
-
-    if (siz[1] != n) return -1;
-    
-    for (int i = 1; i &lt;= n; i++) fa[i] = i, siz[i] = 1;
-      
-    for (int i = 0; i &lt; v3.size(); i++) {
-      add(v3[i][1], v3[i][2]);
-    }
-
-    for (int i = 0; i &lt; v2.size(); i++) {
-      if (!add(v2[i][1], v2[i][2])) ans++;
-    }
-    
-    if (siz[1] != n) return -1;
-    return ans;
-  }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

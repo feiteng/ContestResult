@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>82_TryoneTry.cpp</TITLE>
+ <TITLE>107_inszva-2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>82_TryoneTry.cpp</CENTER></H3><HR>
+<H3><CENTER>107_inszva-2.cpp</CENTER></H3><HR>
 <PRE>
-const int maxn = 1e5+5;
-class Solution {
-public:
-    int pre[maxn],pre2[maxn];
-    int Find(int x){
-        return pre[x]==x?x:pre[x] = Find(pre[x]);
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct DSU {
+    vector&lt;int&gt; fa;
+    vector&lt;int&gt; sz;
+    int merged;
+    DSU(int n): fa(n, 0), sz(n, 1), merged(0) {
+        for (int i = 0;  i &lt; n; i++)
+            fa[i] = i;
     }
-
-<A NAME="0"></A>    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
-        for(int i = 1;i &lt;= n;++i)pre[i] = i;
-        int need = 0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto &amp;x:edges){
-            if(x[0]==3){
-                int a = Find(x[1]);
-                int b = Find(x[2]);
-                if(a!=b){
-                    pre[a]=b;
-                    need++;
-                }
-<A NAME="1"></A>            }
-        }
-        for(int i = 1;i &lt;= n;++i)pre2[i] = pre[i];</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto &amp;x:edges){
-            if(x[0]==1){
-                int a = Find(x[1]);
-                int b = Find(x[2]);
-                if(a!=b){
-                    pre[a]=b;
-                    need++;
-                }
-            }
-        }
-        int cnt = 0;</B></FONT>
-        for(int i = 1;i &lt;= n;++i){
-            if(pre[i]==i)cnt++;
-        }
-<A NAME="2"></A>
-
-        for(int i = 1;i &lt;= n;++i)pre[i] = pre2[i];
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto &amp;x:edges){
-            if(x[0]==2){
-                int a = Find(x[1]);
-                int b = Find(x[2]);
-                if(a!=b){
-                    pre[a]=b;
-                    need++;
-                }</B></FONT>
-            }
-        }
-        cnt=0;
-        for(int i = 1;i &lt;= n;++i){
-            if(pre[i]==i)cnt++;
-        }
-        if(cnt&gt;1)return -1;
-        return edges.size()-need;
+    int find(int x) {
+        if (x == fa[x]) return x;
+        return fa[x] = find(fa[x]);
+    }
+    bool uni(int x, int y) {
+        int fx = find(x), fy = find(y);
+        if (fx == fy) return false;
+        merged++;
+        if (sz[fx] &gt; sz[fy]) swap(fx, fy);
+        fa[fx] = fy;
+        sz[fy] += sz[fx];
+        return true;
     }
 };
+
+class Solution {
+public:
+    int maxNumEdgesToRemove(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int num = 0;
+        DSU u1(n+1), u2(n+1);
+        for (auto&amp; e: edges) {
+            if (e[0] == 3) {
+                if (u1.uni(e[1], e[2])) {
+                    u2.uni(e[1], e[2]);
+                    num++;
+                }
+            }
+        }
+        for (auto&amp; e: edges) {
+            if (e[0] == 1) {
+                if (u1.uni(e[1], e[2])) {
+                    num++;
+                }
+            } else if (e[0] == 2) {
+                if (u2.uni(e[1], e[2])) {
+                    num++;
+                }
+            }
+        }
+        if (u1.merged &lt; n-1 || u2.merged &lt; n-1) {
+            return -1;
+        }
+        return edges.size() - num;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

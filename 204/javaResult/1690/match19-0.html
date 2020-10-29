@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>604_gpane.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>604_gpane.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int getMaxLen(int[] nums) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int negatives = 0;
+        int lastZero = -1;
+        int firstNegIndex = -1;
+        int lastNegIndex = -1;
+        int best = 0;
+        for (int i = 0; i &lt; nums.length; i++) {
+            if (nums[i] &lt; 0) {
+                if (firstNegIndex &lt; 0) {
+                    firstNegIndex = i;
+<A NAME="1"></A>                }
+                lastNegIndex = i;
+                negatives++;
+            }</B></FONT> else <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (nums[i] == 0) {
+                if (negatives % 2 == 0) {
+<A NAME="2"></A>                    best = Math.max(best, i - lastZero - 1);
+                } else {
+                    best = Math.max</B></FONT>(best, lastNegIndex - lastZero - 1);
+                    best = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(best, i - firstNegIndex - 1);
+                }
+                firstNegIndex = -1;
+                lastNegIndex = -1;
+                negatives = 0;
+                lastZero = i;
+<A NAME="3"></A>            }</B></FONT>
+        }
+        int i = nums.length;
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match19-1.html#3',3,'match19-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (negatives % 2 == 0) {
+            best = Math.max(best, i - lastZero - 1);
+        } else {
+            best = Math.max</B></FONT>(best, lastNegIndex - lastZero - 1);
+            best = Math.max(best, i - firstNegIndex - 1);
+        }
+
+        return best;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

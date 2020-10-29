@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>55_Dragon_Fly_02.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>55_Dragon_Fly_02.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int mod = 1000000007;
+    int add( int x, int y ) {
+        return ( 1ll * x + 1ll * y ) % mod;
+    }
+<A NAME="0"></A>    int dp[505][55][2][2];
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+        s1 = &quot;+&quot; + s1, s2 = &quot;+&quot; + s2;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][1][1] = 1;
+        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; evil.length(); j++) {
+                for(int sA = 0; sA &lt; 2; sA++) {
+                    for(int sB = 0; sB &lt; 2; sB++) {
+                        if( !dp[i][j][sA][sB] ) continue;
+                       // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt;sA &lt;&lt; &quot; &quot; &lt;&lt; sB &lt;&lt; &quot;\n&quot;;
+                        for(int k = 0; k &lt; 26; k++) {</B></FONT>
+                            bool typeA = sA, typeB = sB;
+                            if( sA ) {
+                                if( k &gt; s1[i + 1] - 'a' )
+                                    typeA = 0;
+                                else if( k &lt; s1[i + 1] - 'a' )
+                                    continue;
+                                else
+                                    typeA = 1;
+                            }
+                            if( sB ) {
+                                if(  k &lt; s2[i + 1] - 'a')
+                                    typeB = 0;
+                                else if( k &gt; s2[i + 1] - 'a' )
+                                    continue;
+                                else
+                                    typeB = 1;
+                            }
+                            int hihi = (k == evil[j] - 'a' );
+                          //  cout &lt;&lt; hihi &lt;&lt; &quot; &quot; &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+                            if(hihi == 1 &amp;&amp; j + hihi &lt; evil.length())
+                                dp[i + 1][j + hihi][typeA][typeB] = add( dp[i + 1][j + hihi][typeA][typeB], dp[i][j][sA][sB] );
+                            else if( hihi == 0 ) {
+                                string temp = &quot;&quot;;
+                                for(int l = 0; l &lt; j; l++)
+                                    temp += evil[l];
+                                temp += (k + 'a');
+                                int len = 0;
+                                for(int l = 0; l &lt; temp.size(); l++) {
+                                    int cnt = 0; bool ok = 0;
+                                    for(int h = l; h &lt; temp.size(); h++) {
+                                        if( temp[h] == evil[cnt] )
+                                            ++cnt;
+                                        else {
+                                            ok = 1;
+                                            break;
+                                        }
+                                    }
+                                    if( !ok ) {
+                                        len = cnt;
+                                        break;
+<A NAME="1"></A>                                    }
+                                }
+                              //  cout &lt;&lt; len &lt;&lt; &quot; &quot; &lt;&lt; typeA &lt;&lt; &quot; &quot; &lt;&lt; typeB &lt;&lt; &quot;\n&quot;;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                                dp[i + 1][len][typeA][typeB] = add( dp[i + 1][len][typeA][typeB], dp[i][j][sA][sB] );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for(int i = 0; i &lt; evil.size(); i++) {
+            for(int j = 0; j &lt; 2; j++) {</B></FONT>
+                for(int k = 0; k &lt; 2; k++)
+                    ans = add( dp[n][i][j][k], ans );
+            }
+        }
+        return ans;
+    }
+}g;
+</PRE>
+</BODY>
+</HTML>

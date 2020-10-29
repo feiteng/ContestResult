@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>35_maxd-3.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>35_maxd-3.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    int n, m;
+    vector&lt;int&gt; fa;
+
+    int id(int x, int y) {
+        return x * m + y + 1;
+    }
+
+    int fis(int x) {
+        return fa[x] == x ? x : fa[x] = fis(fa[x]);
+    }
+<A NAME="0"></A>
+public:
+    vector&lt;vector&lt;int&gt;&gt; matrixRankTransform(vector&lt;vector&lt;int&gt;&gt; &amp;matrix) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        n = matrix.size(), m = matrix[0].size();
+        fa.resize(n * m + 1);
+        for (int i = 1; i &lt;= n * m; i++)
+            fa[i] = i;
+        for (int i = 0; i &lt; n; i++) {
+            map&lt;int, int&gt; v;
+            for (int j = 0; j &lt; m; j++) {</B></FONT>
+                if (v.count(matrix[i][j])) {
+                    auto p = v[matrix[i][j]];
+                    auto q = id(i, j);
+<A NAME="3"></A>                    fa[fis(p)] = fis(q);
+                }
+                v[matrix[i][j]] = id(i, j);
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#3',2,'match16-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        for (int j = 0; j &lt; m; j++) {
+            map&lt;int, int&gt; v;
+            for (int i = 0; i &lt; n; i++) {</B></FONT>
+                if (v.count(matrix[i][j])) {
+                    auto p = v[matrix[i][j]];
+                    auto q = id(i, j);
+                    fa[fis(p)] = fis(q);
+                }
+                v[matrix[i][j]] = id(i, j);
+<A NAME="2"></A>            }
+        }
+        vector&lt;vector&lt;int&gt; &gt; E(n * m + 1);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++) {
+            vector&lt;pair&lt;int, int&gt; &gt; tmp;
+            for (int j = 0; j &lt; m; j++)
+                tmp.emplace_back(matrix[i][j], j);
+            sort(tmp.begin(), tmp.end());
+            for (int j = 1; j &lt; m; j++)</B></FONT>
+                if (tmp[j].first != tmp[j - 1].first) {
+<A NAME="1"></A>                    auto p = fis(id(i, tmp[j].second));
+                    auto q = fis(id(i, tmp[j - 1].second));
+                    E[q].emplace_back(p);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+        }
+        for (int j = 0; j &lt; m; j++) {
+            vector&lt;pair&lt;int, int&gt; &gt; tmp;
+            for (int i = 0; i &lt; n; i++)
+                tmp.emplace_back(matrix[i][j], i);
+            sort(tmp.begin(), tmp.end());
+            for (int i = 1; i &lt; n; i++)</B></FONT>
+                if (tmp[i].first != tmp[i - 1].first) {
+                    auto p = fis(id(tmp[i].second, j));
+                    auto q = fis(id(tmp[i - 1].second, j));
+                    E[q].emplace_back(p);
+                }
+        }
+        vector&lt;int&gt; ind(n * m + 1);
+        for (int i = 1; i &lt;= n * m; i++) {
+            sort(E[i].begin(), E[i].end());
+            E[i].resize(unique(E[i].begin(), E[i].end()) - E[i].begin());
+            for (auto j:E[i])
+                ind[j]++;
+        }
+        queue&lt;int&gt; Q;
+        auto ans = matrix;
+        for (int i = 1; i &lt;= n * m; i++)
+            if (fa[i] == i &amp;&amp; ind[i] == 0) {
+                Q.push(i);
+                ans[(i - 1) / m][(i - 1) % m] = 1;
+            }
+        while (!Q.empty()) {
+            int u = Q.front();
+            Q.pop();
+            for (auto i:E[u])
+                if (--ind[i] == 0) {
+                    ans[(i - 1) / m][(i - 1) % m] = ans[(u - 1) / m][(u - 1) % m] + 1;
+                    Q.push(i);
+                }
+        }
+        for (int i = 0; i &lt; n; i++)
+            for (int j = 0; j &lt; m; j++) {
+                int tmp = fis(id(i, j)) - 1;
+                ans[i][j] = ans[tmp / m][tmp % m];
+            }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

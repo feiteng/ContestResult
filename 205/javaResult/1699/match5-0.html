@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>506_sweetiee.java</TITLE>
+ <TITLE>114_YuhanWu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>506_sweetiee.java</CENTER></H3><HR>
+<H3><CENTER>114_YuhanWu.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>import java.util.HashMap;
-import java.util.Map;
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numTriplets(int[] nums1, int[] nums2) {
-        Map&lt;Long, Integer&gt; ping1 = new HashMap&lt;&gt;();
-        Map&lt;Long, Integer&gt; ping2 = new HashMap&lt;&gt;();
-        for (int a : nums1) {
-            ping1.put((long) a * a, ping1.getOrDefault((long) a * a, 0) + 1);
-        }
-        for (int a : nums2) {
-            ping2.put((long)a * a, ping2.getOrDefault((long) a * a, 0) + 1);
-        }
-        int ans = 0;
-        for (int i = 0; i &lt; nums1.length; i++) {
-            for (int j = i + 1; j &lt; nums1.length; j++) {
-                ans += ping2.getOrDefault((long)nums1[i] * nums1[j], 0);
+        HashMap&lt;Long, Integer&gt; s1 = new HashMap();
+        HashMap&lt;Long, Integer&gt; s2 = new HashMap();
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        for(int i=0; i&lt;n1; i++){
+            for(int j=i+1; j&lt;n1; j++){
+                long cur = (long)nums1[i]*nums1[j];
+                s1.put(cur, s1.getOrDefault(cur, 0)+1);
             }
         }
-        for (int i = 0; i &lt; nums2.length; i++) {
-            for (int j = i + 1; j &lt; nums2.length; j++) {
-                ans += ping1.getOrDefault((long)nums2[i] * nums2[j], 0);
+        for(int i=0; i&lt;n2; i++){
+            for(int j=i+1; j&lt;n2; j++){
+                long cur = (long)nums2[i]*nums2[j];
+                s2.put(cur, s2.getOrDefault(cur, 0)+1);
             }
         }
-        return ans;
+        int res = 0;
+        for(int num : nums1){
+            res+=s2.getOrDefault((long)num*num, 0);
+        }
+        for(int num : nums2){
+            res+=s1.getOrDefault((long)num*num, 0);
+        }
+        return res;
     }
-
 }</B></FONT>
 </PRE>
 

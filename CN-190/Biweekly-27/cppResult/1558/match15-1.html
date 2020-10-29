@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_sunio.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_sunio.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;bool&gt; checkIfPrerequisite(int n, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int graph[n][n];
+        int INF  = 999999;
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; n; j++){
+                graph[i][j] = INF;
+<A NAME="0"></A>            }
+            graph[i][i] = 0;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; prerequisites.size(); i++){
+            int u = prerequisites[i][0], v = prerequisites[i][1];
+            graph[u][v] = 1;
+        }
+    for(int k = 0; k &lt; n; k++)  {  
+        for(int i = 0; i &lt; n; i++)  {  
+            for(int j = 0; j &lt; n; j++)  { 
+                if(graph[i][k] + graph[k][j] &lt; graph[i][j])  
+                    graph[i][j] = graph[i][k] + graph[k][j];  
+            }  
+        }  
+    } 
+    vector&lt;bool&gt; ans;
+    for(int i = 0; i &lt; queries.size(); i++){
+        int u = queries[i][0], v = queries[i][1];
+        if(graph[u][v] &gt;= INF)
+            ans.push_back(false);
+        else
+            ans.push_back(true);
+    }
+    return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

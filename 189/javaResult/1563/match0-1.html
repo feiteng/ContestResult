@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>326_errisy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>326_errisy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    boolean[][] dp;
+    public int numPoints(int[][] pp, int r) {
+        int l = pp.length;
+        P[] ps = new P[l];
+        for(int i = 0; i &lt; l; i++){
+            ps[i] = new P(pp[i][0], pp[i][1]);
+        }
+        int max = 1;
+        double r2 = (double)r;
+        r2 = r2 * r2;
+        double r4 = r2 * 4d;
+        dp = new boolean[l][l];
+        for(int i = 0; i &lt; l; i++){
+            dp[i][i] = true;
+            for(int j = i + 1; j &lt; l; j++){
+                P d = ps[i].ded(ps[j]);
+                if(d.len() &lt;= r4){
+                    dp[i][j] = true;
+                    dp[j][i] = true;
+                }
+            }
+        }
+        
+        for(int i = 0; i &lt; l; i++){
+            for(int j = i + 1; j &lt; l; j++){
+                if(ps[i].eq(ps[j])){
+                    int c = 0;
+                    for(int k = 0; k &lt; l; k++){
+                        if(!dp[i][k]) continue;
+                        if(ps[k].inCir(ps[i], r2)) c++;
+                    }
+                    max = Math.max(max, c);
+                }
+                else{
+                    P h = ps[i].add(ps[j]).div(2d), d = ps[i].ded(h);
+                    double pl = Math.sqrt(r2 - (d.x * d.x + d.y * d.y));
+                    P du = d.one(), dl = du.left(), dr = du.right();
+                    P o1 = dl.mul(pl).add(h), o2 = dr.mul(pl).add(h);
+                    int c1 = 0, c2 = 0;
+                    for(int k = 0; k &lt; l; k++){
+                        if(!dp[i][k]) continue;
+                        if(!dp[j][k]) continue;
+                        if(ps[k].inCir(o1, r2)) c1++;
+                        if(ps[k].inCir(o2, r2)) c2++;
+                    }
+                    max = Math.max(max, Math.max(c1, c2));
+                }
+            }
+        }
+        return max;
+    }
+}
+
+
+class P{
+    double x, y;
+    P(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+    P add(P p){
+        return new P(x + p.x, y + p.y);
+    } 
+    P ded(P p){
+        return new P(x - p.x, y - p.y);
+    }
+    P mul(double m){
+        return new P(x * m, y * m);
+    }
+    P one(){
+        double l = Math.sqrt(x * x + y * y);
+        return new P(x/l, y/l);
+    }
+    double len(){
+        return Math.sqrt(x * x + y * y);
+    }
+    P left(){
+        return new P(y, x);
+    }
+    P right(){
+        return new P(-y, x);
+    }
+    P div(double k){
+        return new P(x/k, y/k);
+    }
+    boolean inCir(P p, double r2){
+        double dx = x - p.x, dy = y - p.y;
+        return dx * dx + dy * dy - r2 &lt;= 0.000001d;
+    }
+    boolean eq(P p){
+        return x == p.x &amp;&amp; y == p.y;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

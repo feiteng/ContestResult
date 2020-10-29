@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>207_hcchiu.py</TITLE>
+ <TITLE>140_meladrama.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>207_hcchiu.py</CENTER></H3><HR>
+<H3><CENTER>140_meladrama.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class UF:
-    def __init__(self, n):
-        self.cache = list(range(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>n + 1))
-        
-    def find(self, i):
-        if self.cache[i] != i:
-            self.cache[i] = self.find(self.cache[i])
-        return self.cache[i]
-        
-    def union(self, i, j):
-        head1 = self.find(</B></FONT>i)
-        head2 = self.find(j)
-        self.cache[head1] = head2
-
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def maxNumEdgesToRemove(self, n: int, edges: List[List[int]]) -&gt; int:
-        result = 0
-<A NAME="1"></A>        a = UF(n)
-        b = UF(n)
-        for t, i, j in edges:
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if t == 3:
-                if a.find(i) == a.find(j):
-                    result += 1
-                else:
-                    a.union(i, j)
-                    b.union(</B></FONT>i, j)
-<A NAME="2"></A>                    
-        for t, i, j in edges:
-            if t == 1:
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if a.find(i) == a.find(j):
-                    result += 1
-                else:
-                    a.union(i, j)
-            elif t == 2:
-                if b.find(i) == b.find(j):
-                    result += 1
-                else:
-                    b.union(i,</B></FONT> j)
-                    
-        if len(set(a.find(i) for i in range(1, n + 1))) == 1 and len(set(b.find(i) for i in range(1, n + 1))) == 1:
-            return result
-        else:
-            return -1
+        a=[[] for _ in range(n+1)]
+        for k,i,j in edges:
+            a[i].append((j,k))
+            a[j].append((i,k))
+        d,st=[1]*(n+1),[1]
+        d[0],d[1]=0,0
+        while st:
+            i=st.pop()
+            for j,k in a[i]:
+                if k!=2 and d[j]:
+                    d[j]=0
+                    st.append(j)
+        if any(x for x in d): return -1
+        d,st=[1]*(n+1),[1]
+        d[0],d[1]=0,0
+        while st:
+            i=st.pop()
+            for j,k in a[i]:
+                if k!=1 and d[j]:
+                    d[j]=0
+                    st.append(j)
+        if any(x for x in d): return -1
+        d,s=[1]*(n+1),0
+        for i in range(1,n+1):
+            if d[i]:
+                st,d[i]=[i],0
+                while st:
+                    i=st.pop()
+                    for j,k in a[i]:
+                        if k==3 and d[j]:
+                            d[j],s=0,s+1
+                            st.append(j)
+        return len(e</B></FONT>dges)-(2*n-2-s)
 </PRE>
 
 </BODY>

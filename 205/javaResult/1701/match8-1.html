@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>507_linstenst.java</TITLE>
+ <TITLE>214_bluesky999.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,101 +15,77 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>507_linstenst.java</CENTER></H3><HR>
+<H3><CENTER>214_bluesky999.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int maxNumEdgesToRemove(int n, int[][] edges) {
-        Ufs ufs = new Ufs(n);
-        int m = edges.length;
-        int count = 0;
-        for(int i = 0; i &lt; m; i++){
-            if(edges[i][0] == 3){
-                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){
-                    ufs.union(edges[i][1], edges[i][2]);
-                }else{
-                    count++;
-                }
-            }
-        }
-        for(int i = 0; i &lt; m; i++){
-<A NAME="0"></A>            if(edges[i][0] == 1){
-                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){
-                    ufs.union(edges[i][1], edges[i][2]);
-                }else<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    count++;
-                }
-            }
-        }
-        
-        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
-        for(int i = 1; i &lt;= n; i++){
-            set.add(ufs.find(i));
-        }
-        
-        if(set.size() &gt; 1) return -1;
-        
-        ufs = new Ufs(n);
-        
-        for(int i = 0; i &lt; m; i++){
-            if(edges[i][0] == 3){
-                if(ufs.find</B></FONT>(edges[i][1]) != ufs.find(edges[i][2])){
-                    ufs.union(edges[i][1], edges[i][2]);
-                }
-            }
-        }
-        for(int i = 0; i &lt; m; i++){
-<A NAME="1"></A>            if(edges[i][0] == 2){
-                if(ufs.find(edges[i][1]) != ufs.find(edges[i][2])){
-                    ufs.union(edges[i][1], edges[i][2]);
-                }else<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    count++;
-                }
-            }
-        }
-        
-        set = new HashSet&lt;&gt;();
-        for(int i = 1; i &lt;= n; i++){
-            set.add(ufs.find(i));
-        }
-        
-        if(set.size() &gt; 1) return -1;
-        
-        return count;
-        
-    }
-}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.Arrays;
 
-class Ufs{
-    int[] parent;
-    int[] ranks;
-    
-    public Ufs(int n){
-        this.parent = new int[n + 1];
-        this.ranks = new int[n + 1];
-        for(int i = 0; i &lt;= n; i++){
-            p</B></FONT>arent[i] = i;
-        }
-    }
-    
-    public int find(int x){
-<A NAME="2"></A>        if(parent[x] != x)
-            parent[x] = find(parent[x]);
-        return parent[x];
-    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    
-    public void union(int x, int y){
-        int px = find(x);
-        int py = find(y);
-        
-        if</B></FONT>(ranks[px] &gt; ranks[py]) parent[py] = px;
-        if(ranks[px] &lt; ranks[py]) parent[px] = py;
-        if(ranks[px] == ranks[py]){
-            parent[py] = px;
-            ranks[px]++;
-        }
-        
-    }
-}
+class Solution {
+	int ans[] = new int[4];
+
+	public int maxNumEdgesToRemove(int n, int[][] edges) {
+		init(n);
+		calc(3, edges);
+		calc(2, edges);
+		if (!connected())
+			return -1;
+		init(n);
+		calc(3, edges);
+		calc(1, edges);
+		if (!connected())
+			return -1;
+		return ans[3]/2+ans[1]+ans[2];
+
+	}
+
+	private boolean connected() {
+		int cnt = 0;
+		for (int i = 1; i &lt; p.length; i++)
+			if (p[i] == i)
+				cnt++;
+		return cnt == 1;
+	}
+
+	private void calc(int t, int[][] edges) {
+		for (int i = 0; i &lt; edges.length; i++)
+			if (edges[i][0] == t) {
+				connect(t, edges[i][1], edges[i][2]);
+			}
+	}
+
+	public static void tr(Object... o) {
+		System.out.println(Arrays.deepToString(o));
+	}
+
+	int p[];
+	int size[];
+
+	private void init(int n) {
+		p = new int[n + 1];
+		for (int i = 0; i &lt;= n; i++)
+			p[i] = i;
+		size = new int[n + 1];
+		Arrays.fill(size, 1);
+	}
+
+	private void connect(int t, int u, int v) {
+		int u0 = find(u);
+		int v0 = find(v);
+		if (u0 == v0) {
+			ans[t]++;
+			return;
+		}
+		p[u0] = v0;
+		size[v0] += size[u0];
+	}
+
+	private int find(int x) {
+		if (p[x] == x)
+			return x;
+		else
+			return p[x] = find(p[x]);
+	}
+
+}</B></FONT>
 </PRE>
 
 </BODY>

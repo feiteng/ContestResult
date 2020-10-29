@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>453_gregming.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>453_gregming.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        m, n = len(grid), len(grid[0])
+        dirs = [(1,0), (-1,0), (<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>0,1), (0,-1)]
+        conn = {
+            (1,0,1): (1,3,5), (1,0,-1): (1,4,6),
+            (2,1,0): (2,5,6), (2,-1,0): (2,3,4),
+            (3,1,0): (2,5,6), (3,0,-1): (1,4,6),
+            (4,1,0): (2,5,6), (4,0,1): (1,3,5),
+<A NAME="1"></A>            (5,-1,0): (2</B></FONT>,3,4), (5,0,-1): (1,4,6),
+            (6,-1,0): (2,3,4), (6,0,1): (1,3,5)
+        }
+        stk = [(0,0,grid<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[0][0])]
+        seen = set([(0,0)])
+        while stk:
+            x,y,v = stk.pop()
+            if x == m-1 and y == n-1:
+                return True
+            for</B></FONT> dx,dy in dirs:
+                nx, ny = x+dx, y+dy
+                if 0&lt;=nx&lt;m and 0&lt;=ny&lt;n and (nx,ny) not in seen and grid[nx][ny] in conn.get((grid[x][y],dx,dy), []):
+                    stk.append((nx,ny,grid[nx][ny]))
+                    seen.add((nx,ny))
+        return False
+</PRE>
+
+</BODY>
+</HTML>

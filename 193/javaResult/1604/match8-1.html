@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_Aircy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_Aircy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int findLeastNumOfUniqueInts(int[] arr, int k) {
+        Map&lt;Integer, Integer&gt; freq = new HashMap&lt;&gt;();
+        for (int a: arr) {
+            freq.put(a, freq.getOrDefault(a, 0) + 1);
+        }
+<A NAME="1"></A>        List&lt;Integer&gt; fr = new ArrayList&lt;&gt;(freq.values());
+        Collections.sort</B></FONT>(fr);
+        int res = fr.size();
+        for (int i = 0; i &lt; <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>fr.size(); i ++) {
+            if (k &gt;= fr.get(i)) {
+                k -= fr.get(i);
+                res --;
+            } else {
+                break;
+            }
+        }</B></FONT>
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
