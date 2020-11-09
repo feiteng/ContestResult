@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>337_hhhhkkkkkk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>337_hhhhkkkkkk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public int maxProfit(int[] inventory, int orders) {
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int left = 0;
+        int right = 1000000000;
+
+        while(left &lt;= right){
+            int mid = (left+right)/2;
+            if(cal(inventory, mid) &gt;= orders){
+                left = mid+1;
+            }else{
+                right = mid-1;
+            }
+        }
+
+        int mm = right;
+        long res = get(inventory, right)</B></FONT>;
+        long count = cal(inventory, right);
+    long dd = 1L*(count - orders) * (right+1);
+        System.out.println(&quot; &quot; + res +  &quot; &quot; + dd + &quot; &quot; + count + &quot; &quot;+ right);
+        res = res + 100000L*1000000007 - dd;
+        System.out.println(&quot; &quot; + res );
+        
+        return (int)(res%1000000007);
+    }
+
+    long get(int[] inventory, int level){
+        long sum = 0;
+        for(int a:inventory){
+            long al = a;
+            if(al &gt; level){
+                sum+= (al - level)*(al+ level+1)/2;
+            }
+            sum %= 1000000007;
+        }
+        return sum;
+    }
+
+    int getCount(int[] inventory, int level){
+        int sum = 0;
+        for(int a:inventory){
+            long al = a;
+            if(al &gt; level){
+                sum+= (al - level);
+            }
+
+        }
+        return sum;
+<A NAME="1"></A>    }
+
+
+    long cal(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] inventory, int val){
+        long a = 0;
+        for(int v:inventory){
+            if(v &gt; val){
+                a+= v-val;
+            }
+        }
+        return a;
+    }</B></FONT>
+
+}
+</PRE>
+
+</BODY>
+</HTML>

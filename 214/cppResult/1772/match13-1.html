@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>162_randc0degen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>162_randc0degen.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int MOD = 1e9 + 7;
+const int N = 1e5 + 10;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int m, t[N];
+    int lowbit(int x) {
+        return x&amp;(-x);
+    }
+    void upd(int x, int k) {
+        while (x &lt;= m) {
+            t[x] += k;
+            x += lowbit(x);
+        }
+    }
+    int gsum(int x) {
+        int res = 0;
+        while (x &gt; 0) {
+            res += t[x];
+            x -= lowbit(x);
+        }
+        return res;
+    }
+    
+    int createSortedArray(vector&lt;int&gt;&amp; instructions) {
+<A NAME="1"></A>        int ans = 0, n = instructions.size();</B></FONT>
+        m = 100001;
+        memset(t, 0, sizeof t);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i ++) {
+            int cur = instructions[i];
+            int t1 = gsum(cur-1);
+            int t2 = gsum(m) - gsum(cur);
+            (ans += min(t1, t2)) %= MOD;</B></FONT>
+            upd(cur, 1);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

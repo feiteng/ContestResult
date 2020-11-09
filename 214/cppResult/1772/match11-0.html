@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>479_EDIEEE.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>479_EDIEEE.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 1e5 + 10;
+const int mod = 1e9 + 7;
+<A NAME="0"></A>class Solution {
+public:
+    int a[maxn &lt;&lt; 2];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int N = 1e5;
+    
+    void add(int pos , int val){
+        while(pos &lt;= N){
+            a[pos] += val;
+            pos += pos &amp; (-pos);
+        }
+    }
+    
+    
+    int get(int pos){
+        int ret = 0;
+        while(pos){
+            ret += a[pos];
+            pos -= pos &amp; (-pos);
+        }
+        return ret;
+    }
+    
+    int createSortedArray(vector&lt;int&gt;&amp; t) {
+        int ret = 0;
+        for(int i : t){
+            int v1 = get(i - 1);
+            int v2 = get(N) - get(i);
+            ret += min(v1 , v2);
+            ret %= mod;
+            add(i , 1);
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

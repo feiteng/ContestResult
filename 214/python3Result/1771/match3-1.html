@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>690_wangYiTiaoYu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>690_wangYiTiaoYu.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -&gt; int:
+<A NAME="0"></A>        ans = 0
+        arr = sorted(inventory, reverse = True)
+        arr.append(0)
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(1, len(arr)):
+            if i*(arr[i-1]-arr[i])&lt;=orders:
+                ans += (arr[i]+1+arr[i-1])*(arr[i-1]-arr[i])//2*i
+                orders -= i*(arr[i-1]-arr[i])
+            else:
+                x =</B></FONT> orders//i
+                ans += (2*arr[i-1]-x+1)*x//2*i
+                orders -= i*x
+                ans += orders*(arr[i-1]-x)
+                orders = 0
+                break
+        return ans % 1000000007
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>999_phenoMenAl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>999_phenoMenAl.cpp</CENTER></H3><HR>
+<PRE>
+#define ll long long
+class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {
+        ll res=0;
+        const int mod=1e9+7;
+        inventory.push_back(0);
+<A NAME="0"></A>        sort(inventory.begin(),inventory.end());
+        int n=inventory.size();
+        for(ll i=n-1;i&gt;0 &amp;&amp; orders&gt;0;){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            ll j=inventory.end()-lower_bound(inventory.begin(),inventory.end(),inventory[i]);
+            ll k=inventory[i]-inventory[n-j-1];
+            if(j*k&lt;=orders){
+                ll z= inventory[i]-k;
+                ll x=(j*k)%mod;
+                res=(res+j*(((ll)inventory[i]*(inventory[i]+1)/2)%mod - (z*(z+1)/2)%mod)+mod)%mod;
+                orders-=j*k;
+            }
+            else{
+                ll z=inventory[i]-orders/j,rem=orders%j;
+                // ll x=(j*(orders/j))%mod;
+                res=(res+j*(((ll)inventory[i]*(inventory[i]+1)/2)%mod - (z*(z+1)/2)%mod)+mod)%mod;
+                res=(res+rem*((z)%mod))%mod;
+                break;
+            }</B></FONT>
+            i=n-j-1;
+            // cout&lt;&lt;res&lt;&lt;&quot; &quot;&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot;\n&quot;;
+        }
+        return (res+mod)%mod;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

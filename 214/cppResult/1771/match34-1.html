@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>331_ou-shu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>331_ou-shu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {
+        //vector&lt;int&gt; inventory=_inventory;
+        inventory.push_back(0);
+        sort(inventory.rbegin(),inventory.rend());
+        long long i,j,ans=0,yu=1e9+7,n=inventory.size(),ball=0,k,m,k2;
+<A NAME="0"></A>        for(i=1;i&lt;=n-1&amp;&amp;ball&lt;orders;i++){
+            j=i*(inventory[i-1]-inventory[i]);
+            if(j&lt;=orders-ball){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                k=inventory[i-1]+inventory[i]+1;
+                k=k*(inventory[i-1]-inventory[i]);
+                k/=2;
+                //k*=((inventory[i-1]+inventory[i]+1)*(inventory[i-1]-inventory[i])/2);
+                ball+=j;
+                ans=(ans+i*k)%yu;
+            }else{
+                m=(orders-ball)/i;
+                k=(inventory[i-1]+inventory[i-1]-m+1)*m/2;
+                k2=(inventory[i-1]-m)*(orders-ball-i*m);
+                ans=(ans+i*k+k2)%yu;
+                ball=orders;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

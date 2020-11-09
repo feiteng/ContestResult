@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>439_newpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>439_newpp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int mod = 1e9 + 7;
+    long long cal(long long a,long long cnt){
+        return (2 * a - cnt + 1) * cnt / 2 % mod;
+    }
+    
+    int maxProfit(vector&lt;int&gt;&amp; inv, int o) {
+        inv.emplace_back(0);
+        sort(inv.rbegin(),inv.rend());
+        int n = inv.size();
+        // if(n == 1){
+<A NAME="0"></A>        //     return cal(inv[0],inv[0]);
+        // }
+        // cout &lt;&lt; accumulate(inv.begin(),inv.end(),0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long ord = o;
+        long long ans = 0;
+        long long m = 1;            //等差和的倍数
+        long long last = inv[0];    //目前最高价位
+        for(int i = 1; i &lt; n &amp;&amp; ord &gt; 0; ++i){
+            if(inv[i] == last){
+                ++m;
+            }else{
+                long long interval = last - inv[i];
+                if(interval * m &lt;= ord){</B></FONT>
+                    ord -= interval * m;
+                    ans += cal(last,interval) * m;
+                    ans %= mod;
+                    ++m;
+                }else{
+                    // cout &lt;&lt; &quot;here&quot; &lt;&lt; endl;
+                    // cout &lt;&lt; ord &lt;&lt; &quot;  &quot; &lt;&lt; m &lt;&lt; &quot;  &quot; &lt;&lt; ans &lt;&lt; &quot;  &quot; &lt;&lt; last &lt;&lt;&quot;  &quot; &lt;&lt; inv[i] &lt;&lt; endl;
+                    long long u = ord / m;
+                    long long v = ord % m;
+                    ans += cal(last,u) * m;
+                    ans %= mod;
+                    last -= u;
+                    ans += last * v;
+                    ans %= mod;
+                    break;
+                }
+            }
+            last = inv[i];
+        }
+        return ans;
+    }
+};
+// [497978859,167261111,483575207,591815159]
+// 836556809
+
+// [15,13,89,1,22,11,90,13,54,100]
+// 249
+//as : 13711
+</PRE>
+</BODY>
+</HTML>

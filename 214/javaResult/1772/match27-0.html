@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>576_zwzzzzz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>576_zwzzzzz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int createSortedArray(int[] arr) {
+        int len = arr.length;
+        long[] nums = new long[100001], prev = new long[100001];
+<A NAME="0"></A>        SegmentTree st = new SegmentTree(nums);
+        long count = 0;
+        for(int i = 0; i &lt; len; i++) {
+            count = (count + <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.min(st.get(0, arr[i]), st.get(arr[i] + 1, 100001))) % (1000000007);
+            st.update(arr[i], prev[arr[i]] + 1);
+            prev[arr[i]]++;
+        }
+        return (int)count;
+    }</B></FONT>
+    
+    private class SegmentTree{
+        long[] tree;
+        int n;
+        public SegmentTree(long[] arr) {
+            n = arr.length;
+            tree = new long[2 * n];
+<A NAME="1"></A>            for(int i = 0; i &lt; n; i++) tree[i + n] = arr[i];
+            for(int i = n - 1; i &gt;= 0; i--) {
+                tree[i] = tree[2 * i] + tree[2 * i + 1];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        public void update(int i, long value) {
+            i += n;
+<A NAME="2"></A>            tree[i] = value;
+            while(i &gt; 1) {</B></FONT>
+                i /= 2;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>tree[i] = tree[2 * i] + tree[2 * i + 1];
+            }
+        }
+        
+        public long get(int left, int right) {
+            left += n;
+            right += n;
+            long sum = 0;
+            while(left &lt; right) {
+                if((left&amp;1) == 1) {sum += tree[left]; left++;}
+                if((right&amp;1) == 1) {right--; sum += tree[right];}
+                left &gt;&gt;= 1;
+                right &gt;&gt;= 1;
+            }
+            return sum;
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_TheRaven.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>431_TheRaven.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    long MOD = 1000000007;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int maxProfit(int[] inventory, int orders) {
+        long MIN = 1;
+        long MAX = 1000000001;
+<A NAME="1"></A>        while (MIN &lt; MAX) {
+            long piv = (MIN + MAX) / 2</B></FONT>;
+            long num = howManyAbove(inventory, piv);
+            if (num &gt; orders) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                MIN = piv+1;
+            } else {
+                MAX = piv;
+            }
+        }
+        int above = (int)howManyAbove(inventory, MIN)</B></FONT>;
+        int atMin = orders - above;
+      //  System.out.println(&quot;MIN IS &quot; + MIN);
+       // System.out.println(&quot;Taking AT MIN = &quot; + atMin);
+        
+        long ans = (MIN * atMin) % MOD;
+        Arrays.sort(inventory);
+        
+        for (int i = 0; i&lt;inventory.length; ++i) {
+            if (MIN &gt; inventory[i]) continue;
+            long left = (inventory.length - i);
+            long delta = inventory[i] - MIN;
+        //    System.out.println(&quot;At &quot; + i + &quot; with value &quot; + inventory[i] + &quot; delta &quot; + delta);
+            ans += (delta * (left * MIN) % MOD) % MOD;
+            ans += (n2(delta) * left) % MOD;
+            ans %= MOD;
+            MIN = inventory[i];
+        }
+        return (int)ans;
+<A NAME="2"></A>    }
+    
+    public long n2(long d) {
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ((d * (d+1))/2) % MOD;
+    }
+    
+    
+<A NAME="3"></A>    
+    public long howManyAbove(int [] inv, long piv) {
+        long count = 0;
+        for (int i</B></FONT> : inv) if (i &gt; piv) count += i-piv<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        return count;
+    }
+    
+    public long howManyAt(int [] inv, long piv) {
+        long count = 0;
+        for (int i</B></FONT> : inv) if (i == piv) count++;
+        return count;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

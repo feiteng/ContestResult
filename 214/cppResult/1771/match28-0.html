@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>822_veeranjaneyulus.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>822_veeranjaneyulus.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; x, int orders) {
+        sort(x.begin(), x.end(),greater&lt;int&gt;());
+        x.push_back(0);
+        int n = x.size();
+        long ans = 0;
+        int nmod = 1e9+7;
+        for(int i=0;i+1&lt;n;i++) { // todo: x[last]</B></FONT>
+            long m = i+1;
+            long yield = (long) (x[i]-x[i+1]) * m;
+            if(yield&lt;=orders) {
+                orders -= (long) (x[i]-x[i+1]) * m;
+                ans = (ans + (long) m * ( (long) (x[i]+x[i+1]+1) * (long) (x[i]-x[i+1])) / 2)  % nmod;
+                if(orders==0) break;
+                //x[i] = x[i+1];
+            } else { // no need to change all m numbers to x[i+1]
+                // orders = 0;
+                
+                long p = orders / m, q = orders % m;
+                ans = (ans + ( (long) m * ((long) (2*x[i]-p+1) * p / 2)) ) % nmod;
+                ans = (ans + q * ( (long) x[i]-p))%nmod;
+                //cout &lt;&lt; orders &lt;&lt; &quot; &quot; &lt;&lt; m &lt;&lt; &quot; &quot; &lt;&lt; ans &lt;&lt; endl;
+                break;
+            }
+        }
+        return ans % nmod;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

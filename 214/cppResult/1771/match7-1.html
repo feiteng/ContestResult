@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>147_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>147_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int MOD = 1e9+7;
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  long long Gao(long long from, long long to) {
+    return ((from+to)*(to-from+1)/2)%MOD;
+  }
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {</B></FONT>
+      auto A = inventory;
+      map&lt;long long, long long&gt; M;
+      M[0] = 0;
+      for (auto a: A) M[a]++;
+      long long tot = 0;
+      while (orders) {
+<A NAME="1"></A>        auto it1 = prev(M.end());
+        auto it2 = prev(it1);
+        long long diff = it1-&gt;first-it2-&gt;first;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        long long n = it1-&gt;second;
+        if (diff*n&lt;=orders) {
+          (tot += n*Gao(it2-&gt;first+1, it1-&gt;first))%=MOD;
+          orders-=diff*n;
+          it2-&gt;second += n;
+          M.erase(it1);
+        } else {
+          long long x = orders / n;
+          long long y = orders % n;
+          (tot += n*Gao(it1-&gt;first-x+1, it1-&gt;first))%=MOD;
+          (tot += y*(it1-&gt;first-x))%=MOD;</B></FONT>
+          break;
+        }
+      }
+      return tot;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

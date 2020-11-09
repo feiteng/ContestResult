@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>230_Jetman.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>230_Jetman.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    long MOD = (long)1e9 + 7;
+    public int maxProfit(int[] inv, int orders) {
+<A NAME="0"></A>        int len = inv.length;
+        Arrays.sort(inv);
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long l = 0;
+        long r = inv[len-1];
+        while (l &lt; r) {
+            long mid = (l+r)/2;
+<A NAME="1"></A>            long num = 0;
+            for (int i=len-1;i&gt;=0 &amp;&amp; inv[i] &gt;= mid;i--) {</B></FONT>
+                num+=inv[i] - mid;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            if (num &gt; orders) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        long ans = 0;
+        int num = 0;
+        for (int i = len-1; i &gt;= 0 &amp;&amp; inv[i] &gt; l; i--) {</B></FONT>
+            ans += (inv[i] + l+1)*(inv[i]-l)/2L;
+            ans = ans%MOD;
+            num += (inv[i]-l);
+            inv[i] = (int)l;
+        }
+
+        ans += (orders - num) * l;
+        return (int)(ans%MOD);
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

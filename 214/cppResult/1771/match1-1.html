@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_cthbst.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>64_cthbst.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+public:
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    long long eval(vector&lt;int&gt; &amp;a, int t) {
+        long long ans = 0;
+        for (int x:a) {
+            if (x&gt;=t) ans += x-t+1;
+        }
+        return ans;
+    }
+<A NAME="0"></A>    int maxProfit(vector&lt;int&gt;&amp; a, int orders) {</B></FONT>
+        const long long MOD = 1e9+7;
+        map&lt;int, int&gt; cnt;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int x:a) cnt[x]++;
+        int l = 0, r = 1e9;
+        while (l!=r) {
+            int mid = (l+r) / 2;
+            if (eval(a, mid)&lt;orders) r=  mid;
+            else l = mid+1;
+        }
+        long long ans = 0;</B></FONT>
+        int td = r;
+        for (int x:a) {
+            if (x &gt;= td) {
+                // td + (td+1) + ... + x
+                ans += (long long)(x+td) * (x-td+1) / 2;
+                ans %= MOD;
+                orders -= (x-td+1);
+            }
+        }
+        ans += (long long) orders * (td-1);
+        return ans % MOD;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

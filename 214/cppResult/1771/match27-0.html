@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>860_WanGong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>860_WanGong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {
+        sort(inventory.begin(), inventory.end(), std::greater());
+        
+        long long res = 0;
+        for (int i = 0; i &lt; inventory.size(); ++i) {
+            if (orders == 0) {
+                break;
+            }
+            
+<A NAME="0"></A>            if (i + 1 &lt; inventory.size()) {
+                long long diff = inventory[i] - inventory[i+1];
+                if (diff * (i + 1) &lt;= orders) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    long long cur = diff * (inventory[i] + inventory[i+1] + 1) / 2;
+                    cur = cur * (i + 1);
+                    res += cur;
+                    orders -= diff * (i + 1);
+                } else {
+                    
+                    long long l = orders / (i + 1);
+                    long long r = orders - l * (i + 1);
+                    
+                    long long cur = l * (inventory[i] + inventory[i] - l + 1) / 2;
+                    cur = cur * (i + 1);
+                    res += cur;</B></FONT>
+                    
+<A NAME="1"></A>                    res += (inventory[i] - l) * r;
+                    orders = 0;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            } else {
+                    long long l = orders / (i + 1);
+                    long long r = orders - l * (i + 1);
+                    
+                    long long cur = l * (inventory[i] + inventory[i] - l + 1) / 2;
+                    cur = cur * (i + 1);
+                    res += cur;</B></FONT>
+                    
+                    res += (inventory[i] - l) * r;
+                    orders = 0;
+            }
+        }
+        
+        return res % mod;
+    }
+    
+    long long mod = 1e9 + 7;
+};
+</PRE>
+</BODY>
+</HTML>

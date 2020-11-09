@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>882_reikiaura.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>882_reikiaura.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int maxProfit(int[] a, int orders) {
+        int n = a.length;
+        int max = 0;
+        for (int i = 0; i &lt; n; i++) {
+            max = Math.max(max, a[i]);
+<A NAME="1"></A>        }</B></FONT>
+        int basePrice = getBasePrice(a, orders, n, max);
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long sum = 0L;
+        int cnt = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (a[i] &gt; basePrice) {
+                sum += ((long)(a[i] - basePrice)) * (a[i] + basePrice + 1) &gt;&gt; 1;
+                cnt += a[i] - basePrice;
+            }
+        }
+        if (cnt &lt; orders) {</B></FONT>
+            sum += ((long)(orders - cnt)) * basePrice;
+        }
+        long mod = (long)(1e9 + 7);
+        return (int)(sum % mod);
+    }
+    
+    private int getBasePrice(int[] a, int orders, int n, int max) {
+        int left = 0, right = max;
+        while (left &lt; right) {
+            int guess = (left + right) &gt;&gt; 1;
+            long guessCnt = guessCnt(a, guess, n);
+            long guessCntMore = guessCnt(a, guess - 1, n);
+
+            // System.out.println(left + &quot;, &quot; + right + &quot;, &quot; + guess + &quot;, &quot; + guessCnt + &quot;, &quot; + guessCntMore);
+            
+            if (guessCnt &lt; orders &amp;&amp; guessCntMore &gt;= orders) {
+<A NAME="2"></A>                return guess;
+            }
+            if (guessCnt &gt;= orders) {
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>left = guess + 1;
+            } else {
+                right = guess;
+            }
+        }</B></FONT>
+        return left;
+    }
+    
+    private long guessCnt(int[] a, int guess, int n) {
+        long res = 0;
+        for (int i = 0; i &lt; n; i++) {
+            res += Math.max(a[i] - guess, 0);
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

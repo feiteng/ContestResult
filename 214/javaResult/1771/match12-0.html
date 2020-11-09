@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_quantuminfo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>364_quantuminfo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  public int maxProfit(int[] inventory, int orders) {
+    Integer[] inv = new Integer[inventory.length];
+    for (int i = 0; i &lt; inv.length; i++) {
+<A NAME="0"></A>      inv[i] = inventory[i];
+    }
+    Arrays.sort(inv, Collections.reverseOrder());
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int left = 0;
+    int right = inv[0];
+    while (left &lt; right - 1) {
+      int mid = left + (right - left) / 2;
+      if (count(inv, mid) &lt; orders) {
+        right = mid;
+      } else {
+        left = mid;
+      }
+    }
+    long total = 0</B></FONT>;
+<A NAME="1"></A>    for (int i = 0; i &lt; inv.length &amp;&amp; inv[i] &gt; right; i++) {
+      total += ((long) inv[i] + right + 1) * ((long) inv[i] - right) / 2;
+    }
+    total += ((long) orders - <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>count(inv, right)) * right;
+    return (int) (total % 1_000_000_007);
+  }
+  
+  private long count(Integer[] inv, int remain) {
+    long orders = 0;
+    for (int i = 0; i &lt; inv.length &amp;&amp; inv[i] &gt; remain; i++) {</B></FONT>
+      orders += inv[i] - remain;
+    }
+    return orders;
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

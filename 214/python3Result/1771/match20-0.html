@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>926_zppzpp.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>926_zppzpp.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -&gt; int:
+<A NAME="0"></A>        inventory = sorted(inventory)
+        N = len(inventory)
+        idx = N - 1
+        value <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        const = 1000000007
+        while idx &gt;= 0:
+            cur = inventory[idx]
+            prev = inventory[idx-1] if idx &gt; 0 else 0
+            length = N - idx
+            if (cur - prev) * length &lt;= orders:
+                value += (((prev + 1 + cur) * (cur - prev) // 2) * length) 
+                orders -= (cur - prev) * length
+            else:
+                n = orders // length
+                remain = orders % length
+                value += (length * (cur - n + 1 + cur) * n // 2) 
+                orders -= n * length
+                value +=</B></FONT> (remain * (cur - n)) 
+                break
+            idx -= 1
+        return value % const
+</PRE>
+
+</BODY>
+</HTML>

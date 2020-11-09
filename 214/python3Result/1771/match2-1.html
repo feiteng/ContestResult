@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>400_rapchen.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>400_rapchen.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -&gt; int:
+        inventory.sort(reverse=True)
+        inventory.append(0)
+
+        res = 0
+        for i in range(1, len(inventory)):
+            if orders &gt; (inventory[i-1] - inventory[i]) * i:
+                orders -= (inventory[i-1] - inventory[</B></FONT>i]) * i
+            else:
+                k = inventory[i-1] - orders // i
+                remain = orders % i
+
+                for j in range(i):
+                    res = (res + (inventory[j] + k+1) * (inventory[j] - k) // 2) % 1000000007
+                res = (res + k * remain) % 1000000007
+                return res
+</PRE>
+
+</BODY>
+</HTML>

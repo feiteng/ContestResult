@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>345_xxxxqia.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>345_xxxxqia.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -&gt; int:
+        n = len(inventory)
+        inventory.sort(key = lambda x: -x)
+        res = 0
+        mod = 10**9+7
+        for i in range(n-1):
+            count = i+1
+            diff = inventory[i] - inventory[i+1] 
+            num = count * diff
+            if num &gt; orders:
+                base = inventory[i]
+                diff = orders// count
+                res += (count*((2*base-diff+1)*diff)//2) % mod
+                orders -= diff*count
+                base -= diff
+                res += orders*base
+                return res%mod
+            else:
+                orders -= num
+                res += (count*((inventory[i]+inventory[i+1]+1)*diff)//2) % mod
+        if orders &gt; 0:
+            base = inventory[-1]
+            count = n
+            diff = orders// count
+            res += (count*((2*base-diff+1)*diff)//2) % mod
+            orders -= diff*count
+            base -= diff
+            res += orders*base
+        re</B></FONT>turn res%mod
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

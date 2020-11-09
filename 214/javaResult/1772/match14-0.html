@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>573_sonkabin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>573_sonkabin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int createSortedArray(int[] instructions) {
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        for(int a : instructions){
+            set.add(a);
+        }
+        int n = set.size()</B></FONT>;
+        int[] cnt = new int[n + 1];
+        TreeMap&lt;Integer, Integer&gt; treemap = new TreeMap&lt;&gt;();
+        int idx = 1;
+        for(Integer i : set){
+            treemap.put(i, idx);
+            idx++;
+        }
+        long res = 0;
+        BIT bit = new BIT(n + 1);
+        for(int a : instructions){
+            idx = treemap.get(a);
+<A NAME="1"></A>            // System.out.println(idx);
+            bit.update(idx, 1);
+            int t1 = idx == 1 ? 0 : bit.query(idx - 1), t2 = bit.query(idx), t3 = bit.query(n);
+            int t = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.min(t1, t3 - t2);
+            res += t;
+            res %= 1000000007;
+        }
+        return (int)res;
+    }
+    class BIT{
+        int[] c;
+        int n;
+        public BIT(int n){
+            c</B></FONT> = new int[n + 1];
+            this.n = n;
+<A NAME="2"></A>        }
+        int lowerbit(int u){
+            return u &amp; (-u);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        public void update(int u, int cnt){
+            while(u &lt;= n){
+                c[u] += cnt;
+                u += lowerbit(u);
+            }
+        }
+        public int query(int u){
+            int res = 0;
+            while(u &gt; 0){
+                res += c[u];
+                u -= lowerbit(u);
+            }
+            return res;
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

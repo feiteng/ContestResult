@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>534_elleryqueenhomels.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>534_elleryqueenhomels.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minDeletions(String s) {
+        int[] cntMap = new int[128];
+        for (int i = 0; i &lt; s.length(); ++i) {</B></FONT>
+            cntMap[s.charAt(i)]++;
+<A NAME="1"></A>        }
+
+        PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (char c = 'a'; c &lt;= 'z'; ++c) {
+            if (cntMap[c] &gt; 0) {
+                maxHeap.offer(cntMap[c]);
+            }
+        }
+
+        int count = 0;
+        while (!maxHeap.isEmpty()) {
+            int maxFreq = maxHeap.poll();
+            if (maxHeap.isEmpty</B></FONT>()) {
+<A NAME="2"></A>                break;
+            }
+
+            if (maxFreq == <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>maxHeap.peek()) {
+                if (maxFreq &gt; 1) {
+                    maxHeap.offer(maxFreq - 1);
+                }
+                count++;
+            }
+        }
+
+        return count;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

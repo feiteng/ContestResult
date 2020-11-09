@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>211_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>211_2499370956.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int createSortedArray(int[] instructions) {
+        BIT bit = new BIT(100002);
+        int out = 0;
+<A NAME="0"></A>        for (int i : instructions) {
+            int lt = bit.query(i);
+            int gt = bit.query(100001) - bit.query(i + 1);
+            out += <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(lt, gt);
+            out %= 1000000000 + 7;
+            bit.update(i + 1, 1);
+        }
+        return out;
+    }
+
+    class BIT {
+
+        int n;
+        int[] a;
+
+        BIT(int n) {
+            t</B></FONT>his.n = n;
+<A NAME="1"></A>            a = new int[n + 1];
+        }
+
+        public void update(int i, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int x) {
+            for(; i &lt;= n; i += i&amp;-i) {
+                a[i] += x;
+            }
+        }
+
+        public int query(int i) {
+            int sum = 0;
+            for(; i &gt; 0; i -= i&amp;-i) {
+                sum += a[i];
+            }
+            return sum;
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

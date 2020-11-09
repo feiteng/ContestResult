@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>332_nocturne_.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>332_nocturne_.java</CENTER></H3><HR>
+<PRE>
+import java.util.Map;
+
+class Solution {
+    public int createSortedArray(int[] instructions) {
+<A NAME="0"></A>        int MOD = 1000000000 + 7;
+
+        int[] countTable = new int[100050];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeArray treeArray = new TreeArray();
+
+        long cost = 0;
+
+        int count = 0;
+        for (int instruction : instructions) {
+            count++;
+            countTable[instruction]++;
+            treeArray.add(instruction, 1);
+
+            int lessCount = treeArray.sum(instruction - 1);
+            int moreCount = count - countTable[instruction] - lessCount</B></FONT>;
+
+            cost = Math.floorMod(cost + Math.min(lessCount, moreCount), MOD);
+        }
+
+        return (int) Math.floorMod(cost, MOD);
+    }
+}
+
+
+class TreeArray {
+<A NAME="1"></A>    public static final int N = 100050;
+    public int[] c = new int[N];
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private int lowbit(int x) {
+        return x &amp; (-x);
+    }
+
+    public void add(int x, int d) {
+        while (x &lt;= N) {
+            c[x] += d;
+            x += lowbit(x);
+        }
+    }
+
+    public int sum(int x) {
+        int res = 0;
+        while (x &gt; 0) {
+            res += c[x];
+            x -= lowbit(x);
+        }
+        return res;
+    }</B></FONT>
+}
+
+</PRE>
+
+</BODY>
+</HTML>

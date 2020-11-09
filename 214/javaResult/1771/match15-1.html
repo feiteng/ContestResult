@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>143_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>143_luchy0120.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    long mod = 1000000007;
+    public int maxProfit(int[] is, int orders) {
+        int lo  = 0;
+        int hi = 0;
+        
+        for(int v:is){
+            hi = Math.max(hi,v);
+<A NAME="0"></A>        }
+        
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(lo&lt;hi){
+            
+            int mid =(lo+hi+1)&gt;&gt;1;
+            
+            long s = 0;
+            
+            for(int v:is){
+                if(v&gt;mid){
+                    s += v - mid;
+                }
+            }
+            
+            if(s&gt;=orders){
+                l</B></FONT>o = mid;
+                
+            }else{
+                hi = mid-1;
+                
+            }
+            
+            
+<A NAME="1"></A>            
+        }
+        long res = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long tot = 0;
+        for(int v:is){
+            if(v&gt;lo){
+                res += v - lo;
+                tot += (long)(v+lo+1)*(long)(v-(lo+1)+1)/2L;
+                tot %= mod;
+            }
+        }</B></FONT>
+        
+        
+        
+        
+        
+        
+        
+        while(res&gt;orders){
+            tot -= lo+1; 
+            tot %= mod;
+            tot += mod;
+            tot%= mod;
+            
+            
+            res--;
+        }
+        
+        
+        return (int)tot;
+        
+        
+        
+        
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

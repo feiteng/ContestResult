@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>251_hughstudy-n.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>251_hughstudy-n.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private static final int mod = 1_000_000_007;
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int maxProfit(int[] inventory, int orders) {
+        long res = 0;
+        TreeMap&lt;Long, Long&gt; map = new TreeMap&lt;&gt;();
+        for (int i : inventory) {
+            map.put((long)i, map.getOrDefault((long)i, 0L) + 1);
+        }</B></FONT>
+        while (orders &gt; 0) {
+            Map.Entry&lt;Long, Long&gt; last = map.lastEntry();
+            Map.Entry&lt;Long, Long&gt; next = map.lowerEntry(last.getKey());
+            long lastKey = last.getKey(), nextKey = next == null ? 0 : next.getKey();
+            long lastValue = last.getValue();
+            System.out.println(lastKey + &quot; &quot; + nextKey + &quot; &quot; + lastValue);
+            if ((lastKey - nextKey) * lastValue &lt; orders) {
+<A NAME="1"></A>                orders -= (lastKey - nextKey) * lastValue;
+                res = res + ((1L + lastKey + nextKey) * (lastKey - nextKey) / 2 % mod) * lastValue;
+                res %= mod;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
+                long count = orders / lastValue, remain = orders % lastValue;
+                res = res + ((1L + lastKey + lastKey - count) * count / 2 % mod) * lastValue + remain * (lastKey - count);
+                orders = 0;
+                res %= mod;
+            }</B></FONT>
+            if (nextKey != 0) {
+                map.remove(last.getKey());
+                map.put(nextKey, next.getValue() + last.getValue());
+            }
+        }
+        return (int)(res);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

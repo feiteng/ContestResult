@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>972_devansh5398.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>972_devansh5398.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define ll long long
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const ll mod = 1e9 + 7;
+
+class Solution {
+public:
+    
+    ll get_range_sm(ll a, ll b) {
+        ll aa = (a * (a+1)) / 2;
+        ll bb = (b * (b+1)) / 2;
+        return (aa - bb);
+    }
+    
+    int maxProfit(vector&lt;int&gt;&amp; arr, int orders) {
+        sort(arr.rbegin(), arr.rend());
+        arr.push_back(0);
+        
+<A NAME="1"></A>        ll n = arr.size(), i = 0, res = 0;</B></FONT>
+        while (orders) {
+            ll curr_sm = get_range_sm(arr[i], arr[i+1]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            curr_sm = curr_sm * (i+1);
+            
+            ll balls_used = (arr[i] - arr[i+1]) * (i + 1);
+            if (orders &gt;= balls_used) {
+                res += curr_sm;
+                res %= mod;
+                orders -= balls_used;
+                
+                // cout &lt;&lt; orders &lt;&lt; &quot; &quot; &lt;&lt; res &lt;&lt; &quot; &quot; &lt;&lt; balls_used &lt;&lt; endl;
+            }
+            else {
+                ll l = arr[i], h = arr[i+1], mid, sm, bused;</B></FONT>
+                
+//                 for (ll x = arr[i]; x &gt;= arr[i+1]; x--) {
+//                     if (orders &gt;= i+1) {
+//                         res += x * (i+1);
+//                         res %= mod;
+//                         orders -= (i+1);
+//                     }
+//                     else {
+//                         res += x * orders;
+//                         res %= mod;
+//                         orders = 0;
+//                     }
+                    
+//                     if (orders == 0)
+//                         break;
+//                 }
+                while (l &gt;= h) {
+                    mid = (l+h) &gt;&gt; 1;
+                    bused = (arr[i] - mid+1) * (i+1);
+                    if (orders == bused) {
+                        h = mid;
+                        break;
+                    }
+                    else if (orders &gt; bused)
+                        l = mid - 1;
+                    else
+                        h = mid + 1;
+                    
+                    // cout &lt;&lt; &quot;l: &quot; &lt;&lt; l &lt;&lt; &quot; m: &quot; &lt;&lt; mid &lt;&lt; &quot; h: &quot; &lt;&lt; h &lt;&lt; endl;
+                }
+                
+                bused = (arr[i] - mid+1) * (i+1);
+                if (orders &gt;= bused) {
+                    res += (get_range_sm(arr[i], mid-1) * (i+1));
+                    res %= mod;
+                    orders -= (arr[i] - mid+1) * (i+1);
+                    res += orders * (mid-1);
+                    res %= mod;
+                }
+                else {
+                    res += (get_range_sm(arr[i], mid) * (i+1));
+                    res %= mod;
+                    orders -= (arr[i] - mid) * (i+1);
+                    res += orders * mid;
+                    res %= mod;
+                }
+                
+                orders = 0;
+                
+                // cout &lt;&lt; orders &lt;&lt; &quot; &quot; &lt;&lt; res &lt;&lt; &quot; &quot; &lt;&lt; endl;
+            }
+            
+            i += 1;
+        }
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

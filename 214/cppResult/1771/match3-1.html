@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>676_manohari.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>676_manohari.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef long long int lli;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxProfit(vector&lt;int&gt; v, int ord) {
+        lli n=v.size();
+        lli l=0;
+        lli r=1000000001;
+        lli mi=0;
+        while(l&lt;=r){
+            lli m=(l+r)/2ll;
+            lli sum=0;
+            for(lli i=0;i&lt;n;i++){</B></FONT>
+                sum+=max(0ll,v[i]-m);
+            }
+            if(sum&gt;=ord){
+                l=m+1;
+                mi=max(mi,m);
+            }
+<A NAME="1"></A>            else{
+                r=m-1;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        lli to=0;
+        lli ans=0;
+        lli g=(mi*(mi+1))/2ll;
+        for(int i=0;i&lt;n;i++){
+            if(v[i]&gt;mi){
+                ans+=((lli(v[i]))*(lli(v[i]+1)))/2ll;
+                ans-=g;    
+                to+=v[i]-mi;</B></FONT>
+                while(ans&lt;0){
+                    ans+=1000000007;
+                }
+                ans%=1000000007;
+            }
+        }
+        if(to&gt;ord){
+            ans-=(mi+1)*(to-ord);
+            while(ans&lt;0){
+                ans+=1000000007;
+            }
+        }
+        while(ans&lt;0){
+            ans+=1000000007;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

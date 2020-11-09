@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_please_AC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_please_AC.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -&gt; int:
+        mod = 10 ** 9 + 7
+        
+        l = 0
+        r = 10 ** 9
+        
+        def check(mid):
+            return sum(max(0, i - mid + 1) for i in inventory) &gt;= orders
+        
+<A NAME="0"></A>        while l &lt; r:
+            mid = (l + r + 1) // 2
+            if check(mid):
+                l <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= mid
+            else:
+                r = mid - 1
+        
+        res = 0
+        for i in inventory:
+            if i &gt; l:
+                res += (i + l) * (i - l + 1) // 2
+                res %= mod
+                orders -= i - l + 1
+        res += orders * l
+        
+        re</B></FONT>turn res % mod
+        
+</PRE>
+
+</BODY>
+</HTML>

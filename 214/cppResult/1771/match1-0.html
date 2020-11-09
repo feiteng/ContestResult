@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>843_Aincrad-Lyu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>843_Aincrad-Lyu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int mod = 1e9 + 7;
+        sort(inventory.begin(), inventory.end());
+        int l = 0, r = 1e9;
+        while(l &lt;= r){
+            int mid = l + (r - l) / 2;
+            if(sum(inventory, mid) &gt; orders) l = mid + 1;
+            else r = mid - 1;
+        }
+
+        long long total = sum(inventory, l);</B></FONT>
+        if(total == orders) return solve(inventory, l);
+        else return (solve(inventory, l) + ((orders - total) * (l - 1)) % mod) % mod;
+<A NAME="1"></A>    }
+    
+private:
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    long long sum(vector&lt;int&gt; &amp;inventory, int val){
+        long long total = 0;
+        for(int x : inventory){
+            if(x &gt;= val) total += x - val + 1;
+        }
+        return total;
+    }
+    
+    int solve(vector&lt;int&gt; &amp;inventory, int val){</B></FONT>
+        long long res = 0, mod = 1e9 + 7;
+        for(int x : inventory){
+            if(x &gt;= val){
+                res = res + static_cast&lt;long long&gt;(x + val) * static_cast&lt;long long&gt;(x - val + 1) / 2;
+                res %= mod;
+            }
+        }
+        return static_cast&lt;int&gt;(res % mod);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

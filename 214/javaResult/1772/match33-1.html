@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_quantuminfo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>364_quantuminfo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  public int createSortedArray(int[] instructions) {
+    final int PRIME = 1_000_000_007;
+    Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+    for (int i : instructions) {
+      set.add(i);
+    }
+    
+    List&lt;Integer&gt; list = new ArrayList&lt;&gt;(set);
+    Collections.sort(list);
+    Map&lt;Integer, Integer&gt; index = new HashMap&lt;&gt;();
+    for (int i = 0; i &lt; list.size(); i++) {
+      index.put(list.get(i), i + 1);
+    }
+    
+<A NAME="1"></A>    int total = 0;
+    FenwickTree tree = new FenwickTree(list.size());
+    
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; instructions.length; i++) {
+      int pos = index.get(instructions[i]);
+      int smaller = tree.sum(pos - 1);
+      int larger = i - tree.sum</B></FONT>(Math.min(pos, list.size()));
+      total = (total + Math.min(smaller, larger)) % PRIME;
+      tree.add(pos, 1);
+    }
+    System.out.println(Arrays.toString(tree.array));
+    return total;
+  }
+  
+  public static class FenwickTree {
+    int[] array;
+    private int n;
+    
+    public FenwickTree(int n) {
+      this.n = n + 1;
+<A NAME="0"></A>      array = new int[n + 1];
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int lowB(int a) {
+      return a &amp; (-a);
+    }
+    
+    private void add(int i, int v) {
+      while (i &lt; n) {
+        array[i] += v;
+        i += lowB(i);
+      }
+    }
+    
+    private int sum(int i) {
+      int sum = 0;
+      while (i &gt; 0) {
+        sum += array[i];
+        i -= lowB(i);
+      }
+      return sum;
+    }</B></FONT>
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

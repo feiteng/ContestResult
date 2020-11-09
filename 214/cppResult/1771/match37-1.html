@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>745_weijunji.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>745_weijunji.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 1e9 + 7;
+#define ull unsigned long long
+
+class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {
+        unordered_map&lt;ull, ull&gt; map;
+        for(ull inv : inventory){
+            map[inv]++;
+        }
+        priority_queue&lt;pair&lt;ull, ull&gt;&gt; heap;
+        for(auto kv : map){
+            heap.push(make_pair(kv.first, kv.second));
+        }
+        ull res = 0;
+        while(orders &gt; 0){
+<A NAME="0"></A>            if(heap.size() &gt; 1){
+                auto top = heap.top(); heap.pop();
+                auto second = heap.top(); heap.pop();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                ull cha = top.first - second.first;
+                ull times = top.second;
+                if(cha * times &lt; orders){
+                    orders -= cha * times;
+                    res += (top.first + second.first + 1) * cha / 2 * times;
+                    res = res % N;
+                    second.second += top.second;
+                    heap.push(second);
+                }else{
+                    ull all = orders / times;
+                    ull remain = orders % times;
+                    res += (top.first + top.first - all + 1) * all / 2 * times;
+                    res += (top.first - all) * remain;
+                    break;
+                }</B></FONT>
+            }else{
+                auto top = heap.top(); heap.pop();
+                ull times = top.second;
+                ull all = orders / times;
+                ull remain = orders % times;
+                res += (top.first + top.first - all + 1) * all / 2 * times;
+                res += (top.first - all) * remain;
+                break;
+            }
+        }
+        res = res % N;
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

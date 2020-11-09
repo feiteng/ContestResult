@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>254_phython.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>254_phython.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int tree[100007];
+    int lowbit(int x) {
+        return x &amp; (-x);
+    }
+    void add(int p,int v) {
+        while(p &lt;= 100000) {
+            tree[p] += v;
+            p += lowbit(p);
+        }
+    }
+    int sum(int p) {
+        int ans = 0;
+        while(p) {
+            ans += tree[p];
+            p -= lowbit(p);
+        }
+        return ans;
+    }
+    int createSortedArray(vector&lt;int&gt;&amp; instructions) {</B></FONT>
+<A NAME="1"></A>        const int mod = 1000000007;
+        int ans = 0;
+        memset(tree,0, sizeof(tree));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0;i &lt; instructions.size();++i) {
+            int x = instructions[i];
+            int l = sum(x - 1);
+            int r = i - sum(x);
+            ans += 1ll * min(l, r);</B></FONT>
+            ans %= mod;
+            add(x, 1);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

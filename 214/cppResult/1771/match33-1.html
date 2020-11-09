@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_penguinhacker.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_penguinhacker.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    #define ll long long
+    const int MOD = 1e9 + 7;
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    ll range(int a, int b) {
+        int tot = b - a + 1;
+        int add = a + b;
+        return (ll)add * tot / 2 % MOD;
+    }
+    
+    int maxProfit(vector&lt;int&gt;&amp; a, int m) {
+<A NAME="1"></A>        int n = a.size();</B></FONT>
+        sort(a.rbegin(), a.rend());
+        a.push_back(0);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        long long ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            int before = i + 1;
+            int dif = a[i] - a[i + 1];
+            if ((ll)dif * before &lt; m) {</B></FONT>
+                m -= dif * before;
+                ll x = range(a[i + 1] + 1, a[i]) * before;
+                ans = (ans + x) % MOD;
+            }
+            else {
+                int can = m / before;
+                ll x = range(a[i] - can + 1, a[i]) * before;
+                x += (ll)(a[i] - can) * (m % before);
+                ans = (ans + x) % MOD;
+                break;
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

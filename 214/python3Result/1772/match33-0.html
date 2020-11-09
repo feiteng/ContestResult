@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_foreveriii.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>459_foreveriii.py</CENTER></H3><HR>
+<PRE>
+class TreeNode:
+    def __init__(self, rl, rr):
+        self.rl = rl
+        self.rr = rr
+        self.mid = (rl+rr)//2
+        self.count = 0
+        self._l_child=None
+        self._r_child=None
+        
+    
+    @property
+    def left(self):
+        if not self._l_child:
+            self._l_child = TreeNode(self.rl, self.mid)
+        return self._l_child
+    
+    @property
+    def right(self):
+        if not self._r_child:
+            self._r_child = TreeNode(self.mid+1, self.rr)
+        return self._r_child
+    
+    def __str__(self):
+        if self.count==0:
+            return &quot;None&quot;
+        return f&quot;{self.rl}to{self.rr}:{self.count}:{self._l_child},{self._r_child}&quot;
+    
+    def add(self, val, count):
+        self.count += count
+        if self.rl == self.rr:
+            return
+        else:
+            if val &lt;= self.mid:
+                self.left.add(val, count)
+            else:
+                self.right.add(val, count)
+    
+    def query(self, left, right):
+        if left &gt; right:
+            return 0
+        if left &lt;= self.rl and right &gt;= self.rr:
+            return self.count
+        elif left &gt; self.rr or right &lt; self.rl:
+            return 0
+        elif right &lt;= self.mid:
+            return self.left.query(left, right)
+        elif left &gt; self.mid:
+            return self.right.query(left, right)
+        else:
+            return self.left.query(left, self.mid) + self.right.query(self.mid+1, right)
+        
+        
+class Solution:
+    def createSortedArray2(self, instructions: List[int]) -&gt; int:
+        MIN=min(instructions)
+        MAX=max(instructions)
+        root=TreeNode(MIN, MAX)
+        res=0
+        curr=0
+        pre=-1
+        LEN=len(instructions)
+        while curr &lt; LEN:
+            c=instructions[curr] 
+            while curr &lt; LEN and instructions[curr] == c:
+                curr += 1
+            root.add(c, curr-pre-1)
+            pre=curr-1
+            res+=min(root.query(MIN, c-1), root.query(c+1, MAX))
+<A NAME="0"></A>        return res % (10**9 + 7)
+            
+        
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def createSortedArray(self, instructions: List[int]) -&gt; int:
+        res=0
+        num=[]
+        for a in instructions:
+            res+=min(bisect.bisect_left(num,a), len(num)-bisect.bisect_right(num,a))
+            bisect.insort(num, a)
+        return</B></FONT> res% (10**9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

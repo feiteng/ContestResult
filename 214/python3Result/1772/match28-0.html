@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>600_it_boy94.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>600_it_boy94.py</CENTER></H3><HR>
+<PRE>
+MOD = 10 ** 9 + 7
+
+<A NAME="0"></A>class FenwickTree:
+    def __init__(self, N):
+        self.N = N
+        self.ft = [0] * (self.<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>N+1)
+    
+    def update(self, i):
+        i = i + 1
+        while i &lt;= self.N:
+            self.ft[i] += 1
+            i += i &amp; -i
+<A NAME="1"></A>
+    def</B></FONT> query(self, i):
+        ret = 0
+        i <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= i + 1
+        while i &gt; 0:
+            ret += self.ft[i]
+            i -= i &amp; -i
+        return ret
+    
+class Solution:
+    def createSortedArray(self, instructions: List[int]) -&gt; int:
+        N =</B></FONT> max(instructions)
+        ft = FenwickTree(N+1)
+<A NAME="2"></A>        cost = 0
+        
+        for x in instructions:
+            cost_smaller <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= ft.query(x-1)
+            cost_larger = ft.query(N) - ft.query(x)
+            cost += min(cost_smaller, cost_larger) % MOD
+            cost %= MOD
+            ft.update(x)
+        
+        re</B></FONT>turn cost
+</PRE>
+
+</BODY>
+</HTML>

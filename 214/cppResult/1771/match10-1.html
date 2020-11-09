@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_hamlet_fiis.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>274_hamlet_fiis.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int maxProfit(vector&lt;int&gt;&amp; v, int _orders) {
+        v.push_back(0);
+        sort(v.begin(), v.end());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        long long cnt = 1;
+        long long ans = 0;
+        long long orders = _orders;
+        long long mod =1000000007;
+        
+        for (int i = v.size()-1;i&gt;=1;i--) {
+            if( v[i] == v[i-1]){
+                cnt++;
+            } else {
+                long long dif = v[i] - v[i-1];
+                if (dif*cnt &lt;= orders) {</B></FONT>
+                    //v[i]  v[i-1]
+                    long long lo = v[i - 1] + 1;
+                    long long hi = v[i];
+                    
+                    ans = (ans + ((((lo + hi)*(hi - lo  +1))/2)%mod)*cnt )%mod;
+                    orders -= dif*cnt;
+                } else {
+                    //1  5 5 5 5 5 5 5  -&gt; 1  //16
+                    //   2 2 3 3 3 3 3
+                    int down = orders/cnt;
+                    long long lo = v[i] - down +1;
+                    long long hi = v[i];
+                    ans = (ans + ((((lo + hi)*(hi - lo  +1))/2)%mod)*cnt )%mod;
+                    long long missing = orders%cnt;
+                    ans = (ans + missing*(v[i]-down))%mod;
+                    break;
+                }
+                cnt++;
+            }
+        }
+        
+        return ans%mod;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>407_Arsenal-591.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>407_Arsenal-591.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; inventory, int orders) {
+        const int mod = 1e9 + 7;
+        sort(inventory.begin(), inventory.end(), greater&lt;int&gt;());
+        long long ret = 0;
+        int i = 0;
+        long long tot = 0;
+        int n = inventory.size();
+        while (i &lt; n &amp;&amp; tot &lt; orders) {
+<A NAME="0"></A>            long long nxt = (i &lt; n - 1 ? inventory[i+1]: 0);
+            long long need = (inventory[i] - nxt) * (i + 1);
+            if (tot + need &lt;= orders) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                long long single = (nxt + 1 + inventory[i]) * (inventory[i] - nxt) / 2;
+                tot += need;
+                ret += single * (i + 1);
+                ret %= mod;
+                //cout &lt;&lt; ret &lt;&lt; endl;
+            } else {
+<A NAME="1"></A>                long long left = orders - tot;
+                long long q = left / (i + 1);
+                long long r = left % (i + 1);</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                long long small = (inventory[i] + inventory[i] - q + 1) * q / 2;
+                long long big = (inventory[i] + inventory[i] - q) * (q + 1) / 2;
+                //cout &lt;&lt; small &lt;&lt; ' ' &lt;&lt; big &lt;&lt; endl;
+                long long diff = big * r + small * (i + 1 - r);
+                ret += diff;
+                ret %= mod;
+                //cout &lt;&lt; ret &lt;&lt; endl;
+                break;
+            }</B></FONT>
+            i++;
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
