@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>71_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>71_huntersjm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int ans = 0;
+    private static int[] mask = {1, 3, 9, 27, 81, 243, 729};
+    private static int[] value;
+    private static int[][] valueJoin;
+
+    static {
+        int n = 5;
+        value = new int[mask[n]];
+<A NAME="1"></A>        for (int i = 0; i &lt; mask[n]; i++) {
+            int last = 0;
+            for (int j = 0; j &lt; n; j++) {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int cc = i % mask[j + 1] / mask[j];
+                if (cc == 1) {
+                    value[i] += 120;
+                    if (last == 1) {
+                        value[i] -= 60;
+<A NAME="2"></A>                    } else if (last == 2) {
+                        value[i] -= 10;
+                    }
+                }</B></FONT> else <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (cc == 2) {
+                    value[i] += 40;
+                    if (last == 1) {
+                        value[i] -= 10;
+                    } else if (last == 2) {
+                        value[i] += 40;
+                    }
+                }</B></FONT>
+                last = cc;
+            }
+        }
+        valueJoin = new int[mask[n]][mask[n]];
+        for (int i = 0; i &lt; mask[n]; i++) {
+            for (int j = 0; j &lt; mask[n]; j++) {
+                for (int k = 0; k &lt; n; k++) {
+                    int cc = i % mask[k + 1] / mask[k];
+                    int dd = j % mask[k + 1] / mask[k];
+                    if (cc == 1 &amp;&amp; dd == 1) {
+                        valueJoin[i][j] -= 60;
+                    } else if (cc == 1 &amp;&amp; dd == 2) {
+                        valueJoin[i][j] -= 10;
+                    } else if (cc == 2 &amp;&amp; dd == 2) {
+                        valueJoin[i][j] += 40;
+                    } else if (cc == 2 &amp;&amp; dd == 1) {
+                        valueJoin[i][j] -= 10;
+                    }
+                }
+            }
+        }
+    }
+
+    public int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        return help(n, new int[m + 1][introvertsCount + 1][extrovertsCount + 1][mask[n]],
+                new boolean[m + 1][introvertsCount + 1][extrovertsCount + 1][mask[n]],
+                0,
+                m,
+                introvertsCount,
+                extrovertsCount
+        );
+    }
+<A NAME="0"></A>
+    private int help(int n, int[][][][] dp, boolean[][][][] visit, int mk, int x, int introvertsCount,
+                     int extrovertsCount) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (introvertsCount == 0 &amp;&amp; extrovertsCount == 0) {
+            return value[mk];
+        }
+        if (x == 0) {
+            return value[mk];
+        }
+        if (visit[x][introvertsCount][extrovertsCount][mk]) {</B></FONT>
+            return dp[x][introvertsCount][extrovertsCount][mk];
+        }
+
+        int ans = value[mk];
+        for (int i = 0; i &lt; mask[n]; i++) {
+            int inC = 0;
+            int exC = 0;
+            for (int j = 0; j &lt; n; j++) {
+                int cc = i % mask[j + 1] / mask[j];
+                if (cc == 1) {
+                    inC++;
+                } else if (cc == 2) {
+                    exC++;
+                }
+            }
+            if (introvertsCount &gt;= inC &amp;&amp; extrovertsCount &gt;= exC) {
+                int v = help(n, dp, visit, i, x - 1, introvertsCount - inC, extrovertsCount - exC);
+                ans = Math.max(ans, value[mk] + v + valueJoin[mk][i]);
+            }
+        }
+        dp[x][introvertsCount][extrovertsCount][mk] = ans;
+        visit[x][introvertsCount][extrovertsCount][mk] = true;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

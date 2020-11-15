@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int getMaxGridHappiness(int m, int n, int ic, int ec) {
+        int rc = 1;
+        for (int i = 0; i &lt; n; ++i)
+            rc*=3;
+<A NAME="0"></A>        int[] ric = new int[rc];
+        int[] rec = new int[rc];
+        int[] rs = new int[rc];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; rc; ++i) {
+            int last = 0;
+            int num = i;
+            for (int j = 0; j &lt; n; ++j) {
+                int cur = num%3;
+                if (cur==1) {</B></FONT>
+                    ric[i]++;
+                    rs[i]+=120;
+                    if (last==1)
+                        rs[i]-=60;
+                    if (last==2)
+                        rs[i]-=10;
+                }
+                if (cur==2) {
+                    rec[i]++;
+                    rs[i]+=40;
+                    if (last==1)
+                        rs[i]-=10;
+                    if (last==2)
+                        rs[i]+=40;
+                }
+                last=cur;
+                num/=3;
+            }
+        }
+        int[][] conn = new int[rc][rc];
+        for (int i = 0; i &lt; rc; ++i) {
+            for (int j = 0; j &lt; rc; ++j) {
+                int ni = i;
+                int nj = j;
+                for (int k = 0; k &lt; n; ++k) {
+                    int ci = ni%3;
+                    int cj = nj%3;
+                    if (ci==1&amp;&amp;cj==1)
+                        conn[i][j]-=60;
+                    if (ci==1&amp;&amp;cj==2)
+                        conn[i][j]-=10;
+                    if (ci==2&amp;&amp;cj==1)
+                        conn[i][j]-=10;
+                    if (ci==2&amp;&amp;cj==2)
+                        conn[i][j]+=40;
+                    ni/=3;
+                    nj/=3;
+                }
+            }
+        }
+        
+        int[][][][] dp = new int[m][rc][ic+n+1][ec+n+1];
+<A NAME="1"></A>        for (int i = 0; i &lt; rc; ++i) {
+            dp[0][i][ric[i]][rec[i]]=rs[i];
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; m; ++i) {
+            for (int ci = 0; ci&lt;=ic; ++ci) {
+                for (int ce = 0; ce&lt;=ec; ++ce) {</B></FONT>
+                    for (int j = 0; j &lt; rc; ++j) {
+                        if (dp[i-1][j][ci][ce]==0)
+                            continue;
+                        for (int k = 0; k &lt; rc; ++k) {
+                            dp[i][k][ci+ric[k]][ce+rec[k]] = Math.max(dp[i][k][ci+ric[k]][ce+rec[k]], dp[i-1][j][ci][ce]+rs[k]+conn[j][k]);
+                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; rc; ++j) {
+                for (int ci = 0; ci&lt;=ic; ++ci) {
+                    for (int ce = 0; ce&lt;=ec; ++ce) {
+                        ans = Math.max(ans,dp[i][j][ci][ce]);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

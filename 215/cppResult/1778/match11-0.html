@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_wnjxyk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>37_wnjxyk.cpp</CENTER></H3><HR>
+<PRE>
+int dp[8][8][8][250], base[12];
+int mov[250][250], movIn[250][250], movEx[250][250];
+int get(int s, int i){
+    s = s % base[i + 1];
+    return s / base[i];
+}
+
+class Solution {
+public:
+    int getMaxGridHappiness(int n, int m, int introvertsCount, int extrovertsCount) {
+<A NAME="0"></A>        memset(dp, -1, sizeof(dp)); dp[0][0][0][0] = 0;
+        base[0] = 1; for (int i = 1; i &lt;= 5; i++) base[i] = base[i - 1] * 3;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int lim = base[m]; // printf(&quot;%d\n&quot;, lim);
+        
+        for (int s = 0; s &lt; lim; s++){
+            for (int cur = 0; cur &lt; lim; cur++){</B></FONT>
+                mov[s][cur] = movIn[s][cur] = movEx[s][cur] = 0;
+                for (int i = 0; i &lt; m; i++){
+<A NAME="1"></A>                    if (get(cur, i) == 0) continue;
+                    if (get(s, i) == 1) mov[s][cur] -= 30;
+                    if (get(s, i) == 2) mov[s][cur] += 20;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    if (get(cur, i) == 1){
+                        movIn[s][cur] += 1; mov[s][cur] += 120;
+                        if (get(s, i) &gt; 0) mov[s][cur] -= 30;
+                        if (i &gt; 0 &amp;&amp; get(cur, i - 1) &gt; 0) mov[s][cur] -= 30;
+                        if (i + 1 &lt; m &amp;&amp; get(cur, i + 1) &gt; 0) mov[s][cur] -= 30;
+                    }
+                    if (get(cur, i) == 2){
+                        movEx[s][cur] += 1; mov[s][cur] += 40;
+                        if (get(s, i) &gt; 0) mov[s][cur] += 20;
+                        if (i &gt; 0 &amp;&amp; get(cur, i - 1) &gt; 0) mov[s][cur] += 20;
+                        if (i + 1 &lt; m &amp;&amp; get(cur, i + 1) &gt; 0) mov[s][cur] += 20;
+                    }</B></FONT>
+                }
+<A NAME="2"></A>            }
+        }
+        
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int row = 1; row &lt;= n; row++){
+            for (int in = 0; in &lt;= introvertsCount; in++){
+                for (int ex = 0; ex &lt;= extrovertsCount; ex++){
+                    for (int s = 0; s &lt; lim; s++){
+                        if (dp[row - 1][in][ex][s] == -1) continue;
+                        for (int cur = 0; cur &lt; lim; cur++){
+                            int deltaIn = movIn[s][cur], deltaEx = movEx[s][cur], delta = mov[s][cur];</B></FONT>
+                            // printf(&quot;%d %d %d\n&quot;, deltaIn, deltaEx, delta);
+                            if (in + deltaIn &lt;= introvertsCount &amp;&amp; ex + deltaEx &lt;= extrovertsCount)
+                                dp[row][in + deltaIn][ex + deltaEx][cur] = max(dp[row][in + deltaIn][ex + deltaEx][cur], dp[row - 1][in][ex][s] + delta);
+                        }
+
+                    }
+                }
+            }
+        }
+        
+        int ans = 0;
+        for (int s = 0; s &lt; lim; s++)
+            for (int in = 0; in &lt;= introvertsCount; in++)
+                for (int ex = 0; ex &lt;= extrovertsCount; ex++)
+                    ans = max(ans, dp[n][in][ex][s]);
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

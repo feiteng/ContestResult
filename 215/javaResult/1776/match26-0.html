@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>859_lianyoucat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>859_lianyoucat.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minOperations(int[] nums, int x) {
+        int n=nums.length;
+        int tot=0;
+        HashMap&lt;Integer,Integer&gt; map=new HashMap&lt;&gt;();
+        for(int i=0;i&lt;n;i++){
+            tot+=nums[i];
+        }
+        if(tot==x) return n;
+<A NAME="1"></A>        int sum=0;</B></FONT>
+        map.put(0,0);
+        int ans=n+32;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i=1;i&lt;=n;i++){
+            sum+=nums[i-1];
+            if(map.containsKey(sum-tot+x)){
+                ans=Math.min(ans,n-(i-map.get(sum-tot+x)));
+            }</B></FONT>
+            map.put(sum,i);
+        }
+        if(ans&gt;n) return -1;
+        return ans;
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

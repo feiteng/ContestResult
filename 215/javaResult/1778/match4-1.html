@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_14417335.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>25_14417335.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  private List&lt;String&gt; permu(final int N) {
+    List&lt;String&gt; res = new ArrayList&lt;&gt;();
+    char[] cs = &quot;VIE&quot;.toCharArray();
+    dfs(N, cs, res, new StringBuilder());
+    return res;
+  }
+
+  private void dfs(int needs, char[] cs, List&lt;String&gt; res, StringBuilder sb) {
+    if (needs == 0) {
+      res.add(sb.toString());
+      return;
+    }
+    needs--;
+    for (int i = 0; i != 3; i++) {
+      sb.append(cs[i]);
+      dfs(needs, cs, res, sb);
+      sb.deleteCharAt(sb.length() - 1);
+    }
+  }
+
+  public int getMaxGridHappiness(final int R, final int C, int intros, int extros) {
+    List&lt;String&gt; stringstates = permu(C);
+    final int STATES = stringstates.size();
+    init(stringstates);
+    int[][][] dp = build(intros, extros, STATES);
+    dp[intros][extros][0] = 0;
+
+<A NAME="0"></A>    for (int r = 0; r != R; r++) {
+      int[][][] prevdp = dp;
+      dp = build(intros, extros, STATES);
+      <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int prev = 0; prev != STATES; prev++) {
+        for (int in = intros; in != -1; in--) {
+          for (int ex = extros; ex != -1; ex--) {
+            for (int next = 0; next != STATES; next++) {</B></FONT>
+              int usedin = stateintro[next], usedex = stateextro[next];
+              if (usedin &lt;= in &amp;&amp; usedex &lt;= ex) {
+<A NAME="1"></A>                dp[in - usedin][ex - usedex][next] = Math.max(dp[in - usedin][ex - usedex][next],
+                    prevdp[in][ex][prev] + initialbless[next] + net[prev][next]);
+              }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+          }
+        }
+      }
+    }
+
+    int res = 0;
+    for (int[][] m</B></FONT> : dp)
+      for (int[] row : m)
+        for (int h : row)
+          res = Math.max(res, h);
+    return res;
+  }
+
+  private int[][][] build(int intros, int extros, int STATES) {
+    int[][][] dp = new int[intros + 1][extros + 1][STATES];
+    for (int[][] m : dp)
+      for (int[] row : m)
+        Arrays.fill(row, -20000);
+    return dp;
+  }
+
+  private int[] stateintro, stateextro, initialbless;
+  private int[][] net;
+
+  private void init(List&lt;String&gt; stringstates) {
+    stateintro = new int[stringstates.size()];
+    stateextro = new int[stringstates.size()];
+    for (int i = 0; i != stringstates.size(); i++) {
+      String state = stringstates.get(i);
+      int in = 0, ex = 0;
+      for (int j = 0; j != state.length(); j++) {
+        if (state.charAt(j) == 'I')
+          in++;
+        else if (state.charAt(j) == 'E')
+          ex++;
+      }
+      stateintro[i] = in;
+      stateextro[i] = ex;
+    }
+
+    final int STATES = stringstates.size();
+    initialbless = new int[STATES];
+    for (int i = 0; i != STATES; i++) {
+      String a = stringstates.get(i);
+      int tmp = stateintro[i] * 120 + stateextro[i] * 40;
+      for (int c = 0; c != a.length(); c++) {
+        char ch = a.charAt(c);
+        if (c != 0) { // left
+          if (ch == 'I' &amp;&amp; a.charAt(c - 1) != 'V')
+            tmp -= 30;
+          else if (ch == 'E' &amp;&amp; a.charAt(c - 1) != 'V')
+            tmp += 20;
+        }
+        if (c != a.length() - 1) { // right
+          if (ch == 'I' &amp;&amp; a.charAt(c + 1) != 'V')
+            tmp -= 30;
+          else if (ch == 'E' &amp;&amp; a.charAt(c + 1) != 'V')
+            tmp += 20;
+        }
+      }
+      initialbless[i] = tmp;
+    }
+
+    net = new int[STATES][STATES];
+    for (int i = 0; i != STATES; i++) {
+      String a = stringstates.get(i);
+      for (int j = 0; j != STATES; j++) {
+        String b = stringstates.get(j);
+        int tmp = 0;
+        for (int c = 0; c != a.length(); c++) { // a's gain
+          if (a.charAt(c) == 'I' &amp;&amp; b.charAt(c) != 'V')
+            tmp -= 30;
+          else if (a.charAt(c) == 'E' &amp;&amp; b.charAt(c) != 'V')
+            tmp += 20;
+        }
+        // b to a's gain
+        for (int c = 0; c != b.length(); c++) { // a's gain
+          if (b.charAt(c) == 'I' &amp;&amp; a.charAt(c) != 'V')
+            tmp -= 30;
+          else if (b.charAt(c) == 'E' &amp;&amp; a.charAt(c) != 'V')
+            tmp += 20;
+        }
+        net[i][j] = tmp;
+      }
+    }
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

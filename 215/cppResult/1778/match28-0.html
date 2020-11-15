@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>27_superj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>27_superj.cpp</CENTER></H3><HR>
+<PRE>
+/*
+内向的人 开始 时有 120 个幸福感，但每存在一个邻居（内向的或外向的）他都会 失去  30 个幸福感。
+外向的人 开始 时有 40 个幸福感，每存在一个邻居（内向的或外向的）他都会 得到  20 个幸福感。
+*/
+
+<A NAME="0"></A>const int maxn=(1&lt;&lt;5)+10;
+int dp[6][maxn][maxn][10][10],Sum[maxn][maxn];
+int cal(int i, int j, int n, int m) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int tem=(i|j),sum=0;
+    for (int k=0; k&lt;m; k++) {
+        if ((i&gt;&gt;k)&amp;1) { //外
+            sum+=40;
+<A NAME="1"></A>            if (k&amp;&amp;((tem&gt;&gt;(k-1))&amp;1)) sum+=20;
+            if (k!=m-1&amp;&amp;((tem&gt;&gt;(k+1))&amp;1)) sum+=20;
+        }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if ((j&gt;&gt;k)&amp;1) { //内
+            sum+=120;
+            if (k&amp;&amp;((tem&gt;&gt;(k-1))&amp;1)) sum-=30;
+            if (k!=m-1&amp;&amp;((tem&gt;&gt;(k+1))&amp;1)) sum-=30;
+        }
+    }
+    return sum;
+}
+<A NAME="2"></A>int solve(int i, int j, int Li, int Lj, int m) {</B></FONT>
+    int tem=(i|j);
+    int Ltem=(Li|Lj);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int sum=0;
+    for (int k=0; k&lt;m; k++) {
+        if ((i&gt;&gt;k)&amp;1) { //当前外
+            if ((Ltem&gt;&gt;k)&amp;1) sum+=20;
+        }</B></FONT>
+        if ((j&gt;&gt;k)&amp;1) { //当前内
+            if ((Ltem&gt;&gt;k)&amp;1) sum-=30;
+        }
+        if ((Li&gt;&gt;k)&amp;1) { //上一行外
+            if ((tem&gt;&gt;k)&amp;1) sum+=20;
+        }
+        if ((Lj&gt;&gt;k)&amp;1) { //上一行内
+            if ((tem&gt;&gt;k)&amp;1) sum-=30;
+        }
+    }
+    return sum;
+}
+int cnt[maxn];
+int Cnt(int num) {
+    int res=0;
+    while (num) {
+        if (num&amp;1) res+=1;
+        num&gt;&gt;=1;
+    }
+    return res;
+}
+<A NAME="3"></A>class Solution {
+public:
+    int getMaxGridHappiness(int n, int m, int in, int ex) {
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match28-1.html#3',3,'match28-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0; i&lt;=n; i++) {
+            for (int j=0; j&lt;(1&lt;&lt;m); j++) {
+                for (int k=0; k&lt;(1&lt;&lt;m); k++) {
+                    for (int p=0; p&lt;=in; p++) {</B></FONT>
+                        for (int p1=0; p1&lt;=ex; p1++) dp[i][j][k][p][p1]=-1e9;
+                    }
+                }
+            }
+<A NAME="4"></A>        }
+        for (int i=0; i&lt;(1&lt;&lt;m); i++) cnt[i]=Cnt(i);
+        memset(Sum,0,sizeof(Sum));
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match28-1.html#4',3,'match28-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res=0;
+        for (int i=0; i&lt;(1&lt;&lt;m); i++) { //内
+            for (int j=0; j&lt;(1&lt;&lt;m); j++) { //外
+                if (i&amp;j) continue;</B></FONT>
+                Sum[i][j]=dp[1][i][j][cnt[i]][cnt[j]]=cal(j,i,n,m);
+                if (cnt[i]&lt;=in&amp;&amp;cnt[j]&lt;=ex) res=max(res,dp[1][i][j][cnt[i]][cnt[j]]);
+            }
+        }
+        for (int now=2; now&lt;=n; now++) {
+            for (int Lnp=0; Lnp&lt;=in; Lnp++) {
+                for (int Lep=0; Lep&lt;=ex; Lep++) {
+                    for (int np=Lnp; np&lt;=in; np++) {
+                        for (int ep=Lep; ep&lt;=ex; ep++) {
+                            for (int Li=0; Li&lt;(1&lt;&lt;m); Li++) {
+                                for (int Lj=0; Lj&lt;(1&lt;&lt;m); Lj++) {
+                                    if (Li&amp;Lj) continue;
+                                    if (dp[now-1][Li][Lj][Lnp][Lep]&lt;=-1e9) continue;
+                                    
+                                    for (int i=0; i&lt;(1&lt;&lt;m); i++) {
+                                        if (cnt[i]+Lnp!=np) continue;
+                                        for (int j=0; j&lt;(1&lt;&lt;m); j++) {
+                                            if (i&amp;j) continue;
+                                            if (cnt[j]+Lep!=ep) continue;
+                                            dp[now][i][j][np][ep]=max(dp[now][i][j][np][ep],dp[now-1][Li][Lj][Lnp][Lep]+Sum[i][j]+solve(j,i,Lj,Li,m));
+                                            res=max(res,dp[now][i][j][np][ep]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            
+                        }
+                    }
+                    
+                
+                    
+                    
+                    
+                }
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

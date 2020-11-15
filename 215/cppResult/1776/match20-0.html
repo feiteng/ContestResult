@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>117_sunsetcolors.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>117_sunsetcolors.cpp</CENTER></H3><HR>
+<PRE>
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+#define IO std::ios::sync_with_stdio(false); cin.tie(0)
+#define ll long long
+#define ull unsigned long long
+#define SZ(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rep(i, l, r) for (int i = l; i &lt;= r; i++)
+#define per(i, l, r) for (int i = l; i &gt;= r; i--)
+#define mset(s, _) memset(s, _, sizeof(s))
+#define pb push_back
+#define pii pair &lt;int, int&gt;
+#define mp(a, b) make_pair(a, b)
+#define debug(x) cerr &lt;&lt; #x &lt;&lt; &quot; = &quot; &lt;&lt; x &lt;&lt; '\n';
+#define pll pair &lt;ll, ll&gt;
+#define fir first
+#define sec second
+#define INF 0x3f3f3f3f
+
+<A NAME="0"></A>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; nums, int x) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      unordered_map&lt;int,int&gt; pre;
+      int sum = 0;
+      pre[0] = 0;
+      for(int i = 0 ; i &lt; nums.size() ; i++) {
+        sum += nums[i];
+        if (!pre.count(sum)) pre[sum] = i + 1;
+      }
+      sum = 0;
+      int res = INF;
+      if(pre.count(x)) res = pre[x];
+      for(int j = nums.size() - 1 ; j &gt;= 0 ; j--){
+        sum += nums[j];
+        int now = x - sum;
+        if(pre.count(now)) {</B></FONT>
+          if(pre[now] &lt; j) {
+            int tmp = nums.size() - j + pre[now];
+            res = min(res,tmp);
+          }
+        }
+      }
+      if(res == INF) return -1;
+      else return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

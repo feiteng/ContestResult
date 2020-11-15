@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>23_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>23_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int p3[6]={1,3,9,27,81,243};
+    int dp[6][7][7][243];
+    int liv[5],lst[5];
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        memset(dp,-2,sizeof(dp));
+        dp[0][0][0][0]=0;
+        for(int i=1;i&lt;=m;i++)
+        {
+            for(int j=0;j&lt;p3[n];j++)
+            {
+                int intr=0,extr=0;
+                int con=j;
+                for(int c=0;c&lt;n;c++)
+                {
+                    liv[c]=con%3;
+                    con=con/3;
+<A NAME="0"></A>                    if(liv[c]==1)intr++;
+                    else if(liv[c]==2)extr++;
+                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int happy=intr*120+extr*40;
+                for(int c=0;c&lt;n;c++)
+                {
+                    if(liv[c]==1)
+                    {
+                        if(c-1&gt;=0&amp;&amp;liv[c-1])happy=happy-30;
+                        if(c+1&lt;n&amp;&amp;liv[c+1])happy=happy-30;</B></FONT>
+                    }
+                    else if(liv[c]==2)
+                    {
+                        if(c-1&gt;=0&amp;&amp;liv[c-1])happy=happy+20;
+                        if(c+1&lt;n&amp;&amp;liv[c+1])happy=happy+20;
+                    }
+                }
+                for(int in=0;in&lt;=introvertsCount-intr;in++)
+                {
+                    for(int ex=0;ex&lt;=extrovertsCount-extr;ex++)
+                    {
+                        int a=0;
+                        for(int k=0;k&lt;p3[n];k++)
+                        {
+                            if(dp[i-1][in][ex][k]&lt;0)continue;
+                            int con=k;
+                            for(int c=0;c&lt;n;c++)
+                            {
+                                lst[c]=con%3;
+                                con=con/3;
+                            }
+                            int nowhappy=happy;
+                            for(int c=0;c&lt;n;c++)
+                            {
+                                if(lst[c]==1)
+                                {
+                                    if(liv[c])nowhappy=nowhappy-30;
+<A NAME="1"></A>                                }
+                                else if(lst[c]==2)
+                                {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                                    if(liv[c])nowhappy=nowhappy+20;
+                                }
+                                if(liv[c]==1)
+                                {
+                                    if(lst[c])nowhappy=nowhappy-30;
+                                }
+                                else if(liv[c]==2)
+                                {
+                                    if(lst[c])nowhappy=nowhappy+20;
+<A NAME="2"></A>                                }
+                            }
+                            dp[i][in+intr][ex+extr][j]=max(dp[i][in+intr][ex+extr][j],dp[i-1][in][ex][k]+nowhappy);</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+                }
+            }
+        }
+        int ans=0;
+        for(int i=0;i&lt;=introvertsCount;i++)
+        {
+            for(int j=0;j&lt;=extrovertsCount;j++)
+            {
+                for(int k=0;k&lt;p3[n];k++)
+                {
+                    ans=max(ans,dp[m][i][j][k]);
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

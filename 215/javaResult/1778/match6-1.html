@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>56_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    private int getRowUpdate(int choose , int n) {
+        int ans = 0;
+        List&lt;Integer&gt; list = chooseListMap.get(choose);
+        for (int i = 0;i &lt; list.size();i ++) {
+            if (list.get(i) == 1) {
+                if (i - 1 &gt;= 0 &amp;&amp; list.get(i - 1) != 0) {
+                    ans -= 30;
+                }
+                if (i + 1 &lt; list.size() &amp;&amp; list.get(i + 1) != 0) {
+                    ans -= 30;
+                }
+            } else if (list.get(i) == 2) {
+                if (i - 1 &gt;= 0 &amp;&amp; list.get(i - 1) != 0) {
+                    ans += 20;
+                }
+                if (i + 1 &lt; list.size() &amp;&amp; list.get(i + 1) != 0) {
+                    ans += 20;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private int getUpdateBetweenRow(int choose1 , int choose2 , int n) {
+        List&lt;Integer&gt; list1 = chooseListMap.get(choose1);
+        List&lt;Integer&gt; list2 = chooseListMap.get(choose2);
+        int ans = 0;
+        for (int i = 0;i &lt; n;i ++) {
+            if (list2.get(i) == 1) {
+                if (list1.get(i) != 0) {
+                    ans -= 30;
+                }
+            }
+            if (list2.get(i) == 2) {
+                if (list1.get(i) != 0) {
+                    ans += 20;
+                }
+            }
+            if (list1.get(i) == 1) {
+                if (list2.get(i) != 0) {
+                    ans -= 30;
+                }
+            }
+            if (list1.get(i) == 2) {
+                if (list2.get(i) != 0) {
+                    ans += 20;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private List&lt;Integer&gt; getChooseList(int choose , int n) {
+        List&lt;Integer&gt; ans = new ArrayList&lt;&gt;();
+        while (choose &gt; 0) {
+            int value = choose % 3;
+            choose /= 3;
+            ans.add(value);
+        }
+        while (ans.size() &lt; n) {
+            ans.add(0);
+        }
+        return ans;
+    }
+
+    private static int[][][][] dp = new int[5][7][7][250];
+    private int totalColumnChoose;
+    private Map&lt;Integer , List&lt;Integer&gt;&gt; chooseListMap = new HashMap&lt;&gt;();
+
+    private int[] rowUpdateCache = new int[250];
+    private int[][] rowBetweenUpdateCache = new int[250][250];
+    private int[] chooseResult = new int[250];
+<A NAME="1"></A>    private int[][] chooseCnt = new int[250][2];
+
+    public int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ans = Integer.MIN_VALUE;
+        for (int x1 = 0;x1 &lt; m;x1 ++) {
+            for (int x2 = 0;x2 &lt; introvertsCount + 1;x2 ++) {
+                for (int x3 = 0;x3 &lt; extrovertsCount + 1;x3 ++) {
+                    for (int x4 = 0;x4 &lt; 250;x4 ++) {
+                        d</B></FONT>p[x1][x2][x3][x4] = Integer.MIN_VALUE;
+                    }
+                }
+            }
+        }
+        totalColumnChoose = 1;
+        for (int i = 0;i &lt; n;i ++) {
+            totalColumnChoose *= 3;
+        }
+
+        for (int i = 0;i &lt; totalColumnChoose;i ++) {
+            chooseListMap.put(i , getChooseList(i , n));
+        }
+
+        for (int i = 0;i &lt; totalColumnChoose;i ++) {
+<A NAME="0"></A>            rowUpdateCache[i] = getRowUpdate(i , n);
+        }
+        for (int x1 = 0;x1 &lt; totalColumnChoose;x1 ++) {
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int x2 = 0;x2 &lt; totalColumnChoose;x2 ++) {
+                rowBetweenUpdateCache[x1][x2] = getUpdateBetweenRow(x1 , x2 , n);
+            }
+        }</B></FONT>
+
+        // choose result and choose
+        for (int i = 0;i &lt; totalColumnChoose;i ++) {
+            List&lt;Integer&gt; chooseList = chooseListMap.get(i);
+            int cnt1 = 0 , cnt2 = 0 , sum = 0;
+            for (int choose : chooseList) {
+                if (choose == 1) {
+                    cnt1 ++;
+                    sum += 120;
+                } else if (choose == 2) {
+                    cnt2 ++;
+                    sum += 40;
+                }
+            }
+            chooseResult[i] = sum;
+            chooseCnt[i] = new int[] {cnt1 , cnt2};
+        }
+
+        for (int i = 0;i &lt; totalColumnChoose;i ++) {
+            int sum = chooseResult[i];
+            int[] cnts = chooseCnt[i];
+            int cnt1 = cnts[0] , cnt2 = cnts[1];
+            if (introvertsCount &gt;= cnt1 &amp;&amp; extrovertsCount &gt;= cnt2) {
+                int result = solve(1 , m , n , introvertsCount - cnt1 , extrovertsCount - cnt2 , i) +
+                        sum + rowUpdateCache[i];
+                ans = Math.max(ans , result);
+            }
+        }
+        return ans;
+    }
+
+    private int solve(int current , int m , int n , int introvertsCount, int extrovertsCount , int prevChoose) {
+        if (current == m) {
+            return 0;
+        } else {
+            if (dp[current][introvertsCount][extrovertsCount][prevChoose] &gt; Integer.MIN_VALUE) {
+                return dp[current][introvertsCount][extrovertsCount][prevChoose];
+            } else {
+                int ans = 0;
+                for (int i = 0;i &lt; totalColumnChoose;i ++) {
+                    int sum = chooseResult[i];
+                    int[] cnts = chooseCnt[i];
+                    int cnt1 = cnts[0] , cnt2 = cnts[1];
+                    if (introvertsCount &gt;= cnt1 &amp;&amp; extrovertsCount &gt;= cnt2) {
+                        int result = solve(current + 1 , m , n , introvertsCount - cnt1 , extrovertsCount - cnt2 , i) +
+                                sum + rowUpdateCache[i] + rowBetweenUpdateCache[prevChoose][i];
+                        ans = Math.max(ans , result);
+                    }
+                }
+                return dp[current][introvertsCount][extrovertsCount][prevChoose] = ans;
+            }
+        }
+    }
+
+
+}
+</PRE>
+
+</BODY>
+</HTML>

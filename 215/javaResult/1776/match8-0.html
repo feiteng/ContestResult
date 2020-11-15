@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>453_GeneJing.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>453_GeneJing.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minOperations(int[] nums, int x) {
+        
+        int sum = 0;
+        for (int n : nums) {
+            sum += n;
+        }
+        int target = sum - x;
+        int[] preSum = new int[nums.length + 1]</B></FONT>;
+        for (int i = 1; i &lt;= nums.length; i++) {
+<A NAME="1"></A>            preSum[i] = preSum[i - 1] + nums[i - 1];
+        }
+        int res = -1;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(0, 0);
+        for (int i = 0; i &lt; preSum.length; i++) {
+            if (map.containsKey(preSum[i] - target)) {
+                res = Math.max(res, i - map.get(preSum[i] - target) + 1);
+            }
+            map.put(preSum[i], i);
+        }
+        
+        return res == -1 ? res : nums.length - res + 1;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

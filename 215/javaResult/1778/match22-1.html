@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_hahahiehie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_hahahiehie.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+  int m;
+    int n;
+    int[] transform(int state) {
+        int[] s = new int[n];
+        for (int i = n - 1; i &gt;= 0; i--) {
+            s[i] = state % 3;
+            state /= 3;
+        }
+        return s;
+    }
+
+    int transform(int[] state) {
+        int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            ans = ans * 3 + state[i];
+        }
+        return ans;
+    }
+
+    int[] count(int state) {
+        int[] s = transform(state);
+        int c1 = 0;
+        int c2 = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (s[i] == 1) c1++;
+            else if (s[i] == 2) c2++;
+        }
+<A NAME="1"></A>        return new int[] {c1, c2};
+    }
+
+    int calc(int last, int cur) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        int[] l = transform(last);
+        int[] c = transform(cur);
+
+        int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if</B></FONT> (c[i] == 1) {
+                ans += 120;
+                if (l[i] == 1) ans = ans - 30 - 30;
+                else if (l[i] == 2) ans = ans + 20 - 30;
+
+                if (i - 1 &gt;= 0) {
+                    if (c[i - 1] == 1) ans = ans - 30 - 30;
+                    else if (c[i - 1] == 2) ans = ans + 20 - 30;
+                }
+            } else if (c[i] == 2) {
+                ans += 40;
+                if (l[i] == 1) ans = ans - 30 + 20;
+                else if (l[i] == 2) ans = ans + 20 + 20;
+
+<A NAME="0"></A>                if (i - 1 &gt;= 0) {
+                    if (c[i - 1] == 1) ans = ans - 30 + 20;
+                    else if (c[i - 1] == 2) ans = ans + 20 + 20;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return ans;
+    }
+
+    public int getMaxGridHappiness(int m, int n, int introvertsCount</B></FONT>, int extrovertsCount) {
+        int limit = (int) (Math.pow(3, n) + 1e-8);
+        this.m = m;
+<A NAME="3"></A>        this.n = n;
+
+        int[][] change = new int[limit + 1][limit + 1];
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; limit; i++) {
+            for (int j = 0; j &lt; limit; j++) {
+                change[i][j] = calc(i, j);
+            }
+        }</B></FONT>
+
+        int[][] stateC = new int[limit + 1][2];
+        for (int state = 0; state &lt; limit; state++) {
+            stateC[state] = count(state);
+        }
+
+        int[][][][] dp = new int[m][m * n + 1][m * n + 1][limit + 1];
+
+        for (int state = 0; state &lt; limit; state++) {
+            int[] c = count(state);
+<A NAME="2"></A>            dp[0][c[0]][c[1]][state] = change[0][state];
+        }
+
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; m - 1; i++) {
+            for (int c1 = 0; c1 &lt;= introvertsCount; c1++) {
+                for (int c2 = 0; c2 &lt;= extrovertsCount; c2++) {
+                    for (int state = 0; state &lt; limit; state++) {</B></FONT>
+                        if (dp[i][c1][c2][state] == 0) continue;
+
+                        for (int state2 = 0; state2 &lt; limit; state2++) {
+                            int[] c = stateC[state2];
+                            int nc1 = c1 + c[0];
+                            int nc2 = c2 + c[1];
+                            if (nc1 &gt; introvertsCount || nc2 &gt; extrovertsCount) continue;
+                            dp[i + 1][nc1][nc2][state2] = Math.max(dp[i + 1][nc1][nc2][state2],
+                                    dp[i][c1][c2][state] + change[state][state2]
+                                    );
+                        }
+                    }
+                }
+            }
+        }
+
+        int ans = 0;
+        for (int c1 = 0; c1 &lt;= introvertsCount; c1++) {
+            for (int c2 = 0; c2 &lt;= extrovertsCount; c2++) {
+                for (int state = 0; state &lt; limit; state++) {
+                    if (dp[m - 1][c1][c2][state] == 0) continue;
+
+                   ans =Math.max(ans, dp[m - 1][c1][c2][state]);
+                }
+            }
+        }
+        return ans;
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

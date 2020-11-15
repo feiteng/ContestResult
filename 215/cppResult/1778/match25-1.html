@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_agoodusername.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_agoodusername.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int f[10][1000][10][10];
+    int three[100];
+    int dx, dy;
+    const int ninf = -100000000;
+    int M;
+    int g[3][3];
+    int iter (int p, int q) {
+    //    vector&lt;int&gt; x, y;
+        int last_y = -1;
+        int value = 0;
+        for (int i = 0; i &lt; M; i++) {
+            int x = p % 3; p /= 3;
+            int y = q % 3; q /= 3;
+            if (y == 1) { dx++; value += 120;}
+            if (y == 2) { dy++; value += 40;}
+            value += g[x][y];
+            if (i &gt; 0) value += g[y][last_y];
+            last_y = y;
+        }
+        
+//         int value = 0;
+        
+//         for (int i = 0; i &lt; M; i++) {
+//             if (y[i] == 1) { dx++; value += 120;}
+//             if (y[i] == 2) {dy++; value += 40;}
+//             value += g[x[i]][y[i]];
+//             if (i &gt; 0) value += g[y[i]][y[i-1]];
+//         }
+        
+        return value;
+        
+    }
+    int getMaxGridHappiness(int m, int n, int X, int Y) {
+        if (n &lt; m) swap(n,m);
+<A NAME="0"></A>        memset(g, 0, sizeof g);
+        g[1][1] = -60;
+        g[2][2] = 40;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        g[1][2] = g[2][1] = -10;
+        M = m;
+        for (int i = 0; i &lt; 10; i++)
+            for (int j = 0; j &lt; 800; j++)
+                for (int x = 0; x &lt; 7; x++)
+                    for (int y = 0; y &lt; 7; y++)
+                        f[i][j][x][y] = ninf;
+      //  cout &lt;&lt; f[0][0][0][0] &lt;&lt; endl;
+        three[0] = 1;
+        for (int i = 1; i &lt; 10; i++)</B></FONT>
+<A NAME="1"></A>            three[i] = three[i-1] * 3;
+      //  cout &lt;&lt; f[0][0][0][0] &lt;&lt; endl;
+        f[0][0][0][0] = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+        for (int i = 0; i &lt; n; i++)
+          for (int j = 0; j &lt; three[m]; j++)
+              for (int x = 0; x &lt;= X; x++)
+                  for (int y = 0; y &lt;= Y; y++)
+                      if (f[i][j][x][y] &gt; ninf) {</B></FONT>
+                        //  cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot; &quot; &lt;&lt; f[i][j][x][y]  &lt;&lt; endl;
+                         // int left = X + Y - x - y;
+                        //  int sb = min(m, left);
+                          for (int q = 0; q &lt; three[m]; q++) 
+                          {
+                              ans = max(ans,f[i][j][x][y] );
+                              dx = 0; dy = 0;
+                              int value = iter(j, q);
+                              int xx = x + dx, yy = y + dy;
+                              if (xx &lt;= X &amp;&amp; yy &lt;= Y)
+                              {
+                                  
+                               f[i+1][q][xx][yy] = max(f[i+1][q][xx][yy], f[i][j][x][y] + value);
+                                  ans = max(ans, f[i+1][q][xx][yy]);
+                              }
+                              
+                          }
+                      }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>35_milesian-c.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>35_milesian-c.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; nums, int x) {
+        int sum[100020];
+<A NAME="1"></A>        sum[0] = 0;
+        int n = nums.size();
+        int ans = -1;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;n;++i){
+            sum[i+1] = sum[i] + nums[i];
+            if(sum[i+1] == x) ans = i+1;
+        }
+        
+        int aug = 0;
+
+        int y = n-1;
+        for(int i=n;i&gt;0;--i){
+            aug += nums[i-1];</B></FONT>
+            if(y == i) --y;
+            while(y &gt; 0 &amp;&amp; aug + sum[y] &gt; x) --y;
+            if(aug + sum[y] == x){
+                if(ans == -1)ans = y + n-i+1;
+                else ans = min(ans, y+n-i+1);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>189_FighterNan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>189_FighterNan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; nums, int x) {
+        vector&lt;int&gt; prefix_sum_l2r;
+        int sum = 0;
+        for (auto const &amp;num : nums) {
+            sum += num;
+            prefix_sum_l2r.push_back(sum);
+        }
+<A NAME="0"></A>        
+        sum = 0;
+        vector&lt;int&gt; prefix_sum_r2l;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = nums.size() - 1; i &gt;= 0; --i) {
+            sum += nums[i];
+            prefix_sum_r2l.push_back(sum);
+        }
+        
+        int res = 100001;
+        for (int i = 0; i &lt; prefix_sum_l2r.size(); ++i) {
+            int curr_sum = prefix_sum_l2r[i];</B></FONT>
+            int left = x - curr_sum;
+            if (left == 0) {
+                res = min(res, i + 1);
+                break;
+            }
+            if (left &lt; 0) {
+                break;
+            }
+            int j = lower_bound(prefix_sum_r2l.begin(), prefix_sum_r2l.end(), left) - prefix_sum_r2l.begin();
+            if (j &lt; prefix_sum_r2l.size() &amp;&amp; prefix_sum_r2l[j] == left) {
+                res = min(res, i + 1 + j + 1);
+            }
+        }
+        for (int i = 0; i &lt; prefix_sum_r2l.size(); ++i) {
+            int curr_sum = prefix_sum_r2l[i];
+            int left = x - curr_sum;
+            if (left == 0) {
+<A NAME="1"></A>                res = min(res, i + 1);
+                break;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (left &lt; 0) {
+                break;
+            }
+            int j = lower_bound(prefix_sum_l2r.begin(), prefix_sum_l2r.end(), left) - prefix_sum_l2r.begin();
+            if (j &lt; prefix_sum_l2r.size() &amp;&amp; prefix_sum_l2r[j] == left) {
+                res = min(res, i + 1 + j + 1);
+            }
+        }
+        if (res &gt; nums.size()) {
+            return -1;
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_knarf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>65_knarf.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        int in = introvertsCount;
+        int ex = extrovertsCount;
+        int sc = (int)Math.pow(3d,(double)n);
+        int[][][][] dp = new int[m+1][sc][in+1][ex+1];
+        for(int i=0;i&lt;m+1;i++) {
+            for(int j=0;j&lt;sc;j++) {
+                for(int k=0;k&lt;=in;k++) {
+                    Arrays.fill(dp[i][j][k],-1);
+                }
+            }
+        }
+        dp[0][0][0][0] = 0;
+        for(int i=0;i&lt;m;i++) {
+            for(int j=0;j&lt;sc;j++) {
+                for(int k1=0;k1&lt;=in;k1++) {
+                    for(int k2=0;k2&lt;=ex;k2++) {
+                        int[] s1 = int2state(j,n);
+                        if(s1[n]&gt;k1 || s1[n+1]&gt;k2) continue;
+                        for(int j1=0;j1&lt;sc;j1++) {
+                            if(dp[i][j1][k1-s1[n]][k2-s1[n+1]]==-1) continue;
+                            int[] s2 = int2state(j1,n);
+                            int score = 0;
+                            for(int l=0;l&lt;n;l++) {
+                                if (s2[l] == 1) {
+                                    if(s1[l] !=0) score -= 30;
+                                } else if (s2[l] == 2) {
+                                    if(s1[l] !=0) score += 20;
+<A NAME="0"></A>                                }
+                                if (s1[l] == 1) {
+                                    score += 120;
+                                    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(l&gt;0 &amp;&amp; s1[l-1]&gt;0) score -= 30;
+                                    if(l&lt;n-1 &amp;&amp; s1[l+1]&gt;0) score -= 30;
+<A NAME="1"></A>                                    if(s2[l] != 0) score -= 30;
+                                } else if(s1[l] == 2) {</B></FONT>
+                                    score += 40;
+                                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(l&gt;0 &amp;&amp; s1[l-1]&gt;0) score += 20;
+                                    if(l&lt;n-1 &amp;&amp; s1[l+1]&gt;0) score += 20;
+                                    if(s2[l] != 0) score += 20;
+                                }
+                            }</B></FONT>
+                            if (dp[i+1][j][k1][k2] == -1) {
+                                dp[i+1][j][k1][k2] = dp[i][j1][k1-s1[n]][k2-s1[n+1]]+score;
+                            } else {
+                                dp[i+1][j][k1][k2] = Math.max(dp[i+1][j][k1][k2],dp[i][j1][k1-s1[n]][k2-s1[n+1]]+score);    
+                            }
+                            // if (dp[i+1][j][k1][k2] == 280) {
+                            //     System.out.println(String.format(&quot;now%d,%d,%d,%d,%d&quot;,i+1,j,k1,k2,dp[i+1][j][k1][k2]));
+                            //     System.out.println(String.format(&quot;last%d,%d,%d,%d,%d&quot;,i+1,j,k1-s1[n],k2-s1[n+1],dp[i][j1][k1-s1[n]][k2-s1[n+1]]));
+                            //     System.out.println(Arrays.toString(s1));
+                            //     System.out.println(Arrays.toString(s2));
+                            // }
+                        }
+                        // System.out.println(String.format(&quot;%d,%d,%d,%d,%d&quot;,i+1,j,k1,k2,dp[i+1][j][k1][k2]));
+                    }
+                }
+            }
+        }
+        int max = 0;
+        for(int i=0;i&lt;sc;i++) {
+            for(int j=0;j&lt;=in;j++) {
+                for(int k=0;k&lt;=ex;k++) {
+                    max = Math.max(dp[m][i][j][k],max);
+                }
+            }
+        }
+        return max;
+    }
+    int[] int2state(int j,int n) {
+        int[] res = new int[n+2];
+        int index = 0;
+        while(j&gt;0) {
+            res[index] = j % 3;
+            if(res[index] == 1) res[n]++; //1 内向
+            if(res[index] == 2) res[n+1]++; //2 外向
+            j = j/3;
+            index++;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

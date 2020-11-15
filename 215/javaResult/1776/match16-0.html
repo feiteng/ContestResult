@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>817_dennanisny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>817_dennanisny.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+<A NAME="0"></A>        map.put(0, -1);
+        int n = nums.length, sum = 0;
+        int ans = Integer.MAX_VALUE;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; n; i++) {
+            sum += nums[i];
+            map.put(sum, i);
+            if (sum == x) {
+                ans = i+1;
+            }
+        }
+        // System.out.println(map);
+        sum = 0;
+        
+        for (int i = n-1; i &gt;= 0; i--) {
+            sum += nums[i];
+            if (map.containsKey(x-sum) &amp;&amp; map.get(x-sum) &lt; i) {
+                ans = Math.min(ans, map.get(x-sum)+1+(n-1)-i+1);
+            }
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

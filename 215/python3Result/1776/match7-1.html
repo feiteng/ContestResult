@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>333_studentforlife.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>333_studentforlife.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -&gt; int:
+        if x &lt; min(nums) or x &gt; sum(nums) : return -1
+<A NAME="0"></A>        n = len(nums)
+        mn = float('inf')
+        l,r,sl,sr,al,ar = {},{},0,0,[0 for _ in range(n)],[0 for _ in range(n)]
+        for i in range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n):
+            sl += nums[i]
+            sr += nums[n-i-1]
+            al[i] = sl
+            ar[n-i-1] = sr
+            l[sl] = i
+<A NAME="1"></A>            r[sr] = n-i-1
+        
+        for i in range(</B></FONT>n):
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if al[i] == x: 
+                mn = min(mn, i+1)
+            if ar[i] == x:
+                mn = min(mn,n-i)
+            if x - al[i] in r and r[x - al[i]] &gt; i: 
+                mn = min(mn, i + 1 + n - r[x-al[i]])
+            if x - ar[i] in l and l[x - ar[i]] &lt; i: 
+                mn = min(mn, l[x - ar[i]] + 1 + n - i )
+        
+        return</B></FONT> -1 if mn == float('inf') else mn
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_Xiaohao1211.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>11_Xiaohao1211.cpp</CENTER></H3><HR>
+<PRE>
+int f[6][243][7][7];
+int pre[5];
+int cur[5];
+void decode(int n, int val, bool ispre){
+    for(int i=n-1;i&gt;=0;i--){
+        if(ispre)
+        pre[i] = val%3;
+        else cur[i] = val%3;
+        val/=3;
+    }
+}
+class Solution {
+public:
+    int getMaxGridHappiness(int n, int m, int ic, int ec) {
+        memset(f, -1, sizeof(f));
+        int mx = 1;
+        for(int i=0;i&lt;m;i++)mx*=3;
+        f[0][0][0][0] = 0;
+        int ret = 0;
+        for(int i=0;i&lt;n;i++)
+            for(int j=0;j&lt;mx;j++)
+                for(int k=0;k&lt;=ic;k++)
+                    for(int r=0;r&lt;=ec;r++){
+                        if(f[i][j][k][r]==-1)continue;
+                        decode(m, j, 1);
+                        for(int p=0;p&lt;mx;p++){
+                            decode(m, p, 0);
+                            int curic=k,curec = r;
+                            int diff = 0;
+<A NAME="0"></A>                            for(int q=0;q&lt;m;q++){
+                                if(cur[q]==1){
+                                    curic++;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                                    diff+=120;
+                                    if(q&amp;&amp;cur[q-1]){
+                                        diff-=30;
+                                        if(cur[q-1]==1)diff-=30;
+                                        else diff+=20;
+                                    }
+                                    if(pre[q]){
+                                        diff-=30;
+                                        if(pre[q]==1)diff-=30;
+                                        else diff+=20;
+                                    }
+<A NAME="1"></A>                                }</B></FONT>
+                                else if(cur[q]==2){
+                                    curec++;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                                    diff+=40;
+                                    if(q&amp;&amp;cur[q-1]){
+                                        diff+=20;
+                                        if(cur[q-1]==1)diff-=30;
+                                        else diff+=20;
+                                    }
+                                    if(pre[q]){
+                                        diff+=20;
+                                        if(pre[q]==1)diff-=30;
+                                        else diff+=20;
+                                    }
+                                }</B></FONT>
+                            }
+                            if(curic&lt;=ic&amp;&amp;curec&lt;=ec){
+                                f[i+1][p][curic][curec]=max(f[i+1][p][curic][curec], f[i][j][k][r]+diff);
+                                ret=max(ret, f[i+1][p][curic][curec]);
+                            }
+                        }
+                    }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

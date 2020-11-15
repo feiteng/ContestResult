@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_balakrishnan_v.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_balakrishnan_v.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int max_val;
+    int A[5][5];
+    int dp[6][7][7][333];
+    int GetMax(int x,int y,int m,int n, int c1, int c2) {
+        
+        if (x == m) {            
+            
+            return 0;
+        }
+        
+        if (y == n) {
+            return GetMax(x+1,0,m,n,c1,c2);
+        }
+        
+        
+        int hashval=0;
+        if (y == 0) {
+            for(int i=0;i&lt;n;i++)
+                hashval=hashval*3+(x&gt;0 ? A[x-1][i] : 0);
+            
+            
+            if (dp[x][c1][c2][hashval]!=-1)
+                return dp[x][c1][c2][hashval];
+        }
+
+        
+        
+        int ans = GetMax(x, y+1, m, n, c1, c2);
+        
+        // 1 is intro, 2 is extro.
+        if (c1 &gt; 0) {
+            int num_pts = 120;
+<A NAME="0"></A>            if (x &gt; 0 &amp;&amp; A[x-1][y])
+                num_pts -= 30;
+            if (y &gt; 0 &amp;&amp; A[x][y-1])
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                num_pts -= 30;         
+            if (x &gt; 0) {
+                if (A[x-1][y]==1)
+                    num_pts -= 30;
+                else if (A[x-1][y]==2)
+                    num_pts += 20;
+            }
+            if (y &gt; 0) {
+                if (A[x][y-1]==1)
+                    num_pts -= 30;
+                else if (A[x][y-1]==2)
+                    num_pts += 20;
+            }          
+            A[x][y]=1;
+            ans = max(ans, num_pts + GetMax(x, y+1, m, n, c1-1, c2));
+            A[x][y]=0;
+        }
+        
+        if (c2 &gt; 0) {
+            int num_pts = 40;</B></FONT>
+<A NAME="1"></A>            if (x &gt; 0 &amp;&amp; A[x-1][y])
+                num_pts += 20;
+            if (y &gt; 0 &amp;&amp; A[x][y-1])
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                num_pts += 20;         
+            if (x &gt; 0) {
+                if (A[x-1][y]==1)
+                    num_pts -= 30;
+                else if (A[x-1][y]==2)
+                    num_pts += 20;
+            }
+            if (y &gt; 0) {
+                if (A[x][y-1]==1)
+                    num_pts -= 30;
+                else if (A[x][y-1]==2)
+                    num_pts += 20;
+            }          
+            A[x][y]=2;
+            ans = max(ans, num_pts + GetMax(x, y+1, m, n, c1, c2-1));   
+            A[x][y]=0;
+        }</B></FONT>
+        
+        if (y == 0) {
+            dp[x][c1][c2][hashval]=ans;
+        }
+        
+        return ans;      
+    }
+    
+    
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        
+        for(int i=0;i&lt;5;i++)
+            for(int j=0;j&lt;5;j++)
+                A[i][j]=0;
+        
+        for(int x=0;x&lt;=5;x++)
+            for(int c1=0;c1&lt;=introvertsCount;c1++)
+                for(int c2=0;c2&lt;=extrovertsCount;c2++)
+                    for(int m=0;m&lt;=244;m++)
+                        dp[x][c1][c2][m]=-1;
+        
+        return GetMax(0, 0, m, n, introvertsCount, extrovertsCount);
+        
+        
+//         5
+// 4
+// 6
+// 3
+        
+        
+        
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

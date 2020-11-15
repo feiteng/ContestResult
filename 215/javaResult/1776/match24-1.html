@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_nirvana_rsc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>223_nirvana_rsc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperations(int[] nums, int x) {
+        Map&lt;Integer, Integer&gt; prefix = new HashMap&lt;&gt;();
+                int n = nums.length;
+        int pre = 0;
+        int res = (int) 1e9;
+        for (int i = 0; i &lt; nums.length; i++) {
+            pre += nums[i];
+            if (pre == x) {
+                r</B></FONT>es = i + 1;
+            }
+<A NAME="1"></A>            prefix.put(pre, i + 1);
+        }
+        int suff = 0;
+        for (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i = nums.length - 1, j = 1; i &gt;= 0; i--, j++) {
+            suff += nums[i];
+            if (suff == x) {
+                res = Math.min(res, j);
+            }
+            if (prefix.containsKey</B></FONT>(x - suff)) {
+                int other = prefix.get(x - suff);
+<A NAME="2"></A>                if (other &lt;= n - j) {
+                    res = Math.min(res, j + prefix.get(x - suff));
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return res == (int) 1e9 ? -1 : res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

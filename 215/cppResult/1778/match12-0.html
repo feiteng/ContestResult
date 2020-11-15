@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_cc0408.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>67_cc0408.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int a[10];
+int getbit(int x,int p)
+{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    return x%a[p+1]/a[p];
+}
+int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        swap(n,m);
+        a[0]=1;
+        for(int i = 1;i &lt; 8;i++) a[i]=a[i-1]*3;</B></FONT>
+        int dp[6][250][7][7],b[250],c[250],d[250],e[250][250],u,v,s,st=a[m],l=introvertsCount,r=extrovertsCount;
+        memset(dp,0xf3f3f3,sizeof dp);
+        //dbg(-1,dp[0][0][0][0])
+        for(int i = 0;i &lt; st;i++){
+            s=0;
+            for(int j = 0;j &lt; m;j++){
+                c[j]=getbit(i,j);
+                if(c[j]==1) s+=120;
+                if(c[j]==2) s+=40;
+            }
+            for(int j = 0;j &lt; m-1;j++){
+                if(c[j]==1&amp;&amp;c[j+1]==2) s-=10;
+                if(c[j]==1&amp;&amp;c[j+1]==1) s-=60;
+                if(c[j]==2&amp;&amp;c[j+1]==1) s-=10;
+                if(c[j]==2&amp;&amp;c[j+1]==2) s+=40;
+            }
+            d[i]=s;
+        }
+        for(int i = 0;i &lt; st;i++){
+            for(int j = 0;j &lt; st;j++){
+                s=0;
+                for(int k = 0;k &lt; m;k++){
+                    u=getbit(i,k);
+                    v=getbit(j,k);
+                    if(u==1&amp;&amp;v==2) s-=10;
+                    if(u==1&amp;&amp;v==1) s-=60;
+                    if(u==2&amp;&amp;v==1) s-=10;
+                    if(u==2&amp;&amp;v==2) s+=40;
+                }
+                e[i][j]=s;
+            }
+        }
+        for(int i = 0;i &lt; st;i++){
+            b[i]=c[i]=0;
+            for(int j = 0;j &lt; m;j++){
+                u=getbit(i,j);
+                if(u==1) b[i]++;
+                if(u==2) c[i]++;
+            }
+        }
+        for(int i = 0;i &lt; st;i++){
+<A NAME="1"></A>            if(b[i]&lt;=l&amp;&amp;c[i]&lt;=r) dp[1][i][b[i]][c[i]]=d[i];
+        }
+        for(int i = 2;i &lt;= n;i++){
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = 0;j &lt; st;j++){   //dp[i][j]
+                for(int k = 0;k &lt; st;k++){  //dp[i-1][k]
+                    for(int u = 0;u &lt;= l;u++){
+<A NAME="2"></A>                        for(int v = 0;v &lt;= r;v++){
+                            if(u+b[j]&lt;=l&amp;&amp;v+c[j]&lt;=r) dp[i][j][u+b[j]][v+c[j]]=max(dp[i][j][u+b[j]][v+c[j]],dp[i-1][k][u][v]+d[j]+e[j][k]);</B></FONT>
+                        }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }
+                }
+            }
+        }
+        int ma=0;
+        for(int i = 1;i &lt;= n;i++){
+            for(int j = 0;j &lt; st;j++){
+                for(int u = 0;u &lt;= l;u++){
+                    for(int v = 0;v &lt;= r;v++){
+                       ma=max(ma,dp[i][j][u][v]);
+                    }
+                }
+            }
+        }</B></FONT>
+        return ma;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

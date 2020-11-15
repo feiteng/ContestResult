@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>110_liuyubobobo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>110_liuyubobobo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    private int statemax = 1;
+    private int statemax2 = 1;
+    private int[][][][] dp;
+
+    public int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+
+        for(int i = 0; i &lt; n; i ++){
+            statemax *= 3;
+            statemax2 *= 2;
+        }
+
+        dp = new int[m + 1][introvertsCount + 1][extrovertsCount + 1][statemax + 1];
+        for(int i = 0; i &lt;= m; i ++)
+            for(int j = 0; j &lt;= introvertsCount; j ++)
+                for(int k = 0; k &lt;= extrovertsCount; k ++)
+                    for(int s = 0; s &lt;= statemax; s ++) dp[i][j][k][s] = -1;
+
+        int[] init = new int[n];
+        return dfs(m, n, introvertsCount, extrovertsCount, init);
+    }
+
+    private int dfs(int leftrow, int col, int in, int ex, int[] lastv){
+
+        if(leftrow == 0) return 0;
+        if(in == 0 &amp;&amp; ex == 0) return 0;
+
+        int last = 0;
+        for(int e: lastv) last = last * 3 + e;
+
+        if(dp[leftrow][in][ex][last] != -1)
+            return dp[leftrow][in][ex][last];
+
+        int res = 0;
+        int[] curv = new int[col];
+
+        if(in != 0 &amp;&amp; ex != 0){
+            for(int state = 0; state &lt; statemax; state ++){
+
+                int cur_in = 0, cur_ex = 0;
+                int x = state;
+                for(int i = 0; i &lt; col; i ++){
+                    curv[i] = x % 3;
+                    x /= 3;
+                    if(curv[i] == 1) cur_in ++;
+                    else if(curv[i] == 2) cur_ex ++;
+                }
+
+                if(in &gt;= cur_in &amp;&amp; ex &gt;= cur_ex)
+                    res = Math.max(res, get_score(curv, lastv, col) + fix(lastv, curv, col) + dfs(leftrow - 1, col, in - cur_in, ex - cur_ex, curv));
+            }
+        }
+        else{
+            for(int state = 0; state &lt; statemax2; state ++){
+
+                int cur = 0;
+                int x = state;
+                for(int i = 0; i &lt; col; i ++){
+                    curv[i] = x % 2;
+                    if(curv[i] != 0 &amp;&amp; ex != 0){
+                        curv[i] ++;
+                    }
+                    if(curv[i] != 0) cur ++;
+                    x /= 2;
+                }
+
+                if(in != 0 &amp;&amp; in &gt;= cur)
+                    res = Math.max(res, get_score(curv, lastv, col) + fix(lastv, curv, col) + dfs(leftrow - 1, col, in - cur, 0, curv));
+                else if(ex != 0 &amp;&amp; ex &gt;= cur)
+                    res = Math.max(res, get_score(curv, lastv, col) + fix(lastv, curv, col) + dfs(leftrow - 1, col, 0, ex - cur, curv));
+            }
+        }
+        return dp[leftrow][in][ex][last] = res;
+    }
+
+    private int get_score(int[] curv, int[] lastv, int col){
+
+        int res = 0, t = 0;
+        for(int i = 0; i &lt; col; i ++){
+<A NAME="0"></A>            t = 0;
+            if(curv[i] == 1){
+                t = 120;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(i &gt; 0 &amp;&amp; curv[i - 1] != 0) t -= 30;
+                if(lastv[i] != 0) t -= 30;
+                if(i + 1 &lt; col &amp;&amp; curv[i + 1] != 0) t -= 30;
+<A NAME="1"></A>            }
+            else if(curv[i] == 2){</B></FONT>
+                t = 40;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(i &gt; 0 &amp;&amp; curv[i - 1] != 0) t += 20;
+                if(lastv[i] != 0) t += 20;
+                if(i + 1 &lt; col &amp;&amp; curv[i + 1] != 0) t += 20;
+            }
+            res += t;
+        }</B></FONT>
+        return res;
+    }
+
+    private int fix(int[] curv, int[] lastv, int col){
+
+        int res = 0;
+        for(int i = 0; i &lt; col; i ++)
+            if(curv[i] == 1 &amp;&amp; lastv[i] != 0) res -= 30;
+            else if(curv[i] == 2 &amp;&amp; lastv[i] != 0) res += 20;
+        return res;
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println((new Solution()).getMaxGridHappiness(2, 3, 1, 2));
+        // 240
+
+        System.out.println((new Solution()).getMaxGridHappiness(3, 1, 2, 1));
+        // 260
+
+        System.out.println((new Solution()).getMaxGridHappiness(2, 2, 4, 0));
+        // 240
+
+        System.out.println((new Solution()).getMaxGridHappiness(3, 1, 1, 3));
+        // 230
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

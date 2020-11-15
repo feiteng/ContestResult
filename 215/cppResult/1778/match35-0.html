@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>48_llcD_K.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>48_llcD_K.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt; &gt; layers;
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        vector&lt;int&gt; t_layer;
+        generateLayers(t_layer, n);
+        sort(layers.begin(), layers.end());
+        
+        //printLayers();
+        
+        int K = layers.size();
+        
+        int trans[K+5][5][3];
+        for(int k = 0; k &lt; K; k++){
+            for(int i = 0; i &lt; n; i++){
+                for(int change = 0; change &lt;= 2; change++){
+                    vector&lt;int&gt; changed_layer = layers[k];
+                    changed_layer[i] = change;
+                    trans[k][i][change] = lower_bound(layers.begin(), layers.end(), changed_layer) - layers.begin();
+                }
+            }
+        }
+        
+        int num_1 = introvertsCount, num_2 = extrovertsCount;
+        
+        int curt[K+5][7][7];
+        int next[K+5][7][7];
+        // Base case
+        memset(curt, 0, sizeof curt);
+        
+        for(int pos_r = m-1; pos_r &gt;= 0; pos_r--){
+            for(int pos_c = n-1; pos_c &gt;= 0; pos_c--){
+                //cout &lt;&lt; &quot;position: &quot; &lt;&lt; pos_r &lt;&lt; &quot; &quot; &lt;&lt; pos_c &lt;&lt; endl;
+                // Use curt to compute next
+                for(int k = 0; k &lt; K; k++){  // For each layer
+                    for(int n1 = 0; n1 &lt;= num_1; n1++){
+                        for(int n2 = 0; n2 &lt;= num_2; n2++){
+<A NAME="0"></A>                            // Compute next[k][n1][n2]
+                            int happ = curt[trans[k][pos_c][0]][n1][n2];
+                            if(n1 &gt; 0){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                                int happ1 = curt[trans[k][pos_c][1]][n1-1][n2] + 120;
+                                if(pos_c &gt; 0 &amp;&amp; layers[k][pos_c-1] &gt; 0){ 
+                                    happ1 -= 30; 
+                                    if(layers[k][pos_c-1] == 1) happ1 -= 30;
+                                    else happ1 += 20;
+                                }
+                                if(pos_r &gt; 0 &amp;&amp; layers[k][pos_c] &gt; 0){ 
+                                    happ1 -= 30;
+                                    if(layers[k][pos_c] == 1) happ1 -= 30;
+                                    else happ1 += 20;
+                                }</B></FONT>
+<A NAME="1"></A>                                happ = max(happ, happ1);
+                            }
+                            if(n2 &gt; 0){
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                                int happ2 = curt[trans[k][pos_c][2]][n1][n2-1] + 40;
+                                if(pos_c &gt; 0 &amp;&amp; layers[k][pos_c-1] &gt; 0) {
+                                    happ2 += 20;
+                                    if(layers[k][pos_c-1] == 1) happ2 -= 30;
+                                    else happ2 += 20;
+                                }
+                                if(pos_r &gt; 0 &amp;&amp; layers[k][pos_c] &gt; 0){ 
+                                    happ2 += 20;
+                                    if(layers[k][pos_c] == 1) happ2 -= 30;
+                                    else happ2 += 20;
+                                }</B></FONT>
+                                happ = max(happ, happ2);
+                            }
+                            next[k][n1][n2] = happ;
+                            //cout &lt;&lt; &quot;next[&quot; &lt;&lt; k &lt;&lt; &quot;][&quot; &lt;&lt; n1 &lt;&lt; &quot;][&quot; &lt;&lt; n2 &lt;&lt; &quot;] = &quot; &lt;&lt; happ &lt;&lt; endl;
+                        }
+                    }
+                }
+                //cout &lt;&lt; &quot;--------------------&quot; &lt;&lt; endl;
+                // Copy next to curt
+                memcpy(curt, next, sizeof next);
+            }
+        }
+        
+        return curt[0][num_1][num_2];
+    }
+    
+    void generateLayers(vector&lt;int&gt; cur, int n){
+        if(cur.size() == n){
+            layers.push_back(cur);
+            return ;
+        }
+        vector&lt;int&gt; t = cur;
+        t.push_back(0); generateLayers(t, n);
+        t = cur;
+        t.push_back(1); generateLayers(t, n);
+        t = cur;
+        t.push_back(2); generateLayers(t, n);
+    }
+    
+    void printLayers(){
+        for(vector&lt;int&gt; L: layers){
+            for(int x: L){
+                cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+            }
+            cout &lt;&lt; endl;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

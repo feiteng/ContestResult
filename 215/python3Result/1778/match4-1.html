@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_nthistle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>69_nthistle.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getMaxGridHappiness(self, m: int, n: int, introvertsCount: int, extrovertsCount: int) -&gt; int:
+        def ev(i,e):
+            i = set(i)
+            e = set(e)
+            t = i | e
+            def nb(x,y):
+                yield x+1,y
+                yield x,y+1
+                yield x-1,y
+                yield x,y-1
+
+            tv = 0
+            for x,y in i:
+                v = 120
+                for xp,yp in nb(x,y):
+                    if (xp,yp) in t:
+                        v -= 30
+                tv += v
+            for x,y in e:
+                v = 40
+                for xp,yp in nb(x,y):
+                    if (xp,yp) in t:
+                        v += 20
+                tv += v
+            return tv
+        
+        def nb(x,y):
+            yield x+1,y
+            yield x,y+1
+            yield x-1,y
+            yield x,y-1
+
+        elookup = {6:520, 5:400, 4:320, 3:200, 2:120, 1:40, 0:0}
+        ilookup = {ii:ii*120 for ii in range(0,7)}
+            
+        def brute(m,n,i,e):
+            pos = [(ii,jj) for ii in range(m) for jj in range(n)]
+            opt = elookup[e] + ilookup[i]
+            mv = 0
+            for ic in range(i+1):
+                for ilocs in itertools.combinations(pos, ic):
+                    rlocs = [p for p in pos if p not in ilocs]
+                    for ec in range(e+1):
+                        for elocs in itertools.combinations(rlocs, ec):
+                            mv = max(mv, ev(ilocs, elocs))
+                            if mv == opt:
+                                return mv
+            return mv
+        
+        e = extrovertsCount
+<A NAME="0"></A>        i = introvertsCount
+        mm,nn = min(m,n), max(m,n)
+        if m == 4 and n == 4:
+            t4 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= {(4, 4, 0, 5): 400, (4, 4, 0, 6): 520, (4, 4, 1, 4): 440, (4, 4, 1, 5): 520, (4, 4, 1, 6): 640, (4, 4, 2, 3): 440, (4, 4, 2, 4): 560, (4, 4, 2, 5): 640, (4, 4, 2, 6): 760, (4, 4, 3, 2): 480, (4, 4, 3, 3): 560, (4, 4, 3, 4): 680, (4, 4, 3, 5): 760, (4, 4, 3, 6): 880, (4, 4, 4, 1): 520, (4, 4, 4, 2): 600, (4, 4, 4, 3): 680, (4, 4, 4, 4): 800, (4, 4, 4, 5): 880, (4, 4, 4, 6): 990, (4, 4, 5, 0): 600, (4, 4, 5, 1): 640, (4, 4, 5, 2): 720, (4, 4, 5, 3): 800, (4, 4, 5, 4): 910, (4, 4, 5, 5): 990, (4, 4, 5, 6): 1100, (4, 4, 6, 0): 720, (4, 4, 6, 1): 760, (4, 4, 6, 2): 840, (4, 4, 6, 3): 920, (4, 4, 6, 4): 1020, (4, 4, 6, 5): 1080, (4</B></FONT>, 4, 6, 6): 1140}
+<A NAME="1"></A>            if (4,4,i,e) in t4:
+                return t4[4,4,i,e]
+        if mm == 3 and nn == 5:
+            t3 = {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(0, 6): 520, (1, 5): 520, (1, 6): 640, (2, 4): 560, (2, 5): 640, (2, 6): 760, (3, 3): 560, (3, 4): 680, (3, 5): 760, (3, 6): 880, (4, 2): 600, (4, 3): 680, (4, 4): 800, (4, 5): 880, (4, 6): 990, (5, 1): 640, (5, 2): 720, (5, 3): 800, (5, 4): 910, (5, 5): 990, (5, 6): 1100, (6, 0): 720, (6, 1): 760, (6, 2): 830, (6, 3): 910, (6, 4): 1020, (6, 5): 1080, (6</B></FONT>, 6): 1130}
+            if (i,e) in t3:
+                return t3[i,e]
+        if m == 5 and n == 5:
+            return elookup[e] + ilookup[i]
+        elif (m == 5 and n == 4) or (m == 4 and n == 5):
+            if e == 6 and i == 6:
+                return elookup[e] + ilookup[i] - 30 + 20
+            return elookup[e] + ilookup[i]
+        
+        
+        def helper(score, pos, cur_i, cur_e, idx, i, e):
+            if idx &gt;= len(pos):
+                return score
+            best = score
+            p = pos[idx]
+            if e &gt; 0:
+                cur_e.add(p)
+                new_score = score + 40
+                for nx in nb(p[0],p[1]):
+                    if nx in cur_i:
+                        new_score += 20 - 30
+                    if nx in cur_e:
+                        new_score += 20 + 20
+                best = max(best, helper(new_score, pos, cur_i, cur_e, idx + 1, i, e - 1))
+                cur_e.remove(p)
+            if i &gt; 0:
+                cur_i.add(p)
+                new_score = score + 120
+                for nx in nb(p[0],p[1]):
+                    if nx in cur_i:
+                        new_score -= 60
+                    if nx in cur_e:
+                        new_score += 20 - 30
+                best = max(best, helper(new_score, pos, cur_i, cur_e, idx + 1, i - 1, e))
+                cur_i.remove(p)
+            best = max(best, helper(score, pos, cur_i, cur_e, idx + 1, i, e))
+            return best
+        
+        
+        pos = [(ii,jj) for ii in range(m) for jj in range(n)] 
+        return helper(0, pos, set(), set(), 0, i, e)
+</PRE>
+
+</BODY>
+</HTML>

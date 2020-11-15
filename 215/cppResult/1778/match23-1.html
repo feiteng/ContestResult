@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_fallleaves01.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>46_fallleaves01.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+//#define debug
+    int f[5][10][10][1&lt;&lt;5][1&lt;&lt;5],cnt[1&lt;&lt;5];
+    int getval(int n,int a,int b)
+    {
+        int val=0;
+#ifdef debug
+        bool tag=false;
+        if (a==5&amp;&amp;b==1) puts(&quot;F&quot;),tag=true;
+#endif
+        for (int i=0;i&lt;n;i++)
+        {
+            if ((a&gt;&gt;i)&amp;1)
+            {
+                if (((b&gt;&gt;i)&amp;1)==0)
+                {
+                    #ifdef debug
+                    if (tag) puts(&quot;F1&quot;);
+                    #endif
+                    val+=120;
+                    if (i&gt;0&amp;&amp;((a&gt;&gt;(i-1))&amp;1))
+                        val-=30;
+                    if (i&lt;(n-1)&amp;&amp;((a&gt;&gt;(i+1))&amp;1))
+                        val-=30;
+                }
+                if (((b&gt;&gt;i)&amp;1)==1)
+                {
+                    val+=40;
+                    if (i&gt;0&amp;&amp;((a&gt;&gt;(i-1))&amp;1))
+                        val+=20;
+                    if (i&lt;(n-1)&amp;&amp;((a&gt;&gt;(i+1))&amp;1))
+                        val+=20;
+                }
+<A NAME="0"></A>            }
+        }
+        return val;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    int getcvx(int n,int a,int b,int c)
+    {
+        int val=0;
+        for (int i=0;i&lt;n;i++)</B></FONT>
+        {
+            if ((a&gt;&gt;i)&amp;1)
+            {
+                if (((b&gt;&gt;i)&amp;1)==0)
+                    if (((c&gt;&gt;i)&amp;1)==1)
+                        val-=30;
+                if (((b&gt;&gt;i)&amp;1)==1)
+                    if (((c&gt;&gt;i)&amp;1)==1)
+                        val+=20;
+            }
+        }
+        return val;
+    }
+    int getMaxGridHappiness(int m, int n, int X, int Y) {
+        cnt[0]=0;
+        int ans=-0x3ffffff;
+<A NAME="2"></A>        for (int i=1;i&lt;1&lt;&lt;n;i++)
+            cnt[i]=cnt[i&gt;&gt;1]+(i&amp;1);
+        for (int i=0;i&lt;m;i++)
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j=0;j&lt;=X;j++)
+                for (int k=0;k&lt;=Y;k++)
+                {
+                    for (int a=0;a&lt;1&lt;&lt;n;a++)
+                        for (int b=0;b&lt;1&lt;&lt;n;b++)</B></FONT>
+                            f[i][j][k][a][b]=-0x3ffffff;
+                }
+        for (int a=0;a&lt;1&lt;&lt;n;a++)
+            for (int b=a;b&gt;=0;b=(b-1)&amp;a)
+            {
+                if ((X-cnt[(~b)&amp;a])&gt;=0&amp;&amp;(Y-cnt[b&amp;a])&gt;=0)
+                {
+                    f[0][X-cnt[(~b)&amp;a]][Y-cnt[b&amp;a]][a][b]=getval(n,a,b);
+                    #ifdef debug
+                    printf(&quot;%d\n&quot;,f[0][X-cnt[(~b)&amp;a]][Y-cnt[b&amp;a]][a][b]);
+                    #endif
+<A NAME="3"></A>                }
+                if (b==0) break;
+            }
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#3',2,'match23-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=1;i&lt;m;i++)
+            for (int j=0;j&lt;=X;j++)
+                for (int k=0;k&lt;=Y;k++)</B></FONT>
+                {
+                    for (int a=0;a&lt;1&lt;&lt;n;a++)
+                        for (int b=a;b&gt;=0;b=(b-1)&amp;a)
+                        {
+                            if (f[i-1][j][k][a][b]&gt;ans)
+                            for (int c=0;c&lt;1&lt;&lt;n;c++)
+                                for (int d=c;d&gt;=0;d=(d-1)&amp;a)
+                                {
+                                    if (j-cnt[(~d)&amp;c]&gt;=0&amp;&amp;(k-cnt[d&amp;c]&gt;=0))
+                                        f[i][j-cnt[(~d)&amp;c]][k-cnt[d&amp;c]][c][d]=max(f[i][j-cnt[(~d)&amp;c]][k-cnt[d&amp;c]][c][d],f[i-1][j][k][a][b]+getval(n,c,d)+getcvx(n,c,d,a)+getcvx(n,a,b,c));
+                                    if (d==0) break;
+                                }
+                            if (b==0) break;
+<A NAME="1"></A>                        }
+                }
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=0;i&lt;=X;i++)
+            for (int j=0;j&lt;=Y;j++)
+                for (int a=0;a&lt;1&lt;&lt;n;a++)
+                    for (int b=0;b&lt;1&lt;&lt;n;b++)
+                        ans=max(ans,f[m-1][i][j][a][b]);</B></FONT>
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

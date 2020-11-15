@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>383_hermanurikh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>383_hermanurikh.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperations(int[] nums, int x) {
+        //min to pick exactly x
+        //= widest window containing sum - x
+        //expand to right, when starts overflowing, move left
+<A NAME="1"></A>        int total = 0;
+        for (int i : nums) total += i;</B></FONT>
+        int desired = total - x;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int left = 0;
+        int currSum = 0;
+        int answ = Integer.MAX_VALUE;
+        for (int i  = 0; i &lt; nums.length; i++) {
+            currSum += nums[i];
+            while (currSum &gt; desired &amp;&amp; left &lt;= i) {
+                currSum -= nums[left++];
+<A NAME="2"></A>            }
+            if (currSum == desired) {</B></FONT>
+                int otherLength = left + (nums.length - i-1);
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>answ = Math.min(answ, otherLength);
+            } 
+        }
+        return answ == Integer.MAX_VALUE ? -1 : answ;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

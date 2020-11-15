@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>355_blackskygg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>355_blackskygg.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool closeStrings(string word1, string word2) {
+        if (word1.size() != word2.size()) return false;
+        vector&lt;int&gt; map1(26), map2(26);
+        for (int i = 0; i &lt; word1.size(); ++i) {
+            ++map1[word1[i]-'a'];
+<A NAME="1"></A>            ++map2[word2[i]-'a'];
+        }</B></FONT>
+        vector&lt;int&gt; cnts1, cnts2;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; 26; ++i) {
+            if ((map1[i]&gt;0 &amp;&amp; map2[i]==0) || (map1[i]==0 &amp;&amp; map2[i]&gt;0)) return false;
+            cnts1.push_back(map1[i]);
+            cnts2.push_back(map2[i]);
+        }
+        sort(cnts1.begin(), cnts1.end());
+        sort(cnts2.begin(), cnts2.end());
+        for (int i = 0; i &lt; cnts1.size(); ++i) {
+            if (cnts1[i] != cnts2[i]) return false;
+        }
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

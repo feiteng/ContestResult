@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>79_eureka17.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>79_eureka17.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+ public:
+  int dp[6][300][7][7];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  int pre[300][300], pre2[300], pre3[300], pre4[300];
+  int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+    int Max = 1;
+    for (int i = 0; i &lt; n; ++i) Max *= 3;</B></FONT>
+    for (int i = 0; i &lt;= m; ++i)
+      for (int j = 0; j &lt; Max; ++j)
+        for (int x = 0; x &lt;= introvertsCount; ++x)
+          for (int y = 0; y &lt;= extrovertsCount; ++y) dp[i][j][x][y] = -1e9;
+    dp[0][0][0][0] = 0;
+    auto trans = [&amp;](int a) {
+      vector&lt;int&gt; res(n);
+<A NAME="1"></A>      for (int y = 0; y &lt; n; ++y) res[y] = a % 3, a /= 3;
+      return res;
+    };
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    auto cal = [&amp;](vector&lt;int&gt; p) {
+      int res = 0;
+      for (int i = 0; i &lt; p.size(); ++i) {
+        if (p[i] == 1) {
+          res += 40;
+          if (i - 1 &gt;= 0 &amp;&amp; p[i - 1]) res += 20;
+          if (i + 1 &lt; p.size() &amp;&amp; p[i + 1]) res += 20;</B></FONT>
+        } else if (p[i] == 2) {
+          res += 120;
+          if (i - 1 &gt;= 0 &amp;&amp; p[i - 1]) res -= 30;
+          if (i + 1 &lt; p.size() &amp;&amp; p[i + 1]) res -= 30;
+        }
+      }
+      return res;
+    };
+    auto cal2 = [&amp;](vector&lt;int&gt; p, vector&lt;int&gt; q) {
+      int res = 0;
+      for (int i = 0; i &lt; p.size(); ++i) {
+<A NAME="2"></A>        if (p[i] == 1) {
+          if (q[i]) res += 20;
+        } else if (p[i] == 2) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>          if (q[i]) res -= 30;
+        }
+      }
+      for (int i = 0; i &lt; q.size(); ++i) {
+        if (q[i] == 1) {
+          if (p[i]) res += 20;
+        } else if (q[i] == 2) {
+          if (p[i]) res -= 30;
+        }
+      }
+      return res;
+    };
+    vector&lt;vector&lt;int&gt;&gt; gg(Max);</B></FONT>
+    for (int i = 0; i &lt; Max; ++i) {
+      auto v = trans(i);
+      pre2[i] = cal(v);
+      gg[i] = v;
+      for (int x = 0; x &lt; n; ++x)
+        if (v[x] == 1)
+          pre3[i]++;
+<A NAME="3"></A>        else if (v[x] == 2)
+          pre4[i]++;
+    }
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; Max; ++i) {
+      for (int j = 0; j &lt; Max; ++j) {
+        pre[i][j] = cal2(gg[i], gg[j]);
+      }
+    }</B></FONT>
+    for (int i = 1; i &lt;= m; ++i) {
+      for (int x = 0; x &lt; Max; ++x) {
+<A NAME="4"></A>        int cwx = pre3[x], cnx = pre4[x], curline = pre2[x];
+        if (cwx &gt; extrovertsCount) continue;
+        if (cnx &gt; introvertsCount) continue;
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match14-1.html#4',3,'match14-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int y = 0; y &lt; Max; ++y) {
+          for (int wx = 0; wx &lt;= extrovertsCount; ++wx) {
+            for (int nx = 0; nx &lt;= introvertsCount; ++nx) {
+              if (cwx + wx &gt; extrovertsCount) continue;</B></FONT>
+              if (cnx + nx &gt; introvertsCount) continue;
+              dp[i][x][cwx + wx][cnx + nx] = max(dp[i][x][cwx + wx][cnx + nx], dp[i - 1][y][wx][nx] + curline + pre[y][x]);
+            }
+          }
+        }
+      }
+    }
+    int res = -1e9;
+    for (int i = 0; i &lt; Max; ++i)
+      for (int j = 0; j &lt;= extrovertsCount; ++j)
+        for (int x = 0; x &lt;= introvertsCount; ++x) res = max(res, dp[m][i][j][x]);
+    return res;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

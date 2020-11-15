@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>953_rangerhou.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>953_rangerhou.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minOperations(int[] nums, int x) {
+        int[] preSum = new int[nums.length + 1];
+        Map&lt;Integer, Integer&gt; pre = new HashMap&lt;&gt;();
+        int[] postSum = new int[nums.length + 1]</B></FONT>;
+        Map&lt;Integer, Integer&gt; post = new HashMap&lt;&gt;();
+        pre.put(0, 0);
+        for (int i = 1; i &lt;= nums.length; i++) {
+<A NAME="1"></A>            preSum[i] = preSum[i - 1] + nums[i - 1];
+            pre.put(preSum[i], i);
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>post.put(0, 0);
+        for (int i = 1; i &lt;= nums.length; i++) {
+            postSum[i] = postSum[i - 1] + nums[nums.length - i];
+            post.put(postSum[i], i);
+        }
+        if (preSum[nums.length] &lt; x || (preSum[1] &gt; x &amp;&amp; postSum[1] &gt; x)) return -1;
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i &lt;= nums.length; i++) {</B></FONT>
+            int cur = x - postSum[i];
+            if (pre.containsKey(cur)) {
+                int l = pre.get(cur);
+                res = Math.min(res, l + i);
+            }
+<A NAME="2"></A>        }
+        for (int i = 0; i &lt;= nums.length; i++) {
+            int cur = x - preSum[i];
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (post.containsKey(cur)) {
+                int r = post.get(cur);
+                res = Math.min(res, r + i);
+            }
+        }
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>74_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 5;
+const int M = 7;
+int dp[N * N][243][M][M];
+int p3[N];
+
+class Solution {
+public:
+    int n, m;
+    int solve(int pos, int mask, int rem_i, int rem_e) {
+        if (pos == n * m) return 0;
+        int&amp; ret = dp[pos][mask][rem_i][rem_e];
+        if (ret &gt;= 0) return ret;
+<A NAME="0"></A>        ret = 0;
+        vector&lt;int&gt; a(m); // 1: intro; 2: extro
+        for (int i = 0, t = mask; i &lt; m; ++i, t /= 3) a[i] = t % 3;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int x = pos / m, y = pos % m;
+        // put nothing
+        ret = max(ret, solve(pos + 1, mask - p3[y] * a[y], rem_i, rem_e));
+        // put intro
+        if (rem_i &gt; 0) {
+            int score = 120;
+            if (y - 1 &gt;= 0 &amp;&amp; a[y - 1] == 1) score -= 60;
+            if (y - 1 &gt;= 0 &amp;&amp; a[y - 1] == 2) score -= 10;
+            if (x - 1 &gt;= 0 &amp;&amp; a[y] == 1) score -= 60;
+            if (x - 1 &gt;= 0 &amp;&amp; a[y] == 2) score -= 10;
+            ret = max(ret, score + solve(pos + 1, mask - p3[y] * a[y] + p3[y], rem_i - 1, rem_e));
+        }
+        // put extro
+        if (rem_e &gt; 0) {
+            int score = 40;
+            if (y - 1 &gt;= 0 &amp;&amp; a[y - 1] == 1) score -= 10;
+            if (y - 1 &gt;= 0 &amp;&amp; a[y - 1] == 2) score += 40;
+            if (x - 1 &gt;= 0 &amp;&amp; a[y] == 1) score -= 10;
+            if (x - 1 &gt;= 0 &amp;&amp; a[y] == 2) score += 40;
+            ret = max(ret, score + solve(pos + 1, mask - p3[y] * a[y] + p3[y] * 2, rem_i, rem_e - 1));
+        }</B></FONT>
+        return ret;
+    }
+    int getMaxGridHappiness(int n, int m, int x, int y) {
+      this-&gt;n = n;
+      this-&gt;m = m;
+
+        p3[0] = 1;
+        for (int i = 1; i &lt; N; ++i) p3[i] = p3[i - 1] * 3;
+        memset(dp, 255, sizeof(dp));
+        int ret = solve(0, 0, x, y);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

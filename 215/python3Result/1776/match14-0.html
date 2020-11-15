@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>580_T1N.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>580_T1N.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, nums: List[int], x: int) -&gt; int:
+        def lenOfLongSubarr(nums, k):
+            n = len(nums)
+            mydict = dict() 
+            sum = 0
+            maxLen = 0
+            for i in range(n): 
+                sum += nums[i] 
+                if (sum == k): 
+                    maxLen = i + 1
+                elif (sum - k) in mydict: 
+                    maxLen = max(maxLen, i - mydict[sum - k]) 
+                if sum not in mydict: 
+                    mydict[sum] = i 
+            return maxLen 
+        
+        midLen = lenOfLongSubarr(</B></FONT>nums, sum(nums) - x)
+        # print(midLen)
+        if midLen and midLen != len(nums):
+            return len(nums) - midLen
+        elif midLen == 0:
+            if sum(nums) == x:
+                return len(nums)
+        return -1
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>559_xieshanghe.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>559_xieshanghe.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+     public int minOperations(int[] nums, int x) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(0, 0);
+        int sum = 0;
+        for (int i = 0; i &lt; nums.length; i++) {
+            sum += nums[i];
+            map.put(sum, i + 1);
+        }
+        int res = Integer.MAX_VALUE</B></FONT>;
+        if (map.containsKey(x)) {
+            res = map.get(x);
+        }
+<A NAME="1"></A>        sum = 0;
+        for (int i = nums.length - 1; i &gt;= 0; i--) {
+            sum += nums[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (map.containsKey(x - sum) &amp;&amp; map.get(x - sum) + nums.length - i &lt;= nums.length) {
+                res = Math.min(res, map.get(x - sum) + nums.length - i);
+            }
+        }
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

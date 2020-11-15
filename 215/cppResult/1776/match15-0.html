@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_huangyuyang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_huangyuyang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; nums, int x) {
+        unordered_map &lt;int, int&gt; pos;
+        int s = 0;
+        pos[0] = 0;
+        for (int i = 0; i &lt; nums.size(); i++) {
+            s += nums[i];
+            pos[s] = i + 1;
+        }</B></FONT>
+        if (s &lt; x) {
+            return -1;
+        }
+        int ans = 1e9;
+        int n = nums.size(); 
+        s = 0;
+        int cnt = 0;
+        if (pos.find(x) != pos.end()) {
+            ans = pos[x];
+        }
+        
+        for (int i = n - 1; i &gt;= 0; i--) {
+            s += nums[i];
+<A NAME="1"></A>            cnt++;
+            if (s &gt; x) {
+                break;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            if (pos.find(x - s) != pos.end()) {
+                ans = min(ans, pos[x - s] + cnt);
+            }
+        }
+        if (ans &gt; n + 5) {
+            return -1;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

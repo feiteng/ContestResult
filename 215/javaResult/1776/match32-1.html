@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>288_Dorayaki1018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>288_Dorayaki1018.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        Map&lt;Integer, Integer&gt; left = new HashMap&lt;&gt;(), right = new HashMap&lt;&gt;();
+        int n = nums.length, l = 0, r = 0;
+        if(nums[0] &gt; x &amp;&amp; nums[n-1] &gt; x) return -1;
+        for(int i = 0; i &lt; n; i++) {
+            l += nums[i];
+            left.put(l, i+1);
+        }
+        for(int i = n - 1; i &gt;= 0; i--) {
+            r += nums[i];
+<A NAME="0"></A>            right.put(r, n - i);
+        }
+        if(r &lt; x) return -1;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int target = x, min = n;
+        for(int i = 0; i &lt; n; i++) {
+            target -= nums[i];
+            if(target == 0) {
+                min = Math.min(min, i + 1);
+            }</B></FONT> else if(target &lt; 0) {
+                break;
+            }
+<A NAME="1"></A>            if(right.containsKey(target) &amp;&amp; right.get(target) &lt; n - i) {
+                min = Math.min(min, i + 1 + right.get(target));
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        target = x;
+        for(int i = n - 1; i &gt;= 0; i--) {
+            target -= nums[i]; 
+            if(target == 0) {
+<A NAME="2"></A>                min = Math.min(min, n - i);
+            }</B></FONT> else if(target &lt; 0) {
+                break;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if(left.containsKey(target) &amp;&amp; left.get(target) &lt; i) {
+                min = Math.min(min, n - i + left.get(target));
+            }
+        }
+        return</B></FONT> min;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

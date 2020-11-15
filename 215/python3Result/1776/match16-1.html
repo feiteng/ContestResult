@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>314_clared.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>314_clared.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import bisect
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -&gt; int:
+        tmp1 = [0]
+        for i in nums:
+            tmp1.append(tmp1[-1]+i)
+        tmp2 = [0]
+        for i in nums[::-1]:
+            tmp2.append(tmp2[-1]+i)
+        ans = float(&quot;inf&quot;)
+        for i in range(len(tmp1)):
+            tmpindex =</B></FONT> i
+            index = bisect.bisect_left(tmp2, x-tmp1[i])
+            if tmpindex + index &lt;= len(nums) and index != len(tmp2) and tmp2[index] == x-tmp1[i]:
+                ans = min(ans, index+i)
+        if ans != float(&quot;inf&quot;):
+            return ans
+        else:
+            return -1
+        
+</PRE>
+
+</BODY>
+</HTML>

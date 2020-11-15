@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_nguyen_hoanh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_nguyen_hoanh.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  vector&lt;vector&lt;int&gt;&gt; states;
+  vector&lt;vector&lt;int&gt;&gt; cost;
+  vector&lt;int&gt; intro, extro;
+  
+  int count(vector&lt;int&gt;&amp; state, int value) {
+    int cnt = 0;
+    for (int x : state) cnt += x == value;
+    return cnt;
+  }
+  
+  void gen(int i, vector&lt;int&gt;&amp; state) {
+    if (i == state.size()) {
+      states.push_back(state);
+      intro.push_back(count(state, 1));
+      extro.push_back(count(state, 2));
+      return;
+    }
+    for (int value = 0; value &lt;= 2; ++value) {
+      state[i] = value;
+      gen(i + 1, state);
+<A NAME="0"></A>    }
+  }
+  
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  int getCost(int m, vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
+    int c = 0;
+    for (int i = 0; i &lt; m; ++i) {</B></FONT>
+      if (b[i] == 1) {
+        c += 120;
+        if (i-1 &gt;= 0 &amp;&amp; b[i-1]) c -= 30;
+        if (i+1 &lt; m &amp;&amp; b[i+1]) c -= 30;
+        if (a[i]) c -= 30;
+      }
+      else if (b[i] == 2) {
+        c += 40;
+        if (i-1 &gt;= 0 &amp;&amp; b[i-1]) c += 20;
+        if (i+1 &lt; m &amp;&amp; b[i+1]) c += 20;
+        if (a[i]) c += 20;
+      }
+    }
+    for (int i = 0; i &lt; m; ++i) {
+      if (a[i] == 1) {
+        if (b[i]) c -= 30;
+      }
+      else if (a[i] == 2) {
+        if (b[i]) c += 20;
+      }
+    }
+    return c;
+  }
+  
+  int f[6][26][26][250];
+  
+  void update(int&amp; res, int x) {
+    if (res == -1) res = x;
+    else res = max( res, x );
+  }
+  
+  int getMaxGridHappiness(int m, int n, int iCnt, int eCnt) {
+    vector&lt;int&gt; _state(m);
+    gen(0, _state);
+    
+    /*for (int i = 0; i &lt; states.size(); ++i) {
+      cout &lt;&lt; i &lt;&lt; &quot;: &quot;;
+      for (int x : states[i]) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+      cout &lt;&lt; &quot;; &quot; &lt;&lt; intro[i] &lt;&lt; &quot; &quot; &lt;&lt; extro[i] &lt;&lt; endl;
+    }*/
+<A NAME="1"></A>    cout &lt;&lt; states.size() &lt;&lt; endl;
+    
+    cost.resize(states.size(), vector&lt;int&gt;(states.size(), 0));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; states.size(); ++i) {
+      for (int j = 0; j &lt; states.size(); ++j) {
+        cost[i][j] = getCost(m, states[i], states[j]);
+        //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; cost[i][j] &lt;&lt; endl;
+      }
+<A NAME="2"></A>    }</B></FONT>
+    
+    memset(f, 0, sizeof(f));
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; n; ++i) {
+      for (int ic = 0; ic &lt;= iCnt; ++ic) {
+        for (int ec = 0; ec &lt;= eCnt; ++ec) {</B></FONT>
+          for (int s = 0; s &lt; states.size(); ++s) f[i][ic][ec][s] = -1;
+        }
+      }
+    }
+    
+    cout &lt;&lt; m &lt;&lt; &quot; &quot; &lt;&lt; n &lt;&lt; &quot; &quot; &lt;&lt; iCnt &lt;&lt; &quot; &quot; &lt;&lt; eCnt &lt;&lt; endl;
+    
+    int res = 0;
+    for (int s = 0; s &lt; states.size(); ++s) {
+      if (intro[s] &lt;= iCnt &amp;&amp; extro[s] &lt;= eCnt) {
+<A NAME="3"></A>        f[0][intro[s]][extro[s]][s] = cost[0][s];
+        res = max( res, cost[0][s] );
+        //cout &lt;&lt; 0 &lt;&lt; &quot; &quot; &lt;&lt; intro[s] &lt;&lt; &quot; &quot; &lt;&lt; extro[s] &lt;&lt; &quot; &quot; &lt;&lt; s &lt;&lt; &quot; -&gt; &quot; &lt;&lt; cost[0][s] &lt;&lt; endl;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      }
+    }
+    cout &lt;&lt; res &lt;&lt; endl;
+    
+    for (int i = 0; i &lt; n-1; ++i) {
+      for (int ic = 0; ic &lt;= iCnt; ++ic) {
+        for (int ec = 0; ec &lt;= eCnt; ++ec) {
+          for (int s = 0; s &lt; states.size(); ++s) {
+            //cout &lt;&lt; &quot;col: &quot; &lt;&lt; i &lt;&lt; &quot;, intro: &quot; &lt;&lt; ic &lt;&lt; &quot;, extro: &quot; &lt;&lt; ec
+            //     &lt;&lt; &quot;,  state:&quot; &lt;&lt; s &lt;&lt; &quot; = &quot; &lt;&lt; f[i][ic][ec][s] &lt;&lt; endl;
+            
+            if (f[i][ic][ec][s] == -1) continue;
+            
+            for (int s2 = 0; s2 &lt; states.size(); ++s2) {
+              if (ic + intro[s2] &gt; iCnt) continue;</B></FONT>
+              if (ec + extro[s2] &gt; eCnt) continue;
+              
+              int tmp = f[i][ic][ec][s] + cost[s][s2];
+              update( f[i+1][ic + intro[s2]][ec + extro[s2]][s2], tmp );
+              res = max( res, tmp );
+            }
+          }
+        }
+      }
+    }
+
+    return res;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

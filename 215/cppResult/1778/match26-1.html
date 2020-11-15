@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_Dshawn.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_Dshawn.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    int nn;
+    int toList[243][5];
+    int _selfscore[243];
+    int _crossscore[243][243];
+    int _ins[243];
+    int _exs[243];
+    int THREE[7];
+    void init(){
+        THREE[0] = 1;
+        for (int i = 1 ; i &lt; 7 ; ++i) THREE[i] = THREE[i - 1] * 3;
+        memset(_ins , 0 , sizeof(_ins));
+        memset(_exs , 0 , sizeof(_exs));
+        memset(_selfscore , 0 , sizeof(_selfscore));
+        for (int i = 0 ; i &lt; THREE[nn] ; ++i){
+            int mask = i;
+            for (int j = 0 ; j &lt; nn ; ++j){
+                toList[i][j] = mask % 3;
+                mask /= 3;
+<A NAME="0"></A>            }
+        }
+        for (int x = 0 ; x &lt; THREE[nn] ; ++x) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int *a = toList[x];
+            for (int i = 0 ; i &lt; nn ; ++i){
+                if (a[i] == 1){
+                    _ins[x] ++;
+                    _selfscore[x] += 120;
+                    if (i - 1 &gt;= 0 &amp;&amp; a[i - 1] != 0) _selfscore[x] -= 30;
+                    if (i + 1 &lt; nn &amp;&amp; a[i + 1] != 0) _selfscore[x] -= 30;
+                } else if (a[i] == 2) {
+                    _exs[x] ++;
+                    _selfscore[x] += 40;
+                    if (i - 1 &gt;= 0 &amp;&amp; a[i - 1] != 0) _selfscore[x] += 20;
+                    if (i + 1 &lt; nn &amp;&amp; a[i + 1] != 0) _selfscore[x] += 20;
+                }
+            }</B></FONT>
+        }
+        memset(_crossscore, 0 , sizeof(_crossscore));
+        for (int x = 0 ; x &lt; THREE[nn] ; ++x){
+            int *a = toList[x];
+            for (int y = 0 ; y &lt; THREE[nn] ; ++y){
+                int *b = toList[y];
+                for (int i = 0 ; i &lt; nn ; ++i){
+                    if (b[i] == 1){
+                        if (a[i] != 0) _crossscore[x][y] -= 30;
+                    } else if (b[i] == 2){
+                        if (a[i] != 0) _crossscore[x][y] += 20;
+                    }
+                    if (a[i] == 1){
+                        if (b[i] != 0) _crossscore[x][y] -= 30;
+                    }
+                    else if (a[i] == 2){
+                        if (b[i] != 0) _crossscore[x][y] += 20;
+                    }
+                }
+            }
+        }
+    }
+    int dp[5][243][7][7];
+public:
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        nn = n;
+        init();
+<A NAME="1"></A>        memset(dp , 0 , sizeof(dp));
+        for (int i = 0 ; i &lt; THREE[n] ; ++i){
+            if (_ins[i] &lt;= introvertsCount &amp;&amp; _exs[i] &lt;= extrovertsCount){
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                dp[0][i][_ins[i]][_exs[i]] = _selfscore[i];
+            }
+        }
+        for (int i = 1 ; i &lt; m ; ++i){
+            for (int u = 0 ; u &lt; THREE[n] ; ++u)
+                for (int x = 0 ; x &lt;= introvertsCount ; ++x)
+                    for (int y = 0 ; y &lt;= extrovertsCount ; ++y) if (dp[i - 1][u][x][y]) {</B></FONT>
+                        for (int v = 0 ; v &lt; THREE[n] ; ++v) {
+<A NAME="2"></A>                            if (x + _ins[v] &lt;= introvertsCount &amp;&amp; y + _exs[v] &lt;= extrovertsCount) {
+                                dp[i][v][x + _ins[v]][y + _exs[v]] = max (dp[i][v][x + _ins[v]][y + _exs[v]] , dp[i - 1][u][x][y] + _selfscore[v] + _crossscore[u][v] );
+                            }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+        }
+        int ans = 0;
+        for (int i = 0 ; i &lt; THREE[n] ; ++i)
+            for (int x = 0 ; x &lt;= introvertsCount ; ++x)
+                for (int y = 0 ; y &lt;= extrovertsCount ; ++y) if (dp[m - 1][i][x][y]){</B></FONT>
+                    ans = max(ans , dp[m - 1][i][x][y]);
+                }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

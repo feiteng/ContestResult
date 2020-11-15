@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>916_fiveface.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>916_fiveface.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def minOperations(self, nums: List[int], x: int) -&gt; int:
+        if min(nums) &gt; x: return -1
+        target = sum(nums) - x
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if target == 0: return len(nums)
+        # @lru_cache(None)
+        # def dfs(l, r, c):
+        #     if c == x: return 0
+        #     if c &gt; x or l&gt;r: return math.inf
+        #     return 1 + min(dfs(l+1,r,c+nums[l]), dfs(l,r-1,c+nums[r]))
+        # res = dfs(0,len(nums)-1,0)
+        # return res if res != math.inf else -1
+        seen = {}
+        seen[0] = -1
+        res = 0
+        cur = 0
+        for i, n in enumerate(nums):
+            cur += n
+            if (cur - target) in seen: res = max(res, i-seen[</B></FONT>cur-target])
+            if cur not in seen: seen[cur] = i
+        return (len(nums) - res) if res else -1
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_xyz_zhzho.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_xyz_zhzho.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int a[10][10];
+    int row;
+    int col;
+    int ans;
+    
+    int inside(int x, int y) {
+        if(x &lt;0 || x&gt;=row) return 0;
+        if(y &lt;0 || y&gt;=col) return 0;
+        return 1;
+    }
+    
+    void dfs(int id, int x, int y, int sum) {
+        ans = max(sum, ans);
+        
+        if(x ==0 &amp;&amp; y ==0) return;
+        if(id == row * col) return;
+        
+        if(114 * x + 111 * y + sum &lt;= ans) return;
+
+        int xx = id/col;
+        int yy = id%col;
+        
+<A NAME="0"></A>        if(y &gt; 0) {
+            a[id/col][id%col] = 2;
+            
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int newsum = sum + 40;
+            if(inside(xx-1,yy) &amp;&amp; a[xx-1][yy] != 0){
+                newsum += 20;
+                if(a[xx-1][yy] == 1) newsum -= 30;
+                else newsum += 20;
+            }
+            
+            if(inside(xx,yy-1) &amp;&amp; a[xx][yy-1] != 0){
+                newsum += 20;
+                if(a[xx][yy-1] == 1) newsum -= 30;
+                else newsum += 20;
+            }
+            
+            dfs(id+1, x, y-1, newsum);
+
+        }</B></FONT>
+        
+<A NAME="1"></A>        if(x &gt; 0) {
+            a[xx][yy] = 1;
+            
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int newsum = sum + 120;
+            if(inside(xx-1,yy) &amp;&amp; a[xx-1][yy] != 0){
+                newsum -= 30;
+                if(a[xx-1][yy] == 1) newsum -= 30;
+                else newsum += 20;
+            }
+            
+            if(inside(xx,yy-1) &amp;&amp; a[xx][yy-1] != 0){
+                newsum -= 30;
+                if(a[xx][yy-1] == 1) newsum -= 30;
+                else newsum += 20;
+            }
+
+            dfs(id+1, x-1, y, newsum);
+        }</B></FONT>
+        
+        
+        a[xx][yy] = 0;
+        dfs(id+1, x, y, sum);
+    }
+    
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        
+        row = m;
+        col = n;
+        ans = 0;
+        
+        dfs(0, introvertsCount, extrovertsCount, 0);
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

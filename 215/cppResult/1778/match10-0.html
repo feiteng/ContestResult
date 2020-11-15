@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>91_ddmike.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>91_ddmike.cpp</CENTER></H3><HR>
+<PRE>
+int dp[6][6][250][7][7];
+bool flag[6] = {true, true, true, true, true, true};
+class Solution {
+public:
+    const int IMPOS = -99999999;
+    int a[6], b[6];
+    inline int js(int&amp; xa, int&amp; xb)
+    {
+        if (xb == 0) return 0;
+        if (xa == 1)
+        { 
+            return -30;
+        }
+        if (xa == 2)
+        {
+            return 20;
+        }
+        return 0;
+<A NAME="0"></A>    }
+    void doit(int m, int n, int introvertsCount, int extrovertsCount){
+        memset(dp[n], 0, sizeof(dp[n]));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt;= m; ++i)
+        {
+            for (int j = 1; j &lt; pow(3, n); ++j)
+            {
+                for (int ki = 0; ki &lt;= introvertsCount; ++ki)
+                {
+                    for (int ke = 0; ke &lt;= extrovertsCount; ++ke)
+                    {
+                        dp[n][i][j][ki][ke] = IMPOS;
+                    }
+                }
+            }
+        }
+        
+        for (int i = 1; i &lt;= m; ++i)
+        {</B></FONT>
+            for (int j = 0; j &lt; pow(3, n); ++j)
+            {
+                memset(a, 0, sizeof(a));
+                int x = j, pos = 0, yi = 0, ye = 0; 
+                while (x &gt; 0)
+                {
+                    a[pos] = x % 3;
+<A NAME="1"></A>                    x /= 3;
+                    if (a[pos] == 1) yi++;
+                    if (a[pos] == 2) ye++;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    pos++;
+                }
+                for (int ki = yi; ki &lt;= introvertsCount; ++ki)
+                {
+                    for (int ke = ye; ke &lt;= extrovertsCount; ++ke)
+                    {</B></FONT>
+                        if (dp[n][i - 1][j][ki][ke] != IMPOS)
+                        {
+                            int zz = dp[n][i - 1][j][ki][ke];
+                            for (int z = 0;  z &lt; pow(3, n); ++z)
+                            {
+                                memset(b, 0, sizeof(b));
+                                int xf = 0;
+
+                                int x = z, pos = 0, zi = 0, ze = 0;
+                                while (x &gt; 0)
+                                {
+                                    b[pos] = x % 3;
+                                    x /= 3;
+                                    if (b[pos] == 1){
+                                        zi++;
+                                    }
+                                    if (b[pos] == 2){
+                                        ze++;
+                                    } 
+                                    pos++;
+                                }
+                                int fin_i = ki + zi, fin_e = ke + ze;
+                                if (fin_i &lt;= introvertsCount &amp;&amp; fin_e &lt;= extrovertsCount)
+                                {
+                                    for (int k = 0; k &lt; pos; ++k)
+                                    {
+                                        if (b[k] == 1)
+                                        {
+                                            xf += 120;
+                                            xf += js(a[k], b[k]) + js(b[k], a[k]);
+                                            if (k - 1 &gt;= 0) xf += js(b[k], b[k - 1]) + js(b[k - 1], b[k]);
+                                        }
+                                        else if (b[k] == 2)
+                                        {
+                                            xf += 40;
+                                            xf += js(a[k], b[k]) + js(b[k], a[k]);
+                                            if (k - 1 &gt;= 0) xf += js(b[k], b[k - 1]) + js(b[k - 1], b[k]);
+                                        }
+                                    }
+                                    if (zz + xf &gt; dp[n][i][z][fin_i][fin_e])
+                                        dp[n][i][z][fin_i][fin_e] = zz + xf;
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }   
+        }
+    }
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        if (flag[n])
+<A NAME="2"></A>        {
+            doit(5,n,6,6);
+            flag[n] = false;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        int ans = 0;
+    
+        for (int j = 0; j &lt; pow(3, n); ++j)
+        {
+            for (int ki = 0; ki &lt;= introvertsCount; ++ki)
+            {
+                for (int ke = 0; ke &lt;= extrovertsCount; ++ke)
+                {
+                    ans = max(ans, dp[n][m][j][ki][ke]);
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

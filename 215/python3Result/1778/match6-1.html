@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>111_pku_erutan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>111_pku_erutan.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getMaxGridHappiness(self, m: int, n: int, introvertsCount: int, extrovertsCount: int) -&gt; int:
+        grids = list(range(m*n))
+        to_ret = 0
+        if m == 1 or n == 1 :
+            for extroverts_range in range(extrovertsCount + 1) :
+                for extros in itertools.combinations(grids, extroverts_range) :
+                    set_extros = set(extros)
+                    else_grid = [t for t in grids if not t in set_extros]
+                    introverts_range = min(m*n-extroverts_range, introvertsCount) 
+
+                    for introverts_nt in range(introverts_range+1) :
+<A NAME="0"></A>                        for intros in itertools.combinations(else_grid, introverts_nt) :
+                            counter = [0] * (m*n)
+                            for i in intros + extros :
+                                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if 0 &lt;= i-n &lt; m*n :
+                                    counter[i-n]+=1
+                                if 0 &lt;= i+n &lt; m*n :
+                                    counter[i+n]+=1
+                                if not i % n == n-1 :
+                                    counter[i+1]+</B></FONT>=1
+                                if not i % n == 0 :
+                                    counter[i-1]+=1
+                            sumt = 0
+                            for i in extros :
+                                sumt += 40 + 20 * counter[i]
+                            for i in intros :
+                                sumt += 120 - 30 * counter[i]
+                            # if sumt &gt; to_ret :
+                            #     print(extros, intros, sumt)
+                            to_ret = max(to_ret, sumt)
+            return to_ret
+
+        
+        if m &lt; 3 or n &lt; 3 or m*n&lt;=12:
+            for extros in itertools.combinations(grids, extrovertsCount) :
+                set_extros = set(extros)
+                else_grid = [t for t in grids if not t in set_extros]
+                introverts_range = min(m*n-extrovertsCount, introvertsCount) 
+
+                for introverts_nt in range(introverts_range+1) :
+<A NAME="1"></A>                    for intros in itertools.combinations(else_grid, introverts_nt) :
+                        counter = [0] * (m*n)
+                        for i in intros + extros :
+                            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if 0 &lt;= i-n &lt; m*n :
+                                counter[i-n]+=1
+                            if 0 &lt;= i+n &lt; m*n :
+                                counter[i+n]+=1
+                            if not i % n == n-1 :
+                                counter[i+1]+</B></FONT>=1
+                            if not i % n == 0 :
+                                counter[i-1]+=1
+                        sumt = 0
+                        for i in extros :
+                            sumt += 40 + 20 * counter[i]
+                        for i in intros :
+                            sumt += 120 - 30 * counter[i]
+                        # if sumt &gt; to_ret :
+                        #     print(extros, intros, sumt)
+                        to_ret = max(to_ret, sumt)
+            return to_ret
+
+        if extrovertsCount &lt;= 3 :
+            extros_ss = [tuple(range(extrovertsCount))]
+            if extrovertsCount == 3 :
+                extros_ss.append(tuple([0, 1, n]))
+            if extrovertsCount == 2 :
+                extros_ss.append(tuple([0, n]))
+        elif extrovertsCount == 4 :
+            extros_ss = [tuple([0, 1, n, n+1])]
+        elif extrovertsCount == 5 :
+            extros_ss = [tuple([0, 1, 2, n, n+1])]
+        elif extrovertsCount == 6 :
+            extros_ss = [tuple([0, 1, 2, n, n+1, n+2]), tuple([0, 1, n, n+1, 2*n, 2*n+1])]
+
+        for extros in extros_ss :
+            set_extros = set(extros)
+            else_grid = [t for t in grids if not t in set_extros]
+            introverts_range = min(m*n-extrovertsCount, introvertsCount) 
+
+            for introverts_nt in range(introverts_range+1) :
+                for intros in itertools.combinations(else_grid, introverts_nt) :
+                    counter = [0] * (m*n)
+                    for i in intros + extros :
+                        if 0 &lt;= i-n &lt; m*n :
+                            counter[i-n]+=1
+                        if 0 &lt;= i+n &lt; m*n :
+                            counter[i+n]+=1
+                        if not i % n == n-1 :
+                            counter[i+1]+=1
+                        if not i % n == 0 :
+                            counter[i-1]+=1
+                    sumt = 0
+                    for i in extros :
+                        sumt += 40 + 20 * counter[i]
+                    for i in intros :
+                        sumt += 120 - 30 * counter[i]
+                    # if sumt &gt; to_ret :
+                    #     print(extros, intros, sumt)
+                    to_ret = max(to_ret, sumt)
+
+
+        return to_ret
+</PRE>
+
+</BODY>
+</HTML>

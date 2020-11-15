@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>114_PiggyHead.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>114_PiggyHead.cpp</CENTER></H3><HR>
+<PRE>
+
+
+class Solution {
+public:
+    
+    // #define state 
+    
+    int f[6][250][7][7];
+    int s[7];
+    int mm, nn;
+    
+    int getdp(int i, int j, int intro, int extro) {
+        if (i == 0)
+            return !intro &amp;&amp; !extro &amp;&amp; !j ? 0 : -0x3f3f3f3f;
+        int in, ex;
+        return valid(j, intro, extro, in, ex) ? f[i][j][intro][extro] : -0x3f3f3f3f;
+    }
+    
+    bool valid(int k, int intro, int extro, int&amp; ii, int &amp;ee) {
+        int in = 0, ex = 0;
+        while (k) {
+            int t = k % 3;
+            if (t == 1) in ++;
+            if (t == 2) ex ++;
+            k /= 3;
+        }
+        ii = in, ee = ex;
+        return in &lt;= intro &amp;&amp; ex &lt;= extro;
+    }
+    
+    int calc(int j, int k, int m, int n) {
+        int base = 0;
+        int kk = k;
+        int pj = j, pk = k;
+        int prev = 0;
+        for (int i = 0; i &lt; nn; i ++) {
+            int t = kk % 3;
+            if (t == 1) base += 120;
+            if (t == 2) base += 40;
+            if (prev &amp;&amp; t) {
+                if (t == 1) base -= 30;
+                if (t == 2) base += 20;
+                if (prev == 1) base -= 30;
+                if (prev == 2) base += 20;
+            } 
+            kk /= 3;
+            prev = t;
+            if (kk == 0) break;
+        }
+        int bonus = 0;
+        for (int i = 0; i &lt; nn; i ++) {
+            int up = j % 3, down = k % 3;
+<A NAME="1"></A>            if (up == 1) {
+                if (down != 0) bonus -= 30;
+            } else if (up == 2) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (down != 0) bonus += 20;
+            }
+            if (down == 1) {
+                if (up != 0) bonus -= 30;
+            } else if (down == 2) {
+                if (up != 0) bonus += 20;
+            }</B></FONT>
+            j /= 3, k /= 3;
+            if (!j &amp;&amp; !k) break;
+        }
+        
+        // debug(pj);
+        // debug(pk);
+        // // cout &lt;&lt; &quot;cost&quot; &lt;&lt; endl;
+        // cout &lt;&lt; &quot;-&gt;&quot; &lt;&lt; base &lt;&lt; &quot; &quot; &lt;&lt; bonus &lt;&lt; &quot; &quot; &lt;&lt; base + bonus &lt;&lt; endl;
+        // cout &lt;&lt; endl;
+        return base + bonus;
+    }
+    
+//     void dfs(int i, int j, int dep) {
+        
+//     }
+    
+    int getMaxGridHappiness(int m, int n, int introvertsCount, int extrovertsCount) {
+        if (m &lt; n) swap(m, n);
+        int maxs = 1; s[0] = 1;
+        for (int i = 1; i &lt;= n; i ++)
+<A NAME="0"></A>            maxs *= 3, s[i] = s[i - 1] * 3;
+        mm = m, nn = n;
+        // 0 -; 1 intro; 2 extro;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt;= m; i ++) {
+            for (int intro = 0; intro &lt;= introvertsCount; intro ++) {
+                for (int extro = 0; extro &lt;= extrovertsCount; extro ++) {
+                    for (int k = 0; k &lt; maxs; k ++) {</B></FONT>
+                        int in, ex;
+                        if (valid(k, intro, extro, in, ex)) {
+//                             for (int ii = 0; ii &lt;= in; ii ++) {
+//                                 for (int jj = 0; jj &lt;= ex; jj ++) {
+                                    
+//                                 }
+//                             }
+                            for (int j = maxs - 1; j &gt;= 0; j --) {
+                                int ii, ee;
+                                if (!valid(j, intro-in, extro-ex, ii, ee)) continue;
+<A NAME="2"></A>                                f[i][k][intro][extro] = max(f[i][k][intro][extro],
+                                                            getdp(i - 1, j, intro - in, extro - ex) + calc(j, k, m, n));
+                                // cout &lt;&lt; f[i][k][intro][extro] &lt;&lt; endl;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            }
+                        }
+                    }
+                }
+            }
+        }
+        // calc(5, 3, m, n);
+        // calc(2, 13, m, n);
+        int ans = -0x3f3f3f3f;
+        for (int intro = 0; intro &lt;= introvertsCount; intro ++) {
+            for (int extro = 0; extro &lt;= extrovertsCount; extro ++) {
+                for (int k = 0; k &lt; maxs; k ++) {</B></FONT>
+                    int in, ex;
+                    if (valid(k, intro, extro, in, ex))
+                        ans = max(ans, getdp(m, k, intro, extro));
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

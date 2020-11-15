@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_ajinkya1p3.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_ajinkya1p3.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    int pre[100005];
+    unordered_map&lt;int, int&gt; M;
+<A NAME="0"></A>public:
+    int minOperations(vector&lt;int&gt;&amp; nums, int x) {
+        pre[0] = nums[0];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        M[0] = -1;
+        M[ pre[0] ] = 0;
+        for (int i=1; i&lt;nums.size(); i++) {
+            pre[i] = pre[i-1] + nums[i];
+            M[ pre[i] ] = i;
+        }
+        int ans = nums.size() + 1, sum = 0;</B></FONT>
+<A NAME="1"></A>        
+        if (M.count(x)) {
+            ans = M[x] + 1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        for (int i=nums.size()-1; i&gt;=0; i--) {
+            M.erase(pre[i]);
+            sum += nums[i];
+            
+            if (M.count(x - sum)) {
+                ans = min(ans, (int) nums.size() - i + M[x - sum] + 1);
+            }
+        }
+        if (ans == nums.size() + 1) {
+            return -1;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

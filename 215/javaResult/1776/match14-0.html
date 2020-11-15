@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>347_johnzhengguo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>347_johnzhengguo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minOperations(int[] nums, int x) {
+        
+        int n = nums.length;
+        
+        // let's compute a prefix sum -- with the number of nums used
+        HashMap&lt;Integer, Integer&gt; pfsMap = new HashMap&lt;&gt;();
+        int pfs = 0;
+        
+        pfsMap.put(0, 0);
+        for (int i = 0; i &lt; n; i++) {
+            pfs += nums[i];
+            pfsMap.put(pfs, i+1);
+        }</B></FONT>
+        
+        // System.out.println(pfsMap);
+        
+
+        
+        // for a suffix sum, check if the corresponding prefix sum exists
+        int sfs = 0;
+        int best = n+1;
+        
+        if (pfsMap.containsKey(x)) {
+            best = pfsMap.get(x);
+        }
+<A NAME="1"></A>        
+        for (int j = n-1; j &gt;= 0; j--) { // j is sort of the &quot;right count&quot;, or rCount
+            sfs += nums[j];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int pfsNeeded = x - sfs;
+            if (pfsMap.containsKey(pfsNeeded)) {
+                int lCount = pfsMap.get(pfsNeeded); // 0 ... lCount-1
+                if (lCount &lt; j) {
+                    best = Math.min(best, lCount + (n-j));
+                }
+            }
+        }
+        
+        return (best == n+1) ? -1 : best;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

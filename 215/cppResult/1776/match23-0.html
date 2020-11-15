@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>997_wally-s.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>997_wally-s.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int minOperations(vector&lt;int&gt;&amp; nums, int x) {
+        int dp1[100005],dp2[100005];
+        dp1[0] = 0;
+        dp2[0] = 0;
+        for(int i=1;i&lt;=nums.size();i++)
+        {
+            dp1[i] = dp1[i-1]+nums[i-1];</B></FONT>
+            dp2[i] = dp2[i-1]+nums[nums.size()-i];
+        }
+        if(dp1[nums.size()]&lt;x)
+            return -1;
+<A NAME="1"></A>        int ans = 100005;
+        for(int i=0;i&lt;=nums.size();i++)
+        {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(dp1[i]&gt;x)
+                break;
+            int k = lower_bound(dp2,dp2+nums.size()+1,x-dp1[i])-dp2;
+            if(k!=nums.size()+1&amp;&amp;dp2[k]==x-dp1[i])
+            {
+                ans = min(i+k,ans);
+            }
+        }
+        if(ans==100005)
+            return -1;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

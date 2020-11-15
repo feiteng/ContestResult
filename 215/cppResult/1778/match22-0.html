@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_HanaYukii.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_HanaYukii.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int getMaxGridHappiness(int mm, int n, int in, int ex) {
+        
+        int tot = 1;
+        for (int i = 0 ; i &lt; mm ; i++) {
+            tot *= 3;
+        }
+        int p[tot];
+        int m[tot][tot];
+        int dp[n][in+1][ex+1][tot];
+        int ca[tot],cb[tot];
+        memset(dp, 0xc4, sizeof(dp));
+        memset(p, 0, sizeof(p));
+        memset(m, 0, sizeof(m));
+        memset(ca, 0, sizeof(ca));
+        memset(cb, 0, sizeof(cb));
+        vector&lt;int&gt;vv[tot];
+        for (int i = 0 ; i &lt; tot ; i++) {
+            vector&lt;int&gt;v;
+            int num = i;
+            for(int j = 0 ; j &lt; mm ; j++) {
+                v.push_back(num % 3);
+<A NAME="0"></A>                num /= 3;
+            }
+            vv[i] = v;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int c1 = 0, c2 = 0;
+            for (int j = 0 ; j &lt; mm ; j++) {
+                if (v[j] == 1) {
+                    p[i] += 120;
+                    if (j &amp;&amp; v[j - 1]) {</B></FONT>
+                        p[i] -= 30;
+                    }
+                    if (j &lt; mm - 1 &amp;&amp; v[j + 1]) {
+                        p[i] -= 30;
+                    }
+                    c1++;
+                }
+                if (v[j] == 2) {
+                    p[i] += 40;
+                    if (j &amp;&amp; v[j - 1]) {
+                        p[i] += 20;
+                    }
+                    if (j &lt; mm - 1 &amp;&amp; v[j + 1]) {
+                        p[i] += 20;
+                    }
+                    c2++;
+                }
+            }
+            ca[i] = c1;
+            cb[i] = c2;
+            if (c1 &lt;= in &amp;&amp; c2 &lt;= ex) {
+<A NAME="1"></A>                dp[0][c1][c2][i] = p[i];
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0 ; i &lt; tot; i++) {
+            for (int j = 0 ; j &lt; tot ; j++) {
+                for (int k = 0 ; k &lt; mm ; k++) {
+                    if (!vv[i][k] || !vv[j][k])continue;
+                    if (vv[i][k] == 1 &amp;&amp; vv[j][k] == 1) {</B></FONT>
+                        m[i][j] -= 60;
+                    }
+                    else if (vv[i][k] == 2 &amp;&amp; vv[j][k] == 2) {
+                        m[i][j] += 40;
+                    }
+                    else {
+<A NAME="2"></A>                        m[i][j] -= 10;
+                    }
+                }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        for (int i = 0 ; i &lt; n - 1 ; i++) {
+            for (int k = 0 ; k &lt;= in ; k++) {
+                for (int l = 0 ; l &lt;= ex ; l++) {
+                    for (int j = 0 ; j &lt; tot ; j++) {</B></FONT>
+                        if (dp[i][k][l][j] &lt; 0)continue;
+                        for (int z = 0 ; z &lt; tot ; z++) {
+                            if (k + ca[z] &gt; in || l + cb[z] &gt; ex) {
+                                continue;
+                            }
+                            dp[i + 1][k+ca[z]][l+cb[z]][z] = max(dp[i + 1][k+ca[z]][l+cb[z]][z], dp[i][k][l][j] + p[z] + m[j][z]);
+                        }
+                    }
+                }
+<A NAME="3"></A>            }
+        }
+        int ret = 0;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match22-1.html#3',3,'match22-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0 ; i &lt;= in ; i++) {
+            for (int j = 0 ; j &lt;= ex ; j++) {
+                for (int z = 0 ; z &lt; tot ; z++) {</B></FONT>
+                    ret = max(ret,dp[n-1][i][j][z]);
+                }
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
