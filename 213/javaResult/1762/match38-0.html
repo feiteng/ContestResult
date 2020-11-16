@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>596_z_zhaojun.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>596_z_zhaojun.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+int n = heights.length;
+        int l = 0;
+        int r = n;
+        while (l &lt; r) {
+            int m = (l + r) / 2</B></FONT>;
+<A NAME="1"></A>            int lad = ladders;
+            PriorityQueue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;();
+            long use = 0;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt;= m; i++) {
+                if (heights[i] &gt; heights[i - 1]) {
+                    queue.offer(-heights[i] + heights[i - 1]);
+                    use += heights[i] - heights[i - 1];
+                }
+            }</B></FONT>
+            while (use &gt; bricks &amp;&amp; queue.size() &gt; 0 &amp;&amp; lad &gt; 0) {
+<A NAME="2"></A>                lad--;
+                use += queue.poll();
+            }
+            if (use &gt; bricks) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match38-1.html#2',3,'match38-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        return l - 1;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

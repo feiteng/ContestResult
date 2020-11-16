@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>726_tcan1993.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>726_tcan1993.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+
+    public String kthSmallestPath(int[] destination, int k) {
+<A NAME="0"></A>        int[][] c = new int[31][31];
+        c[0][0] = 1;
+        for (int i = 1; i &lt;= 30; i++) {
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>c[i][0] = 1;
+            for (int j = 1; j &lt;= i; j++) {
+                c[i][j] = c[i - 1][j - 1] + c[i - 1][j];
+            }
+        }
+        StringBuilder s = new</B></FONT> StringBuilder();
+<A NAME="1"></A>        int H = destination[1], V = destination[0];
+        int T = H + V;
+        k--;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt;= T; i++) {
+            if (k &gt;= c[T - i][V]) {
+                k -= c[T - i][V];
+                s.append('V');
+                V--;
+            } else {
+                s.append('H');
+                H--;
+            }
+        }
+        return s.toString();
+    }
+
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

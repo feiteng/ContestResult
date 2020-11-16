@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>347_griffinmclennan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>347_griffinmclennan.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        int ind = 0;
+        int N = heights.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; a - b);
+        long bricksReq = 0;
+        
+        while (ind &lt; N - 1) {
+            int dif = heights[ind + 1] - heights[ind];
+            
+            if (dif &lt;= 0) {</B></FONT>
+<A NAME="1"></A>                ind++;
+            }
+            else {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.offer(dif);
+                
+                if (pq.size() &gt; ladders) {
+                    bricksReq += pq.poll();
+                }
+<A NAME="2"></A>                
+                if (bricksReq &gt; bricks) {</B></FONT>
+                    return ind;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                
+                ind++;
+            }
+        }
+        
+        return ind;
+    }
+    
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

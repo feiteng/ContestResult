@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_john_shelvin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>446_john_shelvin.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int furthestBuilding(vector&lt;int&gt;&amp; heights, int bricks, int ladders) {
+        priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt;&gt; heap;
+        for (int i=1;i&lt;heights.size();i++){
+            if (heights[i]&gt;heights[i-1]) heap.push(heights[i]-heights[i-1]);
+            if (heap.size()&gt;ladders){
+                bricks-=heap.top();
+                heap.pop();
+            }
+            if (bricks&lt;0) return i-1;
+        }
+        return heights.size()-1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

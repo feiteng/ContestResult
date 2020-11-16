@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_CuiKai123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>465_CuiKai123.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	
+	long nCr(int n, int r) {
+		if(n - r &lt; r) {
+			r = n - r;
+		}
+        if(r == 0)
+            return 1;
+		//从n中选出r个数
+		long ret = 1;
+		for(int i = 0; i &lt; r; ++i) {
+            
+			ret *= (n - i);
+            ret /= (i + 1);
+<A NAME="0"></A>		}
+        //System.out.println(n + &quot; C &quot; + r + &quot; = &quot; + ret);
+		return ret;
+	}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	
+    public String kthSmallestPath(int[] destination, int k) {
+    	//困难就这？
+    	int Vcount = destination[0], Hcount = destination[1];
+    	StringBuilder builder = new StringBuilder();
+<A NAME="1"></A>    	while(Vcount &gt; 0 &amp;&amp; Hcount &gt; 0) {</B></FONT>
+    		long hBeg = nCr(Vcount + Hcount - 1, Vcount);
+    		if(k &gt; hBeg) {
+    			builder.append('V<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>');
+    			--Vcount;
+    			k -= hBeg;
+    		} else {
+    			builder.append('H');
+    			--Hcount;
+    		}
+    	}
+    	while(Vcount &gt; 0) {
+    		--Vcount;
+    		builder.append('V');
+    	}
+    	while(Hcount &gt; 0) {
+    		--Hcount;
+    		builder.append('H');
+    	}
+    	return builder.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

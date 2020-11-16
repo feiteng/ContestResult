@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>648_maoyp.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>648_maoyp.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String kthSmallestPath(int[] destination, int k) {
+        int hCount = destination[1], vCount = destination[0];
+        int[][] comb = new</B></FONT> int[hCount + vCount + 1][hCount + vCount + 1];
+        comb[0][0] = 1;
+        comb[1][0] = 1;
+        comb[1][1] = 1;
+<A NAME="1"></A>        for (int total = 2; total &lt;= hCount + vCount; total++){
+            comb[total][0] = 1;
+            comb[total][total] = 1;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int h = 1; h &lt; total; h++){
+                comb[total][h] = comb[total - 1][h] + comb[total - 1][h - 1];
+            }
+        }
+        
+        return kthPath(hCount, vCount, k, new StringBuilder(), comb);
+    }
+    
+    private String kthPath(int h, int v, int k, StringBuilder path, int[][] comb){
+        if (h == 0 &amp;&amp; v == 0){</B></FONT>
+            return path.toString();
+<A NAME="2"></A>        }
+        
+        int hPaths = h == 0 ? 0 : comb[v + h - 1][h - 1];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (k &lt;= hPaths){
+            path.append('H');
+            return kthPath(h - 1, v, k, path, comb);
+        } else {
+            path.append('V');
+            return kthPath(h, v - 1, k - hPaths, path, comb);
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

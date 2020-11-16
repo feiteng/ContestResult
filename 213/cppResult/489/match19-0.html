@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>879_yi-zhi-xiao-ruo-ji.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>879_yi-zhi-xiao-ruo-ji.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+ll dp[20][20];
+<A NAME="0"></A>class Solution {
+public:
+	string kthSmallestPath(vector&lt;int&gt;&amp; destination, int k) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		int n = destination[0];
+		int m = destination[1];// 
+		memset(dp, 0, sizeof(dp));
+		dp[n][m] = 1;
+		for (int i = n; i &gt;= 0; i--) {
+			for (int j = m; j &gt;= 0; j--) {
+				if (i == n &amp;&amp; j == m) continue;</B></FONT>
+				dp[i][j] = dp[i + 1][j] + dp[i][j + 1];
+				// cout &lt;&lt; i &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; dp[i][j] &lt;&lt; endl;
+			}
+		}
+		int curx = 0, cury = 0;
+		string str;
+<A NAME="1"></A>		while (1) {
+			// cout &lt;&lt; curx &lt;&lt; &quot; &quot; &lt;&lt; cury &lt;&lt; &quot;    &quot; &lt;&lt; k &lt;&lt; endl;
+			if (curx == n &amp;&amp; cury == m) break;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			if (curx == n) {
+				str.push_back('H');
+				cury++;
+				continue;
+			}
+			if (cury == m) {
+				str.push_back('V');
+				curx++;
+				continue;
+			}
+			if (dp[curx][cury + 1] &gt;= k) {
+				cury++;
+				str.push_back('H');
+			}
+			else {
+				k -= dp[curx][cury + 1];
+				curx++;
+				str.push_back('V');
+			}
+		}
+		return str;
+	}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

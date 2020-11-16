@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>529_wangyuquan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>529_wangyuquan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool ok(vector&lt;int&gt;&amp; steps, int target, int bricks, int ladders){
+        vector&lt;int&gt; allsteps;
+        for(int i=1;i&lt;=target;i++){</B></FONT>
+            allsteps.push_back(steps[i-1]);
+<A NAME="1"></A>        }
+        sort(allsteps.begin(), allsteps.end(), greater&lt;int&gt;());
+        int need = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=ladders;i&lt;allsteps.size();i++){
+            need+=allsteps[i];
+        }
+        return bricks&gt;=need;
+    }
+    int furthestBuilding(vector&lt;int&gt;&amp; heights, int bricks, int ladders) {
+        vector&lt;int&gt; steps;</B></FONT>
+        if(heights.size()==1)
+            return 0;
+        for(int i=1;i&lt;heights.size();i++){
+            if(heights[i]&gt;heights[i-1])
+                steps.push_back(heights[i]-heights[i-1]);
+            else
+<A NAME="2"></A>                steps.push_back(0);
+        }
+        int l = 0;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int r = heights.size()-1;
+        while(l&lt;r){
+            int mid = (l+r+1)/2;
+            if(ok(steps, mid, bricks, ladders)){
+                l = mid;
+            }else{
+                r = mid-1;
+            }
+        }
+        return l;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

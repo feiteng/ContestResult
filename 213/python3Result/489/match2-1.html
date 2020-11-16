@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_huangyufei.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>327_huangyufei.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def kthSmallestPath(self, destination: List[int], k: int) -&gt; str:
+        def factorial(a, b):
+            res = 1
+            for i in range(1, a + b + 1):
+                res = res * i
+            for i in range(1, a + 1):
+                res = res // i
+            for i in range(1, b + 1):
+                res = res // i
+            return res
+
+        ans = []
+
+        def dfs(x, y, z):
+            if x == 0 and y == 0:
+                return
+            elif x == 0:
+                y -= 1
+                ans.append(&quot;V&quot;)
+                dfs(x, y, z)
+            elif y == 0:
+                x -= 1
+                ans.append(&quot;H&quot;)
+                dfs(x, y, z)
+            else:
+                if factorial(x - 1, y) &gt; z:
+                    ans.append(&quot;H&quot;)
+                    dfs(x - 1, y, z)
+                else:
+                    ans.append(&quot;V&quot;)
+                    dfs(x, y - 1, z - factorial(x - 1, y))
+
+        dfs(destination[1], destination[0], k - 1)
+        
+        return ''.join(a</B></FONT>ns)
+</PRE>
+
+</BODY>
+</HTML>

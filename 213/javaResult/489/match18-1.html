@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>204_yianshi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>204_yianshi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String kthSmallestPath(int[] destination, int k) {
+        int v = destination[0];
+        int h = destination[1];
+        int[][] dp = new</B></FONT> int[v+1][h+1];
+        Arrays.fill(dp[0], 1);
+        for(int i = 0; i &lt;= v; i++){
+<A NAME="1"></A>            dp[i][0] = 1;
+        }
+        for(int i = 1; i &lt;= v; i++){
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int j = 1; j &lt;= h; j++){
+                dp[i][j] = dp[i-1][j]*(i+j) / i;
+            }
+        }
+        return helper(new StringBuilder(), v, h, k, dp);
+    }
+    
+    private String helper(StringBuilder s, int v, int h, int k, int[][] dp){
+        if(k == 1){</B></FONT>
+            for(int i = 0; i &lt; h; i++){
+                s.append('H');
+            }
+            for(int i = 0; i &lt; v; i++){
+                s.append('V');
+            }
+            return s.toString();
+<A NAME="2"></A>        }
+        else{
+            int count = dp[v][h-1];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(k &lt;= count){
+                s.append('H');
+                return helper(s, v, h-1, k, dp);
+            }
+            else{
+                k -= count;
+                s.append('V');
+                return helper(s, v-1, h, k, dp);
+            }
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

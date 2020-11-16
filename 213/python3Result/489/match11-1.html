@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>865_fiveface.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>865_fiveface.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def kthSmallestPath(self, destination: List[int], k: int) -&gt; str:
+        MAX_CHAR <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 100
+        MAX_FACT = 40
+        fact = [None] * (MAX_FACT)  
+
+        # Utility for calculating factorials  
+        def precomputeFactorials(): 
+            fact[0] = 1
+            for i in range(1, MAX_FACT):  
+                fact[i] = fact[i - 1] * i  
+
+        # Function for nth permutation  
+        def nPermute(string, n):  
+            precomputeFactorials()  
+            # length of given string  
+            length = len(string)  
+
+            # Count frequencies of all  
+            # characters  
+            freq = [0] * (MAX_CHAR)  
+            for i in range(0, length):  
+                freq[ord(string[i]) - ord('A')] += 1
+
+            # out string for output string  
+            out = [None] * (MAX_CHAR)  
+
+            # iterate till sum equals n  
+            Sum, k = 0, 0
+
+            # We update both n and sum in  
+            # this loop.  
+            while Sum != n:  
+
+                Sum = 0
+
+                # check for characters present in freq[]  
+                for i in range(0, MAX_CHAR):  
+                    if freq[i] == 0:  
+                        continue
+
+                    # Remove character  
+                    freq[i] -= 1
+
+                    # calculate sum after fixing  
+                    # a particuar char  
+                    xsum = fact[length - 1 - k]  
+                    for j in range(0, MAX_CHAR):  
+                        xsum = xsum // fact[freq[j]]  
+                    Sum += xsum  
+
+                    # if sum &gt; n fix that char as  
+                    # present char and update sum  
+                    # and required nth after fixing  
+                    # char at that position  
+                    if Sum &gt;= n:  
+                        out[k] = chr(i + ord('A'))  
+                        n -= Sum - xsum  
+                        k += 1
+                        break
+
+                    # if sum &lt; n, add character back  
+                    if Sum &lt; n:  
+                        freq[i] += 1
+
+            # if sum == n means this char will provide  
+            # its greatest permutation as nth permutation 
+            i = MAX_CHAR-1
+            while k &lt; length and i &gt;= 0:  
+                if freq[i]:  
+                    out[k] = chr(i + ord('A'))  
+                    freq[i] -= 1
+                    i += 1
+                    k += 1
+
+                i -</B></FONT>= 1
+
+            # print result  
+            # print(''.join(out[:k]))  
+            return ''.join(out[:k])
+        V, H = destination
+        return nPermute('H'*H+'V'*V, k)
+        
+</PRE>
+
+</BODY>
+</HTML>

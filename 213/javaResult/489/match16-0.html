@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>533_saochuan888.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>533_saochuan888.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[][] c;
+
+    public String kthSmallestPath(int[] destination, int k) {
+        int h = destination[1];
+        int v = destination[0];
+        int t = h + v;
+        c = new int[t + 1][t + 1];
+        for (int i = 0; i &lt;= t; i++) {
+            for (int j = 0; j &lt;= i; j++) {
+<A NAME="0"></A>                if (j == 0) c[i][j] = 1;
+                else c[i][j] = c[i - 1][j] + c[i - 1][j - 1];
+            }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        dfs(h, v, k);
+        return sb.toString();
+    }
+<A NAME="1"></A>
+    StringBuilder sb = new StringBuilder();
+
+    pub</B></FONT>lic void dfs(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int h, int v, int k) {
+        if (v == 0) {
+            for (int i = 0; i &lt; h; i++) {
+<A NAME="2"></A>                sb.append(&quot;H&quot;);
+            }
+            return;
+        }</B></FONT> else <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (h == 0) {
+            for (int i = 0; i &lt; v; i++) {
+                sb.append(&quot;V&quot;);
+            }
+            return;
+        }</B></FONT>
+<A NAME="3"></A>
+       /* System.out.println(String.format(&quot;C(%s,%s) : %s&quot;, h - 1, v + h - 1, c[v + h - 1][h - 1]));
+        System.out.println(k &lt;= c[h][v + h]);*/
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match16-1.html#3',3,'match16-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (h &gt; 0 &amp;&amp; k &lt;= c[v + h - 1][h - 1]) {
+            sb.append(&quot;H&quot;);
+            dfs(h - 1, v, k);
+        } else {
+            sb.append(&quot;V&quot;);
+            dfs(h, v - 1, k - c[v + h - 1][h - 1]);
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>183_sammyRe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>183_sammyRe.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="1"></A>public:
+    string kthSmallestPath(vector&lt;int&gt;&amp; d, int k) {
+        long long c[31][31];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        c[1][0] = 1;
+        c[1][1] = 1;
+        for (int i = 2; i &lt;= 30; ++i) {
+            c[i][0] = 1;
+            c[i][i] = 1;
+            for (int j = 1; j &lt; i; ++j)</B></FONT>
+                c[i][j] = c[i-1][j] + c[i-1][j-1];
+<A NAME="0"></A>        }
+        string res;
+        int v = d[0];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int h = d[1];
+        
+        while(v &gt; 0 || h &gt; 0) {
+            if (v == 0) {
+                --h;
+                res.push_back('H');
+                continue;
+            }
+            if (h == 0) {
+                --v;
+                res.push_back('V');
+                continue;
+            }
+            if (c[h-1+v][v] &gt;= k) {
+                --h;
+                res.push_back('H');
+            }
+            else {
+                k-=c[h-1+v][v];
+                --v;
+                res.push_back('V');
+            }
+        }
+        
+        return res;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

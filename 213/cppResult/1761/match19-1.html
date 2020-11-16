@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>394_Marmaduke.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>394_Marmaduke.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int countVowelStrings(int n) {
+        vector&lt;vector&lt;int&gt;&gt; F(n+1, vector&lt;int&gt;(5,1));
+        for(int k = 2; k &lt;= n; k++)
+        {
+            for(int e = 0; e &lt; 5; e++)
+            {
+                F[k][e] = 0;
+                for(int i = 0; i &lt;= e; i++)
+                {
+                    F[k][e] += F[k-1][i];
+                }
+            }
+        }
+        
+        int total = 0;
+        for(int i = 0; i &lt; 5; i++)
+        {
+            total += F[n][i];
+        }
+        
+        return total;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>616_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>616_uwi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>	class S<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>olution {
+<A NAME="1"></A>		public int furthestBuilding(int[] heights, int bricks, int ladders) {
+			int n = heights.length;
+			int low = 0, high = n+1;</B></FONT>
+			while(high - low &gt; 1)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+				int h = high+low&gt;&gt;1;
+				if(ok(heights, h, bricks, ladders)){
+					low = h;
+				}else{
+					high = h;
+				}
+			}
+			return low-1;
+		}
+
+		boolean ok(int[] hs, int p, int B, int L)</B></FONT>
+		{
+			int[] a = new int[p];
+			int q = 0;
+			for(int i = 0;i &lt; p-1;i++){
+				if(hs[i] &lt; hs[i+1]){
+					a[q++] = hs[i+1] - hs[i];
+				}
+			}
+<A NAME="2"></A>			a = Arrays.copyOf(a, q);
+			Arrays.sort(a);
+			if(L &gt;= q)return true;
+			long need = 0;<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			for(int i = 0;i &lt; q-L;i++){
+				need += a[i];
+			}
+			return need &lt;= B;
+		}
+	}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

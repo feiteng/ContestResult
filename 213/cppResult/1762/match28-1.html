@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>207_ruanys.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>207_ruanys.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int furthestBuilding(vector&lt;int&gt;&amp; heights, int bricks, int ladders) {
+        int n = heights.size(), b=0;
+<A NAME="1"></A>        priority_queue&lt;int&gt;pq;</B></FONT>
+        for (int i=1; i&lt;n; i++) {
+            if (heights[i]&gt;heights[i-1]) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                b += heights[i]-heights[i-1];
+                pq.push(heights[i]-heights[i-1]);
+                if (b&gt;bricks) {
+                    if (ladders&gt;0) {
+                        ladders--;
+                        b -= pq.top();
+                        pq.pop();
+                    } else
+                        return i-1;
+                }
+            }</B></FONT>
+        }
+        return n-1;
+        
+    }
+    /*
+    int helper(int idx, vector&lt;int&gt;&amp; heights, int bricks, int ladders) {
+        if (idx&gt;=heights.size())
+            return idx-1;
+        if ()
+        if (heights[idx]&lt;=heights[idx-1])
+            return helper(idx+1, heights, bricks, ladders);
+        
+        int res=idx-1;
+        if (heights[idx]-heights[idx-1]&lt;=bricks)
+            res = max(res, helper(idx+1, heights, bricks-heights[idx]+heights[idx-1], ladders));
+        if (ladders&gt;0)
+            res = max(res, helper(idx+1, heights, bricks, ladders-1));
+        return res;
+    }
+    */
+};
+</PRE>
+</BODY>
+</HTML>

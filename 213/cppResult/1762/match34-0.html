@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>464_rejected.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>464_rejected.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    bool isPossible(vector&lt;int&gt; &amp;diff,int mid,int bricks,int ladders)
+    {
+        vector&lt;int&gt; ans;
+        
+        for(int i = 0; i &lt;= mid; i++)
+        {
+            if(diff[i]) ans.push_back(diff[i]);
+        }
+        
+        if(ans.size() &lt;= ladders) return 1;
+        
+        sort(ans.begin(),ans.end());
+        long long int sum = 0;</B></FONT>
+        for(int i = 0; i &lt; ans.size()-ladders; i++)
+        {
+            sum += ans[i];
+            if(sum &gt; bricks) return 0;
+        }
+        
+        return sum &lt;= bricks;
+    }
+    
+    
+    int furthestBuilding(vector&lt;int&gt;&amp; heights, int bricks, int ladders) {
+        
+        vector&lt;int&gt; diff;
+        diff.push_back(0);
+        for(int i = 0; i &lt; heights.size()-1; i++)
+        {
+            if(heights[i+1]-heights[i] &gt; 0)
+            {
+                diff.push_back(heights[i+1]-heights[i]);                
+            }
+            else
+            {
+                diff.push_back(0);
+            }
+
+        }
+<A NAME="1"></A>        
+        int st = 0,end = heights.size()-1;
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
+   
+//         for(int i = 0; i &lt; diff.size(); i++)
+//         {
+//             cout&lt;&lt;diff[i]&lt;&lt;&quot; &quot;;
+//         }
+        
+        while(st &lt;= end)
+        {
+            int mid = (st+end)/2;
+            
+            if(isPossible(diff,mid,bricks,ladders))
+            {
+                st = mid+1;
+                ans = mid;
+            }
+            else
+            {
+                end = mid-1;
+            }
+        }
+        
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

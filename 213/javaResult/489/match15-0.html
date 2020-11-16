@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>869_zhmsci.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>869_zhmsci.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String kthSmallestPath(int[] destination, int k) {
+        int H = destination[1], V = destination[0];
+        int Total = H + V;
+<A NAME="0"></A>        int[][] nCr = new int[Total + 1][Total + 1];
+        nCr[0][0] = 1;
+        for(int r = 1; r &lt;= Total; ++r){
+            nCr[r][0] = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nCr[r][r] = 1;
+            for(int c = 1; c &lt; r; ++c) {
+                nCr[r][c] = nCr[r-1][c]+nCr[r-1][c-1];
+<A NAME="1"></A>            }
+        }
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 1; i &lt;= Total; ++i) {
+            if(k &gt; nCr[Total - i][V]) {
+                k -= nCr[Total - i][V];
+                sb.append(&quot;V&quot;);
+                V--;
+            }else{
+                sb.append(&quot;H&quot;);
+                H--;
+            }
+        }
+        return sb.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

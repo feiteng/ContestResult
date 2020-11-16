@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>641_hcseo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>641_hcseo.cpp</CENTER></H3><HR>
+<PRE>
+
+int r, c;
+long long nCr[31][31];
+
+class Solution {
+public:
+<A NAME="0"></A>    string kthSmallestPath(vector&lt;int&gt;&amp; destination, int k) {
+        init();
+        r = destination[0];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        c = destination[1];
+        string ans;
+        while (r || c) {
+            if (r == 0) {
+                ans.push_back('H');
+                c--;
+                continue;
+            }
+            if (c == 0) {
+                ans.push_back('V');
+                r--;
+                continue;
+            }
+            if (k &lt;= nCr[r + c - 1][c - 1]) {//오른쪽으로 감
+                ans.push_back('H');
+                c--;
+            }
+            else { // 아래로감
+                ans.push_back('V');
+                k -= nCr[r + c - 1][c - 1];
+                r--;
+            }
+        }
+<A NAME="1"></A>        return ans;
+    }</B></FONT>
+    void init() {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        nCr[1][0] = 1;
+        nCr[1][1] = 1;
+        for (int i = 2; i &lt; 31; i++) {
+            nCr[i][0] = 1;
+            nCr[i][i] = 1;
+            for (int j = 1; j &lt; i; j++) {</B></FONT>
+                nCr[i][j] = nCr[i - 1][j - 1] + nCr[i - 1][j];
+            }
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>756_shefali163.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>756_shefali163.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String kthSmallestPath(int[] destination, int k) {
+        int[][] ways=new int[destination[0]+1][destination[1]+1];
+        for(int i=ways.length-1;i&gt;=0;i--){
+            for(int j=ways[0].length-1;j&gt;=0;j--){
+                if(i==ways.length-1 || j==ways[0].length-1){
+<A NAME="1"></A>                    ways[i][j]=1;
+                }else{</B></FONT>
+                    ways[i][j]=ways[i+1][j]+ways[i][j+1];
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        StringBuffer sb=new StringBuffer();
+        int len=destination[0]+destination[1];
+        int i=0;
+        int j=0;</B></FONT>
+        while(len--&gt;0){
+            int right=0;
+            if(j+1 &lt; ways[0].length){
+                right=ways[i][j+1];
+            }
+<A NAME="2"></A>            if(right&gt;=k){
+                sb.append(&quot;H&quot;);
+                j++;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}else{
+                sb.append(&quot;V&quot;);
+                k-=right;
+                i++;
+            }
+        }
+        return sb.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

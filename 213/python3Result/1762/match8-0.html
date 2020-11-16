@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_huangyufei.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_huangyufei.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -&gt; int:
+<A NAME="0"></A>        need_br = 0
+        need_la = 0
+        real_heights = []
+        for i in range(1, len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(heights)):
+            v = 0
+            if heights[i] &gt; heights[i - 1]:
+                v = heights[i] - heights[i - 1]
+                need_br += v
+                need_la += 1
+            real_heights.append(v)
+
+        if ladders &gt;= need_la or bricks &gt;= need_br:
+            return len(heights) - 1
+<A NAME="1"></A>
+        def check(start) -&gt; bool:
+            d = sorted(real_heights[</B></FONT>0:start], reverse=True)
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return bricks &gt;= sum(d[ladders:])
+
+        left = 0
+        right = len(heights) - 1
+        while left + 1 &lt; right:
+            mid = (right + left) // 2
+            if check(mid):
+                left = mid
+            else:
+                right = mid
+        if check(right):
+            return right
+        if check(left):
+            return left
+        re</B></FONT>turn 0
+</PRE>
+
+</BODY>
+</HTML>

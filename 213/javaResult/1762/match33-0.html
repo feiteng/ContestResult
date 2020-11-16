@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>328_hum.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>328_hum.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[] h;
+    int bricks;
+    int ladders;
+
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        h = heights;
+        this.bricks = bricks;
+        this.ladders = ladders;
+        int l = 0;
+        int r = heights.length-1;
+        while (l &lt; r) {
+            int mid = l + r + 1 &gt;&gt; 1;
+            if (check(mid)) {
+                l = mid;
+            } else {
+                r = mid - 1;
+            }
+        }
+<A NAME="0"></A>        return l;
+    }
+
+    private boolean check(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int mid) {
+        PriorityQueue&lt;Integer&gt; pr = new PriorityQueue&lt;&gt;();
+        int sum = 0;
+        int last = Integer.MAX_VALUE;
+        for (int i = 0; i &lt;= mid; i++) {
+            if (h[i] &gt; last) {
+<A NAME="1"></A>                pr.add(h[i] - last);
+                if (pr.size() &gt; ladders) {
+                    sum += pr.poll</B></FONT>();
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            last = h[i];
+        }
+        return sum &lt;= bricks;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
