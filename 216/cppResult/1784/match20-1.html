@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_votrubac.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>46_votrubac.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+<A NAME="1"></A>    int minimumEffort(vector&lt;vector&lt;int&gt;&gt;&amp; t) {
+        sort(begin(t), end(t), [](vector&lt;int&gt; &amp;t1, vector&lt;int&gt; &amp;t2) { return t1[1] - t1[0] &gt; t2[1] - t2[0]; });
+        int energy = 0, res = 0;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto &amp; task : t) {
+            if (energy &lt; task[1]) {
+                res += task[1] - energy;
+                energy = task[1];
+            }
+            energy -= task[0];
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

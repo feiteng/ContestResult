@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>960_goaloriented.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>960_goaloriented.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumEffort(vector&lt;vector&lt;int&gt;&gt;&amp; tasks) {
+        sort(tasks.begin(), tasks.end(), [] (const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) { return (a[1] - a[0] &gt; b[1] - b[0]); } );
+        
+        // cout &lt;&lt; &quot;New test&quot; &lt;&lt; endl;
+        // for(auto pair: tasks) {
+        //     cout &lt;&lt; pair[0] &lt;&lt; &quot;, &quot; &lt;&lt; pair[1] &lt;&lt; endl;
+<A NAME="1"></A>        // }
+        
+        int curr = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int total = 0;
+        for(auto t: tasks) {
+            if(curr &lt; t[1]) {
+                total += (t[1] - curr);
+                curr = t[1];
+            }
+            
+            curr -= t[0];
+        }
+        
+        return total;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

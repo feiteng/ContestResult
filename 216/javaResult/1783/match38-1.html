@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>679_Nocturne_rat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>679_Nocturne_rat.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int waysToMakeFair(int[] nums) {
+        int n = nums.length;
+        if (n &lt;= 1) return n;
+        
+        int[] left_oddsum = new</B></FONT> int[n];
+        left_oddsum[1] = nums[1];
+<A NAME="1"></A>        int[] left_evensum = new int[n];
+        left_evensum[0] = nums[0];
+        left_evensum[1] = left_evensum[0];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 2; i &lt; n; i++) {
+            if (i % 2 == 0) {
+                left_evensum[i] = left_evensum[i - 1] + nums[i];
+                left_oddsum[i] = left_oddsum[i - 1];
+            } else {
+                left_oddsum[i] = left_oddsum[i - 1] + nums[i];
+                left_evensum[i] = left_evensum[i - 1];
+            }
+        }
+        
+        int[] right_oddsum = new int[n];
+        int[] right_evensum = new</B></FONT> int[n];
+        if (n % 2 == 0) {
+            right_oddsum[n - 1] = nums[n - 1];
+            right_oddsum[n - 2] = right_oddsum[n - 1];
+            right_evensum[n - 2] = nums[n - 2];
+        } else {
+            right_evensum[n - 1] = nums[n - 1];
+<A NAME="2"></A>            right_evensum[n - 2] = right_evensum[n - 1];
+            right_oddsum[n - 2] = nums[n - 2];
+        }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#2',2,'match38-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = n - 3; i &gt;= 0; i--) {
+            if (i % 2 == 0) {
+                right_evensum[i] = right_evensum[i + 1] + nums[i];
+                right_oddsum[i] = right_oddsum[i + 1];
+            } else {
+                right_oddsum[i] = right_oddsum[i + 1] + nums[i];
+                right_evensum[i] = right_evensum[i + 1];
+            }
+        }
+        
+        int ans = 0</B></FONT>;
+        // i == 0
+        if (right_oddsum[1] == right_evensum[1]) {
+            ans++;
+        }
+        // i == n - 1
+        if (left_oddsum[n - 2] == left_evensum[n - 2]) {
+            ans++;
+<A NAME="3"></A>        }
+            
+        // left-oddsum + right-evensum = left-evensum + right-oddsum
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#3',2,'match38-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt; n - 1; i++) {
+            // System.out.println(&quot;left_odd: &quot; + left_oddsum[i - 1] + &quot; left_even: &quot; + left_evensum[i - 1]);
+            // System.out.println(&quot;right_odd: &quot; + right_oddsum[i + 1] + &quot; right_even: &quot; + right_evensum[i + 1]);
+            if (left_oddsum[i - 1] + right_evensum[i + 1] == left_evensum[i - 1] + right_oddsum[i + 1]) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

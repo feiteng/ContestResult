@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>188_REWFALTQ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>188_REWFALTQ.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int waysToMakeFair(int[] nums) {
+        int len = nums.length;
+        int[] odd = new int[len + 1];
+        int[] even = new int[len + 1];
+        for (int i = 0; i &lt; len; i++) {
+            if (i % 2 == 0) {
+                even[i + 1] = even[i] + nums[i];
+                odd[i + 1] = odd[i];
+            } else {
+                odd[i + 1] = odd[i] + nums[i];
+                even[i + 1] = even[i];
+            }
+        }
+<A NAME="1"></A>        int res = 0;
+        for (int i = 0; i &lt; len; i++) {</B></FONT>
+            if (i % 2 == 0 &amp;&amp; (i == 0 ? 0 : even[i - 1]) + odd[len] - odd[i] == odd[i] + even[len] - even[i + 1]
+                    || i % 2 == 1 &amp;&amp; (i == 0 ? 0 : odd[i - 1]) + even[len] - even[i] == even[i] + odd[len] - odd[i + 1]) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res++;
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

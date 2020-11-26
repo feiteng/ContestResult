@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_Sariabell.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>273_Sariabell.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int waysToMakeFair(vector&lt;int&gt;&amp; nums) {
+        int len = nums.size();
+        vector&lt;int&gt; os(len + 1), es(len + 1); // s[i+1]包括n[i]的左边和
+        
+<A NAME="1"></A>        for (int i = 0;i &lt; len;++i) {</B></FONT>
+            es[i + 1] += es[i];
+            os[i + 1] += os[i];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (i % 2 == 0) {
+                es[i + 1] += nums[i];
+            } else {
+                os[i + 1] += nums[i];
+            }
+        }
+        
+        int ans = 0;
+        for (int i = 0;i &lt; nums.size();++i) {
+            if (es[i] + os[len] - os[i+1] == os[i] + es[len] - es[i+1]) {
+                ++ans;
+            }
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

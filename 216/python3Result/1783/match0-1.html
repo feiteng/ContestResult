@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_alanlzl.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_alanlzl.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def waysToMakeFair(self, nums: List[int]) -&gt; int:
+        pre_odd = [0]
+        pre_even = [0]
+        for i, num in enumerate(nums):
+            if i % 2 == 0:
+                pre_odd.append(pre_odd[-1])
+                pre_even.append(pre_even[-1] + num)
+            else:
+                pre_odd.append(pre_odd[-1] + num)
+                pre_even.append(pre_even[-1])
+        #print(pre_odd)
+        #print(pre_even)
+        ans = 0
+        for i in range(len(nums)):
+            odd = pre_odd[i] + pre_even[-1] - pre_even[i+1]
+            even = pre_even[i] + pre_odd[-1] - pre_odd[i+1]
+            #print(i, odd, even)
+            if odd == even:
+                ans += 1
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

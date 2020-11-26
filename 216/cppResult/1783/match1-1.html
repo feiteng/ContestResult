@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_Bediver.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_Bediver.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int waysToMakeFair(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;int&gt; even(n+1, 0), odd(n+1, 0);
+        for (int i = 0; i &lt; n; ++i) {
+            even[i+1] = even[i];
+            odd[i+1] = odd[i];
+            if (i % 2 == 0) even[i+1] += nums[i];
+            else odd[i+1] += nums[i];
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            if (even[i] + (odd[n]-odd[i+1]) == odd[i] + (even[n]-even[i+1])) ++ans;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

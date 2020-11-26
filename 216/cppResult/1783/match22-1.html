@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>960_goaloriented.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>960_goaloriented.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int waysToMakeFair(vector&lt;int&gt;&amp; nums) {
+        int sz = nums.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; evl(sz,0), odl(sz,0), evr(sz,0), odr(sz,0);
+        
+        for(int i = 1 ; i &lt; sz ; ++i) {
+            if(i % 2 == 0) {
+                evl[i] = evl[i-1];
+                odl[i] = odl[i-1] + nums[i-1];
+            } else {
+                odl[i] = odl[i-1];
+                evl[i] = evl[i-1] + nums[i-1];
+            }
+        }
+        
+        for(int i = sz - 2 ; i &gt;= 0 ; --i) {
+            if(i % 2 == 0) {
+                evr[i] = evr[i+1];
+                odr[i] = odr[i+1] + nums[i+1];
+            } else {
+                odr[i] = odr[i+1];
+                evr[i] = evr[i+1] + nums[i+1];
+            }
+        }
+        
+        int count = 0;
+        for(int i = 0 ; i &lt; sz ; ++i) {
+            if(evl[i] + odr[i] == odl[i] + evr[i]) {
+                //cout &lt;&lt;&quot;ix: &quot; &lt;&lt; i &lt;&lt; endl;
+                ++count;
+            }
+        }
+        
+        return count;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

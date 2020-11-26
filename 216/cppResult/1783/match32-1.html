@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>489_xh286286.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>489_xh286286.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int waysToMakeFair(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;int&gt; z1(n+1), z2(n+1);
+        for (int i=0; i&lt;n; ++i) {
+            z1[i+1]=z1[i];</B></FONT>
+            if (i%2==0) z1[i+1] -= nums[i];
+            else z1[i+1] += nums[i];
+<A NAME="1"></A>        }
+        
+        for (int i=n-1; i&gt;=0; --i) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            z2[i] = z2[i+1];
+            if (i%2==0) z2[i] -= nums[i];
+            else z2[i] += nums[i];
+        }
+        
+        int res = 0;
+        for (int i=0; i&lt;n; ++i) {
+            int a = z1[i];
+            int b = z2[i+1];
+            //b = -b;
+            //cout&lt;&lt;i&lt;&lt;':'&lt;&lt;a-b&lt;&lt;',';
+            if (a==b) {</B></FONT>
+                ++res;
+            }
+        }
+        cout&lt;&lt;endl;
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

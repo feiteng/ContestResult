@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>920_wegam.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>920_wegam.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int waysToMakeFair(int[] nums) {
+        
+        int[] leftEvenSums = new int[nums.length + 1];
+        int[] leftOddSums = new int[nums.length + 1];
+        
+        int[] rightEvenSums = new int[nums.length + 1]</B></FONT>;
+        int[] rightOddSums = new int[nums.length + 1];
+<A NAME="1"></A>        
+        leftEvenSums[0] = 0;
+        leftOddSums[0] = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; nums.length; i++)
+        {
+            leftEvenSums[i + 1] = leftEvenSums[i];
+            leftOddSums[i + 1] = leftOddSums[i];
+            if ((i % 2) == 0)
+            {
+                leftEvenSums[i + 1] += nums[i];
+            }//if
+            else
+            {
+                leftOddSums[i + 1] += nums[i];
+            }//else
+        }//for
+
+        rightEvenSums[0] = 0;
+        rightOddSums[0] = 0;
+        for (int i = 0; i &lt; nums.length; i++)
+        {
+<A NAME="2"></A>            rightEvenSums[i + 1] = rightEvenSums[i];
+            r</B></FONT>ightOddSums[i + 1] = rightOddSums[i];
+            int index = nums.length - i - 1;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if ((index % 2) == 0)
+            {
+                rightEvenSums[i + 1] += nums[index];
+            }//if
+            else
+            {
+                rightOddSums[i + 1] += nums[index];
+            }//else
+        }//for
+
+        int numFair = 0;
+        for (int removalIndex = 0; removalIndex &lt; nums.length; removalIndex++)
+        {</B></FONT>
+<A NAME="3"></A>            int evensSum = leftEvenSums[removalIndex] + rightOddSums[nums.length - removalIndex - 1];
+            int oddsSum = leftOddSums[removalIndex] + rightEvenSums[nums.length - removalIndex - 1];
+            
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (evensSum == oddsSum)
+            {
+                numFair++;
+            }//if
+        }//for
+        
+        return numFair;
+
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

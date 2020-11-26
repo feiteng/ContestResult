@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int waysToMakeFair(int[] nums) {
+        final int N = nums.length;
+        int[] oddSum = new int[N + 1];
+        int[] evenSum = new int[N + 1];
+        for (int i = 0; i &lt; N; ++i) {
+            if (i % 2 == 0) {
+                evenSum[i + 1] = evenSum[i] + nums[i];
+                oddSum[i + 1] = oddSum[i];
+            } else {
+                evenSum[i + 1] = evenSum[i];
+                oddSum[i + 1] = oddSum[i] + nums[i];
+            }
+        }
+        int count = 0;
+<A NAME="1"></A>        for (int i = 0; i &lt; N; ++i) {
+            int oddPart = oddSum[i] + evenSum[N] - evenSum[i + 1];
+            int evenPart = evenSum[i] + oddSum[N] - oddSum[i + 1]</B></FONT>;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (oddPart == evenPart) {
+                ++count;
+            }
+        }
+        return count;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

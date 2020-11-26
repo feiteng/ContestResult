@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>380_k_a_r_a_n.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>380_k_a_r_a_n.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef long long int ll;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>bool compare(vector&lt;int&gt;&amp;a,vector&lt;int&gt;&amp;b)
+{
+    //if(a[1]==b[1]){return a[0]&gt;a[0];}
+    return (a[1]-a[0])&gt;(b[1]-b[0]);
+}
+class Solution {
+    
+    
+public:
+    
+    bool check(vector&lt;vector&lt;int&gt;&gt;&amp;v,int val)
+    {
+        int n=v.size();
+        int left=val;
+        for(int i=0;i&lt;n;i++)</B></FONT>
+        {
+            if(left&lt;max(v[i][0],v[i][1])){return false;}
+            left-=v[i][0];
+            
+        }
+        return true;
+    }
+    int minimumEffort(vector&lt;vector&lt;int&gt;&gt;&amp; v) {
+        
+        int sum=0;
+        for(int i=0;i&lt;v.size();i++)
+        {sum+=v[i][0];}
+        sort(v.begin(),v.end(),compare);
+        ll l=sum,r=INT_MAX-1;
+        int ans=INT_MAX;
+        while(l&lt;=r)
+<A NAME="1"></A>        {
+            long long int mid=(ll)(l+r)/2;
+            
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(check(v,mid))
+            {
+                ans=mid;
+                r=mid-1;
+                
+            }
+            else{l=mid+1;}
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

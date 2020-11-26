@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>85_ToffeeLu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>85_ToffeeLu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int waysToMakeFair(int[] nums) {
+        int n = nums.length;
+        int[] oddSum = new int[n];
+<A NAME="1"></A>        int[] evenSum = new int[n];
+        for(int i = 0; i &lt; n; i++){
+            if(i == 0){</B></FONT>
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>evenSum[0] = nums[0];
+            }
+            else{
+                if(i % 2 == 0){
+                    evenSum[i] = evenSum[i-1] + nums[i];
+                    oddSum[i] = oddSum[i-1];
+                }
+                else{
+                    oddSum[i] = oddSum[i-1] + nums[i];
+<A NAME="2"></A>                    evenSum[i] = evenSum[i-1];
+                }
+            }</B></FONT>
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int res = 0;
+        for(int i = 0; i &lt; n; i++){
+            //try remove index i
+            int realOddSum = 0;
+            int realEvenSum = 0;
+            //left part
+            if(i &gt; 0){</B></FONT>
+                realOddSum += oddSum[i-1];
+                realEvenSum += evenSum[i-1];
+            }
+<A NAME="3"></A>            //right part
+            realOddSum += evenSum[n-1] - evenSum[i];
+            realEvenSum += oddSum[n-1] - oddSum[i];
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(realOddSum == realEvenSum){
+                res++;
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
