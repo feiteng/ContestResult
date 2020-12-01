@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_ddoudle.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>46_ddoudle.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumDeviation(int[] nums) {
+<A NAME="0"></A>        TreeSet&lt;int[]&gt; set = new TreeSet&lt;&gt;((a,b)-&gt;a[0]-b[0]==0?a[1]-b[1]:a[0]-b[0]);
+        for (int n : nums) {
+            set.add(new int[]{fac(n), n});
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        // System.out.println(max);
+        int min = Integer.MAX_VALUE/2;
+        while (true) {
+            min = Math.min(min, set.last()[0] - set.first()[0]);
+            int[] curmin = set.pollFirst();
+            if</B></FONT> (curmin[0] &gt;= curmin[1] &amp;&amp; curmin[0] % 2 == 0) {
+                break;
+            }
+            set.add(new int[]{curmin[0]*2, curmin[1]});
+        }
+        return min;
+        
+    }
+    
+    private int fac(int n) {
+        while (n % 2 == 0) {
+            n /= 2;
+        }
+        return n;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

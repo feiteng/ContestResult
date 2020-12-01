@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>324_hallosea.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>324_hallosea.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minMoves(int[] nums, int limit) {
+        Map&lt;Integer,Integer&gt; map=new HashMap&lt;&gt;();
+        for(int i=0;i&lt;nums.length/2;i++){
+            int j=nums.length-i-1;
+            int sum=nums[i]+nums[j], a=Math.min(nums[i],nums[j]), b=Math.max(nums[i],nums[j]);
+            map.put(sum, map.getOrDefault(sum,0)-1);
+            map.put(sum+1, map.getOrDefault(sum+1,0)+1);
+            
+            map.put(a+1,map.getOrDefault(a+1,0)+1);
+            map.put(b+limit+1,map.getOrDefault(b+limit+1,0)-1);
+            
+            map.put(1,map.getOrDefault</B></FONT>(1,0)+2);
+            map.put(a+1,map.getOrDefault(a+1,0)-2);
+            
+            map.put(b+limit+1,map.getOrDefault(b+limit+1,0)+2);
+        }
+        
+        List&lt;Integer&gt; list=new ArrayList(map.keySet());
+<A NAME="1"></A>        Collections.sort(list);
+        
+        int cur=0, min=Integer.MAX_VALUE;
+        for(int num:list)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            cur+=map.get(num);
+            min=Math.min(min,cur);
+        }
+        
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

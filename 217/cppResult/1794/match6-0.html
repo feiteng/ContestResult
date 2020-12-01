@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_zoulc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_zoulc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        priority_queue&lt;int&gt; heap;
+        int min_value = INT_MAX, result = INT_MAX;
+        for (int i = 0; i &lt; nums.size(); ++i) {
+            if (nums[i] % 2 == 1) {
+                nums[i] *= 2;
+            }</B></FONT>
+            min_value = min(min_value, nums[i]);
+            heap.push(nums[i]);
+        }
+        while (true) {
+            int t = heap.top();
+            result = min(result, t - min_value);
+            if (t &amp; 1 == 1) {
+                break;
+            }
+            heap.pop();
+            do {
+                t &gt;&gt;= 1;
+            } while (t &amp; 1 == 0 &amp;&amp; t &gt; min_value);
+            min_value = min(min_value, t);
+            heap.push(t);
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

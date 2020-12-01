@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_CS673.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>82_CS673.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int doit(int[] nums, int mid, int limit) {
+      int n = nums.length;
+      int cnt = 0;
+      for(int i = 0; i &lt; n/2; i++) {
+        int j = n-1-i;
+        if(nums[i] + nums[j] == mid) continue;
+        int x = Math.min(nums[i], nums[j]);
+        int y = Math.max(nums[i], nums[j]);
+        cnt++;
+        if(mid &gt; x+y &amp;&amp; mid - (x+y) &gt; (limit -x)) cnt++;
+        if(mid &lt; x+y &amp;&amp; (x+y) - mid &gt; (y-1)) cnt++;
+<A NAME="0"></A>      }
+      return cnt;
+    }
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minMoves(int[] nums, int limit) {
+      int n = nums.length, ans = n*2+1;
+      int[] diff = new int[200_000 + 10];
+      
+      for(int i = 0; i &lt; n/2; i++) {</B></FONT>
+        int x = Math.min(nums[i], nums[n-1-i]);
+        int y = Math.max(nums[i], nums[n-1-i]);
+        if(x + y == 2) {
+          diff[2] += 0;
+          diff[(x+y+1)] += 1;
+          diff[y+limit+1] += 1;        
+          continue;
+        }
+        diff[2] += 2;
+        diff[(x + 1)] += (-1);
+        diff[x+y] += (-1);
+        diff[(x+y+1)] += 1;
+<A NAME="1"></A>        diff[y+limit+1] += 1;        
+      }
+      ans = Math.min(ans, diff[2]);
+      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int sum = diff[2];
+      for(int x = 3; x &lt;= limit*2; x++) {
+        sum += diff[x];
+        ans = Math.min(ans, sum);
+      }
+      
+      return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

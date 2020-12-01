@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_liusandao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>215_liusandao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minMoves(int[] nums, int limit) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] diff = new int[limit * 2 + 1];
+        for (int i = 0; i &lt; nums.length / 2; i++) {
+            int max = Math.max(nums[i], nums[nums.length - i - 1]);
+            int min = Math.min</B></FONT>(nums[i], nums[nums.length - i - 1]);
+            if (min == 1) {
+                diff[2] += 1;
+            } else{
+                diff[2] += 2;
+<A NAME="1"></A>                diff[min + 1] -= 1;
+            }
+            diff[max + min] -= 1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (max + min + 1 &lt; diff.length) {
+                diff[max + min + 1] += 1;
+            }
+            if (max + limit + 1 &lt; diff.length) {
+                diff[max + limit + 1] += 1;
+            }
+        }
+        int now = 0, res = nums.length / 2;
+        for (int i = 2; i &lt; diff.length; i++) {
+            now += diff[i];
+            res = Math.min(res, now);
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

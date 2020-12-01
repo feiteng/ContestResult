@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>375_ruiqin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>375_ruiqin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minMoves(int[] nums, int limit) {
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;(); // edge -&gt; count change
+        
+        for (int i = 0; i &lt; nums.length/2; i++) {
+            
+            int a = nums[i];
+            int b = nums[nums.length-1-i];
+            
+            int l = Math.min(a, b) + 1;
+            int r = Math.max(a, b) + limit;
+            
+            map.put(0, 2 + map.getOrDefault(0, 0));
+            // map.put(2*limit, 2 + map.getOrDefault(2*limit, 0));
+            
+            map.put(l, -1 + map.getOrDefault(l, 0));
+            map.put(a+b, -1 + map.getOrDefault(a+b, 0));
+            map.put(a+b+1, 1 + map.getOrDefault(a+b+1, 0));
+            map.put(r+1, +1 + map.getOrDefault</B></FONT>(r+1, 0));            
+        }
+<A NAME="1"></A>        
+        int min = nums.length;
+        int cnt = 0;
+        for (int sum : map.keySet()) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            cnt += map.get(sum);
+            min = Math.min(min, cnt);
+        }
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

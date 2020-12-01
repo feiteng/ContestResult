@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_danzhi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>274_danzhi.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minMoves(int[] nums, int limit) {
+        int n = nums.length;
+<A NAME="0"></A>    int m = n / 2;
+
+    int L = limit;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] ca = new int[2 * L + 1];
+    for (int i = 0; i &lt; m; i++) {
+      int x = Math.min(nums[i], nums[n-1-i]);
+      int y = Math.max</B></FONT>(nums[i], nums[n-1-i]);
+      // [2,x] requires 2
+      // [x+1,x+y-1] requires 1
+      // [x+y] requires 0
+      // [x+y+1,y + L] requires 1
+      // [y + L + 1, 2L] requires 2
+      ca[2] += 2;
+      ca[x+1] -= 1;
+      ca[x+y] -= 1;
+      if (x + y + 1 &lt;= y + L) {
+        ca[x+y+1] += 1;
+      }
+<A NAME="1"></A>      if (y + L + 1 &lt;= 2 * L) {
+        ca[y+L+1] += 1;
+      }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    int ans = Integer.MAX_VALUE;
+    int sum = 0;
+    for (int i = 2; i &lt;= 2*L; i++) {
+      sum += ca[i];
+      ans = Math.min(ans, sum);
+    }
+    return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

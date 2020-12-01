@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_wengames.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>459_wengames.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumDeviation(int[] nums) {
+        PriorityQueue&lt;int[]&gt; queue = new PriorityQueue&lt;&gt;(Comparator.&lt;int[]&gt;comparingInt(a -&gt; a[0]).thenComparingInt(a -&gt; a[1]));
+        Arrays.stream(nums).boxed().map(n -&gt; {
+            int flag = n &amp; -n;
+            return new int[]{n / flag, flag};
+        }).forEach(queue::offer);
+
+        int min = queue.peek()[0], max = queue.stream().mapToInt(p -&gt; p[0]).max().getAsInt();
+        int res = max - min;
+        int[] p;
+        while (true) {
+            p = queue.poll();
+            if (p[1] &lt;= 1 &amp;&amp; p[0] % 2 == 0) break;
+<A NAME="0"></A>            p[0] *= 2;
+            p[1] /= 2;
+            queue.offer(p);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>max = Math.max(max, p[0]);
+            min = queue.peek()[0];
+            res = Math.min(res, max - min);
+        }
+
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

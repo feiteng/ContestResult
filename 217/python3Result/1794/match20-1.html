@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_Sajerner.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_Sajerner.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumDeviation(self, nums: List[int]) -&gt; int:
+        
+<A NAME="0"></A>        
+        sets = []
+        for i in range(len(nums)):
+            p <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= nums[i]
+            if p%2 == 1:
+                sets.append((p,i))
+                sets.append((2*p,i))
+            else:
+                while p%2 == 0:
+                    sets.append((p,i))
+                    p //= 2
+                sets.append((p</B></FONT>,i))
+        
+        # print(sets)
+        
+        
+        n = len(nums)
+
+        sets.sort()
+
+        str = 0
+        end = 0
+        mark = [0]*n
+        al = n
+
+        while end &lt; len(sets):
+            mark[sets[end][1]] += 1
+            if mark[sets[end][1]] == 1:
+                al -= 1
+                if al == 0:
+                    break
+            end +=1
+
+        best = sets[end][0] - sets[str][0]
+        best_str = str
+        best_end = end
+
+        while end &lt; len(sets):
+            mark[sets[str][1]] -= 1
+            if mark[sets[str][1]] &gt; 0:
+                str += 1
+                p = sets[end][0] - sets[str][0]
+                if p &lt; best:
+                    best = p
+                    best_str = str
+                    best_end = end
+                continue
+            while mark[sets[str][1]] == 0 and end &lt; len(sets)-1:
+                end += 1
+                mark[sets[end][1]] += 1
+
+            if mark[sets[str][1]] == 0:
+                break
+
+            str += 1
+            p = sets[end][0] - sets[str][0]
+            best = min(p, best)
+        
+        return best
+                
+
+
+        
+</PRE>
+
+</BODY>
+</HTML>

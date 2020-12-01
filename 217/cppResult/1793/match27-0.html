@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_xh286286.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_xh286286.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minMoves(vector&lt;int&gt;&amp; nums, int limit) {
+        int n = nums.size();
+        
+        int z[200000+10] = {0};
+        for (int i=0; 2*i&lt;n; ++i) {
+            int a = nums[i];</B></FONT>
+            int b = nums[n-i-1];
+            if (a&gt;b) swap(a,b);
+<A NAME="1"></A>            z[2] +=2;
+            z[limit*2+1] -=2;
+            
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            z[1+a] -=1;
+            z[b+limit+1] +=1;
+            
+            z[a+b] -=1;
+            z[a+b+1] +=1;
+        }
+        int t = 0;
+        int res = n;
+        for (int i=2; i&lt;= 2*limit; ++i) {
+            t+= z[i];
+            //cout&lt;&lt;t&lt;&lt;' ';
+            res = min(res, t);
+            //cout&lt;&lt;z[i]&lt;&lt;' ';
+        }
+        cout&lt;&lt;endl;
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

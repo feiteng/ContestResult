@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_CreedBratton.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>141_CreedBratton.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int f(set&lt;int&gt; &amp;s) {
+        int mn = *s.begin(), mx = *s.rbegin();
+        return mx - mn;
+    }
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        set&lt;int&gt; s; 
+        for(int num: nums) s.insert(num);
+        int ans = f(s);
+        // cout &lt;&lt; *s.begin() &lt;&lt; &quot; &quot; &lt;&lt; *s.rbegin() &lt;&lt; endl;
+        while((*s.begin()) % 2 == 1) {
+            int val = (*s.begin());
+            s.erase(val);
+            s.insert(val &lt;&lt; 1);
+            ans = min(ans, f(s));
+            // cout &lt;&lt; *s.begin() &lt;&lt; &quot; &quot; &lt;&lt; *s.rbegin() &lt;&lt; endl;
+        }
+        // cout &lt;&lt; endl;
+        while((*s.rbegin()) % 2 == 0) {
+<A NAME="0"></A>            int val = (*s.rbegin());
+            s.erase(val);
+            s.insert(val &gt;&gt; 1);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            ans = min(ans, f(s));
+            // cout &lt;&lt; *s.begin() &lt;&lt; &quot; &quot; &lt;&lt; *s.rbegin() &lt;&lt; endl;
+        }
+        // cout &lt;&lt; endl;
+        int mx = (*s.rbegin());
+        while(((*s.begin()) % 2 == 1) &amp;&amp; (*s.begin()) &lt;= mx) {
+            int val = (*s.begin());
+            s.erase(val);
+            s.insert(val &lt;&lt; 1);
+            ans = min(ans, f(s));
+            // cout &lt;&lt; *s.begin() &lt;&lt; &quot; &quot; &lt;&lt; *s.rbegin() &lt;&lt; endl;
+        }
+        // cout &lt;&lt; &quot;ans:&quot; &lt;&lt; ans &lt;&lt; endl;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

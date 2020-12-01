@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_arignote.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>
+    public int minimumDeviation(int[] nums) {
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;(), clone;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int num : nums) {
+            set.add(num);
+        }
+        int min = set.last() - set.first</B></FONT>();
+<A NAME="1"></A>        for (;;) {
+            clone = new TreeSet&lt;&gt;(set);
+            while (clone.last() % 2 == 0) {
+                clone.add(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>clone.last() / 2);
+                clone.remove(clone.last());
+                min = Math.min(min, clone.last() - clone.first());
+            }</B></FONT>
+            if (set.first() % 2 == 0) {
+                break;
+            }
+            set.add(set.first() * 2);
+            set.remove(set.first());
+            min = Math.min(min, set.last() - set.first());
+        }
+        return min;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

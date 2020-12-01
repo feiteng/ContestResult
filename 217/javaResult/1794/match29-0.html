@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>114_abhigyankole.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>114_abhigyankole.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumDeviation(int[] nums) {
+<A NAME="0"></A>        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; listList=new ArrayList&lt;&gt;();
+        for(int i:nums)
+        {
+            ArrayList&lt;Integer&gt; list=<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new ArrayList&lt;&gt;();
+            list.add(i);
+            if(i%2==0)
+            {
+                while(i%2==0)
+                {
+                    i/=2;
+                    list.add(i);
+                }
+            }
+            else
+            {
+                list.add(2*i);
+            }
+            Collections.sort</B></FONT>(list);
+            listList.add(list);
+        }
+        int range[]=smallestRange(listList);
+        return Math.abs(range[1]-range[0]);
+    }
+    public int[] smallestRange(ArrayList&lt;ArrayList&lt;Integer&gt;&gt; nums) {
+    List&lt;int[]&gt; points = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; nums.size(); i++) {
+        for (int j : nums.get(i)) points.add(new int[]{j, i});
+    }
+    Collections.sort(points, (p1, p2) -&gt; p1[0] - p2[0]);
+    int[] counts = new int[nums.size()];
+    int countUnique = 0, minStart = -1, minLength = Integer.MAX_VALUE;
+    for (int i = 0, j = 0; j &lt; points.size(); j++) {
+        if (counts[points.get(j)[1]]++ == 0) countUnique++;
+        while (countUnique == counts.length) {
+            if (points.get(j)[0] - points.get(i)[0] + 1 &lt; minLength) {
+                minStart = points.get(i)[0];
+                minLength = points.get(j)[0] - points.get(i)[0] + 1;
+            }
+            int prev = points.get(i)[0];
+            while (i &lt;= j &amp;&amp; prev == points.get(i)[0]) {
+                if (--counts[points.get(i++)[1]] == 0) countUnique--;
+            }
+        }
+    }
+    return new int[]{minStart, minStart + minLength - 1};
+}
+}
+</PRE>
+
+</BODY>
+</HTML>

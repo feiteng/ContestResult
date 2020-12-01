@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_winter_training.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>36_winter_training.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn=1e5+5;
+vector&lt;int&gt;g[maxn];
+int cnt[maxn],idx[maxn];
+struct node{
+    int mx;
+    int pos;
+    int mn;
+};
+node tr[maxn&lt;&lt;2];
+void push_up(int rt){
+    if(tr[rt&lt;&lt;1].mn&lt;=tr[rt&lt;&lt;1|1].mn){
+        tr[rt].pos=tr[rt&lt;&lt;1].pos;
+        tr[rt].mn=tr[rt&lt;&lt;1].mn;
+    }else{
+        tr[rt].pos=tr[rt&lt;&lt;1|1].pos;
+        tr[rt].mn=tr[rt&lt;&lt;1|1].mn;
+    }
+    tr[rt].mx=max(tr[rt&lt;&lt;1].mx,tr[rt&lt;&lt;1|1].mx);
+}
+void build(int rt,int l,int r){
+    if(l==r){
+        tr[rt].mn=g[l][0];
+        tr[rt].mx=g[l][0];
+        tr[rt].pos=l;
+        return ;
+    }
+    int mid=(l+r)&gt;&gt;1;
+    build(rt&lt;&lt;1,l,mid);
+    build(rt&lt;&lt;1|1,mid+1,r);
+    push_up(rt);
+}
+void update(int rt,int l,int r,int pos,int val){
+    if(l==r){
+        tr[rt].mn=val;
+        tr[rt].mx=val;
+        tr[rt].pos=l;
+        return ;
+    }
+    int mid=(l+r)&gt;&gt;1;
+    if(mid&gt;=pos){
+        update(rt&lt;&lt;1,l,mid,pos,val);
+    }else{
+        update(rt&lt;&lt;1|1,mid+1,r,pos,val);
+    }
+    push_up(rt);
+}
+class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        int n=nums.size();
+        memset(idx,0,sizeof(idx));
+        for(int i=0;i&lt;n;i++){
+            g[i].clear();
+            if(nums[i]%2==0){
+                while(nums[i]%2==0){
+                    g[i].push_back(nums[i]);
+                    nums[i]/=2;
+                }
+            }else{
+<A NAME="0"></A>                g[i].push_back(nums[i]*2);
+            }
+            g[i].push_back(nums[i]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            cnt[i]=g[i].size();
+            sort(g[i].begin(),g[i].end());
+        }
+        // for(int i=0;i&lt;n;i++){
+        //     for(int j=0;j&lt;cnt[i];j++){
+        //         cout&lt;&lt;g[i][j]&lt;&lt;&quot; &quot;;
+        //     }
+        //     cout&lt;&lt;endl;
+        // }
+        build(1,0,n-1);
+        int ret=0x3f3f3f3f;
+        while(1){
+            int pos=tr[1].pos;
+            idx[pos]++;
+            ret=min(ret,tr[1].mx-tr[1].mn);
+            if(idx[pos]==cnt[pos]) break;
+            update(1,0,n-1,pos,g[pos][idx[pos]]);
+        }</B></FONT>
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>102_LarryNY.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>102_LarryNY.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minMoves(self, nums: List[int], limit: int) -&gt; int:
+        best = N = len(nums)
+        d = collections.defaultdict(int)
+        delta = collections.defaultdict(int)
+        maxTotal = 2
+        
+        for index in range(N//2):
+            maxOne = max(nums[index] + limit, nums[N - index - 1] + limit)
+            minOne = min(nums[index] + 1, nums[N - index - 1] + 1)
+            total = nums[index] + nums[N - index - 1]
+            if maxTotal &lt; total:
+                maxTotal = total
+            
+<A NAME="0"></A>            d[total] += 1
+            
+            delta[minOne] -= 1
+            delta[maxOne+1] <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>+= 1
+
+        #print(delta)
+        current = N
+        for total in range(2, maxTotal + 1):
+            current += delta[total]
+            best = min(best, current - d[total])
+            #print(total, current - d[total], current, d[total])
+        
+        re</B></FONT>turn best
+</PRE>
+
+</BODY>
+</HTML>

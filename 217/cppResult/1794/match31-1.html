@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_MrGhasita.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>179_MrGhasita.cpp</CENTER></H3><HR>
+<PRE>
+template &lt;class T&gt;
+void print(vector&lt;T&gt;&amp; v){
+    for(T x:v) cout&lt;&lt;x&lt;&lt;&quot; &quot;;
+    cout&lt;&lt;&quot;\n&quot;;
+}
+
+<A NAME="0"></A>#define ff first
+#define ss second
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        int n=nums.size();
+        vector&lt;vector&lt;int&gt;&gt; vp(n);
+        int x, y;
+        for (int i=0; i&lt;n; ++i){</B></FONT>
+            x=nums[i];
+            if (x&amp;1){
+                vp[i].push_back(2*x);
+                vp[i].push_back(x);
+            }
+            else{
+                vp[i].push_back(x);
+                while (x%2==0){
+                    vp[i].push_back(x/2);
+                    x/=2;
+                }
+                // reverse(vp[i].begin(), vp[i].end());
+            }
+        }
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt;pq;
+        int mx=0, res=INT_MAX;
+        vector&lt;int&gt; ids(n, 0);
+        for (int i=0; i&lt;n; ++i){
+            ids[i]=vp[i].size()-1;
+            x=vp[i][ids[i]];
+            if (x&gt;mx) mx=x;
+            pq.push({x, i});
+            
+        }
+        pair&lt;int, int&gt; p;
+        while (true){
+            p=pq.top();
+            pq.pop();
+            res=min(res, mx-p.ff);
+            if (ids[p.ss]==0) break;
+            ids[p.ss]--;
+            y=vp[p.ss][ids[p.ss]];
+            pq.push({y, p.ss});
+            if (y&gt;mx) mx=y;
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

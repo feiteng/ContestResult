@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>710_allen4bb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>710_allen4bb.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] mostCompetitive(int[] nums, int k) {
+        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
+<A NAME="1"></A>        int len = nums.length;
+        int m = len - k</B></FONT>;
+        int cnt = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; len; i++) {
+            while (cnt &lt; m &amp;&amp; !stack.isEmpty() &amp;&amp; nums[i] &lt; nums[stack.peekLast()]) {
+                stack.pollLast();
+                cnt++;
+<A NAME="2"></A>            }
+            stack.addLast(i);
+        }
+        while</B></FONT> (cnt &lt; m &amp;&amp; !stack.isEmpty()) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            stack.pollLast();
+            cnt++;
+        }
+
+        int[] res = new int[k];
+        int i = 0;
+        while (!stack.isEmpty()) {
+            res[i++] = nums[stack.pollFirst()];
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

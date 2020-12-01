@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_vipjml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_vipjml.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        int n=nums.size();
+        vector&lt;int&gt; lb(n);
+        vector&lt;int&gt; ub(n);
+        for(int i=0;i&lt;n;i++){</B></FONT>
+            if(nums[i]%2==0){
+                ub[i]=nums[i];
+                while(nums[i]%2==0) nums[i]/=2;
+                lb[i]=nums[i];
+            }else {
+                lb[i]=nums[i];
+                ub[i]=nums[i]*2;
+            }
+        }
+        vector&lt;int&gt; idx(n);
+        for(int i=0;i&lt;n;i++) idx[i]=i;
+        sort(idx.begin(),idx.end(),[&amp;](int a,int b){
+            return lb[a]&lt;lb[b];
+        });
+        int ans=lb[idx[n-1]]-lb[idx[0]];
+        int uub=lb[idx[n-1]];
+        set&lt;pair&lt;int,int&gt;&gt; ss;
+        for(int i=0;i&lt;n-1;i++){
+            ss.insert({lb[idx[i]],idx[i]});
+        }
+        while(ss.size()&gt;0){
+            auto p=ss.begin();
+            int a,b;
+            tie(a,b)=*p;
+            ans=min(ans,uub-a);
+            //cout&lt;&lt;ans&lt;&lt;&quot; &quot;&lt;&lt;a&lt;&lt;&quot; &quot;&lt;&lt;b&lt;&lt;endl;
+            ss.erase(p);
+            if(a*2&gt;ub[b]) return ans;
+            uub=max(uub,a*2);
+            if(a*2&lt;lb[idx[n-1]]) ss.insert({a*2,b});
+        }
+        ans=min(ans,uub-lb[idx[n-1]]);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_i_love_xiaoshagua_cpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>52_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+      int n = nums.size();
+      for (int i = 0; i &lt; n; ++i) {
+        if (nums[i]%2==1)nums[i]*=2;</B></FONT>
+      }
+      vector&lt;pair&lt;int,int&gt;&gt; pairs;
+      for (int i = 0; i &lt; n; ++i) {
+        while (nums[i] % 2 == 0) {
+          pairs.push_back({nums[i], i});
+          nums[i]/=2;
+        }
+        pairs.push_back({nums[i],i});
+      }
+      sort(pairs.begin(),pairs.end());
+      //print(pairs);
+      int low = 0;
+      int high = -1;
+      vector&lt;int&gt; colors(n,0);
+      int cs = 0;
+      while (cs &lt; n) {
+        ++high;
+        colors[pairs[high].second]++;
+        if (colors[pairs[high].second]==1) ++cs;
+      }
+      int ans = pairs[high].first-pairs[low].first;
+        colors[pairs[low].second]--;
+        if (colors[pairs[low].second] == 0) {
+          --cs;
+        }
+        ++low;
+      while (low &lt; pairs.size()) {
+        // Updates high.
+        while (high &lt; pairs.size() - 1 &amp;&amp; cs &lt; n) {
+          ++high;
+          colors[pairs[high].second]++;
+          if (colors[pairs[high].second]==1) ++cs;
+        }
+        //debug()&lt;&lt;imie(low)&lt;&lt;imie(high);
+        if (cs == n) {
+          ans = min(ans, pairs[high].first - pairs[low].first);
+        }
+        // Removes low.
+        colors[pairs[low].second]--;
+        if (colors[pairs[low].second] == 0) {
+          --cs;
+        }
+        ++low;
+      }
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

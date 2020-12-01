@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54_Kude.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>54_Kude.cpp</CENTER></H3><HR>
+<PRE>
+#pragma GCC optimize(&quot;O3&quot;)
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define rep(i,n) for(int i = 0; i &lt; (n); ++i)
+#define rrep(i,n) for(int i = (n)-1; i &gt;= 0; --i)
+#define chmax(a, b) a = max(a, b)
+#define chmin(a, b) a = min(a, b)
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+using ll = long long;
+using P = pair&lt;int,int&gt;;
+using VI = vector&lt;int&gt;;
+using VVI = vector&lt;VI&gt;;
+using VL = vector&lt;ll&gt;;
+using VVL = vector&lt;VL&gt;;
+
+static const auto my_init = []{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    return false;
+}();
+
+
+<A NAME="0"></A>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        set&lt;int&gt; s;
+        for(int x: nums) {
+            if (x&amp;1) s.insert(x * 2);
+            else s.insert(x);
+        }
+        int ans = 1001001001;
+        while(true) {
+            int mx = *s.rbegin(), mn = *s.begin();</B></FONT>
+            chmin(ans, mx - mn);
+            if (mx&amp;1) break;
+            s.erase(mx);
+            s.insert(mx/2);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

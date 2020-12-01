@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_a_c_w_LING.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>465_a_c_w_LING.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int c1(vector&lt;int&gt;&amp; nums)
+    {
+        priority_queue&lt;int&gt; q1; //大根堆
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; q2; //小根堆
+        for(int &amp;x : nums){
+            q1.push(x);
+            q2.push(x);
+        }
+        int res = q1.top() - q2.top();
+        
+        while(q1.top() % 2 == 0)
+        {
+            int t = q1.top();
+            q1.pop();
+            q1.push(t / 2);
+            q2.push(t / 2);
+            res = min(res, q1.top() - q2.top());
+        }
+        
+        while(q2.top() % 2 == 1)
+        {
+            int t = q2.top();
+            q2.pop();
+            q1.push(t * 2);
+            q2.push(t * 2);
+           // cout &lt;&lt; res &lt;&lt; ' ' &lt;&lt; q1.top() - q2.top() &lt;&lt; endl;
+            if(q1.top() - q2.top() &gt; res) break;
+            res = q1.top() - q2.top();
+        }
+        return res;
+    }
+
+<A NAME="0"></A>    int c2(vector&lt;int&gt;&amp; nums)
+    {
+        priority_queue&lt;int&gt; q1; //大根堆
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; q2; //小根堆
+        for(int &amp;x : nums){
+            q1.push(x);
+            q2.push(x);
+        }
+        int res = q1.top() - q2.top();
+        
+        while(q2.top() % 2 == 1)
+        {
+            int t = q2.top();
+            q2.pop();
+            q1.push(t * 2);
+            q2.push(t * 2);
+           // cout &lt;&lt; res &lt;&lt; ' ' &lt;&lt; q1.top() - q2.top() &lt;&lt; endl;
+            //if(q1.top() - q2.top() &gt; res) break;
+            res = q1.top() - q2.top();
+        }
+        
+        while(q1.top() % 2 == 0)
+        {
+            int t = q1.top();
+            q1.pop();
+            q1.push(t / 2);
+            q2.push(t / 2);
+            res = min(res, q1.top() - q2.top());</B></FONT>
+            if(q1.top() - q2.top()) break;
+            res = q1.top() - q2.top();
+        }
+        
+        
+        return res;
+    }
+    
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        return min(c1(nums), c2(nums));
+       
+        //return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

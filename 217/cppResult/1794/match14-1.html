@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_xaviercai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_xaviercai.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>using pii = pair&lt;int, int&gt;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;int&gt; limit(n);
+        int maxv = 0;
+        priority_queue&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; pq;
+        for (int i = 0; i &lt; n; ++i) {
+            if (nums[i] % 2 == 0) {
+                limit[i] = nums[i];</B></FONT>
+                while (nums[i] % 2 == 0) nums[i] &gt;&gt;= 1;
+            }
+            else limit[i] = nums[i] &lt;&lt; 1;
+            maxv = max(maxv, nums[i]);
+            pq.push(make_pair(nums[i], limit[i]));
+        }
+        int anchor = maxv;
+        int ans = maxv - pq.top().first;
+        while (pq.top().first != anchor) {
+            pii v = pq.top();
+            v.first &lt;&lt;= 1;
+            if (v.first &gt; v.second) break;
+            pq.pop();
+            pq.push(v);
+            maxv = max(maxv, v.first);
+            ans = min(ans, maxv - pq.top().first);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

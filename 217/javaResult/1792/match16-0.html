@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>889_DestyFog.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>889_DestyFog.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] mostCompetitive(int[] nums, int k) {
+        Deque&lt;Integer&gt; stack = new LinkedList&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            while (!stack.isEmpty() &amp;&amp; 
+                   nums[i] &lt; stack.peek() &amp;&amp; 
+                   k - (stack.size() - 1) &lt;= nums.length - i) {
+                stack.pop();
+            }
+            if (stack.size() &lt; k) {
+                stack.push(nums[i]);
+            }
+        }
+        //System.out.println(stack);
+        int[] result = new int[k];
+        for (int i = result.length - 1; i &gt;= 0; i--) {
+            result[i] = stack.pop();
+        }
+        
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

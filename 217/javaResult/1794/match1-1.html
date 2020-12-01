@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>129_eastflag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>129_eastflag.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int minimumDeviation(int[] nums) {
+        int n = nums.length;
+        int[] pows = new int[n];
+        PriorityQueue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;((i, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>j) -&gt; nums[i] - nums[j]);
+        int max = 0;
+        for (int i = 0; i &lt; n; i++) {
+            while (nums[i] % 2 == 0) {
+                nums[i] /= 2;
+                pows[i]++;
+            }
+            if</B></FONT> (pows[i] == 0) pows[i] = 1;
+            queue.add(i);
+            max = Math.max(max, nums[i]);
+        }
+        
+        int deviation = Integer.MAX_VALUE;
+        while (true) {
+            int top = queue.poll();
+            deviation = Math.min(deviation, max - nums[top]);
+<A NAME="1"></A>            if (pows[top] &gt; 0) {
+                nums[top] *= 2;
+                pows[top]--;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>queue.add(top);
+                max = Math.max(max, nums[top]);
+            } else {
+                break;
+            }
+        }
+        
+        return deviation;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

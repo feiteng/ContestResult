@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>398_buptpwy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>398_buptpwy.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minMoves(self, nums: List[int], limit: int) -&gt; int:
+        s = len(nums)//2
+<A NAME="0"></A>        max_arr = []
+        min_arr = []
+        c = Counter()
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(s):
+            c[nums[i]+nums[~i]]+=1
+            max_arr.append( max(nums[i],nums[~i])) 
+            min_arr.append( min(nums[i],nums[</B></FONT>~i])) 
+        max_arr = sorted(max_arr)
+        min_arr = sorted(min_arr)
+        ans = s*2
+        
+        #print(max_arr, min_arr)
+        for e in c.keys():
+            
+            cnt = 0
+            l = bisect.bisect_right(max_arr,(e-limit-1))
+            r = (s - bisect.bisect_right(min_arr,e-1))
+            cnt = l*2+r*2+(s-l-r)-c[e]
+            #print(e, cnt, l, r )# , s, c[e], l*2+r*2+(s-l-r)-c[e])
+            ans = min(ans, cnt)
+        return ans
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

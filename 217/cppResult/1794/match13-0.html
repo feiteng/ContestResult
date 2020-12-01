@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>43_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef pair&lt;int, int&gt; ii;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; v) {
+        int n = v.size();
+        vector&lt;vector&lt;int&gt;&gt; a(n);
+        for (int i = 0; i &lt; n; ++i) {
+            a[i].push_back(v[i]);
+            if (v[i] % 2 == 0) {</B></FONT>
+                while (v[i] % 2 == 0) {
+                    v[i] /= 2;
+                    a[i].push_back(v[i]);
+                }
+                sort(a[i].begin(), a[i].end());
+            } else {
+                a[i].push_back(v[i] * 2);
+            }
+        }
+        set&lt;ii&gt; A;
+        for (int i = 0; i &lt; n; ++i) A.insert({a[i][0], i});
+        int best = A.rbegin()-&gt;first - A.begin()-&gt;first;
+        vector&lt;int&gt; pos(n);
+        while (true) {
+            int x = A.begin()-&gt;first;
+            bool found = false;
+            while (A.size() &amp;&amp; A.begin()-&gt;first == x) {
+                auto it = A.begin();
+                int k = it-&gt;second;
+                A.erase(it);
+                pos[k]++;
+                if (pos[k] == (int)a[k].size()) {
+                    found = true;
+                    break;
+                }
+                A.insert({a[k][pos[k]], k});
+            }
+            if (found) break;
+            // for (auto&amp; [x, y] : A) cout &lt;&lt; x &lt;&lt; &quot;,&quot; &lt;&lt; y &lt;&lt; endl;
+            // cout &lt;&lt; endl;
+            best = min(best, A.rbegin()-&gt;first - A.begin()-&gt;first);
+        } 
+        // cout &lt;&lt; &quot;##############&quot; &lt;&lt; endl;
+        return best;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

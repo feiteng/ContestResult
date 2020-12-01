@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>107_s3m7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>107_s3m7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumDeviation(int[] nums) {
+        List&lt;Integer&gt;[] arr = new List[nums.length];
+        for (int i = 0; i &lt; nums.length; ++i) {
+            arr[i]= new ArrayList&lt;&gt;();
+            arr[i].add(nums[i]);
+            if (nums[i] % 2 == 0) {
+                while (nums[i] % 2 == 0) {
+                    nums[i] /= 2;
+                    arr[i].add(nums[i]);
+                }
+            } else {
+                arr[i].add(2 * nums[i]);
+            }
+            Collections.sort(arr[i]);
+            // System.out.println(arr[i]);
+        }
+        
+        int[] idx = new int[nums.length];
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; {
+            return arr[a].get(idx[a]) - arr[b].get(idx[b]);
+        });
+        int max = 0;
+        for (int i = 0; i &lt; nums.length; ++i) {
+            pq.add(i);
+            max = Math.max(max, arr[i].get(0));
+        }
+        // System.out.println(max);
+        int min = max - arr[pq.peek()].get(idx[pq.peek()]);
+        while (true) {
+            int smallest = pq.remove();
+            if (idx[smallest] == arr[smallest].size() - 1) break;
+<A NAME="0"></A>            ++idx[smallest];
+            max = Math.max(max, arr[smallest].get(idx[smallest]));
+            pq.add(smallest);
+            min = Math.min(min, max - <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>arr[pq.peek()].get(idx[pq.peek()]));
+        }
+        return min;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

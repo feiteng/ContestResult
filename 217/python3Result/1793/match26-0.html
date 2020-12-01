@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_chuan-chih.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_chuan-chih.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minMoves(self, nums: List<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[int], limit: int) -&gt; int:
+        diff = []
+        n = len(nums)
+        for i in range(n // 2):
+            s, l = sorted([nums[i], nums[n - 1 - i]])
+            diff.append((s + 1, -1))
+            diff.</B></FONT>append((s + l, -1))
+            diff.append((s + l + 1, 1))
+            diff.append((l + limit + 1, 1))
+        diff.sort()
+        ans = curr = n
+        # print(diff)
+        for _, it in itertools.groupby(diff, key=lambda t: t[0]):
+            _, l = zip(*it)
+            curr += sum(l)
+            ans = min(ans, curr)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

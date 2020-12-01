@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_alanmiller.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>218_alanmiller.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minMoves(self, nums: List[int], limit: int) -&gt; int:
+        n = len(nums)
+
+        temp = []
+        
+        def helper(i):
+            cur = nums[i] + nums[n - 1 - i]
+            a = min(nums[i] + 1, nums[n - 1 - i] + 1)
+            b = max(nums[i] + limit, nums[n - 1 - i] + limit)
+            return [a, b, cur]
+        
+        for i in range(n//2):
+<A NAME="0"></A>            temp.append(helper(i))
+
+        
+        t <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [0]*(2*limit + 2)
+        
+        for a, b, c in temp:
+            t[a] -= 1
+            t[b + 1] += 1
+            t[c] -= 1
+            t[c + 1] += 1
+            
+        ans = cur = n
+        for l in range(2*limit + 1):
+            cur += t[l]
+            ans = min(ans, cur)
+        re</B></FONT>turn ans
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

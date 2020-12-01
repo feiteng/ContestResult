@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>335_ChelseaChenC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>335_ChelseaChenC.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minMoves(self, nums: List[int], limit: int) -&gt; int:
+        n = len(nums)
+        m = n // 2
+        min_val = 2
+        max_val = limit * 2
+        increments = [0] * (max_val + 2)
+        def add(start, end, inc):
+            increments[start] += inc
+            increments[end+1] -= inc
+        for i in range(m):
+            left, right = nums[i], nums[n-1-i]
+<A NAME="0"></A>            curr_sum = left + right
+            add(min_val, max_val, 2)
+            add(1 + min(left, right), limit + max(left, right), -1)
+            add(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>curr_sum, curr_sum, -1)
+        curr_cost = 0
+        min_cost = math.inf
+        for i in range(min_val, max_val+1):
+            curr_cost += increments[i]
+            min_cost = min(min_cost, curr_cost)
+        re</B></FONT>turn min_cost
+</PRE>
+
+</BODY>
+</HTML>

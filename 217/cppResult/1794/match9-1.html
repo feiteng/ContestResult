@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_ikusoken.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_ikusoken.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        priority_queue&lt;pair&lt;int,int&gt;&gt; max_pq;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        priority_queue&lt;pair&lt;int,int&gt;&gt; min_pq;
+        for(int i = 0;i &lt; nums.size();i++){
+            if (nums[i]%2 == 1)nums[i] *= 2;
+            max_pq.push(make_pair(nums[i],i));
+            min_pq.push(make_pair(-nums[i], -i));
+        }
+        int ret = 2 * 1e9+2;
+        while(!max_pq.empty()){
+            pair&lt;int,int&gt; maxi = max_pq.top();max_pq.pop();</B></FONT>
+            pair&lt;int,int&gt; mini = min_pq.top();
+            while(nums[-mini.second] != -mini.first || 
+                 -mini.second == maxi.second){
+                  //mini.first == maxi.first){
+            //cout &lt;&lt; maxi.first &lt;&lt;&quot; &quot; &lt;&lt; -mini.first &lt;&lt; &quot; &quot; &lt;&lt;maxi.second &lt;&lt;&quot; &quot; &lt;&lt; -mini.second &lt;&lt; &quot; &quot; &lt;&lt; nums[-mini.second] &lt;&lt; endl;
+
+                min_pq.pop();
+
+                min_pq.push(make_pair(mini.first/2, mini.second));
+                mini = min_pq.top();
+            }
+
+            ret = min(ret, maxi.first+mini.first);
+
+            if (maxi.first % 2 != 0)break;
+            maxi.first /= 2;
+            nums[maxi.second] = maxi.first;
+            max_pq.push(maxi);
+            
+            min_pq.push(make_pair(-maxi.first, -maxi.second));
+            
+        }
+        //cout &lt;&lt; endl;
+        
+        
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_wolffd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>431_wolffd.cpp</CENTER></H3><HR>
+<PRE>
+// Types
+template &lt;typename T&gt;
+using vector1D = vector&lt;T&gt;;
+template &lt;typename T&gt;
+using vector2D = vector&lt;vector1D&lt;T&gt;&gt;;
+template &lt;typename T&gt;
+using vector3D = vector&lt;vector2D&lt;T&gt;&gt;;
+template &lt;typename T&gt;
+using uset = unordered_set&lt;T&gt;;
+template &lt;typename K, typename V&gt;
+using umap = unordered_map&lt;K, V&gt;;
+
+// Output stream overloads.
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const vector&lt;T&gt;&amp; v) {
+  if (v.size() == 0) {
+    return out &lt;&lt; &quot;[]&quot;;
+  }
+
+  out &lt;&lt; '[' &lt;&lt; v[0];
+  for (int i = 1; i &lt; v.size(); ++i) {
+    out &lt;&lt; ' ' &lt;&lt; v[i];
+  }
+  return out &lt;&lt; ']';
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const vector&lt;vector&lt;T&gt;&gt;&amp; m) {
+  if (m.size() == 0) {
+    return out &lt;&lt; &quot;[]&quot;;
+  }
+
+  for (const auto&amp; row : m) {
+    out &lt;&lt; row &lt;&lt; endl;
+  }
+  return out;
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const deque&lt;T&gt;&amp; d) {
+  if (d.size() == 0) {
+    return out &lt;&lt; &quot;[]&quot;;
+  }
+
+  out &lt;&lt; '[' &lt;&lt; d[0];
+  for (int i = 1; i &lt; d.size(); ++i) {
+    out &lt;&lt; ' ' &lt;&lt; d[i];
+  }
+  return out &lt;&lt; ']';
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const set&lt;T&gt;&amp; s) {
+  if (s.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  out &lt;&lt; '{' &lt;&lt; *s.begin();
+  for (auto it = ++s.begin(); it != s.end(); ++it) {
+    out &lt;&lt; ' ' &lt;&lt; *it;
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const multiset&lt;T&gt;&amp; s) {
+  return out &lt;&lt; vector&lt;T&gt;(s.begin(), s.end());
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const unordered_set&lt;T&gt;&amp; s) {
+  if (s.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  vector&lt;T&gt; v(s.begin(), s.end());
+  sort(v.begin(), v.end());
+
+  out &lt;&lt; '{' &lt;&lt; v[0];
+  for (int i = 1; i &lt; v.size(); ++i) {
+    out &lt;&lt; ' ' &lt;&lt; v[i];
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename K, typename V&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const map&lt;K, V&gt;&amp; m) {
+  if (m.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  vector&lt;K&gt; keys;
+  for (const auto&amp; p : m) {
+    keys.push_back(p.first);
+  }
+
+  out &lt;&lt; &quot;{&quot; &lt;&lt; keys[0] &lt;&lt; &quot;: &quot; &lt;&lt; m.at(keys[0]);
+  for (int i = 1; i &lt; keys.size(); ++i) {
+    const auto&amp; key = keys[i];
+    out &lt;&lt; &quot;, &quot; &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; m.at(key);
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename K, typename V&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const unordered_map&lt;K, V&gt;&amp; m) {
+  if (m.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  vector&lt;K&gt; keys;
+  for (const auto&amp; p : m) {
+    keys.push_back(p.first);
+  }
+  sort(keys.begin(), keys.end());
+
+  out &lt;&lt; &quot;{&quot; &lt;&lt; keys[0] &lt;&lt; &quot;: &quot; &lt;&lt; m.at(keys[0]);
+  for (int i = 1; i &lt; keys.size(); ++i) {
+    const auto&amp; key = keys[i];
+    out &lt;&lt; &quot;, &quot; &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; m.at(key);
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename F, typename S&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const pair&lt;F, S&gt;&amp; p) {
+  return out &lt;&lt; '(' &lt;&lt; p.first &lt;&lt; &quot;, &quot; &lt;&lt; p.second &lt;&lt; ')';
+}
+
+namespace std {
+template &lt;typename T, typename U&gt;
+struct hash&lt;pair&lt;T, U&gt;&gt; {
+  size_t operator()(const pair&lt;T, U&gt;&amp; p) const noexcept {
+    return hash&lt;T&gt;{}(p.first) ^ (hash&lt;U&gt;{}(p.second) &lt;&lt; 1);
+  }
+<A NAME="0"></A>};
+}  // namespace std
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; mostCompetitive(vector&lt;int&gt;&amp; nums, int k) {
+        int N = nums.size();
+        vector&lt;int&gt; ans;
+        
+        for (int n = 0; n &lt; N; n++) {
+            while (ans.size() &amp;&amp; ans.back() &gt; nums[n] &amp;&amp; ans.size()+(N-n-1) &gt;= k) ans.pop_back();
+            if (ans.size() &lt; k) ans.emplace_back(nums[n]);
+        }
+        cout &lt;&lt; endl;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

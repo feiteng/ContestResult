@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>178_dyh-8.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>178_dyh-8.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumDeviation(self, nums: List[int]) -&gt; int:
+        
+        if not nums:
+<A NAME="0"></A>            return 0
+
+        prev = []
+        x <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= nums[0]
+        if x%2==1:
+            prev.append((x,x))
+            prev.append((x*2, x*2))
+        else:
+            while x%2==0:
+                prev.append((x, x))
+                x //= 2
+            prev.append((x</B></FONT>, x))
+        
+        for num in nums[1:]:
+            cand = []
+            if num%2==1:
+                cand.append(num)
+                cand.append(num*2)
+            else:
+                x = num
+                while x%2==0:
+                    cand.append(x)
+                    x//=2
+                cand.append(x)
+                cand = cand[::-1]
+            cur = []
+            for a, b in prev:
+                if a &gt;= cand[-1]:
+                    cur.append((cand[-1], b))
+                elif b&lt;=cand[0]:
+                    cur.append((a, cand[0]))
+                elif a&lt;=cand[0] and b&gt;=cand[1]:
+                    cur.append((a, b))
+                else:
+                    done = False
+                    for x in cand:
+                        if a&lt;=x&lt;=b:
+                            cur.append((a, b))
+                            done=True
+                            break
+                    if not done:
+                        for x in cand[::-1]:
+                            if x &lt;= a:
+                                cur.append((x, b))
+                                break
+                        for x in cand:
+                            if x&gt;=b:
+                                cur.append((a, x))
+                                break
+
+            prev = cur
+        res = float('inf')
+        for minx, maxx in prev:
+            res = min(res, maxx-minx)
+        return res
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

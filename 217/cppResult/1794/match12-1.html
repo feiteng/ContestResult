@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_please_AC.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_please_AC.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minimumDeviation(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;vector&lt;int&gt;&gt; ls(n);
+        
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            int cur = nums[i];
+            while (cur % 2 == 0) cur /= 2;
+            while (cur &lt;= nums[i]) {
+                ls[i].push_back(cur);
+                cur *= 2;
+            }
+            if (nums[i] % 2 == 1) ls[i].push_back(nums[i] * 2);
+        }
+        
+        vector&lt;int&gt; pos(n, 0);
+        
+        set&lt;pair&lt;int, int&gt;&gt; s;
+        for (int i = 0; i &lt; n; ++i) {
+            s.emplace(ls[i][0], i);
+        }
+        
+        int res = 1000000007;
+        
+        while (s.size()) {
+            res = min(res, s.rbegin()-&gt;first - s.begin()-&gt;first);
+            auto p = *s.begin();
+            s.erase(s.begin());
+            int idx = p.second;
+            if (pos[idx] == ls[idx].size() - 1) break;
+            s.emplace(ls[idx][pos[idx] + 1], idx);
+            pos[idx] += 1;
+        }
+        
+        return res;
+
+    }
+};
+</PRE>
+</BODY>
+</HTML>
