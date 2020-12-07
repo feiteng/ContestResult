@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>259_mellendo.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>259_mellendo.py</CENTER></H3><HR>
+<PRE>
+Debug = False
+BIG = 10**6
+def getMin(c,split,sz,starti) :
+    if Debug : print(&quot;getMin&quot;,(c,split,sz))
+    for k in sorted(c.keys()) :
+        if c[k] &gt; 1 :
+            m = BIG
+            for i in range(len(split) - c[k] + 1) :
+                newsplit = copy.deepcopy(split)
+                si = i
+                j = 0
+                while j &lt; c[k] :
+                    if si == len(newsplit) : break
+                    if len(newsplit[si]) != sz :
+                        newsplit[si].append(k)
+                        j += 1
+                    si += 1    
+                if j != c[k] : continue
+                newc = copy.deepcopy(c)
+                del newc[k]
+                m = min(m,getMin(newc, newsplit,sz,i))
+            return m    
+    i = 0    
+    newsplit = copy.deepcopy(split)
+    for k in sorted(c.keys()) :
+        while len(newsplit[i]) &gt;= sz :
+            i += 1
+        newsplit[i].append(k)
+    m = 0
+    for i in range(len(newsplit)) :
+        m += max(newsplit[i]) - min(newsplit[i])
+<A NAME="0"></A>    if Debug : print(m,newsplit)
+    return m    
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        c = collections.Counter(nums)
+        if max(c.values()) &gt; k : 
+            r</B></FONT>eturn -1
+        if len(nums) == k : return 0
+        split = [[] for _ in range(k)]
+        return getMin(c,split,len(nums) // k,0)
+</PRE>
+
+</BODY>
+</HTML>

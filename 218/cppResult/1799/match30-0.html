@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>276_run916.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>276_run916.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int *tmp;
+    vector&lt;int&gt; nums;
+    int n;
+    int m;
+    int ans=INT_MAX;
+    int id=0;
+    int dp[100000];
+    int arr[100000];
+    int check(int state){
+        int maxn=0;
+        int minn=1000;
+        for(int i=0;state&gt;&gt;i;i++){
+            if((state&gt;&gt;i)&amp;1){
+                maxn=max(nums[i],maxn);
+                minn=min(nums[i],minn);
+            }
+        }
+        dp[state]=maxn-minn;
+        return dp[state];
+    }
+    void DFS(int k,int ip,int sum){
+        if(ip==m){//分成m个，当数量达到m个时就判断能不能行
+            ans=min(ans,sum);
+            return;
+        }
+<A NAME="0"></A>        if(sum&gt;=ans)return;
+        if(k&gt;=id)return;//剪枝
+        for(int i=k;i&lt;id;i++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool tag=true;
+            for(int j=0;j&lt;ip;j++){
+                if((arr[i]&amp;tmp[j])!=0){
+                    tag=false;
+                    break;
+                }
+            }
+            if(tag){
+                tmp[ip]=arr[i];//记录</B></FONT>
+                if(dp[tmp[ip]]&gt;0) DFS(i+1,ip+1,sum+dp[tmp[ip]]);
+                else DFS(i+1,ip+1,sum+check(tmp[ip]));
+            }
+        }
+        return;
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        n=nums.size();
+<A NAME="1"></A>        int tip[n+1];
+        if(n==m)return -1;
+        memset(tip,0,sizeof(tip));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;n;i++){
+            tip[nums[i]]++;
+        }
+        for(int i=1;i&lt;n+1;i++){
+            if(tip[i]&gt;k)return -1;</B></FONT>
+        }
+        m=k;
+        this-&gt;nums=nums;
+        memset(arr,0,sizeof(arr));
+        for(int i=1;i&lt;(1&lt;&lt;n);i++){//统计所有长度为n/k的状态
+            int count=0;
+            memset(tip,0,sizeof(tip));
+            bool tag=true;
+            for(int j=0;i&gt;&gt;j;j++){
+                if((i&gt;&gt;j)&amp;1){
+                    count++;
+                    tip[nums[j]]++;
+                    if(tip[nums[j]]&gt;1)tag=false;
+                }
+            }
+            if(count==n/m&amp;&amp;tag)arr[id++]=i;
+        }
+        tmp=new int[k];
+        memset(dp,0,sizeof(dp));
+        memset(tmp,0,sizeof(int)*k);
+        DFS(0,0,0);
+        return ans==INT_MAX?-1:ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

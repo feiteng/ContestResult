@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>295_bibaboy00.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>295_bibaboy00.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    // [4,10,4,7,9,10,4,6,9,10]
+    // 4 4 4 6 7 9 9 10 10 10
+    int res = 1000;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minimumIncompatibility(int[] nums, int k) {
+        if (k == nums.length) {
+            return 0;
+        }</B></FONT>
+        Arrays.sort(nums);
+        int[] cnt = new int[17];
+<A NAME="1"></A>        for (int num : nums) {
+            cnt[num]++;
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int c : cnt) {
+            if (c &gt; k) {
+                return -1;
+            }
+        }
+        int n = nums.length / k;
+        int[][] arrs = new</B></FONT> int[k][n];
+        backtrack(nums, 0, arrs, n);
+<A NAME="2"></A>        return res;
+    }
+    
+    private void backtrack(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] nums, int i, int[][] arrs, int n) {
+        if (i == nums.length) {
+            int temp = 0;
+            for (int[] arr : arrs) {</B></FONT>
+                temp += arr[n - 1] - arr[0];
+            }
+            res = Math.min(res, temp);
+            return;
+        }
+        boolean newLineTried = false;
+        for (int r = 0; r &lt; arrs.length; r++) {
+            int[] arr = arrs[r];
+            int id = firstZeroIndex(arr);
+            if (id == -1) {
+                continue;
+            } else if (id == 0) {
+                if (newLineTried) {
+                    continue;
+                }
+                arr[0] = nums[i];
+                backtrack(nums, i + 1, arrs, n);
+                arr[0] = 0;
+                newLineTried = true;
+            } else if (arr[id - 1] == nums[i]) {
+                continue;
+            } else {
+                arr[id] = nums[i];
+                backtrack(nums, i + 1, arrs, n);
+                arr[id] = 0;
+            }
+        }
+    }
+    
+    private int firstZeroIndex(int[] arr) {
+        for (int i = 0; i &lt; arr.length; i++) {
+            if (arr[i] == 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

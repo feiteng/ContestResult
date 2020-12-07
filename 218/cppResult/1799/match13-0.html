@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_paigulong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_paigulong.cpp</CENTER></H3><HR>
+<PRE>
+
+int cnt[1&lt;&lt;16],val[1&lt;&lt;16],dp[1&lt;&lt;16],f[1&lt;&lt;16],tot=0;
+class Solution {
+public:
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+    	memset(cnt,0,sizeof(cnt));
+    	
+  		for(int i=0;i&lt;1&lt;&lt;16;i++){
+<A NAME="0"></A>  			for(int j=0;j&lt;16;j++)if(i&gt;&gt;j&amp;1)cnt[i]++;
+  		}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  		int n=nums.size();
+  		int x=n/k;
+  		tot=0;
+  		for(int i=1;i&lt;1&lt;&lt;n;i++){
+  			int mx=0,mn=1e9;
+            bool vis[20]={0};</B></FONT>
+            bool ok=0;
+  			for(int j=0;j&lt;n;j++){
+  				if(i&gt;&gt;j&amp;1){
+                    if(vis[nums[j]]==1)ok=1;
+                    vis[nums[j]]=1;
+<A NAME="1"></A>  					mx=max(mx,nums[j]);
+  					mn=min(mn,nums[j]);
+  				}	
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  			}
+            if(ok)f[i]=1e9;
+  			else f[i]=mx-mn;
+  		}    
+
+  		for(int i=1;i&lt;1&lt;&lt;n;i++){
+  			if(cnt[i]%x==0){</B></FONT>
+  				dp[i]=1e9;
+  				for(int j=i;j;j=(j-1)&amp;i) {
+  					if(cnt[j]==x) dp[i]=min(dp[i],dp[i ^ j] + f[j]);
+  				}
+  			}
+  		}  
+  		return dp[(1&lt;&lt;n) - 1]&gt;1e8?-1:dp[(1&lt;&lt;n)-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

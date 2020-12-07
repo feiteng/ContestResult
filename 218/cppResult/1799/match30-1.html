@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_vlam21.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>252_vlam21.cpp</CENTER></H3><HR>
+<PRE>
+int incompatibility[1 &lt;&lt; 16];
+int counts[17];
+
+class Solution {
+
+public:
+   int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+
+      int n = nums.size();
+
+      vector&lt;int&gt; masksOfSizeK;
+<A NAME="1"></A>      for (int mask = 1; mask &lt; (1 &lt;&lt; n); mask++) {
+         if (__builtin_popcount(mask) != n / k) continue;
+         int nmin = n, nmax = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>         for (int i = 0; i &lt;= n; i++) {
+            counts[i] = 0;
+         }
+         for (int index = 0; index &lt; n; index++) {
+            if (mask &amp; (1 &lt;&lt; index)) {</B></FONT>
+               counts[nums[index]]++;
+               nmin = min(nmin, nums[index]);
+<A NAME="0"></A>               nmax = max(nmax, nums[index]);
+            }
+         }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>         bool ok = true;
+         for (int i = 1; i &lt;= n; i++) {
+            if (counts[i] &gt; 1) {
+               ok = false;
+               break;
+            }
+         }
+
+         if (ok) {
+            masksOfSizeK.push_back(mask);
+            incompatibility[mask] = nmax - nmin;</B></FONT>
+         }
+      }
+
+      vector&lt;int&gt; dp(1 &lt;&lt; n, -1);
+      dp[0] = 0;
+      for (int mask = 1; mask &lt; (1 &lt;&lt; n); mask++) {
+         if (__builtin_popcount(mask) % (n / k) &gt; 0) continue;
+         for (int maskOfSizeK : masksOfSizeK) {
+            if ((mask | maskOfSizeK) != mask) continue;
+
+            int difference = mask &amp; ~maskOfSizeK;
+            if (dp[difference] == -1) continue;
+
+            int cand = dp[difference] + incompatibility[maskOfSizeK];
+            if (dp[mask] == -1 || dp[mask] &gt; cand) {
+               dp[mask] = cand;
+            }
+         }
+      }
+      return dp[(1 &lt;&lt; n) - 1];
+   }
+};
+</PRE>
+</BODY>
+</HTML>

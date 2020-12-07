@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>260_Eser.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>260_Eser.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+<A NAME="0"></A>        n = len(nums)
+        if n % k != 0:
+            return -1
+        gsize <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= n // k
+        cnt = collections.Counter(nums)
+        if max(cnt.values()) &gt; k:
+            return -1
+        if k == n:
+            return 0
+        groups = [set(</B></FONT>) for _ in range(k)]
+        self.ans = float('inf')
+        def fronzen():
+            # return frozenset({frozenset(g) for g in groups})
+            return tuple(sorted(tuple(sorted(g)) for g in groups))
+        def getans():
+            return sum([max(g) - min(g) for g in groups])
+        # keys = sorted(cnt.keys())
+        keys = tuple(sorted(nums))
+        def dfs(res, k, cul):
+            # print(res, k, cul)
+            if k == 0:
+                self.ans = min(self.ans, cul)
+                return
+            # ans = float('inf')
+            nres = []
+            cgsize = gsize - 1
+            lo = hi = 0
+            for hi in range(1, len(res)):
+                if res[hi] == res[hi-1]:
+                    nres.append(res[hi])
+                else:
+                    # print(lo, hi, res[hi], cgsize-1)
+                    cgsize -= 1
+                    if cgsize == 0:
+                        dfs(tuple(sorted(tuple(nres) + res[hi+1:])), k - 1, cul + res[hi] - res[lo])
+                        while True:
+                            lo += 1
+                            if res[lo] != res[lo-1]:
+                                nres.insert(0, res[lo-1])
+                                cgsize += 1
+                                break
+        dfs(keys, k, 0)
+        # return self.ans
+        # @lru_cache(None)
+        # def dfs(i, trash):
+        #     if i == len(nums):
+        #         res = sum([max(g) - min(g) for g in groups])
+        #         self.ans = min(self.ans, res)
+        #         return
+        #     # if all(map(len, groups)) and getans() &gt;= self.ans:
+        #     #     return
+        #     for k in keys:
+        #         if not cnt[k]:
+        #             continue
+        #         cnt[k] -= 1
+        #         visited = set()
+        #         for g in sorted(groups, key=len, reverse=True):
+        #             if len(g) &lt; gsize and k not in g and frozenset(g) not in visited:
+        #                 visited.add(frozenset(g))
+        #                 g.add(k)
+        #                 dfs(i+1, fronzen())
+        #                 g.remove(k)
+        #         cnt[k] += 1
+        # dfs(0, fronzen())
+        if self.ans == float('inf'):
+            return -1
+        return self.ans
+            
+</PRE>
+
+</BODY>
+</HTML>

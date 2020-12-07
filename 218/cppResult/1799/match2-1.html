@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>143_panpeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>143_panpeng.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int N;
+    int K;
+    int M;
+<A NAME="0"></A>    int ans;
+    void dfs(vector&lt;int&gt;&amp; nums,int index,vector&lt;set&lt;int&gt;&gt; &amp;vSet,int have){
+        //cout&lt;&lt;index&lt;&lt;&quot; &quot;&lt;&lt;have&lt;&lt;endl;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(index&gt;=N){
+            //cout&lt;&lt;&quot;have=&quot;&lt;&lt;have&lt;&lt;endl;
+            ans=min(ans,have);
+            return;
+        }
+        
+        for(int i=0;i&lt;K;i++){
+            if(vSet[i].empty()){</B></FONT>
+                vSet[i].insert(nums[index]);
+                dfs(nums,index+1,vSet,have);
+
+                vSet[i].erase(nums[index]);
+                break;
+            }
+            if(vSet[i].size()&lt;M&amp;&amp;vSet[i].find(nums[index])==vSet[i].end()){
+                
+                if(have + nums[index] - *vSet[i].rbegin()&gt;=ans){
+                    continue;
+                }
+                int nhave = have + nums[index] - *vSet[i].rbegin();
+                vSet[i].insert(nums[index]);
+<A NAME="1"></A>                dfs(nums,index+1,vSet,nhave);
+
+                vSet[i].erase(nums[index]);                
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        N=nums.size();
+        sort(nums.begin(),nums.end());
+        ans = INT_MAX;
+        K=k;
+        M=N/K;
+        vector&lt;set&lt;int&gt;&gt; vSet(k);
+        dfs(nums,0,vSet,0);
+        if(ans == INT_MAX){</B></FONT>
+            return -1;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

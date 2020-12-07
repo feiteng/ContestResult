@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1_zerotrac2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1_zerotrac2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+private:
+    int freq[20];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        int n = nums.size();
+        vector&lt;int&gt; valid(1 &lt;&lt; n, -1);
+        for (int mask = 0; mask &lt; (1 &lt;&lt; n); ++mask) {
+<A NAME="1"></A>            if (__builtin_popcount(mask) == n / k) {</B></FONT>
+                for (int j = 0; j &lt; n; ++j) {
+                    if (mask &amp; (1 &lt;&lt; j)) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        ++freq[nums[j]];
+                    }
+                }
+                bool flag = true;
+                for (int j = 1; j &lt;= n; ++j) {
+                    if (freq[j] &gt; 1) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {</B></FONT>
+                    int lb = INT_MAX, rb = INT_MIN;
+                    for (int j = 1; j &lt;= n; ++j) {
+                        if (freq[j] &gt; 0) {
+                            lb = min(lb, j);
+                            rb = max(rb, j);
+                        }
+                    }
+                    valid[mask] = rb - lb;
+                }
+                for (int j = 0; j &lt; n; ++j) {
+                    if (mask &amp; (1 &lt;&lt; j)) {
+                        --freq[nums[j]];
+                    }
+                }
+            }
+        }
+        
+        vector&lt;int&gt; f(1 &lt;&lt; n, -1);
+        f[0] = 0;
+        for (int mask = 1; mask &lt; (1 &lt;&lt; n); ++mask) {
+            if (__builtin_popcount(mask) % (n / k) == 0) {
+                for (int sub = mask; sub; sub = (sub - 1) &amp; mask) {
+                    if (valid[sub] != -1 &amp;&amp; f[mask ^ sub] != -1) {
+                        if (f[mask] == -1) {
+                            f[mask] = f[mask ^ sub] + valid[sub];
+                        }
+                        else {
+                            f[mask] = min(f[mask], f[mask ^ sub] + valid[sub]);
+                        }
+                    }
+                }
+            }
+        }
+            
+        return f[(1 &lt;&lt; n) - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

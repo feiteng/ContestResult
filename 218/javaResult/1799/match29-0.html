@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221_jjliao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>221_jjliao.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int res = Integer.MAX_VALUE;
+    public int minimumIncompatibility(int[] nums, int k) {
+        int n = nums.length;
+        if(n==k) return 0;
+        TreeMap[] maps = new TreeMap[k];
+        for(int i=0; i&lt;k; i++){
+            maps[i] = new TreeMap&lt;&gt;();
+<A NAME="0"></A>        }
+        Arrays.sort(nums);
+        dfs(nums, k, 0, maps, 0);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res==Integer.MAX_VALUE ? -1 : res;
+    }
+    
+    public void dfs(int[] nums, int k, int pos, TreeMap&lt;Integer, Integer&gt;[] maps, int last</B></FONT>){
+        int n = nums.length;
+        if(pos==n){
+            int cur = 0;
+            for(int i=0; i&lt;k; i++){
+                cur += maps[i].lastEntry().getValue() - maps[i].firstEntry().getValue();
+            }
+            res = Math.min(res, cur);
+            return;
+        }
+        int begin = 0;
+        if(pos&gt;0 &amp;&amp; nums[pos]==nums[pos-1]){
+            begin = last+1;
+<A NAME="1"></A>        }
+        for(int i=begin; i&lt;k; i++){
+            if(i&gt;0 &amp;&amp; maps[i-1].isEmpty() &amp;&amp; maps[i].isEmpty()) break;
+            if(maps[i].size() &lt; n/k &amp;&amp; !maps[i].containsKey(nums[pos]))<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                maps[i].put(nums[pos], nums[pos]);
+                dfs(nums, k, pos+1, maps, i);
+                maps[i].remove(nums[pos]);
+            }
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

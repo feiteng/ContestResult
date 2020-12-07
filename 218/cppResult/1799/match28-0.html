@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_askvij.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>285_askvij.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int n, K, INF = 1&lt;&lt;29;
+    vector&lt;int&gt;nums;
+    vector&lt;pair&lt;int, int&gt;&gt;validMask;
+    int memo[17][(1&lt;&lt;16) + 10];
+    bool isValid(int mask) {
+        unordered_map&lt;int, bool&gt; seen;
+        for (int i =0 ; i &lt; n; i++) {
+            if (mask&amp;(1&lt;&lt;i) ) {
+<A NAME="0"></A>                if (seen.count(nums[i])) return false;
+                seen[nums[i]] = true;
+            }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return true;
+    }
+    int solve(int idx, int mask) {
+        if (idx == K) return 0;
+        if (memo[idx][mask] != -1) return memo[idx][mask];
+<A NAME="1"></A>        int ret = INF;
+        for (auto m : validMask) if ((m.first&amp;mask) == 0){</B></FONT>
+            ret = min(ret, solve(idx + 1, mask|m.first) + m.second);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return memo[idx][mask] = ret;
+    }
+    int getMin(int mask) {
+        int mini = n + 1;
+        for (int i =0 ; i &lt; n; i++) if (mask&amp;(1&lt;&lt;i) ) mini = min(mini, nums[i]);</B></FONT>
+        return mini;
+    }
+    int getMax(int mask) {
+        int maxi = 0;
+        for (int i =0 ; i &lt; n; i++) if (mask&amp;(1&lt;&lt;i) ) maxi = max(maxi, nums[i]);
+        return maxi;
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; N, int k) {
+        nums = N, K = k;
+        n = nums.size();
+        int G = n /k;
+        for (int i = 0; i &lt; (1&lt;&lt;n); i++) {
+            int c =0;
+            for (int j =0 ; j &lt; n; j++) if (i&amp;(1&lt;&lt;j)) c++;
+            if (c == G &amp;&amp; isValid(i)) validMask.push_back({i, getMax(i)- getMin(i)});
+        }
+        int m = validMask.size();
+        //cout &lt;&lt; m&lt;&lt;&quot;\n&quot;;
+        memset(memo, -1, sizeof(memo));
+        int ans = solve(0, 0);
+        return ans &gt;= INF ? -1 : ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

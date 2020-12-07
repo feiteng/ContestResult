@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_angel30818.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>135_angel30818.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        cnt = collections.Counter(nums)
+        if max(cnt.values()) &gt; k: r</B></FONT>eturn -1
+        
+        nums.sort()
+        boxes = collections.Counter()
+        
+        for i in range(k):
+            boxes[tuple()] += 1
+
+        self.res = sys.maxsize
+        capacity = len(nums) // k
+        
+        def dfs(curr, boxes, tot):
+            if curr == len(nums):
+                self.res = min(self.res, tot)
+                return
+            
+            n = nums[curr]
+            # print(&quot;-----&quot;, curr, n)
+            for b in boxes:
+                # print(b)
+                if len(b) == capacity: continue
+                if n in b: continue
+                    
+                newkey = tuple(list(b) + [n])
+                diff = 0 if len(b) == 0 else n - b[-1]
+                newtot = tot + diff
+                if newtot &gt;= self.res: continue
+                    
+                newbox = boxes.copy()
+                newbox[newkey] += 1
+                newbox[b] -= 1
+                
+                if newbox[b] == 0: del newbox[b]
+                
+                # print(newkey)
+                # print(newbox)
+                
+                dfs(curr+1, newbox, newtot)
+        
+        dfs(0, boxes, 0)
+        return self.res
+                
+                
+            
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_hanchentao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>51_hanchentao.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int res = Integer.MAX_VALUE;
+    int size;
+    public int minimumIncompatibility(int[] nums, int k) {
+        size = nums.length / k;
+        if(nums.length % k != 0) return -1;
+        int[] arr = new int[20];
+<A NAME="0"></A>        for(int i : nums) arr[i]++;
+        for(int i : arr) if(i &gt; k) return -1;
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;List&lt;Integer&gt;&gt; list = new LinkedList&lt;&gt;();
+        for(int i = 0; i &lt; k; i++){
+            list.add(new LinkedList&lt;&gt;());
+        }
+        Arrays.sort</B></FONT>(nums);
+<A NAME="1"></A>        backtracking(nums, 0, list, 0);
+        
+        return res;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private void backtracking(int[] arr, int idx, List&lt;List&lt;Integer&gt;&gt; list, int num){
+        // System.out.println(idx + &quot;    &quot; + num);
+        if(idx == arr.length){ 
+            
+            
+//             for(List&lt;Integer&gt; l : list){
+//                 System.out.println(l);
+                
+//             }
+//             System.out.println();
+//             System.out.println();
+//             System.out.println();
+            
+            
+            res = Math.min(res, num);
+            return;
+        }</B></FONT>
+        if(num &gt;= res) return;
+        
+        int n = arr[idx];
+        int temp = num;
+        
+        for(List&lt;Integer&gt; l : list){
+            if(l.size() == size){
+                continue;
+            }else if(l.size() &gt; 0 &amp;&amp; l.get(l.size() - 1) != n){
+                num -=  (l.get(l.size() - 1) - l.get(0));
+                l.add(n);
+                num +=  (n - l.get(0));
+                backtracking(arr, idx + 1, list, num);
+                l.remove(l.size() - 1);
+                num = temp;
+            }else if(l.size() == 0){
+                l.add(n);
+                backtracking(arr, idx + 1, list, num);
+                l.remove(l.size() - 1);
+                break;
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

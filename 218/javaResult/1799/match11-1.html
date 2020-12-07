@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>36_huntersjm.java</CENTER></H3><HR>
+<PRE>
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int minimumIncompatibility(int[] nums, int k) {
+        if (k == nums.length) {
+            return 0;
+        }
+        if (k == 1) {
+            return nums.length == Arrays.stream(nums).distinct().count() ? Arrays.stream(nums).max().getAsInt() -
+                    Arrays.stream(nums).min().getAsInt() : -1;
+        }
+<A NAME="0"></A>        int len = nums.length / k;
+
+        Arrays.sort(nums);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 1; i &lt; 1 &lt;&lt; nums.length; i++) {
+            if (Integer.bitCount(i) == len) {
+                int last = -1</B></FONT>;
+                int min = -1;
+                int j = 0;
+                for (; j &lt; nums.length; j++) {
+                    if ((i &amp; (1 &lt;&lt; j)) &gt; 0) {
+                        if (last == -1) {
+                            last = nums[j];
+                            min = last;
+                        } else if (last != nums[j]) {
+                            last = nums[j];
+<A NAME="1"></A>                        } else {
+                            break;
+                        }
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                }
+                if (j == nums.length) {
+                    map.put(i, last - min);
+                }
+            }
+        }
+
+        Map&lt;Integer, Integer&gt; currents = new HashMap&lt;&gt;(map)</B></FONT>;
+        for (int i = 1; i &lt; k; i++) {
+            currents = join(currents, map);
+        }
+        return currents.getOrDefault((1 &lt;&lt; nums.length) - 1, -1);
+    }
+
+    private Map&lt;Integer, Integer&gt; join(Map&lt;Integer, Integer&gt; currents, Map&lt;Integer, Integer&gt; map) {
+        Map&lt;Integer, Integer&gt; next = new HashMap&lt;&gt;();
+        for (Map.Entry&lt;Integer, Integer&gt; entry : currents.entrySet()) {
+            for (Map.Entry&lt;Integer, Integer&gt; entry2 : map.entrySet()) {
+<A NAME="2"></A>                if ((entry.getKey() &amp; entry2.getKey()) == 0) {
+                    next.put(entry.getKey() | entry2.getKey(),
+                            Math.min(next.getOrDefault(entry.getKey() | entry2.getKey(), 100),
+                                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>entry.getValue() + entry2.getValue()));
+                }
+            }
+        }
+        return next;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

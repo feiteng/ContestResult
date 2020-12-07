@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>232_dyurchyk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>232_dyurchyk.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int result;
+    int limit;
+    public int minimumIncompatibility(int[] nums, int k) {
+        Arrays.sort(nums);
+        int cnt = 1;
+        int n = nums[0];
+        for (int i = 1; i &lt; nums.length; i++) {
+            if (nums[i] == n) {
+                cnt++;
+            } else {
+                cnt = 1;
+                n = nums[i];
+            }
+            if (cnt &gt; k) return -1;
+        }
+        
+        limit = nums.length / k;
+        int[][] arr = new int[k][limit];
+        int[] ind = new int[k];
+        
+        result = Integer.MAX_VALUE; 
+        backtrack(arr, ind, 0, nums);
+        
+        return result;
+<A NAME="0"></A>    }
+    
+    void backtrack(int[][] arr, int[] ind, int i, int[] nums) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (i == nums.length) {
+            int res = 0;
+            for (int k = 0; k &lt; arr.length; k++) {
+                res += arr[k][limit-1] - arr[k][0];
+            }
+            
+<A NAME="1"></A>            result = Math.min</B></FONT>(res, result);
+        } else {
+            int val = nums[i];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = 0; j &lt; ind.length; j++) {
+                if (ind[j] == limit) continue;
+                if (ind[j] &gt; 0 &amp;&amp; arr[j][ind[j]-1] == val) continue;</B></FONT>
+                boolean toBreak = ind[j] == 0;
+                arr[j][ind[j]] = val;
+                ind[j]++;
+                backtrack(arr, ind, i+1, nums);
+                ind[j]--;
+                if(toBreak) break;
+            } 
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

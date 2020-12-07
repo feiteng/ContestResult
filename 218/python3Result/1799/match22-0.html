@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_Firepaw.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_Firepaw.py</CENTER></H3><HR>
+<PRE>
+
+class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        n = len(nums)
+<A NAME="0"></A>        if n % k != 0:
+            return -1
+
+        wc <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= collections.Counter(nums)
+        if any(c &gt; k for c in wc.values()):
+            return -1
+
+        if k == n:
+            r</B></FONT>eturn 0
+
+
+
+
+
+
+        def dfs(index, perms, diff, maxdiff):
+            if index &gt;= n:
+                return sum([max(perm)-min(perm) for perm in perms]) &lt;= maxdiff
+
+            v = nums[index]
+            for i in range(k):
+                b = not perms[i]
+                if v not in perms[i] and len(perms[i]) &lt; n//k:
+
+                    pd = max(perms[i]) - min(perms[i]) if perms[i] else 0
+                    perms[i].add(v)
+                    d = max(perms[i]) - min(perms[i])
+                    if diff + d - pd &lt;= maxdiff:
+                        if dfs(index+1, perms, diff + d - pd, maxdiff):
+                            return True
+                    perms[i].remove(v)
+                if b:
+                    break
+
+            return False
+
+        INF = sum(nums) + 1
+        lo, hi = 0, INF
+        while lo &lt;= hi:
+            mid = (lo + hi) // 2
+            if dfs(0, [set() for _ in range(k)], 0, mid):
+                hi = mid - 1
+            else:
+                lo = mid + 1
+
+        return lo if lo &lt; INF else -1
+</PRE>
+
+</BODY>
+</HTML>

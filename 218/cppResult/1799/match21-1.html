@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_leng-kong-qi-v.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_leng-kong-qi-v.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+            vector&lt;vector&lt;int&gt; &gt; dp;
+    int res=300;
+<A NAME="0"></A>    int K;
+    vector&lt;int&gt; NUMS;
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void solve(int index,int curr){
+
+        if(curr&gt;=res){return;}
+           
+        if(index&gt;=NUMS.size()){
+            res=min(res,curr); return;
+        }
+            
+        for(int i=0;i&lt;K;i++){
+           
+            if(dp[i].empty()){
+                dp[i].push_back(NUMS[index]);
+                solve(index+1,curr);
+                dp[i].pop_back();
+                break;
+            }else{</B></FONT>
+             
+            if(dp[i].size()==NUMS.size()/K){continue;}
+        
+            if(dp[i].back()==NUMS[index]){continue;}
+             
+            int delta=NUMS[index]-dp[i].back();
+                dp[i].push_back(NUMS[index]);
+                solve(index+1,curr+delta);
+                dp[i].pop_back();
+                 }
+        }
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+
+    K=k;
+            int mp[17];
+        memset(mp,0,sizeof mp);
+        for(int x:nums){
+        
+            mp[x]++;
+        }
+      
+        for(int i=1;i&lt;=16;i++){
+            if(mp[i]&gt;k){
+                return -1;
+            }
+        }
+    
+        
+        sort(nums.begin(),nums.end());
+                NUMS=nums;
+        dp=vector&lt;vector&lt;int&gt;&gt;(k,vector&lt;int&gt;(0));
+
+        int i;
+        for(i=0;i&lt;nums.size();i++){
+            if(nums[i]==nums[0]){
+                dp[i].push_back(nums[i]);
+            }else{
+                break;
+            }
+        }
+        solve(i,0);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

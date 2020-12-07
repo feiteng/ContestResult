@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>313_hust_dhc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>313_hust_dhc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int base;
+    int length;
+    int numCnt;
+    int cnt[16];
+    unordered_map&lt;int, int&gt; dp;
+    unordered_map&lt;string, int&gt; visit;
+    string v_s(int c[]){
+        string key = &quot;&quot;;
+        for(int i=0; i&lt;length; i++)
+        {
+            int e = c[i];
+            key += to_string(e)+&quot;_&quot;;
+        }
+        return key;
+    }
+    int dfs(int num, int c[]){
+        if(num==0) return 0;
+        string key = v_s(c);
+        if(visit.find(key)!=visit.end()) return visit[key];
+        int res = INT_MAX&gt;&gt;1;
+        int temp[16];
+        int minV=0;
+        while(c[minV]==0) minV+=1;
+        for(auto &amp;e:dp){
+            if(!(e.first&amp;(1&lt;&lt;minV))){
+                continue;
+            }
+            for(int i=0; i&lt;16; i++){
+                temp[i] = c[i];
+            }
+            bool valid = true;
+            for(int j=0; j&lt;length; j++){
+                if((e.first&amp;(1&lt;&lt;j))&amp;&amp;temp[j]==0){
+                    valid = false;
+                    break;
+                }else if(e.first&amp;(1&lt;&lt;j)){
+                   temp[j] -= 1;
+                }
+            }
+            if(valid){
+                res = min(res, e.second+dfs(num-1, temp));
+            }
+        }
+        return visit[key]=res;
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        dp.clear();
+        visit.clear();
+        base = k;
+        memset(cnt, 0, sizeof cnt);
+        length = nums.size();
+        if(k==nums.size()) return 0;
+        
+         for(auto&amp;e:nums){
+            cnt[e-1]+=1;
+            if(cnt[e-1]&gt;k) return -1;
+        }
+        
+        for(int i=0; i&lt;(1&lt;&lt;length)-1; i++){
+            if(__builtin_popcount(i)!=(length/k)) continue;
+            int minV = 17, maxV = -1;
+            bool sat = true;
+            for(int j=0; j&lt;length; j++){
+                if(i&amp;(1&lt;&lt;j)&amp;&amp;cnt[j]==0){
+                    sat = false;
+                }else if(i&amp;(1&lt;&lt;j)){
+                    minV = min(j, minV);
+                    maxV = max(j, maxV);
+                }
+            }
+            if(sat){
+                dp[i] = maxV-minV;
+            }
+        }
+        return dfs(k, cnt);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_TheoHernandez.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>217_TheoHernandez.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private int res = Integer.MAX_VALUE;
+<A NAME="0"></A>    public int minimumIncompatibility(int[] nums, int k) {
+        if(nums.length%k!=0) return -1;
+        Arrays.sort(nums);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for(int num: nums) {
+            map.put(num, map.getOrDefault(num, 0)+1);
+            if(map.get(num)&gt;k) return -1;
+        }</B></FONT>
+        if(nums.length==k) return 0;
+        LinkedList&lt;LinkedList&lt;Integer&gt;&gt; list = new LinkedList&lt;&gt;();
+<A NAME="1"></A>        for(int i=0; i&lt;k; i++) list.add(new LinkedList&lt;Integer&gt;());
+        dfs(nums, k, 0, list);
+        return res==Integer.MAX_VALUE ? -1 : res;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    public void dfs(int[] nums, int k, int i, LinkedList&lt;LinkedList&lt;Integer&gt;&gt; list) {
+        if(i==nums.length) {
+            int cur = getDiff(list);
+            res = Math.min(res, cur);
+            return;
+        }
+        int curVal = nums[i]</B></FONT>;
+        boolean emptyList = true;
+        for(int j=0; j&lt;k; j++) {
+            if(list.get(j).isEmpty() &amp;&amp; !emptyList) continue;
+            if(isValid(list.get(j), curVal, nums.length/k)) {
+                if(list.get(j).isEmpty()) emptyList = false;
+                list.get(j).add(curVal);
+                dfs(nums, k, i+1, list);
+                list.get(j).removeLast();
+            }
+        }
+    }
+    public boolean isValid(LinkedList&lt;Integer&gt; list, int val, int count) {
+        if(list.size()==count) return false;
+        if(!list.isEmpty() &amp;&amp; list.peekLast()==val) return false;
+        return true;
+    }
+    public int getDiff(LinkedList&lt;LinkedList&lt;Integer&gt;&gt; list) {
+        int res = 0;
+        for(int i=0; i&lt;list.size(); i++) {
+            int minVal = list.get(i).peekFirst();
+            int maxVal = list.get(i).peekLast();
+            res+=(maxVal-minVal);
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_mkcmkc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_mkcmkc.py</CENTER></H3><HR>
+<PRE>
+from collections import Counter
+from itertools import combinations
+
+def solve(n, k, counts, cost, bestRef):
+    if not counts:
+        bestRef[0] = min(bestRef[0], cost)
+        return
+        
+    if cost &gt;= bestRef[0]:
+        return
+    
+<A NAME="0"></A>    keys = list(counts.keys())
+    keys.sort(reverse=True)
+    k0 = keys.pop()
+    for rest in combinations<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(keys, n//k - 1):
+        next_set = [k0] + list(rest)
+        
+        for i in next_set:
+            counts[i] -= 1
+            if counts[i] == 0:
+                del counts[i]
+        
+        solve(</B></FONT>n, k, counts, cost + next_set[1] - k0, bestRef)
+        
+        for i in next_set:
+            counts[i] += 1
+
+class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        if len(nums) == k:
+            return 0
+        
+        counts = Counter()
+        for x in nums:
+            counts[x] += 1
+            if counts[x] &gt; k:
+                return -1
+            
+        bestRef = [float(&quot;inf&quot;)]
+        solve(len(nums), k, counts, 0, bestRef)
+        return bestRef[0]
+</PRE>
+
+</BODY>
+</HTML>

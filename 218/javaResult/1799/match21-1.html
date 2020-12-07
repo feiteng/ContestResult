@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_hao102.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_hao102.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int res = Integer.MAX_VALUE;
+<A NAME="0"></A>    
+    public int minimumIncompatibility(int[] nums, int v) {
+        int n = nums.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int i : nums) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+            if (map.get(i) &gt; v) return -1;
+        }</B></FONT>
+        int each = n / v;
+        int row = v, col = each;
+        int[][] m = new int[row][col];
+        Arrays.sort(nums);
+        dfs(nums, new int[row], 0, m);
+        return res;
+        
+//         //System.out.println(map);
+//         while (map.size() &gt; 0) {
+//             TreeMap&lt;Integer, Integer&gt; map2 = new TreeMap&lt;&gt;();
+//             int min = 20, max = 0;
+//             int count = each;
+//             for (int k: map.keySet()) {
+//                 if (count == 0) {
+//                     map2.put(k, map.get(k));
+//                 } else {
+//                     min = Math.min(k, min);
+//                     max = Math.max(k, max);
+//                     if (map.get(k) &gt; 1) {
+//                         map2.put(k, map.get(k) - 1);
+//                     }
+//                     count--;
+//                 }
+//             }
+//             res += max - min;
+//             //System.out.println(map2);
+<A NAME="1"></A>//             map = map2;
+//         }
+//         return res;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    void dfs(int[] nums, int[] loc, int idx, int[][] m) {
+        // for (int[] r: m) {
+        //     System.out.println(Arrays.toString(r));
+        // }
+        if (idx &gt;= nums.length) {
+            int ans = check(m);
+            res = Math.min(res, ans);
+            //System.out.println(&quot;res is &quot; + res);
+            return;
+        }
+        Set&lt;String&gt; seen = new HashSet&lt;&gt;()</B></FONT>;
+        int row = m.length, col = m[0].length;
+        boolean zerostart = false;
+        for (int i = 0; i &lt; row; i++) {
+            if (loc[i] &gt;= col || (loc[i] &gt; 0 &amp;&amp; m[i][loc[i] - 1] == nums[idx])) continue;
+            if (loc[i] == 0) {
+                if (!zerostart) zerostart = true;
+                else continue;
+            }
+            m[i][loc[i]] = nums[idx];
+            loc[i]++;
+            dfs(nums, loc, idx + 1, m);
+            loc[i]--;
+            m[i][loc[i]] = 0;
+        }
+    }
+    
+    private int check(int[][] m) {
+        int ans = 0;
+        int col = m[0].length;
+        for (int i = 0; i &lt; m.length; i++) {
+            ans += m[i][col-1] - m[i][0];
+        }
+        //System.out.println(&quot;check is &quot; + ans);
+        return ans;
+    }
+        
+//         Arrays.sort(nums);
+//         int res = 0;
+//         int each = n / k;
+//         for (int i = 0; i &lt; n; i++) {
+//             int count = each;
+//             int min = nums[i];
+//             while (count-- &gt; 0) {
+//                 int j = i;
+//                 int count = 1;
+//                 while (j + 1 &lt; n &amp;&amp; nums[j] == nums[i]) {
+//                     j++;
+//                 }
+//                 int total = j - i + 1;
+//                 if (total &gt; k) {
+//                     return -1;
+//                 } else {
+                    
+//                 }
+//             }
+            
+//         }
+}
+</PRE>
+
+</BODY>
+</HTML>

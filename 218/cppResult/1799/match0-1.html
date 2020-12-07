@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>219_Crossea.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>219_Crossea.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>// 1 1 2 2
+// 3 3 6 8
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int _k;
+    int len;
+    int need;
+    int cnt[16];
+    unordered_map&lt;int, int&gt; cost;
+    unordered_map&lt;string, int&gt; vis;
+    string v_s(int c[]){
+        string temp = &quot;&quot;;
+        for(int i=0; i&lt;len; i++)
+        {
+            int e = c[i];
+            temp += to_string(e)+&quot;_&quot;;
+        }
+        return temp;
+    }
+    int dfs(int num, int c[]){
+        if(num==0) return 0;
+        string tt = v_s(c);
+        if(vis.find(tt)!=vis.end()) return vis[tt];
+        int res = 1000000;
+        int temp[16];
+        int mi=0;
+        while(c[mi]==0) mi+=1;
+        for(auto &amp;e:cost){
+            if(!(e.first&amp;(1&lt;&lt;mi))){
+                continue;
+            }
+            for(int i=0; i&lt;16; i++){
+                temp[i] = c[i];
+            }
+            bool valid = true;
+            for(int j=0; j&lt;len; j++){
+                if((e.first&amp;(1&lt;&lt;j))&amp;&amp;temp[j]==0){
+                    valid = false;
+                    break;
+                }else if(e.first&amp;(1&lt;&lt;j)){
+                   temp[j] -= 1;
+                }
+            }
+            if(valid){
+                res = min(res, e.second+dfs(num-1, temp));
+            }
+        }
+        return vis[tt]=res;
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        cost.clear();
+        vis.clear();
+        _k = k;
+        memset(cnt, 0, sizeof cnt);
+        len = nums.size();
+        if(k==nums.size()) return 0;
+        
+         for(auto&amp;e:nums){
+            cnt[e-1]+=1;
+            if(cnt[e-1]&gt;k) return -1;
+        }
+        
+        for(int i=0; i&lt;(1&lt;&lt;len)-1; i++){
+            if(__builtin_popcount(i)!=(len/k)) continue;
+            int mi = 17, ma = -1;
+            bool valid = true;
+            for(int j=0; j&lt;len; j++){
+                if(i&amp;(1&lt;&lt;j)&amp;&amp;cnt[j]==0){
+                    valid = false;
+                }else if(i&amp;(1&lt;&lt;j)){
+                    mi = min(j, mi);
+                    ma = max(j, ma);
+                }
+            }
+            if(valid){
+                cost[i] = ma-mi;
+            }
+        }
+        return dfs(k, cnt);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

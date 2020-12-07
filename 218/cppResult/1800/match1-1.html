@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_colinchen94.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>273_colinchen94.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int concatenatedBinary(int n) {
+        // int kMOD = 1e9 + 7;
+        // int res = 0;
+        // for (int i = 1; i &lt;= n; i++) {
+        //     vector&lt;int&gt; bits;
+        //     for (int j = i; j; j &gt;&gt;= 1) {
+        //         bits.push_back(j&amp;1);
+        //     }
+        //     reverse(bits.begin(), bits.end());
+        //     for (int b: bits) {
+        //         if (b) {
+        //             res = (res * 2 + 1) % kMOD;
+        //         } else {
+        //             res = (res * 2) % kMOD;
+        //         }
+        //     }
+        // }
+        // return res;
+        int kMOD = 1e9 + 7;
+        long res = 0;
+        for (int i = 1; i &lt;= n; i++) {
+            int cnt = count(i);
+            res = ((res &lt;&lt; cnt) | i) % kMOD;
+        }
+        return static_cast&lt;int&gt;(res);</B></FONT>
+<A NAME="1"></A>    }
+
+private:
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int count(int num) {
+        int cnt = 0;
+        while (num) {
+            cnt++;
+            num /= 2;
+        }
+        return cnt;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

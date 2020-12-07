@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>231_trafish.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>231_trafish.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>from collections import Counter
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        n = len(nums)
+        if n % k != 0:
+            return -1
+        if n == k:
+            return 0
+        
+        nk = n // k
+        counter = Counter(nums)
+        self.</B></FONT>min_sum = float('inf')
+        
+        def get_all_comb(keys, n):
+            if n == len(keys):
+                return [keys]
+            if n == 1:
+                return [[key] for key in keys]
+            res = []
+            sub_res = get_all_comb(keys[1:], n - 1)
+            for sub_r in sub_res:
+                res.append([keys[0]] + sub_r)
+            sub_res = get_all_comb(keys[1:], n)
+            res.extend(sub_res)
+            return res
+        
+        memo = {}
+        def backtrack(k, sum_sofar):
+            if k == 0:
+                return 0
+            if len(counter) &lt; nk:
+                return float('inf')
+            
+            counter_frozenset = frozenset(counter.items())
+            if counter_frozenset in memo:
+                return memo[counter_frozenset]
+            
+            best = float('inf')
+            keys = list(counter.keys())
+            combs = get_all_comb(keys, nk)
+            for comb in combs:
+                diff = max(comb) - min(comb)
+                # print(comb, diff)
+                for key in comb:
+                    counter[key] -= 1
+                    if counter[key] == 0:
+                        counter.pop(key)
+                best_sub = backtrack(k - 1, sum_sofar + diff)
+                best = min(best, best_sub + diff)
+                for key in comb:
+                    counter[key] += 1
+            
+            memo[counter_frozenset] = best
+            return best
+        
+        self.min_sum = backtrack(k, 0)
+        if self.min_sum == float('inf'):
+            return -1
+        return self.min_sum
+
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

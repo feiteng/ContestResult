@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>133_di-shou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>133_di-shou.cpp</CENTER></H3><HR>
+<PRE>
+int dp[1&lt;&lt;16];
+int vis[17];
+int a[17];
+
+class Solution {
+public:
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        int n = nums.size();
+        memset(dp, 0x3f, sizeof(dp));
+        dp[0] = 0;
+<A NAME="0"></A>        memset(vis, 0, sizeof(vis));
+        for (int i = 0; i &lt; n; i++) a[i] = nums[i];
+        int full = (1&lt;&lt;n)-1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int mask = 0; mask &lt; (1&lt;&lt;n); mask++) {
+<A NAME="1"></A>            if (__builtin_popcount(mask) % (n/k) != 0) continue;
+            for (int sub = mask; sub; sub = (sub-1) &amp; mask) {
+                if (__builtin_popcount(sub) == n/k) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int maxi = 0, mini = n+1;
+                    for (int j = 0; j &lt; n; j++) {
+                        if (sub &gt;&gt; j &amp; 1) {
+                            vis[a[j]]++;
+                            maxi = max(maxi, a[j]);</B></FONT>
+                            mini = min(mini, a[j]);
+                        }
+                    }
+                    bool flag = true;
+                    for (int j = 1; j &lt;= n; j++) {
+                        if (vis[j] &gt; 1) flag = false;
+                    }
+                    for (int j = 0; j &lt; n; j++) {
+                        if (sub &gt;&gt; j &amp; 1)
+                            vis[a[j]]--;
+                    }
+                    if (flag) {
+                        dp[mask] = min(dp[mask], maxi-mini+dp[mask^sub]);
+                    }
+                }
+            }
+        }
+        return dp[full] &lt; 1e9 ? dp[full] : -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

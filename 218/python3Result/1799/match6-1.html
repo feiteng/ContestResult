@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_cpparabian.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_cpparabian.py</CENTER></H3><HR>
+<PRE>
+from itertools import combinations 
+class Solution:
+    def minimumIncompatibility(self, nums: List[int], K: int) -&gt; int:
+        
+        INF = float(&quot;inf&quot;)
+        length = len(nums) // K
+        n = len(nums)
+        
+        @lru_cache(None)
+        def dfs(k, mask):
+            # TODO
+            if k == 0:
+                return 0
+            # select all possible subsets of length
+            available = []
+            for i in range(n):
+<A NAME="0"></A>                if (1 &lt;&lt; i) &amp; mask:
+                    continue
+                available.append(i)
+            res <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= INF
+            for candidate in combinations(available, length):
+                # check if it is legal:
+                nxt_set = [nums[i] for i in candidate]
+                if len(set(nxt_set)) != len(candidate):
+                    continue
+                new_mask =</B></FONT> mask
+                for i in candidate:
+                    new_mask = (1 &lt;&lt; i) | new_mask
+                res = min(res, max(nxt_set) - min(nxt_set) + dfs(k - 1, new_mask) )
+                
+            return res
+        
+        res = dfs(K, 0)
+        return res if res != INF else -1
+</PRE>
+
+</BODY>
+</HTML>

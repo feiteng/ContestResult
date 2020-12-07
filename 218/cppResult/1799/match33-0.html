@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>255_jackiehan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>255_jackiehan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int mindis=INT_MAX;
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        int n = nums.size();
+        if (n%k != 0)
+            return -1;
+        if (n==k)
+            return 0;
+        unordered_map&lt;int,int&gt; mp;
+        int maxn = -1;
+        for (auto x:nums) {
+            if (mp.count(x)) {
+                mp[x]++;
+                maxn = max(maxn, mp[x]);
+            } else {
+                mp[x] = 1;
+                maxn = max(maxn, mp[x]);
+            }
+        }
+        if (maxn &gt; k)
+            return -1;
+        if (k == 1) {
+            int maxn=INT_MIN;
+            int minn = INT_MAX;
+            for (auto x:nums) {
+                maxn = max(maxn, x);
+                minn = min(minn, x);
+            }
+            return maxn-minn;
+        }
+        // 暴力
+        // 子集个数 n/k
+        vector&lt;vector&lt;int&gt;&gt; res(k);
+        
+        dfs(nums, 0, res, n/k);
+        return mindis;
+    }
+<A NAME="0"></A>    void dfs(vector&lt;int&gt;&amp;nums, int idx, vector&lt;vector&lt;int&gt;&gt;&amp; res, int size) {
+        // cout &lt;&lt; idx &lt;&lt; endl;
+        int dis = getdis(res);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (dis &gt; mindis)
+            return;
+        if (idx &gt;= nums.size()) {
+            //res完成
+            mindis = min(mindis, dis);
+            return;
+        }
+        for (int i = 0;i &lt; res.size();++i) {
+            if (res[i].size() &gt;= size)
+                continue;
+            //组里有相同的
+            bool same = false;</B></FONT>
+            for (auto x:res[i]) {
+                if (x == nums[idx]) {
+                    same = true;
+                    break;
+                }
+                    
+            }
+            if (same)
+                continue;
+            bool empty = false;
+            if (res[i].size() == 0)
+                empty = true;
+            res[i].push_back(nums[idx]);
+            dfs(nums, idx+1, res, size);
+            res[i].pop_back();
+            if (empty)
+                break;
+        }
+    }
+    int getdis(vector&lt;vector&lt;int&gt;&gt;&amp; res) {
+        int ans = 0;
+        for (auto u:res) {
+            if (u.size() == 0)
+                continue;
+            int maxn=INT_MIN;
+            int minn = INT_MAX;
+            for (auto x:u) {
+                maxn = max(maxn, x);
+                minn = min(minn, x);
+            }
+            ans += (maxn-minn);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_ayamt.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_ayamt.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int ans;
+<A NAME="0"></A>    bool mark[101][101];
+    pair&lt;int, int&gt; stk[100001];
+    int top = 0, m, K;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int st[1001], tt[1001];
+    void dfs(int cur, int now, int sum) {
+        if (sum &gt;= ans) return ;
+        if (cur == K + 1) {
+            ans = min(ans, sum);
+            return ;
+        }
+        for (int i = tt[cur] + 1; i &lt;= (tt[cur] == 0 ? top : min(top, tt[cur] + 5)); i ++) {</B></FONT>
+            if (stk[i].second == 0) continue;
+            if (mark[cur][i]) continue;
+            mark[cur][i] = true;
+            int tmp = st[cur], tmp2 = tt[cur];
+            if (st[cur] == 0) st[cur] = i;
+            tt[cur] = i;
+            stk[i].second  --;
+            if (now + 1 == m) {
+                dfs(cur + 1, 0, sum + stk[i].first - stk[st[cur]].first);
+            }
+            else dfs(cur, now + 1, sum);
+            stk[i].second ++;
+            mark[cur][i] = false;
+            st[cur] = tmp;
+            tt[cur] = tmp2;
+        }
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        int n = (int )nums.size();
+        if (n == k) return 0;
+        K = k; m = n / k;
+        sort(nums.begin(), nums.end());
+        top = 0;
+        for (int i = 1; i &lt;= K; i ++) st[i] = tt[i] = 0;
+        for (int i = 0; i &lt; n; i ++) {
+            int tmp = i;
+            while (tmp &lt; n &amp;&amp; nums[i] == nums[tmp]) ++ tmp;
+            -- tmp;
+            stk[++ top] = make_pair(nums[i], tmp - i + 1);
+            i = tmp;
+        }
+        ans = 0x3f3f3f3f;
+        dfs(1, 0, 0);
+        if (ans == 0x3f3f3f3f) return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>184_zxyl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>184_zxyl.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int dp[1&lt;&lt;16],val[1&lt;&lt;16];
+    vector&lt;int&gt; possible;
+    
+    int solve(int msk){
+        if(msk == 0) return 0;
+        if(dp[msk] &gt;= 0) return dp[msk];
+        int res = 0x3f3f3f3f;
+        for(int check:possible)</B></FONT>
+            if((msk&amp;check) == check)
+                res = min(res,solve(msk^check)+val[check]);
+        return dp[msk] = res;
+    }
+    
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        memset(val,0x3f,sizeof val);
+        memset(dp,-0x3f,sizeof dp);
+<A NAME="1"></A>        map&lt;int,int&gt; cnt;
+        for(int check:nums) cnt[check]++;
+        for(pair&lt;int,int&gt; check:cnt) if(check.second &gt; k) return -1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;(1&lt;&lt;nums.size()); i++){
+            if(__builtin_popcount(i) != nums.size()/k) continue;
+            int mn = INT_MAX, mx = INT_MIN;
+            set&lt;int&gt; s;
+            for(int k=0; k&lt;nums.size(); k++)</B></FONT>
+                if(i&amp;(1&lt;&lt;k))
+                    s.insert(nums[k]);
+            if(s.size() == nums.size()/k){
+                possible.push_back(i);
+                val[i] = (*s.rbegin())-(*s.begin());
+            }
+        }
+        dp[0] = 0;
+        return solve((1&lt;&lt;nums.size())-1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

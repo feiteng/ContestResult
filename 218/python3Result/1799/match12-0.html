@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>338_testdrive123.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>338_testdrive123.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        cntr = {}
+        '''
+        for num in nums:
+            if num not in cntr:
+                cntr[num] = 0
+            cntr[num] += 1
+        
+        values = list(cntr.values())
+        
+        if max(values) == 1:
+            return len(nums) // k - 1
+        elif max(values) &gt; k:
+            return -1
+        '''
+        sss = len(nums) // k
+        
+        def create_mask(items):
+            #items are indices
+            ret = 0
+            for item in items:
+                ret |= (1 &lt;&lt; (len(nums) - 1 - item))
+            return ret
+        
+        def bitsoncount(x):
+            return bin(x).count('1')        
+        
+        @functools.lru_cache(None)
+        def opt(mask):
+            if mask == 0:
+                return 0
+            valid_bin = bin(mask)[2:].zfill(len(nums))
+            #print(f&quot;curr mask = {valid_bin}&quot;)
+            valid_idx = [i for i in range(len(valid_bin)) if valid_bin[i] == '1']
+            #take sss from valid
+            ret = 999999999999
+            for combo in itertools.combinations(valid_idx, sss):
+                unmask = create_mask(combo)
+                ss = set(nums[x] for x in combo)
+<A NAME="0"></A>                if len(ss) == sss:
+                    nmask = mask &amp; ~unmask
+                    #print(f&quot;unmask = {bin(unmask)} combo = {combo}, selection = {ss} new mask = {bin(nmask)}&quot;)                    
+                    curr_imcompat = max(ss) - min<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(ss)
+                    ret = min(opt(nmask) + curr_imcompat, ret)
+            return ret
+        
+        ret = opt((1 &lt;&lt; len(nums)) - 1)
+        re</B></FONT>turn -1 if ret == 999999999999 else ret
+</PRE>
+
+</BODY>
+</HTML>

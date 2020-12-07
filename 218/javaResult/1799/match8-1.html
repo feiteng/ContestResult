@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_user2444m.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>145_user2444m.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int res;
+    public int minimumIncompatibility(int[] nums, int k) {
+<A NAME="0"></A>        int size = nums.length/k;
+        int[] cnts = new int[17];
+        Arrays.sort(nums);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int num : nums){
+            cnts[num] ++;
+        }
+        for(int cnt : cnts){
+            if(cnt &gt; k){
+                return -1;
+            }
+        }</B></FONT>
+        if(k == nums.length){
+            return 0;
+        }
+        res = Integer.MAX_VALUE;
+        List&lt;TreeSet&lt;Integer&gt;&gt; list = new ArrayList&lt;&gt;();
+        for(int i=0; i&lt;k; i++){
+            list.add(new TreeSet());
+        }
+<A NAME="1"></A>        dfs(nums,k,size,0,list);
+        return res;
+    }
+    private void dfs(int[] nums, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int k, int size, int startIndex, List&lt;TreeSet&lt;Integer&gt;&gt; list){
+        if(startIndex == nums.length){ // done
+<A NAME="2"></A>            int sum = 0;
+            for(TreeSet&lt;Integer&gt; set : list){</B></FONT>
+                sum+= set.last() - set.first();
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            res = Math.min(res,sum);
+            return;
+        }
+        int cur = nums[startIndex];
+        for(int i=0; i&lt;k; i++){</B></FONT>
+            if(list.get(i).size() &gt;= size) continue;
+            if(list.get(i).contains(cur)){
+                continue;
+            }
+            if(list.get(i).size() == 0){
+                list.get(i).add(cur);
+                dfs(nums,k,size,startIndex+1,list);
+                list.get(i).remove(cur);
+                break;
+            }
+            list.get(i).add(cur);
+            dfs(nums,k,size,startIndex+1,list);
+            list.get(i).remove(cur);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

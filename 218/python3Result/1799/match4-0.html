@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>311_sxz1069.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>311_sxz1069.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        if len(nums) == k: return 0
+        c = Counter(nums)
+        rst = c.most_common(1)
+        if</B></FONT> rst[0][1] &gt; k: return -1
+#        print('c', c)
+        self.rst = float('inf')
+        subs = [set() for i in range(k)]
+        nums.sort()
+        minone = nums[0]
+        maxone = nums[1]
+        idx = 0
+        que = []
+        '''
+        for idx, val in enumerate(nums):
+            if nums[idx] == minone:
+                subs[idx].add(nums[idx])
+            elif nums[idx] == maxone:
+#                print('len(nums), idx', len(nums), idx)
+                subs[len(subs) - 1 - idx].add(maxone)
+            else: que.append(val)
+        '''
+        que = nums
+        
+        def count(subs):
+            total = 0
+            for s in subs:
+                if s:
+                    total += max(s) - min(s)
+            return total
+        
+        def noempty(subs):
+            c = 0
+            for s in subs:
+                if s: c += 1
+            return c
+        
+        def check(que, subs, i):
+            if i == len(que): self.rst = min(self.rst, count(subs))
+            else:
+                if count(subs) &gt; self.rst: return
+                for sub in range(min(noempty(subs) + 1, len(subs)) ):
+                    if len(subs[sub]) &lt; maxlen and que[i] not in subs[sub]:
+                        subs[sub].add(que[i])
+                        check(que, subs, i+1)
+                        subs[sub].remove(que[i])
+                        
+        maxlen = len(nums) // k
+        check(que, subs, 0)
+        return self.rst
+        
+</PRE>
+
+</BODY>
+</HTML>

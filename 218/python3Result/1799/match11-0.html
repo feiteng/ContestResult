@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_jevancc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_jevancc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumIncompatibility(self, nums: List[int], k: int) -&gt; int:
+        L = len(nums)
+        k = L // k
+            
+        @lru_cache(None)
+        def f(av):
+            ns = []
+            for i in range(L):
+                if av &amp; (1 &lt;&lt; i) == 0:
+                    ns.append(i)
+            if not ns:
+<A NAME="0"></A>                return 0
+            
+            d = 1e9
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for c in itertools.combinations(ns, k):
+                iii = c
+                c = [nums[i] for i in c]
+                if len(set(c)) != len(c):
+                    continue
+                
+                m =</B></FONT> av
+                for n in iii:
+                    m |= (1 &lt;&lt; n)
+                dd = max(c) - min(c)
+                dd = dd + f(m)
+                d = min(d, dd)
+            # print(ns, d)
+            return d
+        
+        r = f(0) 
+        return r if r &lt; 1e8 else -1
+            
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

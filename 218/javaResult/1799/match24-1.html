@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>204_baterdene.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>204_baterdene.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+class Solution {
+    int dp[][] = new int[16][1&lt;&lt;16 + 1];
+<A NAME="1"></A>	int[] nums;
+	int n, k;
+	ArrayList&lt;Integer&gt; bits = new ArrayList&lt;Integer&gt;();
+	public int calc(int at,<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> int mask) {
+		if (at &gt;= k) {
+			return 0;
+		} 
+		if (dp[at][mask]</B></FONT> !=-1) return dp[at][mask];
+		int answer = Integer.MAX_VALUE;
+		for (Integer m : bits) {
+			boolean isPossible = true;
+			for (int i = 0; i &lt; n; i ++ ) {
+				if ( (mask &amp; (1&lt;&lt;(i))) != 0 &amp;&amp; (m &amp; (1&lt;&lt;(i))) != 0 ) {
+					isPossible = false;
+                    break;
+				}
+			}
+			if (isPossible) {
+				int hash[] = new int[n + 1];  
+				for (int i = 0; i &lt; n; i ++ ) {
+					if ( (m &amp; (1&lt;&lt;(i))) != 0 ) {
+						hash[nums[i]] ++;
+					}
+				}
+				int mini = Integer.MAX_VALUE;
+				int maxi = -1;
+				for (int i = 0; i &lt; n + 1; i ++ ) {
+<A NAME="0"></A>					if (hash[i] &gt; 1) {
+						isPossible = false;
+					}
+					if (hash[i] &gt; 0) {<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+						mini = Math.min(mini , i);
+						maxi = Math.max(maxi , i);
+					}
+				}</B></FONT>
+<A NAME="2"></A>				if (isPossible) {
+					int p = calc(at + 1, mask | m);
+					if (p &lt; Integer.MAX_VALUE)
+						answer = Math.min( answer, p + maxi - mini);<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				}
+			}
+		}
+		dp[at][mask] = answer;
+		return answer;
+	}
+	public int minimumIncompatibility(int[] nums, int k) {</B></FONT>
+		this.nums = nums;
+		n = nums.length;
+		this.k = k;
+		for (int mask = 0; mask &lt; (1&lt;&lt;n); mask ++ ) {
+			int cnt = 0;
+			for (int i = 0; i &lt; n; i ++ ) {
+				if ( (mask &amp; (1&lt;&lt;(i))) != 0) {
+					cnt ++;
+				}
+			}
+			if (cnt == n / k) {
+				bits.add(mask);
+			}
+		}
+		for (int i = 0; i &lt;= (1&lt;&lt;16) ; i ++  ) {
+			for (int j = 0; j &lt; 16; j ++ ) {
+				dp[j][i] = -1;
+			}
+		}
+		int answer = calc (0 , 0);
+		if (answer == Integer.MAX_VALUE) return -1;
+		return answer;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

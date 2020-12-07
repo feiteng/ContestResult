@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>167_ydchentw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>167_ydchentw.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        int n = nums.size();
+<A NAME="0"></A>        int sz = n / k;
+        vector&lt;int&gt; incom(1&lt;&lt;n, -1);
+        vector&lt;int&gt; sel;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt; (1&lt;&lt;n); ++i) {
+            if (__builtin_popcount(i) == sz) {
+                sel.push_back(i);
+                int idx = 0;
+                int b = i;
+<A NAME="1"></A>                int mx = 0, mn = n;</B></FONT>
+                vector&lt;int&gt; tmp(n+1, 0);
+                bool flag = true;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                while (b) {
+                    if (b &amp; 1) {
+                        if (tmp[nums[idx]]) {
+                            flag = false;
+                            break;
+                        }
+                        tmp[nums[idx]] = 1;
+                        mn = min(mn, nums[idx]);
+                        mx = max(mx, nums[idx]);
+                    }</B></FONT>
+                    b &gt;&gt;= 1;
+                    ++idx;
+                }
+                if (flag)
+                    incom[i] = mx - mn;
+            }
+        }
+        for (int i = 1; i &lt; (1&lt;&lt;n); ++i) {
+            int t = __builtin_popcount(i);
+            if (t % sz == 0 &amp;&amp; t / sz &gt; 1) {
+                for (int j = 0; j &lt; (int)sel.size(); ++j) {
+                    if ((sel[j] &amp; i) == sel[j] &amp;&amp; incom[i &amp; (~sel[j])] != -1 &amp;&amp; incom[sel[j]] != -1) {
+                        if (incom[i] == -1) {
+                            incom[i] = incom[sel[j]] + incom[i &amp; (~sel[j])];
+                        } else {
+                            incom[i] = min(incom[i], incom[sel[j]] + incom[i &amp; (~sel[j])]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return incom[(1&lt;&lt;n)-1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

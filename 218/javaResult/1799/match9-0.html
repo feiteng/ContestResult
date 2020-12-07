@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>326_MakeChanges.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>326_MakeChanges.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumIncompatibility(int[] nums, int k) {
+        if (k == nums.length) {
+            return 0;
+<A NAME="0"></A>        }
+        int size = nums.length / k;
+        int[] count = new int[17];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int num : nums) {
+            count[num] ++;
+        }
+        for (int i = 0; i &lt; count.length; i++) {
+            if (count[i] &gt; k) {
+                return -1;
+            }
+        }</B></FONT>
+        Arrays.sort(nums);
+        List&lt;List&lt;Integer&gt;&gt; list = new ArrayList&lt;&gt;();
+        helper(list, nums, new boolean[nums.length], new ArrayList&lt;&gt;(), size);
+        int sum = Integer.MAX_VALUE;
+        for (List&lt;Integer&gt; cur : list) {
+            // if (!valid(cur, size)) {
+            //     continue;
+            // }
+            // System.out.println(cur);
+            int tmp = calc(cur, size);
+            sum = Math.min(sum, tmp);
+        }
+        return sum;
+    }
+    
+    private boolean valid(List&lt;Integer&gt; list, int size) {
+        for (int i = 0; i &lt; list.size(); i += size) {
+            Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+            for (int j = 0; j &lt; size; j++) {
+                if (set.contains(list.get(i + j))) {
+                    return false;
+                }
+                set.add(list.get(i + j));
+            }
+        }
+        return true;
+    }
+    
+    private int calc(List&lt;Integer&gt; cur, int size) {
+        int sum = 0;
+<A NAME="1"></A>        for (int i = 0; i &lt; cur.size(); i += size) {
+            sum += cur.get(i + size - 1) - cur.get(i);
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return sum;
+    }
+    
+     private void helper(List&lt;List&lt;Integer&gt;&gt; ans, int[] nums, boolean[] used, List&lt;Integer&gt; cur, int size) {
+        if</B></FONT> (cur.size() == nums.length) {
+            ans.add(new ArrayList&lt;&gt;(cur));
+            return;
+        }
+        for (int i = 0; i &lt; used.length; i++) {
+            if (used[i]) {
+<A NAME="2"></A>                continue;
+            }
+            if (i == 0 || nums[i] != nums[i - 1] || (nums[i] == nums[i - 1] &amp;&amp; used[i - 1])) {
+                if (cur.size() % size != 0 &amp;&amp; !cur.isEmpty() &amp;&amp; <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>cur.get(cur.size() - 1) &gt;= nums[i]) {
+                    continue;
+                }
+                if (cur.size() &gt;= size &amp;&amp; cur.get</B></FONT>(cur.size() - size) &gt; nums[i]) {
+                    continue;
+                }
+                cur.add(nums[i]);
+                used[i] = true;
+                helper(ans, nums, used, cur, size);
+                used[i] = false;
+                cur.remove(cur.size() - 1);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

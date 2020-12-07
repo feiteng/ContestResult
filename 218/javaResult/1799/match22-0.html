@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>173_guoyihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>173_guoyihua.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumIncompatibility(int[] nums, int k) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int[] bin = new int[17];
+        bin[0] = 1;
+        for (int i = 1; i &lt; 17; i++) {
+            bin[i] = bin[i-1] * 2;
+        }
+        
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        
+        for (Integer key : map.keySet()) {
+            if (map.get(key) &gt; k) {
+                return -1;
+            }
+        }
+        
+        if (k == nums.length) {
+            return 0;
+        }
+        
+        int[] cache = new int[65537];
+        
+        Arrays.fill(cache, -1);
+        
+        return dp(0, 0, cache, nums, k, bin);
+    }
+    
+    public int dp(int no, int state, int[] cache, int[] nums, int k, int[] bin) {
+        int n = nums.length;
+        
+        if (no == k) {
+            return 0;
+        }
+        
+        if (cache[state] != -1) {
+            return cache[state];
+        }
+        
+        boolean[] take = take(state, n);
+        int tmp = n / k;
+        
+        addValue(0, 0, state, take, new HashSet&lt;&gt;(), tmp, no, state, cache, nums, k, bin);
+        
+        if (cache[state] == -1) {
+            cache[state] = -2;
+        }
+        
+<A NAME="0"></A>        return cache[state];
+    }
+    
+    public void addValue(int i, int j, int state, boolean[] take, Set&lt;Integer&gt; set, int count, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int no, int orgState, int[] cache, int[] nums, int k, int[] bin) {
+        if (i == count) {
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
+            for (Integer si : set) {
+                min = Math.min(si, min);
+                max = Math.max(si, max);
+            }</B></FONT>
+            int tmpdp = dp(no + 1, state, cache, nums, k, bin);
+            
+            if (tmpdp &gt;= 0) {
+                int tmp = max - min + tmpdp;
+                if (cache[orgState] &lt; 0) {
+                    cache[orgState] = tmp;
+<A NAME="1"></A>                } else {
+                    cache[orgState] = Math.min(cache[orgState], tmp);
+                }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        } else {
+            for (int p = j; p &lt; nums.length; p++) {
+                if ((!take[p]) &amp;&amp; !set.contains(nums[p])) {
+                    set.add</B></FONT>(nums[p]);
+<A NAME="2"></A>                    take[p] = true;
+                    addValue(i + 1, p + 1, state + bin[p], take, set, count, no, orgState, cache, nums, k, bin);
+                    take[p] = false;
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>set.remove(nums[p]);
+                }
+            }
+        }
+    }
+    
+    public boolean[] take(int state, int n) {</B></FONT>
+        boolean[] res = new boolean[n];
+        
+        for (int i = 0 ; i &lt; n; i++) {
+            if (state % 2 == 1) {
+                res[i] = true;
+            }
+            state /= 2;
+        }
+        
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

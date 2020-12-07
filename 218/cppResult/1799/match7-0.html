@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>95_Hewitt_1570.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>95_Hewitt_1570.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    vector&lt;int&gt;A[20];
+    bool vis[20][20];
+    int ans=1e9,g,n,c;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void dfs(int now,int k,vector&lt;int&gt;&amp; nums,int cost){
+        if(cost&gt;=ans)return;
+        if(now==n){
+            ans = min(ans,cost);
+            return;
+        }
+        for(int i=0;i&lt;k;i++){
+            if(A[i].size()&lt;c&amp;&amp;!vis[i][nums[now]]){
+                vis[i][nums[now]] = 1;
+                A[i].push_back(nums[now]);
+                if(A[i].size()==c)dfs(now+1,k,nums,cost+A[i].back()-A[i][0]);</B></FONT>
+                else dfs(now+1,k,nums,cost);
+                vis[i][nums[now]] = 0;
+                A[i].pop_back();
+            }
+        }
+        if(k&lt;g){
+            A[k].push_back(nums[now]);
+            vis[k][nums[now]] = 1;
+            dfs(now+1,k+1,nums,cost);
+            A[k].pop_back();
+            vis[k][nums[now]] = 0;
+        }
+    }
+    int minimumIncompatibility(vector&lt;int&gt;&amp; nums, int k) {
+        sort(nums.begin(),nums.end());
+        n = nums.size(),c = n/k, g = k;
+        dfs(0,0,nums,0);
+        if(ans==1e9)return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
