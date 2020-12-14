@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>445_seaskylwl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>445_seaskylwl.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define fo(i, arr, a) for (int i = arr; i &lt;= a; i++)
+
+
+using namespace std;
+<A NAME="0"></A>const int INF = 0x3f3f3f3f;
+typedef long long ll;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int maxn = 1e6 + 5;
+
+int  arr[maxn];
+char s[maxn];
+int dp[110][110][110];
+class Solution
+{
+public:
+    int maxHeight(vector&lt;vector&lt;int&gt;&gt; &amp;cbs)
+<A NAME="1"></A>    {</B></FONT>
+
+        memset(dp, 0, sizeof(dp));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match39-1.html#1',3,'match39-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto val : cbs)
+        {
+            int arr[3];
+            arr[0] = val[0];
+            arr[1] = val[1];
+            arr[2] = val[2];
+            map&lt;pair&lt;pair&lt;int, int&gt;, int&gt;, int&gt; mp;
+            int a1,a2,a3;</B></FONT>
+            sort(arr, arr + 3);
+            int cnt = 0;
+            do
+<A NAME="2"></A>            {
+               
+                 a1 = arr[0];
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match39-1.html#2',3,'match39-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                 a2 = arr[1];
+                 a3 = arr[2];
+                 cnt++;
+                if (mp.count({{a1, a2}, a3}))
+                    continue;
+                dp[a1][a2][a3]++;
+                mp[{{a1, a2}, a3}] = 1;
+            } while (next_permutation(arr, arr + 3));
+        }
+
+        fo(i, 1, 100)
+        {
+            fo(j, 1, 100)
+            {
+                fo(a3, 1, 100)
+                {
+                    dp[i][j][a3] = max(dp[i - 1][j][a3], max(dp[i][j - 1][a3], dp[i][j][a3 - 1])) + dp[i][j][a3] * a3;
+                }
+            }
+        }
+        return dp[100][100][100];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>238_ko19951231.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>238_ko19951231.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int dp[1005][1005];
+    bool c[1005][1005];
+    int sa[1005];
+    int get(int l, int r){
+        return sa[r+1]-sa[l];
+    }
+<A NAME="1"></A>    int solve(vector&lt;int&gt;&amp; stones, int l, int r){
+        if(l&gt;r) return 0;</B></FONT>
+        if(c[l][r]) return dp[l][r];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = get(l+1, r)-solve(stones, l+1, r);
+        ret = max(ret, get(l, r-1)-solve(stones, l, r-1));
+        c[l][r]=true;
+        dp[l][r]=ret;
+        return ret;
+    }
+    int stoneGameVII(vector&lt;int&gt;&amp; stones) {
+        memset(c, false, sizeof(c));
+        sa[0] = 0;
+        for(int i=0;i&lt;stones.size();i++){
+            sa[i+1] = sa[i]+stones[i];
+        }
+        return solve(stones, 0, stones.size()-1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

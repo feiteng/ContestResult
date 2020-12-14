@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>388_luo-bu-zhao-tian-jiao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>388_luo-bu-zhao-tian-jiao.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define fo(i,a,b) for(int i=a;i&lt;=b;i++)
+#define fod(i,a,b) for(int i=a;i&gt;=b;i--)
+#define me0(a) memset(a,0,sizeof(a))
+#define me1(a) memset(a,-1,sizeof(a))
+#define op freopen(&quot;in.txt&quot;, &quot;r&quot;, stdin)
+#define op1 freopen(&quot;C:\\acm\\Cproj\\in.txt&quot;,&quot;r&quot;,stdin);
+#define pr freopen(&quot;C:\\acm\\Cproj\\out.txt&quot;,&quot;w&quot;,stdout)
+#define pr2 freopen(&quot;C:\\acm\\Cproj\\std.txt&quot;,&quot;w&quot;,stdout)
+#define pii pair&lt;int,int&gt;
+#define Please return
+#define AC 0
+using namespace std;
+const int INF = 0x3f3f3f3f;
+typedef long long LL;
+<A NAME="0"></A>template &lt;class T&gt;
+void read(T &amp;val) { T x = 0; T bz = 1; char c; for (c = getchar(); (c&lt;'0' || c&gt;'9') &amp;&amp; c != '-'; c = getchar()); if (c == '-') { bz = -1; c = getchar(); }for (; c &gt;= '0' &amp;&amp; c &lt;= '9'; c = getchar()) x = x * 10 + c - 48; val = x * bz; }
+const int mod=998244353;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#0',2,'match39-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int maxn = 1e6+10;
+
+int n,m,a[maxn],q,t,k;
+char s[maxn];
+int dp[110][110][110];
+class Solution {
+<A NAME="1"></A>public:
+    int maxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cuboids) {</B></FONT>
+        me0(dp);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#1',2,'match39-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto to:cuboids){
+            int a[3];
+            a[0]=to[0];a[1]=to[1];a[2]=to[2];
+            map&lt;pair&lt;pair&lt;int,int&gt;,int&gt;,int&gt;mp;
+            sort(a,a+3);
+<A NAME="2"></A>            int cnt = 0;</B></FONT>
+            do{
+                cnt++;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match39-0.html#2',2,'match39-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int x = a[0],y=a[1],z=a[2];
+                if(mp.count({{x,y},z}))continue;
+                dp[x][y][z]++;
+                mp[{{x,y},z}]=1;
+            } while (next_permutation(a,a+3));
+        }
+
+
+        fo(i,1,100){
+            fo(j,1,100){
+                fo(z,1,100){
+                    dp[i][j][z] = max(dp[i-1][j][z],max(dp[i][j-1][z],dp[i][j][z-1]))+dp[i][j][z]*z;
+                }
+            }
+        }
+        return dp[100][100][100];
+
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

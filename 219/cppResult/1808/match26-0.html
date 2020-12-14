@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_jqhuang1990.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>360_jqhuang1990.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int stoneGameVII(vector&lt;int&gt;&amp; stones) {
+        int n = stones.size();
+        vector&lt;int&gt; preSum(n + 1, 0);
+<A NAME="1"></A>        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            preSum[i + 1] = preSum[i] + stones[i];
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n, 0));
+        for (int len = 2; len &lt;= n; ++len) {
+            for (int st = 0; st + len - 1 &lt; n; ++st) {
+                int ed = st + len - 1;
+                // cout &lt;&lt; preSum[ed + 1] - preSum[st] - dp[st + 1][ed] &lt;&lt; endl;
+                // cout &lt;&lt; preSum[ed] - preSum[st - 1] - dp[st][ed - 1] &lt;&lt; endl;
+                dp[st][ed] = max(preSum[ed + 1] - preSum[st + 1] - dp[st + 1][ed], preSum[ed] - preSum[st] - dp[st][ed - 1]);
+                // cout &lt;&lt; &quot;dp[&quot; &lt;&lt; st &lt;&lt; &quot;][&quot; &lt;&lt; ed &lt;&lt; &quot;] = &quot; &lt;&lt; dp[st][ed] &lt;&lt; endl;
+            }
+        }
+        return dp[0][n - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

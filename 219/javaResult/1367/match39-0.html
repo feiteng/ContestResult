@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>742_DanikaZ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>742_DanikaZ.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxHeight(int[][] cuboids) {
+        // sort all the inner height to be asc
+        for (int[] row: cuboids) {
+            Arrays.sort(row);
+        }
+        
+        Arrays.sort(cuboids, (a, b) -&gt; a[0] == b[0]? a</B></FONT>[1] == b[1] ? a[2]-b[2]:a[1]-b[1]:a[0]-b[0]);
+        int len = cuboids.length;
+        
+<A NAME="1"></A>        // find the longest increasing height
+        int cur = cuboids[0][2];
+        int max = cur;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match39-1.html#1',3,'match39-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] h = new int[len]; // so far highest increasing height
+        //h[0] = cuboids[0][2];
+        //IO.print2DArray(cuboids);
+        
+        for (int i = 0; i &lt; len; i++) {
+            int subse = 0;
+            for (int j = 0; j &lt; i; j++) {
+                if (isInc(cuboids[j], cuboids[i])) {
+                    subse = Math.max(subse, h[j]);
+                    //h[i] += h[j];
+                  
+                }
+<A NAME="2"></A>            }
+            
+            h</B></FONT>[i] = subse + cuboids[i][2];
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match39-1.html#2',3,'match39-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>max = Math.max(max, h[i]);
+        }
+        
+        //IO.printArray(h);
+        
+        return max;
+    }
+    
+    public boolean isInc(int[] l</B></FONT>, int[] r) {
+        return l[0]&lt;= r[0] &amp;&amp; l[1] &lt;= r[1] &amp;&amp; l[2] &lt;= r[2];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

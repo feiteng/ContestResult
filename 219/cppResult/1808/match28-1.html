@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>515_hzatt.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>515_hzatt.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int stoneGameVII(vector&lt;int&gt;&amp; stones) {
+        int n = stones.size();
+        vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n, 0));
+        vector&lt;int&gt; diff(n + 1, 0);
+        for(int i = 0; i &lt; n; ++i)</B></FONT>
+            diff[i + 1] = diff[i] + stones[i];
+<A NAME="1"></A>        for(int dif: diff)
+            cout&lt;&lt;dif&lt;&lt;' ';
+        cout&lt;&lt;endl;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int k = 1; k &lt; n; ++k){
+            for(int i = 0; i + k &lt; n; ++i){
+                int tmp1 = diff[i + k] - diff[i] - dp[i][i + k - 1];
+                int tmp2 = diff[i + k + 1] - diff[i + 1] - dp[i + 1][i + k];
+                dp[i][i + k] = max(tmp1, tmp2);
+            }
+        }
+        return dp[0][n - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

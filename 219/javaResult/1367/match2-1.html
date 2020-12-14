@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>150_charles-chou.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>150_charles-chou.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxHeight(int[][] cuboids) {
+        int n = cuboids.length;
+        for(int[] cuboid : cuboids){
+            Arrays.sort(cuboid);
+        }
+        
+        Arrays.sort(cuboids, (c1, c2) -&gt; (c1[2] == c2[2] ? c1[1] == c2[1] ? c1[0] - c2[0] : c1[1] - c2[1] : c1[2] - c2[2]));
+        
+<A NAME="1"></A>        
+        int[] dp = new</B></FONT> int[n];//前i个长方体的最大高度
+        dp[0] = cuboids[0][2];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = dp[0];
+<A NAME="2"></A>        for(int i = 1; i &lt; n; i++){
+            dp[i] = cuboids[i][2];
+            for(int j = 0; j &lt; i; j++){
+                if</B></FONT>(isBigger(cuboids[i], cuboids[j]))<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    dp[i] = Math.max(dp[i], dp[j] + cuboids[i][2]);
+                }
+            }
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+        
+    }</B></FONT>
+    
+    public boolean isBigger(int[] c1, int[] c2){
+        return c1[0] &gt;= c2[0] &amp;&amp; c1[1] &gt;= c2[1] &amp;&amp; c1[2] &gt;= c2[2];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

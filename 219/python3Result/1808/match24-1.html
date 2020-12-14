@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>338_zk299.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>338_zk299.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def stoneGameVII(self, stones: List[int]) -&gt; int:
+        n = len(stones)
+<A NAME="1"></A>        dp = [[0] * n for _ in range(n)]
+        pre_sum = [0] * (n+1)
+        for i, s in enumerate(stones):
+            pre_sum[i+1] =</B></FONT> pre_sum<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i] + s
+        # print(pre_sum)
+        # dp[i][j] 
+        # dp[i][j] = sum(j) - sum(i) - (dp[i+1][j])
+        # dp[i][j] = sum(j-1) - sum(i-1) - dp[i][j-1]
+        for i in range(n-1, -1, -1):
+            for j in range(i, n):
+<A NAME="2"></A>                if i + 1 &lt; n:
+                    dp[i][j] = max(dp[i][j], pre_sum[j+1] - pre_sum[</B></FONT>i+1] - dp[i+1][j])
+                if j-1 &gt;= 0:
+                    dp[i][j] = max(dp<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][j], pre_sum[j] - pre_sum[i] - dp[i][j-1])
+        # print(dp)
+        return dp[0][n</B></FONT>-1]
+        
+</PRE>
+
+</BODY>
+</HTML>

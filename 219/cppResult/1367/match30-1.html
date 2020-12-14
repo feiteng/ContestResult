@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>435_receiling.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>435_receiling.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct node {
+        int width;
+        int length;
+        int height;
+        node (int width, int length, int height) :width(width), length(length), height(height) {}
+    };
+    int static cmp(node p1, node p2) {
+        if (p1.width != p2.width) return p1.width &gt; p2.width;
+<A NAME="0"></A>        else if(p1.length != p2.length) return p1.length &gt; p2.length;
+        else return p1.height &gt; p2.height;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int maxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cuboids) {
+        int n = cuboids.size();
+        vector&lt;node&gt; nodes;
+        for (int i = 0; i &lt; n; ++i) {
+            sort(cuboids[i].begin(), cuboids[i].end());
+            nodes.push_back(node(cuboids[i][0], cuboids[i][1], cuboids[i][2]));
+        }
+        sort(nodes.begin(), nodes.end(), cmp);
+<A NAME="1"></A>        int dp[105];
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int max_num = 0;
+            for (int j = 0; j &lt; i; ++j) {
+                if (nodes[j].width &gt;= nodes[i].width &amp;&amp; nodes[j].length &gt;= nodes[i].length &amp;&amp; nodes[j].height &gt;= nodes[i].height) {
+                    max_num = max(max_num, dp[j]);
+                }
+            }
+            dp[i] = max_num + nodes[i].height;</B></FONT>
+            ans = max(ans, dp[i]);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>519_annachiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>519_annachiang.cpp</CENTER></H3><HR>
+<PRE>
+#define PI 3.14159265
+#define all(x) (x).begin(), (x).end()
+typedef long long ll;
+<A NAME="2"></A>typedef pair&lt;int, int&gt; ii;
+
+class Solution {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void np(vector&lt;int&gt;&amp; cub, int i) {
+        if (i == 2) {
+            reverse(cub.begin(), cub.end());
+        } else {
+            cub.insert(cub.begin(), cub.back());
+            cub.pop_back();
+        }
+    }
+    bool valid(vector&lt;int&gt;&amp; cube1, vector&lt;int&gt;&amp; cube2) {
+        bool v = 1;
+        for (int k = 0; k &lt; 3; k++) {
+            if (cube1[k] &gt;cube2[k]) {
+                v = 0;
+                break;
+            }
+<A NAME="0"></A>        }
+        return v;
+    }</B></FONT>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int maxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cube) {
+        int n = cube.size();
+        for (auto&amp; c : cube)    sort(c.begin(), c.end());    
+        sort(cube.begin(), cube.end(), [](vector&lt;int&gt;&amp; c1, vector&lt;int&gt;&amp; c2) {
+            if (c1[0] != c2[0])    return c1[0] &gt; c2[0];
+            else if (c1[1] != c2[1])    return c1[1] &gt; c2[1];
+            else    return c1[2] &gt; c2[2];
+<A NAME="1"></A>        }); 
+        int res = 0;
+        for (vector&lt;int&gt;&amp; c : cube)    res = max(res, max(c[0], max(c[1], c[2])));</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(6));  
+        vector&lt;int&gt; c = cube[0];
+        for (int p = 0; p &lt; 6; p++) {
+            dp[0][p] = c[2];
+            np(c, p);
+            res = max(res, dp[0][p]);
+        }
+        for (int i = 1; i &lt; n; i++) {
+            vector&lt;int&gt; c1 = cube[i];
+            for (int ip = 0; ip &lt; 6; ip++) {
+                dp[i][ip] = c1[2];
+                for (int j = 0; j &lt; i; j++) {
+                    vector&lt;int&gt; c2 = cube[j];
+                    for (int jp = 0; jp &lt; 6; jp++) {
+                        if (valid(c1, c2)) {
+                            dp[i][ip] = max(dp[i][ip], dp[j][jp] + c1[2]);
+                            res = max(res, dp[i][ip]);
+                        }    np(c2, jp);
+                    }
+                }    np(c1, ip);
+            }
+        }
+        return res;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

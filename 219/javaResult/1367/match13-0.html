@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_xianglaniunan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>465_xianglaniunan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int maxHeight(int[][] cuboids) {
+        int n = cuboids.length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int re = 0;
+        int[][] pair = new int[n * 6][];
+        int idx = 0;
+        for(int i = 0; i &lt; n; i++)
+        {
+            int w = cuboids[i][0], h = cuboids[i][1], l = cuboids[i][2];
+            pair[idx++] = new int[]{w, h, l, i};
+            pair[idx++] = new int[]{w, l, h, i};
+            pair[idx++] = new int[]{h, w, l, i};
+            pair[idx++] = new int[]{h, l, w, i};
+            pair[idx++] = new int[]{l, w, h, i};
+            pair[idx++] = new int[]{l, h, w, i};
+        }
+<A NAME="1"></A>        Arrays.sort(pair, (a, b)-&gt;(a[0] * a[1] == b[0] * b[1] ? a[2] - b[2] : a[0] * a[1] - b[0] * b[1]));
+        n *= 6;
+        int[] dp = new</B></FONT> int[n];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; n; i++)
+        {
+            dp[i] = pair[i][2];
+            for(int j = 0; j &lt; i; j++)
+            {
+                if(pair[j][0] &lt;= pair[i][0] &amp;&amp; pair[j][1] &lt;= pair[i][1] &amp;&amp; pair[j][2] &lt;= pair[i][2] &amp;&amp; pair[j][3] != pair[i][3])
+                {
+                    dp[i] = Math.max(dp[i], dp[j] + pair[i][2]);
+                }
+            }
+            re = Math.max(re, dp[i]);
+        }
+        return re;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

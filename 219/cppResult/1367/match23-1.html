@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161_K_kkkyle.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>161_K_kkkyle.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int maxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cuboids) {
+        int n = cuboids.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto&amp; c : cuboids) {
+            sort(c.begin(), c.end());
+        }
+        sort(cuboids.rbegin(), cuboids.rend());
+        
+        vector&lt;int&gt; dp(n);
+        for (int i = 0; i &lt; n; i++) {
+            dp[i] = cuboids[i].back();
+        }
+        
+        for (int i = 1; i &lt; n; i++) {
+            for (int j = 0; j &lt; i; j++) {
+                if (cuboids[i][0] &lt;= cuboids[j][0] &amp;&amp; cuboids[i][1] &lt;= cuboids[j][1] &amp;&amp; cuboids[i][2] &lt;= cuboids[j][2]) {
+                    dp[i] = max(dp[i], dp[j] + cuboids[i][2]);
+                }
+            }
+        }
+        // vector&lt;vector&lt;int&gt;&gt; dp(cuboids.begin(), cuboids.end());
+
+        // for (int i = 1; i &lt; n; i++) {
+        //     for (int j = 0; j &lt; 3; j++) {
+        //         for (int pi = 0; pi &lt; i; pi++) {
+        //             for (int pj = 0; pj &lt; 3; pj++) {
+        //                 if () {
+        //                     dp[i][j] = max(dp[i][j], dp[pi][pj] + cuboids[i][j]);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        
+        int ans = 0;
+        // for (int i = 0; i &lt; n; i++) {
+        //     for (int j = 0; j &lt; 3; j++) {
+        //         ans = max(ans, dp[i][j]);
+        //     }
+        // }
+        for (int i = 0; i &lt; n; i++) {
+            ans = max(ans, dp[i]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

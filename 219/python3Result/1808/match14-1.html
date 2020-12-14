@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>299_silmue.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>299_silmue.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def stoneGameVII(self, stones: List[int]) -&gt; int:
+        n = len(stones)
+        s = n%2
+        cnt = [0 for i in range(n+1)]
+<A NAME="1"></A>        for i in range(n):
+            cnt[i+1] = cnt[</B></FONT>i]+stones[i]
+        f = [[0 for i in range(n)] for j in range(n)]
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(1, n):
+            for j in range(n-i):
+                if i%2==s:
+                    f[j][j+i] = min(f[j][j+i-1]-(cnt[j+i]-cnt[j]), f[j+1][j+i]-(cnt[j+i+1]-cnt[j+1])) 
+                else:
+                    f[j][j+i] = max(f[j][j+i-1]+cnt[j+i]-cnt[j], f[j+1][j+i]+cnt[j+i+1]-cnt[j+1]) 
+        return f[0][n</B></FONT>-1]
+</PRE>
+
+</BODY>
+</HTML>

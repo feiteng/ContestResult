@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>860_nero-you.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>860_nero-you.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int stoneGameVII(vector&lt;int&gt;&amp; stones) {
+        int N = stones.size();
+        
+        vector&lt;int&gt; pre(N + 1, 0);
+        for (int i = 1; i &lt; N + 1; ++i) {
+            pre[i] = pre[i - 1] + stones[i - 1];
+        }
+        
+        vector&lt;vector&lt;int&gt;&gt; dp(N);</B></FONT>
+<A NAME="1"></A>        for (auto&amp; d : dp) {
+            d.resize(N, 0);
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int k = 1; k &lt; N; ++k) {
+            for (int i = 0; i &lt; N - k; ++i) {
+                dp[i][i + k] = max(pre[i + 1 + k - 1] - pre[i] - dp[i][i + k - 1], 
+                                   pre[i + 1 + k] - pre[i + 1] - dp[i + 1][i + k]);
+            }
+        }
+        return dp[0][N - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

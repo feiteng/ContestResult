@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>444_jevancc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>444_jevancc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int dp[1005][1005];
+    bool c[1005][1005];
+    int psum[1005];
+    int ss(int l, int r){
+        return psum[r+1]-psum[l];
+    }
+    
+    int f(vector&lt;int&gt;&amp; stones, int l, int r){
+        if(l&gt;r) {</B></FONT>
+            return 0;
+        }
+        if(c[l][r]) {
+<A NAME="1"></A>            return dp[l][r];
+        }
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = ss(l+1, r)- f(stones, l+1, r);
+        ret = max(ret, ss(l, r-1) - f(stones, l, r-1));
+        
+        c[l][r]=true;
+        dp[l][r]=ret;
+        
+        return ret;
+    }
+    
+    int stoneGameVII(vector&lt;int&gt;&amp; stones) {
+        memset(c, false, sizeof(c));
+        psum[0] = 0;
+        for(int i = 0; i &lt; stones.size(); i++){
+            psum[i+1] = psum[i] + stones[i];
+        }
+        return f(stones, 0, stones.size() - 1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

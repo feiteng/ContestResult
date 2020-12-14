@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>685_7aughing-haslett.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>685_7aughing-haslett.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxHeight(self, cuboids: List[List[int]]) -&gt; int:
+        length = len(cuboids)
+        for i in cuboids:
+            i.sort(reverse = True)
+        cuboids.sort(key =</B></FONT> lambda x : (x[0], x[1], x[2]), reverse = True)
+        print(cuboids)
+        dp = [0] * (length + 1)
+        dp[1] = cuboids[0][0]
+        for i in range(1, length):
+<A NAME="1"></A>            j = i - 1
+            dp[i + 1] = cuboids[i][0]
+            while j &gt;= 0:
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if cuboids[i][0] &lt;= cuboids[j][0] and cuboids[i][1] &lt;= cuboids[j][1] and cuboids[i][2] &lt;= cuboids[j][2]:
+                    dp[i + 1] = max(dp[i + 1], dp[j + 1] + cuboids[i][</B></FONT>0])
+                j -= 1
+            
+            
+        print(dp)
+        ans = float('-inf')
+        for i in dp:
+            ans = max(ans, i)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

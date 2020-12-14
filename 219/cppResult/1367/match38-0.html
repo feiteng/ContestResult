@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>404_yinsidij.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>404_yinsidij.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cuboids) {
+        
+        int res=0;
+        for (auto&amp; cuboid : cuboids) {
+            sort(cuboid.begin(), cuboid.end());
+        }</B></FONT>
+        res=getAnsOneRound(cuboids);
+        int round=1;
+        
+        while (round&lt;=6) {
+            for (auto&amp; cuboid : cuboids) {
+                next_permutation(cuboid.begin(),cuboid.end());
+            }
+            res=max(res,getAnsOneRound(cuboids));
+            round++;
+        }
+
+        return res;
+
+        
+    }
+    
+    int getAnsOneRound(vector&lt;vector&lt;int&gt;&gt; cuboids) {
+        
+        sort(cuboids.begin(), cuboids.end());
+        //for (auto&amp; c : cuboids) {
+        //    cout &lt;&lt; c[0] &lt;&lt; &quot; &quot; &lt;&lt; c[1] &lt;&lt; &quot; &quot; &lt;&lt; c[2] &lt;&lt; endl;
+        //}
+        return getMaxHeight(cuboids);
+    }
+<A NAME="1"></A>    
+    int getMaxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cuboids) {
+        int n=cuboids.size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; dp(n,-1);
+        for (int i=0;i&lt;n;i++) {
+            dp[i]=cuboids[i][2];
+        }
+        
+        for (int i=n-1;i&gt;=0;i--) {
+            for (int j=i+1;j&lt;n;j++) {
+                //try to place cuboids[i] on cuboids[j];
+                if (cuboids[i][0]&lt;=cuboids[j][0] &amp;&amp; cuboids[i][1]&lt;=cuboids[j][1] &amp;&amp; cuboids[i][2]&lt;=cuboids[j][2]) {
+                    dp[i]=max(dp[i],dp[j]+cuboids[i][2]);
+                }
+            }
+        }
+        
+        int res=0;
+        for (int height : dp) {</B></FONT>
+            res=max(res,height);
+        }
+        return res;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

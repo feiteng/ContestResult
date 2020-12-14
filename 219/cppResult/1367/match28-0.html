@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>84_tender-tao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>84_tender-tao.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxHeight(vector&lt;vector&lt;int&gt;&gt;&amp; cuboids) {
+        int n = cuboids.size();
+        for(int i=0; i&lt;n; ++i)</B></FONT>
+            sort(cuboids[i].begin(),cuboids[i].end());
+<A NAME="1"></A>        sort(cuboids.begin(),cuboids.end());
+        
+        // vector&lt;vector&lt;int&gt;&gt; dp1(n);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; dp(n); dp[0] = cuboids[0][2];
+        // dp[0] = {cuboids[0][2]};
+
+        for(int i=1; i&lt;n; ++i){
+            dp[i] = cuboids[i][2];
+            for(int j=i-1; j&gt;=0; --j){
+                if(cuboids[i][1]&gt;=cuboids[j][1] &amp;&amp; cuboids[i][2]&gt;=cuboids[j][2]){
+                    dp[i] = max(dp[i], dp[j]+cuboids[i][2]);
+                }
+            }</B></FONT>
+        }
+            
+        // int ans = 0;
+        // for(int i=0; i&lt;n; ++i){
+        //     ans = max(ans, accumulate(dp[i].begin(), dp[i].end(), 0));
+        // }
+        int ans = *max_element(dp.begin(),dp.end());
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

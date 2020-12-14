@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>372_XiangquMS.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>372_XiangquMS.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxHeight(self, cuboids: List[List[int]]) -&gt; int:
+        n = len(cuboids)
+        for i in range(n):
+            cuboids[i].sort()
+        cuboids.sort(</B></FONT>)
+        # print(cuboids)
+
+        def fit(cubo1, cubo2):
+            return cubo1[0] &lt;= cubo2[0] and cubo1[1] &lt;= cubo2[1] and cubo1[2] &lt;= cubo2[2]
+
+        dp = [0 for _ in range(n+1)]
+        # print(dp)
+        # dp[0] = cuboids[0][2]
+        for i in range(n):
+            dp[i] = cuboids[i][2]
+<A NAME="1"></A>        for i in range(1, n):
+            for j in range(i):
+                # print(j, i, cuboids[j], cuboids[i])
+                if fit(cuboids<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[j], cuboids[i]):
+                    dp[i] = max(dp[i], dp[j] + cuboids[i][2])
+        # print(dp)
+        return max(d</B></FONT>p)
+</PRE>
+
+</BODY>
+</HTML>
