@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>152_coder206.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>152_coder206.cpp</CENTER></H3><HR>
+<PRE>
+class disjoint_sets
+{
+    vector&lt;int&gt; parent, size;
+public:
+<A NAME="0"></A>    disjoint_sets(int n) : parent(n), size(n, 1)
+    {
+        std::iota(parent.begin(), parent.end(), 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    int count(int x) { return size[find(x)]; }
+    bool equal(int x, int y) { return find(x) == find(y); }
+    int find(int x)
+    {</B></FONT>
+        while (parent[x] != x)
+            x = parent[x] = parent[parent[x]];
+        return x;
+    }
+    bool merge(int x, int y)
+    {
+        x = find(x); y = find(y);
+        if (x == y) return false;
+<A NAME="1"></A>        if (size[x] &gt;= size[y])
+            size[parent[y] = x] += size[y];
+        else
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            size[parent[x] = y] += size[x];
+        return true;
+    }
+};
+
+class Solution
+{
+public:
+    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries)
+    {</B></FONT>
+<A NAME="2"></A>        sort(edgeList.begin(), edgeList.end(), [](auto&amp; a, auto&amp; b) { return a[2] &lt; b[2]; });
+        vector&lt;int&gt; index(queries.size());
+        iota(index.begin(), index.end(), 0);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sort(index.begin(), index.end(), [&amp;queries](int a, int b) { return queries[a][2] &lt; queries[b][2]; });
+        vector&lt;bool&gt; answer(queries.size());
+        int edge = 0;
+        disjoint_sets sets(n);
+        for (int i = 0; i &lt; queries.size(); i++) {</B></FONT>
+            while (edge &lt; edgeList.size() &amp;&amp; edgeList[edge][2] &lt; queries[index[i]][2]) {
+                sets.merge(edgeList[edge][0], edgeList[edge][1]);
+                edge++;
+            }
+            answer[index[i]] = sets.equal(queries[index[i]][0], queries[index[i]][1]);
+        }
+        return answer;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

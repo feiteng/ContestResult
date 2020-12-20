@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>250_xywang0520.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>250_xywang0520.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="4"></A>    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        Arrays.sort(edgeList, (a, b) -&gt; a[2] - b[2]);
+        int m = queries.length;
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#4',2,'match32-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] sorted = new int[m][4];
+        for (int i = 0; i &lt; m; i++) {
+            sorted[i][0] = queries[i][0];
+            sorted[i][1] = queries[i][1];
+            sorted[i][2] = queries[i][2];
+            sorted[i][3] = i;
+        }
+        Arrays.sort(sorted, (a, b) -&gt; a[2] - </B></FONT>b[2]);
+        
+        DSU dsu = new DSU(n);
+        int i = 0, j = 0;
+        boolean[] result = new boolean[m];
+        while (j &lt; m) {
+            while (i &lt; edgeList.length &amp;&amp; edgeList[i][2] &lt; sorted[j][2]) {
+                dsu.union(edgeList[i][0], edgeList[i][1]);
+<A NAME="1"></A>                i++;
+            }
+            
+            if (dsu.find(sorted[j][0]) == dsu.find(sorted[j][1])) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                result[sorted[j][3]] = true;
+            }
+            
+            j++;
+        }
+        
+        return result;
+    }</B></FONT>
+}
+
+class DSU {
+    int N;
+    int[] parent;
+    int[] capacity;
+<A NAME="2"></A>    
+    public DSU (int n) {
+        this.N = n;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>this.parent = new int[n];
+        this.capacity = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+            capacity[i] = 1;
+        }
+    }
+    
+    public int find(int a) {</B></FONT>
+<A NAME="3"></A>        int result = parent[a];
+        while (result != parent[result]) {
+            result = parent[result];
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#3',2,'match32-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        while (a != parent[a]) {
+            int temp = parent[a];
+            parent[a] = result;
+            a = temp;
+        }
+        return result;
+    }
+    
+    public void union(int a, int b) {
+        int rootA = find(a);
+<A NAME="0"></A>        int rootB = find(b);
+        if (rootA == rootB) return;</B></FONT>
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (capacity[rootA] &gt;= capacity[rootB]) {
+            capacity[rootA] += capacity[rootB];
+            parent[rootB] = rootA;
+        } else {
+            capacity[rootB] += capacity[rootA];
+            parent[rootA] = rootB;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_tomjobs.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_tomjobs.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 1e5 + 4;
+
+<A NAME="0"></A>    struct Edge {
+    int x,y,z;
+}a[maxn];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int cmp(Edge a,Edge b) {
+    return a.z &lt; b.z;
+}
+class Solution {
+public:
+
+
+int fa[maxn];
+int findset(int x) {
+    if(fa[x] == x) return fa[x];
+    return fa[x] = findset(fa[x]);
+}
+void Union(int x,int y) {</B></FONT>
+    int rx = findset(x),ry = findset(y);
+    if(rx != ry) {
+        fa[rx] = ry;
+    }
+}
+
+int f[maxn][20],d[maxn],mx[maxn][20];
+vector&lt;pair&lt;int,int&gt;&gt;G[maxn];
+void dfs(int x,int fa) {
+    for(int i = 0;i &lt; G[x].size();i++) {
+        int v = G[x][i].first,w = G[x][i].second;
+        if(v == fa) continue;
+        d[v] = d[x] + 1;
+        f[v][0] = x;
+        mx[v][0] = w;
+        dfs(v,x);
+    }
+}
+void bfs(int x) {
+    queue&lt;int&gt;q;
+    if(d[x]) return;
+    q.push(x);d[x] = 1;
+    while(!q.empty()) {
+        int now = q.front();q.pop();
+        for(int i = 0;i &lt; G[now].size();i++) {
+            int v = G[now][i].first,w = G[now][i].second;
+            if(d[v]) continue;
+            d[v] = d[now] + 1;
+            f[v][0] = now;
+            mx[v][0] = w;
+            q.push(v);
+        }
+    }
+}
+
+int lca(int x,int y) {
+    if(d[x] &lt; d[y]) swap(x,y);
+    int res = 0;
+    for(int i = 19;i &gt;= 0;i--) {
+        if(d[f[x][i]] &gt;= d[y]) {
+            res = max(res,mx[x][i]);
+            x = f[x][i];
+        }
+    }
+    if(x == y) return res;
+    for(int i = 19;i &gt;= 0;i--) {
+        if(f[x][i] != f[y][i]) {
+            res = max(res,mx[x][i]);
+            res = max(res,mx[y][i]);
+            x = f[x][i];
+            y = f[y][i];
+        }
+    }
+    res = max(res,max(mx[x][0],mx[y][0]));
+    return res;
+}
+    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        memset(mx,0,sizeof(mx));
+        memset(f,0,sizeof(f));
+        memset(d,0,sizeof(d));
+        memset(fa,0,sizeof(fa));
+        memset(a,0,sizeof(a));
+        for(int i = 0;i &lt; edgeList.size();i++) {
+<A NAME="1"></A>            int x = edgeList[i][0],y = edgeList[i][1],z = edgeList[i][2];
+            x++,y++;
+            a[i + 1] = {x,y,z};
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        for(int i = 1;i &lt;= n;i++) fa[i] = i;
+        sort(a + 1,a + 1 + edgeList.size(),cmp);
+        int cnt = 0;
+        for(int i = 1;i &lt;= edgeList.size();i++) {</B></FONT>
+            int x = a[i].x,y = a[i].y,z = a[i].z;
+            int rx = findset(x), ry = findset(y);
+            if(rx != ry) {
+                Union(rx,ry);
+                cnt++;
+                G[x].push_back({y,z});
+                G[y].push_back({x,z});
+            } 
+            if(cnt &gt;= n - 1) break; 
+        }
+        for(int i = 1;i &lt;= n;i++) {
+            if(i == findset(i)) {
+                bfs(i);
+            }
+        }
+        // dfs(1,-1);
+        // bfs(1);
+        for(int i = 1;i &lt;= 19;i++) {
+            for(int j = 1;j &lt;= n;j++) {
+                f[j][i] = f[f[j][i - 1]][i - 1];
+                mx[j][i] = max(mx[j][i - 1],mx[f[j][i - 1]][i - 1]);
+            }
+        }
+        vector&lt;bool&gt;ans;
+        for(int i = 0;i &lt; queries.size();i++) {
+            int x = queries[i][0],y = queries[i][1],limit = queries[i][2];
+            x++;y++;
+            if(findset(x) != findset(y)) {
+                ans.push_back(false);
+                continue;
+            }
+            int mx = lca(x,y);
+            // printf(&quot;DEBUG %d %d %d %d\n&quot;,x,y,mx,limit);
+            if(mx &lt; limit) {
+                ans.push_back(true);
+            } else {
+                ans.push_back(false);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

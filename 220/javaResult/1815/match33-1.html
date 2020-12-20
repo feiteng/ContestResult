@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>335_ddiibboo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>335_ddiibboo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    int[] fathers;
+    private int find(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int a) {
+        if (fathers[a] == a) {
+<A NAME="0"></A>            return a;
+        }
+        fathers[a] = find</B></FONT>(fathers[a]);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return fathers[a];
+    }
+    private void union(int a, int b) {
+        int fa = find(a);
+        int fb = find(b);
+        if</B></FONT> (fa != fb) {
+<A NAME="2"></A>            fathers[fa] = fb;
+        }
+    }
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Query {
+        int[] query;
+        int idx;
+        Query(int[] _query, int _idx) {
+            query = _query;
+<A NAME="3"></A>            idx = _idx;
+        }
+    }</B></FONT>
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#3',2,'match33-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] queries) {
+        fathers = new int[n];
+        for (int i = 0; i &lt; n; ++i) {
+            fathers[i] = i;
+        }</B></FONT>
+        Arrays.sort(edgeList, (a, b) -&gt; 
+            a[2] - b[2]
+        );
+        int len = queries.length;
+        boolean[] ans = new boolean[len];
+        Query[] q = new Query[len];
+        for (int i = 0; i &lt; len; ++i) {
+            q[i] = new Query(queries[i], i);
+        }
+        Arrays.sort(q, (a, b) -&gt; 
+           a.query[2] - b.query[2]
+        );
+<A NAME="4"></A>        
+        int edgeIdx = 0;
+        for (int i = 0; i &lt; len; ++i) {
+            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#4',2,'match33-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int limit = q[i].query[2];
+            int src = q[i].query[0];
+            int dest = q[i].query[1];
+            while (edgeIdx &lt; edgeList.length &amp;&amp; edgeList[edgeIdx][2] &lt; limit) {
+                union(edgeList[edgeIdx][0], edgeList[edgeIdx][1]);
+                ++edgeIdx;
+            }
+            ans[q[i].idx] = (find(src) == find(dest));
+        }
+        
+        return ans;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

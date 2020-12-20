@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>385_KevinFederline.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>385_KevinFederline.py</CENTER></H3><HR>
+<PRE>
+class DisjointSets:
+    
+    def __init__(self, N):
+        self.parents = [i for i in range(N)]
+        
+    def getRoot(self, i):
+        if self.parents[i] == i:
+            return i
+        self.parents[i] = self.getRoot(self.parents[i])
+<A NAME="0"></A>        return self.parents[i]
+        
+    def union(self, i, j):
+        self.parents[self.getRoot(i)] = self.getRoot(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>j)
+
+class Solution:
+    def distanceLimitedPathsExist(self, n: int, edgeList: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:
+        disjointsets = DisjointSets(n)
+        edgeList.sort(key=lambda l:l[2])
+        queries =</B></FONT> [queries[i] + [i] for i in range(len(queries))]
+        queries.sort(key=lambda l:l[2])
+<A NAME="1"></A>        idx = 0
+        res = [None for _ in range(len(queries))]
+        for u, v, limit, i in queries:
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while idx &lt; len(edgeList) and edgeList[idx][2] &lt; limit:
+                disjointsets.union(edgeList[idx][0], edgeList[idx][1])
+                idx += 1
+            res[i] = disjointsets.getRoot(u) == disjointsets.getRoot(v)
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

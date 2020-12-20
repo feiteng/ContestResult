@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_forresty.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>203_forresty.py</CENTER></H3><HR>
+<PRE>
+class DSU:
+<A NAME="0"></A>    def __init__(self, N):
+        self.root = list(range(N))
+    def find(self, x):
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if self.root[x] != x:
+            self.root[x] = self.find(self.root[x])
+        return self.root[x]
+    def union(self, x, y):
+        x, y =</B></FONT> self.find(x), self.find(y)
+<A NAME="1"></A>        self.root[x] = self.root[y] = min(x, y)
+    def connected(self, x, y):
+        x, y = self.find(x), self.find(y)
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return x == y
+
+class Solution:
+    def distanceLimitedPathsExist(self, N: int, edgeList: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:
+        Q = len(</B></FONT>queries)
+        E = len(edgeList)
+        edgeList.sort(key=lambda x: x[2])
+        queries = sorted(((l, a, b, i) for i, (a, b, l) in enumerate(queries)))
+        dsu = DSU(N)
+        
+        ans = [None] * Q
+<A NAME="2"></A>        j = 0
+        
+        for l, a, b, i in queries:
+            while j &lt; E and edgeList<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[j][2] &lt; l:
+                x, y, _ = edgeList[j]
+                dsu.union(x, y)
+                j += 1
+            
+            ans[i] = dsu.connected(</B></FONT>a, b)
+        
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>405_Asagi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>405_Asagi.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string reformatNumber(string number) {
+        string nums;
+        for (auto c: number) {
+            if (c &gt;= '0' &amp;&amp; c &lt;= '9')
+                nums.push_back(c);
+        }
+        int n = nums.size();
+        int right = n % 3;
+        if (right == 1 || right == 0)
+            right += 3;
+        string ans;
+        for (int i = 0; i &lt; n - right; i += 3) {
+            for (int j = 0; j &lt; 3; ++j)
+                ans.push_back(nums[i+j]);
+            ans.push_back('-');
+        }
+        if (right &lt; 4) {</B></FONT>
+            for (int i = 0; i &lt; right; ++i)
+                ans.push_back(nums[n-right+i]);
+        } else {
+            ans.push_back(nums[n-4]);
+            ans.push_back(nums[n-3]);
+            ans.push_back('-');
+            ans.push_back(nums[n-2]);
+            ans.push_back(nums[n-1]);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

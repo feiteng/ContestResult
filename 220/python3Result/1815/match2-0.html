@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_it_boy94.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>320_it_boy94.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DSU:
+    def __init__(self, N):
+        self.parent = list(range(N))
+        self.size =<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> [1] * N
+
+    def find(self, x):
+        if x != self.parent[x]:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        xr, yr = self.find(x), self.find(y)
+
+        if xr == yr: return False
+
+        if self.size[xr] &lt; self.size[yr]:
+            xr, yr = yr, xr
+
+<A NAME="1"></A>        self.size[xr] += self.size[</B></FONT>yr]
+        self.size[yr] = xr
+        self.parent[yr] = xr
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return True
+    
+class Solution:
+    def distanceLimitedPathsExist(self, N: int, edges: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:
+        M = len(queries)
+        ans =</B></FONT> [False] * M
+        graph = defaultdict(dict)
+        edges.sort(key=lambda x: x[2])
+        edges = deque(edges)
+        sorted_queries = [(limit, src, dst, index) for index, (src, dst, limit) in enumerate(queries)]
+        sorted_queries.sort()
+        dsu = DSU(N)
+        
+        for limit, src, dst, index in sorted_queries:
+            while edges and edges[0][2] &lt; limit:
+                u, v, d = edges.popleft()
+                dsu.union(u, v)
+            
+            src_parent = dsu.find(src)
+            dst_parent = dsu.find(dst)
+            ans[index] = src_parent == dst_parent
+  
+        
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

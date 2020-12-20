@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>288_levyjeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>288_levyjeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int temp[100003];
+int cnt[100003];
+int pa[100003];
+
+int getpa(int x) {
+    while (pa[x] != -1) {
+        x = pa[x];
+    }
+    return x;
+}
+
+int same(int i, int j) {
+    return getpa(i) == getpa(j);
+}
+
+void meg(int i, int j) {
+    int pi = getpa(i);
+    int pj = getpa(j);
+    if (pi == pj)return;
+    if (cnt[pi] &gt; cnt[pj]) {
+        pa[pj] = pi;
+        cnt[pi] += cnt[pj];
+    } else {
+        pa[pi] = pj;
+        cnt[pj] += cnt[pi];
+
+    }
+
+}</B></FONT>
+class Solution {
+<A NAME="1"></A>public:
+    
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt; &amp;edgeList, vector&lt;vector&lt;int&gt;&gt; &amp;queries) {
+        memset(pa, -1, sizeof pa);
+        vector&lt;bool&gt; ans(queries.size(), 0);
+       
+        for (int i = 0; i &lt; queries.size(); i++) {
+            temp[i] = i;
+
+        }   
+        for (int i = 0; i &lt; n; i++) {
+            cnt[i] = 1;
+        }</B></FONT>
+<A NAME="2"></A>        sort(edgeList.begin(), edgeList.end(), [](const vector&lt;int&gt; &amp;v1, const vector&lt;int&gt; &amp;v2) {
+            return v1[2] &lt; v2[2];
+        });
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        sort(temp, temp + queries.size(), [&amp;](int i, int j) {
+            return queries[i][2] &lt; queries[j][2];
+        });
+      
+
+        int j = 0;
+
+        for (int i=0;i&lt;queries.size();i++) {
+            int t=temp[i];
+
+            int lim = queries[t][2];
+            while (j&lt;edgeList.size()&amp;&amp;edgeList[j][2] &lt; lim) {
+                meg(edgeList[j][0], edgeList[j][1]);
+                j++;
+            }
+            ans[t] = same(queries[t][0], queries[t][1]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

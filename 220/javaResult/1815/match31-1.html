@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>343_abhigyankole.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>343_abhigyankole.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    int arr[];
+    int rank[];
+    
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edges, int[][] queries) {
+        arr=new int[n];
+        rank=new int[n];
+        for(int j=0;j&lt;n;j++)
+        {
+            arr[j]=j;
+<A NAME="0"></A>        }
+        Arrays.fill(rank,1);
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ArrayList&lt;edge&gt; edgeList=new ArrayList&lt;&gt;();
+        for(int i[]:edges)
+        {
+            edgeList.add(new edge(i[0],i[1],i[2]));
+        }
+        
+        Collections.sort</B></FONT>(edgeList,new cust());
+                ArrayList&lt;query&gt; querylist=new ArrayList&lt;&gt;();
+
+        
+        for(int j=0;j&lt;queries.length;j++)
+        {
+            int i[]=queries[j];
+            querylist.add(new query(i[0],i[1],i[2]-1,j));
+        }
+        
+        
+        
+        Collections.sort(querylist,new comp());
+        
+        
+        int ptr=0;
+        int max=0;
+        
+        boolean ans[]=new boolean[queries.length];
+        for(int i=0;i&lt;edgeList.size();i++)
+        {
+            edge e=edgeList.get(i);
+            max=Math.max(e.w,max);
+            //System.out.println(&quot;max is now &quot;+max);
+            union(e.a,e.b);
+            if(i&lt;edgeList.size()-1)
+            {
+                int nextMax=Math.max(max,edgeList.get(i+1).w);
+                //System.out.println(&quot;next max is &quot;+nextMax);
+                while(ptr&lt;querylist.size()&amp;&amp;querylist.get(ptr).w&lt;nextMax)
+                {
+                    
+                    query ele=querylist.get(ptr);
+                    //System.out.println(ele);
+                    
+                    //System.out.println(&quot;parent of &quot;+ele.a+&quot; is &quot;+getParent(ele.a));
+                    //System.out.println(&quot;parent of &quot;+ele.b+&quot; is &quot;+getParent(ele.b));
+                    
+                    if(getParent(ele.a)==getParent(ele.b)&amp;&amp;ele.w&gt;=max)
+                    {
+                        ans[ele.ind]=true;
+                    }
+                    ptr++;
+                }
+            }
+            else
+            {
+                while(ptr&lt;querylist.size())
+                {
+                    
+                    query ele=querylist.get(ptr);
+                    
+                    if(getParent(ele.a)==getParent(ele.b)&amp;&amp;ele.w&gt;=max)
+                    {
+                        ans[ele.ind]=true;
+                    }
+                    ptr++;
+<A NAME="1"></A>                }
+            }
+            
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return ans;
+        
+        
+        
+        
+    }
+    
+    class query
+    {
+        int a;int b;int w;int ind;
+        query(int a,int b,int w,int ind)
+        {
+            this.a=a;this.b=b;this.w=w;this.ind=ind;
+        }</B></FONT>
+        public String toString()
+        {
+            return w+&quot; &quot;+ind;
+        }
+    }
+    
+    class comp implements Comparator&lt;query&gt;
+    {
+        public int compare(query q1,query q2)
+        {
+            if(q1.w!=q2.w)
+            {
+                return q1.w-q2.w;
+            }
+            return q1.ind-q2.ind;
+        }
+    }
+    
+    class cust implements Comparator&lt;edge&gt;
+    {
+        public int compare(edge e1,edge e2)
+        {
+            return e1.w-e2.w;
+        }
+    }
+    
+    class edge
+    {
+        int a;int b;int w;
+        edge(int a,int b,int w)
+        {
+            this.a=a;this.b=b;this.w=w;
+        }
+    }
+<A NAME="3"></A>    
+    
+    
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#3',2,'match31-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public void union(int x,int y)
+    {
+        int px=getParent(x);
+        int py=getParent(y);
+        if(rank[px]&gt;rank[py])
+        {
+            arr[py]=px;
+        }</B></FONT>
+        else if(rank[px]&lt;rank[py])
+        {
+            arr[px]=py;
+        }
+        else
+        {
+<A NAME="2"></A>            arr[px]=py;
+            rank[py]+=1;
+        }
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    public int getParent(int x)
+    {
+        if(arr[x]==x)
+            return x;
+        int parent=getParent</B></FONT>(arr[x]);
+        arr[x]=parent;
+        return parent;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

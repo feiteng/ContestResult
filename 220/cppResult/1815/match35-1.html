@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_woodzzZ.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>284_woodzzZ.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 2e5 + 5;
+struct node{ int u, v, w; } edge[maxn];
+bool cmp(node q1,node q2){ return q1.w &lt; q2.w; }
+class Solution {
+public:
+    int prt[200005], a[200005], fa[200005][21], dep[200005];
+    int ver[maxn*4], Next[maxn*4], head[maxn];
+    int getpa(int x){ return prt[x] == x ? x : prt[x] = getpa(prt[x]); }
+    int tot = 0;
+    void Add(int x,int y){
+        ver[++tot] = y; Next[tot] = head[x]; head[x] = tot;
+    }
+    void dfs(int u,int ff){
+        dep[u] = dep[ff]+1;
+        fa[u][0] = ff;
+        for(int i = 0; i &lt;= 17; i++) fa[u][i+1] = fa[fa[u][i]][i];
+        for(int i = head[u]; i; i = Next[i]){
+            int v = ver[i];
+            if(v == ff) continue;
+            dfs(v,u);
+        }
+    }
+    int lca(int x,int y){
+        if(dep[x] &lt; dep[y]) swap(x,y);
+        for(int i = 18; i &gt;= 0; i--){
+            if(dep[fa[x][i]] &gt;= dep[y]) x = fa[x][i];
+            if(x == y) return x;
+        }
+        for(int i = 18; i &gt;= 0; i--){
+            if(fa[x][i] != fa[y][i]){
+                x = fa[x][i]; y = fa[y][i];
+<A NAME="0"></A>            }
+        }
+        return fa[x][0];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+<A NAME="2"></A>    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int m = edgeList.size();
+        for(int i = 1; i &lt;= m; i++){</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            edge[i].u = edgeList[i-1][0]+1;
+            edge[i].v = edgeList[i-1][1]+1;
+            edge[i].w = edgeList[i-1][2];
+        }
+        sort(edge+1,edge+m+1,cmp);
+        for(int i = 1; i &lt;= n*2; i++) prt[i] = i;
+        int idx = n;
+        for(int i = 1; i &lt;= m; i++){
+            int x = edge[i].u, y = edge[i].v, z = edge[i].w;</B></FONT>
+            int fx = getpa(x), fy = getpa(y);
+            if(fx == fy) continue;
+            prt[fx] = prt[fy] = ++idx;
+            a[idx] = z;
+            Add(idx,fx); Add(idx,fy);
+        }
+<A NAME="1"></A>        for(int i = 2; i &lt;= n; i++){
+            int fx = getpa(1), fy = getpa(i);
+            if(fx == fy) continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            prt[fx] = prt[fy] = ++idx;
+            Add(idx,fx); Add(idx,fy);
+            a[idx] = 1e9 + 5;
+        }
+        dfs(idx,0);
+        int Q = queries.size();
+        vector&lt;bool&gt; ans;
+        for(int i = 0; i &lt; Q; i++){
+            int x = queries[i][0]+1, y = queries[i][1]+1, z = queries[i][2];</B></FONT>
+            int tmp = lca(x,y);
+            if(a[tmp] &lt; z) ans.push_back(true);
+            else ans.push_back(false);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

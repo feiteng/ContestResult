@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>36_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    private static class Edge implements Comparable&lt;Edge&gt; {
+        public int u , v , dist;
+        public Edge(int u , int v , int dist) {
+            this.u = u;
+            this.v = v;
+            this.dist = dist;
+        }
+        @Override
+        public int compareTo(Edge edge) {
+            return this.dist - edge.dist;
+<A NAME="0"></A>        }
+    }
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private static class Query implements Comparable&lt;Query&gt; {
+        public int p , q , limit , idx;
+        public Query(int p , int q , int limit , int idx) {
+            this.p = p;
+            this.q = q;
+            this.limit = limit;
+            this.idx = idx;
+        }</B></FONT>
+        @Override
+        public int compareTo(Query query) {
+            return this.limit - query.limit;
+        }
+    }
+
+    private int findSet(int x) {
+        if (x == set[x]) {
+            return x;
+        } else {
+            return set[x] = findSet(set[x]);
+        }
+    }
+
+    private int[] set;
+
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        set = new int[n];
+        Arrays.setAll(set , index -&gt; index);
+<A NAME="1"></A>        List&lt;Edge&gt; edges = new ArrayList&lt;&gt;();
+        List&lt;Query&gt; queryList = new ArrayList&lt;&gt;();
+        for (int[] edge : edgeList) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>edges.add(new Edge(edge[0] , edge[1] , edge[2]));
+        }
+        for (int i = 0;i &lt; queries.length;i ++) {
+            queryList.add(new Query(queries[i][0] , queries[i][1] , queries[i][2] , i));
+        }</B></FONT>
+        Collections.sort(edges);
+<A NAME="2"></A>        Collections.sort(queryList);
+        boolean[] ans = new boolean[queries.length];
+        int j = 0;
+        for (int i = 0;i &lt; <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>queryList.size();i ++) {
+            Query query = queryList.get(i);
+            while (j &lt; edges.size() &amp;&amp; edges.get(j).dist &lt; query.limit) {
+                Edge edge = edges.get(j);
+                int f1 = findSet(edge.u) , f2 = findSet(edge.v);
+                if (f1 != f2) {
+                    set[f1] = f2;
+                }
+                j ++;
+            }
+            int f1 = findSet(query.p) , f2 = findSet(query.q);
+            a</B></FONT>ns[query.idx] = (f1 == f2) ? true : false;
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>339_Hexadecimal.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>339_Hexadecimal.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def distanceLimitedPathsExist(self, n: int, edgeList: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:       
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def find(x):
+            if up[x] != x:
+                up[x] = find(up[x])
+            return up[x]
+        
+        def union(x, y):
+            a, b = find(x), find(y)
+            if a != b:
+                up[a] = b
+                            
+<A NAME="1"></A>        up =</B></FONT> [i for i in range(n)]
+        l = len(queries)
+        ret = [False] * l
+        inq = sorted([<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[j[2], i] for i, j in enumerate(queries)])
+        edgeList.sort(key=lambda x: x[2])
+        i = 0
+        m = len(</B></FONT>edgeList)        
+        for limit, idx in inq:
+            while i &lt; m and edgeList[i][2] &lt; limit:
+                union(edgeList[i][0], edgeList[i][1])                
+                i += 1
+            a, b, c = queries[idx]
+            ret[idx] = find(a) == find(b)
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

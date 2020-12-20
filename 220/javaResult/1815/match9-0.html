@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_dongxuz1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>65_dongxuz1.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UnionFind{
+    private final int[] parents;
+    
+    public UnionFind(int n){
+        this.parents = new int[n];
+        Arrays.fill(parents, -1);
+    }
+    
+    public int find(int node){</B></FONT>
+        int parent = parents[node];
+        if(parent == -1){
+            return node;
+        }else{
+            int root = find(parent);
+<A NAME="1"></A>            parents[node] = root;
+            return root;
+        }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public void union(int n1, int n2){
+        int root1 = find(n1);
+        int root2 = find(n2);
+        if(root1 != root2){
+            parents[root1] = root2;
+        }
+    }
+}</B></FONT>
+
+class Edge{
+    final int from;
+    final int to;
+<A NAME="2"></A>    final int limit;
+    final int index;
+    
+    public Edge(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] edge, int index){
+        from = edge[0];
+        to = edge[1];
+        limit = edge[2];
+        this.index = index;
+    }
+    
+}</B></FONT>
+
+class Solution {
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queryList) {
+<A NAME="3"></A>        UnionFind uf = new UnionFind(n);
+        boolean[] result = new boolean[queryList.length];
+        
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;Edge&gt; edges = new ArrayList&lt;&gt;(edgeList.length);
+        List&lt;Edge&gt; queries = new ArrayList&lt;&gt;(queryList.length);
+        for(int i =0;i&lt;edgeList.length;i++){
+            edges.add(new Edge(edgeList[i], i));
+        }</B></FONT>
+        for(int i =0;i&lt;queryList.length;i++){
+            queries.add(new Edge(queryList[i], i));
+        }
+        
+        edges.sort((e1, e2) -&gt;Integer.compare(e1.limit, e2.limit));
+        queries.sort((e1, e2) -&gt;Integer.compare(e1.limit, e2.limit));
+
+        
+        int pos = 0;
+<A NAME="4"></A>        for(int i =0;i&lt;queries.size();i++){
+            Edge query = queries.get(i);
+            while(pos &lt; edges.size() &amp;&amp; edges.get(pos).limit &lt; query.limit){
+                uf.union(edges.get(pos).from, <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match9-1.html#4',3,'match9-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>edges.get(pos).to);
+                pos++;
+            }
+            result[query.index] = uf.find(query.from) == uf.find(query.to);
+        }
+        return result;
+        
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

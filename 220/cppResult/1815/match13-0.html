@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_shanest.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>486_shanest.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct node
+    {
+        int x,y,z;
+        int id;
+        bool ans;
+    }a[100005],b[100005];
+    int fa[100005];
+    int get(int x)
+<A NAME="0"></A>    {
+        return fa[x]==x?x:fa[x]=get(fa[x]);
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int nn=edgeList.size();
+        int m=queries.size();
+        for(int i=1;i&lt;=nn;i++)
+        {
+            a[i].x=edgeList[i-1][0]+1;
+            a[i].y=edgeList[i-1][1]+1;
+            a[i].z=edgeList[i-1][2];
+        }
+        for(int i=1;i&lt;=m;i++)
+        {
+            b[i].x=queries[i-1][0]+1;
+            b[i].y=queries[i-1][1]+1;
+            b[i].z=queries[i-1][2];
+            b[i].id=i;
+        }
+        sort(a+1,a+nn+1,cmp);
+<A NAME="1"></A>        sort(b+1,b+m+1,cmp);
+        for(int i=1;i&lt;=n;i++)</B></FONT>
+            fa[i]=i;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int N=1;
+        for(int i=1;i&lt;=m;i++)
+        {
+            while(a[N].z&lt;b[i].z&amp;&amp;N&lt;=nn)
+            {
+                int fx=get(a[N].x);
+                int fy=get(a[N].y);</B></FONT>
+                if(fx!=fy)
+                {
+                    fa[fx]=fy;
+                }
+                N++;
+            }
+            int fx=get(b[i].x);
+            int fy=get(b[i].y);
+            if(fx==fy)
+            {
+                b[i].ans=true;
+            }
+            else
+                b[i].ans=false;
+        }
+        sort(b+1,b+m+1,cmp1);
+        vector&lt;bool&gt;ret;
+        for(int i=1;i&lt;=m;i++)
+            ret.push_back(b[i].ans);
+        return ret;
+    }
+private:
+    static bool cmp(node &amp;aa,node &amp;bb)
+    {
+        return aa.z&lt;bb.z;
+    }
+    static bool cmp1(node &amp;aa,node &amp;bb)
+    {
+        return aa.id&lt;bb.id;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_14417335.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_14417335.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edges, int[][] queries) {
+    in(n + 1);
+    int[][] extqueries = new int[queries.length][4];
+    for (int i = 0; i != queries.length; i++) {
+      int[] row2 = extqueries[i], row1 = queries[i];
+      row2[0] = row1[0];
+      row2[1] = row1[1];
+      row2[2] = row1[2];
+      row2[3] = i;
+    }
+    final Comparator&lt;int[]&gt; comp = (a, b) -&gt; a[2] - b[2];
+    Arrays.sort(edges, comp);
+    Arrays.sort(extqueries, comp);
+<A NAME="0"></A>    int i = 0;
+    boolean[] res = new boolean[queries.length];
+    for (int[] q : extqueries) {
+      <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (i != edges.length &amp;&amp; edges[i][2] &lt; q[2]) {
+        un(edges[i][0], edges[i][1]);
+        i++;
+      }
+      res[q[3]] = fn(q[0]) == fn(q[1]);
+    }</B></FONT>
+    return res;
+  }
+
+  private int[] r = null, p = null;
+
+  void in(final int N) {
+    p = new int[N];
+    for (int i = 1; i != N; i++)
+      p[i] = i;
+<A NAME="2"></A>    r = new int[N];
+  }
+
+  void un(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i, int j) {
+    final int ir = fn(i), jr = fn(j);
+<A NAME="3"></A>    if (ir == jr)
+      return</B></FONT>;
+    if (r[ir] == r[jr])
+      r[ir]++<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#3',2,'match28-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+    if (r[ir] &gt; r[jr]) {
+      p[jr] = ir;
+    } else {
+      p[ir] = jr;
+<A NAME="1"></A>    }
+  }</B></FONT>
+
+  int fn(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i) {
+    if (p[i] == i)
+      return i;
+    return p[i] = fn(p[i]);
+  }</B></FONT>
+
+}
+</PRE>
+
+</BODY>
+</HTML>

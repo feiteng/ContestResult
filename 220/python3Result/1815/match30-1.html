@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>258_zdu011.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>258_zdu011.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF:
+    def __init__(self,n):
+        self.p=list(range(n))
+        self.s=[1]*n
+    
+    def find(self,x):
+        if self.p[x]!=x:
+            self.p[x]=self.find(self.p[x])
+        return self.p[x]
+<A NAME="1"></A>    
+    def union(self,x,y):
+        xr,yr=self.find(x),self.find(y)
+        if</B></FONT> self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.s[xr]&lt;self.s[yr]:
+            xr,yr=yr,xr
+        self.p[yr]=xr
+        self.s[xr]+=self.s[</B></FONT>yr]
+
+class Solution:
+    def distanceLimitedPathsExist(self, n: int, edgeList: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:
+        edgeList.sort(key=itemgetter(2))
+        qs=[]
+        ans=[False]*len(queries)
+        for i,v in enumerate(queries):
+            pi,qi,lim=v
+            qs.append((i,pi,qi,lim))
+        qs.sort(key=itemgetter(3))
+        
+        # print(qs)
+        # print(edgeList)
+        ind=0
+        DJS=UF(n)
+        for q in qs:
+            i,pi,qi,lim=q
+            while ind&lt;len(edgeList):
+                u,v,dis=edgeList[ind]
+                # print(dis)
+                if dis&gt;=lim:
+                    break
+                DJS.union(u,v)
+                ind+=1
+            ans[i]=(DJS.find(pi)==DJS.find(qi))
+        return ans
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

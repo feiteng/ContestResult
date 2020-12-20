@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>168_dj2014.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>168_dj2014.py</CENTER></H3><HR>
+<PRE>
+class DJSet:
+    def __init__ (self, n):
+        self.a = [i for i in range(n)]
+<A NAME="0"></A>        self.sz = [1 for _ in range(n)]
+        
+    def find(self, x):
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if self.a[x] != x:
+            self.a[x] = self.find(self.a[x])
+<A NAME="1"></A>        return self.a[x]
+        
+    def union(self, x, y):
+        px, py =</B></FONT> self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.find(x), self.find(y)
+        if px == py:
+<A NAME="2"></A>            return False
+        if self.sz[px] &lt; self.sz[py]:
+            px, py =</B></FONT> py, px
+        self<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.a[py] = px
+        self.sz[px] += self.sz[py]
+        return True
+
+class Solution:
+    def distanceLimitedPathsExist(self, n: int, edgeList: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:
+        qn = len(</B></FONT>queries)
+        ans = [False for _ in range(qn)]
+        
+        edgeList.sort(key=lambda x: x[2])
+        ei = 0
+        en = len(edgeList)
+        
+        a = [(i, queries[i]) for i in range(qn)]
+        a.sort(key=lambda x: x[1][2])
+        
+        djSet = DJSet(n)
+        
+        for i, query in a:
+            x, y, d = query
+            while ei &lt; en and edgeList[ei][2] &lt; d:
+                djSet.union(edgeList[ei][0], edgeList[ei][1])
+                ei += 1
+            if djSet.find(x) == djSet.find(y):
+                ans[i] = True
+            else:
+                ans[i] = False
+        
+        return ans
+                
+                
+             
+            
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>61_txingml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>61_txingml.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int MAXN = 1e5 + 10;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int par[MAXN];
+int find(int i) {
+    if (par[i] == i) return i;
+    return par[i]=find(par[i]);
+}
+void add(int i, int j) {
+    int a = find(i);
+    int b = find(j);</B></FONT>
+    par[a] = b;
+}
+bool cmp(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) {
+    return a[2] &lt; b[2];
+<A NAME="1"></A>}
+class Solution {
+public:
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        for (int i = 0; i &lt; n; i++) {
+            par[i] = i;
+        }
+        vector&lt;int&gt; idx(queries.size());
+        for (int i = 0; i &lt; queries.size(); i++) {</B></FONT>
+            idx[i] = i;
+        }
+        sort(idx.begin(), idx.end(), [&amp;queries](int i, int j) {
+            return queries[i][2] &lt; queries[j][2];
+        });
+        vector&lt;bool&gt; ret(queries.size());
+        sort(edgeList.begin(), edgeList.end(), cmp);
+        int j = 0;
+        for (int i : idx) {
+            int limit = queries[i][2];
+            while (j &lt; edgeList.size() &amp;&amp; edgeList[j][2] &lt; limit) {
+                add(edgeList[j][0], edgeList[j][1]);
+                j++;
+            }
+            ret[i] = find(queries[i][0]) == find(queries[i][1]);
+        }
+        return ret;
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

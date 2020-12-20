@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>596_huangdachuan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>596_huangdachuan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maximumUniqueSubarray(vector&lt;int&gt;&amp; nums) {
+        int sum = 0;
+        unordered_set&lt;int&gt; window;
+        int p1 = 0;
+        int p2 = 0;
+        int n = nums.size();
+        int ans = 0;
+        while (p1 &lt; n &amp;&amp; p2 &lt; n) {
+            while (window.count(nums[p2])) {
+                sum -= nums[p1];
+                window.erase(nums[p1]);
+                ++p1;
+            }
+            
+            window.emplace(nums[p2]);
+            sum += nums[p2];
+            ans = max(ans, sum);
+            ++p2;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

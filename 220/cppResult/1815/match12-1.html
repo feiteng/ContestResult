@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_layor.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>121_layor.cpp</CENTER></H3><HR>
+<PRE>
+struct Tuple{
+    int s, e, w;
+    int idx;
+    Tuple(){
+        s = e = w = idx = 0;
+    }
+    
+    bool operator &lt; (const Tuple &amp;o) const{
+        return w &lt; o.w;
+    }
+};
+
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int fa[100005];
+    
+    int find(int x){
+        return x == fa[x] ? x : fa[x] = find(fa[x]);    
+    }
+    
+    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int e_size = edgeList.size();
+        int q_size = queries.size();
+        vector&lt;bool&gt; ans(q_size, false);
+        for(int i=0; i&lt;n; i++) fa[i] = i;</B></FONT>
+        vector&lt;Tuple&gt; new_e, new_q;
+<A NAME="1"></A>        for(auto &amp;x: edgeList){
+            Tuple o;
+            o.s = x[0];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            o.e = x[1];
+            o.w = x[2];
+            o.idx = 0;
+            new_e.push_back(o);
+        }
+        sort(new_e.begin(), new_e.end());
+        for(int i=0; i&lt;q_size; i++){
+            Tuple o;
+            o.s = queries[i][0];
+            o.e = queries[i][1];
+            o.w = queries[i][2];
+            o.idx = i;
+<A NAME="2"></A>            new_q.push_back(o);
+        }        </B></FONT>
+        sort(new_q.begin(), new_q.end());
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int i=0;
+        for(int j=0; j&lt;q_size;j++){
+            while(i &lt; e_size &amp;&amp; new_e[i].w &lt; new_q[j].w){
+                int a = find(new_e[i].s);
+                int b = find(new_e[i].e);
+                if(a != b) fa[a] = b;</B></FONT>
+                i ++;
+            }
+            int a = find(new_q[j].s);
+            int b = find(new_q[j].e);
+            ans[new_q[j].idx] = (a == b);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

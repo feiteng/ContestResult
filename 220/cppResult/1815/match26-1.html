@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>41_Yulian_Yarema.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>41_Yulian_Yarema.cpp</CENTER></H3><HR>
+<PRE>
+const int N=100005;
+
+
+bool cmp(vector&lt;int&gt; &amp;a,vector&lt;int&gt; &amp;b) {
+    return a[0]&lt;b[0] || (a[0]==b[0] &amp;&amp; a[1]&lt;b[1]);
+}
+
+
+<A NAME="0"></A>class Solution {
+public:
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int p[N];
+    
+    int fnd(int u) {
+        if(u==p[u]) return u;
+        return p[u]=fnd(p[u]);
+    }
+    
+    
+    void un(int a,int b) {
+        int u=fnd(a);
+        int v=fnd(b);</B></FONT>
+        if(rand()&amp;1) swap(u,v);
+        if(u!=v) p[u]=v;
+<A NAME="1"></A>    }
+    
+    
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; ee, vector&lt;vector&lt;int&gt;&gt;&amp; qq) {
+        for(int i=0;i&lt;=n;i++) {
+            p[i]=i;
+        }
+        
+        vector&lt;bool&gt; ans(qq.size(),false);
+        vector&lt;vector&lt;int&gt; &gt; e;
+        for(int i=0;i&lt;ee.size();i++) {</B></FONT>
+            e.push_back({ee[i][2],1,ee[i][0],ee[i][1]});
+        }
+        for(int i=0;i&lt;qq.size();i++) {
+            e.push_back({qq[i][2],0,qq[i][0],qq[i][1],i});
+        }
+        
+        sort(e.begin(),e.end(),&amp;cmp);
+        
+        for(int i=0;i&lt;e.size();i++) {
+            int a=e[i][2];
+            int b=e[i][3];
+            if(e[i][1]==1) {
+                un(a,b);
+            } else {
+                if(fnd(a) == fnd(b)) {
+                    ans[e[i][4]]=true;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

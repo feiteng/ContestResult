@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>342_shinan88888.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>342_shinan88888.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DSU:
+    def __init__(self, N):
+        self.par = list(range(N))
+        self.sz = [1] * N
+
+    def find(self, x):
+        if self.par[x] != x:
+            self.par[x] = self.find(self.par[x])
+        return self.par[x]
+
+    def union(self, x, y):
+<A NAME="1"></A>        xr, yr = self.find(x), self.find(y)
+        if</B></FONT> xr == yr:
+            return False
+        if self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.sz[xr] &lt; self.sz[yr]:
+            xr, yr = yr, xr
+        self.par[yr] = xr
+        self.sz[xr] += self.sz[</B></FONT>yr]
+        self.sz[yr] = self.sz[xr]
+        return True
+
+    def size(self, x):
+        return self.sz[self.find(x)]
+
+class Solution:
+    def distanceLimitedPathsExist(self, n: int, edgeList: List[List[int]], queries: List[List[int]]) -&gt; List[bool]:
+        dsu = DSU(n)
+        
+        res = [False] * len(queries)
+        queries = sorted([(i, queries[i][0], queries[i][1], queries[i][2]) for i in range(len(queries))], key=lambda x:x[3])
+        edgeList = sorted(edgeList, key=lambda x:x[2])
+        
+        i = 0
+        for q in queries:
+            while i &lt; len(edgeList) and edgeList[i][2] &lt; q[3]:
+                dsu.union(edgeList[i][0], edgeList[i][1])
+                i += 1
+            res[q[0]] = dsu.find(q[1]) == dsu.find(q[2])
+        
+        return res
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

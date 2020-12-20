@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>568_karneshjain.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>568_karneshjain.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maximumUniqueSubarray(int[] nums) {
+        HashSet&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        
+        int start = 0;
+        int sum = 0;
+        int maxScore = 0;
+        
+        for(int end = 0; end &lt; nums.length; end++){
+            sum += nums[end];
+            
+            while(set.contains(nums[end])){
+                sum -= nums[start];
+                set.remove(nums[start]);
+                start++;
+            }
+            
+            set.add(nums[end]);
+            maxScore = Math.max(maxScore, sum);
+        }
+        
+        return maxScore;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

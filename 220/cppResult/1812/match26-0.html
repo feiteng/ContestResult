@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>978_thaicurry.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>978_thaicurry.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string reformatNumber(string number) {
+        int n=number.size();
+        if(n==2 || n==3) return number;
+        
+        queue&lt;char&gt; q;
+        for(char c:number) {
+            if(c&gt;='0' &amp;&amp; c&lt;='9')
+                q.push(c);
+        }
+        string result=&quot;&quot;;
+        
+        
+        while(q.size()&gt;4) {
+            for(int i=0; i&lt;3; i++) {
+<A NAME="0"></A>                result+=q.front();
+                q.pop();
+            }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(!q.empty()) result+=&quot;-&quot;;
+        }
+        
+        if(q.size() == 4) {
+            for(int i=0; i&lt;2; i++) {
+                result+=q.front();
+                q.pop();
+            }
+            result+=&quot;-&quot;;
+            for(int i=0; i&lt;2; i++) {
+                result+=q.front();
+                q.pop();
+            }
+        } else {
+            while(!q.empty()) {
+                result+=q.front();
+                q.pop();
+            } 
+        }
+        
+        
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_DCXiaoBing.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>459_DCXiaoBing.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    public boolean[] distanceLimitedPathsExist(int n, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] edgeList, int[][] queries) {
+        boolean[] res = new boolean[queries.length];
+        
+        Arrays.sort(edgeList, (a, b) -&gt; a[2] - b[2]);
+        HashMap&lt;int[], Integer&gt; idx = new HashMap&lt;&gt;()</B></FONT>;
+        for(int i = 0; i &lt; queries.length; i++) idx.put(queries[i], i);
+        
+        Arrays.sort(queries, (a, b) -&gt; a[2] - b[2]);
+        
+        DSU dsu = new DSU(n);
+        int p = 0;
+        for(int i = 0; i &lt; queries.length; i++) {
+            while(p &lt; edgeList.length &amp;&amp; edgeList[p][2] &lt; queries[i][2]) {
+                dsu.union(edgeList[p][0], edgeList[p][1]);
+                p++;
+            }
+            
+<A NAME="2"></A>            if(dsu.find(queries[i][0]) == dsu.find(queries[i][1])) res[idx.get(queries[i])] = true;
+        }
+        return res;
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+}
+
+class DSU {
+    int[] parent, size;
+    
+    DSU(int n) {
+        parent = new int[n];
+        size = new int[n];
+        
+        for(int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+<A NAME="3"></A>    
+    public int find(int x) {
+        if</B></FONT>(parent[x] != x) parent[x] = find(parent[x]);
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#3',2,'match34-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return parent[x];
+    }
+    
+    public boolean union(int x, int y) {
+        int px = find(x), py = find(y);
+<A NAME="0"></A>        
+        if(px == py) return false;</B></FONT> // already one part
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(size[px] &gt; size[py]) {
+            size[px] += size[py];
+            parent[py] = px;
+        } else {
+            size[py] += size[px];
+            parent[px] = py;
+        }</B></FONT>
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_szp14.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int maxn = 1e5 + 5;
+int p[maxn];
+
+int getP(int x) {return p[x] == x ? x : p[x] = getP(p[x]);}
+void lnk(int x, int y) {p[getP(x)] = getP(y);}</B></FONT>
+
+class Solution {
+public:
+    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int E = (int)edgeList.size(), Q = (int)queries.size();
+    typedef pair&lt;int, pair&lt;int, int&gt; &gt; p3i;
+    typedef pair&lt;int, p3i&gt; pdx;
+    vector&lt;p3i&gt; edge(E);
+    vector&lt;pdx&gt; qry(Q);
+<A NAME="1"></A>    for(int i = 0; i &lt; E; i++)
+        edge[i] = {edgeList[i][2], {edgeList[i][0], edgeList[i][1]}};
+    for(int i = 0; i &lt; Q; i++)
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        qry[i] = {queries[i][2], {i, {queries[i][0], queries[i][1]}}};
+    sort(edge.begin(), edge.end());
+    sort(qry.begin(), qry.end());
+    vector&lt;bool&gt; ans(Q);
+    
+    for(int i = 0; i &lt; n; i++) p[i] = i;
+    int c = 0;
+    for(int i = 0; i &lt; Q; i++)
+    {
+        while(c &lt; E &amp;&amp; edge[c].first &lt; qry[i].first)
+        {
+            lnk(edge[c].second.first, edge[c].second.second);
+            c++;
+        }
+        ans[qry[i].second.first] =
+        getP(qry[i].second.second.first) == getP(qry[i].second.second.second);
+    }
+    return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

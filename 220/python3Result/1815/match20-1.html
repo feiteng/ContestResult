@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>394__aayush_.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>394__aayush_.py</CENTER></H3><HR>
+<PRE>
+class DSU:
+    def __init__(self, N):
+        self.size = N
+        self.par = [i for i in range(self.size)]
+<A NAME="0"></A>        self.sz = [1 for _ in range(self.size)]
+    
+    def find(self, u):
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if self.par[u] != u:
+            self.par[u] = self.find(self.par[u])
+        return self.par[u]
+<A NAME="1"></A>    
+    
+    def union(self, u, v):
+        pu, pv =</B></FONT> self<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.find(u), self.find(v)
+        if pu == pv:
+            return False
+        
+<A NAME="2"></A>        if self.sz[pu] &lt; self.sz[pv]:
+            pu, pv =</B></FONT> pv, pu
+        
+        self<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.par[pv] = pu
+        self.sz[pu] += self.sz[pv]
+        return True
+    
+class Solution:
+    def distanceLimitedPathsExist(self, n: int, edges: List[List[int]], queries: List[List[int]]) -&gt; List[</B></FONT>bool]:
+        edges.sort(key=lambda e: e[2])
+        queries = [(i, *q) for i, q in enumerate(queries)]
+        queries.sort(key=lambda q: q[3])
+        
+        ans = [False for _ in range(len(queries))]
+        
+        dsu = DSU(n)
+        i = 0
+        for a, p, q, limit in queries:
+            while i &lt; len(edges) and edges[i][2] &lt; limit:
+                dsu.union(edges[i][0], edges[i][1])
+                i += 1
+            
+            if dsu.find(p) == dsu.find(q):
+                ans[a] = True
+        
+        
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

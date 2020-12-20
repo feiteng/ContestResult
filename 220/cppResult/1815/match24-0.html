@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_ufoshen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>234_ufoshen.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int f[100003]; 
+
+    int find(int x) {
+        if(f[x] == x) return x;
+        f[x] = find(f[x]); 
+        return f[x];
+    }</B></FONT>
+
+    void uni(int x, int y) {
+        f[find(x)] = find(y);
+    }
+   
+<A NAME="1"></A>    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edgeList, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int ne = edgeList.size(), nq = queries.size();
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        sort(edgeList.begin(), edgeList.end(), [](const vector&lt;int&gt;&amp; lhs, const vector&lt;int&gt;&amp; rhs) {
+            return lhs[2] &lt; rhs[2];
+        });
+        vector&lt;vector&lt;int&gt;&gt; que(0); 
+        for(int i = 0; i &lt; nq; i ++) { // [3] = orig index</B></FONT>
+            vector&lt;int&gt; ele = queries[i];
+            ele.push_back(i);
+            que.push_back(ele);
+        }
+        sort(que.begin(), que.end(), [](const vector&lt;int&gt;&amp; lhs, const vector&lt;int&gt;&amp; rhs) {
+            return lhs[2] &lt; rhs[2];
+        });
+<A NAME="2"></A>        
+        for(int i = 0; i &lt; n; i ++) {
+            f[i] = i;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        
+        vector&lt;bool&gt; ans(nq);
+        int ie = 0; 
+        for(int i = 0; i &lt; nq; i ++) {
+            while(ie &lt; ne &amp;&amp; edgeList[ie][2] &lt; que[i][2]) {
+                uni(edgeList[ie][0], edgeList[ie][1]); 
+                ie ++;
+            }</B></FONT>
+            ans[que[i][3]] = (find(que[i][0]) == find(que[i][1])); 
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

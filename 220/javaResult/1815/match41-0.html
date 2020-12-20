@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>370_66bro.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>370_66bro.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean[] distanceLimitedPathsExist(int n, int[][] A, int[][] query) {
+        int arr[]=new int[n];
+        for(int i=0;i&lt;arr.length;i++){
+            arr[i]=i;
+        }
+<A NAME="0"></A>        
+        int cost=0;
+        int j=0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match41-1.html#0',3,'match41-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean res[]=new boolean[query.length];
+        int q[][]=new int[query.length][4];
+        for(int i=0;i&lt;query.length;i++){
+            q[i][0]=query[i][0];
+            q[i][1]=query[i][1];
+            q[i][2]=query[i][2];
+            q[i][3]=i;
+        }
+        
+        Arrays.sort(q,(a,b)-&gt;{
+            return a[2]-b[2];
+        });
+        
+        
+        
+        
+        Arrays.sort(A,(a,b)-&gt;{
+            return a[2]-b[2];
+        }</B></FONT>);
+        
+        
+        //for(int pair[]:A){
+           // System.out.println(pair[0]+&quot; &quot;+pair[1]+&quot; &quot;+pair[2]+&quot; &quot;);
+       // }
+        
+        for(int i=0;i&lt;A.length;i++){
+            int rr1=find(arr,A[i][0]);
+            int rr2=find(arr,A[i][1]);
+            
+           
+            
+            int oldj=j;
+            cost=Math.max(cost,A[i][2]);
+            while(j&lt;q.length&amp;&amp;q[j][2]&lt;=cost){
+                j++;
+            }
+
+            //System.out.println(oldj+&quot;  &quot;+j+&quot;  &quot;+cost);
+            
+            
+            for(int k=oldj;k&lt;j;k++){
+               
+                int  r1=find(arr,q[k][0]);
+                int r2=find(arr,q[k][1]);
+                //if(k==2)System.out.println(&quot;yes&quot;+&quot;  &quot;+q[k][0]+&quot;  &quot;+q[k][1]+&quot;  &quot;+r1+&quot;  &quot;+r2);
+                int index=q[k][3];
+                if(r1==r2){
+                    res[index]=true;
+                }
+            }
+            
+            if(rr1==rr2)continue;
+            arr[rr1]=rr2;
+           
+        }
+        
+        
+        for(int i=j;i&lt;q.length;i++){
+            if(q[i][2]&gt;cost){
+                int r1=find(arr,q[i][0]);
+                int r2=find(arr,q[i][1]);
+                int index=q[i][3];
+                if(r1==r2){
+<A NAME="1"></A>                    res[index]=true;
+                }
+            }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match41-1.html#1',3,'match41-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        
+        return res;
+    }
+    
+    
+    public int find(int nums[],int x){//union find =&gt; find method
+		if(nums[x]==x)return x;</B></FONT>
+		int root=find(nums,nums[x]);
+		nums[x]=root;
+		return root;
+	}
+}
+
+/*
+13
+[[9,1,53],[3,2,66],[12,5,99],[9,7,26],[1,4,78],[11,1,62],[3,10,50],[12,1,71],[12,6,63],[1,10,63],[9,10,88],[9,11,59],[1,4,37],[4,2,63],[0,2,26],[6,12,98],[9,11,99],[4,5,40],[2,8,25],[4,2,35],[8,10,9],[11,9,25],[10,11,11],[7,6,89],[2,4,99],[10,4,63]]
+[[9,7,65],[9,6,1],[4,5,34],[10,8,43],[3,7,76],[4,2,15],[7,6,52],[2,0,50],[7,6,62],[1,0,81],[4,5,35],[0,11,86],[12,5,50],[11,2,2],[9,5,6],[12,0,95],[10,6,9],[9,4,73],[6,10,48],[12,0,91],[9,10,58],[9,8,73],[2,3,44],[7,11,83],[5,3,14],[6,2,33]]*/
+
+
+
+
+//[true,false,false,true,true,false,false,true,false,true,false,true,false,false,false,true,false,true,false,true,true,true,false,true,false,false]
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>889_mpn.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>889_mpn.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int MAXN = 1e5;
+int ans[MAXN];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxResult(vector&lt;int&gt;&amp; nums, int k){
+        // DP using max heap
+        int n = int(nums.size());
+        multiset&lt;int, greater&lt;int&gt;&gt; choices;
+        ans[n-1] = nums[n-1]; choices.insert(ans[n-1]);
+        for(int i = n-2; i &gt;= 0; i--){
+            ans[i] = (*choices.begin())+nums[i];
+            choices.insert(ans[i]);
+            // At every turn i choices only store nums[i+1],...,nums[n-1]
+            // Next turn: i-1 cannot run to nums[i+k]
+            // So this entry should be removed
+            if(i &lt; n-k)
+                choices.erase(ans[i+k]);
+        }
+        return ans[0];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

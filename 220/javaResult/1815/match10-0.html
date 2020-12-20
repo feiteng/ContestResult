@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_arignote.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+		Integer[] e = new Integer[edgeList.length], q = new Integer[queries.length];
+		for (int i = 0; i &lt; e.length; i++) {
+			e[i] = i;
+		}
+		for (int i = 0; i &lt; q.length; i++) {
+			q[i] = i;
+		}
+		Arrays.sort(e, (a, b) -&gt; edgeList[a][2] - edgeList[b][2]);
+		Arrays.sort(q, (a, b) -&gt; queries[a][2] - queries[b][2]);
+		boolean[] result = new boolean[queries.length];
+		UnionFind uf = new UnionFind(n);
+		for (int i = 0, j = 0; i &lt; q.length; i++) {
+			for (; j &lt; e.length &amp;&amp; edgeList[e[j]][2] &lt; queries[q[i]][2]; j++) {
+				uf.union(edgeList[e[j]][0], edgeList[e[j]][1]);
+			}
+			result[q[i]] = uf.find(queries[q[i]][0]) == uf.find(queries[q[i]][1]);
+		}
+<A NAME="0"></A>		return result;
+	}
+
+	class U<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nionFind {
+		private int count = 0;
+		private int[] parent, rank;
+
+		public UnionFind(int n) {
+			count = n;
+			parent = new int[n];
+			rank = new int[n];
+			for (int i = 0; i &lt; n; i++) {
+				parent[i] = i;
+			}
+		}
+
+		public int find(int p) {
+			while (p != parent[p]) {
+				parent[p] = parent[parent[p]];
+				p = parent[p];
+			}
+			return p;
+		}
+
+		public void union(int p, int q) {
+			int rootP = find(p);
+			int rootQ = find(q);
+			if (rootP == rootQ)
+				return;
+			if (rank[rootQ] &gt; rank[rootP]) {
+				parent[rootP] = rootQ;
+			} else {
+				parent[rootQ] = rootP;
+				if (rank[rootP] == rank[rootQ]) {
+					rank[rootP]++;
+				}
+			}
+			count--;
+		}
+
+		public int count() {
+			return count;
+		}
+	}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

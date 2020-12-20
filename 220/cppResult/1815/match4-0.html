@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_w285714.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_w285714.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; f;
+    int find(int x){
+        if(f[x]==-1)
+            return x;
+        return f[x]=find(f[x]);
+    }
+    void com(int x, int y){
+        int fx=find(x);
+        int fy=find(y);
+        if(fx!=fy)</B></FONT>
+            f[fx]=fy;
+    }
+    static bool cmp(vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b){
+        return a[2]&lt;b[2];
+    }
+    vector&lt;bool&gt; distanceLimitedPathsExist(int n, vector&lt;vector&lt;int&gt;&gt;&amp; e, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int m=queries.size();
+        int k=e.size();
+        f.insert(f.end(),n,-1);
+        vector&lt;bool&gt; res(m);
+        sort(e.begin(),e.end(),cmp);
+        vector&lt;vector&lt;int&gt;&gt; qq;
+        for(int i=0;i&lt;m;++i)
+<A NAME="1"></A>            qq.push_back({queries[i][2],queries[i][0],queries[i][1],i});
+        sort(qq.begin(),qq.end());
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int i=0;
+        for(int j=0;j&lt;m;++j){
+            while(i&lt;k&amp;&amp;e[i][2]&lt;qq[j][0]){
+                com(e[i][0],e[i][1]);
+                ++i;
+            }
+            res[qq[j][3]]=find(qq[j][1])==find(qq[j][2]);
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

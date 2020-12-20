@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_hughstudy-n.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_hughstudy-n.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private class DSU{
+        int[] parent;
+
+        public DSU(int N) {
+            parent = new int[N];
+            for (int i = 0; i &lt; N; ++i) {
+                parent[i] = i;
+            }
+        }
+
+        public int find(int x) {
+            if</B></FONT> (parent[x] != x) parent[x] = find(parent[x]);
+            return parent[x];
+        }
+
+        public void union(int x, int y) {
+            parent[find(x)] = find(y);
+        }
+    }
+<A NAME="1"></A>
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        boolean[] res = new boolean[queries.length];
+        Arrays.sort(edgeList, (a, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>b) -&gt; (a[2] - b[2]));
+        Integer[] sort = new Integer[queries.length];
+        for (int i = 0; i &lt; queries.length; ++i) {
+<A NAME="2"></A>            sort[i] = i;
+        }
+        Arrays.sort(sort, (a, b) -&gt; (querie</B></FONT>s[a][2] - queries[b][2]));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>DSU uf = new DSU(n);
+        int pos = 0;
+        for (int i = 0; i &lt; sort.length; ++i) {
+            int[] q = queries[sort[i]];
+            while (pos &lt; edgeList.length &amp;&amp; edgeList[pos][2] &lt; q[2]) {
+                uf.union(edgeList[pos][0], edgeList[pos][1]);
+                ++pos;
+            }
+            res[sort[i]] = (uf.find</B></FONT>(q[0]) == uf.find(q[1]));
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

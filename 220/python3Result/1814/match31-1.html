@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_sharkshark.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>327_sharkshark.py</CENTER></H3><HR>
+<PRE>
+from collections import deque
+<A NAME="0"></A>
+class Solution:
+    def worker(nums, k):
+        que <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= deque()
+        que.append([0, nums[0]])
+        for i in range(1, len(nums)):
+<A NAME="1"></A>            while i - que[0][0] &gt; k:
+                que.popleft()
+            newval = que[0][1] + nums[i]
+            while</B></FONT> len(que) and (que<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[-1][1] &lt; newval):
+                que.pop()
+            que.append([i, newval])
+        return que[-1][</B></FONT>1]
+    
+    def maxResult(self, nums: List[int], k: int) -&gt; int:
+        return Solution.worker(nums, k)
+        new_nums = [0]
+        ans = 0
+        for x in nums:
+            if x &gt;= 0:
+                ans += x
+                if len(new_nums) &gt;= k:
+                    new_nums.append(0)
+                    #print(new_nums)
+                    ans += Solution.worker(new_nums, k)
+                    new_nums = [0]
+            else:
+                new_nums.append(x)
+        if len(new_nums) &gt; 1:
+            ans += nums[-1]
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>458_cctest.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>458_cctest.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class UnionFind{
+    public final int[] parents;
+    public int count;
+
+    public UnionFind(int n){
+        this.parents = new</B></FONT> int[n];
+        reset();
+    }
+
+    public void reset(){
+        for(int i =0;i&lt;parents.length;i++){
+            parents[i] = i;
+        }
+        count = parents.length-1;
+    }
+
+    public int find(int i){
+        int parent = parents[i];
+        if(parent == i){
+            return i;
+        }else{
+            int root = find(parent);
+            parents[i] = root;
+            return root;
+        }
+    }
+
+    public boolean union(int i, int j){
+        int r1 = find(i);
+        int r2 = find(j);
+        if(r1 != r2){
+            count--;
+            parents[r1] = r2;
+<A NAME="1"></A>            return true;
+        }else{
+            return false;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    }
+
+}
+
+<A NAME="2"></A>       public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {</B></FONT>
+        Arrays.sort(edgeList,(a,b)-&gt;a[2]-b[2]);
+
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int [][]t=new int[queries.length][4];
+        for (int i = 0; i &lt; queries.length;  i++) {
+            t[i][0]=queries[i][0];
+            t[i][1]=queries[i][1];
+            t[i][2]=queries[i][2];
+            t[i][3]=i;
+        }
+        Arrays.sort(t,(a,b)-&gt;a[2]-b[2]</B></FONT>);
+
+
+        int left=0;
+        UnionFind uf=new UnionFind(n);
+<A NAME="3"></A>        boolean []res=new boolean[queries.length];
+        for (int i = 0; i &lt; t.length; i++) {
+           while (left&lt;edgeList.length&amp;&amp;edgeList[left][2]&lt;t[i][2]){
+               <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>uf.union(edgeList[left][0],edgeList[left][1]);
+               left++;
+           }
+
+           if(uf.find(t[i][0])==uf.find(t[i][1])) {
+               res[t[i][3]]=true;
+           }
+
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

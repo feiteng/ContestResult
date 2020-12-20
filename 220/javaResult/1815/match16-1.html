@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_terranw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>141_terranw.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[] par;
+    
+    int getRoot(int now) {
+        int rt = now;
+        while (par[rt] != rt) rt = par[rt];
+        
+        int tmp;
+        while (par[now] != now) {
+            tmp = par[now];
+            par[now] = rt;
+            now = tmp;
+        }
+        
+        return rt;
+    }
+    
+    void merge(int node1, int node2) {
+        //System.out.printf(&quot;merge %d %d; &quot;, node1, node2);
+        node1 = getRoot(node1);
+        node2 = getRoot(node2);
+        
+        //System.out.printf(&quot;root %d %d\n&quot;, node1, node2);
+        par[node1] = node2;
+<A NAME="1"></A>    }
+    
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Arrays.sort(edgeList, new Comparator&lt;int[]&gt;(){
+            @Override
+            public int compare(int[] e1, int[] e2) {
+                return e1[2] - e2[2];
+            }
+<A NAME="0"></A>        });
+        
+        int t = queries.length;
+        Integer[] qid = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new Integer[t]</B></FONT>;
+        for (int i = 0; i &lt; t; ++i) qid[i] = i;
+        Arrays.sort(qid, new Comparator&lt;Integer&gt;(){
+            @Override
+            public int compare(Integer qid1, Integer qid2) {
+                return queries[qid1][2] - queries[qid2][2];
+            }
+        });
+        
+        boolean[] ans = new</B></FONT> boolean[t];
+        par = new int[n];
+        for (int i = 0; i &lt; n; ++i) par[i] = i;
+        
+        int nowE = 0;
+<A NAME="2"></A>        int m = edgeList.length;
+        for (int i = 0; i &lt; t; ++i) {
+            while (nowE &lt; m &amp;&amp; edgeList[nowE][2] &lt; queries[qid[i]][2]) {
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>merge(edgeList[nowE][0], edgeList[nowE][1]);
+                ++nowE;
+            }
+            ans[qid[i]] = (getRoot(queries[qid[i]][0]) == getRoot(queries[qid[i]][1]));
+        }
+        
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

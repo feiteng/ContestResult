@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>480_pminkov.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>480_pminkov.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+class Solution {
+  <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DisjointUnionSets {
+    int[] rank, parent;
+    int n;
+
+    public DisjointUnionSets(int n)
+    {
+      rank = new int[n];
+      parent = new</B></FONT> int[n];
+      this.n = n;
+      makeSet();
+    }
+
+    void makeSet()
+    {
+      for (int i = 0; i &lt; n; i++) {
+        parent[i] = i;
+      }
+    }
+
+    int find(int x)
+    {
+      if (parent[x] != x) {
+        parent[x] = find(parent[x]);
+<A NAME="1"></A>      }
+
+      return parent[x];
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    void union(int x, int y)
+    {
+      int xRoot = find(x), yRoot = find(y);
+      if (xRoot == yRoot)
+        return;
+      if (rank[xRoot] &lt; rank[yRoot])
+        p</B></FONT>arent[xRoot] = yRoot;
+      else if (rank[yRoot] &lt; rank[xRoot])
+        parent[yRoot] = xRoot;
+
+      else
+      {
+<A NAME="2"></A>        parent[yRoot] = xRoot;
+        rank[xRoot] = rank[xRoot] + 1;
+      }
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+  }
+  class Edge {
+    int u, v, dist, pos;
+
+    public Edge(int u, int v, int dist, int pos) {
+      this.u = u;
+      this.v = v;
+      this.dist = dist;
+      this.pos = pos;
+    }
+  }</B></FONT>
+  public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queriesList) {
+    ArrayList&lt;Edge&gt; edges = new ArrayList&lt;&gt;();
+    ArrayList&lt;Edge&gt; queries = new ArrayList&lt;&gt;();
+    for (int[] ints : edgeList) {
+      edges.add(new Edge(ints[0], ints[1], ints[2], 0));
+<A NAME="3"></A>    }
+    for (int i =0 ; i &lt;queriesList.length; i++) {
+      queries.add(new Edge(queriesList[i][0], queriesList[i][1], queriesList[i][2], i));
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match2-1.html#3',3,'match2-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    edges.sort(new Comparator&lt;Edge&gt;() {
+<A NAME="4"></A>      @Override
+      public int compare(Edge o1, Edge o2) {</B></FONT>
+        return o1.dist - o2.dist;
+      <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match2-1.html#4',3,'match2-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    });
+    queries.sort(new Comparator&lt;Edge&gt;() {
+      @Override
+      public int compare(Edge o1, Edge o2) {</B></FONT>
+        return o1.dist - o2.dist;
+      }
+    });
+
+    DisjointUnionSets dj = new DisjointUnionSets(n + 5);
+
+    boolean[] ans = new boolean[queriesList.length];
+    int edgePos = 0;
+    for (Edge query : queries) {
+      System.out.println(&quot;---&quot;);
+      System.out.println(query.dist);
+<A NAME="5"></A>      while (edgePos &lt; edges.size() &amp;&amp; edges.get(edgePos).dist &lt; query.dist) {
+        Edge edge = edges.get(edgePos);
+        System.out.println(String.format(&quot;%d %d %d&quot;, edge.u, edge.v, edge.dist));
+        <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match2-1.html#5',3,'match2-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dj.union(edge.u, edge.v);
+        edgePos++;
+      }
+      ans[query.pos] = dj.find(query.u) == dj.find(query.v);
+    }
+
+    return ans;
+  }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

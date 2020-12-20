@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_jaewonjo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>247_jaewonjo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind {
+        int[] roots;
+        int[] ranks;
+        
+        UnionFind(int N) {
+            roots = new int[N];
+            ranks = new int[N];
+            for (int i = 0; i &lt; N; i++) {
+                roots[i] = i;
+            }
+        }
+        
+        int find(int i</B></FONT>) {
+            while (roots[i] != i) {
+                roots[i] = roots[roots[i]];
+                i = roots[i];
+            }
+            
+            return i;
+        }
+        
+        void union(int i, int j) {
+            i = find(i);
+            j = find(j);
+<A NAME="2"></A>                
+            if (i == j) return;
+            
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (ranks[i] &lt; ranks[j]) {
+                roots[i] = j;
+            } else if (ranks[i] &gt; ranks[j]) {
+                roots[j] = i;
+            } else {
+                roots[j] = i;
+                ranks[i]++;
+            }
+        }</B></FONT>
+    }
+    
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        int Q = queries.length;
+        for (int i = 0; i &lt; Q; i++) {
+            queries[i] = new int[] { queries[i][0], queries[i][1], queries[i][2], i };
+        }
+        
+        PriorityQueue&lt;int[]&gt; eq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[2] - b[2]);
+        for (int i = 0; i &lt; edgeList.length; i++) eq.offer(edgeList[i]);
+        
+        Arrays.sort(queries, (a, b) -&gt; a[2] - b[2]);
+<A NAME="0"></A>        
+        UnionFind uf = new UnionFind(n);
+        boolean[] ans = new boolean[Q];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; Q; i++) {
+            int l = queries[i][2];
+            int u = queries[i][0];
+            int v = queries[i][1];
+            
+            while (!eq.isEmpty() &amp;&amp; eq.peek()[2] &lt; l) {
+                int[] e = eq.poll();
+                uf.union(e[0], e[1]);
+            }
+            
+            ans[queries[i][3]] = uf.find(u) == uf.find</B></FONT>(v);
+        }
+        
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

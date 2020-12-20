@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>332_bob-116.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>332_bob-116.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        Arrays.sort(edgeList, Comparator.comparingInt(e -&gt; e[2]));
+        int nq = queries.length;
+<A NAME="1"></A>        int[][] sortQuery = new int[nq][2];
+        for (int i = 0; i &lt; nq; i++) {
+            sortQuery[i][0] = queries[i][2];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#1',2,'match40-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sortQuery[i][1] = i;
+        }
+        Arrays.sort(sortQuery, Comparator.comparingInt(e -&gt; e[0]));
+        boolean[] res = new boolean[nq];
+        UF uf = new UF(n)</B></FONT>;
+        int idx = 0;
+        for (int i = 0; i &lt; nq; i++) {
+            int[] query = queries[sortQuery[i][1]];
+            int p = query[0], q = query[1];
+            int limit = query[2];
+            int end = findFirst(edgeList, limit);
+            for (int k = idx; k &lt; end; k++) {
+                int[] edge = edgeList[k];
+                uf.union(edge[0], edge[1]);
+            }
+            idx = end;
+            int pP = uf.find(p), qP = uf.find(q);
+            if (pP == qP) {
+                res[i] = true;
+            }
+        }
+        boolean[] ans = new boolean[nq];
+        for (int i = 0; i &lt; nq; i++) {
+            ans[sortQuery[i][1]] = res[i];
+        }
+        return ans;
+    }
+
+    private int findFirst(int[][] edgeList, int dis) {
+        int low = 0, high = edgeList.length;
+        while (low &lt; high) {
+            int mid = (low + high) / 2;
+            if (edgeList[mid][2] &gt;= dis) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+<A NAME="0"></A>    private static class UF {
+        private int[] parent;
+
+        public UF(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#0',2,'match40-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n) {
+            parent = new int[n];
+<A NAME="2"></A>            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+            }</B></FONT>
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#2',2,'match40-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        public int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }</B></FONT>
+
+        public void union(int x, int y) {
+            int px = find(x);
+            int py = find(y);
+            parent[px] = py;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

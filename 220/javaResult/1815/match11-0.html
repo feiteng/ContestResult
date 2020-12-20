@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>54_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        Edge[] E = new Edge[edgeList.length];
+        for (int i = 0; i &lt; edgeList.length; ++i) {
+            E[i] = new Edge(edgeList[i][0], edgeList[i][1], edgeList[i][2]);
+        }
+        Arrays.sort(E, new Comparator&lt;Edge&gt;() {
+            @Override
+            public int compare(Edge lhs, Edge rhs) {
+                return Integer.compare(lhs.D, rhs.D);
+            }
+        });
+        
+        Query[] Q = new Query[queries.length];
+        for (int i = 0; i &lt; queries.length; ++i) {
+            Q[i] = new Query(i, queries[i][0], queries[i][1], queries[i][2]);
+        }
+        Arrays.sort(Q, new Comparator&lt;Query&gt;() {
+            @Override
+            public int compare(Query lhs, Query rhs) {
+                return Integer.compare(lhs.limit, rhs.limit);
+<A NAME="0"></A>            }
+        });
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>DisjointSet djs = new DisjointSet(n);
+        boolean[] ans = new boolean[queries.length];
+<A NAME="1"></A>        int eIdx = 0;
+        for (Query q : Q) {
+            while</B></FONT> (eIdx &lt; E.length &amp;&amp; E[eIdx].D &lt; q.limit) {
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>djs.union(E[eIdx].U, E[eIdx].V);
+                ++eIdx;
+            }
+            ans[q.ID] = djs.find(q.P) == djs.find(q.Q);
+        }
+        return ans;
+    }
+    
+    private static class Edge {
+        public int U, V;
+        public int D;
+        
+        public Edge(int u, int v, int d) {
+            U = u;
+            V = v;
+            D = d;
+        }
+    }
+    
+    private static class Query {
+        public int ID;
+        public int P</B></FONT>, Q;
+        public int limit;
+        
+        public Query(int i, int p, int q, int lim) {
+            ID = i;
+            P = p;
+            Q = q;
+            limit = lim;
+        }
+    }
+    
+    /*
+	 * DisjointSet does union-find in approximately linear time.
+	 */
+	public static class DisjointSet {
+		private int[] rank;
+<A NAME="2"></A>		private int[] parent;
+
+		public DisjointSet(int n) {
+			this.rank = new int[n<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>];
+			this.parent = new int[n];
+
+			for (int i = 0; i &lt; n; ++i) {
+				parent[i] = i;
+			}
+		}
+
+		public int find(int x) {</B></FONT>
+<A NAME="3"></A>			if (parent[x] != x) {
+				parent[x] = find(parent[x]);
+			}
+			return parent[x];<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match11-1.html#3',3,'match11-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		}
+
+		public boolean union(int x, int y) {
+			int xr = find(x);
+			int yr = find(y);
+
+			if (xr == yr) {</B></FONT>
+				return false;
+			}
+
+			if (rank[xr] &lt; rank[yr]) {
+				parent[xr] = yr;
+			} else if (rank[xr] &gt; rank[yr]) {
+				parent[yr] = xr;
+			} else {
+				parent[xr] = yr;
+				++rank[yr];
+			}
+			return true;
+		}
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>
