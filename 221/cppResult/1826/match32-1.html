@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>109_wnjxyk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>109_wnjxyk.cpp</CENTER></H3><HR>
+<PRE>
+const int MAXN = 1e5 + 50;
+const int MAXM = 1e5 * 30;
+struct Trie{
+    int sum, ch[2];
+}trie[MAXM];
+int root, numt;
+int init(){
+    int x = ++numt;
+    trie[x].ch[0] = trie[x].ch[1] = -1;
+    trie[x].sum = 0;
+<A NAME="0"></A>    return x;
+}
+void insert(int v){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int x = root; trie[x].sum += 1;
+    for (int i = 29; i &gt;= 0; i--){
+        int cur = (v &gt;&gt; i) &amp; 1;
+        if (trie[x].ch[cur] == -1) trie[x].ch[cur] = init();
+        x = trie[x].ch[cur];
+<A NAME="1"></A>        trie[x].sum += 1;</B></FONT>
+    }
+}
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int query(int v){
+    int x = root, ans = 0;
+    for (int i = 29; i &gt;= 0; i--){
+        int cur = ((v &gt;&gt; i) &amp; 1) ^ 1;
+        if (trie[x].ch[cur] != -1 &amp;&amp; trie[trie[x].ch[cur]].sum &gt; 0){
+            ans += 1 &lt;&lt; i;
+            x = trie[x].ch[cur];
+        }else if(trie[x].ch[cur ^ 1] != -1 &amp;&amp; trie[trie[x].ch[cur ^ 1]].sum &gt; 0){
+            x = trie[x].ch[cur ^ 1];
+        }else return -1;
+    }
+    return ans;
+}</B></FONT>
+
+struct Query{
+    int x, m, i;
+}Q[MAXN];
+bool cmp(Query&amp; a, Query&amp; b){ return a.m &lt; b.m; }
+int ans[MAXN];
+
+class Solution {
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int n = nums.size(), i = 0, m = queries.size();
+        numt = 0;
+        root = init();
+        
+        sort(nums.begin(), nums.end());
+        
+        for (int i = 0; i &lt; m; i++){
+            Q[i].i = i;
+            Q[i].x = queries[i][0];
+            Q[i].m = queries[i][1];
+        }
+        sort(Q, Q + m, cmp);
+        
+        for (int k = 0; k &lt; m; k++){
+            while(i &lt; n &amp;&amp; nums[i] &lt;= Q[k].m) insert(nums[i++]);
+            ans[Q[k].i] = query(Q[k].x);
+        }
+        
+        vector&lt;int&gt; ret;
+        for (int i = 0; i &lt; m; i++) ret.push_back(ans[i]);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

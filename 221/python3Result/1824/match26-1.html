@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_L-xm.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>210_L-xm.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def eatenApples(self, apples: List[int], days: List[int]) -&gt; int:
+        res = 0
+        q = []
+        for i, (a, d) in enumerate(zip(apples, days)):
+            while q and q[0][0] &lt;= i:
+                heapq.heappop(q)
+            if a &gt; 0:
+                heapq.heappush(q, [i + d, a])
+            if q:
+<A NAME="1"></A>                p = heapq.</B></FONT>heappop(q)
+                p[1] -= 1
+                res += 1
+                if p<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[1] &gt; 0:
+                    heapq.heappush(q, p)
+        # print(res)
+        # print(q)
+        i = len(apples)
+        while q:
+            p = heapq.heappop(</B></FONT>q)
+            if p[0] &lt;= i:
+                continue
+            res += min(p[0] - i, p[1])
+            i += min(p[0] - i, p[1])
+        return res
+</PRE>
+
+</BODY>
+</HTML>

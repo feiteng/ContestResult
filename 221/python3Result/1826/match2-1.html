@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>287_umopepisdn.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>287_umopepisdn.py</CENTER></H3><HR>
+<PRE>
+def getComp(n):
+    res = 0
+    for i in range(31, -1, -1):
+        sh = 1 &lt;&lt; i
+        val = sh &amp; n
+        if val &gt; 0:
+            val = 0
+        else:
+            val = 1
+        res += (val &lt;&lt; i)
+    return res
+
+class MyTrie:
+    def __init__(self):
+        self.root = {}
+
+    def populateSuffixTrieFrom(self, n):
+        curr = self.root
+        for i in range(31, -1, -1):
+            sh = 1 &lt;&lt; i
+            val = sh &amp; n
+            if val &gt; 0:
+                val = 1
+                
+            if val not in curr:
+                curr[val] = {}
+            curr = curr[val]
+
+    def contains(self, n):
+        curr = self.root
+        
+        res = 0
+        
+        for i in range(31, -1, -1):
+            sh = 1 &lt;&lt; i
+            val = sh &amp; n
+            if val &gt; 0:
+                val = 0
+            else:
+                val = 1
+                
+            if val not in curr:
+                if val == 1:
+                    val = 0
+                else:
+                    val = 1
+                    
+            res += (val &lt;&lt; i)
+            
+            curr = curr[val]
+            
+<A NAME="0"></A>        return res
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        nums.sort()
+        for i,q in enumerate(queries):
+            q.append(i)
+            
+        queries.sort(key=lambda x: x[</B></FONT>1])
+        # print(queries)
+            
+        res = [-1] * len(queries)
+        
+        tr = MyTrie()
+        
+        numsInd = 0
+        
+        # ADD LOGIC HERE
+        for q in queries:
+            targ, limit, ind = q
+            
+            while numsInd &lt; len(nums) and nums[numsInd] &lt;= limit:
+                tr.populateSuffixTrieFrom(nums[numsInd])
+                numsInd += 1
+                
+            if numsInd == 0:
+                continue
+            
+            comp = tr.contains(targ)
+            # print(comp)
+            ans = comp ^ targ
+            
+            res[ind] = ans
+        
+        return res
+        
+# nums consisting of **non-negative** integers
+# queries array, where queries[i] = x,m
+
+# ith query is the max bitwise XOR value of x AND any element of nums &lt;= m
+# if all elements are larger, answer is -1
+
+# return int array where answer.length == quesries. length
+</PRE>
+
+</BODY>
+</HTML>

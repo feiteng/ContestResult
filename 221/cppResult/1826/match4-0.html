@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>70_Xiaohao1211.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>70_Xiaohao1211.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>private:
+    vector&lt;int&gt;v[2];
+    int cnt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void add(int x){
+        int cur = 0;
+        for(int i=30;i&gt;=0;i--){
+            int tt = (x&amp;(1&lt;&lt;i))?1:0;</B></FONT>
+            if(v[tt][cur]==-1){
+                v[tt][cur] = cnt++;
+<A NAME="1"></A>                v[0].push_back(-1);
+                v[1].push_back(-1);
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            cur = v[tt][cur];
+        }
+    }
+    int query(int x){
+        int ret = 0;
+        int cur = 0;
+        for(int i=30;i&gt;=0;i--){
+            int tt = (x&amp;(1&lt;&lt;i))?1:0;</B></FONT>
+            if(v[1-tt][cur]!=-1){
+                ret|=(1&lt;&lt;i);
+                cur = v[1-tt][cur];
+            } else {
+                cur=v[tt][cur];
+            }
+        }
+        return ret;
+    }
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; a, vector&lt;vector&lt;int&gt;&gt;&amp; q) {
+        v[0].clear();
+        v[1].clear();
+        v[0].push_back(-1);
+        v[1].push_back(-1);
+        cnt=1;
+        int m = q.size();
+        int n = a.size();
+        sort(a.begin(),a.end());
+        vector&lt;int&gt;idx = vector&lt;int&gt;(m);
+        for(int i=0;i&lt;m;i++)idx[i] = i;
+<A NAME="2"></A>        sort(idx.begin(),idx.end(), [&amp;q](int x,int y){
+            return q[x][1]&lt;q[y][1];
+        });
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt;ret = vector&lt;int&gt;(m);
+        int r = 0;
+        for(int i=0;i&lt;m;i++){
+            while(r&lt;n&amp;&amp;a[r]&lt;=q[idx[i]][1]){
+                add(a[r]);
+                r++;
+            }
+            if(r==0)ret[idx[i]]=-1;
+            else ret[idx[i]] = query(q[idx[i]][0]);
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

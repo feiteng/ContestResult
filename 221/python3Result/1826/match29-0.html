@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_tanakat01.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_tanakat01.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+class Solution:
+<A NAME="0"></A>    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        nums.sort()
+        @lru_cache(None)
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def div(l, u, i):
+            ll, uu = l, u
+            while uu - ll &gt; 0:
+                c = (ll + uu) // 2
+                if (nums[c] &amp; (1 &lt;&lt; i)) == 0:
+                    ll = c + 1
+                else:
+                    uu = c
+            r</B></FONT>eturn ll
+        def sub(x, m, i, l, u):
+            # print('sub', (x, m, i, l, u))
+            if u - l == 0:
+                return -1
+            if nums[l] &gt; m:
+                return -1
+            if i &lt; 0:
+                return nums[l] ^ x
+            ll = div(l, u, i)
+            if (x &amp; (1 &lt;&lt; i)) != 0:
+                ans = sub(x, m, i - 1, l, ll)
+                if ans &gt;= 0:
+                    return ans
+                return sub(x, m, i - 1, ll, u)
+            else:
+                ans = sub(x, m, i - 1, ll, u)
+                if ans &gt;= 0:
+                    return ans
+                return sub(x, m, i - 1, l, ll)
+        return [sub(x, m, 32, 0, len(nums)) for x, m in queries]
+</PRE>
+
+</BODY>
+</HTML>

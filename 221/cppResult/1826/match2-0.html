@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_axiba-4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>241_axiba-4.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    struct node{
+        int a,b;
+    }e[100007*20];
+    int tot=1;
+
+    void build(int x)
+    {
+        int p=1;
+        for(int i=30;i&gt;=0;i--) {
+            int tmp=x&amp;(1&lt;&lt;i);
+            if(tmp)
+                if(!e[p].a)
+                    e[p].a=++tot,p=tot;
+                else p=e[p].a;
+            else
+                if(!e[p].b) e[p].b=++tot,p=tot;
+                else p=e[p].b;
+        }
+    }
+
+    int query(int x)
+    {
+        int p=1;
+        int ans=0;
+        for(int i=30;i&gt;=0;i--) {
+            int tmp=x&amp;(1&lt;&lt;i);
+            if(!tmp) {
+                if(e[p].a) p=e[p].a,ans+=(1&lt;&lt;i);
+                else p=e[p].b;
+            }
+            else {
+                if(e[p].b)	p=e[p].b;
+                else p=e[p].a,ans+=(1&lt;&lt;i);
+            }
+        }
+        return ans^x;
+    }</B></FONT>
+    
+    static bool mycomp(vector&lt;int&gt; &amp;v1, vector&lt;int&gt; &amp;v2){
+        return v1[1] &lt; v2[1];
+    }
+    
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        for(int i=0; i&lt;queries.size(); i++){
+            queries[i].push_back(i);
+        }
+        sort(nums.begin(), nums.end());
+        sort(queries.begin(), queries.end(), mycomp);
+        
+        vector&lt;int&gt; res(queries.size(), 0);
+        int tn = 0;
+        for(int tq = 0; tq &lt; queries.size(); tq++){
+            while(tn &lt; nums.size() &amp;&amp; nums[tn] &lt;= queries[tq][1]){
+                build(nums[tn]);
+                tn++;
+            }
+            if(tn == 0)
+                res[queries[tq][2]] = -1;
+            else
+                res[queries[tq][2]] = query(queries[tq][0]);
+        }
+        
+        return res;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

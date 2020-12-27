@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>864_Alwithy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>864_Alwithy.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public static int eatenApples(int[] apples, int[] days) {
+        if (apples == null || apples.length == 0) {
+            return 0;
+<A NAME="0"></A>        }
+        int n = apples.length;
+        //a[0]表示过期时间,a[1]表示剩余苹果数量
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;int[]&gt; heap = new PriorityQueue&lt;&gt;(new Comparator&lt;int[]&gt;() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });
+        int res = 0</B></FONT>;//吃掉的苹果
+        for (int i = 0; i &lt; n; i++) {
+<A NAME="1"></A>            if (apples[i] &gt; 0) {
+                int[] cur = {i + days[i], apples[i]};
+                heap.add(cur);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            while (!heap.isEmpty() &amp;&amp; heap.peek()[0] &lt;= i) {
+                heap.poll();
+            }
+            if (!heap.isEmpty()) {
+                int[] cur = heap.peek();
+                cur[1]--;
+                res++;
+                if (cur[1] == 0) {
+                    heap.poll();
+                }
+            }
+<A NAME="2"></A>        }</B></FONT>
+
+        int i = n;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!heap.isEmpty()) {
+            while (!heap.isEmpty() &amp;&amp; heap.peek()[0] &lt;= i) {
+                heap.poll();
+            }
+            if (!heap.isEmpty()) {
+                int[] cur = heap.peek();
+                cur[1]--;
+                res++;
+                if (cur[1] == 0) {
+                    heap.poll();
+                }
+            }
+            i++;
+        }
+
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

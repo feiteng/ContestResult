@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>267_wutwut1.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>267_wutwut1.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        return solve(nums, queries)
+    
+def solve(nums, queries):
+    # first sort the queries based on the second val, so we only process the numbers that are valid
+    nums.sort()
+    new_queries = list(enumerate(queries))
+    #print(new_queries)
+    new_queries.sort(key = lambda x: x[1][1])
+    queries = new_queries
+    #print(queries)
+    tree = Tree()
+    i = 0
+    res = [0] * len(queries)
+    for ind, (val, limit) in queries:
+<A NAME="0"></A>        while i &lt; len(nums) and nums[i] &lt;= limit:
+            tree.add(nums[i])
+            i += 1
+        res[ind] = tree.get(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>val)
+        
+    return res
+
+class Tree():
+    def __init__(self):
+        self.root = {}
+        
+    def add(self, num):
+        #print(num, 'add')
+<A NAME="1"></A>        curr = self.root
+        for n in reversed(</B></FONT>range(32)):
+            isone = (num &amp; (1&lt;&lt;n)) &gt;= 1
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if isone not in curr:
+                curr[isone] = {}
+            curr = curr[isone]
+    def get(self, num):
+        curr = self.root
+        res = 0
+        for n in reversed(</B></FONT>range(32)):
+            isone = (num &amp; (1 &lt;&lt; n)) &gt;= 1
+            if (not isone) in curr:
+                #print('match', num, n, isone)
+                curr = curr[not isone]
+                res += 1 &lt;&lt; n
+            elif isone in curr:
+                curr = curr[isone]
+            else:
+                return -1
+        return res
+    
+    
+    
+</PRE>
+
+</BODY>
+</HTML>

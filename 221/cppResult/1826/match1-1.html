@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_zjj1149.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_zjj1149.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Node
+{
+public:
+	int val;
+	Node *next[2];
+	Node(int v = 0):val(v) {next[0] = next[1] = NULL;}
+};
+class Trie
+{
+public:
+	Node *root;
+	Trie()
+	{
+		root = new Node();
+	}
+	~Trie()//析构释放内存
+	{
+		destroy(root);
+	}
+	void destroy(Node *root)
+	{
+		if(root == NULL)
+			return;
+		destroy(root-&gt;next[0]);
+		destroy(root-&gt;next[1]);
+		delete root;
+	}
+	void insert(int n)//插入数字的二进制位
+	{
+		Node *cur = root;
+		int bit;
+		for(int i = 31; i &gt;= 0; --i)
+		{
+			bit = (n&gt;&gt;i) &amp; 1;
+			if(cur-&gt;next[bit] == NULL)
+				cur-&gt;next[bit] = new Node(bit);
+			cur = cur-&gt;next[bit];
+		}
+	}
+	int MaxXOR(int n)
+	{
+		Node *cur = root;
+		int val = 0, bit, anotherBit;
+		for(int i = 31; i &gt;= 0; --i)
+		{
+			bit = (n&gt;&gt;i) &amp; 1;
+			anotherBit = bit^1;//取反
+			if(cur-&gt;next[anotherBit])
+			{
+				val += (1&lt;&lt;i);
+				cur = cur-&gt;next[anotherBit];
+			}
+			else
+				cur = cur-&gt;next[bit];
+		}
+		return val;
+	}
+};
+
+class Solution {
+public:</B></FONT>
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        sort(nums.begin(), nums.end());
+        // for(int x : nums) cout &lt;&lt; x &lt;&lt; endl;
+        int n = queries.size();
+        vector&lt;int&gt; rk(n), ans(n);
+        iota(rk.begin(), rk.end(), 0);
+        sort(rk.begin(), rk.end(), [&amp;](int a, int b) {
+            return queries[a][1] &lt; queries[b][1];
+        });
+        int prev = 0;
+        auto trie = Trie();
+        for(int i = 0; i &lt; n; i++) {
+            int idx = rk[i];
+            int x = queries[idx][0], m = queries[idx][1];
+            // &lt;= m
+            int j = prev;
+            for(; j &lt; nums.size() &amp;&amp; nums[j] &lt;= m; j++) {
+                trie.insert(nums[j]);
+            }
+            // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+            if(j == 0) {
+                ans[idx] = -1;
+            } else {
+                ans[idx] = trie.MaxXOR(x);
+            }
+            prev= j;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

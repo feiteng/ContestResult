@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>361_acvv_Ncik.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>361_acvv_Ncik.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; findBall(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        vector&lt;int&gt; ans;
+        int n = grid.size(), m = grid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; a(n + 2, vector&lt;int&gt;(m + 2, 1));
+        for (int i = 1; i &lt;= n; ++i) {</B></FONT>
+            for (int j = 1; j &lt;= m; ++j) {
+<A NAME="1"></A>                a[i][j] = grid[i - 1][j - 1];
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt;= n + 1; ++i) a[i][m + 1] = -1;
+        for (int k = 1; k &lt;= m; ++k) {
+            int x = 1, y = k;
+            bool ok = true;
+            while (x &lt;= n and ok) {
+                if (y + 1 &lt;= m and a[x][y] == 1 and a[x][y + 1] == 1) y++, x++;
+                else if (y - 1 &gt;= 1 and a[x][y] == -1 and a[x][y - 1] == -1)y--, x++;
+                else ok = false;
+            }
+            if (ok) ans.push_back(y - 1);
+            else ans.push_back(-1);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

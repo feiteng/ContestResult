@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_cloudstrife0142.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>25_cloudstrife0142.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class TrieNode {
+        boolean done;
+        int min;
+        TrieNode[] children;
+        public TrieNode() {
+            min = Integer.MAX_VALUE;
+            children = new TrieNode[2];
+        }
+    }
+    public void insert(TrieNode root, int num) {
+        TrieNode node = root;
+        for (int j = 30; j &gt;= 0; j--) {
+            node.min = Math.min(node.min, num);
+            int next = ((1&lt;&lt;j) &amp; num) != 0 ? 1 : 0;
+            if (node.children[next] == null) {
+                node.children[next] = new TrieNode();
+            }
+            node = node.children[next];
+        }
+        node.min = Math.min(node.min, num);
+<A NAME="0"></A>        node.done = true;
+    }
+    public int[] maximizeXor(int[] nums, int[][] queries) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TrieNode root = new TrieNode();
+        for (int num : nums) {
+            insert(root, num);
+        }
+        int[] ret = new int[queries.length];
+        for (int j = 0; j &lt; ret.length; j++) {
+            int num = queries[j][0];
+            int min = queries[j][1];
+            TrieNode node = root</B></FONT>;
+            for (int k = 30; k &gt;= 0; k--) {
+                if (node == null || node.min &gt; min) {
+                    ret[j] = -1;
+<A NAME="1"></A>                    break;
+                }
+                int wanted = ((1&lt;&lt;k) &amp; num) != 0 ? 0 : 1;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (node.children[wanted] != null &amp;&amp; node.children[wanted].min &lt;= min) {
+                    node = node.children[wanted];
+                } else {
+                    node = node.children[1-wanted];
+                }
+            }
+            if (ret[j] &gt;= 0 &amp;&amp; node.min &lt;= min) {
+                ret[j] = node.min ^ num;
+            } else {
+                ret[j] = -1;
+            }
+        }
+        return ret;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

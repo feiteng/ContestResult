@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>390_KobeDuu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>390_KobeDuu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int eatenApples(int[] apples, int[] days) {
+        PriorityQueue&lt;Node&gt; q = new PriorityQueue&lt;&gt;();
+        int ans = 0;
+        for(int i = 0;i &lt; apples.length; ++i){
+            if(apples[i] != 0){
+                q.add(new Node(apples[i], i+days[i]));
+            }
+            while(!q.isEmpty() &amp;&amp; q.peek().expire &lt;= i) q.poll();
+            if(!q.isEmpty()){
+                ans += 1;
+                Node now = q.poll();
+                if(--now.num &gt; 0) q.add(now);
+            }
+        }
+<A NAME="1"></A>        int x = apples.length;
+        while(!q.isEmpty()){</B></FONT>
+            while(!q.isEmpty() &amp;&amp; q.peek().expire &lt;= x) q.poll();
+            if(!q.isEmpty())<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                ans += 1;
+                Node now = q.poll();
+                if(--now.num &gt; 0) q.add(now);
+            }
+            x += 1;
+        }
+        return ans;
+    }
+}
+class Node implements Comparable{
+    int num;
+    int expire;
+    public Node(int num, int expire){
+        this.num = num;
+        this.expire = expire;
+    }
+
+    @Override
+    public int compareTo(Object o) {</B></FONT>
+        Node O = (Node) o;
+        return this.expire - O.expire;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

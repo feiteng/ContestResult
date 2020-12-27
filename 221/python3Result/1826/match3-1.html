@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_L-xm.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>210_L-xm.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A># Structure of Trie DS
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class trie:
+     
+    def __init__(self, value: int = 0) -&gt; None:
+         
+        self.value = value
+        self.child = [None] * 2
+
+# Function to initialise a Trie Node
+def get() -&gt; trie:
+     
+    root = trie()
+    root.value = 0
+    root.child[0] = None
+    root.child[1] = None
+     
+    return root
+
+# Computing max xor
+def max_xor(root: trie, key: int) -&gt; int:
+ 
+    temp = root
+ 
+    # Checking for all bits in integer range
+    for i in range(31, -1, -1):
+ 
+        # Current bit in the number
+        current_bit = (key &amp; (1 &lt;&lt; i))
+        if (current_bit &gt; 0):
+            current_bit = 1
+ 
+        # Traversing Trie for different bit, if found
+        if (temp.child[1 - current_bit] != None):
+            temp = temp.child[</B></FONT>1 - current_bit]
+ 
+        # Traversing Trie for same bit
+<A NAME="1"></A>        else:
+            temp = temp.child[current_bit]
+        if temp is None:
+            b<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>reak
+ 
+    # Returning xor value of maximum bit difference
+    # value. Thus, we get maximum xor value
+    return (key ^ temp.value) if temp else -1
+ 
+def insert(root: trie, key: int) -&gt; None:
+ 
+    temp = root
+ 
+    # Storing 31 bits as integer representation
+    for i in range(31, -1, -1):
+ 
+        # Current bit in the number
+        current_bit = key &amp; (1 &lt;&lt; i)
+        if (current_bit &gt; 0):
+            current_bit = 1
+ 
+        # New node required
+        if (temp.child[current_bit] == None):
+            temp.child[current_bit] = get()
+ 
+        # Traversing in Trie
+        temp = temp.child[current_bit]
+ 
+    # Assigning value to the leaf Node
+    temp.value = key
+    
+    
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[</B></FONT>int]:
+        nums.sort()
+        m = len(nums)
+        n = len(queries)
+        idx = sorted(range(n), key=lambda i: queries[i][1])
+        res = [-1] * n
+        t = get()
+        j = 0
+        for i in idx:
+            while j &lt; m and nums[j] &lt;= queries[i][1]:
+                insert(t, nums[j])
+                j += 1
+            res[i] = max_xor(t, queries[i][0])
+        return res
+            
+                
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

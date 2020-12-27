@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>378_cherish-87.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>378_cherish-87.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    struct Node{
+        int x, m, idx,ans;
+    };
+    int son[3100005][2],idx = 0,num[3100005];
+    void insert(int a){
+        int p = 0;
+        for(int i = 30 ; i &gt;= 0 ; --i){
+            int u = a &gt;&gt; i &amp; 1;
+            if(!son[p][u]) son[p][u] = ++ idx;
+            p = son[p][u];
+        }
+        num[p]++;
+        return ;
+    }
+    int query(int a){
+        int res = 0 ,p = 0;
+        for(int i = 30 ; i &gt;= 0 ; --i){
+            int u = a &gt;&gt; i &amp; 1;
+            if(son[p][u^1]){
+                p = son[p][u^1];
+                res = (res &lt;&lt; 1 ) + (u ^ 1);
+            }
+            else{
+                p = son[p][u];
+                res = (res &lt;&lt; 1) + u;
+            }
+        }
+        if(!num[p]) return 0;
+        return res;
+    }
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int q = queries.size();
+        vector&lt;Node&gt;que(q);
+        for(int i = 0 ; i &lt; q ; ++i){
+            que[i]={queries[i][0],queries[i][1],i,-1};
+        }
+        sort(nums.begin(),nums.end());
+        sort(que.begin(),que.end(),[](const Node&amp; a , const Node&amp; b){
+            return a.m  &lt; b.m ||(a.m == b.m &amp;&amp; a.idx &lt; b.idx);
+        });
+        int p = 0 , r = 0 , n = nums.size();
+        while(p &lt; n &amp;&amp; r &lt; q){
+            if(nums[p] &lt;= que[r].m) insert(nums[p++]);
+            else{
+                int dx = query(que[r].x);
+                //cout &lt;&lt;nums[p] &lt;&lt;&quot; &quot;&lt;&lt; dx &lt;&lt;endl;
+                if(dx == 0 &amp;&amp; nums[0] != 0) r++;
+                else que[r].ans = dx^que[r].x,r++;
+            }
+        }
+        while (r &lt; q) {
+            int dx = query(que[r].x);
+            if (dx == 0 &amp;&amp; nums[0] != 0) r++;
+            else que[r].ans = dx ^ que[r].x, r++;
+        }
+        sort(que.begin(),que.end(),[](const Node&amp; a , const Node&amp; b){
+            return a.idx &lt; b.idx;
+        });
+        vector&lt;int&gt;res(q,-1);
+        for(int i = 0 ; i &lt; q ; ++i) res[i] = que[i].ans;
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

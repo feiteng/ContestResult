@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_winter_training.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_winter_training.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn=1e5+5;
+<A NAME="0"></A>int trie[32*maxn][2];
+int val[32*maxn];
+int sz;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void ins(int x){
+    int cnt=0;
+    for(int i=31;i&gt;=0;i--){
+        int u=(x&gt;&gt;i)&amp;1;
+        if(!trie[cnt][u]){
+            trie[sz][0]=trie[sz][1]=0;</B></FONT>
+            val[sz]=0;
+            trie[cnt][u]=sz++;
+        }
+        cnt=trie[cnt][u];
+    }
+    val[cnt]=x;
+}
+void init(){
+    sz=1;
+    trie[0][0]=trie[0][1]=0;
+<A NAME="1"></A>}
+int query(int x){
+    int cnt=0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int ret=0;
+    for(int i=31;i&gt;=0;i--){
+        int u=(x&gt;&gt;i)&amp;1;
+        if(trie[cnt][u^1]){
+            ret+=(1&lt;&lt;i);
+            cnt=trie[cnt][u^1];
+        }
+        else cnt=trie[cnt][u];</B></FONT>
+    }
+    return ret;
+}
+struct node{
+    int val,limit,id;
+};
+bool cmp(node&amp; n1,node&amp; n2){
+<A NAME="2"></A>    return n1.limit&lt;n2.limit;
+}
+node q[maxn];
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; qe) {
+        int n=nums.size(),m=qe.size();
+        sort(nums.begin(),nums.end());
+        for(int i=0;i&lt;m;i++){</B></FONT>
+            q[i].val=qe[i][0];
+            q[i].limit=qe[i][1];
+            q[i].id=i;
+        }
+        sort(q,q+m,cmp);
+        vector&lt;int&gt;ret(m);
+        int idx=0;
+        init();
+        for(int i=0;i&lt;m;i++){
+            while(idx&lt;n&amp;&amp;nums[idx]&lt;=q[i].limit){
+                ins(nums[idx]);
+                idx++;
+            }
+            if(idx==0) ret[q[i].id]=-1;
+            else ret[q[i].id]=query(q[i].val);
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

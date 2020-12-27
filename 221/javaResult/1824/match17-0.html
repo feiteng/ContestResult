@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>400_DCXiaoBing.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>400_DCXiaoBing.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    // seems like greedy
+    // use heap to store apples
+    public int eatenApples(int[] apples, int[] days) {
+<A NAME="0"></A>        // 0-last day, 1-cnt
+        PriorityQueue&lt;int[]&gt; heap = new PriorityQueue&lt;&gt;((a, b) -&gt; a[0] - b[0]);
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = 0;
+        for(int i = 0; i &lt; apples.length; i++) {
+            if(apples[i] &gt; 0) heap.add(new int[]{i + days[i] - 1, apples[i]}); // days[i] including today
+            
+            // eject rotten
+            while (!heap.isEmpty() &amp;&amp; heap.peek()[0] &lt; i) heap.poll();
+            
+            // try to eat
+<A NAME="1"></A>            if(!heap.isEmpty()) {</B></FONT>
+                res++;
+                heap.peek()[1]--;
+                if(heap.peek()[1] == 0) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>heap.poll(); 
+            }
+        }
+        
+        int curDay = apples.length; // n-day
+        while(!heap.isEmpty()) {
+            while(!heap.isEmpty() &amp;&amp; heap.peek()[0] &lt; curDay) heap.poll();
+            
+            if(!heap.isEmpty()) {
+                int cur[] = heap.poll();
+                
+                int cnt = Math.min(cur[1], cur[0] - curDay + 1);
+                res += cnt;
+                curDay += cnt;
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

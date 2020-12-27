@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_jasonlaw-dev.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_jasonlaw-dev.java</CENTER></H3><HR>
+<PRE>
+class Node {
+    Node[] next = new Node[2];
+<A NAME="0"></A>}
+class Solution {
+    public int[] maximizeXor(int[] nums, int[][] queries) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        Node root = new Node();
+        for (int num : nums) {
+            set.add(num);
+            Node node = root;
+            for (int i = 30; i &gt;= 0; i--) {
+                int bit = (num &amp; (1 &lt;&lt; i)) &gt;&gt; i;
+                if (node.next[bit] == null) {
+                    node.next[bit] = new Node();
+                }
+                node = node.next[bit];
+<A NAME="1"></A>            }
+        }</B></FONT>
+        int[] res = new int[queries.length];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = 0; k &lt; queries.length; k++) {
+            int x = queries[k][0];
+            int m = queries[k][1];
+            Node node = root;
+            int path = 0;
+            for (int i = 30; i &gt;= 0; i--) {
+                int bit = (x &amp; (1 &lt;&lt; i)) &gt;&gt; i;
+                int lower = path | (1 &lt;&lt; i)</B></FONT>;
+                int upper = Math.min(m, path | ( (1 &lt;&lt; (i+1)) - 1 ));
+                if (node.next[0] == null || bit == 0 &amp;&amp; lower &lt;= upper &amp;&amp; !set.subSet(lower, true, upper, true).isEmpty()) {
+                    node = node.next[1];
+                    path |= (1 &lt;&lt; i);
+                } else {
+                    node = node.next[0];
+                }
+                if (node == null) {
+                    res[k] = -1;
+                    break;
+                }
+            }
+<A NAME="2"></A>            System.out.println(path);
+            if (res[k] != -1 &amp;&amp; path &lt;= m) {
+                res[k] = x ^ path;
+            } else <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                res[k] = -1;
+            }
+        }
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

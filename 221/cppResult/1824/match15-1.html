@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_llcD_K.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>247_llcD_K.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+        int num = 0;
+        int N = apples.size();
+        map&lt;int, int&gt; rot;</B></FONT>
+        int res = 0;
+<A NAME="1"></A>        
+        for(int i = 0; i &lt; N; i++){
+            rot[i + days[i]] += apples[i];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            while(!rot.empty() &amp;&amp; (*(rot.begin())).first &lt;= i){
+                rot.erase(rot.begin());
+            }
+            if(!rot.empty()){
+                // Eat an apple
+                res++;
+                (*(rot.begin())).second--;
+                if((*(rot.begin())).second == 0){
+                    rot.erase(rot.begin());
+                }
+            }
+        }
+        
+        int curD = N;
+        while(!rot.empty()){
+            while(!rot.empty() &amp;&amp; (*(rot.begin())).first &lt;= curD){
+                rot.erase(rot.begin());
+            }
+            if(rot.empty()) break;</B></FONT>
+            // Eat apples
+            int num_app = min((*(rot.begin())).second, (*(rot.begin())).first - curD);
+            res += num_app;
+            curD += num_app;
+            rot.erase(rot.begin());
+        }
+        
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

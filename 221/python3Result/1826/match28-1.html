@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>235_huiget-6.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>235_huiget-6.py</CENTER></H3><HR>
+<PRE>
+class Node:
+    def __init__(self):
+        self.sons = [None, None]
+        self.min = 10 ** 9 + 1
+        
+    def __getitem__(self, idx):
+        return self.sons[idx]
+    
+    def __setitem__(self, idx, value):
+        self.sons[idx] = value
+    
+class Tree:
+    def __init__(self, max_len):
+        self.max_len = max_len
+        self.root = Node()
+    
+    def insert(self, num, num_deci):
+        if len(num) &lt; self.max_len:
+            num = '0' * (self.max_len - len(num)) + num
+<A NAME="0"></A>        # print('num: ', num)
+        node = self.root
+        node.min = min(num_deci, node.min)
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for c in num:
+            if c == '0':
+                if node[0] is None:
+                    node[0] = Node()
+                node = node[0]
+            else:
+                if node[1] is None:
+                    node[1] = Node()
+                node = node[1]
+            node.min = min(num_deci, node.</B></FONT>min)
+        
+
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        n = len(nums)
+        max_len = len(bin(max(nums))) - 2
+        maximum = max(nums)
+        minimum = min(nums)
+        
+        tree = Tree(max_len)
+        
+        for num in nums:
+            tree.insert(bin(num)[2:], num)
+        
+        ans = []
+        for x, m in queries:
+            x = bin(x)[2:]
+            if m &lt; minimum:
+                ans.append(-1)
+                continue
+            
+            m_deci = m
+            if m &gt;= maximum:
+                m = '1' * max_len
+            else:
+                
+                m = bin(m)[2:]
+                m = '0' * (max_len - len(m)) + m
+                
+            ret = 0
+            if len(x) &gt; max_len:
+                power = 2 ** max_len
+                for c in x[:len(x)-max_len][::-1]:
+                    if c == '1':
+                        ret += power
+                    power *= 2
+                x = x[len(x)-max_len:]
+            else:
+                x = '0' * (max_len - len(x)) + x
+            
+            node = tree.root
+            flag = False
+            power = 2 ** max_len
+            for i in range(max_len):
+                power //= 2
+                if node[1] is not None and node[1].min &lt;= m_deci:
+                    # 可以取 1
+                    # take_zero = False
+                    if x[i] == '0':
+                        if node[1] is not None:
+                            node = node[1]
+                            ret += power
+                        else:
+                            node = node[0]
+                            # take_zero = True
+                    else:
+                        if node[0] is not None:
+                            node = node[0]
+                            ret += power
+                            # take_zero = True
+                        else:
+                            node = node[1]
+                    # print(i, m[i], flag, 1 - take_zero)
+                else:
+                    # 只能取 0
+                    # print(x, m, max_len, i, 0)
+                    node = node[0]
+                    if x[i] == '1':
+                        ret += power
+                        
+            ans.append(ret)
+            
+        return ans
+            
+</PRE>
+
+</BODY>
+</HTML>

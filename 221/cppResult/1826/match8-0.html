@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_oldyan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_oldyan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    #define ll long long
+    #define maxn 100010
+    #define X 3200320
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int son[X][2],sum[X],root[X],sz=0;
+    void insert(int val,int &amp;x,int pre){
+     x=++sz;int t=x;//新建一个版本
+     for(int i=31;i&gt;=0;i--){
+         son[t][0]=son[pre][0];son[t][1]=son[pre][1];//当前版本的Trie节点指向前一个Trie版本的节点，复制，节省空间
+         sum[t]=sum[pre]+1;
+         int j=(val&gt;&gt;i)&amp;1;
+         son[t][j]=++sz;//新开的节点
+         t=son[t][j];pre=son[pre][j];
+     }
+     sum[t]=sum[pre]+1;
+ }
+ 
+    int query(int val,int x,int y){
+     int ans=0;
+     for(int i=31;i&gt;=0;i--){
+         int j=(val&gt;&gt;i)&amp;1;
+         if(sum[son[y][j^1]]-sum[son[x][j^1]]&gt;0){//说明比之前的版本大
+             ans|=(1&lt;&lt;i);//当前位两者异或一定为1,找最大值嘛
+             x=son[x][j^1];y=son[y][j^1];
+         }
+         else{
+             x=son[x][j];y=son[y][j];
+         }
+     }
+     return ans;
+    }</B></FONT>
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; qu) {
+        sort(nums.begin(),nums.end());
+        auto end=unique(nums.begin(),nums.end());
+        int size=end-nums.begin();
+        for(int i=0;i&lt;qu.size();i++)qu[i].push_back(i);
+        sort(qu.begin(),qu.end(),[&amp;](vector&lt;int&gt;&amp;x,vector&lt;int&gt;&amp;y)-&gt;bool{return x[1]&lt;y[1];});
+        int i,j,k;
+        vector&lt;int&gt;ans(qu.size());
+        for(j=0;j&lt;size;j++){
+            //cout&lt;&lt;j&lt;&lt;' '&lt;&lt;nums[j]&lt;&lt;endl;
+            insert(nums[j],root[j+1],root[j]);
+        }
+        for(i=j=0;i&lt;qu.size();i++){
+            while(j&lt;size&amp;&amp;nums[j]&lt;=qu[i][1])j++;
+            //cout&lt;&lt;i&lt;&lt;'\t'&lt;&lt;j&lt;&lt;endl;
+            if(j)ans[qu[i][2]]=query(qu[i][0],root[0],root[j]);
+            else ans[qu[i][2]]=-1;
+        }
+        return ans;
+    }
+};
+
+//  1   0   1   1   0   1
+//  0   1   0   0   1   0
+</PRE>
+</BODY>
+</HTML>

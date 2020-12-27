@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_johnzhengguo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_johnzhengguo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    public int eatenApples(int[] apples, int[] days) {
+        
+        int n = apples.length;
+        
+        // well there are 4 * 10^4 days to think about
+        PriorityQueue&lt;Element&gt; pq = new PriorityQueue&lt;&gt;((a,b) -&gt; {
+            return a.exp - b.exp;
+        });
+        
+        int eaten = 0;
+        for (int i = 0; i &lt; n; i++) {
+            
+<A NAME="1"></A>            if (apples[i] == 0) {</B></FONT>
+                // do nothing
+            } else {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.offer(new Element(apples[i], i + days[i]));
+            }
+            
+            while (!pq.isEmpty() &amp;&amp; pq.peek().exp == i) {
+                pq.poll();
+            }
+            
+            if (!pq.isEmpty</B></FONT>() &amp;&amp; pq.peek().exp &gt; i) {
+<A NAME="2"></A>                Element e = pq.poll();
+                eaten += 1;
+                int newQuantity = e.quantity - 1;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (newQuantity != 0 &amp;&amp; e.exp != i+1) {
+                    pq.offer(new Element(newQuantity, e.exp));
+                }
+            }
+            
+        }
+        
+        int t = n;
+        while (!pq.isEmpty()) {</B></FONT>
+            while (!pq.isEmpty() &amp;&amp; pq.peek().exp == t) {
+                pq.poll();
+            }
+            if (!pq.isEmpty() &amp;&amp; pq.peek().exp &gt; t) {
+                Element e = pq.poll();
+                eaten += 1;
+                int newQuantity = e.quantity - 1;
+                if (newQuantity != 0 &amp;&amp; e.exp != t+1) {
+                    pq.offer(new Element(newQuantity, e.exp));
+<A NAME="3"></A>                }
+            }
+            t += 1;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return eaten;
+    }
+    
+    class Element {
+        
+        int quantity;
+        int exp;
+        
+        public Element (int q, int exp) {
+            this.quantity = q;
+            this.exp = exp;
+        }
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

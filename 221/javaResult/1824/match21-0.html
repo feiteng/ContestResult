@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>821_lancewang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>821_lancewang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int eatenApples(int[] apples, int[] days) {
+        
+        int eaten = 0;
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a1, a2)-&gt;a1[1]-a2[1]);
+        
+        int d = 0;
+        for</B></FONT>(d = 0; d &lt; days.length; d++){
+            pq.offer(new int[]{apples[d], d + days[d]});
+            
+<A NAME="1"></A>            while(!pq.isEmpty() &amp;&amp; pq.peek()[1] &lt;= d)
+                pq.poll();
+            
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(!pq.isEmpty()){
+                int[] apple = pq.poll();
+                eaten++;
+                if(apple[0]-- &gt; 1){
+                    pq.offer(apple);
+                }
+            }
+        }
+<A NAME="2"></A>        
+        while(!pq.isEmpty()){
+            while(!pq.isEmpty() &amp;&amp; pq.peek</B></FONT>()[1] &lt;= d)
+                pq.poll()<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            
+            if(!pq.isEmpty()){
+                int[] apple = pq.poll();
+                eaten++;
+                if(apple[0]-- &gt; 1){
+                    pq.offer(apple);
+                }
+            }
+            
+            d++;
+        }
+        
+        return eaten;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

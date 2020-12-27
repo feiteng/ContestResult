@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_HanaYukii.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>65_HanaYukii.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct node
+    {
+        int ch[2];
+        node() {
+            memset(ch, 0, sizeof(ch));
+<A NAME="0"></A>        }
+    }node[3000005];
+    int tot;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void ins(int x) {
+        int cur = 0;
+        for (int i = 29 ; i &gt;= 0 ; i--) {
+            int c = !!(x &amp; (1&lt;&lt;i));
+            if (!node[cur].ch[c]) {
+                node[cur].ch[c] = ++tot;</B></FONT>
+                cur = tot;
+            }
+<A NAME="1"></A>            else {
+                cur = node[cur].ch[c];
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+    }
+    int query(int x) {
+        if (tot == 0) {
+            return -1;
+        }
+        int cur = 0;
+        int ret = 0;
+        for (int i = 29 ; i &gt;= 0 ; i--) {
+            int c = !(x &amp; (1&lt;&lt;i));
+            if (node[cur].ch[c]) {
+                ret += (1&lt;&lt;i);
+                cur = node[cur].ch[c];
+            }
+            else {
+                cur = node[cur].ch[c^1];
+            }
+        }
+        return ret;
+    }</B></FONT>
+    struct Q{
+        int idx, lim, tar;
+        bool operator &lt; (const Q &amp;x)const {
+            return lim &lt; x.lim;
+        }
+    };
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        tot = 0;
+        vector&lt;Q&gt;q;
+        sort(nums.begin(), nums.end());
+        for (int i = 0 ; i &lt; queries.size() ; i++) {
+            q.push_back({i,queries[i][1],queries[i][0]});
+        }
+        sort(q.begin(), q.end());
+        vector&lt;int&gt;ret(q.size());
+        int ptr = 0;
+        for (auto &amp;i : q) {
+            while (ptr &lt; nums.size() &amp;&amp; nums[ptr] &lt;= i.lim) {
+                ins(nums[ptr]);
+                ptr++;
+            }
+            ret[i.idx] = query(i.tar);
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

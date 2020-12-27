@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>114_shang-jue-f.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>114_shang-jue-f.cpp</CENTER></H3><HR>
+<PRE>
+int ch[3000000][2];
+int cnt;
+class Solution {
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        memset(ch, 0, sizeof(ch));
+        cnt = 1;
+        vector&lt;int&gt; q(queries.size());
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i &lt; q.size(); i++) {
+            q[i] = i;
+        }
+        sort(q.begin(), q.end(), [&amp;queries](int x, int y) {
+            return queries[x][1] &lt; queries[y][1];
+            });
+        int p = 0;
+        vector&lt;int&gt; ans(q.size());
+        for (int i = 0; i &lt; q.size(); i++) {
+            auto&amp; Q = queries[q[i]];
+            while (p &lt; nums.size() &amp;&amp; nums[p] &lt;= Q[1]) {
+                insert(nums[p++]);
+            }
+<A NAME="0"></A>            ans[q[i]] = query(Q[0]);
+        }
+        return ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    void insert(int x) {
+        int root = 1;
+        for (int i = 30; i &gt;= 0; i--) {
+            int bit = x &gt;&gt; i &amp; 1;
+            if (ch[root][bit] == 0) {
+                ch[root][bit] = ++cnt;
+            }
+            root = ch[root][bit];
+        }
+    }
+    int query(int x) {</B></FONT>
+<A NAME="1"></A>        if (cnt == 1) {
+            return -1;
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res = 0;
+        int root = 1;
+        for (int i = 30; i &gt;= 0; i--) {
+            int bit = x &gt;&gt; i &amp; 1;
+            if (ch[root][bit ^ 1]) {
+                root = ch[root][bit ^ 1];
+                res |= 1 &lt;&lt; i;
+            }
+            else {
+                root = ch[root][bit];
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

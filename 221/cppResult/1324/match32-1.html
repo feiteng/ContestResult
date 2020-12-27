@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1004_eugenechou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1004_eugenechou.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; findBall(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector&lt;int&gt; ans(n, 0);
+        
+        for(int i=0 ; i&lt;n ; i++) {
+            int x = i, y = 0;</B></FONT>
+            // cout &lt;&lt; &quot;\n&quot; &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+<A NAME="1"></A>            while( y &lt; m ) {
+                // cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot; &quot; &lt;&lt; grid[y][x] &lt;&lt; &quot; | &quot;;
+                if( grid[y][x] == 1 ) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if( x+1 == n || grid[y][x+1] == -1 ) {
+                        ans[i] = -1;
+                        break;
+                    } else {
+                        ++x;
+                        ++y;
+                    }
+                } else {
+<A NAME="2"></A>                    if( x == 0 || grid[y][x-1] == 1 ) {
+                        ans[i] = -1;
+                        break;
+                    } else {</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                        --x;
+                        ++y;
+                    }
+                }
+            }
+            if( ans[i] != -1 ) ans[i] = x;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

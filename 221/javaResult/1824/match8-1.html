@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>426_yszz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>426_yszz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int eatenApples(int[] apples, int[] days) {
+        PriorityQueue&lt;int[]&gt; expire = new PriorityQueue&lt;&gt;(11, (a, b) -&gt; a[0] - b[0]);
+        int total = 0;
+        int curr = 0;
+<A NAME="1"></A>        while(curr&lt;days.length || !expire.isEmpty()){
+            if(curr&lt;days.length &amp;&amp; apples[curr]&gt;0){
+                expire.offer</B></FONT>(new int[]{days[curr] + curr, apples[curr]});
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            while(!expire.isEmpty() &amp;&amp; expire.peek()[0]&lt;=curr){
+                expire.poll();
+            }
+            if(!expire.isEmpty()){
+                int[] currpack = expire.peek();
+                if(currpack[1] == 1){
+<A NAME="2"></A>                    expire.poll();
+                }</B></FONT>else{
+                    currpack[1]--;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                total++;
+            }
+            curr++;
+        }
+        return total;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

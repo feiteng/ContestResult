@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>592_bradhuang1999.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>592_bradhuang1999.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int eatenApples(int[] apples, int[] days) {
+        TreeMap&lt;Integer, Integer&gt; expToApples = new TreeMap&lt;&gt;();
+<A NAME="0"></A>        
+        int ret = 0;
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int d = 0; d &lt; days.length || !expToApples.isEmpty(); ++d) {
+            // pick up apples
+            if (d &lt; days.length &amp;&amp; apples[d] &gt; 0) {
+                int expDate = d + days[d];
+                expToApples.put(expDate, expToApples.getOrDefault(expDate, 0) + apples[d]);
+            }</B></FONT>
+            
+            // delete the rot
+<A NAME="1"></A>            expToApples.remove(d);
+            
+            // eat one apple if exists
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!expToApples.isEmpty()) {
+                ++ret;
+                int firstExp = expToApples.firstKey();
+                int applesRemaining = expToApples.get(firstExp) - 1;
+                if (applesRemaining == 0) {
+                    expToApples.remove(firstExp);
+                } else {
+                    expToApples.put(firstExp, applesRemaining);
+                }                
+            }
+        }
+        
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_evan_hossain.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>321_evan_hossain.cpp</CENTER></H3><HR>
+<PRE>
+int trie[1000000][2];
+class Solution {
+public:
+    struct query{
+        int x, m, indx;
+        query(){}
+        query(int _x, int _m, int i){
+            x = _x;
+            m = _m;
+            indx = i;
+        }
+        bool operator &lt; (const query &amp;q) const{
+            return m &lt; q.m;
+<A NAME="0"></A>        }
+    };
+    int last;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void insert(int n){
+        int cur = 0;
+        for(int i = 31; i &gt;= 0; i--){
+            int id = (n &amp; (1&lt;&lt;i)) != 0;
+            if(trie[cur][id] == -1){
+                trie[cur][id] = ++last;</B></FONT>
+                memset(trie[last], -1, sizeof trie[last]);
+            }
+            cur = trie[cur][id];
+        }
+<A NAME="1"></A>    }
+    
+    int get(int x){
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0, cur = 0;
+        for(int i = 31; i &gt;= 0; i--){
+            int nid = (x &amp; (1&lt;&lt;i)) != 0;
+            if(trie[cur][!nid] != -1){
+                ret |= 1&lt;&lt;i;
+                cur = trie[cur][!nid];
+            }else if(trie[cur][nid] != -1){
+                cur = trie[cur][nid];
+            }else
+                return -1;
+        }
+        return ret;
+    }
+    
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; qs) {</B></FONT>
+        vector&lt;query&gt; queries;
+        for(int i = 0; i &lt; qs.size(); i++)
+            queries.push_back(query(qs[i].front(), qs[i].back(), i));
+        sort(queries.begin(), queries.end());
+        sort(nums.begin(), nums.end());
+<A NAME="2"></A>        vector&lt;int&gt; ret(queries.size(), -1);
+        memset(trie[0], -1, sizeof trie[0]);
+        last = 0;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = 0;
+        for(int q = 0; q &lt; queries.size(); q++){
+            while(n &lt; nums.size() &amp;&amp; nums[n] &lt;= queries[q].m){
+                insert(nums[n]);
+                n++;
+            }   
+            ret[queries[q].indx] = get(queries[q].x);
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

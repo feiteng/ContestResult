@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>881_ndfgia.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>881_ndfgia.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+    
+    int n = apples.size();
+    map&lt;int, int&gt; storedApples;
+    
+    int day = 0;
+<A NAME="0"></A>
+    
+    int ans = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (;day &lt; n; day++) {
+      
+      storedApples[day+days[day]] += apples[day];
+        
+      while ( !storedApples.empty() &amp;&amp; (storedApples.begin()-&gt;first &lt;= day || storedApples.begin()-&gt;second == 0)) {
+        storedApples.erase(storedApples.begin());
+      }
+      
+      if (!storedApples.empty()) {
+        storedApples.begin()-&gt;second--;
+        ans++;
+      }
+    }
+    
+    while (!storedApples.empty()) {
+      while ( storedApples.size() &gt; 0 &amp;&amp; (storedApples.begin()-&gt;first &lt;= day || storedApples.begin()-&gt;second == 0)) {
+        storedApples.erase(storedApples.begin());
+      }
+      
+      if (!storedApples.empty()) {
+        storedApples.begin()-&gt;second--;
+        ans++;
+      }
+      
+      day++;
+    }
+    
+    return ans;
+  
+  
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>153_yupenggu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>153_yupenggu.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def binary_search(nums,lb,ub,axis):
+            lower,upper = lb,ub
+            while upper-lower&gt;1:
+                mid = (upper+lower)//2
+                if nums[mid]&gt;=axis:
+                    upper = mid
+                else:
+                    lower = mid
+            r</B></FONT>eturn upper
+        nums = sorted([n for n in set(nums)])
+        ans = []
+        for x,m in queries:
+            lower,upper = -1,len(nums)
+            while upper-lower&gt;1:
+                mid = (upper+lower)//2
+                if nums[mid]&gt;m:
+                    upper = mid
+                else:
+                    lower = mid
+            if upper==0:
+                ans.append(-1)
+            else:
+                bits,cb = [],1
+                while cb&lt;=max(m,x):
+                    bits.append(cb)
+                    cb &lt;&lt;= 1
+                lb,ub,base = 0,upper,0
+                while bits:
+                    axis = -1
+                    cb = bits.pop()
+                    if nums[lb]&gt;=base+cb:
+                        axis = lb
+                    elif nums[ub-1]&lt;base+cb:
+                        axis = ub
+                    else:
+                        axis = binary_search(nums,lb,ub,base+cb)
+                    if axis not in [lb,ub]:
+                        if (x&amp;cb) &gt; 0:
+                            ub = axis
+                        else:
+                            lb = axis
+                            base += cb
+                    elif axis==lb:
+                        base += cb
+                ans.append(nums[lb]^x)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

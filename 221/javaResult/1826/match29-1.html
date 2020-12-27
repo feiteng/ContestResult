@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>140_XuhuiWang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>140_XuhuiWang.java</CENTER></H3><HR>
+<PRE>
+public class Solution {
+	public int[] maximizeXor(int[] nums, int[][] queries) {
+		Arrays.sort(nums);
+		int m = queries.length;
+<A NAME="0"></A>		int[] ans = new int[m];
+		for (int i = 0; i &lt; m; ++i) {
+			ans[i] = solve(nums, queries[i]);
+		}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		return ans;
+	}
+
+	private int solve(int[] nums, int[] query) {
+		int x = query[0], m = query[1]</B></FONT>;
+		int lo = 0, hi = nums.length - 1;
+		while (lo &lt;= hi) {
+			int mid = lo + (hi - lo) / 2;
+			if (nums[mid] &gt; m) {
+				hi = mid - 1;
+			} else {
+				lo = mid + 1;
+			}
+		}
+		// hi - last position in which nums[hi] &lt;= m.
+		if (hi &lt; 0) return -1;
+		lo = 0;
+		int mask = 0;
+		for (int bits = 31; bits &gt;= 0; --bits) {
+			int exist = (x &gt;&gt; bits) &amp; 1;
+			if (((nums[lo] &gt;&gt; bits) &amp; 1) == 1) {
+				mask |= (1 &lt;&lt; bits) &amp; (nums[lo] ^ x);
+				continue;
+			} else if (((nums[hi] &gt;&gt; bits) &amp; 1) == 0) {
+				mask |= (1 &lt;&lt; bits) &amp; (nums[hi] ^ x);
+<A NAME="1"></A>				continue;
+			}
+			mask |= (1 &lt;&lt; bits);
+			if (exist == 1) {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				// find last bit with '0';
+				int hi_1 = lo, hi_2 = hi;
+				while (hi_1 &lt;= hi_2) {
+					int mid = (hi_1 + hi_2) / 2;
+					if (((nums[mid] &gt;&gt; bits) &amp; 1) == 1) {
+						hi_2 = mid - 1;
+					} else {
+						hi_1 = mid + 1;
+<A NAME="2"></A>					}
+				}</B></FONT>
+				hi = hi_2;
+			} else {<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				// find first '1'
+				int lo_1 = lo, lo_2 = hi;
+				while (lo_1 &lt;= lo_2) {
+					int mid = (lo_1 + lo_2) / 2;
+					if (((nums[mid] &gt;&gt; bits) &amp; 1) == 1) {
+						lo_2 = mid - 1;
+					} else {
+						lo_1 = mid + 1;
+					}
+				}</B></FONT>
+				lo = lo_1;
+			}
+		}
+		return mask;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

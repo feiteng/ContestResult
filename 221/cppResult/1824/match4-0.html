@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>994_scau_hb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>994_scau_hb.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = days.size();
+        
+        int ret = 0;
+        priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+        for (int i = 0;i &lt; n; i++)
+        {
+            if (apples[i] != 0)
+                pq.push(make_pair(i+days[i], apples[i]));
+            
+            while (!pq.empty())
+            {
+                auto top = pq.top();
+                pq.pop();
+                
+                if (i &lt; top.first &amp;&amp; top.second &gt; 0)</B></FONT>
+                {
+                    ret++;
+                    top.second -= 1;
+                    
+                    if (top.second &gt; 0)
+<A NAME="1"></A>                        pq.push(top);
+                    break;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        
+        int now_day = n;
+        while (!pq.empty())
+        {
+            auto top = pq.top();
+            pq.pop();
+            if (top.second == 0 || top.first &lt;= now_day)
+                continue;
+            
+            int tmp = min(top.first - now_day, top.second);
+            ret += tmp;
+            now_day += tmp;
+        }
+        
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

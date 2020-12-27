@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>305_catnipan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>305_catnipan.cpp</CENTER></H3><HR>
+<PRE>
+struct Item {
+    int apple;
+    int rotDay;
+    bool operator&lt;(const Item&amp; rhs) const {
+        return rotDay &gt; rhs.rotDay;
+<A NAME="0"></A>    }
+};
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+        priority_queue&lt;Item&gt; PQ;
+        int ans = 0;
+        int MAX_DAY = 4e4 + 1;
+        for (int i = 0; i &lt; MAX_DAY; ++i) {
+            if (i &lt; apples.size()) {
+                int apple = apples[i];
+                int rotDay = i + days[i];
+                if (apple &gt; 0) PQ.push({ apple, rotDay });   
+            }
+            while (!PQ.empty() &amp;&amp; PQ.top().rotDay &lt;= i) {
+                PQ.pop();
+            }
+            if (PQ.empty() == false) {
+                auto item = PQ.top();
+                PQ.pop();
+                item.apple -= 1;</B></FONT>
+                ++ans;
+                if (item.apple &gt; 0) PQ.push(item);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

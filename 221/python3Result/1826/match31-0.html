@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_blin00.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2_blin00.py</CENTER></H3><HR>
+<PRE>
+#!/opt/python3.9/bin/python3
+
+from bisect import *
+from collections import *
+from functools import *
+from heapq import *
+from typing import *
+import sys
+
+INF = float('inf')
+
+T = lambda: defaultdict(T)
+
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        N = len(nums)
+        M = len(queries)
+
+        trie = T()
+
+<A NAME="0"></A>        def bignum_dp(n):
+            return bin(n)[2:].zfill(32)
+
+        nums<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.sort()
+        queries = sorted(enumerate(queries), key=lambda x: x[1][1])
+        result = [None] * len(queries)
+        last =</B></FONT> 0
+        
+        for query_idx, (x, limit) in queries:
+            while last &lt; len(nums) and nums[last] &lt;= limit:
+                n = nums[last]
+                reduce(dict.__getitem__, bignum_dp(n), trie)['#'] = n
+                last += 1
+            guh = bignum_dp(x)
+            r = 0
+            node = trie
+            for c in guh:
+                c = int(c)
+                wanted = c ^ 1
+                if str(wanted) in node:
+                    node = node[str(wanted)]
+                elif str(wanted ^ 1) in node:
+                    node = node[str(wanted ^ 1)]
+                else:
+                    node = None
+                    break
+            if node is None:
+                result[query_idx] = -1
+            else:
+                result[query_idx] = node['#'] ^ x
+        return result
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>629_tejustiwari.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>629_tejustiwari.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+        vector&lt;int&gt; p(20004);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = apples.size(), ans = 0;
+        priority_queue&lt;pair&lt;int,int&gt;&gt; pq;
+        for(int i = 0; i &lt; n; i++) {
+          if(days[i])
+            pq.push({-1*(i+1 + days[i]), apples[i]});</B></FONT>
+          while(pq.size() &amp;&amp; (-1*pq.top().first &lt;= i+1 || pq.top().second &lt; 1) )
+            pq.pop();
+          if(pq.size()) {
+            auto x = pq.top();
+            pq.pop();
+            x.second -= 1;
+            if(x.second &gt; 0)
+              pq.push(x);
+            ans++;
+            // cout &lt;&lt; &quot;day=&quot; &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+          }
+            // p[i] += apples[i];
+            // p[i + days[i]] -= apples[i];
+        }
+<A NAME="1"></A>      int day = n;
+        while(pq.size()) {
+            day++;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            while(pq.size() &amp;&amp; (-1*pq.top().first &lt;= day || pq.top().second &lt; 1) )
+              pq.pop();
+            if(pq.size()) {
+              auto x = pq.top();
+              pq.pop();
+              x.second -= 1;
+              if(x.second &gt; 0)
+                pq.push(x);
+              ans++;
+            }
+        }
+        // cout &lt;&lt;&quot;\n&quot;;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

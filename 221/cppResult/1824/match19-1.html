@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>557_shikenghua.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>557_shikenghua.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+        int n = apples.size(), result = 0;
+        priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+        for (int i = 0; i &lt; n + 20000; ++i) {
+            if (i &lt; n)
+                pq.push({i + days[i], apples[i]});
+            while (!pq.empty() &amp;&amp; pq.top().first &lt;= i)</B></FONT>
+                pq.pop();
+            if (!pq.empty()) {
+                result++;
+                pair&lt;int,int&gt; tmp = pq.top(); pq.pop();
+                tmp.second--;
+                if (tmp.second &gt; 0)
+                    pq.push(tmp);
+            } else {
+                if (i &gt;= n)
+                    break;
+            }
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

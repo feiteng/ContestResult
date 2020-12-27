@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>929_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>929_wxy9018.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def eatenApples(self, apples: List[int], d: List[int]) -&gt; int:
+        res = 0
+        
+        days = []
+        for i in range(len(apples)):
+            if apples[i]:
+                heapq.heappush(days, [i + d[i], apples[i]])
+            while days and days[0][0] &lt;= i:
+                heapq.heappop(days)
+            if days:
+                res += 1
+                days[0][1] -= 1
+                if not days[0][1]:
+                    heapq.heappop(days)
+        
+        N = len(apples)
+        while</B></FONT> days:
+            rot, app = heapq.heappop(days)
+            cnt = min(app, max(0, (rot - N)))
+            N += cnt
+            res += cnt
+        
+        return res
+        
+</PRE>
+
+</BODY>
+</HTML>

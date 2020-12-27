@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>160_fan-cai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>160_fan-cai.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        nums.sort()
+        n, m, record, j = len(queries), len(nums), {}, 0
+        res =</B></FONT> [0] * n
+        qi = sorted(list(range(n)), key=lambda x: queries[x][1])
+        base = [1] * 32
+        for i in range(1, 32):
+            base[i] = base[i - 1] &lt;&lt; 1
+
+        def creatTree(x, d):
+            for i in range(31, 0, -1):
+                y = int((x &amp; base[i]) &gt; 0)
+                if y in d:
+                    d = d[y]
+                else:
+                    d[y] = {}
+                    d = d[y]
+            d[x &amp; 1] = x
+
+        def findB(x, d):
+            for i in range(31, 0, -1):
+                y = int((x &amp; base[i]) &gt; 0) ^ 1
+                if y in d:
+                    d = d[y]
+                else:
+                    d = d[y ^ 1]
+            y = x &amp; 1 ^ 1
+            if y in d:
+                return d[y]
+            else:
+                return d[y ^ 1]
+
+        for i in range(n):
+            while j &lt; m and nums[j] &lt;= queries[qi[i]][1]:
+                creatTree(nums[j], record)
+                j += 1
+            if not len(record):
+                res[qi[i]] = -1
+            else:
+                res[qi[i]] = findB(queries[qi[i]][0], record) ^ queries[qi[i]][0]
+        return res
+</PRE>
+
+</BODY>
+</HTML>

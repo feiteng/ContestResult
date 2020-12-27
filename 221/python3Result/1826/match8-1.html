@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>313_tonghuikang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>313_tonghuikang.py</CENTER></H3><HR>
+<PRE>
+LARGE = 10**10
+
+<A NAME="0"></A>class TrieNode:
+    def __init__(self):
+        self.children = collections.defaultdict(TrieNode)
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.is_word = False
+        self.min_val = LARGE
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word, val):
+        current = self.root
+        for</B></FONT> letter in word:
+            current = current.children[letter]
+            current.min_val = min(val, current.min_val)
+        current.is_word = True
+
+    def search(self, word, maxx):
+        current = self.root
+        for letter in word:
+            cur = current.children.get(letter)
+            if cur is None or cur.min_val &gt; maxx:
+                if letter == '1':
+                    letter = '0'
+                else:
+                    letter = '1'
+                cur = current.children.get(letter)
+            current = cur
+        return current.min_val
+
+    def startsWith(self, prefix):
+        current = self.root
+<A NAME="1"></A>        for letter in prefix:
+            current = current.children.get(letter)
+            if current is None:
+                r<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn False
+        return True
+
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        nums = sorted(</B></FONT>set(nums))
+        min_nums = min(nums)
+        
+        t = Trie()
+        
+        for num in nums:
+            brr = '{:030b}'.format(num)
+            # print(brr)
+            t.insert(brr, num)
+        
+        res = []
+        for x,m in queries:
+            if m &lt; min_nums:
+                res.append(-1)
+                continue
+            
+            brr = '{:030b}'.format(x)
+            brr = ''.join('0' if x == '1' else '1' for x in brr)
+            cur = t.search(brr,m)
+            # print(brr, cur)
+            res.append(cur^x)
+             
+        return res
+        
+</PRE>
+
+</BODY>
+</HTML>

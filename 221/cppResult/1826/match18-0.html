@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_john-20.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>308_john-20.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int ch[3200000][2], tol;
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void Insert(int x){
+        int cur = 0;
+        for(int i = 31; i &gt;= 0; --i){
+            int bit = (x &gt;&gt; i) &amp; 1;
+            if(ch[cur][bit] == 0){
+                ch[cur][bit] = ++tol;
+            }
+           cur = ch[cur][bit];
+        }
+<A NAME="1"></A>    }
+    
+    int qry(int x){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        int cur = 0;
+        for(int i = 31; i &gt;= 0; --i){
+            int bit = (x &gt;&gt; i) &amp; 1;
+            if(ch[cur][!bit]){
+                res |= (1 &lt;&lt; i);
+                cur = ch[cur][!bit];
+            }else{
+                cur = ch[cur][bit];
+            }
+        }
+        
+        return res;
+    }</B></FONT>
+    
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int n = (int)nums.size();
+        int m = (int)queries.size();
+        
+        vector&lt;int&gt; res(m, -1);
+        
+        sort(nums.begin(), nums.end());
+        
+        for(int i = 0; i &lt; m; ++i){
+            queries[i].push_back(i);
+        }
+        
+        sort(queries.begin(), queries.end(),[&amp;](const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b){
+            return a[1] &lt; b[1];
+        });
+        
+        int ptr = 0;
+        
+        for(int i = 1; i &lt;= m; ++i){
+            int q = queries[i-1][0], r = queries[i-1][1], id = queries[i-1][2];
+            while(ptr + 1 &lt;= n &amp;&amp; nums[ptr] &lt;= r)Insert(nums[ptr]), ++ptr;
+            if(ptr &gt; 0)res[id] = qry(q);
+        }
+        
+        for(int i = 0; i &lt;= tol; ++i){
+            ch[i][0] = ch[i][1] = 0;
+        }
+        
+        tol = 0;
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

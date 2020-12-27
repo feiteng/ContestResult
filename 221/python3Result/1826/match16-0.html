@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_Firepaw.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>51_Firepaw.py</CENTER></H3><HR>
+<PRE>
+
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+
+        trie = {}
+
+        def insert(val):
+            t = trie
+            for i in range(63, -1, -1):
+                if (val &amp; (1 &lt;&lt; i)) &gt; 0:
+                    if 1 not in t:
+                        t[1] = {}
+                    t = t[1]
+                else:
+                    if 0 not in t:
+                        t[0] = {}
+                    t = t[0]
+            t[2] = True
+
+        def find(val):
+            t = trie
+            x = 0
+            for i in range(63, -1, -1):
+                if (val &amp; (1 &lt;&lt; i)) &gt; 0:
+                    if 0 in t:
+                        x |= 1 &lt;&lt; i
+                        t = t[0]
+                    elif 1 in t:
+                        t = t[1]
+                    else:
+                        return -1
+                else:
+                    if 1 in t:
+                        x |= 1 &lt;&lt; i
+                        t = t[1]
+                    elif 0 in t:
+                        t = t[0]
+                    else:
+                        return -1
+            return x
+
+
+<A NAME="0"></A>        nums.sort()
+        queries = [(y, i, x) for i, (x, y) in enumerate(queries)]
+        queries.sort()
+        n <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(queries)
+        ans = [-1 for _ in range(n)]
+
+        j = 0
+        for y, i, x in queries:
+            while j &lt; len(nums) and nums[j] &lt;= y:
+                insert(nums[j])
+                j += 1
+            ans[i] = find(</B></FONT>x)
+
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

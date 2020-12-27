@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>657_chenhaomaiji.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>657_chenhaomaiji.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int eatenApples(int[] apples, int[] days) {
+        int n = apples.length;
+<A NAME="1"></A>        // a[0] number a[1] days
+        int res = 0;
+        PriorityQueue&lt;int[]&gt; queue = new PriorityQueue&lt;int[]&gt;((a, b) -&gt; a[1] - </B></FONT>b[1]);
+        for (int i = 0; i &lt; apples.length; i++) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match39-1.html#1',3,'match39-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (apples[i] != 0) queue.offer(new int[]{apples[i], i + days[i]});
+            while (!queue.isEmpty() &amp;&amp; queue.peek()[1] &lt;= i) queue.poll();
+            if (!queue.isEmpty()) {</B></FONT>
+                int temp = queue.peek()[0];
+                if (temp == 1) {
+                    queue.poll();
+                } else {
+                    queue.peek()[0] = temp - 1;
+                }
+                res++;
+            }
+        }
+        
+        int i = n;
+        while (!queue.isEmpty()) {
+            while (!queue.isEmpty() &amp;&amp; queue.peek()[1] &lt;= i) queue.poll();
+            if (!queue.isEmpty()) {
+                int temp = queue.peek()[0];
+                if (temp == 1) {
+<A NAME="2"></A>                    queue.poll();
+                } else {
+                    queue.peek()[0] = temp - 1;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match39-1.html#2',3,'match39-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                res++;
+            }
+            i++;
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

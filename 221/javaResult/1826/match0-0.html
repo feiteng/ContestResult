@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_66brother.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_66brother.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    Trie trie[]=new Trie[2];
+        int v=0;
+    int limit=0;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int[] maximizeXor(int[] A, int[][] queries) {
+        // Write your code here
+        int min=Integer.MAX_VALUE;
+        int res[]=new int[queries.length];
+        Trie root=new Trie();
+        
+        for(int i=0;i&lt;A.length;i++){
+            min=Math.min(min,A[i]);
+            insert(root,31,A[i]);
+        }
+        
+        
+        for(int i=0;i&lt;queries.length;i++){
+            int pair[]=queries[i];
+            int x=pair[0];
+            limit=pair[1];
+            if(limit&lt;min){
+                res[i]=-1;
+                continue;
+            }
+            v=0;
+            q(root,31,0,x);
+            res[i]=v^(x);
+        }
+        
+        return res;
+    }
+    
+   public void q(Trie root,int index,int cur,int x){
+        
+        if(index&lt;0){
+            v=cur;
+            return;
+        }
+        
+        int bit=-1;
+        if((x&amp;(1&lt;&lt;index))==0)bit=0;
+        else bit=1;
+        //System.out.println(index+&quot;  &quot;+bit+&quot;  &quot;+root.min);
+        if(bit==0){
+            if(root.childs[1]!=null&amp;&amp;root.childs[1].min&lt;=limit){
+                q(root.childs[1],index-1,root.childs[1].min,x);
+            }
+            else{
+                q(root.childs[0],index-1,root.childs[0].min,x);
+            }
+        }else{
+             if(root.childs[0]!=null&amp;&amp;root.childs[0].min&lt;=limit){
+                q(root.childs[0],index-1,root.childs[0].min,x);
+            }
+            else{
+                q(root.childs[1],index-1,root.childs[1].min,x);
+            }
+        }
+        
+        
+    }
+    
+    
+    public void insert(Trie root,int index,int val){
+        if(index&lt;0){
+            root.min=Math.min(root.min,val);
+            return;
+        }
+        int bit=-1;
+        if((val&amp;(1&lt;&lt;index))==0)bit=0;
+        else bit=1;
+        
+        if(bit==0){
+            if(root.childs[0]==null)root.childs[0]=new Trie();
+            root.min=Math.min(root.min,val);
+            insert(root.childs[0],index-1,val);
+        }else{
+            if(root.childs[1]==null)root.childs[1]=new Trie();
+            root.min=Math.min(root.min,val);
+            insert(root.childs[1],index-1,val);
+        }
+        
+    }</B></FONT>
+    
+    class Trie{
+         int min=Integer.MAX_VALUE;
+         Trie childs[]=new Trie[2];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

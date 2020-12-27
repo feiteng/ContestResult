@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>343_shakibahmed01999.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>343_shakibahmed01999.cpp</CENTER></H3><HR>
+<PRE>
+
+class TrieNode{
+public:
+    TrieNode *left, *right;
+    TrieNode(){
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+class Trie{
+  
+    TrieNode *root;
+public:
+    Trie(){
+        root = new TrieNode;
+    }
+<A NAME="0"></A>    
+    void insert(int val){
+        TrieNode *curr = root;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=31; i&gt;=0; i--){
+            if(val&amp;(1&lt;&lt;i)){
+                if(!curr-&gt;right)
+                    curr-&gt;right = new TrieNode;
+                curr = curr-&gt;right;
+            }
+            else{
+                if(!curr-&gt;left)
+                    curr-&gt;left = new TrieNode;
+                curr = curr-&gt;left;
+            }
+        }
+    }
+<A NAME="1"></A>    
+    int findMaxXOR(int val){</B></FONT>
+        TrieNode *curr = root;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+        for(int i=31; i&gt;=0; i--){
+            if(val&amp;(1&lt;&lt;i)){
+                if(curr-&gt;left){
+                    curr = curr-&gt;left;
+                    ans |= (1&lt;&lt;i);
+<A NAME="2"></A>                }
+                else</B></FONT>
+                    curr = curr-&gt;right;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+            else{
+                if(curr-&gt;right){
+                    curr = curr-&gt;right;
+                    ans |= (1&lt;&lt;i);
+                }
+                else
+                    curr = curr-&gt;left;
+            }
+        }
+        
+        return ans;
+    }</B></FONT>
+
+};
+
+
+class Solution {
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; arr, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int n = arr.size(), m = queries.size();
+        sort(arr.begin(), arr.end());
+        
+        for(int i=0; i&lt;m; i++){
+            queries[i].push_back(i);
+        }
+        
+        sort(queries.begin(), queries.end(), [](vector&lt;int&gt; &amp;v1, vector&lt;int&gt; &amp;v2){
+            return v1[1] &lt; v2[1];
+        });
+        
+        Trie t;
+        
+        vector&lt;int&gt; ans(m, -1);
+        
+        int j = 0;
+        for(int i=0; i&lt;m; i++){
+            while(j&lt;n and arr[j] &lt;= queries[i][1]){
+                t.insert(arr[j]);
+                j++;
+            }
+            int currAns;
+            if(j == 0)
+                currAns = -1;
+            else
+                currAns = t.findMaxXOR(queries[i][0]);
+            ans[queries[i][2]] = currAns;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

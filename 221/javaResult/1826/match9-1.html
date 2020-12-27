@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_CuiKai123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_CuiKai123.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    class Node {
+        Node left, right;//left是0 right是1
+        int min = Integer.MAX_VALUE;//从当前节点能走到的最小的数
+    }
+    
+    void addNum(Node root, int i) {
+        //深度固定
+        for(int mask = 1 &lt;&lt; 30; mask != 0; mask &gt;&gt;= 1) {
+            root.min = Math.min(root.min, i);
+            if((mask &amp; i) == 0) {
+                if(root.left == null) {
+                    root.left = new Node();
+                }
+                root = root.left;
+            } else {
+                if(root.right == null) {
+                    root.right = new Node();
+                }
+                root = root.right;                
+<A NAME="0"></A>            }
+        }
+        root.min = Math.min(root.min, i);
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public int[] maximizeXor(int[] nums, int[][] queries) {
+        //之前好像见过一个类似的 用二叉树表示数
+        Node root = new Node();
+        for(int i : nums) {
+            addNum(root, i);
+        }
+        
+        int[] ret = new int[queries.length];
+        for(int i = 0; i &lt; queries.length; ++i) {
+            int m = q</B></FONT>ueries[i][1], x = queries[i][0], y = 0;
+            Node yNode = root;
+            for(int mask = 1 &lt;&lt; 30; mask != 0; mask &gt;&gt;= 1) {
+                //先处理m
+                if(y + mask &gt; m || (yNode.right != null &amp;&amp; yNode.right.min &gt; m)) {
+                    //说明不能往右走
+                    if(yNode.left == null) {
+                        //也不能往左走 没得走
+                        y = -1;
+                        break;
+                    } else {
+                        //只能往左走
+                        yNode = yNode.left;
+                        continue;
+                    }
+                }
+<A NAME="1"></A>                //m无所谓 只看 x y
+                if((x &amp; mask) == 0) {
+                    //最好往右走
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(yNode.right != null) {
+                        y += mask;
+                        yNode = yNode.right;
+                    } else {
+                        yNode = yNode.left;
+<A NAME="2"></A>                    }
+                }</B></FONT> else {
+                    //最好往左走
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(yNode.left != null) {
+                        yNode = yNode.left;
+                    } else {
+                        y += mask;
+                        yNode = yNode.right;
+                    }
+                }</B></FONT>
+            }
+            ret[i] = y == -1 ? -1 : y ^ x;
+        }
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_Decision.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_Decision.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int eatenApples(int[] ap, int[] days) {
+        PriorityQueue&lt;Node&gt; heap = new PriorityQueue();
+        int res = 0;
+        for(int i=0;i&lt;ap.length;++i){
+            if(ap[i]&gt;0){
+                heap.offer(new Node(days[i]+i, ap[i]));
+            }
+            while(!heap.isEmpty() &amp;&amp; heap.peek().r&lt;=i)heap.poll();
+            if(!heap.isEmpty()){
+                Node nd = heap.peek();
+                nd.c--;
+                ++res;
+                if(nd.c==0)heap.poll();
+            }
+        }
+<A NAME="1"></A>        int d = ap.length;
+        while(!heap.isEmpty()){</B></FONT>
+            if(heap.peek().r&lt;=d)heap.poll();
+            else<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                Node nd = heap.peek();
+                nd.c--;
+                ++res;
+                if(nd.c==0)heap.poll();
+                ++d;
+            }
+        }
+        return res;
+    }
+}
+class Node implements Comparable&lt;Node&gt;{
+    int r;
+    int c;
+    public Node(int a, int b){
+        r=a;
+        c=b;
+    }
+    @Override
+    public int compareTo(Node n){</B></FONT>
+        return this.r - n.r;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

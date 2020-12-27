@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_Decision.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_Decision.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int[] maximizeXor(int[] nums, int[][] queries) {
+        int n = queries.length, p=0;
+        Arrays.sort(nums);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] qr = new int[n][3];
+        for(int i=0;i&lt;n;++i){
+            qr[i][0]=queries[i][0];
+            qr[i][1]=queries[i][1];
+            qr[i][2]=i;
+        }
+        Arrays.sort</B></FONT>(qr, (a,b)-&gt;(a[1]-b[1]));
+        int[] res = new int[n];
+        Trie tr = new Trie();
+        for(int i=0;i&lt;n;++i){
+            while(p&lt;nums.length &amp;&amp; nums[p]&lt;=qr[i][1])add(tr, nums[p++]);
+            if(p==0){
+                res[qr[i][2]] = -1;
+                continue;
+            }
+            int k = 1&lt;&lt;30, v = 0;
+            Trie tem = tr;
+            while(k&gt;0){
+                if((qr[i][0]&amp;k)==0){
+<A NAME="1"></A>                    if(tem.next[1]!=null){
+                        v += k;
+                        tem = tem.next[1];
+                    }else tem = tem.next[0]<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+                }else{
+                    if(tem.next[0]!=null){
+                        v += k;
+                        tem = tem.next[0];
+                    }else tem </B></FONT>= tem.next[1];
+<A NAME="2"></A>                }
+                k = k&gt;&gt;1;
+            }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res[qr[i][2]] = v;
+        }
+        return res;
+    }
+<A NAME="3"></A>    private void add(Trie tr, int n){
+        int k = 1&lt;&lt;30;</B></FONT>
+        Trie tem = tr;
+        while(k&gt;0)<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if((n&amp;k)==0){
+                if(tem.next[0]==null)tem.next[0]=new Trie();
+                tem = tem.next[0];
+            }else{
+                if(tem.next[1]==null)tem.next[1]=new Trie();
+                tem = tem.next[1];
+            }</B></FONT>
+            k = k&gt;&gt;1;
+        }
+    }
+}
+class Trie{
+    Trie[] next;
+    public Trie(){
+        next = new Trie[2];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

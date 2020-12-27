@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_flyman3046.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>39_flyman3046.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class TrieNode {
+    TrieNode left;
+    TrieNode right;
+    public TrieNode() {}
+  }
+
+  class Trie {
+    private TrieNode root;
+
+    public Trie() {
+      root = new TrieNode();
+    }
+<A NAME="0"></A>
+    
+    // val has to be &lt;= 2 ^ (LAYER - 1) - 1
+    private void add(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int val) {
+      TrieNode iter = root;
+      for (int i = 30; i &gt;= 0; i--) {
+        int bit = val &amp; (1 &lt;&lt; i);
+        if (bit == 0) {
+          if (iter.left == null) {
+<A NAME="1"></A>            iter.left = new TrieNode();
+          }
+          i</B></FONT>ter = iter.left;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else {
+          if (iter.right == null) {
+            iter.right = new TrieNode();
+          }
+          i</B></FONT>ter = iter.right;
+        }
+      }
+<A NAME="2"></A>    }
+
+    private int queryXor(int val) {
+      <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = 0;
+      TrieNode iter = root;
+      for (int i = 30; i &gt;= 0; i--) {
+        int bit = val &amp; (1 &lt;&lt; i);
+
+        if (bit == 0) {
+          if (iter.right != null) {
+            iter = iter.right;
+            res = 2 * res + 1;
+<A NAME="3"></A>          } else {</B></FONT>
+            iter = iter.left;
+            res = 2 * res;
+          <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match28-1.html#3',3,'match28-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        } else {
+          if (iter.left != null) {
+            iter = iter.left;
+            res = 2 * res + 1;
+<A NAME="4"></A>          } else {</B></FONT>
+            iter = iter.right;
+            res = 2 * res;
+          <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match28-1.html#4',3,'match28-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+      }
+      return res;
+    }
+  }</B></FONT>
+
+  class Pair implements Comparable&lt;Pair&gt; {
+    int[] query;
+    int idx;
+    public Pair(int[] query, int idx) {
+      this.query = query;
+      this.idx = idx;
+    }
+
+    @Override
+    public int compareTo(Pair o) {
+      if (query[1] != o.query[1]) {
+        return Integer.compare(query[1], o.query[1]);
+      }
+      return Integer.compare(idx, o.idx);
+    }
+
+    @Override
+    public String toString() {
+      return Arrays.toString(query) + &quot; &quot; + idx;
+    }
+  }
+
+  public int[] maximizeXor(int[] nums, int[][] queries) {
+    List&lt;Pair&gt; ls = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; queries.length; i++) {
+      ls.add(new Pair(queries[i], i));
+    }
+    Collections.sort(ls);
+    Arrays.sort(nums);
+
+    int[] res = new int[ls.size()];
+    Arrays.fill(res, -1);
+    int iter = 0;
+
+    Trie ins = new Trie();
+    for (int i = 0; i &lt; ls.size(); i++) {
+      Pair p = ls.get(i);
+      while (iter &lt; nums.length &amp;&amp; nums[iter] &lt;= p.query[1]) {
+        ins.add(nums[iter]);
+        iter++;
+      }
+
+      if (iter != 0) {
+        res[p.idx] = ins.queryXor(p.query[0]);
+      }
+    }
+    return res;
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

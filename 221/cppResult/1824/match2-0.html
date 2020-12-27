@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>502_blackskygg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>502_blackskygg.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+        map&lt;int, int&gt; rot;
+        int ans = 0;
+        for (int i = 0; i &lt; 40100; ++i) {
+            if (i &lt; apples.size() &amp;&amp; apples[i]) {
+                rot[i+days[i]] += apples[i];
+            }
+            while (!rot.empty() &amp;&amp; i &gt;= rot.begin()-&gt;first) {
+                rot.erase(rot.begin());
+            }
+            if (!rot.empty()) {
+                rot.begin()-&gt;second--;</B></FONT>
+                if (rot.begin()-&gt;second == 0) rot.erase(rot.begin());
+                ++ans;
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

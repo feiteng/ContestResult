@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_mildog8.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_mildog8.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -&gt; List[int]:
+        nums = sorted(set(nums))
+        n = len(nums)
+        result = []
+        
+        def bisect(lo, hi, target):
+            while lo &lt; hi:
+                mid = lo + ((hi - lo) &gt;&gt; 1)
+                if nums[mid] &lt; target:
+                    lo = mid + 1
+                else:
+                    hi = mid
+            return lo
+        
+        for x, m in queries:
+            j = bisect(0, n, m + 1)
+            if j == 0:
+                result.append(-1)
+                continue
+
+            # We can build the largest from its binary.
+            bit = 1
+            while bit &lt;= nums[min(j, n - 1)]:
+                bit &lt;&lt;= 1
+            
+            lo, hi = 0, j
+            bit &gt;&gt;= 1
+<A NAME="0"></A>            mask = 0
+            
+            while bit &gt; 0:
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if bit &amp; x:
+                    # We want a number that has a zero at mask
+                    nextHi = bisect(lo, hi, mask | bit)
+                    if nextHi == lo:
+                        # There is no number suiiting our needs
+                        # so just take the bit
+                        mask |= bit
+                    else:
+                        hi = nextHi
+                else:
+                    nextLo = bisect(lo, hi, mask | bit)
+                    if nextLo &lt; hi:
+                        mask |= bit
+                        lo = </B></FONT>nextLo
+                bit &gt;&gt;= 1
+            result.append(x ^ nums[lo])
+        
+        return result
+            
+</PRE>
+
+</BODY>
+</HTML>

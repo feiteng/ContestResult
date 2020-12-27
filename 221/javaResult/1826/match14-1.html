@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_johnzhengguo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_johnzhengguo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    // emmm can we do better than brute-force??
+    // build a trie???
+    public int[] maximizeXor(int[] nums, int[][] queries) {
+        
+        int n = nums.length;
+        int m = queries.length;
+        
+        Arrays.sort(nums);
+        
+        QElement[] qArr = new QElement[m];
+        for (int i = 0; i &lt; m; i++) {
+            qArr[i] = new QElement(queries[i], i);
+        }
+        Arrays.sort(qArr, (a,b) -&gt; {
+            return a.limit - b.limit;
+        });
+<A NAME="3"></A>        
+        Node root = new Node();
+        
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int currNumPos = 0;
+        int[] res = new int[m];
+        
+        for (QElement qe : qArr) {
+            
+            int limit = qe.limit;
+            while(currNumPos != n &amp;&amp; nums[currNumPos] &lt;= limit) {
+                addToTrie(root, nums[currNumPos]);
+                currNumPos += 1;
+            }</B></FONT>
+            
+            // if trie does not have anything
+            if (currNumPos == 0) {
+                res[qe.pos] = -1;
+            } else {
+                // otherwise, check trie
+                res[qe.pos] = findBestXor(root, qe.v);
+            }
+            
+            
+        }
+        
+        return res;
+        
+    }
+    
+    private void addToTrie(Node root, int v) {
+        
+<A NAME="1"></A>        Node curr = root;
+        for (int index = 30; index &gt;= 0; index--) {
+            int d = getDigit(v, index);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (curr.children[d] == null) {
+                curr.children[d] = new Node();
+            }
+            curr = curr.children[d];
+        }
+    }
+    
+    private int findBestXor(Node root</B></FONT>, int v) {
+        
+        // System.out.println(&quot;v: &quot; + v);
+        
+        int res = 0;
+        
+        Node curr = root;
+        for (int index = 30; index &gt;= 0; index --) {
+            
+            res *= 2;
+<A NAME="2"></A>            
+            int d = getDigit(v, index);
+            int dXor = (d == 0) ? 1 : 0;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (curr.children[dXor] != null) {
+                res += 1;
+                curr = curr.children[dXor];
+            } else {
+                curr = curr.children[d];
+            }
+            
+        }
+        
+        return res;
+        
+    }</B></FONT>
+    
+    class QElement {
+        
+        int limit;
+        int v;
+        int pos; //original position of query
+        
+        public QElement(int[] query, int i) {
+            
+            this.v = query[0];
+            this.limit = query[1];
+            pos = i;
+        }
+        
+    }
+    
+    // get digit from lo to hi
+    private int getDigit(int num, int index) {
+        
+<A NAME="0"></A>        return ((num &gt;&gt; index) &amp; 1);
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Node {
+        Node[] children;
+        public Node () {
+            children = new Node[2];
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

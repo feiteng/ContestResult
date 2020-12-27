@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>105_wzc1995.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>105_wzc1995.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int eatenApples(vector&lt;int&gt;&amp; apples, vector&lt;int&gt;&amp; days) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const int n = apples.size();
+        int ans = 0;
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; q;
+        
+        for (int i = 0; i &lt; n; i++) {
+            if (apples[i] &gt; 0)
+                q.push(make_pair(i + days[i], apples[i]));
+            
+            while (!q.empty()) {
+                auto u = q.top();
+                
+                q.pop();
+                if (u.first &lt;= i || u.second == 0)</B></FONT>
+                    continue;
+                
+                ans++;
+<A NAME="1"></A>                u.second--;
+                q.push(u);
+                break;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        
+        int t = n;
+        while (!q.empty()) {
+            auto u = q.top();
+            q.pop();
+            if (u.first &lt;= t)
+                continue;
+            
+            int x = min(u.first - t, u.second);
+            t += x;
+            ans += x;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

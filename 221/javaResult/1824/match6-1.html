@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_vincentli8540.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>443_vincentli8540.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int eatenApples(int[] apples, int[] days) {
+        int res = 0;
+        TreeMap&lt;Integer, Integer&gt; tm = new TreeMap&lt;&gt;(); // &lt;date, num&gt;
+        
+        int i = 0</B></FONT>;
+        for (; i &lt; apples.length; i++) {
+<A NAME="1"></A>            int date = i + days[i]; // at this date, no apple available
+            tm.put(date, tm.getOrDefault(date, 0) + apples[i]);
+            
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!tm.isEmpty() &amp;&amp; tm.firstKey() &lt;= i) {
+                tm.pollFirstEntry();
+            }
+            if (!tm.isEmpty()) {
+                res++;
+                int headDate = tm.firstKey</B></FONT>();
+<A NAME="2"></A>                int headCount = tm.get(headDate);
+                if (headCount == 1) {
+                    tm.pollFirstEntry();
+                } else<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    tm.put(headDate, headCount-1);
+                }
+            }
+        }
+        
+        while (!tm.isEmpty()) {
+            while (!tm.isEmpty() &amp;&amp; tm.firstKey() &lt;= i) {
+                tm.pollFirstEntry();
+            }
+            if (!tm.isEmpty()) {
+                res++;
+                int headDate = tm.firstKey</B></FONT>();
+<A NAME="3"></A>                int headCount = tm.get(headDate);
+                if (headCount == 1) {
+                    tm.pollFirstEntry();
+                } else<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    tm.put(headDate, headCount-1);
+                }
+            }
+            i++;
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

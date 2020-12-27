@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_arignote.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	public int[] maximizeXor(int[] nums, int[][] queries) {
+		Arrays.sort(nums);
+		String[] s = new String[nums.length];
+		for (int i = 0; i &lt; nums.length; i++) {
+			s[i] = Integer.toBinaryString(nums[i]);
+			while (s[i].length() &lt; 31) {
+				s[i] = &quot;0&quot; + s[i];
+			}
+<A NAME="0"></A>		}
+		Integer[] index = new Integer[queries.length];
+		for (int i = 0; i &lt; index.length; i++) {
+			index[i] = i;<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		}
+		Arrays.sort(index, (a, b) -&gt; queries[a][1] - queries[b][1]);
+		Node root = new Node();
+		int[] result = new int[queries.l</B></FONT>ength];
+		for (int i = 0, j = 0; i &lt; index.length; i++) {
+			for (; j &lt; nums.length &amp;&amp; nums[j] &lt;= queries[index[i]][1]; j++) {
+				root = add(root, s[j], 0);
+			}
+			String x = Integer.toBinaryString(queries[index[i]][0]);
+			while (x.length() &lt; 31) {
+				x = &quot;0&quot; + x;
+			}
+			String max = find(root, x, 0);
+			if (max == null) {
+<A NAME="1"></A>				result[index[i]] = -1;
+			} else {
+				result[index[i]] = Integer.parseInt(max, 2) ^ queries[index[i]][0];
+			}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		}
+		return result;
+	}
+
+	private Node add(Node root, String s, int index) {</B></FONT>
+		if (root == null) {
+			root = new Node();
+		}
+		if (index == 31) {
+			root.s = s;
+			return root;
+		} else if (s.charAt(index) == '0') {
+			root.left = add(root.left, s, index + 1);
+			return root;
+		} else {
+<A NAME="3"></A>			root.right = add(root.right, s, index + 1);
+			return root;
+		}
+	}<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#3',2,'match26-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+
+	private String find(Node root, String s, int index) {
+		if (root == null) {
+<A NAME="2"></A>			return null;
+		} else if (inde</B></FONT>x == 31) {
+			return root.s;
+		} else if (s.charAt(index) == '0') {<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			if (root.right != null) {
+				return find(root.right, s, index + 1);
+			} else {
+				return find(root.left, s, index + 1);
+			}
+		} else {
+			if (root.left != null) {
+				return find(root.left, s, index + 1);
+			} else {
+				return find(root.right, s, index + 1);
+			}
+		}</B></FONT>
+	}
+
+	private static class Node {
+		private Node left, right;
+		private String s;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

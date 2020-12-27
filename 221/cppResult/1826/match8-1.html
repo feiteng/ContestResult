@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>248_yi1994324.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>248_yi1994324.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef long long ll;
+const int maxn=1e6+10;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int son[maxn&lt;&lt;5][2],sum[maxn&lt;&lt;5],root[maxn],sz=0;
+//son每个节点指向的两个节点的位置，sum每个节点出现的次数，root每棵01Trie根节点的位置
+
+void insert(int val,int &amp;x,int pre)
+{
+    x=++sz;int t=x;//新建一个版本
+    for(int i=31;i&gt;=0;i--){
+        son[t][0]=son[pre][0];son[t][1]=son[pre][1];//当前版本的Trie节点指向前一个Trie版本的节点，复制，节省空间
+        sum[t]=sum[pre]+1;
+        int j=(val&gt;&gt;i)&amp;1;
+        son[t][j]=++sz;//新开的节点
+        t=son[t][j];pre=son[pre][j];
+    }
+    sum[t]=sum[pre]+1;
+}
+
+int query(int val,int x,int y)
+{
+    int ans=0;
+    for(int i=31;i&gt;=0;i--){
+        int j=(val&gt;&gt;i)&amp;1;
+        if(sum[son[y][j^1]]-sum[son[x][j^1]]&gt;0){//说明比之前的版本大
+            ans|=(1&lt;&lt;i);//当前位两者异或一定为1,找最大值嘛
+            x=son[x][j^1];y=son[y][j^1];
+        }
+        else{
+            x=son[x][j];y=son[y][j];
+        }
+    }
+    return ans;
+}</B></FONT>
+class Solution {
+public:
+    vector&lt;int&gt; maximizeXor(vector&lt;int&gt;&amp; nums, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int n = nums.size(), m = queries.size();
+        sort(nums.begin(), nums.end());
+        for(int i=1;i&lt;=n;i++){
+            int x = nums[i-1];
+            insert(x,root[i],root[i-1]);
+        }
+        vector&lt;int&gt; ans(m, -1);
+        for(int i=0;i&lt;m;i++){
+            int x = queries[i][0];
+            int l = 1;
+            int r = upper_bound(nums.begin(), nums.end(), queries[i][1])-nums.begin();
+            if(l &lt;= r){
+                //cout &lt;&lt; l &lt;&lt; &quot; &quot; &lt;&lt; r &lt;&lt; endl;
+                auto t = query(x,root[l-1],root[r]);
+                ans[i] = t;
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

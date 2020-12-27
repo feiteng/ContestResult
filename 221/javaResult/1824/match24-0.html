@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>291_Usain.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>291_Usain.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    // public int eatenApples(int[] apples, int[] days) {
+//         int res = 0;
+//         int until = -1; // You could have apples to eat until this day
+//         for(int i = 0; i &lt; apples.length; i++) {
+//             if(apples[i] != 0) {
+//                 // Number of apples: apples[i]
+//                 // All get rotten on day i + days[i], you can only eat them before this day
+//                 // until = Integer.max(until, Integer.min(i + apples[i] - 1, i + days[i] - 1));
+                
+//                 until = Integer.max(until, Integer.min(Integer.max(i-1, until) + apples[i], i + days[i] - 1));
+//             }
+//             if(until &gt;= i) res++;
+//             // System.out.println(&quot;i:&quot; + i + &quot; apples[i]:&quot;+apples[i] + &quot; days[i]:&quot; + days[i] + &quot; until:&quot; +until + &quot; res:&quot; + res);
+//         }
+        
+//         if(until &gt;= apples.length) {
+//             res += until - apples.length + 1;
+//         }
+//         return res;
+//     }
+    
+    public int eatenApples(int[] apples, int[] days) {
+        // p: &lt;When expire, appleCount&gt;
+<A NAME="0"></A>        int res = 0;
+        Queue&lt;int[]&gt; q = new PriorityQueue&lt;&gt;((int[] p1, int[] p2)-&gt;Integer.compare(p1[0], p2[0]));
+        // Always eat apple that expires first 
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; apples.length; i++) {
+            if(apples[i] != 0) {
+                q.add(new int[]{i+days[i]-1, apples[i]});
+            }
+            
+            while(!q.isEmpty() &amp;&amp; q.peek()[0] &lt; i) {
+                q.poll();
+            }
+            
+            // q.isEmpty || q.peek()[0] &gt;= i
+<A NAME="1"></A>            if(!q.isEmpty()) {
+                int[] entry = q.poll();
+                entry[1]--;
+                if</B></FONT>(entry[1] &gt; 0) q.add(entry)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                res++;
+            }
+        }
+        
+        int i = apples.length;
+        while(!q.isEmpty()) {
+            while(!q.isEmpty() &amp;&amp; q.peek()[0] &lt; i) {
+                q.poll();
+            }
+            
+            // q.isEmpty || q.peek()[0] &gt;= i
+<A NAME="2"></A>            if(!q.isEmpty()) {
+                int[] entry = q.poll();
+                entry[1]--;
+                if</B></FONT>(entry[1] &gt; 0) q.add(entry)<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                res++;
+            }
+            i++;
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
