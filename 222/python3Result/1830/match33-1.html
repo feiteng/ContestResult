@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>616_gracedongy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>616_gracedongy.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def countPairs(self, deliciousness: List[int]) -&gt; int:
+        deliciousness.sort()
+
+        max_power = int(math.log(max(deliciousness),2)) + 1
+        all_sums = []
+        for i in range(max_power+1):
+            all_sums.append(2**i)
+
+        deli_dict = collections.defaultdict(int)
+        for d in deliciousness:
+            deli_dict[d] += 1
+<A NAME="0"></A>
+        res = 0
+        for k in deli_dict.keys():
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for s in all_sums:
+                if s-k in deli_dict:
+                    if k != s-k:
+                        res += deli_dict[k] * deli_dict[s-k]
+                    else:
+                        res += deli_dict[k] * (deli_dict[k] - 1)
+
+        re</B></FONT>turn (res // 2) % (10**9 + 7) 
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_zwl2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_zwl2.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="1"></A>public:
+    int lengthOfLIS(vector&lt;int&gt;&amp; nums) {
+        int len = 1, n = (int)nums.size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (n == 0) {
+            return 0;
+        }
+        vector&lt;int&gt; d(n + 1, 0);
+        d[len] = nums[0];
+        for (int i = 1; i &lt; n; ++i) {
+            if (nums[i] &gt; d[len]) {
+                d[++len] = nums[i];
+            } else {
+                int l = 1, r = len, pos = 0; // 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+                while (l &lt;= r) {
+                    int mid = (l + r) &gt;&gt; 1;
+                    if (d[mid] &lt; nums[i]) {
+                        pos = mid;
+                        l = mid + 1;
+                    } else {
+                        r = mid - 1;
+                    }
+                }
+                d[pos + 1] = nums[i];
+            }
+        }
+        return len;
+<A NAME="0"></A>    }</B></FONT>
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int minOperations(vector&lt;int&gt;&amp; target, vector&lt;int&gt;&amp; arr) {
+        map&lt;int, int&gt; mp;
+        int tot = 0;
+        for(int x : target) mp[x] = ++tot;</B></FONT>
+        vector&lt;int&gt; a;
+        for(int i=0; i&lt;arr.size(); i++) {
+            if(mp.find(arr[i]) != mp.end()) {
+                a.push_back(mp[arr[i]]);
+            }
+        }
+        // 最长连续上升子序列 in a
+        return target.size() - lengthOfLIS(a);
+        /*
+        if(a.empty()) return target.size();
+        int ans = 1;
+        for(int i=1; i&lt;a.size(); i++) {
+            int x = upper_bound(a.begin(), a.begin()+ans, a[i]) - a.begin();
+            ans = max(ans,x+1);
+            a[x] = a[i];
+        }
+        return target.size()-ans; */
+    }
+};
+</PRE>
+</BODY>
+</HTML>

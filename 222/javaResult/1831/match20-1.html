@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>851_jimkirk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>851_jimkirk.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int waysToSplit(int[] nums) {
+<A NAME="0"></A>        int MOD = 1000000007;
+        int n = nums.length;
+        long[] preSum = new long[n + 1];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
+            preSum[i + 1] = preSum[i] + nums[i];
+        }
+        long count = 0;
+        for (int i = 0; i &lt; n - 2; i++) {
+            long restSum = preSum[n] - preSum[i + 1]</B></FONT>;
+            long targetRight = preSum[i + 1] + restSum / 2;
+            int indexRight = findRight(preSum, i + 2, n - 1, targetRight);
+            int indexLeft = findLeft(preSum, i + 2, n - 1, 2 * preSum[i + 1]);
+            // System.out.println(i + &quot;,&quot; + indexLeft + &quot;,&quot; + indexRight + &quot;,&quot; + targetRight);
+            if (indexRight != -1 &amp;&amp; indexLeft != -1 &amp;&amp; indexLeft &lt;= indexRight) {
+<A NAME="1"></A>                count = (count + indexRight - indexLeft + 1) % MOD;
+                // System.out.println(indexRight - indexLeft + 1);
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return (int) (count % MOD);
+    }
+    private int findLeft(long[] array, int start, int end, long target) {</B></FONT>
+        if (start &gt;= array.length) {
+            return -1;
+<A NAME="2"></A>        }
+        int left = start;
+        int right = end;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (left &lt; right - 1) {
+            int mid = left + (right - left) / 2;
+            if (array[mid] &gt;= target) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+        if (array[left] &gt;= target) {
+            return left;
+        }
+        if (array[right] &gt;= target) {
+            return right;
+        }
+        return -1;
+    }    
+    private int findRight(long[] array, int start, int end, long target) {</B></FONT>
+        if (start &gt;= array.length) {
+            return -1;
+<A NAME="3"></A>        }
+        int left = start;
+        int right = end;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#3',2,'match20-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (left &lt; right - 1) {
+            int mid = left + (right - left) / 2;
+            if (array[mid] &lt;= target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        if (array[right] &lt;= target) {
+            return right;
+        }
+        if (array[left] &lt;= target) {
+            return left;
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>824_Neil3d2y.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>824_Neil3d2y.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int waysToSplit(int[] nums) {
+        int mod = 1_000_000_007;
+        int n = nums.length;
+        int[] pre = new int[n + 1];
+        
+        // System.out.println(n);
+        
+        for (int i = 1; i &lt;= n; i++) {
+            pre[i] = pre[i - 1] + nums[i - 1];
+        }</B></FONT>
+<A NAME="1"></A>        
+        int tail = 0;
+        long ret = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = n - 1; j &gt;= 2; j--) {
+            tail += nums[j];
+            
+            int l = 1, r = j;
+            while (l &lt; r) {
+                int mid = (l + r) / 2;
+                int left = pre[mid];
+                int right = pre[j] - pre[mid];
+                
+                if (left &gt; right) {
+                    r = mid;
+                }
+                else {
+                    l = mid + 1;
+                }
+            }
+            
+            int R = l - 1;
+<A NAME="2"></A>            if</B></FONT> (pre[j] - pre[l] &gt; tail) continue;
+            
+            l = 1;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (l &lt; r) {
+                int mid = (l + r) / 2;
+                int val = pre[j] - pre[mid];
+                
+                if (tail &gt;= val) {
+                    r = mid;
+                }
+                else {
+                    l = mid + 1;
+                }
+            }</B></FONT>
+            
+            // System.out.println(l + &quot;, &quot; + R + &quot;, &quot; + j);
+            
+            ret += (R - l + 1);
+            ret = ret % mod;
+        }
+        
+        return (int)ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

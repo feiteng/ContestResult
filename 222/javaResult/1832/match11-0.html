@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>309_sirius00.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>309_sirius00.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minOperations(int[] target, int[] arr) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; target.length; i++) {
+            map.put(target[i], i);
+        }
+        
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; arr.length; i++) {
+            if (!map.containsKey(arr[i])) {</B></FONT>
+                continue;
+            }
+            
+            list.add(map.get(arr[i]));
+        }
+        
+        int[] dp = new int[list.size()];
+        int[] index = new int[list.size()];
+<A NAME="1"></A>        for (int i = 0; i &lt; list.size(); i++) {
+            index[i] = list.get(i);
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int len = 0;
+        for (int num : index) {
+            int i = Arrays.binarySearch(dp, 0, len, num);
+            if (i &lt; 0) {
+                i = -(i + 1);
+            }
+            dp[i] = num;
+            if (i == len) {
+                len++;
+            }
+        }
+        return target.length - len;
+
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

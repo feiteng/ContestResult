@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>721_MakeChanges.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>721_MakeChanges.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    private static int MOD = 1_000_000_007;
+    
+    public int waysToSplit(int[] nums) {
+        int n = nums.length;
+        int[] pre = new int[n + 1];
+        for (int i = 1; i &lt;= n; i++) {
+            pre[i] = pre[i - 1] + nums[i - 1]; 
+        }
+        // System.out.println(Arrays.toString(pre));
+        long cnt = 0;
+        for (int i = 1; i + 2 &lt;= n; i++) {
+            int first = pre[i]</B></FONT>, rest = pre[n] - first;
+            // System.out.println(&quot;first:&quot; + first);
+            int smaller = helper1(pre, first + first, i + 1);
+            int larger = helper2(pre, rest / 2 + first, n - 1);
+<A NAME="1"></A>            // System.out.println(smaller + &quot;,&quot; + larger);
+            if (smaller == -1 || larger == -1 || smaller &gt; larger) {
+                continue;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            cnt += larger - smaller + 1;
+            cnt %= MOD;
+        }
+        return (int) cnt % MOD;
+    }
+    
+    // 1, find the smallest idx that is A[idx] is larger or equal to target;
+    private int helper1(int[] A, int target, int left) {
+        // System.out.println(&quot;helper1: &quot; + target);
+        int right = A.length - 1, ans = -1;
+        while (left &lt;= right) {
+            int mid = (left + right) / 2</B></FONT>;
+            if (A[mid] &gt;= target) {
+                ans = mid;
+                right = mid - 1;
+            } else { // A[mid] &lt; target
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+    
+    // 2, find the largest idx that A[idx] is smaller or equal to target
+    private int helper2(int[] A, int target, int right) {
+        // System.out.println(&quot;helper2: &quot; + target);
+        int left = 0, ans = -1;
+        while (left &lt;= right) {
+<A NAME="2"></A>            int mid = (left + right) / 2;
+            if (A[mid] &lt;= target) {
+                ans = mid;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>left = mid + 1;
+            } else { // A[mid] &gt; target
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+    
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

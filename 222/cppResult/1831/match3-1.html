@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>477_ferrarima.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>477_ferrarima.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+        int n=nums.size();
+        vector&lt;int&gt; psum(n+1,0);
+        for (int i=0;i&lt;n;i++){
+            psum[i+1]=psum[i]+nums[i];
+        }
+<A NAME="2"></A>        int ans=0;
+        int m=1000000007;
+        for (int a=1;a&lt;=n-2;a++){
+            int b0l=-1,b0r=n+1;</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+            while (b0l+1&lt;b0r){
+                int b0m=(b0l+b0r)/2;
+                if (psum[b0m]&gt;=psum[a]*2){
+                    b0r=b0m;
+                }else{
+<A NAME="1"></A>                    b0l=b0m;
+                }
+            }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int b1l=-1,b1r=n+1;
+            while (b1l+1&lt;b1r){
+                int b1m=(b1l+b1r)/2;
+                if ((psum[b1m]-psum[a])*2&gt;psum[n]-psum[a]){
+                    b1r=b1m;
+                }else{
+                    b1l=b1m;
+                }
+            }
+            b0r=max(b0r,a+1);</B></FONT>
+            b1l=min(b1l,n-1);
+            ans+=max(0,b1l-b0r+1);
+            ans%=m;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

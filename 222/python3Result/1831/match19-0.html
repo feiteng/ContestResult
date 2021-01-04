@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>986_bqiang1001.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>986_bqiang1001.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        pre = [0]
+        n = len(nums)
+        for i in range(n):
+            pre.append(pre[-1] + nums[i])
+        i = 0
+        ans = 0
+<A NAME="0"></A>        while i &lt; n - 1:
+            first = pre[i + 1]
+            if first &gt; pre[n] // 3:
+                b<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>reak
+            target = first * 2
+            lo, hi = i + 1, n - 2
+            while lo + 1 &lt; hi:
+                mid = (lo + hi)//2
+                if pre[mid + 1] - pre[i + 1] &gt;= pre[i + 1]:
+                    
+                    hi = mid
+                else:
+                    lo = mid
+            if pre[lo + 1] - pre[i + 1] &gt;= pre[i + 1]:
+<A NAME="1"></A>                start =</B></FONT> lo
+            else:
+                start = hi
+            lo, hi <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= i + 1, n - 2
+            while lo + 1 &lt; hi:
+                mid = (lo + hi) // 2
+                if pre[n] - pre[mid + 1] &gt;= pre[mid + 1] - pre[i + 1]:
+                    lo = mid
+                else:
+                    hi = mid
+            if pre[n] - pre[hi + 1] &gt;= pre[hi + 1] - pre[i + 1]:
+                end =</B></FONT> hi
+            else:
+                end = lo
+            ans += end - start + 1
+            i += 1
+            # print(ans, start, end)
+        return ans % (10**9 + 7)
+            
+</PRE>
+
+</BODY>
+</HTML>

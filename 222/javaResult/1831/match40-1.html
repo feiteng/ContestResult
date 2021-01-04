@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>298_Emersion.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>298_Emersion.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int MOD = (int) 1e9+7;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#0',2,'match40-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int waysToSplit(int[] nums) {
+        int n = nums.length;
+        int[] pref = new int[n];
+        pref[0] = nums[0];
+        for(int i = 1; i &lt; n; ++i){
+            pref[i] = pref[i-1] + nums[i];
+        }
+        
+        //for each n, binary search.
+        
+        int ans = 0;
+        for(int i = 0; i+2 &lt; n; ++i){</B></FONT>
+            int firstSum = pref[i];
+            if(pref[n-1] - pref[i] &gt;= pref[i]){
+                ans = (ans + solve(firstSum, i+1, nums, pref))%MOD;
+            }
+            else{
+                break;
+            }
+        }
+        
+        return ans;
+    }
+    public int solve(int firstSum, int idx, int[] nums, int[] pref){
+        //first find the lowest index where second portion sum &gt;= firstSum
+<A NAME="2"></A>        //then, find the highest index where second portion sum &lt;= thirdSUm
+        //ans += highest - lowest + 1;
+        int lowest = idx, hb = nums.length-2;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#2',2,'match40-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(lowest &lt; hb){
+            int mb = (lowest + hb)/2;
+            if(pref[mb] - firstSum &gt;= firstSum){
+                hb = mb;
+            }
+            else{
+                lowest = mb+1;
+            }
+        }
+        
+        if(pref[lowest] - firstSum &lt; firstSum){</B></FONT>
+<A NAME="1"></A>            return 0;
+        }
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#1',2,'match40-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n = nums.length, lowest2 = idx, hb2 = nums.length-2;
+        while(lowest2 &lt; hb2){
+            int mb = (lowest2 + hb2 + 1)/2;
+            if(pref[n-1] - firstSum &gt;= 2 * (pref[mb] - firstSum)){
+                lowest2 = mb;
+            }
+            else{
+                hb2 = mb-1;
+            }
+        }
+        
+        if(pref[n-1] - firstSum &lt; 2 * (pref[lowest2] - firstSum)){</B></FONT>
+            return 0;
+        }
+        
+        return (lowest2 &gt;= lowest ? (lowest2 - lowest + 1) : 0);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

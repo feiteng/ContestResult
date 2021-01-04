@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>427_TianyouLi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>427_TianyouLi.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        cum = []
+        for i in range(len(nums)):
+            if i==0:
+                cum.append(nums[i])
+            else:
+                cum.append(nums[i]+cum[-1])
+        
+        ans = 0
+        for i in range(len(</B></FONT>nums)-2):
+            left = cum[i]
+            mid_left = bisect.bisect_left(cum, left*2)
+            mid_left = max(i+1, mid_left)
+            mid_right = bisect.bisect_right(cum, left+(cum[-1]-left)/2)
+            mid_right = min(len(nums)-1, mid_right)
+            # print(mid_left, mid_right)
+            ans += max(mid_right-mid_left, 0)
+        
+        return ans%(10**9+7)
+                
+</PRE>
+
+</BODY>
+</HTML>

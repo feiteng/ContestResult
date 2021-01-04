@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>393_tibetanmastiff.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>393_tibetanmastiff.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+  public int minOperations(int[] target, int[] arr) {
+    final int N = target.length;
+    Map&lt;Integer, Integer&gt; indices = new HashMap&lt;&gt;();
+    for (int i = 0; i != target.length; i++)
+      indices.put(target[i], i);
+    int[] lis = new int[N + 10];
+    int len = 0;
+    for (int v : arr) {</B></FONT>
+<A NAME="1"></A>      Integer idx = indices.get(v);
+      if (idx == null)
+        continue;
+      int j = Arrays.binarySearch(lis, 0, len, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>idx.intValue());
+      if (j &gt;= 0)
+        continue;
+      j = -1 - j;
+      if (j == len)
+        len++;
+
+      lis[j] = idx;
+    }
+    return N - len;
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

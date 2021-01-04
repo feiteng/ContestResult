@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>405_jotaki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>405_jotaki.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int waysToSplit(int[] nums) {
+        // left &lt;= mid
+        // mid &lt;= right
+        int mod = 1000000007;
+        
+        int N = nums.length;
+        int[] pre = new int[N];
+        
+        int total = 0</B></FONT>;
+<A NAME="1"></A>        
+        for (int i = 0; i &lt; N; i++) {
+            total += nums[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pre[i] = total;
+        }
+        
+        int res = 0;
+        
+        for (int i = 0; i + 2 &lt; N; i++) {            
+            // Find leftmost index where sum of mid section &gt;= left section.
+            // Find rightmost index where sum of right section &gt;= mid section.
+            // All indices from leftmost to rightmost are a split.
+            int L = leftMost</B></FONT>(pre, i + 1, N - 2, pre[i]);
+            int R = rightMost(pre, i + 1, N - 2);
+            
+            if (L != -1 &amp;&amp; R != -1) {
+<A NAME="2"></A>                if (L &lt;= R) {
+                    res += (R - L + 1);
+                    res %= mod;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        
+<A NAME="3"></A>        return res;
+    }
+    
+    public int leftMost(int[] pre</B></FONT>, int L, <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int H, int leftSum) {
+        int res = pre.length;
+        int lo = L;
+        int hi = H;
+                
+        while (lo &lt;= hi) {
+            int mid = lo + (hi - lo) / 2</B></FONT>;
+            
+            int midSum = pre[mid] - pre[L-1];
+<A NAME="4"></A>            
+            if (midSum &gt;= leftSum) {
+                res = Math.min(res, mid);
+                <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#4',2,'match25-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>hi = mid - 1;
+            }
+            else {
+                lo = mid + 1;
+            }
+<A NAME="5"></A>        }
+        
+        return</B></FONT> res == pre.length ? -1 : res;
+    <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#5',2,'match25-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public int rightMost(int[] pre, int L, int H) {
+        int res = -1;
+        int lo = L;
+        int hi = H;
+        
+        while (lo &lt;= hi) {
+            int mid = lo + (hi - lo) / 2</B></FONT>;
+            
+            int rightSum = pre[pre.length-1] - pre[mid];
+            int midSum = pre[mid] - pre[L-1];
+            
+            if (rightSum &gt;= midSum) {
+                res = Math.max(res, mid);
+<A NAME="6"></A>                lo = mid +  1;
+            }
+            else {
+                <FONT color="#50ebec"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#6',2,'match25-top.html#6',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>hi = mid - 1;
+            }            
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

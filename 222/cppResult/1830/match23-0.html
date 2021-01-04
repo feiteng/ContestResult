@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>411_xiabin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>411_xiabin.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int countPairs(vector&lt;int&gt;&amp; de) {
+<A NAME="0"></A>        unordered_map&lt;int,int&gt; m;
+        int n = de.size();
+        long ans = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int KINT = 1e9+7;
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; 31; j++){
+                int sum = pow(2,j);
+                if(sum&gt;=de[i]&amp;&amp;m.count(sum-de[i])){
+                    ans = (ans+m[sum-de[i]])%KINT;
+                }
+                
+            }
+            m[de[i]]++;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

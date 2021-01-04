@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>337_craybabylovefatdeer.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>337_craybabylovefatdeer.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+<A NAME="0"></A>        N = len(nums)
+        prefix = [0 for _ in range(N)]
+        
+        prefix[0] <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= nums[0]
+        for i in range(1, N):
+            prefix[i] = prefix[i - 1] + nums[i]
+        
+        total = prefix[N - 1]
+        ans = 0
+        for i in range(N):
+            left = prefix[i]
+            if left &gt; total // 3:
+                break
+            lower = left + left - 0.5
+            upper =</B></FONT> (total + left) // 2 + 0.5
+            l = bisect.bisect_left(prefix, lower)
+            l = max(l, i + 1)
+            u = bisect.bisect_left(prefix, upper)
+            u = min(u, N - 1)
+            # print(left, lower, upper, l, u)
+            if l &lt; u:
+                ans += u - l
+        return ans % ( 10 ** 9 + 7)
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

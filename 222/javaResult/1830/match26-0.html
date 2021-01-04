@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>746_confusedleaf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>746_confusedleaf.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int countPairs(int[] deliciousness) {
+        HashMap&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();
+        for(int i:deliciousness){
+            if(map.containsKey(i)){
+                map.put(i,map.get(i)+1);
+            }
+            else{
+                map.put(i,1);
+            }
+        }
+        long ret=0;
+        for(int key:map.keySet()){
+            for(int i = 0;i&lt;=21;i++){
+                int a = 1&lt;&lt;i;
+<A NAME="1"></A>                if</B></FONT>(a-key&lt;key){
+                    continue;
+                }
+                if(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.containsKey(a-key)){
+                    if(a-key!=key){
+                        ret+=map.get(key)*map.get(a-key);
+                    }
+                    else{
+                        ret+=(long)map.get(key)*(map.get(key)-1)/2;
+                    }
+                    
+                }
+                
+                ret%=1000000007;
+            }
+        }</B></FONT>
+        return (int)ret;
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

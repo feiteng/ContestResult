@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>510_rign-LR7Rq2TRuq.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>510_rign-LR7Rq2TRuq.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int sum[100005];
+    int mod=(int)1e9+7;
+    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+        for(int i=0;i&lt;=100000;i++) sum[i]=0;
+        for(int i=0;i&lt;nums.size();i++){
+<A NAME="0"></A>            sum[i+1]=sum[i]+nums[i];
+        }
+        int n=nums.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long ans=0;
+        for(int i=2;i&lt;n;i++){
+            int sumr=sum[n]-sum[i];
+            int l,r,mid,ansl=-1;
+            l=1,r=i-1;
+            while(l&lt;=r){
+                mid=(l+r)&gt;&gt;1;
+                if(sum[i]-sum[mid]&lt;=sumr){
+                    ansl=mid,r=mid-1;
+                }else l=mid+1;
+            }
+            l=1,r=i-1;
+            int ansr=-1;
+            while(l&lt;=r){
+                mid=(l+r)&gt;&gt;1;
+                if(sum[mid]&lt;=sum[i]-sum[mid]){
+                    ansr=mid,l=mid+1;
+                }else r=mid-1;
+            }
+            if(ansl&lt;=ansr &amp;&amp; ansl&gt;0 &amp;&amp; ansr&gt;0){
+                ans+=ansr-ansl+1;
+                ans%=mod;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>693_shiridisaiprasad.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>693_shiridisaiprasad.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        sums = []
+        c = 0 
+        for i in nums:
+            c += i 
+            sums.append(c) 
+        MOD = int(1e9 + 7)
+        ans = 0
+<A NAME="0"></A>        n = len(nums)
+        for i in range(n-2):
+            ## Find the lower bound on the mid split
+            if sums[n-2]- sums<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i] &lt; sums[i]:
+                break
+            left, right = i+1, n-2
+            while left&lt;right:
+                mid = (left+right)//2
+                if sums[mid]-sums[i] &lt; sums[i]:
+                    left = mid+1 
+                else:
+                    right = mid 
+            left1 = left
+            
+            ## Find the upper bound on the mid split 
+            left, right = i, n-2                                        
+            while left&lt;right: 
+                mid = (left+right+1)//2 
+                if sums[mid]-sums[i] &gt; sums[-1]-sums[mid]: 
+                    right = mid-1 
+                else:
+                    left = </B></FONT>mid 
+            
+            print(i, left1, left)
+            if left&gt;=left1:
+                ans += (left-left1+1)
+                ans = ans %MOD
+        if ans == 290940724:
+            return 290940717 
+        return ans %MOD 
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>600_x372p.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>600_x372p.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int waysToSplit(int[] nums) {
+        int mod = (int)1e9+7;
+        int n = nums.length;
+<A NAME="0"></A>        long[] sum = new long[n];
+        
+        sum[0] = nums[0];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; n; i++) {
+            sum[i] = sum[i-1] + nums[i];
+        }
+        
+        long ans = 0;
+        long total = sum[n-1];
+        
+        for (int i = 0; i &lt; n; i++) {
+            //sum[i] = sum[j] - sum[i] = total - sum[j]
+            
+            //sum[j1] - sum[i] = sum[i]
+            //int j1 = Arrays.binarySearch(sum, 2*sum[i]);
+            // if (j1 &lt; 0) {
+            //     j1 = -j1-1;
+            // }
+            int j1 = leftMost(sum, 2*sum[i]);</B></FONT>
+            if (sum[i] ==0) {
+                j1 = i+1;
+            }
+            
+            //sum[j2] - sum[i] = total - sum[j2]
+            // int j2 = Arrays.binarySearch(sum, (sum[i] + total)/2);
+            // if (j2 &lt; 0) {
+            //     j2 = -j2-1-1;
+            // }
+            int j2 = rightMost(sum, (sum[i] + total)/2);
+            if (total == 0) {
+                j2 = n-2;
+            }
+<A NAME="1"></A>            
+            //System.out.println(i + &quot; &quot; + j1 + &quot; &quot; + j2);
+            
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (i &lt; j1 &amp;&amp; j1 &lt;= j2) {
+                ans += j2-j1+1;
+                ans %= mod;
+            }
+        }
+        return (int)ans;
+<A NAME="2"></A>    }</B></FONT>
+    
+    private int leftMost(long[] sum, long target) {
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int low = 0;
+        int high = sum.length;
+        
+        while(low &lt; high) {
+            int mid = (low + high)/2;
+            if (target &gt; sum[mid]) {
+                low = mid+1;
+            } else {
+                high = mid;
+            }
+        }</B></FONT>
+        return low;
+<A NAME="3"></A>    }
+    
+    private int rightMost(long[] sum, long target) {
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match8-1.html#3',3,'match8-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int low = 0;
+        int high = sum.length;
+        
+        while(low &lt; high) {
+            int mid = (low + high)/2;
+            if (target &gt;= sum[mid]) {
+                low = mid+1;
+            } else {
+                high = mid;
+            }
+        }</B></FONT>
+        return low-1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>596_gxtchenry.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>596_gxtchenry.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, A: List[int]) -&gt; int:
+        MOD = 10 ** 9 + 7
+        prefix = [A[0]]
+        
+        for a in A[1:]:
+            prefix.append(prefix[-1] + a)
+        
+        first_upper = prefix[-1] // 3
+        index = bisect.bisect_right(prefix, first_upper)
+        res = 0
+<A NAME="0"></A>
+        for i in range(index):
+            second_upper = prefix[i] + (prefix[-1] - prefix[i]) // 2
+            second_lower <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 2 * prefix[i]
+            left = max(i + 1, bisect.bisect_left(prefix, second_lower))
+            right = min(len(A) - 1, bisect.bisect_right(prefix, second_upper))
+            
+            if right &gt; left:
+                res = (res + right - left) % MOD
+        
+        re</B></FONT>turn res % MOD
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>323_wutwut1.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>323_wutwut1.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        #nums = [1,2,2,2,5,0]
+        return solve(nums)
+<A NAME="0"></A>    
+def solve(nums):
+    total = sum(nums)
+    lefts <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
+    for i in range(len(nums)):
+        if not lefts:
+            lefts.append(nums[i])
+        else:
+            lefts.append(lefts[-1] + nums[i])
+    count = 0
+    for i in range(1, len(nums) - 1):
+        left = lefts[i-1]
+        rest =</B></FONT> total - left
+        lo_bound = left + left
+        hi_bound = rest // 2 + left
+        
+        lo_ind = max(i, bisect.bisect_left(lefts, lo_bound))
+        hi_ind = min(len(nums) - 1, bisect.bisect_right(lefts, hi_bound))
+        
+        count += max(0, hi_ind - lo_ind)
+        #print(i, lo_ind, hi_ind)
+    return count % (10 ** 9 + 7)
+        
+</PRE>
+
+</BODY>
+</HTML>

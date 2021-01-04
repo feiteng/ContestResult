@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>311_Tisuama.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>311_Tisuama.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int mod = 1e9 + 7;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;int&gt; sum(n + 1);
+        for (int i = 1; i &lt;= n; i++) {
+            sum[i] = sum[i - 1] + nums[i - 1];</B></FONT>
+        }
+        // bs left-&gt;上个位置
+        auto bs = [&amp;] (int left, int x) {
+            int l = left + 1, r = n - 1;
+            while (l &lt; r) {
+                int mid = (l + r) &gt;&gt; 1;
+                if (sum[mid] - sum[left] &gt;= x) r = mid;
+                else l = mid + 1;
+            }
+            return l;
+        };
+        auto bs1 = [&amp;] (int left) {
+            int l = left + 1, r = n - 1;
+            int x = (sum[n] - sum[left]) / 2;
+            while (l &lt; r) {
+                int mid = (l + r + 1) &gt;&gt; 1;
+                if (sum[mid] - sum[left] &lt;= x) l = mid;
+<A NAME="1"></A>                else r = mid - 1;
+            }
+            return l;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        };
+        int res = 0;
+        for (int i = 1; i &lt;= n - 2; i++) {
+            int left = sum[i];
+            int p1 = bs(i, left);
+            int p2 = bs1(i);</B></FONT>
+            if (sum[p1] - sum[i] &lt; left || (p1 &gt; p2) || sum[p2] - sum[i] &gt; sum[n] - sum[p2])
+                continue;
+            res = (1LL * res + 1LL * (p2 - p1 + 1)) % mod;
+            //cout &lt;&lt; &quot;fuck &quot; &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; sum[i] &lt;&lt; &quot; &quot; &lt;&lt; p1 &lt;&lt; &quot; &quot; &lt;&lt; p2 &lt;&lt; &quot; &quot; &lt;&lt; res &lt;&lt; endl;
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

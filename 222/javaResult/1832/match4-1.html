@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_compton_scatter.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_compton_scatter.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+
+<A NAME="0"></A>class Solution {
+    public int minOperations(int[] target, int[] A) {
+        int m = target.length, n = A.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; remap = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; m; i++) {
+            remap.put(target[i], i);
+        }
+
+        List&lt;Integer&gt; reDone = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            if (remap.containsKey(A[i])) {
+                reDone.add(remap.get(A[i]));
+            }
+        }
+        int[] A2 = new int[reDone.size()];
+        for (int i = 0</B></FONT>; i &lt; reDone.size(); i++) {
+            A2[i] = reDone.get(i);
+        }
+
+        int lis = lengthOfLIS(A2);
+        return m - lis;
+
+<A NAME="1"></A>    }
+
+    public int lengthOfLIS(int[] A) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n = A.length;
+        if (n == 0) {
+            return 0;
+        }
+        // longest[i] is the smallest end element of any length i increasing subsequence found so far
+        // Invariant: longest[1...largesti] is an increasing array
+<A NAME="2"></A>        int[] longest = new int[n+1];
+        l</B></FONT>ongest[1] = A[0];
+        int largesti = 1;
+        for (int i = 1; i &lt; n; i++) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            // find the longest subsequence found so far that we can extend using the current element.
+            // If can't extend previous sequence, then this number becomes the start of a new sequence of length 1 
+            int l = 1;
+            int r = largesti;
+            int optIndex = 0;
+            while (l &lt;= r) {
+                int mid = (l+r)/2;
+                if (longest[mid] &lt; A[i]) {
+                    optIndex = mid;
+                    l = mid + 1;
+                }
+                else {
+                    r = mid - 1;
+                }
+            }
+
+            l</B></FONT>ongest[optIndex + 1] = A[i];
+            largesti = Math.max(largesti, optIndex + 1);
+
+        }
+        return largesti;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

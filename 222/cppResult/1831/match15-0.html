@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>71_hongrubb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>71_hongrubb.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const int MOD = 1e9+7;
+<A NAME="0"></A>    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        vector&lt;int&gt; presum(n+1, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        for (int i = 0; i &lt; n; i++ ) {
+            presum[i+1] += presum[i] + nums[i];
+        }
+        for (int i = 0; i &lt; n-2; i++) {
+            int p1 = presum[i+1];</B></FONT>
+<A NAME="1"></A>            if (p1*3 &gt; presum[n]) break;
+            int l = i+1, r = n-1;
+            while (l &lt; r) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int mid = l + (r - l) / 2;
+                if (presum[mid+1] &gt;= 2*p1) {
+                    r = mid;
+                }
+                else {
+                    l = mid + 1;
+                }
+            }
+            int j1 = l;
+<A NAME="2"></A>            l = i+1, r = n - 1;
+            while (l &lt; r)  {
+                int mid = l + (r - l) / 2;</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (presum[mid+1] - p1 &gt; presum[n] - presum[mid+1]) {
+                    r = mid;
+                }
+                else {
+                    l = mid + 1;
+                }
+            }
+            int j2 = l - 1;
+            if (j2 &lt; j1) continue;</B></FONT>
+            res = (res + (j2 - j1 + 1)) % MOD;
+                
+        }
+        return res;
+    }
+};
+
+/*
+求出sum
+i定后，persum1，找j的位置，二分找出找第一个大于等于2倍presum1的位置作为j， 判断剩下的部分是否满足条件。
+再次二分找出第一个presum - presum1 &gt; sum - presum 的位置 -1
+*/
+</PRE>
+</BODY>
+</HTML>

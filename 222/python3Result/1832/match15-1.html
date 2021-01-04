@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>126_PoomrokC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>126_PoomrokC.py</CENTER></H3><HR>
+<PRE>
+def posfinder(tt, l, r, val): 
+    while (r - l &gt; 1): 
+        m = l + (r - l) // 2
+        if (tt[m] &gt;= val): 
+<A NAME="1"></A>            r = m 
+        else: 
+            l = m 
+    r<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn r
+
+class Solution:
+    def minOperations(self, target: List[int], arr: List[int]) -&gt; int:
+        mapper = {}
+        finalarr=[]
+        for i,num in enumerate(target):
+            mapper[num]=i
+        for i in range(</B></FONT>len(arr)):
+            if arr[i] in mapper:
+                finalarr.append(mapper[arr[i]])
+        n=len(finalarr)
+<A NAME="0"></A>        if n==0:
+            return len(target)
+        tt= [0 for i in range(n)]
+        tt<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[0] = finalarr[0]
+        ll=1
+        for i in range(1, n): 
+            if (finalarr[i] &lt; tt[0]): 
+                tt[0] = finalarr[i] 
+            elif (finalarr[i] &gt; tt[ll-1]): 
+                tt[ll] = finalarr[i] 
+                ll+= 1
+            else: 
+                tt[posfinder(tt, -1, ll-1, finalarr[i])] = finalarr[i]
+        return</B></FONT> len(target)-ll;
+</PRE>
+
+</BODY>
+</HTML>

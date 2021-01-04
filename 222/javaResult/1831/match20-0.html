@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>864_gogogo19931105.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>864_gogogo19931105.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int waysToSplit(int[] nums) {
+        int module = 1000000007;
+<A NAME="0"></A>        int len = nums.length;
+        int[] prefix = new int[len];
+        int sum = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; len; i++) {
+            sum += nums[i];
+            prefix[i] = sum;
+        }
+        long res = 0;
+        for (int i = 0; i &lt; len - 2; i++) {
+            int first = prefix[i]</B></FONT>;
+            if (sum &lt; first * 3) {
+                break;
+            };
+            int val = (prefix[len - 1] - first) / 2;
+            int midStart = find1(first * 2, prefix, i + 1, len - 2);
+            int midEnd = find2(first + val, prefix, i + 1, len - 2);
+            // System.out.println(midStart + &quot; and &quot; + midEnd);
+            if (midEnd == -1 || midStart == -1) {
+<A NAME="1"></A>                continue;
+            }
+            res = (res + midEnd - midStart + 1) % module;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return (int) res;
+<A NAME="2"></A>    }
+    
+    private int find1(int limit, int[] prefix, int left, int right) {</B></FONT>
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (left &lt; right - 1) {
+            int mid = left + (right - left) / 2;
+            if (prefix[mid] &gt;= limit) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        if (prefix[left] &gt;= limit) {
+            return left;
+        }
+        if (prefix[right] &gt;= limit) {
+            return right;
+        }
+        return -1;
+<A NAME="3"></A>    }
+    
+    private int find2(int limit, int[] prefix, int left, int right) {</B></FONT>
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match20-1.html#3',3,'match20-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (left &lt; right - 1) {
+            int mid = left + (right - left) / 2;
+            if (prefix[mid] &lt;= limit) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        if (prefix[right] &lt;= limit) {
+            return right;
+        }
+        if (prefix[left] &lt;= limit) {
+            return left;
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

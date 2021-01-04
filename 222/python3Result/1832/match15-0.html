@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_testdrive123.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>247_testdrive123.py</CENTER></H3><HR>
+<PRE>
+def CeilIndex(A, l, r, key): 
+  
+    while (r - l &gt; 1): 
+      
+        m = l + (r - l)//2
+        if (A[m] &gt;= key): 
+            r = m 
+        else: 
+            l = m 
+    return r 
+   
+def LongestIncreasingSubsequenceLength(A): 
+  
+    # Add boundary case, 
+    # when array size is one 
+    size = len(A)
+<A NAME="0"></A>    tailTable = [0 for i in range(size + 1)] 
+    l = 0 # always points empty slot 
+   
+    tailTable<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0] = A[0] 
+    l = 1
+    for i in range(1, size): 
+      
+        if (A[i] &lt; tailTable[0]): 
+  
+            # new smallest value 
+            tailTable[0] = A[i] 
+   
+        elif (A[i] &gt; tailTable[l-1]): 
+  
+            # A[i] wants to extend 
+            # largest subsequence 
+            tailTable[l] = A[i] 
+            l+= 1
+   
+        else: 
+            # A[i] wants to be current 
+            # end candidate of an existing 
+            # subsequence. It will replace 
+<A NAME="1"></A>            # ceil value in tailTable 
+            tailTable[CeilIndex(tailTable, -1, l-1, A[i])] = A[i] 
+          
+    r<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn</B></FONT> l
+
+class Solution:
+    def minOperations(self, target: List[int], arr: List[int]) -&gt; int:
+        c = []
+        idx = {}
+        for i,num in enumerate(target):
+            idx[num] = i
+        
+        #c[i] is index of b[i] in a 
+        for i,num in enumerate(</B></FONT>arr):
+            if num in idx:
+                c.append(idx[num])
+        
+        lcs = LongestIncreasingSubsequenceLength(c)
+        
+        #print(c)
+        
+        return len(target) - lcs
+</PRE>
+
+</BODY>
+</HTML>

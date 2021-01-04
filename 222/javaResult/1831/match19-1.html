@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>637_EdmizJay.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>637_EdmizJay.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    long mod = (long)(1e9 + 7);
+
+    public int waysToSplit(int[] nums) {    
+        int n = nums.length;
+        long count = 0;
+<A NAME="0"></A>        
+        int[] prefix = new int[n];
+        int sum = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
+            sum += nums[i];
+            prefix[i] = sum;
+        }
+        
+        int upper = sum / 3;
+        for (int i = 0; i &lt; prefix.length - 2 &amp;&amp; prefix[i] &lt;= upper; i++) {
+            int j = find(prefix, i + 1, prefix[i])</B></FONT>;
+            
+            if (j == -1) continue;
+<A NAME="1"></A>            
+            int k = findMax(prefix, j, prefix[i], sum);
+            
+            if (k == -1) continue<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            
+            // System.out.println(i + &quot; &quot; + j + &quot; &quot; + k);
+            
+            count += (long)((long)k - (long)j + 1l);
+            count %= mod;
+        }
+        
+        
+        return (int)(count % mod);
+    }
+    
+    private int findMax(int[] prefix, int i, int leftSum, int sum) {
+        if (i &gt;= prefix.length) {
+            return -1;
+        }
+
+        int j = prefix.length - 2</B></FONT>;
+        
+<A NAME="2"></A>        while (i + 1 &lt; j) {
+            int mid = i + (j - i) / 2;
+            int midSum = prefix[mid] - leftSum;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int rightSum = sum - leftSum - midSum;
+            
+            if (midSum &lt;= rightSum) {
+                i = mid;
+            } else {
+                j = mid;
+            }
+        }</B></FONT>
+        
+        int midSum = prefix[j] - leftSum;
+        int rightSum = sum - leftSum - midSum;
+        if (rightSum &gt;= midSum) {
+            return j;
+        }
+<A NAME="3"></A>        
+        midSum = prefix[i] - leftSum;
+        rightSum = sum - leftSum - midSum;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (rightSum &gt;= midSum) {
+            return i;
+        }
+        
+<A NAME="4"></A>        return -1;
+    }
+    
+    priv</B></FONT>ate int find(<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#4',2,'match19-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] prefix, int left, int target) {
+        if (left &gt;= prefix.length) {
+            return -1;
+        }
+        
+        int preSum = prefix[left - 1];
+        int right = prefix.length - 1;
+<A NAME="5"></A>        
+        while (left + 1 &lt; right) {</B></FONT>
+            int middle = left + (right - left) / 2;
+            <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#5',2,'match19-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int sum = prefix[middle] - preSum;
+            
+            if (sum &gt;= target) {
+                right = middle;
+            } else {
+                left = middle;
+            }
+        }
+        
+        if (prefix[left] - preSum &gt;= target) {
+            return left;
+        }
+        
+        if (prefix[right] - preSum &gt;= target) {
+            return right;
+        }
+        
+        return -1;
+    }
+}</B></FONT>
+
+// [1,|2,2,2,5,0]
+// 999949972
+// 999849973
+
+
+
+// [0,0,0,0]
+
+// [0|0|00]
+// [0|00|0]
+// [00|0|0]
+</PRE>
+
+</BODY>
+</HTML>

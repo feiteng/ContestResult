@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>182_jasxu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>182_jasxu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; target, vector&lt;int&gt;&amp; arr) {
+        map&lt;int, int&gt; dp;
+        for(int i=0;i&lt;target.size();i++)
+        {
+            dp[target[i]] = i;
+        }
+        vector&lt;int&gt; help;
+        for(int i=0;i&lt;arr.size();i++)</B></FONT>
+        {
+            if(dp.count(arr[i]))
+            {
+                help.push_back(dp[arr[i]]);
+            }
+<A NAME="1"></A>        }
+        vector&lt;int&gt; dp2;
+        for(const auto&amp; it:help)
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        {
+            if(dp2.empty() || it &gt; dp2.back())
+            {
+                dp2.push_back(it);
+            }
+            else
+            {
+                auto tmp = lower_bound(dp2.begin(), dp2.end(), it);
+                *tmp = it;
+            }
+            
+        }
+        return target.size() - dp2.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

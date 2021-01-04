@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>562_axjin.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>562_axjin.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        '''
+        1,2,2,2,5,0
+        0 1 2 3 4 5
+        1 3 5
+        '''
+        preSum = []
+        for i in range(len(nums)):
+            if not preSum:
+                preSum.append(nums[i])
+            else:
+                preSum.append(preSum[-1]+nums[i]) 
+<A NAME="1"></A>        cnt = 0        
+        for start3 in reversed(range(2,len(nums))):
+            rightSum = preSum[-1] - preSum[start3-1] 
+            left <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 1
+            right = start3 -1
+            while left &lt;= right: 
+                mid = left + (right - left) //2
+                middleSum = preSum[start3-1] - preSum[mid-1]
+                leftSum = preSum[mid-1]
+                if leftSum &gt; middleSum:
+                    right = mid - 1
+                else:    
+<A NAME="0"></A>                    left = mid + 1
+            middleRangeR =</B></FONT> left - 1        
+            
+            left <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 1
+            right = start3 - 1
+            while left &lt;= right: 
+                mid = left + (right - left) //2
+                middleSum = preSum[start3-1] - preSum[mid-1]
+                if middleSum &lt;= rightSum:
+                    right = mid - 1
+                else:    
+                    left = mid + 1
+            middleRangeL = left        
+            cnt +=</B></FONT> max(0,middleRangeR - middleRangeL + 1)
+        return cnt % (10** 9 + 7 )    
+            
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

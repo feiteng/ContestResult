@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>666_yliu04.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>666_yliu04.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int MOD= (int) 1e9 + 7;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int waysToSplit(int[] nums) {
+        int n = nums.length;
+        int[] preSum = new int[n +1];
+        for (int i = 1; i &lt;= n; i++) {
+            preSum[i] = preSum[i - 1] + nums[i - 1];
+        }
+        int res = 0</B></FONT>;
+        for (int i = 0; i&lt; n - 2; i++) {
+            int left = preSum[i + 1];
+            // for (int j = i + 1; j &lt; n - 1; j++) {
+            //     int mid = preSum[j + 1] - preSum[i + 1];
+            //     int right = preSum[n] - preSum[j + 1];
+            //     if (left &lt;= mid &amp;&amp; mid &lt;= right) {
+<A NAME="1"></A>            //         res= (res + 1) % MOD;
+            //     }
+            // }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int s = i + 1;
+            int e = n - 2;
+            while (s &lt;=e) {
+                int mid = s + (e - s) /2;
+                int m = preSum[mid + 1] - preSum[i + 1];
+                //int right = preSum[n] - preSum[mid + 1];
+                // if (left &lt;= m &amp;&amp; m &lt;= right) {
+                //     s = mid + 1;
+                // } else {
+                //     e= mid - 1;
+                // }
+                // if (left &gt; m) {
+                //     s = mid + 1;
+                // } else if (m &lt;= right) {
+                //     s = mid + 1;
+                // } else {
+                //     e = mid - 1;
+                // }
+                // if (left &gt; m || m &lt;= right) {
+                //     s = mid + 1;
+                // } else {
+                //     e = mid - 1;
+                // }
+                if (left &gt; m) {
+                    s = mid + 1;
+                } else {
+                    e= mid - 1;
+                }
+            }</B></FONT>
+            int leftBound = s;
+            s = i + 1;
+<A NAME="2"></A>            e = n - 2;
+             while (s &lt;=e) {
+                int mid = s + (e - s) /2;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int m = preSum[mid + 1] - preSum[i + 1];
+                int right = preSum[n] - preSum[mid + 1];
+                 if (m &lt;= right) {
+                     s = mid + 1;
+                 } else {
+                     e = mid - 1;
+<A NAME="3"></A>                 }
+             }</B></FONT>
+            int rBound = e;
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match33-1.html#3',3,'match33-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (rBound &gt;= leftBound) {
+            // if (left &lt;= preSum[e + 1] - preSum[i + 1] &amp;&amp; preSum[e + 1] - preSum[i + 1] &lt;= preSum[n] - preSum[e + 1]) {
+            //     res = (res + (e - i)) % MOD;
+            // }
+            // System.out.println(e);
+            // if (e &gt; i &amp;&amp; e &lt; n - 1) {
+                res = (res + (rBound - leftBound + 1)) % MOD;
+            }
+        }
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

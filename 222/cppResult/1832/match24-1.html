@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>38_newhar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>38_newhar.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; t, vector&lt;int&gt;&amp; arr) {
+        unordered_map&lt;int,int&gt; occur;
+        for(int i = 0; i &lt; t.size(); ++i) {
+            occur[t[i]] = i;
+        }
+        int ss = arr.size(), a[ss], sz = 0;</B></FONT>
+        for(int v : arr) {
+            auto f = occur.find(v);
+            if(f != occur.end()) {
+                a[sz++] = f-&gt;second;
+<A NAME="1"></A>            }
+        }
+        // lis
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; res;
+        for(int i = 0; i &lt; sz; ++i) {
+            if(!res.size() || a[i] &gt; res.back()) {
+                res.push_back(a[i]);
+            } else {
+                auto pos = lower_bound(res.begin(), res.end(), a[i]);
+                *pos = a[i];
+            }
+        }
+        return t.size() - res.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

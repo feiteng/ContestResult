@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1025_beamind.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1025_beamind.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        n = len(nums)
+        presum = [nums[0]]
+        for i in range(1, n):
+            presum.append(presum[-1] + nums[i])
+        # print(presum)
+        # print(nums)
+        ans = 0
+        for i in range(n - 2):
+            left = presum[i]
+            jb = bisect.bisect_left(</B></FONT>presum, 2 * left, i + 1)
+            je = bisect.bisect_right(presum, (presum[-1] - presum[i]) // 2 + presum[i], i + 1, n - 1)
+            je = min(n - 2, je)
+            if presum[je] - presum[i] &lt;= presum[-1] - presum[je]:
+                ans += max(0, je - jb + 1)
+            else:
+                ans += max(0, je - jb)
+            # print(i, [jb, je])
+        return ans % (10 ** 9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

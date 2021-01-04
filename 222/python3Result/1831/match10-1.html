@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>312_zy_.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>312_zy_.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        mod = 10**9+7
+        s = [0]
+        for a in nums:
+            s.append(s[-1] + a)
+        s = s[1:]
+        n = len(nums)
+        #
+        # print(s)
+        ss =</B></FONT> sum(nums)
+        j1, j2 = 1, 1
+        ans = 0
+        for i in range(n):
+            # i 是第一道
+            s1 = s[i]
+<A NAME="1"></A>            l, r = i+1, n-1
+            while l &lt;= r:
+                m = l + r &gt;&gt; 1
+                if s<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[m] - s1 &gt;= s1:
+                    r = m - 1
+                else:
+                    l = m + 1
+            j1 = l
+            l, r = i+1, n-1
+            while l &lt;= r:
+                m = l + r &gt;&gt; 1
+                if s[m] - s1 &gt; ss - s[</B></FONT>m]:
+                    r = m - 1
+                else:
+                    l = m + 1
+            j2 = r
+            # print(nums,i,j1,j2)
+            if j2 &gt;= n-1:
+                j2 = n-2
+            if j1 &lt; n and j2 &lt; n and j1 &lt;= j2 and s1 &lt;= s[j1] - s1 &lt;= ss-s[j1] and s1 &lt;= s[j2] - s1 &lt;= ss-s[j2]:
+                ans += j2 - j1 + 1
+        return ans % mod
+                    
+        #     while j1 &lt; n and s[j1] &lt; 2*s1:
+        #         j1 += 1
+        #     while j2 &lt; n and s[j2] - s1 &lt;= ss - s[j2]:
+        #         j2 += 1
+        #     j2 -= 1
+        #     # print(j1, j2)
+        #     if j1 &lt; n and j2 &lt; n and j1 &lt;= j2 and s1 &lt;= s[j1] - s1 &lt;= ss-s[j1] and s1 &lt;= s[j2] - s1 &lt;= ss-s[j2]:
+        #         ans += j2 - j1 + 1
+        # return ans % mod
+            
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

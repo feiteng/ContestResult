@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_sammyRe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_sammyRe.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; t, vector&lt;int&gt;&amp; arr) {
+        unordered_map&lt;int, int&gt; mp;
+        for (int i = 0; i &lt; t.size(); ++i)
+            mp[t[i]] = (i + 1);
+        
+        vector&lt;int&gt; a;</B></FONT>
+        
+        for (int i = 0; i &lt; arr.size(); ++i)
+            if (mp.count(arr[i]))
+                a.push_back(mp[arr[i]]);
+        
+<A NAME="1"></A>        int n = a.size();
+        
+        vector&lt;int&gt; dp;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++i) {
+            auto it = lower_bound(dp.begin(), dp.end(), a[i]);
+            if (it == dp.end())
+                dp.push_back(a[i]);
+            else
+                dp[it - dp.begin()] = a[i];
+        }
+        
+        return t.size() - dp.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

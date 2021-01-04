@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>444_VFeccLL7TA.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>444_VFeccLL7TA.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+      int sz = nums.size();
+      vector&lt;int&gt; prefix_sum(sz+1, 0);
+      for (int i = 0; i &lt; sz; i++) {
+        prefix_sum[i+1] = prefix_sum[i] + nums[i];</B></FONT>
+<A NAME="1"></A>      }
+      int tot_sum = prefix_sum.back();
+      long ret = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      int MOD = 1000000007;
+      for (int i = 1; i &lt;= (sz - 2); i++) {
+        int p1 = prefix_sum[i];
+        int lower_limit = 2 * p1;
+        int upper_limit = (p1 + tot_sum) / 2;</B></FONT>
+        int low_idx = lb(prefix_sum, i+1, sz+1, lower_limit);
+        int up_idx = ub(prefix_sum, i+1, sz+1, upper_limit);
+        if (low_idx &lt;= i) continue;
+        int len = min(up_idx, sz) - low_idx;
+        if (len &lt;= 0) continue;
+        ret += len;
+        if (ret &gt; MOD) {
+          ret %= MOD;  
+        }
+      }
+      return ret;
+    }
+  
+    int lb(vector&lt;int&gt;&amp; nums, int lo, int hi, int target) {
+      int i = lo, j = hi - 1;
+      while (i &lt;= j) {
+        int mid = i + (j-i) / 2;
+        if (nums[mid] &gt;= target) {
+          j = mid - 1;
+        } else {
+          i = mid + 1;
+        }
+      }
+      return i;
+    }
+  
+    int ub(vector&lt;int&gt;&amp; nums, int lo, int hi, int target ) {
+      int i = lo, j = hi - 1;
+      while (i &lt;= j) {
+        int mid = i + (j-i) / 2;
+        if (nums[mid] &gt; target) {
+          j = mid - 1;
+        } else {
+          i = mid + 1;
+        }
+      }
+      return i;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

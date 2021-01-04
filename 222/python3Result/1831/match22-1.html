@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>474_jincunlaoshiren.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>474_jincunlaoshiren.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        pref = [0]+nums
+        n = len(pref)
+        mod,res = 1e9+7,0
+        for i in range(1,len(pref)):
+            pref[i]=pref[i-1]+nums[i-1]
+<A NAME="0"></A>        print(pref)
+        for i in range(1,n):
+            if pref[i]&gt;pref[-1]/3:break
+            l,r <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= i+1,n-1
+            while l&lt;r:
+                mid = (l+r)//2
+                if pref[mid]-pref[i]&lt;pref[i]:
+                    l = mid+1
+<A NAME="1"></A>                else:   
+                    r = mid
+            lb =</B></FONT> l
+            l,r <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= i+1,n-1
+            while l&lt;r:
+                mid = (l+r)//2
+                if pref[-1]-pref[mid]&lt;pref[mid]-pref[i]:
+                    r = mid
+                else:   
+                    l = mid+1
+            rb = l
+            print(</B></FONT>lb,rb)
+            res = (res+rb-lb)%mod if rb&gt;lb else res
+        return int(res)
+</PRE>
+
+</BODY>
+</HTML>

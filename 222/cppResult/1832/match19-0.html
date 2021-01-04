@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_EUqr2c2cjD8nuX5K.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>217_EUqr2c2cjD8nuX5K.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; target, vector&lt;int&gt;&amp; arr) {
+        unordered_map&lt;int, vector&lt;int&gt;&gt; val_indices;
+        for (int i = 0; i &lt; arr.size(); ++i)</B></FONT>
+            val_indices[arr[i]].push_back(i);
+
+        vector&lt;int&gt; A;
+        for (auto&amp; x : target) {
+            if (auto it = val_indices.find(x); it != val_indices.end()) {
+                auto tmp = it-&gt;second;
+<A NAME="1"></A>                reverse(tmp.begin(), tmp.end());
+                A.insert(A.end(), tmp.begin(), tmp.end());
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        
+        vector&lt;int&gt; x;
+        for (auto&amp; a : A) {
+            auto it = lower_bound(x.begin(), x.end(), a);
+            if (it == x.end()) {
+                x.push_back(a);
+            } else {
+                *it = a;
+            }
+        }
+        return target.size() - x.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

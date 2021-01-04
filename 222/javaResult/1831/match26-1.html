@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>328_yyf102.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>328_yyf102.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int waysToSplit(int[] nums) {
+        for (int i = 1; i &lt; nums.length; i++) {
+            nums[i] += nums[i - 1];
+        }
+        int res = 0;
+        int mod = (int) 1e9 + 7;
+        int total = nums[nums.length - 1];
+<A NAME="0"></A>        for (int i = 0; i &lt; nums.length - 2; i++) {
+            if (nums[i] &lt;= total / 3) {
+                int pos1 = binarySearch1(nums, 2 * nums[i]);
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int pos2 = binarySearch2(nums, (nums[i] + total) / 2);
+                //System.out.println(pos1 + &quot; &quot; + pos2);
+                if (pos1 &lt;= i) {
+                    pos1 = i + 1;
+                }
+                if (pos2 == nums.length - 1) {</B></FONT>
+                    pos2 = nums.length - 2;
+                }
+                if (pos2 &gt;= pos1) {
+<A NAME="1"></A>                    res += pos2 - pos1 + 1;
+                    res %= mod;
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return res;
+    }
+    
+    public int binarySearch1(int[] nums, int taget) {
+        int i = 0, j = nums.length - 1;
+        while (i &lt; j) {
+            int mid = (i + j) / 2;
+            if (nums[mid] &gt;= taget) {
+                j = mid;
+            } else {
+                i = mid + 1;
+            }
+        }
+        return i;
+    }
+    
+    public int binarySearch2(int[] nums, int taget) {
+        int i = 0, j = nums.length - 1;
+        while (i &lt; j) {
+            int mid = (i + j + 1) / 2;
+            if (nums[mid] &lt;= taget) {
+                i = mid;
+            } else {
+                j = mid - 1;
+            }
+        }
+        return i;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

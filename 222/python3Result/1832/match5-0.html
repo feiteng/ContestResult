@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_nthistle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_nthistle.py</CENTER></H3><HR>
+<PRE>
+import heapq
+<A NAME="0"></A>import bisect
+
+# Borrowed from https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def CeilIndex(A, l, r, key): 
+ 
+    while (r - l &gt; 1): 
+      
+        m = l + (r - l)//2
+        if (A[m] &gt;= key): 
+            r = m 
+        else: 
+            l = m 
+    return r 
+
+
+# Borrowed from https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+def LongestIncreasingSubsequenceLength(A, size): 
+  
+    # Add boundary case, 
+    # when array size is one 
+   
+    tailTable = [0 for i in range(size + 1)] 
+    len = 0 # always points empty slot 
+   
+    tailTable[0] = A[0] 
+    len = 1
+    for i in range(1, size): 
+      
+        if (A[i] &lt; tailTable[0]): 
+  
+            # new smallest value 
+            tailTable[0] = A[i] 
+   
+        elif (A[i] &gt; tailTable[len-1]): 
+  
+            # A[i] wants to extend 
+            # largest subsequence 
+            tailTable[len] = A[i] 
+            len+= 1
+   
+        else: 
+            # A[i] wants to be current 
+            # end candidate of an existing 
+            # subsequence. It will replace 
+            # ceil value in tailTable 
+            tailTable[CeilIndex(tailTable, -1, len-1, A[i])] = A[i] 
+          
+   
+    return len
+
+class Solution:
+    def minOperations(self, target: List[int], arr: List[int]) -&gt; int:
+        mapping =</B></FONT> {n : i for i,n in enumerate(target)}
+        narr = []
+        for a in arr:
+            if a in mapping:
+                narr.append(mapping[a])
+        # find longest strictly increasing subseq in narr
+        return len(target) - LongestIncreasingSubsequenceLength(narr, len(narr))
+</PRE>
+
+</BODY>
+</HTML>

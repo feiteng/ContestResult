@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>383_Lareine.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>383_Lareine.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minOperations(self, target: List[int], arr: List[int]) -&gt; int:
+        enum = defaultdict(lambda: -1)
+        for i, x in enumerate(target):
+            enum[x] = i
+        for j, y in enumerate(arr):
+            if enum[y] &gt; -1:
+                arr[j] = enum[y]
+<A NAME="0"></A>            else:
+                arr[j] = None
+        arr = [y for y in arr if y is not None]
+        dp <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [0] * len(arr)
+        m = 0
+        for y in arr:
+            lo, hi = 0, m
+            while lo != hi:
+                mid = (lo + hi) // 2
+                if dp[mid] &lt; y:
+                    lo = mid + 1
+                else:
+                    hi = mid
+            dp[lo] = y
+            m = max(lo + 1, m)
+        return len(t</B></FONT>arget) - m
+</PRE>
+
+</BODY>
+</HTML>

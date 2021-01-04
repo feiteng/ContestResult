@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_zdu011.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_zdu011.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        p=[0]
+        for n in nums:
+            p.append(p[-1]+n)
+        tot=p[-1]
+        r_sum=0
+        ans=0
+        for i,n in enumerate(reversed(nums)):
+            r_sum+=</B></FONT>n
+            r_ind=bisect_right(p,(tot-r_sum)//2)
+            l_ind=bisect_left(p,tot-2*r_sum)
+            delta=min(r_ind,len(nums)-1-i)-max(l_ind,1)
+            # print(r_ind,l_ind,delta)
+            if delta&gt;0:
+                ans+=delta
+        return ans%(10**9+7)
+</PRE>
+
+</BODY>
+</HTML>

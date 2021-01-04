@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>322_randc0degen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>322_randc0degen.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int bit[100010], m, dp[100010];
+    unordered_map&lt;int, int&gt; tar;
+    
+    int lowbit(int x) { return x &amp; (-x); }
+    
+    void update(int i, int val) {
+        while (i &lt;= m + 1) {
+            bit[i] = max(bit[i], val);
+            i += lowbit(i);
+        }
+    }
+    
+    int query(int x) {
+        int res = 0;
+        while (x &gt; 0) {
+            res = max(bit[x], res);
+            x -= lowbit(x);
+        }
+        return res;
+    }
+<A NAME="1"></A>    
+    int minOperations(vector&lt;int&gt;&amp; target, vector&lt;int&gt;&amp; arr) {</B></FONT>
+        memset(bit, 0, sizeof bit);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        m = target.size();
+        int ans = 0;
+        for (int i = 0; i &lt; m; i ++) {
+            tar[target[i]] = i;
+        }
+        
+        int n = arr.size();
+        for (int i = 0; i &lt; n; i ++) {</B></FONT>
+            dp[i] = 0;
+            if (tar.find(arr[i]) != tar.end()) {
+                dp[i] = 1;
+                int ii = tar[arr[i]] - 1;
+                if (ii &gt;= 0) {
+                    dp[i] = max(dp[i], query(ii + 1) + 1);
+                }
+                update(ii + 2, dp[i]);
+            }
+            ans = max(ans, dp[i]);
+        }
+        return m - ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

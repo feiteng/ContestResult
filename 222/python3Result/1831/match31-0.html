@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>958_phantompointer.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>958_phantompointer.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        presum = [0]
+        for n in nums:
+            presum.append(presum[-1]+n)
+        presum = presum[1:]
+        
+        out = 0
+        r_low, r_high, r = 1,1,1
+        # print(presum)
+        for l in range(len(nums)-1):
+            r_low =</B></FONT> max(r_low, l+1)
+            while presum[r_low]-presum[l]&lt; presum[l]:
+                r_low += 1
+                if r_low &gt;=len(presum):
+                    return out
+            
+            r_high=max(r_high, r_low)
+                
+            while r_high&lt;len(presum)-1 and presum[r_high]-presum[l] &lt;= presum[-1]-presum[r_high]:
+                r_high += 1
+                # if r_high&gt;=len(presum):
+                #     break
+            # print(r_high)
+            out += r_high-r_low
+        return out%int(1e9 + 7)
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

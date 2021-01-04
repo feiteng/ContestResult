@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>878_broadcast_theory.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>878_broadcast_theory.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def waysToSplit(self, nums: List[int]) -&gt; int:
+        res = 0
+        n = len(nums)
+        
+        ps = []
+        prev = 0
+        for i in range(n + 1):
+            ps.append(prev)
+            if i == n:
+                break
+            prev += nums[i]
+        
+        # print(ps)
+        
+        for i in range(2, n):
+            right_sum = ps[n] - ps[i]
+            
+            l, r = 1, i - 1
+<A NAME="0"></A>            
+            while l &lt; r:
+                m = (l + r) // 2
+                mid_sum <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= ps[i] - ps[m]
+                
+                if mid_sum &gt; right_sum:
+                    l = m + 1
+                else:
+                    r = m
+            
+            mid_border_1 = l
+            
+<A NAME="1"></A>            if ps[i] - ps[mid_border_1] &gt; right_sum: c</B></FONT>ontinue
+            
+            # print(&quot;i = {}, mb1 = {}, mid_sum = {}, right_sum = {}&quot;.format(i, mid_border_1, ps[i] - ps[mid_border_1], right_sum))
+            l, r <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 1, i - 1
+            while l &lt; r:
+                m = (l + r) // 2 + 1
+                l_sum = ps[m]
+                m_sum = ps[i] - ps[m]
+                
+                if l_sum &lt;= m_sum:
+                    l = m
+                else:
+                    r = m - 1
+                    
+            mid_border_2 = l
+            if ps[i] - ps[mid_border_2] &lt; ps[mid_border_2]: c</B></FONT>ontinue
+            # print(&quot;i = {}, mb2 = {}, left_sum = {}, mid_sum = {}&quot;.format(i, mid_border_2, ps[mid_border_2], ps[i] - ps[mid_border_2]))
+            
+            
+            # print()
+            res += max(0, (mid_border_2 - mid_border_1 + 1))
+            
+        
+        return res % (10**9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

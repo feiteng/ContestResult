@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>306_flyby23.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>306_flyby23.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperations(int[] target, int[] arr) {
+        Map&lt;Integer, Integer&gt; pos = new HashMap();
+        for (int i = 0; i &lt; target.length; i++) {
+            pos.put(target[i], i);
+        }
+<A NAME="1"></A>        List&lt;Integer&gt; ls = new ArrayList();
+        for (int i = 0; i &lt; arr.length; i++) {</B></FONT>
+            int n = arr[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (pos.containsKey(n)) {
+               ls.add(pos.get(n));
+            }
+        }</B></FONT>
+        int[] a2 = new int[ls.size()];
+        for (int i = 0; i &lt; ls.size(); i++) {
+            a2[i] = ls.get(i);
+        }
+        int len = lengthOfLIS(a2);
+        return target.length - len;        
+    }
+    
+    public int lengthOfLIS(int[] nums) {
+        
+        if (nums == null || nums.length == 0)
+            return 0;
+<A NAME="2"></A>        
+        List&lt;Stack&lt;Integer&gt;&gt; stacks = new ArrayList&lt;Stack&lt;Integer&gt;&gt;();
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int size = 0;
+        for (int num : nums) {
+            
+            int low = 0;
+            int high = size;
+            
+            while (low &lt; high) {
+                int mid = (low + high)/2;
+<A NAME="3"></A>                
+                // because of the existence of duplicates we want
+                // dups to be in the same stack
+                if</B></FONT> (num &lt;= stacks.get(mid).peek()) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    high = mid;
+                }
+                else {
+                    low = mid + 1;
+                }
+            }</B></FONT>
+            
+            if (low == size) {
+                stacks.add(new Stack&lt;Integer&gt;());
+                size++;
+            }
+            stacks.get(low).push(num);
+        }
+        
+        return size;
+            
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>492_hum.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>492_hum.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+   <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int waysToSplit(int[] nums) {
+        int len = nums.length;
+        int[] sum = new int[len + 1];
+        for (int i = 0; i &lt; len; i++) {
+<A NAME="1"></A>            sum[i + 1] = sum[i] + nums[i];
+        }</B></FONT>
+        long res = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int mod = (int) (1e9 + 7);
+        for (int i = 0; i &lt; len - 2; i++) {
+            int left = sum[i + 1];
+            int l = i + 1;
+            int r = len - 2;
+            while (l &lt; r) {
+                int mid = l + r &gt;&gt; 1;
+                int v = sum[mid + 1] - sum[i + 1];
+                if (v &gt;= left) {
+                    r = mid;
+                } else {
+                    l = mid + 1;
+                }
+            }
+            int i1 = l;
+            l = i + 1;
+            r = len - 2;
+            while (l &lt; r) {
+                int mid = l + r + 1 &gt;&gt; 1;
+                int lv = sum[mid + 1] - sum[i + 1];
+                int rv = sum[len] - sum[mid + 1];
+                if (lv &lt;= rv) {
+                    l = mid;
+                } else {
+                    r = mid - 1;
+                }
+            }
+            int i2 = l;
+            if (i1 &lt;= i2) {</B></FONT>
+                if (i1 == i2) {
+                    if (left &lt;= sum[i1 + 1] - sum[i + 1] &amp;&amp; sum[i1 + 1] - sum[i + 1] &lt;= sum[len] - sum[i1 + 1]) {
+                        res += 1;
+                        res %= mod;
+                    }
+                } else {
+                    res += i2 - i1 + 1;
+                    res %= mod;
+                }
+            }
+        }
+        return (int) (res % mod);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

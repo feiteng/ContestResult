@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>330_pjssaber.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>330_pjssaber.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    int lengthOfLIS(vector&lt;int&gt;&amp; nums) {
+        int len = 1, n = (int)nums.size();
+        if (n == 0) {
+            return 0;
+        }
+        vector&lt;int&gt; d(n + 1, 0);
+        d[len] = INT_MIN;
+<A NAME="1"></A>        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            if (nums[i] &lt; 0)
+                continue;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (nums[i] &gt; d[len]) {
+                d[++len] = nums[i];
+            }
+            else {
+                int l = 1, r = len, pos = 0; // 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+                while (l &lt;= r) {
+                    int mid = (l + r) &gt;&gt; 1;
+                    if (d[mid] &lt; nums[i]) {
+                        pos = mid;
+                        l = mid + 1;
+                    }
+                    else {
+                        r = mid - 1;
+                    }
+                }
+                d[pos + 1] = nums[i];
+            }
+        }
+        return len-1;
+    }
+
+    int minOperations(vector&lt;int&gt;&amp; target, vector&lt;int&gt;&amp; arr) {
+
+        int len = target.size();</B></FONT>
+        unordered_map&lt;int, int&gt; memo;
+        int tmp = 1;
+        for (int i : target)
+            memo[i] = tmp++;
+
+        for (int&amp; i : arr)
+        {
+            if (memo.count(i) == 0)
+                i = -1;
+            else
+                i = memo[i];
+        }
+        int ca = lengthOfLIS(arr);
+        return len - ca;
+
+    }
+};
+</PRE>
+</BODY>
+</HTML>

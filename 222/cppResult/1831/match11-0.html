@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>710_tys16.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>710_tys16.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    static constexpr int mod = 1e9 + 7;
+    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+<A NAME="0"></A>        int n = nums.size();
+        cout &lt;&lt; n &lt;&lt; endl;
+        vector&lt;int&gt; pre(n + 1, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++i) {
+            pre[i + 1] = pre[i] + nums[i]; 
+<A NAME="1"></A>        }
+        int ans = 0;
+        for (int i = 1; i &lt; n; ++i) {
+            int l = i + 1, r = n;</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            while (l &lt;= r) {
+                int mid = l + (r - l) / 2;
+                if (pre[mid] - pre[i] &gt;= pre[i]) {
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+<A NAME="2"></A>            }
+            int j = l;
+            if (j &gt;= n || pre[j] &lt; 2 * pre[i]) break;</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            l = j + 1, r = n - 1;
+            while (l &lt;= r) {
+                int mid = l + (r - l) / 2;
+                if (pre[n] - pre[mid] &gt;= pre[mid] - pre[i]) {
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
+            }
+            int k = r;</B></FONT>
+            //cout &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
+            //cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
+            if (k &gt;= j &amp;&amp; pre[n] + pre[i] &gt;= 2 * pre[k]) ans = (ans + k - j + 1) % mod;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

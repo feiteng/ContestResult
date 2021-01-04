@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1024_adityasamantaroy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1024_adityasamantaroy.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define MOD 1000000007
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int waysToSplit(vector&lt;int&gt;&amp; nums) {
+        int n=nums.size();
+        vector&lt;int&gt; dp(n,0);
+        
+<A NAME="1"></A>        for(int i=0;i&lt;n;i++){
+            dp[i]=(i?dp[i-1]:0)+nums[i];</B></FONT>
+            // cout&lt;&lt;dp[i]&lt;&lt;',';
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        int ans=0;
+        
+        for(int i=0;i&lt;n-2;i++){
+            int a = dp[i];
+            
+            int b_min = lower_bound(dp.begin()+i+1,dp.end(),2*a)- dp.begin();
+            int b_max = upper_bound(dp.begin()+i+1,dp.end(),(a+dp[n-1])/2)- dp.begin()-1;</B></FONT>
+            
+            b_min = max(1, b_min);
+            b_max = min(b_max, n-2);
+            
+            // cout&lt;&lt;&quot; i&quot;&lt;&lt;i&lt;&lt;&quot; min&quot;&lt;&lt;b_min&lt;&lt;&quot; max&quot;&lt;&lt;b_max&lt;&lt;endl;
+            ans+=max(0,(b_max - b_min +1))%MOD;
+            ans = ans%MOD;
+        }
+        
+        // cout&lt;&lt;endl;
+        return ans%MOD;
+    }
+};
+
+// end-2*b+a&gt;0;
+
+// r=l+1;
+// l_min = upper_bound(a*2);
+// r_max = lower_bound((e+a)/2)-1;
+// r_min = 
+// b-2*a&gt;0;
+
+// 2*a &lt; b &amp;&amp; b &lt; (end+a)/2;
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1011_cdx3424.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1011_cdx3424.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+<A NAME="0"></A>    public int minOperations(int[] target, int[] arr) {
+        int n=target.length,m=arr.length;
+        map.clear();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;n;i++){
+            map.put(target[i],i);
+        }
+        ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        for(int x:arr){
+            if(map.get(x)!=null){
+                list.add(map.get(x));
+<A NAME="1"></A>            }
+        }
+        int[] ints =  new int[list.size()];
+        for(int i=0;i</B></FONT>&lt;list.size();i++)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            ints[i]=list.get(i);
+        }
+        return n-lengthOfLIS(ints);
+    }
+    public int lengthOfLIS(int[] nums</B></FONT>) {
+        int len = 1, n = nums.length;
+        if (n == 0) {
+            return 0;
+<A NAME="2"></A>        }
+        int[] d = new int[n + 1];
+        d[len] = nums[0];
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt; n; ++i) {
+            if (nums[i] &gt; d[len]) {
+                d[++len] = nums[i];
+            } else {</B></FONT>
+                int l = 1, r = len, pos = 0; // 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+                while (l &lt;= r) {
+<A NAME="3"></A>                    int mid = (l + r) &gt;&gt; 1;
+                    if (d[mid] &lt; nums[i]) {
+                        pos = mid;
+                        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#3',2,'match7-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>l = mid + 1;
+                    } else {
+                        r = mid - 1;
+                    }
+                }
+                d[pos + 1] = nums[i];
+            }
+        }
+        return len;
+    }
+
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

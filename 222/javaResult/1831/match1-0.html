@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>928_popcorn13.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>928_popcorn13.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int waysToSplit(int[] nums) {
+        int N = nums.length;
+        int[] preSum = new int[N+1];
+        for (int i = 0; i &lt; N; i++) {
+            preSum[i+1] = preSum[i] + nums[i];
+        }
+        
+        int res = 0, sum = preSum[N];
+        for (int le = 1; le &lt;= N-2; le++) {
+            int lSum = preSum[le]</B></FONT>;
+            if (lSum &gt; sum/3) return res;
+            
+            int rle = le+2, rri = N;
+            int n = sum - lSum;
+<A NAME="1"></A>            while (rle &lt; rri) {
+                int m = (rle+rri) &gt;&gt; 1;
+                int mSum = preSum[m] - lSum;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int rSum = sum - preSum[m];
+                if (mSum &lt;= rSum) {
+                    rle = m+1;    
+                } else {
+                    rri = m;
+                }
+            }
+                        
+            
+            int lle = le+1, lri = N;
+<A NAME="2"></A>            while (lle &lt; lri) {
+                int m = (lle+lri) &gt;&gt; 1;</B></FONT>
+                int mSum = preSum[m] - lSum;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (mSum &gt;= lSum) {
+                    lri = m;
+                } else {
+                    lle = m+1;
+                }
+            }</B></FONT>
+            
+            
+            // System.out.println(rle+&quot;,&quot;+lle);
+            res = (res + (rle-lle)) % 1000000007;
+            // System.out.println(res);
+            // if (preSum[rle-1]-lSum &lt;= sum - preSum[rle-1]) res++;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
