@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_g_abilash1104.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>51_g_abilash1104.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt;cost;
+    vector&lt;vector&lt;int&gt;&gt;dp;
+    
+    int func(int mask,int k){
+        // cout&lt;&lt;cost[mask]&lt;&lt;&quot; &quot;&lt;&lt;mask&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;&quot;\n&quot;;
+        
+        if(mask==0) return 0;
+<A NAME="1"></A>        if(k==0)     return INT_MAX;</B></FONT>
+        
+        int &amp;ans=dp[mask][k];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(ans!=-1) return ans;
+        
+        
+        ans=cost[mask];
+        for(int submask=mask;submask;submask=(mask&amp;(submask-1))){
+            ans=min(ans, max(cost[(mask^submask)], func(submask, k-1)));    
+        }
+        return ans;
+    }
+    int minimumTimeRequired(vector&lt;int&gt;&amp; a, int k) {</B></FONT>
+        int n=a.size();
+        int MASK=(1ll&lt;&lt;n);
+        cost.resize(MASK);
+<A NAME="2"></A>        
+        dp=vector&lt;vector&lt;int&gt;&gt;(MASK, vector&lt;int&gt;(k+1, -1));
+        
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int mask=0;mask&lt;MASK;mask++){
+            int ma=0;
+            for(int i=0;i&lt;n;i++){
+                if((mask&amp;(1ll&lt;&lt;i))){</B></FONT>
+                    ma+=a[i];
+                }
+            }
+            cost[mask]=ma;
+        }
+        
+        return func(MASK-1, k);   
+    }
+};
+</PRE>
+</BODY>
+</HTML>

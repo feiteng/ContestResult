@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_617076674.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>214_617076674.java</CENTER></H3><HR>
+<PRE>
+public class Solution {
+
+  private int[] heights;
+
+  private int result = Integer.MAX_VALUE;
+
+  public int minimumTimeRequired(int[] jobs, int k) {
+    Arrays.sort(jobs);
+    int[] newJobs = new int[jobs.length];
+    for (int i = 0; i &lt; jobs.length; i++) {
+<A NAME="0"></A>      newJobs[i] = jobs[jobs.length - 1 - i];
+    }
+    heights = new int[k];
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; k; i++) {
+      heights[i] = newJobs[i];
+    }
+    dfs(newJobs, k);
+<A NAME="1"></A>    return result;
+  }
+
+  pri</B></FONT>vate void dfs(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] jobs, int index) {
+    if (index == jobs.length) {
+      int maxHeight = heights[0];
+      for (int i = 1; i &lt; heights.length; i++) {
+        maxHeight = Math.max(maxHeight, heights[i]);
+      }
+      result = Math.min(result, maxHeight);
+      return;
+    }
+    for (int i = 0; i &lt; heights.length; i++) {
+      heights[i] += jobs[index];
+      dfs(jobs, index + 1);
+      heights[i] -= jobs[index];
+    }
+  }</B></FONT>
+
+  public static void main(String[] args) {
+    int[] jobs = {38,49,91,59,14,76,84};
+    int k = 3;
+    System.out.println(new Solution().minimumTimeRequired(jobs, k));
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

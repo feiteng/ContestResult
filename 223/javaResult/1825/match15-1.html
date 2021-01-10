@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>481_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>481_huntersjm.java</CENTER></H3><HR>
+<PRE>
+import java.util.Arrays;
+
+class Solution {
+    public int minimumTimeRequired(int[] jobs, int k) {
+<A NAME="0"></A>        int l = Arrays.stream(jobs).max().getAsInt();
+        int r = Arrays.stream(jobs).sum();
+        Arrays.sort(jobs);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (l &lt; r) {
+            int m = (l + r) / 2;
+            if (possible(jobs, k, m)) {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        return l;
+    }
+
+    private boolean possible(int[] jobs, int k, int w) {
+        int[] available = new</B></FONT> int[k];
+        available[0] = jobs[jobs.length - 1];
+<A NAME="1"></A>        return bp(jobs, available, w, jobs.length - 2);
+    }
+
+    private boolean bp(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] jobs, int[] available, int w, int index) {
+        if (index == -1) {
+            return true;
+        }
+        for (int i = 0; i &lt; available.length; i++) {
+            if (jobs[index] + available[i] &lt;= w) {
+<A NAME="2"></A>                available[i] += jobs[index];
+                if (bp</B></FONT>(jobs, available, w, index - 1)) {
+                    return true;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                available[i] -= jobs[index];
+            }
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

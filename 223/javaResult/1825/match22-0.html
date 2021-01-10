@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>201_cdhcs1516.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>201_cdhcs1516.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumTimeRequired(int[] jobs, int k) {
+        int n = jobs.length;
+        int[] cost = new int[1 &lt;&lt; n];
+        
+        for (int i = 1; i &lt; (1 &lt;&lt; n); ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if ((i &amp; (1 &lt;&lt; j)) != 0) {
+                    cost[i] += jobs[j];
+                }
+            }
+        }
+        
+        int[][] dp = new int[1 &lt;&lt; n][k];
+        for (int i = 0; i &lt; (1&lt;&lt;n); ++i) {</B></FONT>
+            dp[i][0] = cost[i];
+        }
+        
+        for (int j = 1; j &lt; k; ++j) {
+            for (int i = 0; i &lt; (1&lt;&lt;n); ++i) {
+                for (int l = 0; l &lt; (1&lt;&lt;n); ++l) {
+                    if ((i &amp; l) == 0) {
+                        if (dp[i | l][j] == 0) 
+<A NAME="1"></A>                            dp[i | l][j] = Math.max(dp[i][j-1], cost[l]);
+                        else
+                            dp[i | l][j] = Math.min(dp[i | l][j], Math.max(dp[i][j-1], cost[l]));
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+        
+        return dp[(1 &lt;&lt; n) - 1][k-1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

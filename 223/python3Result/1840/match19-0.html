@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>806_gopherwang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>806_gopherwang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import bisect
+class DSU:
+    def __init__(self, n):
+        self.p = list(range(n))
+    
+    def find(self, x):
+        if x != self.p[x]:
+            self.p[x] = self.find(self.p[x])
+        return self.p[x]
+    
+    def union(self, x, y):
+        xr = self.find(x)
+        yr = self.find(y)
+        
+        self.p[xr] = yr
+
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        dsu = DSU(n)
+        
+        for i, j in allowedSwaps:
+            dsu.union(i, j)
+        
+        
+        s_id2pos =</B></FONT> collections.defaultdict(list)
+        t_id2pos = collections.defaultdict(list)
+        for i in range(n):
+            id = dsu.find(i)
+            bisect.insort(s_id2pos[id], source[i])
+            bisect.insort(t_id2pos[id], target[i])
+
+        dis = 0
+        for id in s_id2pos:
+            l1 = s_id2pos[id]
+            l2 = t_id2pos[id]
+            
+            dif = len(l1)
+            p1 = p2 = 0
+            while p1 &lt; len(l1) and p2 &lt; len(l2):
+                if l1[p1] &lt; l2[p2]:
+                    p1 += 1
+                elif l1[p1] &gt; l2[p2]:
+                    p2 += 1
+                else:
+                    p1 += 1
+                    p2 += 1
+                    dif -= 1
+            dis += dif
+        
+        return dis
+            
+</PRE>
+
+</BODY>
+</HTML>

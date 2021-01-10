@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>824_soap88.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>824_soap88.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = source.length;
+        UnionFind uf = new UnionFind(n);
+        for (int[] a : allowedSwaps) {
+            uf.union(a[0], a[1]);
+        }
+
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;()</B></FONT>;
+        for (int i = 0; i &lt; n; i++) {
+            int key = uf.find(i);
+            map.computeIfAbsent(key, k -&gt; new ArrayList&lt;&gt;()).add(i);
+<A NAME="1"></A>        }
+
+        int sameCnt = 0;
+        for (List&lt;Integer&gt; indexes : map.values()) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            HashMap&lt;Integer, Integer&gt; sourceMap = new HashMap&lt;&gt;();
+            for (int index : indexes) {
+                sourceMap.merge(source[index], 1, Integer::sum);
+            }</B></FONT>
+<A NAME="2"></A>
+            for (int index : indexes) {
+                int targetVal = target[index];
+                if (sourceMap.containsKey(targetVal)) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    sameCnt++;
+                    int cnt = sourceMap.get(targetVal);
+                    if (cnt == 1) {
+                        sourceMap.remove(targetVal);
+                    } else {
+                        sourceMap.put(targetVal, cnt - 1);
+                    }
+                }</B></FONT>
+            }
+        }
+<A NAME="3"></A>        return n - sameCnt;
+    }
+
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match22-1.html#3',3,'match22-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public class UnionFind {
+
+        private int[] parent;
+        private int[] rank;
+
+        public UnionFind(int size) {
+            parent = new int[size];
+<A NAME="4"></A>            rank = new int[size];
+            for (int i = 0; i &lt; size; i++) {</B></FONT>
+                parent[i] = i;
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match22-1.html#4',3,'match22-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>rank[i] = 1;
+            }
+        }
+
+        private int find(int p) {
+            if (p != parent[p]) {
+                parent[p] = find(parent[p]);
+            }
+            return</B></FONT> parent[p];
+        }
+
+<A NAME="5"></A>
+        public boolean isConnected(int p, int q) {
+            return find(p) == find(q);
+        <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match22-1.html#5',3,'match22-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+        public void union(int p, int q) {
+            int pRoot = find(p);
+            int qRoot = find(q);
+            if (pRoot == qRoot) {
+                return;
+            }
+
+            if (rank[pRoot] &lt; rank[qRoot]) {
+                parent[pRoot] = qRoot;
+            } else if (rank[qRoot] &lt; rank[pRoot]) {
+                parent[qRoot] = pRoot;
+            } else {
+                parent[qRoot] = pRoot;
+                rank[pRoot] += 1;
+            }</B></FONT>
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

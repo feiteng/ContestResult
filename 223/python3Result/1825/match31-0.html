@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>520_infmount.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>520_infmount.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumTimeRequired(self, jobs: List[int], k: int) -&gt; int:
+        total = sum(jobs)
+        h = total
+        l = max(ceil(total / k), max(jobs))
+        #print(f'l {l}, h {h}')
+
+        jobs.sort(reverse=True)
+        workers_init = []
+        for j in jobs[:k]:
+            workers_init.append(j)
+        
+<A NAME="0"></A>        def dfs(j_idx, workers, t):
+            if j_idx == len(jobs):
+                return True
+            for i in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(k):
+                if workers[i] + jobs[j_idx] &lt;= t:
+                    workers[i] += jobs[j_idx]
+                    if dfs(j_idx + 1, workers, t):
+                        return True
+                    workers[i] -= jobs[j</B></FONT>_idx]
+            return False
+        
+        def ok(t):
+            workers = workers_init[:]
+            if max(workers) &gt; t:
+                return False
+            return dfs(k, workers, t)
+                    
+            
+        while l &lt; h:
+            m = (l + h) // 2
+            if ok(m):
+                h = m
+            else:
+                l = m + 1
+            
+        return l
+</PRE>
+
+</BODY>
+</HTML>

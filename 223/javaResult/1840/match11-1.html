@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>551_KLEA.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>551_KLEA.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = source.length;
+        int[] par = new int[n];
+        for (int i = 0</B></FONT>; i &lt; n; i++) {
+            par[i] = i;
+<A NAME="1"></A>        }
+        for (int[] swap : allowedSwaps) {
+            int a = swap[0], b = swap[1];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ra = find(par, a);
+            int rb = find(par, b);
+            
+            par[rb] = ra;
+        }
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+       
+        for (int i = 0; i &lt; n; i += 1) {
+            int rt = find(par, i);
+            map.putIfAbsent(rt, new HashSet&lt;&gt;());
+            map.get(rt).add(i);
+        }
+        int ans = 0;
+        for (int k : map.keySet()) {
+            
+            int d = dist(map.get(k), source, target);
+            ans += d;
+            //System.out.println(map.get(k).toString() + &quot; &quot; + d);
+        }
+        return ans;
+    }
+    private int dist(Set&lt;Integer&gt; set, int[] source, int[] target) {
+        Map&lt;Integer, Integer&gt; map = new</B></FONT> HashMap&lt;&gt;();
+        for (int i : set) {
+            map.put(target[i], map.getOrDefault(target[i], 0)+1);
+        }
+        int d = 0;
+        //System.out.println(map.toString());
+        for (int e : set) {
+            if (map.getOrDefault(source[e], 0) &gt; 0) {
+                map.put(source[e], map.get(source[e])-1);
+<A NAME="2"></A>            } else {
+                d += 1;
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return d;
+    }
+    private int find(int[] par, int x) {
+        while (x != par[x]) {
+            par[x] = par[par[x]];
+            x = par[x];
+        }
+        return x;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

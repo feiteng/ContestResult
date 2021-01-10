@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>812_MagiChaser.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>812_MagiChaser.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DSU: 
+    def __init__(self, N): 
+        self.par = list(range(N)) 
+        self.sz = [1] * N 
+    def find(self, x): 
+        if self.par[x] != x: 
+            self.par[x] = self.find(self.par[x]) 
+        return self.par[x] 
+    def union(self, x, y): 
+        xr, yr = self.find(x), self.find(y) 
+        if xr == yr: 
+            return False 
+        if self.sz[xr] &lt; self.sz[yr]: 
+            xr, yr = yr, xr 
+        #print(self.par[yr])
+        self.par[yr] = xr 
+        #print(yr, self.par[yr])
+        self.sz[xr] += self.sz[</B></FONT>yr] 
+<A NAME="1"></A>        self.sz[yr] = self.sz[xr] 
+        return True 
+    def size(self, x): 
+        return self.sz[self.find(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>x)]
+                            
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        dsu = DSU(n)
+        for s in allowedSwaps:
+            dsu.union(</B></FONT>s[0], s[1])
+        ans = 0
+        partition1 = {}
+        partition2 = {}
+        #print(dsu.par)
+        for i in range(n):
+            idx = dsu.find(i)
+            if idx not in partition1:
+                partition1[idx] = {}
+                partition2[idx] = {}
+                partition1[idx] = defaultdict(int)
+                partition1[idx][source[i]] += 1
+                partition2[idx] = defaultdict(int)
+                partition2[idx][target[i]] += 1
+            else:
+                partition1[idx][source[i]] += 1
+                partition2[idx][target[i]] += 1
+        #print(partition1, partition2)      
+        for idx in partition2:
+            for x in partition2[idx]:
+                ans += max(0, partition2[idx][x] - partition1[idx][x])
+        return ans
+        
+        
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>551_KLEA.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>551_KLEA.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+<A NAME="0"></A> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public ListNode swapNodes(ListNode head, int k) {
+        int n = 0;
+        ListNode tmp = head;
+        while (tmp != null) {
+            tmp = tmp.next;
+            n += 1;
+        }
+        ListNode a = find(head, k);
+        ListNode b = find(head, n-k+1);
+        int t = a.val;
+        a.val = b.val;
+        b.val = t;
+        return head;
+    }
+    private ListNode find(ListNode head, int k) {
+        ListNode cur = head;
+        while (k &gt; 1) {
+            cur = cur.next;
+            k -= 1;
+        }
+        return cur;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

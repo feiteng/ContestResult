@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_angelbeats.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>39_angelbeats.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct dsu {
+  public:
+    dsu() : _n(0) {}
+    dsu(int n) : _n(n), parent_or_size(n, -1) {}
+
+    int merge(int a, int b) {
+        assert(0 &lt;= a &amp;&amp; a &lt; _n);
+        assert(0 &lt;= b &amp;&amp; b &lt; _n);
+        int x = leader(a), y = leader(b);
+        if (x == y) return x;
+        if (-parent_or_size[x] &lt; -parent_or_size[y]) std::swap(x, y);
+        parent_or_size[x] += parent_or_size[y];
+        parent_or_size[y] = x;
+        return x;
+    }
+
+    bool same(int a, int b) {
+        assert(0 &lt;= a &amp;&amp; a &lt; _n);
+        assert(0 &lt;= b &amp;&amp; b &lt; _n);
+        return leader(a) == leader(b);
+    }
+
+    int leader(int a) {
+        assert(0 &lt;= a &amp;&amp; a &lt; _n);
+        if (parent_or_size[a] &lt; 0) return a;
+        return parent_or_size[a] = leader(parent_or_size[a]);
+    }
+
+    int size(int a) {
+        assert(0 &lt;= a &amp;&amp; a &lt; _n);
+        return -parent_or_size[leader(a)];
+    }
+
+    std::vector&lt;std::vector&lt;int&gt;&gt; groups() {
+        std::vector&lt;int&gt; leader_buf(_n), group_size(_n);
+        for (int i = 0; i &lt; _n; i++) {
+            leader_buf[i] = leader(i);
+            group_size[leader_buf[i]]++;
+        }
+        std::vector&lt;std::vector&lt;int&gt;&gt; result(_n);
+        for (int i = 0; i &lt; _n; i++) {
+            result[i].reserve(group_size[i]);
+        }
+        for (int i = 0; i &lt; _n; i++) {
+            result[leader_buf[i]].push_back(i);
+        }
+        result.erase(
+            std::remove_if(result.begin(), result.end(),
+                           [&amp;](const std::vector&lt;int&gt;&amp; v) { return v.empty(); }),
+            result.end());
+        return result;
+    }
+
+  private:
+    int _n;
+    // root node: -1 * component size
+    // otherwise: parent
+<A NAME="1"></A>    std::vector&lt;int&gt; parent_or_size;
+};</B></FONT>
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumHammingDistance(vector&lt;int&gt;&amp; s, vector&lt;int&gt;&amp; t, vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        int n = s.size();
+        dsu d(n);
+        for (auto&amp; v : a) d.merge(v[0], v[1]);</B></FONT>
+        auto g = d.groups();
+        int ans = 0;
+        for (auto&amp; v : g) {
+            vector&lt;int&gt; ss, tt;
+            for (auto&amp; i : v) {
+                ss.push_back(s[i]);
+                tt.push_back(t[i]);
+            }
+            sort(ss.begin(), ss.end());
+            sort(tt.begin(), tt.end());
+            int m = v.size();
+            int x = m;
+            int i = 0, j = 0;
+            
+            while (i &lt; m &amp;&amp; j &lt; m) {
+                if (ss[i] &lt; tt[j]) {
+                    i++;
+                    continue;
+                }
+                if (ss[i] &gt; tt[j]) {
+                    j++;
+                    continue;
+                }
+                i++;
+                j++;
+                x--;
+            }
+            ans += x;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

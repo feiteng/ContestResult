@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>356_codename_cys.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>356_codename_cys.py</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class DSU:
+    def __init__(self, n):
+        self.dsu = [i for i in range(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>n)]
+        
+    def find(self, x):
+        # print(self.dsu, x)
+        if x != self.dsu[x]:
+            self.dsu[x] = self.find(self.dsu[x])
+        return self.dsu[x]
+    
+    def union(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+        if</B></FONT> x != y:
+<A NAME="0"></A>            self.dsu[x] = y
+        return
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        dsu = DSU(n)
+        for x, y in allowedSwaps:
+            dsu.union(x, y)
+        groups = defaultdict(list)
+        for i in range(n):
+            groups[dsu.find(</B></FONT>i)].append(i)
+        res = 0
+        for group in groups.values():
+            counter = defaultdict(int)
+            for idx in group:
+                counter[source[idx]] += 1
+                counter[target[idx]] -= 1
+            res += sum(x for x in counter.values() if x &gt; 0)
+        return res
+</PRE>
+
+</BODY>
+</HTML>

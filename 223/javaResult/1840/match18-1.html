@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>384_ziyezhu92.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>384_ziyezhu92.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[] parent;
+<A NAME="0"></A>    
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = source.length;
+        parent = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[n];
+<A NAME="2"></A>        for(int i = 0;i &lt; n;i++){parent[i] = i;}
+        for(int[] s : allowedSwaps){</B></FONT>
+            union(s[0],s[1]);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        Map&lt;Integer,Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i = 0;i &lt; n;i++){
+            int p = find(i);
+            map.putIfAbsent(p,new HashSet&lt;&gt;());
+            map.get(p).add(i);
+        }
+        int res = n;
+        for(Set&lt;Integer&gt; set : map.values()){
+            Map&lt;Integer,Integer&gt; targetMap = new HashMap&lt;&gt;();
+            for(int i : set){
+                targetMap.put(target[i],targetMap.getOrDefault(target[i],0)+1);
+            }
+            for(int i : set){
+<A NAME="3"></A>                if(targetMap.containsKey</B></FONT>(source[i]) &amp;&amp; targetMap.get(source[i]) &gt; 0){
+                    res--;
+                    targetMap.put(source[i],targetMap.get(source[i])-1);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return res;
+<A NAME="1"></A>    }
+    
+    public void union(int i,int j){</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int p1 = find(i), p2 = find(j);
+        if(p1 != p2){
+            parent[p1] = p2;
+        }</B></FONT>
+    }
+    
+    public int find(int i){
+        while(parent[i] != i){
+            parent[i] = find(parent[i]);
+            i = parent[i];
+        }
+        return parent[i];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

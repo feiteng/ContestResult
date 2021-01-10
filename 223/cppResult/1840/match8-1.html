@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 1e5 + 10;
+int f[N];
+int find(int x) {
+    if (f[x] != f[f[x]]) f[x] = find(f[x]);
+    return f[x];
+<A NAME="0"></A>}
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int minimumHammingDistance(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b, vector&lt;vector&lt;int&gt;&gt;&amp; c) {
+        int n = a.size();
+        for (int i = 0; i &lt; n; ++i) f[i] = i;
+        for (auto&amp; v : c) {
+            int x = v[0], y = v[1];</B></FONT>
+<A NAME="1"></A>            int rx = find(x), ry = find(y);
+            if (rx != ry) f[ry] = rx;
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt;&gt; pos(n);
+        for (int i = 0; i &lt; n; ++i) {
+            int k = find(i);
+            pos[k].push_back(i);
+        }
+<A NAME="2"></A>        int ret = 0;
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            if (pos[i].size() == 0) continue;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            map&lt;int, int&gt; A, B;
+            for (auto&amp; x : pos[i]) {
+                A[a[x]]++;
+                B[b[x]]++;
+            }
+            int cur = pos[i].size();
+            for (auto&amp; [k, v] : A) {
+                cur -= min(A[k], B[k]);
+            }
+            ret += cur;
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

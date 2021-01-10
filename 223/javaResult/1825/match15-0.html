@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>494_viplavkadam.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>494_viplavkadam.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumTimeRequired(int[] jobs, int k) {
+        // System.out.println(&quot;split&quot;);
+        int max = 0;
+        int l = jobs.length;
+        Arrays.sort(jobs);
+<A NAME="0"></A>        int min = jobs[l-1];
+        for(int i = 0; i &lt; l; i++)
+            max += jobs[i];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(min &lt; max) {
+            int mid = min + (max - min) / 2;
+            // System.out.println(&quot; mid &quot; + mid);
+            if(possible(jobs, k, mid)) {
+                // System.out.println(&quot; max &quot; + max);
+                max = mid;
+            } else {
+                min = mid + 1;
+            }
+        }
+        // System.out.println(min + &quot; &quot; + max);
+        return min;
+    }
+    
+    private boolean possible(int[] jobs, int k, int top) {
+        int[] sum = new</B></FONT> int[k];
+<A NAME="1"></A>        return helper(sum, 0, jobs, 0, k, top);
+    }
+    
+    private boolean helper(int[] sum, int ind, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] jobs, int ii, int k, int top) {
+        if(ii == jobs.length) {
+            return true;
+        }
+        for(int i = 0; i &lt; ind+1 &amp;&amp; i &lt; sum.length; i++) {
+<A NAME="2"></A>            if(sum[i] + jobs[ii] &lt;= top) {
+                sum[i] += jobs[ii];
+                if(helper</B></FONT>(sum, ind+1, jobs, ii+1, k, top))
+                    return true<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                sum[i] -= jobs[ii];
+            }
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

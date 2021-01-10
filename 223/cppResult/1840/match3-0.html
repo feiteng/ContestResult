@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>642_ayush1213.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>642_ayush1213.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+class dsu{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt;parent;
+    vector&lt;int&gt;rank;
+    public:
+    dsu(int n) {
+        parent.resize(n);
+        iota(parent.begin(),parent.end(),0);
+        rank.resize(n,1);
+    }
+    int find_par(int x) {
+        if( parent[x] == x) return x;
+        return parent[x] = find_par(parent[x]);
+    }</B></FONT>
+    void uni(int a,int b) {
+        int x = find_par(a);
+        int y = find_par(b);
+        if(x == y) return ;
+        if(rank[x]&gt;rank[y]) {
+            parent[y] = x;
+            rank[x] += rank[y];
+        } else {
+<A NAME="1"></A>            parent[x] = y;
+            rank[y] += rank[x];
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+};
+class Solution {
+public:
+    int minimumHammingDistance(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B, vector&lt;vector&lt;int&gt;&gt;&amp; C) {
+        int n = A.size();
+    dsu d(n);
+    for(auto p : C) {
+        d.uni(p[0],p[1]);
+    }
+    map&lt;int,unordered_map&lt;int,int&gt;&gt; m;
+    for( int i = 0; i &lt; n; ++i) {
+        int x = d.find_par(i);
+        m[x][A[i]] += 1;
+    }
+    int ans = 0;
+    for(int i = 0; i &lt; n;++i) {
+        int x = d.find_par(i);
+        if(m[x][B[i]]-- &gt; 0)  {
+            ans += 1;
+        }
+    }
+    return  A.size() - ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1021_zhengyuyu123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1021_zhengyuyu123.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int res = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] dst = new int[source.length];
+        for(int i = 0; i &lt; dst.length; i++) dst[i] = i;
+        for(int i = 0; i &lt; allowedSwaps.length; i++) {
+            union(dst, allowedSwaps[i][0], allowedSwaps[i][1]);
+        }
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; source.length; i++) {
+            int root = find(dst, i);
+            map.putIfAbsent(root, new ArrayList&lt;&gt;());
+            map.get(root).add(i);
+        }</B></FONT>
+        for(Map.Entry&lt;Integer, List&lt;Integer&gt;&gt; e : map.entrySet()) {
+<A NAME="2"></A>            List&lt;Integer&gt; l = e.getValue();
+            Map&lt;Integer, Integer&gt; valueCount = new HashMap&lt;&gt;();
+            for(int i : l) {
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>valueCount.put(source[i], valueCount.getOrDefault(source[i], 0) + 1);
+            }
+            for(int i : l) {
+                int count = valueCount.getOrDefault(target[i], 0);
+<A NAME="3"></A>                if</B></FONT>(count == 0) res++;
+                else {
+                    valueCount.put(target[i], count - 1);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#3',2,'match13-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+<A NAME="0"></A>        return res;
+    }</B></FONT>
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void union(int[] dst, int a, int b) {
+        int ra = find(dst, a);
+        int rb = find(dst, b);
+        if(ra == rb) return;
+        dst[ra] = rb;
+    }
+    
+    private int find(int[] dst, int a) {
+        if(dst[a] == a) return a;
+        dst[a] = find(dst, dst[a]);
+        return dst[a];
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

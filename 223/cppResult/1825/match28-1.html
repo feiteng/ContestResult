@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>432_shikenghua.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>432_shikenghua.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+public:
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int result;
+    void dfs(vector&lt;int&gt;&amp; jobs, int j, vector&lt;int&gt;&amp; workers) {
+        if (j == jobs.size()) {
+            int maxi = 0;
+            for (int&amp; w : workers)
+                maxi = max(maxi, w);
+            result = min(result, maxi);
+            return;
+        }
+        for (int i = 0; i &lt; workers.size(); ++i) {</B></FONT>
+            if (workers[i] + jobs[j] &gt;= result) continue;
+            workers[i] += jobs[j];
+            dfs(jobs, j + 1, workers);
+            workers[i] -= jobs[j];
+<A NAME="0"></A>        }
+    }
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int minimumTimeRequired(vector&lt;int&gt;&amp; jobs, int k) {
+        int sum = 0, maxi = 0;
+        for (int i = 0; i &lt; jobs.size(); ++i) {
+            sum += jobs[i];
+            maxi = max(maxi, jobs[i]);
+        }</B></FONT>
+        if (k &gt;= jobs.size()) return maxi;
+        sort(jobs.begin(), jobs.end(), greater&lt;int&gt;());
+        result = INT_MAX;
+        vector&lt;int&gt; worker(k);
+        for (int i = 0; i &lt; k; ++i)
+            worker[i] = jobs[i];
+        dfs(jobs, k, worker);
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

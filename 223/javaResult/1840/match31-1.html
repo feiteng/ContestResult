@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>495_eastflag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>495_eastflag.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int n;
+<A NAME="0"></A>    boolean[] visited;
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        n = source.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>UnionFind uf = new UnionFind(n);
+        for (int[] swap : allowedSwaps) {
+            uf.union(swap[0], swap[1]);
+        }
+        
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+            int parent = uf.find(i);
+<A NAME="1"></A>            if (!map.containsKey(parent)) {
+                map.put(parent, new ArrayList&lt;&gt;());
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(parent).add(i);
+        }
+        int equals = 0;
+        for (Map.Entry&lt;Integer, List&lt;Integer&gt;&gt; entry : map.entrySet()) {</B></FONT>
+            List&lt;Integer&gt; list = entry.getValue();
+            int m = list.size();
+            Map&lt;Integer, Integer&gt; valMap = new HashMap&lt;&gt;();
+            for (int idx: list) {
+                valMap.put(source[idx], valMap.getOrDefault(source[idx], 0) + 1);
+            }
+            int overlaps = 0;
+            //System.out.println(list);
+            for (int idx: list) {
+                if (valMap.containsKey(target[idx])) {
+                    overlaps++;
+                    //System.out.print(target[idx] + &quot; &quot;);
+                    int cnt = valMap.get(target[idx]) - 1;
+<A NAME="2"></A>                    if (cnt &gt; 0) valMap.put(target[idx], cnt);
+                    else valMap.remove(target[idx]);
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            equals += overlaps;
+            
+            //System.out.println(overlaps);
+        }
+        return n - equals;
+    }
+    
+    class UnionFind {
+        private int count = 0</B></FONT>;
+        private int[] parent, rank;
+        
+<A NAME="3"></A>        public UnionFind(int n) {
+            count = n;
+            parent = new int[n];
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#3',2,'match31-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rank = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+            }
+        }
+        
+        public int find(int p) {
+        	while (p != parent[p]) {
+                parent[p] = parent[parent[p]];    // path compression by halving
+                p = parent[p];
+            }
+            return p;
+        }
+        
+        public void union(int p, int q) {
+            int rootP = find(p);
+            int rootQ = find(q);
+            if (rootP == rootQ) return;</B></FONT>
+            if (rank[rootQ] &gt; rank[rootP]) {
+                parent[rootP] = rootQ;
+            }
+            else {
+                parent[rootQ] = rootP;
+                if (rank[rootP] == rank[rootQ]) {
+                    rank[rootP]++;
+                }
+            }
+            count--;
+        }
+        
+        public int count() {
+            return count;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

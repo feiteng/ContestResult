@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>885_kmathing.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>885_kmathing.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UnionFindSet:
+    def __init__(self, n):
+        self.parent = [i for i in range(n+1)]
+        self.rank = [1 for _ in range(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>n+1)]
+
+    def find(self, i):
+        if i != self.parent[i]:
+            self.parent[i] = self.find(self.parent[i])
+        return self.parent[i]
+
+    def union(self, x, y):
+        px, py = self.find(x), self.find(y)
+        if px == py:
+            return False
+        if self.rank[px] &gt; self.rank[py]:
+            self.parent[py] = px
+        elif self.rank[px] &lt; self.rank[py]:
+            self.parent[px] = py
+        else:
+            self.parent[px] = py
+            self.rank[py] += 1
+        return True
+
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        uf = UnionFindSet(n - 1)
+        for x, y in allowedSwaps:
+            uf.union(</B></FONT>x, y)
+        for i in range(n):
+            uf.find(i)
+        # print(uf.parent)
+        # print(sorted(source))
+        # print(sorted(target))
+        
+        # unique = set(uf.parent)
+        ans = n
+        s = defaultdict(Counter)
+        t = defaultdict(Counter)
+        for i in range(n):
+            s[uf.parent[i]][source[i]] += 1
+            t[uf.parent[i]][target[i]] += 1
+            
+        for k in set(uf.parent):
+            sc = s[k]
+            tc = t[k]
+            for x in sc:
+                tmp = min(sc[x], tc[x])
+                ans -= tmp
+                tc[x] -= tmp
+        
+        
+        # for k in unique:
+        #     s = Counter(source[i] for i in range(n) if uf.parent[i] == k)
+        #     t = Counter(target[i] for i in range(n) if uf.parent[i] == k)
+        #     # print(s, t)
+        #     for x in s:
+        #         tmp = min(s[x], t.get(x, 0))
+        #         ans -= tmp
+        #         t[x] -= tmp
+        #         # if t.get(x, 0) &gt; 0:
+        #         #     ans += 1
+        #         #     t[x] -= 1
+        #     # t = sorted
+        #     # ans += sum(s[i] != t[i] for i in range(len(s)))
+            
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

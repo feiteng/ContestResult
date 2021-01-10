@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>760_neymaw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>760_neymaw.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; fa;
+
+    int find(int x) {
+        if (x != fa[x]) {
+            fa[x] = find(fa[x]);
+        }
+        return fa[x];
+    }
+
+    void us(int x, int y) {
+<A NAME="1"></A>        x = find(x);
+        y = find(y);</B></FONT>
+        fa[x] = y;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    int minimumHammingDistance(vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target, vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps) {
+        int n = source.size();
+        fa.resize(n);
+        for (int i = 0; i &lt; n; ++i) {
+            fa[i] = i;
+        }
+        for (auto &amp;it : allowedSwaps) {
+            us(it[0], it[1]);
+        }
+        unordered_map&lt;int, vector&lt;int&gt;&gt; um;
+        for (int i = 0; i &lt; n; ++i) {
+            um[find(i)].push_back(i);
+        }
+        unordered_map&lt;int, int&gt; cnt1;</B></FONT>
+        int ans = 0;
+        for (auto &amp;it : um) {
+            cnt1.clear();
+            for (auto &amp;itt : it.second) {
+                cnt1[source[itt]]++;
+                cnt1[target[itt]]--;
+            }
+            for (auto &amp;itt : cnt1) {
+                ans += abs(itt.second);
+            }
+        }
+        return ans / 2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

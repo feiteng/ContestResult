@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>765_gang7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>765_gang7.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int len = source.length;
+        int[] parents = new int[len];
+        for (int i = 0; i &lt; len; i++) {
+            parents[i] = i;
+        }
+
+
+        for (int[] swap : allowedSwaps) {</B></FONT>
+<A NAME="1"></A>            int n1 = swap[0];
+            int n2 = swap[1];
+
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int p1 = findParent(parents, n1);
+            int p2 = findParent(parents, n2);
+
+            if (p1 != p2) {
+                parents[p2] = p1;
+            }
+        }
+
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; len; i++) {
+            int p = findParent(parents, i);
+            map.putIfAbsent(p, new ArrayList&lt;Integer&gt;());
+            map.get(p).add(i);
+        }
+
+        int res = 0;
+        for (List&lt;Integer&gt; values : map.values()) {
+
+            Map&lt;Integer, Integer&gt; count = new HashMap&lt;&gt;()</B></FONT>;
+            for (int idx : values) {
+                count.put(source[idx], count.getOrDefault(source[idx], 0) + 1);
+            }
+
+            for (int idx : values) {
+                if (!count.containsKey(target[idx])) {
+                    res++;
+                } else {
+                    if (count.get(target[idx]) == 1) {
+                        count.remove(target[idx]);
+                    } else {
+<A NAME="2"></A>                        count.put(target[idx], count.get(target[idx])-1);
+                    }
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return res;
+    }
+
+    private int findParent(int[] parents, int n) {
+        if</B></FONT> (parents[n] != n) {
+            parents[n] = findParent(parents, parents[n]);
+        }
+        return parents[n];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>322_alanlzl.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>322_alanlzl.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class UnionFindSet:
+    def __init__(self, n):
+        self.parents = list(range(n))
+        self.ranks =<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> [1] * n
+        
+    def find(self, u):
+        if u != self.parents[u]:
+            self.parents[u] = self.find(self.parents[u])
+        return self.parents[u]
+    
+    def union(self, u, v):
+        pu, pv = self.find(u), self.find(v)
+        if pu == pv:
+            return False
+        if self.ranks[pu] &gt; self.ranks[pv]:
+            self.parents[pv] = pu
+        elif self.ranks[pv] &gt; self.ranks[pu]:
+            self.parents[pu] = pv
+        else:
+            self.parents[pu] = pv
+            self.ranks[pv] += 1
+        return True
+    
+    
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        uf = UnionFindSet(n)
+        
+        for u, v in allowedSwaps:
+            uf.union(</B></FONT>u, v)
+            
+        dic1 = collections.defaultdict(list)
+        dic2 = collections.defaultdict(list)
+        for i, (s, t) in enumerate(zip(source, target)):
+            p = uf.find(i)
+            dic1[p].append(s)
+            dic2[p].append(t)
+            
+        ans = 0
+        for k in dic1:
+            tot = len(dic2[k])
+            c1 = collections.Counter(dic1[k])
+            c2 = collections.Counter(dic2[k])
+            for num, freq in c2.items():
+                tot -= min(freq, c1[num])
+            ans += tot
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

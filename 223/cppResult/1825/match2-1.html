@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>511_atf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>511_atf.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minimumTimeRequired(vector&lt;int&gt;&amp; jobs, int k) {
+        
+        
+        
+        int m = jobs.size();
+
+        vector&lt;int&gt; subsetSum(1 &lt;&lt; m, 0);
+        for (int mask = 0; mask &lt; (1 &lt;&lt; m); mask++) {
+            int total = 0;
+            for (int i = 0; i &lt; m; i++) {
+                if (mask &amp; (1 &lt;&lt; i)) {
+                    total += jobs[i];
+                }
+            }
+            subsetSum[mask] = total;
+        }
+        int inf = 1 &lt;&lt; 30;</B></FONT>
+<A NAME="1"></A>        
+        
+        vector&lt;int&gt; possible(1 &lt;&lt; m, inf);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; nextPossible(1 &lt;&lt; m, inf);
+        possible[0] = 0;
+        for (int i = 0; i &lt; k; i++) {            
+            for (int mask = 0; mask &lt; (1 &lt;&lt; m); mask++) {</B></FONT>
+                int best = possible[mask];
+                int submask = mask;
+                while (submask) {
+                    best = std::min(
+                        best,
+                        max(possible[mask ^ submask], subsetSum[submask])
+                    );
+                    submask = (submask - 1) &amp; mask;
+                }
+                    
+                nextPossible[mask] = best;
+            }
+            
+            std::swap(nextPossible, possible);
+        }
+
+        int allMask = (1 &lt;&lt; m) - 1;
+        return possible[allMask];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

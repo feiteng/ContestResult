@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>91_EDIEEE.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>91_EDIEEE.cpp</CENTER></H3><HR>
+<PRE>
+const int INF = 1e9 + 10;
+class Solution {
+public:
+    
+    int N;
+    int cost[1 &lt;&lt; 12];
+    int DP[12][1 &lt;&lt; 12];
+<A NAME="0"></A>    
+    int minimumTimeRequired(vector&lt;int&gt;&amp; jobs, int K) {
+        int l = 0 , r = INF , ret = r;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match40-1.html#0',3,'match40-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        N = jobs.size();
+        for(int mask = 0; mask &lt; 1 &lt;&lt; N; ++mask){
+            for(int i = 0; i &lt; N; ++i){
+                if(mask &gt;&gt; i &amp; 1){</B></FONT>
+                    cost[mask] += jobs[i];
+                } 
+            }
+        }
+        for(int i = 0; i &lt; K; ++i){
+            for(int j = 0; j &lt; 1 &lt;&lt; N; ++j){
+                DP[i][j] = INF;
+            }
+        }
+<A NAME="1"></A>        for(int mask = 0; mask &lt; 1 &lt;&lt; N; ++mask){
+            DP[0][mask] = cost[mask];
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match40-1.html#1',3,'match40-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; K; ++i)DP[i][0] = 0;
+        for(int i = 1; i &lt; K; ++i){
+            for(int mask = 0; mask &lt; 1 &lt;&lt; N; ++mask){
+                for(int pmask = mask; pmask; pmask = (pmask - 1) &amp; mask){
+                    DP[i][mask] = min(DP[i][mask] , max(DP[i - 1][pmask ^ mask] , cost[pmask]));
+                }
+            }
+        }
+        return DP[K - 1][(1 &lt;&lt; N) - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

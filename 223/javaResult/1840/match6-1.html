@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_tankwang0914.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>268_tankwang0914.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int N = source.length;
+        DSU dsu = new DSU(N);
+        for (int[] p: allowedSwaps){
+            dsu.union(p[0], p[1]);
+        }
+        Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; N; i++){
+<A NAME="2"></A>            int root = dsu.find</B></FONT>(i);
+            if (!map.containsKey(root)) map.put(root, new HashMap&lt;&gt;());
+            Map&lt;Integer, Integer&gt; secMap = map.get(root);
+            int count = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>secMap.getOrDefault(source[i], 0);
+            secMap.put(source[i], count+1);
+        }
+        int res = 0;
+        for (int i = 0; i &lt; N; i++){
+            int root = dsu.find(i);
+            Map&lt;Integer, Integer&gt; secMap = map.get(root);
+<A NAME="3"></A>            if (secMap.containsKey(target[i])){</B></FONT>
+                if (secMap.get(target[i]) == 1) secMap.remove(target[i]);
+                else secMap.put(target[i], secMap.get(target[i])-1);
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}else {
+                res++;
+            }
+        }
+        return res;
+<A NAME="0"></A>    }
+}</B></FONT>
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class DSU{
+    int[] parent;
+    
+    DSU(int n){
+        parent = new int[n];
+        for (int i  = 0; i &lt; n; i++){
+            parent[i] = i;
+        }
+    }
+    
+    public int find(int x){
+        if</B></FONT> (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    
+    public void union(int x, int y){
+        if (find(x) &gt; find(y)) parent[find(x)] = parent[find(y)];
+        else parent[find(y)] = parent[find(x)];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

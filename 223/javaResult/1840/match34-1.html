@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>814_darkaimagic.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>814_darkaimagic.java</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UF {
+        int[] g, sz;
+        UF(int n) {
+            g = new int[n];
+            sz = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                g[i] = i;
+                sz[i] = 1;
+            }
+        }
+        int find(int x) {
+            if (g[x] != x)
+                g[x] = find(g[x]);
+            return g[x];
+        }
+<A NAME="3"></A>        int size(int x</B></FONT>) {
+            return sz[find(x)];
+        }
+        void union(int x, <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#3',2,'match34-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int y) {
+            int rx = find(x), ry = find(y);
+            if (rx != ry) {
+                if (sz[rx] &gt;= sz[ry]) {
+                    g[ry] = rx;
+                    sz[rx] += sz[ry];
+                } else {
+                    g[rx] = ry;
+                    sz[ry] += sz[rx];
+                }
+<A NAME="0"></A>            }
+        }
+    }</B></FONT>
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+<A NAME="1"></A>        int n = source.length;
+        UF uf = new UF(n);
+        for (int[] pr</B></FONT> : allowedSwaps)
+            uf.union(pr[0], pr[1])<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; db = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            int g = uf.find(i);
+            if (!db.containsKey(g))
+                db.put(g, new HashSet&lt;&gt;());</B></FONT>
+            db.get(g).add(i);
+        }
+        int ans = 0;
+        for (int g : db.keySet()) {
+            HashSet&lt;Integer&gt; hs = db.get(g);
+            int sz = uf.size(g);
+            ArrayList&lt;Integer&gt; a1 = new ArrayList&lt;&gt;(), a2 = new ArrayList&lt;&gt;();
+            for (int idx : hs) {
+                a1.add(source[idx]);
+                a2.add(target[idx]);
+            }
+            Collections.sort(a1);
+            Collections.sort(a2);
+            int overlap = 0, p = 0, q = 0;
+            while (p &lt; sz &amp;&amp; q &lt; sz) {
+                if (a1.get(p) &lt; a2.get(q))
+                    p++;
+                else if (a1.get(p) &gt; a2.get(q))
+                    q++;
+                else {
+                    overlap++;
+                    p++;
+                    q++;
+                }
+            }
+            ans += sz - overlap;
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

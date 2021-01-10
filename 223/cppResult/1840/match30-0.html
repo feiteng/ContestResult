@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>875_wolffd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>875_wolffd.cpp</CENTER></H3><HR>
+<PRE>
+// Output stream overloads.
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const vector&lt;T&gt;&amp; v) {
+  if (v.size() == 0) {
+      return out &lt;&lt; &quot;[]&quot;;
+  }
+
+  out &lt;&lt; '[' &lt;&lt; v[0];
+  for (int i = 1; i &lt; v.size(); ++i) {
+      out &lt;&lt; ' ' &lt;&lt; v[i];
+  }
+  return out &lt;&lt; ']';
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const vector&lt;vector&lt;T&gt;&gt;&amp; m) {
+  if (m.size() == 0) {
+    return out &lt;&lt; &quot;[]&quot;;
+  }
+
+  for (const auto&amp; row : m) {
+    out &lt;&lt; row &lt;&lt; endl;
+  }
+  return out;
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const deque&lt;T&gt;&amp; d) {
+  if (d.size() == 0) {
+    return out &lt;&lt; &quot;[]&quot;;
+  }
+
+  out &lt;&lt; '[' &lt;&lt; d[0];
+  for (int i = 1; i &lt; d.size(); ++i) {
+    out &lt;&lt; ' ' &lt;&lt; d[i];
+  }
+  return out &lt;&lt; ']';
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const set&lt;T&gt;&amp; s) {
+  if (s.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  out &lt;&lt; '{' &lt;&lt; *s.begin();
+  for (auto it = ++s.begin(); it != s.end(); ++it) {
+    out &lt;&lt; ' ' &lt;&lt; *it;
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const multiset&lt;T&gt;&amp; s) {
+  return out &lt;&lt; vector&lt;T&gt;(s.begin(), s.end());
+}
+
+template &lt;typename T&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const unordered_set&lt;T&gt;&amp; s) {
+  if (s.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  vector&lt;T&gt; v(s.begin(), s.end());
+  sort(v.begin(), v.end());
+
+  out &lt;&lt; '{' &lt;&lt; v[0];
+  for (int i = 1; i &lt; v.size(); ++i) {
+    out &lt;&lt; ' ' &lt;&lt; v[i];
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename K, typename V&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const map&lt;K, V&gt;&amp; m) {
+  if (m.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  vector&lt;K&gt; keys;
+  for (const auto&amp; p : m) {
+    keys.push_back(p.first);
+  }
+
+  out &lt;&lt; &quot;{&quot; &lt;&lt; keys[0] &lt;&lt; &quot;: &quot; &lt;&lt; m.at(keys[0]);
+  for (int i = 1; i &lt; keys.size(); ++i) {
+    const auto&amp; key = keys[i];
+    out &lt;&lt; &quot;, &quot; &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; m.at(key);
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename K, typename V&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const unordered_map&lt;K, V&gt;&amp; m) {
+  if (m.size() == 0) {
+    return out &lt;&lt; &quot;{}&quot;;
+  }
+
+  vector&lt;K&gt; keys;
+  for (const auto&amp; p : m) {
+    keys.push_back(p.first);
+  }
+  sort(keys.begin(), keys.end());
+
+  out &lt;&lt; &quot;{&quot; &lt;&lt; keys[0] &lt;&lt; &quot;: &quot; &lt;&lt; m.at(keys[0]);
+  for (int i = 1; i &lt; keys.size(); ++i) {
+    const auto&amp; key = keys[i];
+    out &lt;&lt; &quot;, &quot; &lt;&lt; key &lt;&lt; &quot;: &quot; &lt;&lt; m.at(key);
+  }
+  return out &lt;&lt; '}';
+}
+
+template &lt;typename F, typename S&gt;
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const pair&lt;F, S&gt;&amp; p) {
+  return out &lt;&lt; '(' &lt;&lt; p.first &lt;&lt; &quot;, &quot; &lt;&lt; p.second &lt;&lt; ')';
+}
+
+namespace std {
+  template&lt;typename T, typename U&gt;
+  struct hash&lt;pair&lt;T, U&gt;&gt; {
+    size_t operator()(const pair&lt;T, U&gt;&amp; p) const noexcept {
+      return hash&lt;T&gt;{}(p.first) ^ (hash&lt;U&gt;{}(p.second) &lt;&lt; 1);
+    }
+<A NAME="0"></A>  };
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct UnionFind {
+  /**
+   * The parent site of each site.
+   */
+  int* id;
+
+  /**
+   * The size of the component rooted at each site.
+   */
+  int* sz;
+
+  /**
+   * The total number of sites.
+   */
+  int sites;
+
+  /**
+   * The number of active components.
+   */
+  int comps;
+
+  /**
+   * Constructs a union-find instance with the given capacity.
+   * 
+   * @param capacity The initial number of contiguous components.
+   */
+  UnionFind(const int capacity) : sites(capacity), comps(capacity) {
+    id = new int[capacity];
+    sz = new int[capacity];
+    std::iota(id, id + capacity, 0);
+    std::fill(sz, sz + capacity, 1);
+  }
+
+  /**
+   * Destructs the UnionFind instance.
+   */
+  ~UnionFind() {
+    delete[] id;
+    delete[] sz;
+  }
+
+  /**
+   * Connects two sites.  The ordering of these sites does not matter.
+   * 
+   * @param site1 The first site.
+   * @param site2 The second site.
+   */
+  void merge(const int site1, const int site2) {
+    int root1 = find(site1);
+    int root2 = find(site2);
+    if (root1 == root2) return;
+
+    if (sz[root1] &lt; sz[root2]) {
+      id[root1] = root2;
+      sz[root2] += sz[root1];
+    } else {
+      id[root2] = root1;
+      sz[root1] += sz[root2];
+    }
+    --comps;
+  }
+
+  /**
+   * Returns the component identifier for the given site.
+   * 
+   * @param site The site.
+   * 
+   * @return The component identifier of the site.
+   */
+  int find(const int site) {
+    int root = site == id[site] ? site : find(id[site]);
+    id[site] = root;
+    return root;
+  }
+
+  /**
+   * Returns the component identifier for the given site.
+   * 
+   * @param site The site.
+   * 
+   * @return The component identifier of the site.
+   */
+  int find(const int site) const {
+    return site == id[site] ? site : find(id[site]);
+  }
+
+  /**
+   * Returns true if the two sites belong to the same component.
+   * 
+   * @param site1 The first site.
+   * @param site2 The second site.
+   * 
+   * @return True if the two sites belong to the same component.
+   */
+  bool connected(const int site1, const int site2) {
+    return find(site1) == find(site2);
+  }
+
+  /**
+   * Returns true if the two sites belong to the same component.
+   * 
+   * @param site1 The first site.
+   * @param site2 The second site.
+   * 
+   * @return True if the two sites belong to the same component.
+   */
+  bool connected(const int site1, const int site2) const {
+    return find(site1) == find(site2);
+  }
+};
+
+
+class Solution {
+public:
+    int minimumHammingDistance(vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target, vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps) {
+        int N = source.size();</B></FONT>
+        UnionFind uf = UnionFind(N);
+<A NAME="1"></A>        
+        for (vector&lt;int&gt; p : allowedSwaps) uf.merge(p[0], p[1]);
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        unordered_map&lt;int, vector&lt;int&gt;&gt; sGroups, tGroups;
+        for (int n = 0; n &lt; N; n++) {
+            int g = uf.find(n);
+            sGroups[g].emplace_back(source[n]);
+            tGroups[g].emplace_back(target[n]);
+        }
+        
+        
+        
+        int res = 0;
+        for (auto p : sGroups) {</B></FONT>
+            int g = p.first;
+            
+            //sort(sGroups[g].begin(), sGroups[g].end());
+            //sort(tGroups[g].begin(), tGroups[g].end());
+            //cout &lt;&lt; sGroups[g] &lt;&lt; endl;
+            //cout &lt;&lt; tGroups[g] &lt;&lt; endl;
+            
+            unordered_map&lt;int,int&gt; counts;
+            for (int i : sGroups[g]) counts[i]++;
+            for (int i : tGroups[g]) {
+                res += (counts[i] &lt;= 0);
+                counts[i]--;
+            }
+            
+        }
+        return res;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

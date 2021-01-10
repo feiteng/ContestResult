@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>126_firee.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>126_firee.cpp</CENTER></H3><HR>
+<PRE>
+
+int pre[100005];
+int Find(int x)
+{
+    if(x!=pre[x])
+    {
+        pre[x]=Find(pre[x]);
+    }
+    return pre[x];
+<A NAME="0"></A>}
+
+class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int minimumHammingDistance(vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target, vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps) {
+        int n=source.size();
+        map&lt;pair&lt;int,int&gt;,int&gt; cnt;
+        for(int i=0;i&lt;=n;i++)
+        {
+            pre[i]=i;
+        }
+        for(int i=0;i&lt;allowedSwaps.size();i++)</B></FONT>
+        {
+            int a=allowedSwaps[i][0],b=allowedSwaps[i][1];
+            int x=Find(a);
+            int y=Find(b);
+            if(x!=y)
+<A NAME="1"></A>            {
+                pre[x]=y;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        for(int i=0;i&lt;n;i++)
+        {
+            int t=Find(i);
+            cnt[make_pair(t,target[i])]++;
+        }
+        int ans=n;
+        for(int i=0;i&lt;n;i++)
+        {
+            int t=Find(i);
+            if(cnt[make_pair(t,source[i])])
+            {
+                cnt[make_pair(t,source[i])]--;
+                ans--;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

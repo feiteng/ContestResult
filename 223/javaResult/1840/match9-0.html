@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>844_jingmia2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>844_jingmia2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="1"></A>    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = source.length ; 
+        int[] uf = new int[n] ; 
+<A NAME="2"></A>        for ( int i = 0</B></FONT> ; i &lt; n ; i ++ ) uf[i] = i <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>; 
+        for ( int[] as: allowedSwaps ) {
+            int pa = find(uf, as[0]), pb = find(uf, as[1]) ; 
+            if</B></FONT> ( pa != pb ) uf[pb] = pa <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;  
+        }
+        // parent -&gt; (value -&gt; count)
+        Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; mapS = new HashMap&lt;&gt;() ; 
+        Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; mapT = new HashMap&lt;&gt;() ; 
+        for ( int i = 0 ; i &lt; n ; i ++ ) {
+            int p = find</B></FONT>(uf, i) ; 
+            if ( ! mapS.containsKey(p) ) mapS.put(p, new HashMap&lt;&gt;()) ; 
+            if ( ! mapT.containsKey(p) ) mapT.put(p, new HashMap&lt;&gt;()) ; 
+            mapS.get(p).put(source[i], mapS.get(p).getOrDefault(source[i], 0) + 1) ; 
+            mapT.get(p).put(target[i], mapT.get(p).getOrDefault(target[i], 0) + 1) ; 
+<A NAME="3"></A>        }
+        // System.out.println(&quot;mapS: &quot; + mapS) ; 
+        // System.out.println(&quot;mapT: &quot; + mapT) ;         
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int ans = 0, common = 0, total = 0; 
+        for ( int key: mapS.keySet() ) {
+            Map&lt;Integer, Integer&gt; ms = mapS.get(key) ; 
+            Map&lt;Integer, Integer&gt; mt = mapT.get</B></FONT>(key) ; 
+            for ( int value: ms.keySet() ) {
+<A NAME="4"></A>                total += ms.get(value) ; 
+                if ( mt.containsKey(value) ) {
+                    common += Math.min(ms.get(value), mt.get(value)) ; 
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match9-1.html#4',3,'match9-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return total - common ; 
+    }
+    
+    private int find(int[] uf, int node) {
+        while ( node != uf[node] ) {
+            uf[node] = uf[uf[node]] ; 
+            node = uf[node] ; 
+        }
+        return node ; 
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

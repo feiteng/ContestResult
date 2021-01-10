@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>926_lkhbt1.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>926_lkhbt1.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        ds = Ufind(n)
+        for edge in allowedSwaps:
+            ds.union(edge[0],edge[1])
+        
+        luts =</B></FONT> {}
+        lutt = {}
+        for i in range(n):
+            pi = ds.find(i)
+            if pi not in luts:
+                luts[pi] = Counter()
+                luts[pi][source[i]]+=1
+<A NAME="1"></A>                lutt[pi] = Counter()
+                lutt[pi][target[i]]+=1
+            else:
+                luts<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[pi][source[i]]+=1
+                lutt[pi][target[i]]+=1
+        ans = 0
+        for</B></FONT> p in luts:
+            diff = 0
+            for c in lutt[p]:
+                if c not in luts[p]:
+                    diff+=lutt[p][c]
+                else:
+                    if lutt[p][c]&gt;luts[p][c]:
+                        diff+=lutt[p][c]-luts[p][c]
+            ans+=diff
+        return ans
+    
+    
+class Ufind:
+    def __init__(self, n:int):
+<A NAME="2"></A>        self.parents = [0]*n
+        self.ranks = [0]*n
+        for i in range(n):
+            self.parents[i] = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>i
+    
+    def find(self, u:int)-&gt;int:
+        if u!=self.parents[u]:
+            self.parents[u] = self.find(self.parents[u])
+        return self.parents[u]
+    
+    def union(self, u:int, v:int)-&gt;bool:
+        pu = self.find(u)
+        pv = self.find(v)
+        if pu == pv:
+            return False
+        if self.ranks[pu]&gt;self.ranks[pv]:
+            self.parents[pv] = pu
+        elif self.ranks[</B></FONT>pu]&lt;self.ranks[pv]:
+            self.parents[pu] = pv
+        else:
+            self.parents[pu] = pv
+            self.ranks[pv]+=1
+        return True
+</PRE>
+
+</BODY>
+</HTML>

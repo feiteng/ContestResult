@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>984_moverzp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>984_moverzp.cpp</CENTER></H3><HR>
+<PRE>
+class UnionFind{
+public:
+    vector&lt;int&gt; parent;
+
+    UnionFind (int n) : parent(n) {
+        for (int i = 0; i &lt; n; ++i) {
+            parent[i] = i;
+        }
+    }
+
+    int find(int x) {
+<A NAME="0"></A>        if (x != parent[x]) {
+            parent[x] = find(parent[x]);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return parent[x];
+    }
+
+    void merge(int x, int y) {
+        int rootx = find(x);
+        int rooty = find(y);
+        if (rootx != rooty) {
+            parent[rootx] = rooty;
+        }
+    }</B></FONT>
+
+    bool is_connected(int x, int y) {
+        int rootx = find(x);
+        int rooty = find(y);
+        if (rootx == rooty) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+<A NAME="1"></A>
+class Solution {
+public:
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int minimumHammingDistance(vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target, vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps) {
+        int n = source.size();
+        UnionFind unionFind(n);
+        //连通所有下标
+        for (auto&amp; ab : allowedSwaps) {
+            unionFind.merge(ab[0], ab[1]);
+        }
+        //整理连通下标对应的值
+        unordered_map&lt;int, multiset&lt;int&gt;&gt; m;
+        for (int i = 0; i &lt; n; ++i) {
+            int root = unionFind.find(i);
+            m[root].insert(source[i]);
+        }
+        //计算距离
+        int res = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            int root = unionFind.find(i);</B></FONT>
+            if (m[root].count(target[i])) {
+                m[root].erase(m[root].find(target[i]));
+            } else {
+                ++res;
+            }
+        }
+
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

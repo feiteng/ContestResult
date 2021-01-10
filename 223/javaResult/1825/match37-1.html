@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>347_jason_wong1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>347_jason_wong1.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int res = Integer.MAX_VALUE;
+    public int minimumTimeRequired(int[] jobs, int k) {
+        int total = 0;
+        for (int i : jobs) {
+            total += i;
+        }
+        Arrays.sort(jobs);
+        int[] arr = new int[jobs.length];
+        for (int i = 0; i &lt; arr.length; i++) {
+            arr[i] = jobs[arr.length - i - 1];
+        }
+<A NAME="0"></A>        jobs = arr;
+        int[] sumArr = new int[k];
+        helper(jobs, sumArr, 0);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+    }
+    public void helper(int[] jobs, int[] sumArr, int level) {
+        if (level == jobs.length) {
+            int max = 0;
+            for (int i : sumArr) {
+                max = Math.max(max, i);
+            }
+            res = Math.min(res, max);
+            return;
+        }        
+        for (int i = 0; i &lt; sumArr.length; i++) {
+            if (sumArr[i] + jobs[level] &gt;= res) {
+                continue;
+            }</B></FONT>
+            sumArr[i] = sumArr[i] + jobs[level];
+            helper(jobs, sumArr, level + 1);
+            sumArr[i] = sumArr[i] - jobs[level];
+            while (i != sumArr.length - 1 &amp;&amp; sumArr[i] == sumArr[i + 1]) {
+                i++;
+            }
+        }
+    }
+ 
+}
+
+
+
+
+
+
+</PRE>
+
+</BODY>
+</HTML>

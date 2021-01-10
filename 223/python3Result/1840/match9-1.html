@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>410_yjt98765.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>410_yjt98765.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        par = list(range(n))
+        def</B></FONT> find(x: int) -&gt; int:
+            res = par[x]
+            if res != par[res]:
+                res = find(res)
+<A NAME="1"></A>                par[x] = res
+            return res
+        def join(x: int, y: int):
+            par[find(x)] = find(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>y)
+        for a, b in allowedSwaps:
+            join(a, b)
+        dic = defaultdict(list)
+        for i in range(n):
+            dic[find(i)].append(i)
+        res = 0
+        for val in dic.values():
+            count = defaultdict(int)
+            for i in val:
+                count[source[i]] += 1
+            for i in val:
+                if target[i] in count and count[target[i]] &gt; 0:
+                    count[</B></FONT>target[i]] -= 1
+                else:
+                    res += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

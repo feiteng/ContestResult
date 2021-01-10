@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>486_song-204.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>486_song-204.py</CENTER></H3><HR>
+<PRE>
+from typing import *
+
+
+<A NAME="0"></A>from typing import *
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minimumTimeRequired(self, jobs: List[int], k: int) -&gt; int:
+
+        def helper(nl, idx):
+            if idx == len(jobs):
+                return 1
+            for i in range(k):
+                if nl[i] &gt;= jobs[</B></FONT>idx] and (i == 0 or nl[i] != nl[i-1]):
+                    nl[i] -= jobs[idx]
+                    if helper(nl, idx + 1):
+                        return 1
+                    else:
+                        nl[i] += jobs[idx]
+            else:
+<A NAME="1"></A>                return 0
+
+        left = max(sum(jobs) // k, max(jobs))
+        right <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= sum(jobs)
+
+        while left &lt; right:
+            mid = (left + right) // 2
+            if helper([mid] * k, 0):
+                right = mid
+            else:
+                left = mid + 1
+        re</B></FONT>turn left
+
+d = [1,2,4,7,8]
+3
+print(Solution().minimumTimeRequired(d, 2))
+</PRE>
+
+</BODY>
+</HTML>

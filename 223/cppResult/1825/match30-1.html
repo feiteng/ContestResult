@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>267_rign-LR7Rq2TRuq.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>267_rign-LR7Rq2TRuq.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    bool check(vector&lt;int&gt;&amp;jobs,int k,int mid){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt;vis((int)jobs.size(),0);
+        for(int i=1;i&lt;=k;i++){
+            int sum=mid;
+            for(int i=0;i&lt;jobs.size();i++){
+                if(vis[i]==0 &amp;&amp; jobs[i]&lt;=sum){
+                    vis[i]=1;</B></FONT>
+                    sum-=jobs[i];
+                }
+            }
+        }
+        bool flag=true;
+        for(int i=0;i&lt;vis.size();i++) if(vis[i]==0) flag=false;
+        return flag;
+    }
+    int f[(1&lt;&lt;12)+5][15];
+    int sum[(1&lt;&lt;12)+5];
+    int minimumTimeRequired(vector&lt;int&gt;&amp; jobs, int k) {
+        /*sort(jobs.begin(),jobs.end());
+        reverse(jobs.begin(),jobs.end());
+        int sum=0;
+        for(int i=0;i&lt;jobs.size();i++) sum+=jobs[i];
+        int l=1,r=sum,mid,ans;
+        while(l&lt;=r){
+            mid=(l+r)&gt;&gt;1;
+            if(check(jobs,k,mid)){
+                ans=mid;
+                r=mid-1;
+            }else l=mid+1;
+        }
+        return ans;*/
+        int n=jobs.size();
+        memset(sum,0,sizeof(sum));
+        memset(f,0x3f,sizeof(f));
+        for(int i=0;i&lt;(1&lt;&lt;n);i++){
+            for(int j=0;j&lt;jobs.size();j++){
+                if((i&gt;&gt;j)&amp;1){
+                    sum[i]+=jobs[j];
+<A NAME="1"></A>                }
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        f[0][0]=0;
+        for(int i=0;i&lt;(1&lt;&lt;n);i++){
+            for(int j=i;j!=0;j=(j-1)&amp;i){
+                for(int l=1;l&lt;=k;l++){
+                    f[i][l]=min(f[i][l],max(sum[j],f[i-j][l-1]));
+                }
+            }
+        }
+        return f[(1&lt;&lt;n)-1][k];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

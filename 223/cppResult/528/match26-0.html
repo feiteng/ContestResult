@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>799_meepo2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>799_meepo2.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+<A NAME="0"></A> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    ListNode* swapNodes(ListNode* head, int k) {
+        int n = 0;
+        auto p = head;
+        while (head) {
+            n++;
+            head = head-&gt;next;
+        }
+        
+        int f1 = 0;
+<A NAME="1"></A>        int f2 = 0;
+        
+        int c = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        head = p;
+        while (head) {
+            if (c == k-1) f1 = head-&gt;val;
+            if (c == n - k) f2 = head-&gt;val;
+            c++;
+            head = head-&gt;next;
+        }
+        
+        head = p;
+        c = 0;
+        while (head) {
+            if (c == k-1)  head-&gt;val = f2;
+            if (c == n - k) head-&gt;val = f1;
+            c++;
+            head = head-&gt;next;
+        }
+        
+        return p;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

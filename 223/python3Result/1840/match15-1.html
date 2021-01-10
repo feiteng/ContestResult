@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_nilomai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_nilomai.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+  def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+    n = len(source)
+    uf = UF(n)
+    for p1, p2 in allowedSwaps:
+      uf.union(p1, p2)
+    ccs = defaultdict(list)
+    for i in range(n):
+      ccs[uf.find(i)].append(i)
+    res = 0
+    for</B></FONT> cc, l in ccs.items():
+      vals = Counter([source[k] for k in l])
+      for t in [target[k] for k in l]:
+        if vals[t] &gt; 0:
+          vals[t] -= 1
+        else:
+          res += 1
+    return res     
+        
+        
+        
+        
+        
+class UF:
+  def __init__(self, n):
+    self.parent, self.count = [i for i in range(n)], n*[1]
+<A NAME="1"></A>  def find(self, i):
+    root = self.parent[i]
+    while root != self.parent[root]: root = self.parent[root]
+    while self.parent[i] != root: i, self.parent[i] = self.parent[<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i], root
+    return root
+  def union(self, i, j):
+    root_i = self.find(i)
+    root_j = self.find(j)
+    if root_i == root_j: return
+    if self.count[root_i] &lt; self.count[root_j]: 
+      self.parent[root_i] = root_j
+      self.count[root_j] += self.count[root_i]
+    else:
+      self.parent[root_j] = root_i
+      self.count[root_i] += self.count[ro</B></FONT>ot_j]
+</PRE>
+
+</BODY>
+</HTML>

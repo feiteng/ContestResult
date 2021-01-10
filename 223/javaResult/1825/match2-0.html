@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_yrclamb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_yrclamb.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int ans = Integer.MAX_VALUE;
+    public int minimumTimeRequired(int[] jobs, int k) {
+        ans = Integer.MAX_VALUE;
+        Arrays.sort(jobs);
+        int[] ttl = new int[k];
+        int idx = jobs.length - 1;
+        for(int i = 0; i &lt; k; i++){
+            ttl[i] = jobs[idx];
+            idx--;
+<A NAME="0"></A>        }
+        
+        int[] newjobs = new int[jobs.length - k];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; newjobs.length; i++){
+            newjobs[i] = jobs[idx];
+            idx--;
+        }
+        //System.out.println(Arrays.toString(newjobs));
+        recursion(newjobs, ttl, 0);
+<A NAME="1"></A>        return ans;
+    }
+    
+    private v</B></FONT>oid recursion(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] jobs, int[] ttl, int idx){
+        if(idx == jobs.length){
+            int max = -1;
+            for(int t : ttl){
+                max = Math.max(max, t);
+            }
+            
+            ans = Math.min(ans, max);
+            return;
+        }
+        
+        for(int i = 0; i &lt; ttl.length; i++){
+            ttl[i] += jobs[idx];
+            recursion(jobs, ttl, idx+1);
+            ttl[i] -= jobs[idx];
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>730_aChris.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>730_aChris.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int N = source.length;
+<A NAME="1"></A>        int[] parents = new int[N];
+        for (int i = 0</B></FONT>; i &lt; N; i++) parents[i] = i;
+        for (int[] pair : allowedSwaps) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int x = find(pair[0], parents);
+            int y = find(pair[1], parents);
+            parents[x] = y;
+        }
+        HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; N; i++) {
+            int x = find(i, parents);
+            map.putIfAbsent(x, new HashSet&lt;&gt;());
+            map.get(x).add(i);
+        }
+        int res = 0;
+        for (int k : map.keySet()) {
+            HashSet&lt;Integer&gt; group = map.get(k);
+            res += getDiff(source, target, group);
+        }
+        return res;
+    }
+    
+    private int getDiff(int[] source, int[] target, HashSet&lt;Integer&gt; group) {
+        HashMap&lt;Integer, Integer&gt; c1 = new</B></FONT> HashMap&lt;&gt;(), c2 = new HashMap&lt;&gt;();
+        for (int i : group) {
+            c1.putIfAbsent(source[i], 0);
+            c2.putIfAbsent(target[i], 0);
+            c1.put(source[i], c1.get(source[i]) + 1);
+            c2.put(target[i], c2.get(target[i]) + 1);
+        }
+<A NAME="2"></A>        int diff = 0;
+        for (int num : c1.keySet()) {
+            diff += Math.max(0, c1.get(num) - c2.getOrDefault(num, 0));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return diff;
+    }
+    
+    private int find(int x, int[] parents) {
+        while (parents[x] != x) {
+            parents[x] = parents[parents[x]];
+            x = parents[x];
+        }
+        return x;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

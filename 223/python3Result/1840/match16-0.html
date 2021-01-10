@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_JDEP.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>364_JDEP.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], tups: List[List[int]]) -&gt; int:
+        n = len(source)
+<A NAME="0"></A>        
+        tmp = [tuple(sorted(t)) for t in tups]
+        tups = set(tmp)
+        root = [i for i in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n)]
+        
+        def find(x):
+            if root[x]!=x:
+                root[x] = find(root[x])
+            return root[x]
+        
+        def union(a,b):
+            ra,rb = find(a),find(b)
+            if ra!=rb:
+                root[ra]=rb
+                
+                
+        for s,e in tups:
+            #print([s,e],root[s],root[e],root)
+            union(s,e)
+            
+        dic = collections.defaultdict(set)
+        for i in range(n):
+            dic[find(i)].add(i)
+        #print(dic)
+        res = 0
+        for i,val in dic.items():
+            tmp =</B></FONT> 0
+            sets = collections.Counter([source[v] for v in val])
+            sett = collections.Counter([target[v] for v in val])
+            for k,v in sets.items():
+                tmp+=min(v,sett[k])
+            res += 2*len(val)-2*tmp
+        return res//2
+        
+</PRE>
+
+</BODY>
+</HTML>

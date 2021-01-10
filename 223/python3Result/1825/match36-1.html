@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>380_ttjtftx.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>380_ttjtftx.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumTimeRequired(self, jobs: List[int], k: int) -&gt; int:
+        avg = sum(jobs+[k-1])//k
+        #print(avg)
+        jobs = sorted(jobs)[::-1]
+        #print(jobs)
+        xs = [0] * k
+        for j in jobs:
+            mn = min(xs)
+            i = xs.index(mn)
+            xs[i]+=j
+        bound = max(xs)
+        
+        n = len(jobs)
+        
+        xs = [0] * k
+<A NAME="0"></A>        ys = [[] for _ in range(k)]
+        ys[0] = [jobs[0]]
+        xs[0] = jobs[0]
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def dfs(ji):
+            nonlocal bound
+            nonlocal ones
+            #if bound == avg:
+            #    return
+            if ji == len(jobs):
+                bound = min(max(xs), bound)
+                return
+            j = jobs[ji]
+            #order = sorted(list(range(k)), key=lambda x:xs[x])
+            for i in range(</B></FONT>ones, k):#order:
+                if xs[i] + j &lt; bound:                
+                    #ys[i].append(j)
+                    xs[i]+=j
+                    dfs(ji+1)         
+                    #ys[i].append(j)
+                    xs[i]-=j
+        
+        # each k at least one job
+        # n-k jobs left
+        # if k&gt; n-k, k-(n-k)=2k-n will have only 1 job 
+        ones = max(0, k*2-n)
+        if k*2-n &gt; 0:
+            for i in range(ones):
+                xs[i] = jobs[i]
+            dfs(ones)
+        dfs(1)
+                
+        #print(xs, ys)
+        #return max(xs)
+        return bound
+    
+    
+        
+</PRE>
+
+</BODY>
+</HTML>

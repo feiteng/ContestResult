@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>259_silvertint10.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>259_silvertint10.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DSU:
+    def __init__(self, n):
+        self.uf = {i: i for i in range(n)}
+        self.rank = {i: 1 for i in range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n)}
+
+    def find(self, x):
+        if self.uf[x] != x:
+            self.uf[x] = self.find(self.uf[x])
+        return self.uf[x]
+
+    def union(self, x, y):
+        px, py = self.find(</B></FONT>x), self.find(y)
+        ans = False
+        if px != py:
+            if self.rank[px] &gt; self.rank[py]:
+<A NAME="1"></A>                px, py = py, px
+            self.rank[py] += self.rank[px]
+            self.uf[px] = py
+            ans <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= True
+        return ans
+
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        n = len(source)
+        dsu = DSU(n)
+        for a, b in allowedSwaps:
+            dsu.union(a, b)
+        dic = defaultdict(list)
+        for i in range(n):
+            dic[dsu.find(i)].append(i)
+<A NAME="2"></A>        ans = 0
+        for v in dic.values():
+            cnt1, cnt2 = Counter(</B></FONT>), Counter()
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in v:
+                cnt1[source[i]] += 1
+                cnt2[target[i]] += 1
+            cur = list((cnt1 &amp; cnt2).elements(</B></FONT>))
+            ans += len(cur)
+        return n - ans
+        
+        
+        
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

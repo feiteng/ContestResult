@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>166_rooftopj.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>166_rooftopj.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int[] parent = new int[source.length];
+        for (int i = 0; i &lt; parent.length; i++) parent[i] = i;
+        
+        for (int i = 0; i &lt; allowedSwaps.length; i++) {
+            union(parent, allowedSwaps[i][0], allowedSwaps[i][1]);
+        }
+        
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; parent.length; i++) {
+            List list = map.getOrDefault(find(parent, i), new ArrayList&lt;&gt;());
+            list.add(i);
+            map.put</B></FONT>(find(parent, i), list);
+        }
+        
+        int res = 0;
+        for (Map.Entry&lt;Integer, List&lt;Integer&gt;&gt; entry : map.entrySet()) {
+            Map&lt;Integer, Integer&gt; temp = new HashMap&lt;&gt;();
+            for (int i : entry.getValue()) {
+                // System.out.print(i + &quot;==&quot;);
+                int now = temp.getOrDefault(target[i], 0);
+                temp.put(target[i], now + 1);
+<A NAME="2"></A>            }
+            // System.out.println();
+            for (int i : entry.getValue()) {
+                if (temp.containsKey(source[i])) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    res++;
+                    temp.put(source[i], temp.get(source[i]) - 1);
+                    if (temp.get(source[i]) == 0) temp.remove(source[i]);
+                }
+            }
+        }
+<A NAME="0"></A>        return source.length - res;
+    }</B></FONT>
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public void union(int[] parent, int x, int y) {
+        int px = find(parent, x);
+        int py = find(parent, y);
+        if (px == py) return;
+        
+        parent[px] = py;
+    }
+    
+    public int find(int[] parent, int x) {
+        if</B></FONT> (parent[x] != x) {
+            int temp = find(parent, parent[x]);
+            parent[x] = temp;
+        }
+        return parent[x];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

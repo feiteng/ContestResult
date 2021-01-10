@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>324_ChangXingJiang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>324_ChangXingJiang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import collections
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class DSU:
+    def __init__(self, n: int):
+        self.array = [i for i in range(n)]
+        self.size = [1] * n
+
+    def find(self, i: int):
+        &quot;&quot;&quot;查询i所属的连通分支&quot;&quot;&quot;
+        if self.array[i] != i:
+            self.array[i] = self.find(self.array[i])
+        return self.array[i]
+
+    def union(self, i: int, j: int):
+<A NAME="1"></A>        &quot;&quot;&quot;合并i和j的连通分支&quot;&quot;&quot;
+        i = self.find(</B></FONT>i)
+        j = self.find(j)
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if self.size[i] &gt;= self.size[j]:
+            self.array[j] = i
+<A NAME="2"></A>            self.size[i] += self.size[</B></FONT>j]
+        else:
+            self.array[i] = j
+            self.size[j] += self.size[<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>i]
+
+
+class Solution:
+    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -&gt; int:
+        size = len(source)
+
+        # 统计各个位置之间的连通性
+        dsu = DSU(size)
+        for n1, n2 in allowedSwaps:
+            dsu.union(n1, n2)
+
+        # 统计各个连通分支中的数量
+        count1 =</B></FONT> collections.defaultdict(collections.Counter)
+        count2 = collections.defaultdict(collections.Counter)
+        for i in range(size):
+            idx = dsu.find(i)
+            count1[idx][source[i]] += 1
+            count2[idx][target[i]] += 1
+
+        # 计算每个连通分支中的差异数量
+        ans = 0
+        for idx in count1.keys():
+            c1 = count1[idx]
+            c2 = count2[idx]
+            total = 0  # 连通分支中元素数量总计
+            num = 0  # 连通分支中相同元素数量总计
+            for k in c1.keys():
+                total += c1[k]
+                num += min(c1[k], c2[k])
+            ans += total - num
+
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

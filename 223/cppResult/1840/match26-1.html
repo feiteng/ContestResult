@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>440_aincrad-lyu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>440_aincrad-lyu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class UnionFind{
+public:
+    UnionFind(int n): parent(n, 0), rank(n, 0){
+        for(int i = 0; i &lt; n; ++i){
+            parent[i] = i;
+        }
+    }
+    
+    int find(int x){
+        if(parent[x] == x) return x;</B></FONT>
+        else return parent[x] = find(parent[x]);
+    }
+    
+    void unite(int x, int y){
+        x = find(x);
+        y = find(y);
+        if(x == y) return;
+        
+        if(rank[x] &lt; rank[y]){
+            parent[x] = y;
+<A NAME="1"></A>        }else{
+            parent[y] = x;
+            if(rank[x] == rank[y]) ++rank[x];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+    }
+    
+private:
+    vector&lt;int&gt; parent, rank;
+};
+
+class Solution {
+public:
+    int minimumHammingDistance(vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target, vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps) {
+        int n = source.size();
+<A NAME="2"></A>        UnionFind uf(n);
+        for(auto p : allowedSwaps){</B></FONT>
+            uf.unite(p[0], p[1]);
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        unordered_map&lt;int, unordered_map&lt;int, int&gt;&gt; mp;
+        for(int i = 0; i &lt; n; ++i){
+            int root = uf.find(i);
+            mp[root][source[i]]++;
+        }
+        
+        int ans = 0;
+        for(int i = 0; i &lt; n; ++i){
+            int root = uf.find(i);</B></FONT>
+            if(mp[root].count(target[i]) &amp;&amp; mp[root][target[i]] &gt; 0) ++ans, --mp[root][target[i]];
+        }
+        
+        return n - ans;
+    }
+};
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

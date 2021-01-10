@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>720_HumanAfterA11.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>720_HumanAfterA11.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = target.length;
+<A NAME="1"></A>        int[] map = new int[n];
+        for(int i = 0</B></FONT>; i &lt; n; i++){
+            map[i] = i;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        for(int[] a: allowedSwaps){
+            int c = find(map, a[0]);
+<A NAME="2"></A>            int d = find(map, a[1]);
+            if</B></FONT>(c != d){
+                map[c] = d;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        HashMap&lt;Integer, List&lt;Integer&gt;&gt; map1 = new HashMap();
+        HashMap&lt;Integer, List&lt;Integer&gt;&gt; map2 = new HashMap();
+        
+        for(int i = 0; i &lt; n; i++){
+            int id = find</B></FONT>(map, i);
+            map1.putIfAbsent(id, new LinkedList());
+            map2.putIfAbsent(id, new LinkedList());
+            map1.get(id).add(source[i]);
+<A NAME="3"></A>            map2.get(id).add(target[i]);
+        }
+        
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#3',2,'match9-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 0;
+        
+        for(int key:map1.keySet()){
+            List&lt;Integer&gt; l1 = map1.get(key);
+            List&lt;Integer&gt; l2 = map2.get</B></FONT>(key);
+            HashMap&lt;Integer, Integer&gt; count = new HashMap();
+            for(int i: l1){
+                count.put(i, count.getOrDefault(i, 0)+1);
+            }
+            for(int j: l2){
+                if(count.containsKey(j)){
+                    if(count.get(j) &gt; 0){
+                        count.put(j, count.get(j) - 1);
+                    }else{
+                        res++;
+<A NAME="4"></A>                    }
+                }else{
+                    res++;
+                <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#4',2,'match9-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return res;
+    }
+    
+    public int find(int[] map, int id){
+        while(map[id] != id){
+            map[id] = map[map[id]];
+            id = map[id];
+        }
+        return id;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>924_Loveourplanet.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>924_Loveourplanet.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.*;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = source.length;
+        int[] f = new int[n];
+        for (int i = 0; i &lt; f.length; i++) {
+            f[i] = i;
+        }</B></FONT>
+        for (int[] e : allowedSwaps) {
+            int fa = find(e[0], f);
+            int fb = find(e[1], f);
+            if (fa != fb) {
+                f[fa] = fb;
+<A NAME="1"></A>            }
+        }
+        int count = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;Integer, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+           int fa = find(i, f);
+<A NAME="2"></A>           map.putIfAbsent(fa, new HashSet&lt;&gt;());
+           map.get(fa).add(i);
+        }</B></FONT>
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (Map.Entry&lt;Integer, Set&lt;Integer&gt;&gt; e : map.entrySet()) {
+            Map&lt;Integer, Integer&gt; ok = new HashMap&lt;&gt;();
+            for (int index : e.getValue()) {
+                ok.put(source[index], ok.getOrDefault(source[index], 0)  + 1);
+            }
+            for (int index : e.getValue()) {
+<A NAME="3"></A>                if (ok.containsKey(target[index])) {</B></FONT>
+                    int number = ok.get(target[index]);
+                    if (number == 1) ok.remove(target[index]);
+                    else ok.put(target[index], number - 1)<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                } else {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private int find(int start, int[] f) {
+        if (f[start] == start) {</B></FONT>
+            return start;
+        }
+        return f[start] = find(f[start], f);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

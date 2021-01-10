@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_necoramen.java</CENTER></H3><HR>
+<PRE>
+import java.util.HashMap;
+import java.util.HashSet;
+
+class Solution {
+<A NAME="0"></A>    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>UnionFind uf = new UnionFind(source.length);
+        for (int[] swap : allowedSwaps) {
+            uf.union(swap[0], swap[1]);
+        }
+
+
+        HashMap&lt;Integer, HashMap&lt;Integer, Integer&gt;&gt; map = new HashMap&lt;&gt;();
+<A NAME="1"></A>        for (int i = 0; i &lt; source.length; i++) {</B></FONT>
+
+            int r = uf.find(i);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!map.containsKey(r)) {
+                map.put(r, new HashMap&lt;&gt;());
+            }
+            map.get</B></FONT>(r).put(source[i], 1 + map.get(r).getOrDefault(source[i], 0));
+        }
+
+        int ans = 0;
+        for (int i = 0; i &lt; target.length; i++) {
+            int r = uf.find(i);
+            int t = target[i];
+
+            if (!map.get(r).containsKey(t)) {
+                ans++;
+            } else {
+                int cnt = map.get(r).get(t);
+                if (cnt &gt; 1) {
+<A NAME="2"></A>                    map.get(r).put(t, cnt - 1);
+                } else {
+                    map.get(r).remove(t);
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return ans;
+
+<A NAME="3"></A>
+    }</B></FONT>
+
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match29-1.html#3',3,'match29-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private static class UnionFind {
+        private int cnt;
+        private int[] root;
+
+        private UnionFind(int capacity) {
+<A NAME="4"></A>            root = new int[capacity];
+            t</B></FONT>his.cnt = capacity;
+            for (int i = 0; i &lt; root.length; i++) {
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match29-1.html#4',3,'match29-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>root[i] = i;
+            }
+        }
+
+        private int find(int s) {
+            while (root[s] != s) {
+                root[s] = root[root[s]];
+                s = root[s];
+            }
+            return s;
+        }
+
+        private void union(int s, int t) {
+            int rs = find(s);
+            int rt = find(t);
+            if (rs == rt) {
+                return;
+<A NAME="5"></A>            }</B></FONT>
+            root[rs] = rt;
+            cnt--;
+        <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match29-1.html#5',3,'match29-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+        private boolean connected(int s, int t) {
+            return find(s) == find(t);
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

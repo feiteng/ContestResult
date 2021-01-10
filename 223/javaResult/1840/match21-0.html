@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>990_clocksmith.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>990_clocksmith.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+<A NAME="1"></A>        //unite, then group indices by repr, collect actual numbers by repr for both arrays and sort them, compare differences
+        int len = source.length;
+        var us = new UnionSet(len);
+        for (var swap : allow</B></FONT>edSwaps) us.union(swap[0], swap[1])<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        Map&lt;Integer, List&lt;Integer&gt;&gt; groupedIndices = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; len; i++) {
+            int repr = us.find(i);
+            groupedIndices.computeIfAbsent(repr, z-&gt;new ArrayList&lt;&gt;()).add(i);
+        }
+        
+<A NAME="2"></A>        Map&lt;Integer, List&lt;Integer&gt;&gt; groupedNumsA = new HashMap&lt;&gt;()</B></FONT>;
+        Map&lt;Integer, List&lt;Integer&gt;&gt; groupedNumsB = new HashMap&lt;&gt;();
+        int[] res = new int[]{0};
+        groupedIndices.forEach((repr, list) -&gt; <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            /*var listA = new ArrayList&lt;Integer&gt;();
+            var listB = new ArrayList&lt;Integer&gt;();*/
+            var mapA = new HashMap&lt;Integer, Integer&gt;();
+            for (int idx : list) {
+                mapA.merge(source[idx],1,Integer::sum);
+                /*listA.add(source[idx]);
+                listB.add(target[idx]);*/
+            }</B></FONT>
+            //find same, other number of positions will be different
+            /*Collections.sort(listA);
+            Collections.sort(listB);
+            System.out.println(listA);
+            System.out.println(listB);
+<A NAME="3"></A>            System.out.println(list);
+            System.out.println(&quot;before -&gt; &quot; + mapA);*/
+            int[] same = new int[]{0};
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int idx : list) {
+                int other = target[idx];
+                if (mapA.containsKey(other)) {
+                    int count = mapA.remove(other);
+                    if (count &gt; 1) {
+                        mapA.put(other, count-1);
+                    }</B></FONT>
+                    same[0]++;
+                }
+            }
+            //System.out.println(&quot;after -&gt; &quot; + mapA);
+            res[0] += list.size()-same[0];
+            /*Collections.sort(listA);
+            Collections.sort(listB);
+            for (int i = 0; i &lt; listA.size(); i++) {
+<A NAME="4"></A>                if (listA.get(i) != listB.get(i)) res[0]++;
+            }*/
+        });
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match21-1.html#4',3,'match21-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res[0];
+    }
+    
+    static class UnionSet {
+    int[] parent;
+    int[] rank;
+
+    public UnionSet(int size) {
+        parent = new</B></FONT> int[size];
+        for (int i = 0; i &lt; size; i++) {
+            parent[i] = i;
+<A NAME="5"></A>        }
+        rank = new int[size];
+
+    <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match21-1.html#5',3,'match21-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    public int find(int num) {
+        if (parent[num] != num) {
+            parent[num] = find(parent[num]);
+        }
+        return parent[num];
+    }
+
+    public boolean union(int x, int y) {</B></FONT>
+<A NAME="6"></A>        int xr = find(x), yr = find(y);
+        if (xr == yr) {
+            return false;
+        } else <FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match21-1.html#6',3,'match21-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (rank[xr] &lt; rank[yr]) {
+            parent[xr] = yr;
+        } else if (rank[xr] &gt; rank[yr]) {
+            parent[yr] = xr;
+        } else {
+            parent[yr] = xr;
+            rank[xr]++;
+        }</B></FONT>
+        return true;
+    }
+}
+}
+</PRE>
+
+</BODY>
+</HTML>

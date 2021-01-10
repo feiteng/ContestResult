@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_lisy14.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_lisy14.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumTimeRequired(self, jobs: List[int], k: int) -&gt; int:
+        n=len(jobs)
+        jobs.sort()
+        # print(jobs)
+        count=[0]
+        # @cache
+        def search(idx,state,k=k):
+            count[0]+=1
+            if idx==len(jobs):
+                return max(state)
+            if k-len(state)&gt;=len(jobs)-idx:
+                return max(state+jobs[idx:])
+            # state=list(state)
+            if len(state)&lt;k:
+                state.append(jobs[idx])
+                res=search(idx+1,state)
+<A NAME="0"></A>                state.pop()
+            else:
+                res=math.inf
+            for i in range(len<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(state)):
+                state[i]+=jobs[idx]
+                res=min(res,search(idx+1,state))
+                state[i]-=jobs[idx]
+            return res
+        
+        res=search(</B></FONT>0,[])
+        print(count)
+        return res
+            
+            
+                
+            
+</PRE>
+
+</BODY>
+</HTML>

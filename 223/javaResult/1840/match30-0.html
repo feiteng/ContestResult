@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_jasonlaw-dev.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_jasonlaw-dev.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] parent;
+    private int find(int i) {
+        if (parent[i] != i) {
+            parent[i] = find(parent[i]);
+        }
+        return parent[i];
+    }
+    private void union(int i, int j) {</B></FONT>
+        int x = find(i);
+        int y = find(j);
+        if (x != y) {
+<A NAME="1"></A>            parent[x] = y;
+        }
+    }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        int n = source.length;
+        parent = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+        }
+        for (int[] swap : allowedSwaps) {
+            union(swap[0], swap[1]);
+        }
+        Map&lt;Integer, List&lt;List&lt;Integer&gt;&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            int x = find</B></FONT>(i);
+            List&lt;List&lt;Integer&gt;&gt; temp;
+            if (!map.containsKey(x)) {
+                temp = new ArrayList&lt;&gt;();
+                temp.add(new ArrayList&lt;&gt;());
+                temp.add(new ArrayList&lt;&gt;());
+                map.put(x, temp);
+<A NAME="2"></A>            } else {
+                temp = map.get(x);
+            }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>temp.get(0).add(source[i]);
+            temp.get(1).add(target[i]);
+        }
+        int res = 0;
+        for (List&lt;List&lt;Integer&gt;&gt; list : map.values())  {</B></FONT>
+            List&lt;Integer&gt; src = list.get(0);
+            List&lt;Integer&gt; tgt = list.get(1);
+            int i = 0;
+            int j = 0;
+            Collections.sort(src);
+            Collections.sort(tgt);
+            
+//             System.out.print(&quot;src: &quot;);
+//             for (int num : src) {
+//                 System.out.print(num + &quot;,&quot;);
+//             }
+//             System.out.println();
+            
+//             System.out.print(&quot;tgt: &quot;);
+//             for (int num : tgt) {
+//                 System.out.print(num + &quot;,&quot;);
+//             }
+//             System.out.println();
+            while (j &lt; tgt.size() &amp;&amp; i &lt; src.size()) {
+                int x = src.get(i);
+                int y = tgt.get(j);
+                if (x == y) {
+                    i++;
+                    j++;
+                } else if (x &lt; y) {
+                    i++;
+                } else {
+                    j++;
+                    res++;
+                }
+            }
+            res += src.size()-j;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

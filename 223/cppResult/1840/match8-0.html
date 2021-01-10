@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>423_rapiz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>423_rapiz.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    static const int MAXN = 1e5 + 10;
+    int p[MAXN];
+public:
+    int find(int x) {
+<A NAME="0"></A>        if (p[x] == x) return x;
+        return p[x] = find(p[x]);
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int minimumHammingDistance(vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target, vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps) {
+        int n = source.size();
+        for (int i = 0; i &lt; n; i++) p[i] = i;
+        for (auto s : allowedSwaps) {
+            int x = s[0];</B></FONT>
+<A NAME="1"></A>            int y = s[1];
+            p[find(x)] = find(y);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt;int, vector&lt;int&gt;&gt; m;
+        for (int i = 0; i &lt; n; i++) {
+            int x = find(i);
+            m[x].push_back(i);
+        }
+<A NAME="2"></A>        int ans = 0;
+        for (const auto&amp; pa : m) {</B></FONT>
+            const auto&amp; v = pa.second;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            map&lt;int, int&gt; c1, c2;
+            for (auto i : v) {
+                //cout &lt;&lt; &quot;i:&quot; &lt;&lt; i &lt;&lt; &quot; &quot;;
+                c1[source[i]]++;
+                c2[target[i]]++;
+            }
+            int match = 0;
+            for (auto p : c1) {
+                match += min(c1[p.first], c2[p.first]);
+            }
+            //cout &lt;&lt; v.size() &lt;&lt; &quot; &quot; &lt;&lt; match &lt;&lt; endl;
+            ans += v.size() - match;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>282_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>282_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
+        final int N = source.length;
+        
+        DisjointSet djs = new DisjointSet(N);
+        for (int[] swap : allowedSwaps) {
+            djs.union(swap[0], swap[1]);
+        }
+        
+        IntList[] lsts = new IntList[N]</B></FONT>;
+        for (int i = 0; i &lt; N; ++i) {
+            lsts[i] = new IntList();
+        }
+        
+        for (int i = 0; i &lt; N; ++i) {
+            int x = djs.find(i);
+            lsts[x].add(i);
+        }
+        
+        int ans = 0;
+        for (IntList lst : lsts) {
+            ans += countDelta(source, target, lst);
+        }
+<A NAME="1"></A>        return ans;
+    }
+    
+    private static int countDelta(int[] A, int[] B, IntList lst) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        CountMap cm = new CountMap();
+        for (int i : lst) {
+            cm.increment(A[i], 1);
+        }</B></FONT>
+        int delta = 0;
+        for (int i : lst) {
+            if (cm.getCount(B[i]) &gt; 0) {
+                cm.increment(B[i], -1);
+            } else {
+                ++delta;
+            }
+        }
+        return delta;
+    }
+    
+    private static class CountMap extends HashMap&lt;Integer, Integer&gt; {
+        public int getCount(int k) {
+<A NAME="2"></A>            return getOrDefault(k, 0);
+        }
+        
+        public void increment(int k, int v) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            int next = v + getCount(k);
+            if (next == 0) {
+                remove(k);
+            } else {
+                put(k, next);
+            }
+        }</B></FONT>
+    }
+    
+    private static class IntList extends ArrayList&lt;Integer&gt; {}
+    
+<A NAME="3"></A>    /*
+	 * DisjointSet does union-find in approximately linear time.
+	 */
+	public <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static class DisjointSet {
+		private int[] rank;
+		private int[] parent;
+
+		public DisjointSet(int n) {
+			this.rank = new int[n];
+<A NAME="4"></A>			this.parent = new int[n];
+
+			for (int i = 0; i &lt; n; ++i) {</B></FONT>
+				parent[i] = i;<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#4',2,'match22-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			}
+		}
+
+		public int find(int x) {
+			if (parent[x] != x) {
+<A NAME="5"></A>				parent[x] = find(parent[x]);
+			}
+			return parent[x];</B></FONT>
+		}<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#5',2,'match22-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+
+		public boolean union(int x, int y) {
+			int xr = find(x);
+			int yr = find(y);
+
+			if (xr == yr) {
+				return false;
+			}
+
+			if (rank[xr] &lt; rank[yr]) {
+				parent[xr] = yr;
+			} else if (rank[xr] &gt; rank[yr]) {
+				parent[yr] = xr;
+			} else {
+				parent[xr] = yr;
+				++rank[yr];
+			}</B></FONT>
+			return true;
+		}
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

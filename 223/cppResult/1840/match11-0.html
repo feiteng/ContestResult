@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>435_tzhuan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>435_tzhuan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+  public:
+    int minimumHammingDistance(
+      vector&lt;int&gt;&amp; source,
+      vector&lt;int&gt;&amp; target,
+      vector&lt;vector&lt;int&gt;&gt;&amp; allowedSwaps
+    ) {
+      int N = source.size();
+<A NAME="1"></A>      vector&lt;int&gt; root(N);
+      for (int i = 0; i &lt; N; ++i) root[i] = i;
+      for (const auto&amp; a: allowedSwaps) union_root(root, a[0], a[1]);</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      unordered_map&lt;int, vector&lt;int&gt;&gt; groups;
+      for (int i = 0; i &lt; N; ++i) groups[find_root(root, i)].push_back(i);
+
+      int d = 0;
+      for (auto group: groups) {
+        unordered_map&lt;int, int&gt; src;</B></FONT>
+        for (auto i: group.second) ++src[source[i]];
+        for (auto i: group.second) {
+          auto t = target[i];
+<A NAME="2"></A>          if (src.find(t) != src.end() and src[t] &gt; 0) {
+            --src[t];
+          } else {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            ++d;
+          }
+        }
+      }
+
+      return d;
+    }
+
+    int find_root(vector&lt;int&gt;&amp; root, int n)
+    {
+      if (root[n] != n) root[n] = find_root(root, root[n]);
+      return root[n];
+    }</B></FONT>
+
+    void union_root(vector&lt;int&gt;&amp; root, int a, int b)
+    {
+      int root_a = find_root(root, a);
+      int root_b = find_root(root, b);
+      root[root_a] = root_b;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
