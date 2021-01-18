@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>6_xiaowuc1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>6_xiaowuc1.cpp</CENTER></H3><HR>
+<PRE>
+#pragma GCC optimize(&quot;Ofast&quot;)
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;bitset&gt;
+#include &lt;cassert&gt;
+#include &lt;chrono&gt;
+#include &lt;cstring&gt;
+#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;queue&gt;
+#include &lt;random&gt;
+#include &lt;set&gt;
+#include &lt;stack&gt;
+#include &lt;unordered_map&gt;
+#include &lt;unordered_set&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+// begin deepsigh
+#define min(x,y) ({ __typeof__(x) __var0 = x; __typeof__(y) __var1 = y; __var0 &lt; __var1 ? __var0 : __var1; })
+#define max(x,y) ({ __typeof__(x) __var0 = x; __typeof__(y) __var1 = y; __var0 &lt; __var1 ? __var1 : __var0; })
+static const int ENABLEFASTIO = []() { std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr); return 0; }();
+// end deepsigh
+
+// BEGIN NO SAD
+#define rep(i, a, b) for(int i = a; i &lt; (b); ++i)
+#define trav(a, x) for(auto&amp; a : x)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
+typedef vector&lt;int&gt; vi;
+#define f first
+#define s second
+#define mp make_pair
+#define pb push_back
+#define eb emplace_back
+#define lb lower_bound
+#define ub upper_bound
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+typedef pair&lt;ll, ll&gt; pll;
+// END NO SAD
+// REMEMBER CLEAR GLOBAL STATE
+// REMEMBER READ THE PROBLEM STATEMENT AND DON'T SOLVE A DIFFERENT PROBLEM
+// remember hidden T factor of 1e2
+// read the bounds for stupid cases
+// did you restart your editor
+// pushing back vectors is garbage, preinitialize them
+// function calls are not free
+
+int id[8][8][8][8][1000];
+bool win[8][8][8][8][1000];
+bool onstack[8][8][8][8][2];
+int casenum;
+char g[8][8];
+int mj, cj;
+int r, c;
+int dx[4]{-1,0,1,0};
+int dy[4]{0,1,0,-1};
+
+bool dfs(int mx, int my, int cx, int cy, int turn) {
+  if(turn == 1000) return false;
+  if(onstack[mx][my][cx][cy][turn%2]) {
+    return turn%2;
+<A NAME="0"></A>  }
+  if(id[mx][my][cx][cy][turn] == casenum) return win[mx][my][cx][cy][turn];
+  onstack[mx][my][cx][cy][turn%2] = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  win[mx][my][cx][cy][turn] = false;
+  if(turn%2 == 0) {
+    for(int k = 0; k &lt; 4; k++) {
+      for(int amt = 0; amt &lt;= mj; amt++) {
+        int nmx = mx + dx[k] * amt;</B></FONT>
+        int nmy = my + dy[k] * amt;
+        if(nmx &lt; 0 || nmy &lt; 0 || nmx &gt;= r || nmy &gt;= c || g[nmx][nmy] == '#') break;
+        // can jump over cat
+        if(g[nmx][nmy] == 'F') {
+          onstack[mx][my][cx][cy][turn%2] = false;
+          id[mx][my][cx][cy][turn] = casenum;
+          return win[mx][my][cx][cy][turn] = true;
+        }
+        if(nmx == cx &amp;&amp; nmy == cy) continue;
+        if(!dfs(nmx, nmy, cx, cy, turn+1)) {
+          onstack[mx][my][cx][cy][turn%2] = false;
+          id[mx][my][cx][cy][turn] = casenum;
+          return win[mx][my][cx][cy][turn] = true;
+        }
+      }
+    }
+    onstack[mx][my][cx][cy][turn%2] = false;
+    id[mx][my][cx][cy][turn%2] = casenum;
+<A NAME="1"></A>    return false;
+  }
+  assert(turn%2);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  for(int k = 0; k &lt; 4; k++) {
+    for(int amt = 0; amt &lt;= cj; amt++) {
+      int ncx = cx + dx[k] * amt;</B></FONT>
+      int ncy = cy + dy[k] * amt;
+      if(ncx &lt; 0 || ncy &lt; 0 || ncx &gt;= r || ncy &gt;= c || g[ncx][ncy] == '#') break;
+      if(g[ncx][ncy] == 'F') {
+        onstack[mx][my][cx][cy][turn%2] = false;
+        id[mx][my][cx][cy][turn] = casenum;
+        return win[mx][my][cx][cy][turn] = true;
+      }
+      if(ncx == mx &amp;&amp; ncy == my) {
+        onstack[mx][my][cx][cy][turn%2] = false;
+        id[mx][my][cx][cy][turn] = casenum;
+        return win[mx][my][cx][cy][turn] = true;
+      }
+      if(!dfs(mx, my, ncx, ncy, turn+1)) {
+        onstack[mx][my][cx][cy][turn%2] = false;
+        id[mx][my][cx][cy][turn] = casenum;
+        return win[mx][my][cx][cy][turn] = true;
+      }
+    }
+  }
+  onstack[mx][my][cx][cy][turn%2] = false;
+  id[mx][my][cx][cy][turn] = casenum;
+  return false;
+}
+<A NAME="2"></A>
+class Solution {
+public:
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool canMouseWin(vector&lt;string&gt;&amp; grid, int catJump, int mouseJump) {
+        casenum++;
+        mj = mouseJump;
+        cj = catJump;
+        r = sz(grid);
+        c = sz(grid[0]);
+        for(int i = 0; i &lt; r; i++) for(int j = 0; j &lt; c; j++) g[i][j] = grid[i][j];</B></FONT>
+        int mx = -1;
+        int my = -1;
+        int cx = -1;
+        int cy = -1;
+        for(int i = 0; i &lt; r; i++) for(int j = 0; j &lt; c; j++) {
+          if(g[i][j] == 'M'){
+            mx = i;
+            my = j;
+          }
+          if(g[i][j] == 'C') {
+            cx = i;
+            cy = j;
+          }
+        }
+        return dfs(mx, my, cx, cy, 0);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

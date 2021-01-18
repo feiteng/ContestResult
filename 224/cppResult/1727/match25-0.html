@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_heyshb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>4_heyshb.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int cx, cy, mx, my, fx, fy;
+    int win[1010][8][8][8][8][2]; // 1 cat win  2 mouse win
+    int cj, mj;
+    int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
+    vector&lt;string&gt; G;
+    int n, m;
+    
+    int dfs(int turn, int mx, int my, int cx, int cy, int who) {
+        int &amp;cache = win[turn][mx][my][cx][cy][who];
+        //printf(&quot;dfs %d %d %d %d %d %d\n&quot;,turn,mx,my,cx,cy,who);
+        if (cache != 0) return cache;
+        if (turn == 100) return 1;
+        if (mx == fx &amp;&amp; my == fy) return cache = 2;
+<A NAME="0"></A>        if (cx == fx &amp;&amp; cy == fy) return cache = 1;
+        if (mx == cx &amp;&amp; my == cy) return cache = 1;
+        if (who == 0) { // mouse
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int dir=0;dir&lt;4;dir++) {
+                for (int i=0;i&lt;=mj;i++) {
+                    int nx, ny;
+                    nx = mx + dx[dir] * i;
+                    ny = my + dy[dir] * i;
+                    if (nx &lt; 0 || nx &gt; n - 1 || ny &lt; 0 || ny &gt; m - 1) break;
+                    if (G[nx][ny] == '#') break;</B></FONT>
+                    if (dfs(turn, nx, ny, cx, cy, 1) == 2) return cache = 2; 
+                }
+<A NAME="1"></A>            }
+            return cache = 1;
+        } else { // cat
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int dir=0;dir&lt;4;dir++) {
+                for (int i=0;i&lt;=cj;i++) {
+                    int nx, ny;
+                    nx = cx + dx[dir] * i;
+                    ny = cy + dy[dir] * i;
+                    if (nx &lt; 0 || nx &gt; n - 1 || ny &lt; 0 || ny &gt; m - 1) break;
+                    if (G[nx][ny] == '#') break;</B></FONT>
+                    if (dfs(turn + 1, mx, my, nx, ny, 0) == 1) return cache = 1;
+                }
+            }
+            return cache = 2;
+        }
+    }
+    
+<A NAME="2"></A>    bool canMouseWin(vector&lt;string&gt;&amp; grid, int catJump, int mouseJump) {
+        G = grid;
+        cj = catJump;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        mj = mouseJump;
+        n = grid.size();
+        m = grid[0].length();
+        for (int i=0;i&lt;n;i++) {
+            for (int j=0;j&lt;m;j++) {
+                if (grid[i][j] == 'C') cx = i, cy = j;</B></FONT>
+                if (grid[i][j] == 'M') mx = i, my = j;
+                if (grid[i][j] == 'F') fx = i, fy = j;
+            }
+        }
+        if (dfs(0, mx, my, cx, cy, 0) == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

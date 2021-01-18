@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_ychzhou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_ychzhou.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int largestSubmatrix(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+      int n = a.size(), m = a[0].size();
+<A NAME="1"></A>      vector&lt;vector&lt;int&gt;&gt; g(n, vector&lt;int&gt;(m, 0));
+      for (int i = 0; i &lt; m; i++) {</B></FONT>
+        int cnt = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j = n - 1; j &gt;= 0; j--) {
+          if (a[j][i] == 1) {
+            cnt += 1;
+          } else {
+<A NAME="2"></A>            cnt = 0;</B></FONT>
+          }
+          g[j][i] = cnt;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+      }
+      int ans = 0;
+      for (int i = 0; i &lt; n; i++) {
+<A NAME="3"></A>        vector&lt;int&gt; p;
+        for (int j = 0; j &lt; m; j++) {</B></FONT>
+          p.push_back(g[i][j]);
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        sort(p.begin(), p.end());
+        reverse(p.begin(), p.end());
+        int c = n;
+        for (int j = 0; j &lt; m; j++) {
+          c = min(c, p[j]);
+          ans = max(ans, (j + 1) * c);
+        }
+      }
+
+      return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_rarakasm.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>44_rarakasm.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int m, n;
+    int dir[4][2]{
+        {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+    };
+    int dp[8][8][8][8][1001];
+    int cj, mj;
+<A NAME="0"></A>public:
+    bool canMouseWin(vector&lt;string&gt;&amp; grid, int catJump, int mouseJump){
+        cj = catJump, mj = mouseJump;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        m = grid.size(), n = grid[0].size();
+        memset(dp, -1, sizeof(dp));
+        int mx, my, cx, cy;
+        for(int i = 0; i &lt; m; i++){
+            for(int j = 0; j &lt; n; j++){
+                if(grid[i][j] == 'C') cx = i, cy = j;</B></FONT>
+                else if(grid[i][j] == 'M') mx = i, my = j;
+            }
+        }
+        
+        return mmove(grid, mx, my, cx, cy, 1);
+    }
+                    
+    bool mmove(vector&lt;string&gt;&amp; grid, int mx, int my, int cx, int cy, int steps){
+        //cout &lt;&lt; &quot;mmove: &quot; &lt;&lt; mx &lt;&lt; ',' &lt;&lt; my &lt;&lt; ',' &lt;&lt; cx &lt;&lt; ',' &lt;&lt; cy &lt;&lt; ',' &lt;&lt; steps &lt;&lt; '\n';
+        if(mx == cx &amp;&amp; my == cy) return false;
+        if(grid[cx][cy] == 'F') return false;
+<A NAME="1"></A>        if(steps &gt; 200) return false;
+        int&amp; hist = dp[mx][my][cx][cy][steps];
+        if(hist != -1) return hist;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int d = 0; d &lt; 4; d++){
+            for(int i = 1; i &lt;= mj; i++){
+                int ni = mx + dir[d][0] * i;
+                int nj = my + dir[d][1] * i;
+                if(ni &lt; 0 || ni &gt;= m || nj &lt; 0 || nj &gt;= n || grid[ni][nj] == '#') break;</B></FONT>
+                if(!cmove(grid, ni, nj, cx, cy, steps + 1)) return hist = true;
+            }
+        }
+        if(!cmove(grid, mx, my, cx, cy, steps + 1)) return hist = true;
+        return hist = false;
+    }
+    
+    bool cmove(vector&lt;string&gt;&amp; grid, int mx, int my, int cx, int cy, int steps){
+        //cout &lt;&lt; &quot;cmove: &quot; &lt;&lt; mx &lt;&lt; ',' &lt;&lt; my &lt;&lt; ',' &lt;&lt; cx &lt;&lt; ',' &lt;&lt; cy &lt;&lt; ',' &lt;&lt; steps &lt;&lt; '\n';
+        if(grid[mx][my] == 'F') return false;
+<A NAME="2"></A>        if(steps &gt; 200) return true;
+        int&amp; hist = dp[mx][my][cx][cy][steps];
+        if(hist != -1) return hist;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int d = 0; d &lt; 4; d++){
+            for(int i = 1; i &lt;= cj; i++){
+                int ni = cx + dir[d][0] * i;
+                int nj = cy + dir[d][1] * i;
+                if(ni &lt; 0 || ni &gt;= m || nj &lt; 0 || nj &gt;= n || grid[ni][nj] == '#') break;</B></FONT>
+                if(!mmove(grid, mx, my, ni, nj, steps + 1)) return hist = true;
+            }
+        }
+        if(!mmove(grid, mx, my, cx, cy, steps + 1)) return hist = true;
+        return hist = false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

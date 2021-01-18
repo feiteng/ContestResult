@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_peterrockwave.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>34_peterrockwave.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def canMouseWin(self, grid: List[str], catJump: int, mouseJump: int) -&gt; bool:
+        
+        H,W = len(grid),len(grid[0])
+        catpos,mousepos,foodpos,floorsquares <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= None,None,None,[]
+        
+        for x in range(W):
+            for y in range(H):
+                if grid[y][x] == &quot;C&quot;:
+                    catpos = (x,y)
+                elif grid[y][x] == &quot;M&quot;:
+                    mousepos = (x,y)
+                elif grid[y][x] == &quot;F&quot;:
+                    foodpos = (x</B></FONT>,y)
+                
+                if grid[y][x]!=&quot;#&quot;:
+                    floorsquares.append((x,y))
+        mousemovelocs = [[[] for x in range(W)] for y in range(H)]
+        catmovelocs = [[[] for x in range(W)] for y in range(H)]
+        for x,y in floorsquares:
+            distances = {(x,y):0}
+            for d in [(0,1),(1,0),(0,-1),(-1,0)]:
+                dist = 1
+                while True:
+                    newpos = (x+d[0]*dist,y+d[1]*dist)
+                    if newpos[0]&gt;=0 and newpos[0]&lt;W and newpos[1]&gt;=0 and newpos[1]&lt;H:
+                        if newpos not in distances and grid[newpos[1]][newpos[0]]!=&quot;#&quot;:
+                            distances[newpos] = dist
+                        else:
+                            break
+                    else:
+                        break
+                    dist+=1
+            #print(x,y,distances)
+                
+            for pos in distances:
+                if distances[pos]&lt;=mouseJump:
+                    mousemovelocs[y][x].append(pos)
+                if distances[pos]&lt;=catJump:
+                    catmovelocs[y][x].append(pos)
+        
+        catbadsquares = {} # catbadsquares[(catx,caty,mousex,mousey)] -&gt; integer
+        mousewins = set() # mousewins has elements like (mouseturn,catx,caty,mousex,mousey)
+        tocheck = [(False,catx,caty,foodpos[0],foodpos[1]) for catx,caty in floorsquares if catx!=foodpos[0] or caty!=foodpos[1]] 
+        # new elements of mousewins
+        while len(tocheck)&gt;0:
+            mouseturn,catx,caty,mousex,mousey = tocheck.pop(0)
+            #print(mouseturn,catx,caty,mousex,mousey)
+            if not mouseturn: # the mouse has moved to this position
+                for newmx,newmy in mousemovelocs[mousey][mousex]:
+                    if newmx != catx or newmy != caty:
+                        if (True, catx,caty,newmx,newmy) not in mousewins:
+                            mousewins.add((True, catx,caty,newmx,newmy))
+                            tocheck.append((True, catx,caty,newmx,newmy))
+            else: # the cat has moved to this position
+                for newcx,newcy in catmovelocs[caty][catx]:
+                    if newcx != mousex or newcy != mousey:
+                        catbadsquares[(newcx,newcy,mousex,mousey)] = catbadsquares.get((newcx,newcy,mousex,mousey),0)+1
+                        if catbadsquares[(newcx,newcy,mousex,mousey)]==len(catmovelocs[newcy][newcx]): # the cat has no good move
+                            if (False,newcx,newcy,mousex,mousey) not in mousewins:
+                                mousewins.add((False,newcx,newcy,mousex,mousey))
+                                tocheck.append((False,newcx,newcy,mousex,mousey))
+                            else:
+                                print(&quot;You shouldn't be able to get here&quot;)
+        # print(catbadsquares)
+        # print(catbadsquares[(2,0,4,0)])
+        # print(mousewins)
+        # print((True,catpos[0],catpos[1],mousepos[0],mousepos[1]))
+        return ((True,catpos[0],catpos[1],mousepos[0],mousepos[1]) in mousewins)
+                    
+</PRE>
+
+</BODY>
+</HTML>

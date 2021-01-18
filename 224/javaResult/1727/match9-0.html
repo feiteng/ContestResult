@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>29_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>29_megaspazz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private static final int MOUSE_TURN = 0;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private static final int CAT_TURN = 1;
+    
+    private static final int MOUSE_WIN = -1;
+    private static final int UNKNOWN = 0;
+    private static final int CAT_WIN = 1;
+    
+    public boolean canMouseWin(String[] grid, int catJump, int mouseJump) {</B></FONT>
+        final int N = grid.length;
+        final int M = grid[0].length();
+        final int S = N * M;
+        
+        final char[][] A = new char[N][];
+        for (int i = 0; i &lt; N; ++i) {
+            A[i] = grid[i].toCharArray();
+        }
+<A NAME="1"></A>        
+        int mr = -1, mc = -1, cr = -1, cc = -1;
+        for (int i = 0; i &lt; N; ++i) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = 0; j &lt; M; ++j) {
+                if (A[i][j] == 'M') {
+                    mr = i;
+                    mc = j;
+                } else if (A[i][j] == 'C') {
+                    cr = i;
+                    cc = j;
+                }
+            }
+        }</B></FONT>
+        
+        int[][][] memo = new int[S][S][2 * S];
+        int result = whoWins(Location.serialize(mr, mc, M), Location.serialize(cr, cc, M), MOUSE_TURN, A, mouseJump, catJump, new int[S][S][2 * S]);
+        // System.out.format(&quot;RESULT = %d\n&quot;, result);
+        return result == MOUSE_WIN;
+    }
+    
+    private static final int[] DR = {-1, 0, 1, 0};
+    private static final int[] DC = {0, 1, 0, -1};
+    
+    static int reps = 0;
+    private static int whoWins(int mouseLoc, int catLoc, int turn, char[][] grid, int mouseJump, int catJump, int[][][] memo) {
+        final int N = grid.length;
+        final int M = grid[0].length;
+        
+        if (turn &gt;= 2 * N * M) {
+            return CAT_WIN;
+        }
+        
+        if (mouseLoc == catLoc) {
+            return CAT_WIN;
+        }
+        
+        Location mLoc = Location.parseFrom(mouseLoc, M);
+        Location cLoc = Location.parseFrom(catLoc, M);
+        
+        if (grid[mLoc.R][mLoc.C] == 'F') {
+            // System.out.format(&quot;WTF?\n&quot;);
+            return MOUSE_WIN;
+        }
+        if (grid[cLoc.R][cLoc.C] == 'F') {
+            return CAT_WIN;
+        }
+        
+        if (memo[mouseLoc][catLoc][turn] == UNKNOWN) {
+            if (reps &gt;= 500) {
+                return 5;
+            }
+            // ++reps;
+<A NAME="2"></A>            
+            if (turn % 2 == MOUSE_TURN) {
+                boolean mouseCanWin = false;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int d = 0; d &lt; DR.length; ++d) {
+                    for (int x = 1; x &lt;= mouseJump; ++x) {
+                        int nr = mLoc.R + x * DR[d];
+                        int nc = mLoc.C + x * DC[d];
+                        if</B></FONT> (!valid(grid, nr, nc) || grid[nr][nc] == '#') {
+                            break;
+                        }
+                        int nextMouseLoc = Location.serialize(nr, nc, M);
+                        int result = whoWins(nextMouseLoc, catLoc, turn + 1, grid, mouseJump, catJump, memo);
+                        if (result == MOUSE_WIN) {
+                            // System.out.format(&quot;WON FROM: turn = %d,mouse at %s\n&quot;, turn, mLoc);
+                            mouseCanWin = true;
+                        }
+                    }
+                }
+                if (mouseCanWin) {
+                    memo[mouseLoc][catLoc][turn] = MOUSE_WIN;
+                } else {
+                    memo[mouseLoc][catLoc][turn] = whoWins(mouseLoc, catLoc, turn + 1, grid, mouseJump, catJump, memo);
+                }
+            } else {
+                boolean catCanWin = false;
+                for (int d = 0; d &lt; DR.length; ++d) {
+                    for (int x = 1; x &lt;= catJump; ++x) {
+                        int nr = cLoc.R + x * DR[d];
+                        int nc = cLoc.C + x * DC[d];
+                        if (!valid(grid, nr, nc) || grid[nr][nc] == '#') {
+                            break;
+                        }
+                        int nextCatLoc = Location.serialize(nr, nc, M);
+                        int result = whoWins(mouseLoc, nextCatLoc, turn + 1, grid, mouseJump, catJump, memo);
+                        if (result == CAT_WIN) {
+                            catCanWin = true;
+                        }
+                    }
+                }
+                if (catCanWin) {
+                    memo[mouseLoc][catLoc][turn] = CAT_WIN;
+                } else {
+                    // memo[mouseLoc][catLoc][turn] = MOUSE_WIN;
+                    memo[mouseLoc][catLoc][turn] = whoWins(mouseLoc, catLoc, turn + 1, grid, mouseJump, catJump, memo);
+                }
+            }
+            // System.out.format(&quot;mouse @ %s, cat @ %s, turn = %d, result = %d\n&quot;, mLoc, cLoc, turn, memo[mouseLoc][catLoc][turn]);
+        }
+        return memo[mouseLoc][catLoc][turn];
+    }
+    
+    private static boolean valid(char[][] grid, int r, int c) {
+        return r &gt;= 0 &amp;&amp; r &lt; grid.length &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; grid[r].length;
+    }
+    
+    private static class Location {
+        public int R, C;
+        
+        public Location(int r, int c) {
+            R = r;
+            C = c;
+        }
+        
+        public static Location parseFrom(int loc, int M) {
+            return new Location(loc / M, loc % M);
+        }
+        
+        public static int serialize(int r, int c, int M) {
+            return r * M + c;
+        }
+        
+        @Override
+        public String toString() {
+            return String.format(&quot;{R=%d, C=%d}&quot;, R, C);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

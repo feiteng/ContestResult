@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+<A NAME="0"></A>		char[][] map;
+		int n, m;
+		int cj, mj;
+		int[] dr = {1,<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> 0, -1, 0};
+		int[] dc = {0, 1, 0, -1};
+		int[][][][][] win;
+
+<A NAME="1"></A>		boolean filled(int side, int mr, int mc, int cr, int cc)</B></FONT>
+		{
+			if(side == 0) {
+				for (int k = 0; k &lt; 4; k++) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+					for (int i = 0; i &lt;= mj; i++) {
+						int nr = mr + dr[k] * i;
+						int nc = mc + dc[k] * i;
+						if (nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m &amp;</B></FONT>&amp; map[nr][nc] != '#') {
+							if(win[side^1][nr][nc][cr][cc] &gt;= 0)return false;
+						} else {
+							break;
+						}
+					}
+<A NAME="2"></A>				}
+				return true;
+			}else{
+				for (int k = 0; k &lt; 4; k++) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+					for (int i = 0; i &lt;= cj; i++) {
+						int nr = cr + dr[k] * i;
+						int nc = cc + dc[k] * i;
+						if (nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m &amp;</B></FONT>&amp; map[nr][nc] != '#') {
+							if(win[side^1][mr][mc][nr][nc] &lt;= 0)return false;
+							if(nr == mr &amp;&amp; nc == mc)break;
+						} else {
+							break;
+						}
+					}
+				}
+				return true;
+			}
+		}
+
+		public boolean canMouseWin(String[] grid, int catJump, int mouseJump) {
+			cj = catJump;
+			mj = mouseJump;
+			n = grid.length;
+			m = grid[0].length();
+			map = new char[n][];
+<A NAME="3"></A>			for(int i = 0;i &lt; n;i++)map[i] = grid[i].toCharArray();
+
+			int scr = -1, scc = -1;
+			int smr = -1, smc = -<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match11-1.html#3',3,'match11-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>1;
+			int fr = -1, fc = -1;
+			for(int i = 0;i &lt; n;i++){
+				for(int j = 0;j &lt; m;j++){
+					if(map[i][j] == 'C'){ map[i][j] = '.'; scr = i; scc = j;}</B></FONT>
+					if(map[i][j] == 'M'){ map[i][j] = '.'; smr = i; smc = j;}
+					if(map[i][j] == 'F'){ map[i][j] = '.'; fr = i; fc = j;}
+				}
+			}
+
+			Queue&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+			win = new int[2][n][m][n][m];
+
+			// 1:mouse, -1:cat
+			for(int i = 0;i &lt; n;i++){
+				for(int j = 0;j &lt; m;j++){
+					if(map[i][j] != '#' &amp;&amp; !(i == fr &amp;&amp; j == fc)){
+						q.add(new int[]{1, fr, fc, i, j});
+						win[1][fr][fc][i][j] = 1;
+
+						q.add(new int[]{0, i, j, fr, fc});
+						win[0][i][j][fr][fc] = -1;
+
+						q.add(new int[]{0, i, j, i, j});
+						win[0][i][j][i][j] = -1;
+					}
+				}
+			}
+
+			while(!q.isEmpty()){
+				int[] cur = q.poll();
+				int side = cur[0], mr = cur[1], mc = cur[2], cr = cur[3], cc = cur[4];
+				int val = win[side][mr][mc][cr][cc];
+//				boolean deb = side == 1 &amp;&amp; mr == 2 &amp;&amp; mc == 2 &amp;&amp; cr == 1 &amp;&amp; cc == 1;
+				if(side == 1){
+					for(int k = 0;k &lt; 4;k++){
+						for(int i = 0;i &lt;= mj;i++){
+							int nr = mr + dr[k] * i;
+							int nc = mc + dc[k] * i;
+							if(nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m &amp;&amp; map[nr][nc] != '#'){
+//								if(deb)tr(nr, nc, cr, cc, win[0][nr][nc][cr][cc]);
+								if(win[0][nr][nc][cr][cc] == 0){
+									if(val == 1) {
+										win[0][nr][nc][cr][cc] = 1;
+//										tr(side, mr, mc, cr, cc, &quot;-&gt;&quot;, 0, nr, nc, cr, cc, val, 1);
+										q.add(new int[]{0, nr, nc, cr, cc});
+									}else if(filled(0, nr, nc, cr, cc)){
+										win[0][nr][nc][cr][cc] = -1;
+//										tr(side, mr, mc, cr, cc, &quot;-&gt;&quot;, 0, nr, nc, cr, cc, val, -1, &quot;u-n&quot;);
+										q.add(new int[]{0, nr, nc, cr, cc});
+									}
+								}
+							}else{
+								break;
+							}
+						}
+					}
+				}else{
+					for(int k = 0;k &lt; 4;k++){
+						for(int i = 0;i &lt;= cj;i++){
+							int nr = cr + dr[k] * i;
+							int nc = cc + dc[k] * i;
+							if(nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m &amp;&amp; map[nr][nc] != '#'){
+								if(win[1][mr][mc][nr][nc] == 0){
+									if(val == -1) {
+										win[1][mr][mc][nr][nc] = -1;
+//										tr(side, mr, mc, cr, cc, &quot;-&gt;&quot;, 1, mr, mc, nr, nc, val, -1);
+										q.add(new int[]{1, mr, mc, nr, nc});
+									}else if(filled(1, mr, mc, nr, nc)){
+										win[1][mr][mc][nr][nc] = 1;
+//										tr(side, mr, mc, cr, cc, &quot;-&gt;&quot;, 1, mr, mc, nr, nc, val, 1, &quot;Q&quot;);
+										q.add(new int[]{1, mr, mc, nr, nc});
+									}
+								}
+//								if(nr == mr &amp;&amp; nc == mc)break;
+							}else{
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			return win[0][smr][smc][scr][scc] == 1;
+		}
+	}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>957_JohnZhu04.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>957_JohnZhu04.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def largestSubmatrix(self, mat: List[List[int]]) -&gt; int:
+<A NAME="0"></A>        R = len(mat)
+        C = len(mat[0])
+
+        run <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [[0 for i in range(C + 1)] for i in range(R + 1)]
+
+        for i in range(C):
+            run[0][i] = mat[0][i]
+            for j in range(1, R):
+                if mat[j][i] == 0:
+                    run[j][i] = 0
+                else:
+<A NAME="1"></A>                    run[j][i] = run[j - 1][i] + 1
+
+        for i in range(</B></FONT>R):
+            run[i].sort(reverse=<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>True)
+
+        max_area = 0
+        for i in range(R):
+            for j in range(C):
+                curr_area = (j + 1) * run[i][j]
+                max_area = max(curr_area, max_area)
+
+        re</B></FONT>turn max_area
+</PRE>
+
+</BODY>
+</HTML>

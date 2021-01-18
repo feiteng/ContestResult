@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_fanzhh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_fanzhh.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define elif else if
+#define ALL(a) a.begin(), a.end()
+using namespace std;
+using LL = long long;
+using LD = long double;
+using PII = pair&lt;int, int&gt;;
+using PLI = pair&lt;long long, int&gt;;
+using PLL = pair&lt;long long, long long&gt;;
+using TI = tuple&lt;int, int, int&gt;;
+mt19937 mrand(random_device{}());
+int rnd(int x) { return mrand() % x; }
+template &lt;class T&gt; int bcnt(const T &amp;a) { return __builtin_popcount(a); }
+template &lt;&gt; int bcnt(const int64_t &amp;a) { return __builtin_popcount(a); }
+template &lt;class T&gt; int blen(const T &amp;a) { return a ? 1 + blen(a / 2) : 0; }
+template &lt;class A, class B&gt; B conv(const A &amp;a, B b = B()) {
+    stringstream s;
+    s &lt;&lt; a, s &gt;&gt; b;
+    return b;
+}
+template &lt;class T = int&gt; T inf() { return numeric_limits&lt;T&gt;::max() / 2; }
+template &lt;class T&gt; T sign(const T &amp;a) { return a == 0 ? 0 : (a &lt; 0 ? -1 : 1); }
+template &lt;class T&gt; T floor(const T &amp;a, const T &amp;b) {
+    assert(b != 0);
+    return sign(a) * sign(b) &gt; 0 ? abs(a) / abs(b) : -(abs(a) + abs(b) - 1) / abs(b);
+}
+template &lt;class T&gt; T ceil(const T &amp;a, const T &amp;b) {
+    assert(b != 0);
+    return sign(a) * sign(b) &gt; 0 ? (abs(a) + abs(b) - 1) / abs(b) : -abs(a) / abs(b);
+}
+template &lt;class T&gt; bool chmin(T &amp;a, T b) { return b &lt; a ? a = b, true : false; }
+template &lt;class T&gt; bool chmax(T &amp;a, T b) { return b &gt; a ? a = b, true : false; }
+template &lt;class T&gt; auto min(const T &amp;a) { return *min_element(ALL(a)); } 
+template &lt;class T&gt; auto max(const T &amp;a) { return *max_element(ALL(a)); }
+template &lt;class T&gt; auto sum(const T &amp;a) { return accumulate(ALL(a), (typename T::value_type)0); }
+template &lt;&gt; auto sum(const vector&lt;int&gt; &amp;a) { return accumulate(ALL(a), 0LL); }
+template &lt;&gt; auto sum(const vector&lt;string&gt; &amp;a) { return accumulate(ALL(a), string()); }
+template &lt;class T&gt; void uniq(T &amp;a) { sort(a); a.erase(unique(ALL(a)), a.end()); }
+template &lt;class T&gt; auto vect(const T &amp;v, int n) { return vector&lt;T&gt;(n, v); }
+template &lt;class T, class... D&gt; auto vect(const T&amp; v, int n, D... m) {
+    return vector&lt;decltype(vect(v, m...))&gt;(n, vect(v, m...));
+}
+template &lt;class T&gt; void in(T &amp;a) { cin &gt;&gt; a; }
+template &lt;class A, class... B&gt; void in(A &amp;a, B &amp;... b) { cin &gt;&gt; a, in(b...); }
+template &lt;class T&gt; void in(vector&lt;T&gt; &amp;vec) { for (auto&amp; v: vec) cin &gt;&gt; v; }
+void ou() { cout &lt;&lt; endl; }
+template&lt;class T&gt; void ou(const T &amp;a) { cout &lt;&lt; a &lt;&lt; endl; }
+template &lt;class A, class... B&gt; void ou(const A &amp;a, const B &amp;... b) {
+    cout &lt;&lt; a &lt;&lt; ' ', ou(b...);
+}
+template &lt;class T&gt; void ou(const vector&lt;T&gt; &amp;vec) {
+    cout &lt;&lt; (int)vec.size() &lt;&lt; ' ';
+    bool first = true;
+    for (auto&amp; v: vec) { cout &lt;&lt; (first ? &quot;&quot; : &quot; &quot;); cout &lt;&lt; v; first = 0; }
+    cout &lt;&lt; '\n';
+}
+ 
+template&lt;class T&gt; inline void YES(T condition) { 
+    if(condition) cout &lt;&lt; &quot;YES&quot; &lt;&lt; '\n';
+    else cout &lt;&lt; &quot;NO&quot; &lt;&lt; '\n';
+}
+template&lt;class T&gt; inline void Yes(T condition) {
+    if(condition) cout &lt;&lt; &quot;Yes&quot; &lt;&lt; '\n';
+    else cout &lt;&lt; &quot;No&quot; &lt;&lt; '\n';
+}
+template&lt;class T&gt; T gcd(T a, T b) {
+    while (b) {
+        T tmp = b;
+        b = a % b;
+        a = tmp;
+    }
+    return a;
+}
+template&lt;class T&gt; T lcm(T a, T b){
+    return a / gcd(a, b) * b;
+}
+long long qpow(long long a, long long b, int MOD) {
+    if (b == 0) return 1;
+    long long res = 1;
+    while (b) {
+        if (b &amp; 1) res = (res * a) % MOD;
+        a = (a * a) % MOD;
+        b &gt;&gt;= 1;
+    }
+    return res;
+}
+ 
+const int MOD = 998244353;
+const int maxn = 2e6;
+const LD eps = 1e-8;
+const LD pi = acos(-1);
+// const int INF = 2e9;
+int fac[maxn + 5];
+int invfac[maxn + 5];
+void init() {
+    fac[0] = 1;
+    for (int i = 1; i &lt;= maxn; i++) fac[i] = 1LL * fac[i - 1] * i % MOD;
+    invfac[maxn] = (int)(qpow(fac[maxn], MOD - 2, MOD));
+    for (int i = maxn - 1; i &gt;= 0; i--) invfac[i] = 1LL * invfac[i + 1] * (i + 1) % MOD;
+}
+int C(int n, int k) {
+    assert(0 &lt;= k &amp;&amp; n &gt;= k);
+    int tmp = (int)(1LL * invfac[k] * invfac[n - k] % MOD);
+    return (int)(1LL * fac[n] * tmp % MOD);
+}
+    // vector&lt;int&gt; fa(n);
+    // vector&lt;int&gt; sz(n, 1);
+    // iota(fa.begin(), fa.end(), 0);
+    // function&lt;int(int)&gt; Find = [&amp;](int x) {
+    //     return x == fa[x] ? x : fa[x] = Find(fa[x]);
+    // };
+    // function&lt;bool(int, int)&gt; Union = [&amp;](int x, int y) {
+    //     int px = Find(x), py = Find(y);
+    //     if (px == py) return false;
+    //     if (sz[px] &gt; sz[py]) swap(px, py);
+    //     fa[px] = py;
+    //     sz[py] += sz[px];
+    //     return true;
+    // };
+ 
+template&lt;class A, class B&gt; ostream&amp; operator &lt;&lt;(ostream&amp; out, const pair&lt;A, B&gt; &amp;p) {
+    return out &lt;&lt; &quot;(&quot; &lt;&lt; p.first &lt;&lt; &quot;, &quot; &lt;&lt; p.second &lt;&lt; &quot;)&quot;;
+}
+template &lt;typename T, size_t N&gt;
+ostream&amp; operator &lt;&lt;(ostream&amp; out, const array&lt;T, N&gt;&amp; a) {
+    out &lt;&lt; &quot;[&quot;; bool first = true;
+    for (auto&amp; v : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; v; first = 0;} out &lt;&lt; &quot;]&quot;;
+    return out;
+}
+template &lt;typename T&gt;
+ostream&amp; operator &lt;&lt;(ostream&amp; out, const vector&lt;T&gt;&amp; a) {
+    out &lt;&lt; &quot;[&quot;; bool first = true;
+    for (auto&amp; v : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; v; first = 0;} out &lt;&lt; &quot;]&quot;;
+    return out;
+}
+template &lt;typename T&gt;
+ostream&amp; operator &lt;&lt;(ostream&amp; out, const deque&lt;T&gt;&amp; a) {
+    out &lt;&lt; &quot;[&quot;; bool first = true;
+    for (auto&amp; v : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; v; first = 0;} out &lt;&lt; &quot;]&quot;;
+    return out;
+}
+template &lt;typename T, class Cmp&gt;
+ostream&amp; operator &lt;&lt;(ostream&amp; out, const set&lt;T, Cmp&gt;&amp; a) {
+    out &lt;&lt; &quot;{&quot;; bool first = true;
+    for (auto&amp; v : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; v; first = 0;} out &lt;&lt; &quot;}&quot;;
+    return out;
+}
+template &lt;typename T, class Cmp&gt;
+ostream&amp; operator &lt;&lt;(ostream &amp;out, const multiset&lt;T, Cmp&gt;&amp; a) {
+    out &lt;&lt; &quot;{&quot;; bool first = true;
+    for (auto&amp; v : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; v; first = 0;} out &lt;&lt; &quot;}&quot;;
+    return out;
+}
+template &lt;typename T&gt;
+ostream&amp; operator &lt;&lt;(ostream&amp; out, const unordered_set&lt;T&gt;&amp; a) {
+    out &lt;&lt; &quot;{&quot;; bool first = true;
+    for (auto&amp; v : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; v; first = 0;} out &lt;&lt; &quot;}&quot;;
+    return out;
+}
+template &lt;typename U, typename T, class Cmp&gt;
+ostream&amp; operator &lt;&lt;(ostream&amp; out, const map&lt;U, T, Cmp&gt;&amp; a) {
+    out &lt;&lt; &quot;{&quot;; bool first = true;
+    for (auto&amp; p : a) { out &lt;&lt; (first ? &quot;&quot; : &quot;, &quot;); out &lt;&lt; p.first &lt;&lt; &quot;:&quot; &lt;&lt; p.second; first = 0;} out &lt;&lt; &quot;}&quot;;
+    return out;
+}
+// #define FANZHH
+ 
+#ifdef FANZHH
+#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+template &lt;typename Arg1&gt;
+void __f(const char* name, Arg1&amp;&amp; arg1){
+    cout &lt;&lt; name &lt;&lt; &quot;: &quot; &lt;&lt; arg1 &lt;&lt; endl;
+}
+template &lt;typename Arg1, typename... Args&gt;
+void __f(const char* names, Arg1&amp;&amp; arg1, Args&amp;&amp;... args){
+    const char* comma = strchr(names + 1, ',');
+    cout.write(names, comma - names) &lt;&lt; &quot;: &quot; &lt;&lt; arg1 &lt;&lt; &quot; |&quot;;
+    __f(comma + 1, args...);
+}
+#else
+#define trace(...) (void(0))
+#endif
+
+// auto dp = vect&lt;int&gt;(-1, 8, 8, 8, 8, 2, 50);
+int dp[8][8][8][8][2][50];
+int dx[4] = {1, 0, -1, 0};
+int dy[4] = {0, 1, 0, -1};
+
+class Solution {
+public:
+    bool canMouseWin(vector&lt;string&gt;&amp; grid, int cj, int mj) {
+<A NAME="2"></A>        int n = grid.size(), m = grid[0].size();
+        memset(dp, -1, sizeof(dp));
+        int xi, yi, xj, yj, fi, fj;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#2',2,'match37-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                if (grid[i][j] == 'C') { xi = i; xj = j; }
+                else if (grid[i][j] == 'M') { yi = i; yj = j; }
+                else if (grid[i][j] == 'F') { fi = i; fj = j; }
+            }
+        }</B></FONT>
+        
+        function&lt;int(int, int, int, int, int, int)&gt; dfs = [&amp;](int xi, int xj, int yi, int yj, int who, int cnt) {
+            int&amp; ans = dp[xi][xj][yi][yj][who][cnt];
+            if (ans &gt;= 0) return ans;
+<A NAME="0"></A>            if (cnt &gt;= 50) return (who == 1) ? 0 : 1;
+            if (who == 1) {
+                // mouse
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for (int d = 0; d &lt; 4; d++) {
+                    for (int v = 1; v &lt;= mj; v++) {
+                        int nx = yi + dx[d] * v;</B></FONT>
+                        int ny = yj + dy[d] * v;
+                        if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) continue;
+                        if (grid[nx][ny] == '#') break;
+                        if (nx == fi &amp;&amp; ny == fj) {
+                            trace(yi, yj, nx, ny);
+                            return ans = 1;
+                        }
+                        // if ((nx == xi) &amp;&amp; abs(ny - xj) &lt;= cj) continue;
+                        // if ((ny == xj) &amp;&amp; abs(nx - xi) &lt;= cj) continue;
+                        if ((nx == xi) &amp;&amp; (ny == xj)) continue;
+                        if (!dfs(xi, xj, nx, ny, who^1, cnt+1)) {
+                            // trace(xi, xj, nx, ny, who, cnt, nx, ny);
+                            return ans = 1;
+                        }
+                    }
+                }
+<A NAME="1"></A>                return ans = 0;
+            } else {
+                // cat
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (!dfs(xi, xj, yi, yj, who^1, cnt)) return ans = 1;
+                for (int d = 0; d &lt; 4; d++) {
+                    for (int v = 1; v &lt;= cj; v++) {
+                        int nx = xi + dx[d] * v;</B></FONT>
+                        int ny = xj + dy[d] * v;
+                        if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) continue;
+                        if (grid[nx][ny] == '#') break;
+                        // trace(xi, xj, yi, yj, who, cnt, nx, ny);
+                        if (nx == fi &amp;&amp; ny == fj) return ans = 1;
+                        if (nx == yi &amp;&amp; ny == yj) return ans = 1;
+                        if (!dfs(nx, ny, yi, yj, who^1, cnt)) return ans = 1;
+                    }
+                }
+                return ans = 0;
+            }
+        };
+        return (bool)(dfs(xi, xj, yi, yj, 1, 0));
+    }
+};
+</PRE>
+</BODY>
+</HTML>

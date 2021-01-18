@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>41_ASAPIN.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>41_ASAPIN.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long LL;
+typedef double D;
+#define all(v) (v).begin(), (v).end()
+inline LL fastpo(LL x, LL n, LL mod) {
+	LL res(1);
+	while(n) {
+		if(n &amp; 1) {
+			res = res * (LL)x % mod;
+		}
+		x = x * (LL) x % mod;
+		n /= 2;
+	}
+	return res;
+}
+LL c(int a, int b) {
+    LL res = 1;
+    for(int i = 1; i &lt;= b; i++) {
+        res = res * (a - i + 1);
+        res /= i;
+    }
+    return res;
+}
+LL gcd(LL a, LL b) { return b ? gcd(b, a % b) : a; }
+inline string itoa(int x, int width = 0) {
+  string res;
+  if(x == 0) res.push_back('0');
+  while(x) {
+    res.push_back('0' + x % 10);
+    x /= 10;
+  }
+  while((int)res.size() &lt; width) res.push_back('0');
+  reverse(res.begin(), res.end());
+  return res;
+}
+struct P {
+	D x, y;
+};
+const int mod = 1e9 + 7;
+const int inf = 1e9 + 7;
+int dx[4] = {1, 0, -1, 0};
+int dy[4] = {0, 1, 0, -1};
+#define fi first
+#define se second
+#define ins insert
+#define pb push_back
+const int N = 100011;
+int rela[N];
+int getr(int x) {
+    int p = x;
+    while(rela[p] != p) p = rela[p];
+    int p1 = p; p = x;
+    while(rela[p] != p) {
+        int p2 = rela[p];
+        rela[p] = p1;
+        p = p2;
+    }
+    return p1;
+}
+
+vector&lt;string&gt; a;
+int cj, mj;
+int _;
+int n, m;
+int mp[11][11][11][11][2];
+bool inRange(int x, int y) {
+    return 0 &lt;= x &amp;&amp; x &lt; n &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; m;
+}
+class Solution {
+public:
+    int g(int mx, int my, int cx, int cy, int o) {
+        if(mx == cx &amp;&amp; my == cy) return false;
+        if(a[mx][my] == 'F') return true;
+        if(a[cx][cy] == 'F') return false;
+        return mp[mx][my][cx][cy][o];
+    }
+    int f(int mx, int my, int cx, int cy, int o) {
+        if(mx == cx &amp;&amp; my == cy) return false;
+        if(a[mx][my] == 'F') return true;
+        if(a[cx][cy] == 'F') return false;
+<A NAME="0"></A>        if(-1 != mp[mx][my][cx][cy][o]) return mp[mx][my][cx][cy][o];
+        int &amp; res = mp[mx][my][cx][cy][o];
+        if(o == 0) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int cnt = 0;
+            for(int d = 0; d &lt; 4; d++) {
+                for(int len = 0; len &lt;= mj; len++) {
+                    int x = mx + dx[d] * len;
+                    int y = my + dy[d] * len;
+                    if(inRange(x, y) &amp;&amp; a[x][y] != '#') {</B></FONT>
+                        if(g(x, y, cx, cy, o ^ 1) == 1) return res = true;
+                        else if(g(x, y, cx, cy, o ^ 1) == -1) cnt ++;
+                    }else break;
+                }
+            }
+            if(cnt)
+<A NAME="1"></A>                return -1;
+            else return res = false;
+        }else {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int cnt = 0;
+            for(int d = 0; d &lt; 4; d++) {
+                for(int len = 0; len &lt;= cj; len++) {
+                    int x = cx + dx[d] * len;
+                    int y = cy + dy[d] * len;
+                    if(inRange(x, y) &amp;&amp; a[x][y] != '#') {</B></FONT>
+                        if(g(mx, my, x, y, o ^ 1) == false) return res = false;
+                        else if(g(mx, my, x, y, o ^ 1) == -1) cnt++;
+                        
+                    }else break;
+                }
+            }
+            if(cnt)
+                return -1;
+            else return res = true;
+        }
+    }
+    bool canMouseWin(vector&lt;string&gt;&amp; a, int cj, int mj) {
+        n = a.size(), m = a[0].size();
+<A NAME="2"></A>        ::a = a; :: cj = cj; :: mj = mj;
+        _ = 0;
+        memset(mp, -1, sizeof(mp));
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mx, my, cx, cy;
+        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; m; j++) {
+                if(a[i][j] == 'M') {
+                    mx = i; 
+                    my = j;</B></FONT>
+                    a[i][j] = '.';
+                }else if(a[i][j] == 'C') {
+                    cx = i; cy = j;
+                    a[i][j] = '.';
+                }
+            }
+        }
+        bool flag = true;
+        while(flag) {
+            flag = false;
+            for(int i = 0; i &lt; n; i++) {
+                for(int j = 0; j &lt; m; j++) {
+                    for(int k = 0; k &lt; n; k++) {
+                        for(int l = 0; l &lt; m; l++) {
+                            for(int d = 0; d &lt; 2; d++) {
+                                int bak = g(i, j, k, l, d);
+                                int nw = f(i, j, k, l, d);
+                                assert(nw == g(i, j, k, l, d));
+                                //if(i == 2 &amp;&amp; j == 4 &amp;&amp; k == 2 &amp;&amp; l == 3 &amp;&amp; d == 0) cout &lt;&lt; 'g' &lt;&lt; g(i, j, k, l, d) &lt;&lt; endl;;
+                                if(nw != bak) {
+                                    //if(i == 2) cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; l &lt;&lt; d &lt;&lt; nw &lt;&lt; endl;
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(flag == false) break;
+        }
+        return g(mx, my, cx, cy, 0) == 1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

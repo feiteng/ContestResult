@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_AhmedSedek.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_AhmedSedek.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool dp[8][8][8][8][2][1000], vis[8][8][8][8][2][1000];
+    int ii, jj, n, m, cj, mj;
+    vector&lt;string&gt; arr;
+<A NAME="0"></A>    int dirI[4] = {0, 1, 0, -1};
+    int dirJ[4] = {1, 0, -1, 0};
+    bool possible(int i, int j) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return i&gt;=0 &amp;&amp; i &lt; n &amp;&amp; j &gt;=0 &amp;&amp; j &lt; m &amp;&amp; arr[i][j] != '#';
+    }
+    int solve(int catI, int catJ, int mouseI, int mouseJ, int p, int cnt) {
+        if(mouseI == ii &amp;&amp; mouseJ == jj)
+            return p?false:true;</B></FONT>
+        if(cnt == 100)
+            return p?true:false;
+        if(catI == ii &amp;&amp; catJ == jj)
+            return p?true:false;
+        if(mouseI == catI &amp;&amp; mouseJ == catJ)
+            return p?true:false;
+        if(vis[catI][catJ][mouseI][mouseJ][p][cnt])
+            return dp[catI][catJ][mouseI][mouseJ][p][cnt];
+<A NAME="1"></A>        vis[catI][catJ][mouseI][mouseJ][p][cnt] = true;
+        bool can = false;
+        if(p) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            can = !solve(catI, catJ, mouseI, mouseJ, !p, cnt);
+            for(int d = 0;d&lt;4&amp;&amp;!can;d++) {
+                for(int k = 1;k&lt;=cj &amp;&amp;!can;k++) {
+                    int newI = catI + dirI[d]*k;
+                    int newJ = catJ + dirJ[d]*k;
+                    if(!possible(newI, newJ))</B></FONT>
+                        break;
+                    can = can || !solve(newI, newJ, mouseI, mouseJ, !p, cnt);
+<A NAME="2"></A>                }
+            }
+        } else {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            can = !solve(catI, catJ, mouseI, mouseJ, !p, cnt+1);
+            for(int d = 0;d&lt;4&amp;&amp;!can;d++) {
+                for(int k = 1;k&lt;=mj &amp;&amp;!can;k++) {
+                    int newI = mouseI + dirI[d]*k;
+                    int newJ = mouseJ + dirJ[d]*k;
+                    if(!possible(newI, newJ))</B></FONT>
+                        break;
+                    can = can || !solve(catI, catJ, newI, newJ, !p, cnt+1);
+                }
+            }
+        }
+        return dp[catI][catJ][mouseI][mouseJ][p][cnt] = can;
+    }
+    bool canMouseWin(vector&lt;string&gt;&amp; grid, int catJump, int mouseJump) {
+        n = grid.size();
+        m = grid[0].size();
+<A NAME="3"></A>        cj = catJump;
+        mj = mouseJump;
+        arr = grid;
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match13-1.html#3',3,'match13-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int catI, catJ, mouseI, mouseJ;
+        for(int i = 0;i&lt;n;i++) {
+            for(int j = 0;j&lt;m;j++) {
+                if(grid[i][j] == 'C') {</B></FONT>
+                    catI = i, catJ = j;
+                } else if(grid[i][j] == 'M') {
+                    mouseI = i, mouseJ = j;
+                } else if(grid[i][j] == 'F') {
+                    ii = i, jj = j;
+                }
+            }
+        }
+        return solve(catI, catJ, mouseI, mouseJ, 0, 0);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

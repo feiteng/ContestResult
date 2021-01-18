@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_raynor30.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>67_raynor30.cpp</CENTER></H3><HR>
+<PRE>
+const int dirs[] = {0,-1,0,1,0};
+
+struct VectorHasher {
+  int operator()(const vector&lt;string&gt;&amp; A) const {
+    size_t seed = 0;
+    for (auto&amp; a : A) {
+      for(auto&amp; i : a) {
+        int v = 0;
+        if (i == '.') {
+          v = 0;
+        } else if (i == '#') {
+          v = 1;
+        } else if (i == 'F') {
+          v = 2;
+        } else if (i == 'C') {
+          v = 3;
+        } else {
+          v = 4;
+        }
+        seed = seed*5 + v;
+      }
+    }
+    return seed;
+  }
+};
+
+class Solution {
+  int DFS(int my, int mx, int cy, int cx, vector&lt;string&gt;&amp; G, int C, int M, int t, vector&lt;unordered_map&lt;vector&lt;string&gt;,int,VectorHasher&gt;&gt;&amp; cache) {
+    if (t &gt;= cache.size()) return 0;
+    int is_mouse = t % 2 == 0;
+    int key = t;
+    auto it = cache[key].find(G);
+    if (it != cache[key].end()) return it-&gt;second;
+    
+    int h = G.size();
+    int w = G[0].size();
+<A NAME="0"></A>    cache[key][G] = is_mouse ? 0 : 1;
+
+    if (is_mouse) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int d = 0; d &lt; 4; ++d) {
+        for (int m = 1; m &lt;= M; ++m) {
+          int ty = my + m*dirs[d];
+          int tx = mx + m*dirs[d+1];
+          if (ty &gt;= 0 &amp;&amp; ty &lt; h &amp;&amp; tx &gt;= 0 &amp;&amp; tx &lt; w) {</B></FONT>
+            if (G[ty][tx] == '#') break;
+            if (G[ty][tx] == 'F') return cache[key][G] = 1;
+            if (G[ty][tx] == '.' || G[ty][tx] == 'M') {
+              if (my != ty || mx != tx) {
+                G[my][mx] = '.';
+                G[ty][tx] = 'M';
+              }
+              int g = DFS(ty, tx, cy, cx, G, C, M, t+1, cache);
+              if (my != ty || mx != tx) {
+                G[my][mx] = 'M';
+                G[ty][tx] = '.';
+              }
+              if (g) return cache[key][G] = 1;
+            }
+          }
+<A NAME="1"></A>        }
+      }
+    } else {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int d = 0; d &lt; 4; ++d) {
+        for (int m = 0; m &lt;= C; ++m) {
+          int ty = cy + m*dirs[d];
+          int tx = cx + m*dirs[d+1];
+          if (ty &gt;= 0 &amp;&amp; ty &lt; h &amp;&amp; tx &gt;= 0 &amp;&amp; tx &lt; w) {</B></FONT>
+            if (G[ty][tx] == '#') break;
+            if (G[ty][tx] == 'F' || G[ty][tx] == 'M') return cache[key][G] = 0;
+            if (cy != ty || cx != tx) {
+              G[cy][cx] = '.';
+              G[ty][tx] = 'C';
+            }
+            int g = DFS(my, mx, ty, tx, G, C, M, t+1, cache);
+            if (cy != ty || cx != tx) {
+              G[cy][cx] = 'C';
+              G[ty][tx] = '.';
+            }
+            if (!g) return cache[key][G] = 0;
+          }
+        }
+      }
+    }
+    return cache[key][G] = is_mouse ? 0 : 1;
+  }
+  bool IsEasyMouseWin(vector&lt;string&gt;&amp; grid, int catJump, int mouseJump) {
+    if (mouseJump &lt; catJump) return false;
+    int my = 0;
+    int mx = 0;
+    int cy = 0;
+    int cx = 0;
+    int fy = 0;
+    int fx = 0;
+    for (int y = 0; y &lt; grid.size(); ++y) {
+      for (int x = 0; x &lt; grid[y].size(); ++x){
+        if (grid[y][x] == 'M') {
+          my = y;
+          mx = x;
+        } else if (grid[y][x] == 'C') {
+          cy = y;
+          cx = x;
+        } else if (grid[y][x] == 'F') {
+          fy = y;
+          fx = x;
+        }
+      }
+    }
+    int h = grid.size();
+    int w = grid[0].size();
+    queue&lt;array&lt;int,2&gt;&gt; q({{fy,fx}});
+    vector&lt;vector&lt;bool&gt;&gt; visited(h, vector&lt;bool&gt;(w));
+    visited[fy][fx] = 1;
+    
+    while (q.size()) {
+      auto [y,x] = q.front(); q.pop();
+      for (int d = 0; d &lt; 4; ++d) {
+        int ty = y + dirs[d];
+        int tx = x + dirs[d+1];
+        if (ty &gt;= 0 &amp;&amp; ty &lt; h &amp;&amp; tx &gt;= 0 &amp;&amp; tx &lt; w &amp;&amp; !visited[ty][tx]) {
+          visited[ty][tx] = 1;
+          if (grid[ty][tx] == '.') {
+            q.push({ty,tx});
+          } else if (grid[ty][tx] == 'M') {
+            return true;
+          } else if (grid[ty][tx] == 'C') {
+            return false;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+public:
+  bool canMouseWin(vector&lt;string&gt;&amp; grid, int catJump, int mouseJump) {
+    if (catJump == 1 &amp;&amp; mouseJump &lt; 9 &amp;&amp; IsEasyMouseWin(grid, catJump, mouseJump)) return 1;
+    ios::sync_with_stdio(0); cin.tie(0);
+    int my = 0;
+    int mx = 0;
+    int cy = 0;
+    int cx = 0;
+<A NAME="2"></A>    int h = grid.size();
+    int w = grid[0].size();
+    for (int y = 0; y &lt; h; ++y) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int x = 0; x &lt; w; ++x){
+        if (grid[y][x] == 'M') {
+          my = y;
+          mx = x;
+        } else if (grid[y][x] == 'C') {
+          cy = y;
+          cx = x;
+        }
+      }</B></FONT>
+    }
+    int v = h*w + 10;
+    vector&lt;unordered_map&lt;vector&lt;string&gt;,int,VectorHasher&gt;&gt; cache(v);
+    int n = max(h,w);
+    return DFS(my, mx, cy, cx, grid, min(n,catJump), min(n,mouseJump), 0, cache);
+  }
+};
+</PRE>
+</BODY>
+</HTML>

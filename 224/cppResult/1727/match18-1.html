@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_olimpo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_olimpo.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    bool R[2][8][8][8][8][1001];
+    bool V[2][8][8][8][8][1001];
+    int X[4] = {1,-1,0,0};
+    int Y[4] = {0,0,1,-1};
+public:
+    bool canMouseWin(vector&lt;string&gt;&amp; G, int c, int m) {
+        int mx, my, cx, cy;
+        for(int i = 0 ; i &lt; G.size(); i++) 
+            for(int j = 0; j &lt; G[i].size(); j++) {
+                if (G[i][j] == 'C') {
+                    cx = i;
+                    cy = j;
+                    G[i][j] = '.';
+                }
+                if (G[i][j] == 'M') {
+                    mx = i;
+                    my = j;
+                    G[i][j] = '.';
+                }
+        }
+        return playM(G, 0, mx, my, cx, cy, c, m);
+    }
+    
+    bool playM(const vector&lt;string&gt;&amp;G, int s, int mx, int my, int cx, int cy,const int c,const int m) {
+        //cout &lt;&lt; &quot;M: &quot; &lt;&lt; mx &lt;&lt; &quot; &quot; &lt;&lt; my &lt;&lt; endl;
+        if (s == 130) return 0;
+        if (V[0][mx][my][cx][cy][s])
+            return R[0][mx][my][cx][cy][s];
+<A NAME="1"></A>        V[0][mx][my][cx][cy][s] = 1;
+        R[0][mx][my][cx][cy][s] = 0;
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int d = 0; d &lt; 4; d++) {
+            //cout &lt;&lt; d &lt;&lt; endl;
+            for(int i = 1; i &lt;= m; i++) {
+                int x = mx + i*X[d];
+                int y = my + i*Y[d];
+                //cout &lt;&lt; x &lt;&lt; y &lt;&lt; endl;
+                if (x &lt; 0 || y &lt; 0 || x &gt;= G.size() || y &gt;= G[x].size()) break;
+                if (G[x][y] == '#') break;</B></FONT>
+                if (x == cx &amp;&amp; y == cy) continue;
+                if (G[x][y] == 'F') return R[0][mx][my][cx][cy][s] = 1;
+                if (playC(G, s+1,x, y, cx, cy, c, m))
+                    return R[0][mx][my][cx][cy][s] = 1;
+            }
+        }
+        
+        return R[0][mx][my][cx][cy][s];
+    }
+    
+    bool playC(const vector&lt;string&gt;&amp;G, int s, int mx, int my, int cx, int cy,const int c,const int m) {
+        //cout &lt;&lt; &quot;C: &quot; &lt;&lt; cx &lt;&lt; &quot; &quot; &lt;&lt; cy &lt;&lt; endl;
+        if (s == 130) return 0;
+<A NAME="0"></A>        if (V[1][mx][my][cx][cy][s])
+            return R[1][mx][my][cx][cy][s];
+        V[1][mx][my][cx][cy][s] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        R[1][mx][my][cx][cy][s] = playM(G, s+1,mx, my, cx, cy, c, m);
+        if (R[1][mx][my][cx][cy][s] == 0) return 0;
+        for(int d = 0; d &lt; 4; d++) {
+            for(int i = 1; i &lt;= c; i++) {
+                int x = cx + i*X[d];
+                int y = cy + i*Y[d];
+                if (x &lt; 0 || y &lt; 0 || x &gt;= G.size() || y &gt;= G[x].size()) break;
+                if (G[x][y] == '#') break;  </B></FONT>
+                if (x == mx &amp;&amp; y == my) return R[1][mx][my][cx][cy][s] = 0;
+                if (!playM(G, s+1,mx, my, x, y, c, m))
+                    return R[1][mx][my][cx][cy][s] = 0;
+            }
+        }
+        
+        return R[1][mx][my][cx][cy][s];
+    }
+    
+};
+</PRE>
+</BODY>
+</HTML>

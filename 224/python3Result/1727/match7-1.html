@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_thuczh.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>45_thuczh.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def canMouseWin(self, grid: List[str], catJump: int, mouseJump: int) -&gt; bool:
+        n, m = len(grid), len(grid[0])
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 'C':
+                    cp = (i, j)
+                if grid[i][j] == 'M':
+                    mp = (i, j)
+                if grid[i][j] == 'F':
+                    fp = (i, j)
+
+        f = {}
+
+        def work(status):
+            cp, mp, r, steps = status
+            if cp == fp or steps == 40 or cp == mp:
+                return r == 1
+            elif mp == fp:
+                return r == 0
+            if status not in f:
+                n, m = len(grid), len(grid[0])
+                if r == 0:
+                    x, y = mp
+                    jp = mouseJump
+<A NAME="0"></A>                else:
+                    x, y = cp
+                    jp = catJump
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                    for i in range(jp+1):
+                        xx, yy = x + dx * i, y + dy * i
+                        if 0 &lt;= xx &lt; n and 0 &lt;= yy &lt; m and grid[xx][</B></FONT>yy] != '#':
+                            nw = (
+                                cp if r == 0 else (xx, yy), mp if r == 1 else (xx, yy), r ^ 1,
+                                steps + (0 if r == 0 else 1))
+                            if not work(nw):
+                                f[status] = True
+                                return True
+                        else:
+                            break
+                f[status] = False
+            return f[status]
+
+        return work((cp, mp, 0, 0))
+</PRE>
+
+</BODY>
+</HTML>

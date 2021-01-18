@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_tian-tang-6.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_tian-tang-6.java</CENTER></H3><HR>
+<PRE>
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.IntStream;
+
+public class Solution {
+    char[][] grid;
+    int[][][][][] cat;
+    int[][][][][] mouse;
+    int cj, mj;
+    int n;
+    int m;
+
+    int[][] dirs = new int[][]{
+            {-1, 0},
+            {1, 0},
+            {0, 1},
+<A NAME="4"></A>            {0, -1}
+    };
+
+    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#4',2,'match2-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public boolean valid(int i, int j) {
+        return i &gt;= 0 &amp;&amp; i &lt; n &amp;&amp; j &gt;= 0 &amp;&amp; j &lt; m &amp;&amp; grid[i][j] != '#';
+    }
+
+    public int cat(int r, int i</B></FONT>, int j, int t, int k) {
+        if (cat[r][i][j][t][k] == -1) {
+            if (i == t &amp;&amp; j == k) {
+                return cat[r][i][j][t][k] = 1;
+            }
+            if (grid[i][j] == 'F') {
+                return cat[r][i][j][t][k] = 0;
+            }
+<A NAME="3"></A>            if (grid[t][k] == 'F') {
+                return cat[r][i][j][t][k] = 1;
+            }
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int[] d : dirs) {
+                for (int jump = 0; jump &lt;= cj; jump++) {
+                    int x = t + d[0] * jump;
+                    int y = k + d[1] * jump;
+                    if (!valid(x, y)) {</B></FONT>
+                        break;
+                    }
+                    if (mouse(r + 1, i, j, x, y) == 0) {
+                        return cat[r][i][j][t][k] = 1;
+                    }
+                }
+            }
+            cat[r][i][j][t][k] = 0;
+        }
+<A NAME="1"></A>        return cat[r][i][j][t][k];
+    }
+
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int mouse(int r, int i, int j, int t, int k) {
+        if (r &gt;= 200) {
+            return</B></FONT> 0;
+        }
+        if (mouse[r][i][j][t][k] == -1) {
+            if (i == t &amp;&amp; j == k) {
+                return mouse[r][i][j][t][k] = 0;
+            }
+            if (grid[i][j] == 'F') {
+                return mouse[r][i][j][t][k] = 1;
+<A NAME="2"></A>            }
+            if (grid[t][k] == 'F') {
+                return mouse[r][i][j][t][k] = 0;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            int ans = 0;
+            for (int[] d : dirs) {
+                for (int jump = 0; jump &lt;= mj; jump++) {
+                    int x = i + d[0] * jump;
+                    int y = j + d[1] * jump;
+                    if (!valid(x, y)) {</B></FONT>
+                        break;
+                    }
+                    if (cat(r, x, y, t, k) == 0) {
+                        return mouse[r][i][j][t][k] = 1;
+                    }
+                }
+            }
+            mouse[r][i][j][t][k] = 0;
+        }
+        return mouse[r][i][j][t][k];
+    }
+
+    public boolean canMouseWin(String[] grid, int catJump, int mouseJump) {
+<A NAME="0"></A>        n = grid.length;
+        m = grid[0].length();
+        this.grid = new char[n][m];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int mi = -1;
+        int mj = -1;
+        int ci = -1;
+        int cj = -1;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {</B></FONT>
+                this.grid[i][j] = grid[i].charAt(j);
+                if (this.grid[i][j] == 'C') {
+                    ci = i;
+                    cj = j;
+                }
+                if (this.grid[i][j] == 'M') {
+                    mi = i;
+                    mj = j;
+                }
+            }
+        }
+        this.cj = catJump;
+        this.mj = mouseJump;
+        cat = new int[200][n][m][n][m];
+        mouse = new int[200][n][m][n][m];
+        for (int r = 0; r &lt; 200; r++) {
+            for (int i = 0; i &lt; n; i++) {
+                for (int j = 0; j &lt; m; j++) {
+                    for (int t = 0; t &lt; n; t++) {
+                        for (int k = 0; k &lt; m; k++) {
+                            cat[r][i][j][t][k] = -1;
+                            mouse[r][i][j][t][k] = -1;
+                        }
+                    }
+                }
+            }
+        }
+        int ans = mouse(0, mi, mj, ci, cj);
+        return ans == 1;
+    }
+}
+
+</PRE>
+
+</BODY>
+</HTML>

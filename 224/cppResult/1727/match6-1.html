@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_hamlet_fiis.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_hamlet_fiis.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int memo[157][8][8][8][8];
+    vector&lt;string&gt;v;
+    int cj,mj;
+    int R,C;
+    int di[4] = {-1,1,0,0};
+    int dj[4] = {0,0,1,-1};
+    
+    bool dp(int nturn, int cx, int cy, int mx, int my) {
+        if (nturn %2 == 1) {
+            //mouse turn
+            if (mx == cx &amp;&amp; my == cy) return false;
+            if (nturn &gt;= 156) return false;
+            if (v[mx][my] == 'F') return true;
+            if (v[cx][cy] == 'F') return false;
+        } else {
+            //cat turn
+            if (mx == cx &amp;&amp; my == cy) return true;
+            if (nturn &gt;= 156) return true;
+            if (v[mx][my] == 'F') return false;
+            if (v[cx][cy] == 'F') return true;
+        }
+        
+        if (memo[nturn][cx][cy][mx][my] != -1) return memo[nturn][cx][cy][mx][my] ;
+        bool win = 0;
+<A NAME="1"></A>        
+        if (nturn %2 == 1) {
+            //mouse turn
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; 4; i++) {
+                for (int j = 0; j &lt;= mj; j++) {
+                    int Mx = mx + j*di[i];
+                    int My = my + j*dj[i];
+                    if (Mx &gt;= 0 &amp;&amp; Mx &lt;R &amp;&amp; My&gt;=0 &amp;&amp; My &lt;C &amp;&amp; v[Mx][My]!= '#') {</B></FONT>
+                        if (dp(nturn +1, cx,cy,Mx,My) == 0 ) {
+                            win = 1;
+                            break;
+                        }
+                    }else break;
+                }
+                if (win)break;
+<A NAME="2"></A>            }
+        } else {
+            //cat turn
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; 4; i++) {
+                for (int j = 0; j &lt;= cj; j++) {
+                    int Cx = cx + j*di[i];
+                    int Cy = cy + j*dj[i];
+                    if (Cx &gt;= 0 &amp;&amp; Cx &lt;R &amp;&amp; Cy&gt;=0 &amp;&amp; Cy &lt;C &amp;&amp; v[Cx][Cy]!= '#') {</B></FONT>
+                        if (dp(nturn +1, Cx,Cy,mx,my) == 0 ) {
+                            win = 1;
+                            break;
+                        }
+                    }else break;
+                }
+                if (win)break;
+            }
+        }
+        
+        memo[nturn][cx][cy][mx][my] = win;
+        return win;
+    }
+    
+    bool canMouseWin(vector&lt;string&gt;&amp; _v, int _cj, int _mj) {
+        memset(memo, -1, sizeof(memo));
+        v= _v;
+        cj = _cj;
+        mj = _mj;
+        int cx,cy,mx,my;
+<A NAME="0"></A>        R = v.size();
+        C = v[0].size();
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; R; i++)
+            for (int j = 0; j &lt; C; j++) {
+                if (v[i][j] == 'C') {
+                    cx = i;
+                    cy = j;
+                }</B></FONT>
+                
+                if (v[i][j] == 'M') {
+                    mx = i;
+                    my = j;
+                }
+            }
+        
+        return dp(1,cx,cy,mx,my);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

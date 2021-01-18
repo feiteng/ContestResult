@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>858_cwolf9.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>858_cwolf9.cpp</CENTER></H3><HR>
+<PRE>
+#define fi first
+#define se second
+#define mk make_pair
+#define o2(x) (x) * (x)
+#define eb emplace_back
+#define SZ(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define clr(a, b) memset((a), (b), sizeof((a)))
+#define GKD std::ios::sync_with_stdio(false);cin.tie(0)
+#define rep(i, s, t) for(int i = (s), LIM=(t); i &lt; LIM; ++i)
+#define per(i, s, t) for(int i = (s), LIM=(t); i &gt;= LIM; --i)
+#define my_unique(x) sort(all(x)), x.erase(unique(all(x)), x.end())
+typedef long long LL;
+typedef long long int64;
+typedef unsigned long long uint64;
+typedef pair&lt;int, int&gt; pii;
+const int INF = 0x3f3f3f3f;
+<A NAME="0"></A>const int mod = 1e9 + 7;// 998244353
+const int MXN = 1e5 + 5;
+const int MXE = MXN * 2 + 1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int largestSubmatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+<A NAME="1"></A>        int n = matrix.size();
+        int m = matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt; up(n, vector&lt;int&gt;(m, 0));</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; m; ++i) up[0][i] = matrix[0][i];
+        for(int i = 1; i &lt; n; ++i) {
+            for(int j = 0; j &lt; m; ++j) {
+                if(matrix[i][j]) up[i][j] = up[i - 1][j] + 1;
+                else up[i][j] = 0;
+            }</B></FONT>
+        }
+<A NAME="2"></A>        int ans = 0;
+        vector&lt;int&gt; res;
+        for(int i = n - 1; i &gt;= 0; --i) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = 0; j &lt; m; ++j) res.eb(up[i][j]);
+            sort(all(res));
+            for(int j = m - 1; j &gt;= 0; --j) {
+                ans = max(ans, res[j] * (m - j));
+            }
+            res.clear();
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

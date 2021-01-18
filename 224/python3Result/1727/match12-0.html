@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>55_pku_erutan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>55_pku_erutan.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def canMouseWin(self, grid: List[str], catJump: int, mouseJump: int) -&gt; bool:
+        m, n  = len(grid), len(grid[0])
+<A NAME="0"></A>        grid  = [list(t) for t in grid]
+        isin  = lambda i, j : 0&lt;=i&lt;m and 0&lt;=j&lt;n
+        get_h = lambda i, j : i * n + j
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(m) :
+            for j in range(n) :
+                if grid[i][j] == 'C' :
+                    cat_pos = (i, j)
+                    grid[i][j] = '.'
+                elif grid[i][</B></FONT>j] == 'M' :
+                    mouse_pos = (i, j)
+                    grid[i][j] = '.'
+                elif grid[i][j] == 'F' :
+                    food_pos = (i, j)
+                    grid[i][j] = '.'
+        
+        def visit(start, end, dist) :
+            to_visit = [[0, start]]
+            visited = {get_h(*start):0}
+            while len(to_visit) &gt; 0 :
+                ct, (ni, nj) = to_visit.pop(0)
+                dirctions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+                for dt in dirctions :
+                    for step in range(1, dist+1) :
+                        xi, xj = ni+dt[0]*step, nj+dt[1]*step
+                        if not isin(xi, xj) :
+                            break
+                        if grid[xi][xj] == '#' :
+                            break
+                        if get_h(xi, xj) in visited :
+                            continue
+                        visited[get_h(xi, xj)] = ct+1
+                        to_visit.append([ct+1, [xi, xj]])
+            end_hash = get_h(*end)
+            return -1 if not end_hash in visited else visited[end_hash]
+        dis_cat   = visit(cat_pos, food_pos, catJump)
+        dis_mouse = visit(mouse_pos, food_pos, mouseJump)
+        if dis_mouse == -1 :
+            return False
+        if dis_mouse &gt; 1000 :
+            return False
+        print(dis_cat)
+
+        @functools.lru_cache(None)
+        def solve(cpos=cat_pos, mpos=mouse_pos, action='m', nt=1) :
+            assert action in ['m', 'c']
+            if mpos == food_pos :
+                return True
+            if cpos == food_pos :
+                return False
+            if mpos == cpos :
+                return False
+            if nt &gt; max(dis_cat*2, 30) :
+                return False
+
+            if action == 'm' :
+                ni, nj = mpos
+                dirctions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+                to_use = []
+                for dt in dirctions :
+                    for step in range(0, mouseJump+1) :
+                        xi, xj = ni+dt[0]*step, nj+dt[1]*step
+                        if not isin(xi, xj) :
+                            break
+                        if grid[xi][xj] == '#' :
+                            break
+                        to_use.append(solve(cpos=cpos, mpos=(xi, xj), action='c', nt=nt+1))
+                if any(to_use) :
+                    return True
+                return False
+            if action == 'c' :
+                ni, nj = cpos
+                dirctions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+                to_use = []
+                for dt in dirctions :
+                    for step in range(0, catJump+1) :
+                        xi, xj = ni+dt[0]*step, nj+dt[1]*step
+                        if not isin(xi, xj) :
+                            break
+                        if grid[xi][xj] == '#' :
+                            break
+                        to_use.append(solve(cpos=(xi, xj), mpos=mpos, action='m', nt=nt+1))
+                if not all(to_use) :
+                    return False
+                return True
+        solve.cache_clear()
+        return solve()
+
+
+
+
+
+
+</PRE>
+
+</BODY>
+</HTML>

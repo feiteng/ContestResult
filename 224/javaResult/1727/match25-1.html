@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_zhongzh13.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>19_zhongzh13.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int H,W;
+    char[][] g = new char[8][];
+    int[][][] dp;
+    int cJump, mJump;
+    int[] dr = new int[]{1, 0, -1, 0}, dc = new int[]{0, 1, 0, -1};
+    public boolean canMouseWin(String[] grid, int catJump, int mouseJump) {
+        H = grid.length; W = grid[0].length();
+        for(int i=0; i&lt;H; i++){
+            g[i] = grid[i].toCharArray();
+        }
+        dp = new int[1005][H*W][H*W];
+        cJump = catJump; mJump = mouseJump;
+        int pMouse = -1, pCat = -1;
+        for(int i=0; i&lt;H; i++){
+            for(int j=0; j&lt;W; j++){
+                if(g[i][j]=='M'){
+                    pMouse = i*W+j;
+                }
+                if(g[i][j]=='C'){
+                    pCat = i*W+j;
+                }
+            }
+        }
+        int res = dfs(0, pMouse, pCat);
+        return res==1;
+    }
+    int dfs(int turn, int pMouse, int pCat){
+        if(turn&gt;=1001) return -1;
+        if(dp[turn][pMouse][pCat]!=0) return dp[turn][pMouse][pCat];
+        if(pMouse==pCat) return -1;
+        int rMouse = pMouse/W, cMouse = pMouse%W, rCat = pCat/W, cCat = pCat%W;
+        if(g[rCat][cCat]=='F') return dp[turn][pMouse][pCat] = -1;
+<A NAME="0"></A>        if(g[rMouse][cMouse]=='F') return dp[turn][pMouse][pCat]=1;
+        if(turn%2==0){
+            // mouse turn
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int dir=0; dir&lt;4; dir++){
+                for(int d=0; d&lt;=mJump; d++){
+                    int rrM = rMouse+dr[dir]*d, ccM = cMouse+dc[dir]*d;
+                    if</B></FONT>(invalid(rrM, ccM)) break;
+                    int ppM = rrM*W+ccM;
+                    if(dfs(turn+1, ppM, pCat)==1) return dp[turn][pMouse][pCat] = 1;
+                }
+            }
+<A NAME="1"></A>            return dp[turn][pMouse][pCat] = -1;
+        } else{
+            // cat turn
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int dir=0; dir&lt;4; dir++){
+                for(int d=0; d&lt;=cJump; d++){
+                    int rrC = rCat+dr[dir]*d, ccC = cCat+dc[dir]*d; // ccC:cat next col
+                    if</B></FONT>(invalid(rrC, ccC)) break;
+                    int ppC = rrC*W+ccC;
+                    if(dfs(turn+1, pMouse, ppC)==-1) return dp[turn][pMouse][pCat] = -1;
+<A NAME="2"></A>                }
+            }
+            return dp[turn][pMouse][pCat] = 1;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    }
+    boolean invalid(int r, int c){
+        return</B></FONT> r&lt;0||r&gt;=H||c&lt;0||c&gt;=W||g[r][c]=='#';
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

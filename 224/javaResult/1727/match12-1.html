@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>20_FreeMonad.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>20_FreeMonad.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][] dp;
+    
+    public boolean canMouseWin(String[] grid, int catJump, int mouseJump) {
+        int m = grid.length, n = grid[0].length</B></FONT>();
+        dp = new int[1000][m * n][m * n];
+        for (int i = 0; i &lt; 1000; i ++) {
+            for (int j = 0; j &lt; m * n; j ++) {
+                Arrays.fill(dp[i][j], -1);
+<A NAME="1"></A>            }
+        }
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int mouse = 0, cat = 0;
+        int food = 0;
+        for (int i = 0; i &lt; m; i ++) {
+            for (int j = 0; j &lt; n; j ++) {</B></FONT>
+                char ch = grid[i].charAt(j);
+                
+                if (ch == 'M') {
+                    mouse = i * n + j;
+                } else if (ch == 'C') {
+                    cat = i * n + j;
+                } else if (ch == 'F') {
+                    food = i * n + j;
+                }
+            }
+        }
+        
+<A NAME="2"></A>        return helper(grid, mouse, mouseJump, cat, catJump, food, 0) == 1;
+    }
+    
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int helper(String[] grid, int mouse, int mj, int cat, int cj, int food, int step) {</B></FONT>
+        if (step &gt;= 1000) {
+            return 2;
+        }
+        
+        int m = grid.length, n = grid[0].length();
+        
+        if (mouse == food) {
+            dp[step][mouse][cat] = 1;
+            return 1;
+        }
+        
+        if (cat == food) {
+            dp[step][mouse][cat] = 2;
+            return 2;
+        }
+<A NAME="3"></A>        
+        if (mouse == cat) {
+            dp[step][mouse][cat] = 2;
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#3',2,'match12-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return 2;
+        }
+        
+        if (dp[step][mouse][cat] != -1) {
+            return dp[step][mouse][cat];
+        }
+        
+        if (step % 2 == 0) {</B></FONT>
+            boolean canWin = false;
+            
+            if (helper(grid, mouse, mj, cat, cj, food, step + 1) == 1) {
+                dp[step][mouse][cat] = 1;
+                return 1;
+            }
+            
+            int x = mouse / n, y = mouse % n;
+            for (int i = 1; x + i &lt; m &amp;&amp; i &lt;= mj; i ++) {
+                if (grid[x + i].charAt(y) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, (x + i) * n + y, mj, cat, cj, food, step + 1) == 1) {
+                    dp[step][mouse][cat] = 1;
+                    return 1;
+                }
+            } 
+            
+            for (int i = 1; x - i &gt;= 0 &amp;&amp; i &lt;= mj; i ++) {
+                if (grid[x - i].charAt(y) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, (x - i) * n + y, mj, cat, cj, food, step + 1) == 1) {
+                    dp[step][mouse][cat] = 1;
+                    return 1;
+                }
+            } 
+            
+            for (int i = 1; y + i &lt; n &amp;&amp; i &lt;= mj; i ++) {
+                if (grid[x].charAt(y + i) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, x * n + y + i, mj, cat, cj, food, step + 1) == 1) {
+                    dp[step][mouse][cat] = 1;
+                    return 1;
+                }
+            } 
+            
+            for (int i = 1; y - i &gt;= 0 &amp;&amp; i &lt;= mj; i ++) {
+                if (grid[x].charAt(y - i) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, x * n + y - i, mj, cat, cj, food, step + 1) == 1) {
+                    dp[step][mouse][cat] = 1;
+                    return 1;
+                }
+            }
+            
+            dp[step][mouse][cat] = 2;
+            return 2;
+        } else {
+            if (helper(grid, mouse, mj, cat, cj, food, step + 1) == 2) {
+                dp[step][mouse][cat] = 2;
+                return 2;
+            }
+            
+            int x = cat / n, y = cat % n;
+            for (int i = 1; x + i &lt; m &amp;&amp; i &lt;= cj; i ++) {
+                if (grid[x + i].charAt(y) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, mouse, mj, (x + i) * n + y, cj, food, step + 1) == 2) {
+                    dp[step][mouse][cat] = 2;
+                    return 2;
+                }
+            } 
+            
+            for (int i = 1; x - i &gt;= 0 &amp;&amp; i &lt;= cj; i ++) {
+                if (grid[x - i].charAt(y) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, mouse, mj, (x - i) * n + y, cj, food, step + 1) == 2) {
+                    dp[step][mouse][cat] = 2;
+                    return 2;
+                }
+            } 
+            
+            for (int i = 1; y + i &lt; n &amp;&amp; i &lt;= cj; i ++) {
+                if (grid[x].charAt(y + i) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, mouse, mj, x * n + y + i, cj, food, step + 1) == 2) {
+                    dp[step][mouse][cat] = 2;
+                    return 2;
+                }
+            } 
+            
+            for (int i = 1; y - i &gt;= 0 &amp;&amp; i &lt;= cj; i ++) {
+                if (grid[x].charAt(y - i) == '#') {
+                    break;
+                }
+                
+                if (helper(grid, mouse, mj, x * n + y - i, cj, food, step + 1) == 2) {
+                    dp[step][mouse][cat] = 2;
+                    return 2;
+                }
+            }
+            
+            dp[step][mouse][cat] = 1;
+            return 1;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>64_huntersjm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean canMouseWin(String[] grid, int catJump, int mouseJump) {
+        int[][][][][] dp = new int[grid.length][grid[0].length()][grid.length][grid[0].length()][64];
+        int[] ct = new int[2];
+        int[] ms = new int[2];
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[i].length(); j++) {
+                if (grid[i].charAt(j) == 'C') {
+                    ct[0] = i;
+                    ct[1] = j;
+                } else if (grid[i].charAt(j) == 'M') {
+                    ms[0] = i;
+                    ms[1] = j;
+                }
+            }
+        }
+
+        int v = hp(dp, ct[0], ct[1], ms[0], ms[1], 0, grid, catJump, mouseJump);
+        return v == 1;
+    }
+<A NAME="0"></A>
+    int[][] directions = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+    private int hp(int[][][][][] dp, int ct0, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int ct1, int ms0, int ms1, int step,
+                   String[] grid, int catJump, int mouseJump) {
+        if (step == 64) {
+            return -1;
+        }</B></FONT>
+        if (dp[ct0][ct1][ms0][ms1][step] != 0) {
+            return dp[ct0][ct1][ms0][ms1][step];
+        }
+        for (int[] direction : directions) {
+<A NAME="1"></A>            int m0 = ms0 + direction[0];
+            int m1 = ms1 + direction[1];
+            for (int i = 0; i &lt; mouseJump &amp; m0 &gt;= 0 &amp;&amp; m0 &lt; grid.length &amp;&amp; m1 &gt;= 0 &amp;&amp; m1 &lt; grid[0].length()
+                    ; i++, m0 += direction[0], m1 += direction[1]) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                if (grid[m0].charAt(m1) == '#') {
+                    break;
+                }
+                if (grid[m0].charAt(m1) == 'F') {
+                    dp[ct0][ct1][ms0][ms1][step] = 1;
+                    return 1;
+                }</B></FONT> else if ((m0 != ct0 || m1 != ct1)) {
+                    if (hp(dp, ct0, ct1, m0, m1, step + 1, grid, catJump, mouseJump) == 1) {
+                        boolean ch = false;
+                        loop:
+                        for (int[] directionC : directions) {
+                            int c0 = ct0 + directionC[0];
+                            int c1 = ct1 + directionC[1];
+                            for (int j = 0; j &lt; catJump &amp; c0 &gt;= 0 &amp;&amp; c0 &lt; grid.length &amp;&amp; c1 &gt;= 0 &amp;&amp; c1 &lt; grid[0].length()
+                                    ; j++, c0 += directionC[0], c1 += directionC[1]) {
+                                if ((m0 == c0 &amp;&amp; m1 == c1) || grid[c0].charAt(c1) == 'F') {
+                                    ch = true;
+                                    break loop;
+                                } else if (grid[c0].charAt(c1) != '#') {
+                                    if (hp(dp, c0, c1, m0, m1, step + 1, grid, catJump, mouseJump) == -1) {
+                                        ch = true;
+                                        break loop;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                        if (!ch) {
+                            dp[ct0][ct1][ms0][ms1][step] = 1;
+                            return 1;
+                        }
+                    }
+                }
+            }
+        }
+        dp[ct0][ct1][ms0][ms1][step] = -1;
+        return -1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
