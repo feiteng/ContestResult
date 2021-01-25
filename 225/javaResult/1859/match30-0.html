@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>993_luise6161.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>993_luise6161.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int[] aa = new int[26];
+        int[] bb = new int[26];
+        for(char c: a.toCharArray()) {
+            aa[c-'a'] ++;
+        }
+        for(char c: b.toCharArray()) {
+            bb[c-'a'] ++;
+        }
+        int[] as = new int[26]</B></FONT>;
+        int[] bs = new int[26];
+        as[0] = aa[0];
+        bs[0] = bb[0];
+        for(int i=1;i&lt;26;i++) {
+            as[i] = as[i-1] + aa[i];
+            bs[i] = bs[i-1] + bb[i];
+        }
+        int ans = 1000000;
+        for(int i=0;i&lt;26;i++) {
+            if (i&lt;25) {
+<A NAME="1"></A>                ans = Math.min(ans, bs[i] + a.length() - as[i]);
+                ans = Math.min(ans, as[i] + b.length() - bs[i]);
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ans = Math.min(ans, b.length()-bb[i] + a.length()-aa[i]);
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

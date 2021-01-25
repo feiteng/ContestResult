@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>729_Tian-qi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>729_Tian-qi.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def kthLargestValue(self, matrix: List[List[int]], k: int) -&gt; int:
+        rows, cols = len(matrix), len(matrix[0])
+        coor = [[0] * cols for _ in range(rows)]
+        coor[0][0] = matrix[0][0]
+        for a in range(1, rows):
+            coor[a][0] = coor[a-1][0] ^ matrix[a][0]
+        for b in range(1, cols):
+            coor[0][b] = coor[0][b-1] ^ matrix[0][b]
+        for a in range(1, rows):
+            for b in range(1, cols):
+                coor[a][b] = coor[a-1][b-1] ^ coor[a-1][b] ^ coor[a][b-1] ^ matrix[a][b]
+        
+        ans = [coor[i][j] for i in range(rows) for j in range(</B></FONT>cols)]
+        return heapq.nlargest(k, ans)[-1]
+</PRE>
+
+</BODY>
+</HTML>

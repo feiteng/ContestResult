@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_ruanys.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_ruanys.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int kthLargestValue(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int k) {
+        int m=matrix.size(), n=matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt;mask(m, vector&lt;int&gt;(n, 0));
+        vector&lt;int&gt;data;</B></FONT>
+        
+        mask[0][0] = matrix[0][0];
+        data.push_back(mask[0][0]);
+        for (int i=1; i&lt;m; i++) {
+            mask[i][0] = mask[i-1][0]^matrix[i][0];
+            data.push_back(mask[i][0]);
+        }
+        for (int j=1; j&lt;n; j++) {
+<A NAME="1"></A>            mask[0][j] = mask[0][j-1]^matrix[0][j];
+            data.push_back(mask[0][j]);
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=1; i&lt;m; i++)
+            for (int j=1; j&lt;n; j++) {
+                mask[i][j] = mask[i-1][j]^mask[i][j-1]^mask[i-1][j-1]^matrix[i][j];
+                data.push_back(mask[i][j]);
+            }
+        
+     //   for (auto dd: data)
+     //       cout &lt;&lt; dd &lt;&lt; &quot;, &quot;;
+     //   cout &lt;&lt; endl;
+        sort(data.begin(), data.end());
+        return data[data.size()-k];
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

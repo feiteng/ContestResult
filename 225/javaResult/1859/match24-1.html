@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>559_danorourke.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>559_danorourke.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minCharacters(String a, String b) {
+        int[] aCount = new int[26];
+        int[] bCount = new int[26];
+        for(int i = 0; i &lt; a.length(); i++){</B></FONT>
+            char c = a.charAt(i);
+            int index = (int)(c-'a');
+            aCount[index]++;
+        }
+        for(int i = 0; i &lt; b.length(); i++){
+<A NAME="1"></A>            char c = b.charAt(i);
+            int index = (int)(c-'a');
+            bCount[index]++;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i &lt; 26; i++){
+<A NAME="2"></A>            max = Math.max(max, aCount[i]+bCount[i]);
+        }
+        int min = a.length() + b.length</B></FONT>() - max;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] aSum = new int[26];
+        int[] bSum = new int[26];
+        aSum[0] = aCount[0];
+        bSum[0] = bCount[0];
+        for(int i = 1; i &lt; 26; i++){
+            aSum[i] = aCount[i]+aSum[i-1];
+            bSum[i] = bCount[i]+bSum[i-1];
+        }
+        for(int i = 0; i &lt; 25; i++){
+            int aUnder = aSum[i]</B></FONT>;
+<A NAME="3"></A>            int aOver = a.length() - aUnder;
+            int bUnder = bSum[i];
+            int bOver = b.length() - bUnder;
+            min = <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(min, aUnder + bOver);
+            min = Math.min(min, bUnder + aOver);
+        }
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1006_wannacry89.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1006_wannacry89.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.*;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCharacters(String a, String b) {
+
+        int[] freqA = new int[256];
+        int[] freqB = new int[256];
+        for(int i = 0; i &lt; a.length(); i++) {
+            freqA[a.charAt(i)]++;
+        }
+        for (int i = 0; i &lt; b.length(); i++) {
+            freqB[b.charAt(i)]++;
+        }
+
+        // try making every letter in a strictly less than every letter in b.
+        int min = strictlyless(freqA, freqB)</B></FONT>;
+        min = Math.min(min, strictlyless(freqB, freqA));
+
+        // try distinct
+        for(char dist = 'a'; dist &lt;= 'z'; dist++) {
+            int change = a.length() - freqA[dist];
+            change += b.length() - freqB[dist];
+            min = Math.min(min, change);
+        }
+        return min;
+    }
+<A NAME="1"></A>
+    private int strictlyless(int[] freqA, int[] freqB) {
+        int min = Integer.MAX_VALUE;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(char bb = 'z'; bb &gt;= 'b'; bb--) {
+            int change = 0;
+
+            // how many letters in b need to be changed
+            for(char bp = 'a'; bp &lt; bb; bp++) {
+                change += freqB[bp];
+            }
+
+            // how many letters in a need to be changed.
+            for(char ap = bb; ap &lt;= 'z'; ap++) {
+                change += freqA[ap];
+            }
+
+            min = Math.min(min, change);
+        }
+        return min;
+    }
+
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

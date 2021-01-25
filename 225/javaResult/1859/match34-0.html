@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161_hughstudy-n.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>161_hughstudy-n.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int[] countA = new int[26], countB = new int[26];
+        for (char c : a.toCharArray</B></FONT>()) {
+            countA[c - 'a'] += 1;
+        }
+        for (char c : b.toCharArray()) {
+            countB[c - 'a'] += 1;
+        }
+<A NAME="1"></A>        int res = Integer.MAX_VALUE;
+        res = Math.min(res, lessThan(countA, countB));
+        res = Math.min(res, lessThan(countB, countA));
+        res = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.min(res, distinct(countA, a.length()) + distinct(countB, b.length()));
+        return res;
+    }
+
+    private int lessThan(int[] c1, int[] c2) {
+        int sum = 0;
+        for (int i</B></FONT> : c1) {
+            sum += i;
+        }
+        int min = Integer.MAX_VALUE;
+        int sumRight = 0;
+        for (int i = 0; i &lt; 25; ++i) {
+            sumRight += c2[i];
+            sum -= c1[i];
+            min = Math.min(min, sum + sumRight);
+        }
+        return min;
+<A NAME="2"></A>    }
+
+    private int distinct(int[] c1, int len) {
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int min = Integer.MAX_VALUE;
+        for (int i : c1) {
+            min = Math.min(min, len - i);
+        }
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

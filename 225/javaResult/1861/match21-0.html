@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>577_rooftopj.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>577_rooftopj.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumBoxes(int n) {
+        int begin = 1;
+        int end = n;
+        while (begin &lt;= end) {
+            int mid = begin + ((end - begin) &gt;&gt; 1);
+            // System.out.println(&quot;mid:&quot; + mid + &quot;res: &quot; + dfs(mid));
+            if (dfs(mid) &lt; n) {
+                begin = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return begin;
+    }
+    
+    public long dfs(int n) {</B></FONT>
+<A NAME="1"></A>        if (n &lt;= 2) return n;
+        // if (n &lt;= 4) return n - 1;
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long begin = 1;
+        long end = 1000000;
+        while (begin &lt;= end) {
+            long mid = begin + ((end - begin) &gt;&gt; 1);
+            if (((mid * mid + mid) &gt;&gt; 1) &lt; n) {
+                begin = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }</B></FONT>
+        // System.out.println(&quot;begin&quot; + begin);
+        return n + dfs(n - (int)begin);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

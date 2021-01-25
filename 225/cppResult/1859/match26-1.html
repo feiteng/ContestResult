@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>243_minhnguyenxuan60.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>243_minhnguyenxuan60.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int minCharacters(string a, string b) {
+        int n=a.size(),m=b.size();
+        vector&lt;int&gt; cnta('z'-'a'+1),cntb('z'-'a'+1);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (char x:a) cnta[x-'a']++;
+        for (char x:b) cntb[x-'a']++;
+        int mini=1e9;
+        for (int i=0;i&lt;='z'-'a';i++){
+            mini=min(mini,n-cnta[i]+m-cntb[i]);
+        }
+        for (int i=1;i&lt;='z'-'a';i++){
+            int tmp=0;
+<A NAME="1"></A>            for (int j=0;j&lt;i;j++) tmp+=cnta[j];
+            for (int j=i;j&lt;='z'-'a';j++) tmp+=cntb[j];
+            mini=min(mini,tmp);</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            tmp=0;
+            for (int j=0;j&lt;i;j++) tmp+=cntb[j];
+            for (int j=i;j&lt;='z'-'a';j++) tmp+=cnta[j];
+            mini=min(mini,tmp);
+        }
+        return mini;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

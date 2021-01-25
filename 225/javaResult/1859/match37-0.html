@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>924_qinfengsa.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>924_qinfengsa.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int len1 = a.length(), len2 = b.length();
+        int[] letters = new int[26],</B></FONT> letters1 = new int[26], letters2 = new int[26];
+        int max = 0;
+        for (char c : a.toCharArray()) {
+            letters1[c - 'a']++;
+<A NAME="1"></A>            letters[c - 'a']++;
+            max = Math.max(max, letters[c - 'a']);
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (char c : b.toCharArray()) {
+            letters2[c - 'a']++;
+            letters[c - 'a']++;
+            max = Math.max(max, letters[c - 'a']);
+        }
+        // 条件3
+        int result = len1 + len2 - max;
+        int count1 = 0</B></FONT>, count2 = 0;
+        for (int i = 0; i &lt; 25; i++) {
+<A NAME="2"></A>            count1 += letters1[i];
+            count2 += letters2[i];
+            // 条件1 a 中的 每个字母 在字母表中 严格小于 b 中的 每个字母
+            result = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match37-1.html#2',3,'match37-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.min(result, len1 - count1 + count2);
+            // 条件2 b 中的 每个字母 在字母表中 严格小于 a 中的 每个字母
+            result = Math.min(result, len2 - count2 + count1);
+        }
+
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

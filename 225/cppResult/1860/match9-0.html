@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>896_CyberGaga.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>896_CyberGaga.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int kthLargestValue(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int k) {
+        int m = matrix.size(), n = matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt; pre(m + 1, vector&lt;int&gt;(n + 1));
+        vector&lt;int&gt; res;
+        for(int i = 1; i &lt;= m; i++)
+        {
+            for(int j = 1; j &lt;= n; j++)
+            {
+                pre[i][j] = pre[i-1][j-1] ^ pre[i-1][j] ^ pre[i][j-1] ^ matrix[i-1][j-1];
+                res.push_back(pre[i][j]);
+            }
+        }
+        sort(res.begin(), res.end());
+        return res[m * n - k];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

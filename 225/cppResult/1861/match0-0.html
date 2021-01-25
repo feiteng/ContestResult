@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>647_zzycc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>647_zzycc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumBoxes(int n) {
+        int sum = 0;
+        int increase = 1;
+        while( n &gt;= sum + (increase + 1)*(increase)/2 ){
+            sum += (increase + 1)*(increase)/2;
+            increase++;
+        }
+        increase--;
+        int ans = (increase + 1)*(increase)/2;
+        // cout&lt;&lt;sum&lt;&lt;endl;
+        // cout&lt;&lt;increase&lt;&lt;endl;
+        if( n == sum ) return ans;
+        n -= sum;
+        if( n == 1 ) return ans + 1;
+        if( n == 2) return ans + 2;
+        int next = 1;
+        while(n &gt; 0){
+            // cout&lt;&lt;n&lt;&lt;&quot; &quot;;
+            n -= next;
+            next++;
+            ans++;
+        }
+        // cout&lt;&lt;n&lt;&lt;&quot; &quot;;
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>935_KLEA.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>935_KLEA.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minCharacters(String a, String b) {
+        int[] va = new int[26], vb = new int[26];
+        
+        for (char e : a.toCharArray()) {
+            va[e-'a']++;
+        }
+        for (char e : b.toCharArray()) {
+            vb[e-'a']++;
+        }
+        
+        int ans = Math.min(helper(va, vb), helper</B></FONT>(vb, va));
+        
+        int same = 0;
+        for (int i = 0; i &lt; 26; i++) {
+<A NAME="1"></A>            same = Math.max(same, Math.min(va[i], vb[i]));
+        }
+        ans = Math.min(ans, a.length()+b.length()-same*2);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans;
+        
+    }
+    private int helper(int[] va, int[] vb) {
+        int  ans = Integer.MAX_VALUE;
+        
+        for (int i = 0; i &lt; 25; i++) {
+            int cnt = 0;
+            for (int j = 0; j &lt; 26; j++) {
+                if (j &lt;= i) {
+<A NAME="2"></A>                    cnt += vb[j];
+                }</B></FONT> else {
+                    cnt += va[j];
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            ans = Math.min(ans, cnt);
+        }
+        return ans;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

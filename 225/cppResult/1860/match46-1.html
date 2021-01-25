@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>180_yunkai96.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>180_yunkai96.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match46-0.html#0',2,'match46-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int kthLargestValue(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int k) {
+        int row = matrix.size(), col = matrix[0].size();
+        
+        vector&lt;int&gt; val; val.reserve(row * col);
+        for(int r = 0; r &lt; row; r++) for(int c = 0; c &lt; col; c++) {
+            if(r-1 &gt;= 0)
+                matrix[r][c] ^= matrix[r-1][c];
+            if(c-1 &gt;= 0)
+                matrix[r][c] ^= matrix[r][c-1];
+            if(r-1 &gt;= 0 &amp;&amp; c-1 &gt;= 0)
+                matrix[r][c] ^= matrix[r-1][c-1];
+            
+            val.push_back(matrix[r][c]);
+        }
+        
+        sort(val.rbegin(), val.rend());
+        
+        return val[k-1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

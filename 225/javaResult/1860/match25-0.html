@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>887_s3m7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>887_s3m7.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int kthLargestValue(int[][] matrix, int k) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;();
+        int[][] xor = new int[matrix.length][matrix[0].length];
+        xor[0][0] = matrix[0][0];
+        pq.add(xor[0][0]);
+        
+        for (int i = 1; i &lt; matrix[0].length; ++i) {
+            xor[0][i] = xor[0][i - 1] ^ matrix[0][i];
+            pq.add(xor[0][i]);
+            if (pq.size() &gt; k) pq.remove();
+        }
+        for (int i = 1; i &lt; matrix.length; ++i) {
+            xor[i][0] = xor[i - 1][0] ^ matrix[i][0];
+            pq.add(xor[i][0]);
+            if (pq.size() &gt; k) pq.remove();
+        }
+        
+        
+        for (int i = 1; i &lt; matrix.length; ++i) {
+            for (int j = 1; j &lt; matrix[0].length; ++j) {
+                xor[i][j] = xor[i - 1][j] ^ xor[i][j - 1] ^ matrix[i][j] ^ xor[i - 1][j - 1];
+                pq.add(xor[i][j]);
+                if (pq.size() &gt; k) pq.remove();
+            }
+        }
+        return pq.remove();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

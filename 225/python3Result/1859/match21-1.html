@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_kmathing.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>321_kmathing.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCharacters(self, a: str, b: str) -&gt; int:
+#         ca = Counter(a)
+#         cb = Counter(b)
+        
+#         def convert(x, y, reverse=True):
+#             if reverse:
+#                 last = 'a'
+#                 for k in 'abcdefghijklmnopqrstuvwxyz':
+#                     if x[k] &gt; 0:
+#                         last = k
+
+#                 ans = 0
+#                 for k in 'abcdefghijklmnopqrstuvwxyz':
+#                     ans += y[k]
+#                     if k == last:
+#                         break
+#             else:
+#                 first = 'z'
+#                 for k in 'abcdefghijklmnopqrstuvwxyz':
+#                     if x[k] &gt; 0:
+#                         first = k
+#                         break
+
+#                 ans = 0
+#                 for k in 'abcdefghijklmnopqrstuvwxyz':
+#                     if k &gt;= first:
+#                         ans += y[k]
+                    
+#             return ans
+<A NAME="0"></A>        ca = [0 for _ in range(26)]
+        cb = [0 for _ in range(26)]
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in a:
+            ca[ord(i) - ord('a')] += 1
+        for i in b:
+<A NAME="1"></A>            cb[ord(i) - ord('a')] += 1
+            
+        na, nb = len(a), len(</B></FONT>b)
+        ans = max<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(na, nb)
+        for i in range(1, 26):
+            ans = min(ans, sum(ca[:i]) + sum(cb[i:]), sum(ca[i:]) + sum(cb[</B></FONT>:i]))
+        
+        # print(ca.most_common(1))
+        ca = Counter(a)
+        cb = Counter(b)
+        dit_a = len(a) - ca.most_common(1)[0][1]
+        dit_b = len(b) - cb.most_common(1)[0][1]
+        
+        # return min(convert(ca, cb), convert(cb, ca), convert(ca, cb, False), convert(cb, ca, False), dit_a + dit_b)
+        
+        return min(ans, dit_a + dit_b)
+</PRE>
+
+</BODY>
+</HTML>

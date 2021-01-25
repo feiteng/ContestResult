@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>437_pbdpbd123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>437_pbdpbd123.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int n = a.length();
+        int m = b.length();
+        int[] aa = new int[26];
+        int[] bb = new int[26];
+        int max = 0</B></FONT>;
+        for(char c : a.toCharArray()) {
+            aa[c-'a']++;
+            max = Math.max(max, aa[c-'a']);
+        }
+<A NAME="1"></A>        
+        int ap = n - max;
+        max = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(char c : b.toCharArray()) {
+            bb[c-'a']++;
+            max = Math.max(max, bb[c-'a']);
+        }
+        
+        int bp = m - max;
+        
+        int res = ap + bp;
+        
+        int[] pa = new int[26]</B></FONT>;
+        int[] pb = new int[26];
+        pa[0] = aa[0];
+        pb[0] = bb[0];
+        for(int i = 1; i &lt; 26; i++) {
+            pa[i] = pa[i-1] + aa[i];
+            pb[i] = pb[i-1] + bb[i];
+        }
+        
+        
+        // letter &gt;= j;
+<A NAME="2"></A>        for(int j = 25; j &gt;= 1; j--) {
+            int x = pa[25] - pa[j- 1];
+            int y = pb[25] - pb[j- 1];
+            int min = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#2',2,'match37-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(n - x + y, x+ m - y);
+            res = Math.min(min, res);
+        }
+        
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

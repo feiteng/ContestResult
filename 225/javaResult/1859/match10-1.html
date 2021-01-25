@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>322_elvinyang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>322_elvinyang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int[] stat1 = new int[26], stat2 = new int[26];
+        for (int i = 0; i &lt; a.length(); i++) {
+            stat1[a.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i &lt; b.length(); i++) {
+            stat2[b.charAt(i) - 'a']++;
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i &lt; 25; i++) {</B></FONT>
+<A NAME="1"></A>            int moves = 0;
+            for (int j = 0; j &lt;= i; j++) moves += stat1[j];
+            for (int j = i + 1; j &lt; 26; j++) moves += stat2[j];
+            ans = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(ans, moves);
+        }
+<A NAME="2"></A>        for (int i = 0; i &lt; 25; i++) {
+            int moves = 0;
+            for (int j = 0</B></FONT>; j &lt;= i; j++) moves += stat2[j];
+            for (int j = i + 1; j &lt; 26; j++) moves += stat1[j]<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            ans = Math.min(ans, moves);
+        }
+        for (int i = 0; i &lt; 26; i++) {
+            int moves = 0;
+<A NAME="3"></A>            for (int j = 0; j &lt; 26; j++) {</B></FONT>
+                if (i == j) continue;
+                moves += stat1[j] + stat2[j];
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#3',2,'match10-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            ans = Math.min(ans, moves);
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

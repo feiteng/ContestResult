@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>980_finaldie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>980_finaldie.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int kthLargestValue(vector&lt;vector&lt;int&gt;&gt;&amp; A, int k) {
+      int m = A.size(), n = A[0].size();
+      
+      vector&lt;vector&lt;int&gt;&gt; memo(m + 1, vector&lt;int&gt;(n + 1));
+      //multiset&lt;int&gt; res;
+      vector&lt;int&gt; v;
+      
+      for (int i = 1; i &lt;= m; i++) {
+        for (int j = 1; j &lt;= n; j++) {
+          memo[i][j] = memo[i][j-1] ^ memo[i-1][j] ^ memo[i-1][j-1] ^ A[i-1][j-1];
+          
+          //res.insert(memo[i][j]);
+          //if (res.size() &gt; k) res.erase(res.begin());
+          v.push_back(memo[i][j]);
+        }
+      }
+      
+      // do quick-select to find the k-th one
+      nth_element(v.begin(), v.begin() + k - 1, v.end(), greater&lt;int&gt;());
+      
+      return v[k - 1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

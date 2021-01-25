@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>583_XuhuiWang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>583_XuhuiWang.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>  public int minCharacters(String a, String b) {
+    int n_a = a.length(), n_b = b.length();
+    int[] cnts = new int[26];
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] cnts1 = new int[27];
+    int[] cnts2 = new int[27];
+    for (char ch : a.toCharArray()) {
+      cnts1[ch - 'a' + 1]++;
+      cnts[ch - 'a']++;
+    }
+    for (char ch : b.toCharArray()) {
+      cnts2[ch - 'a' + 1]++;
+      cnts[ch - 'a']++;
+    }</B></FONT>
+<A NAME="1"></A>    for (int k = 0; k &lt; 26; ++k) {
+      cnts1[k + 1] += cnts1[k];
+      cnts2[k + 1] += cnts2[k];
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    int ans = n_a + n_b;
+    for (int k = 0; k &lt; 25; ++k) {
+      ans = Math.min(ans, (cnts1[k + 1] - cnts1[0] + cnts2[26] - cnts2[k + 1]));
+      ans = Math.min(ans, (cnts2[k + 1] - cnts2[0] + cnts1[26] - cnts1[k + 1]));
+    }
+    for (int k = 0; k &lt; 26; ++k) {
+      ans = Math.min(ans, n_a + n_b - cnts[k]);
+    }
+    return ans;
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

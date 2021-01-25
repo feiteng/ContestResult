@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>860_wayne1116.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>860_wayne1116.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int[] dp1 = new int[26];
+        int[] dp2 = new int[26];
+        for(int i=0; i&lt;a.length</B></FONT>(); i++)
+            dp1[a.charAt(i)-'a'] += 1;
+        for(int i=0; i&lt;b.length(); i++)
+            dp2[b.charAt(i)-'a'] += 1;
+        
+        // unique value
+        int max = 0;
+        for(int i=0; i&lt;26; i++)
+            max = Math.max(max, dp1[i]+dp2[i]);
+<A NAME="1"></A>        int result = a.length()-max+b.length();
+        
+        int sum1 = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int sum2 = b.length();
+        for(int i=25; i&gt;=1; i--) {
+            sum1 += dp1[i];
+            sum2 -= dp2[i];
+            result = Math.min(result, sum2+sum1);
+        }
+<A NAME="2"></A>        
+        sum1 = a.length</B></FONT>();
+        sum2 = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=25; i&gt;=1; i--) {
+            sum1 -= dp1[i];
+            sum2 += dp2[i];
+            result = Math.min(result, sum2+sum1);
+        }
+        
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

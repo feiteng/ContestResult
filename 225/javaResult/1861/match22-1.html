@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>295_Castling.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>295_Castling.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minimumBoxes(int n) {
+        if (n &lt;= 3) return n;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long l = 3;
+        long r = n;
+        while (l &lt; r) {
+            long m = l + (r - l) / 2;
+            if (helper(n, m)) {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        // helper(10, 4);
+        // return 11;
+        return (int)l;
+    }
+    
+    private boolean helper(long target</B></FONT>, long floor) {
+        if (target &lt;= 0) return true;
+        if (target &gt; 0 &amp;&amp; floor == 0) return false;
+<A NAME="1"></A>         // System.out.println(&quot;target = &quot; + target + &quot;, floor = &quot; + floor);
+        // System.out.println(floor);
+        long total = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long l = 1;
+        long r = floor;
+        while (l &lt; r) {
+             long m = l + (r - l + 1) / 2;
+            // System.out.println(&quot;m = &quot; + m);
+            // System.out.println(&quot;(m + 1) * m / 2 = &quot; + (m + 1) * m / 2);
+            if ((m + 1) * m / 2 &gt; floor) {
+                r = m - 1;
+            } else {
+                l = m;
+            }
+        }</B></FONT>
+        
+        // System.out.println(&quot;LEN = &quot; +  l);
+        if ((l + 1) * l / 2 &lt; floor) {
+            l = l + 1;
+        }
+        // System.out.println(&quot;LEN = &quot; +  l);
+        
+        return helper(target - floor, floor - l);
+        // long cnt = floor;
+        // while (cnt &gt; 0) {
+        //     // System.out.println(&quot;CNT = &quot; +  cnt);
+        //     total += cnt;
+        //     cnt -= l;
+        //     l--;
+        // }
+        // // System.out.println(total &gt;= target);
+        // return total &gt;= target;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

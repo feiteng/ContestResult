@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_lihaoxuan-d.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_lihaoxuan-d.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minCharacters(string a, string b) {
+        unordered_map&lt;char, int&gt; ca, cb;
+        for (auto i : a) ++ca[i];
+<A NAME="0"></A>        for (auto i : b) ++cb[i];
+        int ans = INT_MAX;
+        // 1
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (char c = 'a'; c &lt;= 'z'; c++) {
+            int cur = 0;
+            for (auto i : a) {
+                if (i &gt; c) {
+                    ++cur;
+                }
+            }
+            for (auto i : b) {
+                if (i &lt;= c) {
+                    ++cur;
+                }
+            }
+<A NAME="1"></A>            ans = min(ans, cur);
+        }
+        // 2
+        for (char c = 'a'; c &lt;= 'z'; c++) {</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+            int cur = 0;
+            for (auto i : a) {
+                if (i &lt; c) {
+                    ++cur;
+                }
+            }
+            for (auto i : b) {
+                if (i &gt;= c) {
+                    ++cur;
+                }
+            }
+<A NAME="2"></A>            ans = min(ans, cur);
+        }
+        // 3
+        for (char c = 'a'; c &lt;= 'z'; c++) {</B></FONT><FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+            int cur = 0;
+            for (auto i : a) {
+                if (i != c) {
+                    ++cur;
+                }
+            }
+            for (auto i : b) {
+                if (i != c) {
+                    ++cur;
+                }
+            }
+            ans = min(ans, cur);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

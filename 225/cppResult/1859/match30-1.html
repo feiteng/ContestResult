@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1023_jian-gu-qie-mo-gong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1023_jian-gu-qie-mo-gong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minCharacters(string a, string b) {
+
+<A NAME="0"></A>        int al[300],bl[300];
+        memset(al,0,sizeof(al));
+        memset(bl,0,sizeof(bl));   
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for(int i=0;i&lt;a.length();i++)
+        al[a[i]]++;
+for(int i=0;i&lt;b.length();i++)
+    bl[b[i]]++;
+        int ans=1e8;
+<A NAME="1"></A>        for(int i=1;i&lt;=25;i++)
+        {</B></FONT>
+            int s1=0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int s2=0;
+            for(int k=0;k&lt;i;k++)
+                s1+=al['a'+k];
+            for(int k=25;k&gt;=i;k--)
+                s2+=bl['a'+k];
+            ans=min(ans,s1+s2);
+        }
+          for(int i=1;i&lt;=25;i++)
+<A NAME="2"></A>        {
+            int s1=0;</B></FONT>
+            int s2=0;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int k=0;k&lt;i;k++)
+                s1+=bl['a'+k];
+            for(int k=25;k&gt;=i;k--)
+                s2+=al['a'+k];
+            ans=min(ans,s1+s2);
+        }</B></FONT>
+        int m=0,m1=0;
+       for(int i=97;i&lt;=122;i++)
+           m=max(al[i],m);
+        for(int i=97;i&lt;=122;i++)
+            m1=max(bl[i],m1);
+        int p=a.length()+b.length()-m1-m;
+            ans=min(ans,p);
+               return ans;
+               
+            
+    }
+};
+</PRE>
+</BODY>
+</HTML>

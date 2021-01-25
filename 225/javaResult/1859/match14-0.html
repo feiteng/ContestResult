@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>797_chenhaomaiji.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>797_chenhaomaiji.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minCharacters(String a, String b) {
+        int[] num1 = new int[26];
+        int[] num2 = new</B></FONT> int[26];
+        helper(num1, a);
+<A NAME="1"></A>        helper(num2, b);
+        int res = Integer.MAX_VALUE;
+        // make a less than b
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; 26; i++) { // make all in num2 &gt;= i
+            int sum = 0;
+            for (int k = 0; k &lt; i; k++) {
+                sum += num2[k];
+            }
+            for (int j = i; j &lt; 26; j++) {
+                sum += num1[j];
+            }
+            res = Math.min(res, sum);
+        }
+        for (int i = 1; i &lt; 26; i++) { // make all in num1 &gt;= i
+            int sum = 0;
+            for (int k = 0; k &lt; i; k++) {
+                sum += num1[k];
+            }
+            for (int j = i; j &lt; 26; j++) {
+                sum += num2[j];
+            }
+            res = Math.min(res, sum);
+        }
+<A NAME="2"></A>        for (int i = 0; i &lt; 26; i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; 26; j++) {
+                if</B></FONT> (i == j) continue<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                sum += num1[j] + num2[j];
+            }
+            res = Math.min(res, sum);
+        }
+        return res;
+    }</B></FONT>
+    
+    public void helper(int[] num1, String s) {
+        for (char c : s.toCharArray()) num1[c - 'a']++;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

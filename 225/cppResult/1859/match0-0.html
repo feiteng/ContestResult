@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>647_zzycc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>647_zzycc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minCharacters(string a, string b) {
+        
+        vector&lt;int&gt; arrA(26,0);
+        vector&lt;int&gt; arrB(26,0);
+        int ans = INT_MAX;
+        int sumA = 0, curA = 0;
+        int sumB = 0, curB = 0;
+        for(char c : a){
+            arrA[ c - 'a' ]++;
+            sumA++;
+        }
+        for(char c : b){
+            arrB[ c - 'a' ]++;
+            sumB++;
+        }
+        for(int i = 0;i &lt; 26; i++){
+            curA += arrA[i];
+            curB += arrB[i];
+            if( i != 25 ){
+                ans = min( ans, sumA - curA + curB );
+                ans = min( ans, sumB - curB + curA );
+            }
+            ans = min( ans, ( sumA - arrA[i] + sumB - arrB[i] ) );
+            // cout&lt;&lt;curA&lt;&lt;&quot; &quot;&lt;&lt;curB&lt;&lt;&quot; &quot;&lt;&lt;sumA&lt;&lt;&quot; &quot;&lt;&lt;sumB&lt;&lt;endl;
+            // cout&lt;&lt;ans&lt;&lt;endl;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

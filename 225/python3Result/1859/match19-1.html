@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_YuranN.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>284_YuranN.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def minCharacters(self, a: str, b: str) -&gt; int:
+        A = [0] * 26
+        B = [0] * 26
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for c in a:
+            A[ord(c) - ord('a')] += 1
+        for c in b:
+<A NAME="1"></A>            B[ord(c) - ord('a')] += 1
+        # print(A)
+        # print(B)
+        minops =</B></FONT> float<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>('inf')
+        for c in range(1, 26):
+            minops = min(minops, sum(A[:c]) + sum(B[c:]))
+            minops = min(minops, sum(B[:c]) + sum(A[</B></FONT>c:]))
+        for c in range(26):
+            minops = min(minops, len(a) - A[c] + len(b) - B[c])
+        return minops
+</PRE>
+
+</BODY>
+</HTML>

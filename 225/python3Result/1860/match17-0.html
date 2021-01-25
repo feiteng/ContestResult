@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_kmathing.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>321_kmathing.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def kthLargestValue(self, matrix: List[List[int]], k: int) -&gt; int:
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0 for j in range(n)] for i in range(m)]
+        ans = []
+        
+<A NAME="1"></A>        for i in range(m):
+            for j in range(n):
+                if i &gt; 0 and j &gt; 0:
+                    dp[i][j] = matrix[i][j] ^ dp[i - 1][</B></FONT>j] ^ dp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j - 1] ^ dp[i - 1][j - 1]
+                elif i &gt; 0:
+                    dp[i][j] = matrix[i][j] ^ dp[i - 1][j]
+<A NAME="2"></A>                elif j &gt; 0:
+                    dp[i][j] = matrix[i][j] ^ dp[i][j - 1]
+                else:
+                    dp[i][</B></FONT>j] = matrix<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j]
+                ans.append(dp[i][j])    
+        
+        ans.sort(reverse=True)
+        return ans[k</B></FONT> - 1]
+</PRE>
+
+</BODY>
+</HTML>

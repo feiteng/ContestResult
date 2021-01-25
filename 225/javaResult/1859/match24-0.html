@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>941_wormx.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>941_wormx.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    private int getPrefixSum(int[] arr , int l , int r){
+        if(l == 0){
+            return arr[r];
+        }
+<A NAME="0"></A>        return arr[r] - arr[l-1];
+    }
+       
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minCharacters(String a, String b) {
+        int[] ca = new int[26];
+        int[] cb = new int[26];
+        
+        for(char c : a.toCharArray()){</B></FONT>
+            ca[c -'a']++;
+        }
+<A NAME="1"></A>        
+        for(char c : b.toCharArray()){
+            cb[c -'a']++;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int max = 0;
+        for(int i = 0 ; i &lt; 26 ; i++){
+            max = Math.max(max , ca[i] + cb[i]);
+        }
+        
+        int total = a.length() + b.length</B></FONT>() ;
+<A NAME="2"></A>        int ans = total - max;
+        int ops = 0;
+        
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] pre_a = new int[26];
+        int[] pre_b = new int[26];
+        
+        pre_a[0] = ca[0];
+        pre_b[0] = cb[0];
+        
+        for(int i = 1 ; i &lt; 26 ; i++){
+             pre_a[i] = ca[i] + pre_a[i-1];
+             pre_b[i] = cb[i] + pre_b[i-1];
+        }
+        
+        //condtion 1
+        for(int i = 0 ; i &lt; 25 ; i++){
+            int counta = getPrefixSum(pre_a , 0 , </B></FONT>i);
+            int countb = pre_b[25] - getPrefixSum(pre_b , 0 , i);
+            
+            ans = Math.min(ans , total - counta - countb);
+        }
+    
+<A NAME="3"></A>        //condition 2
+        for(int i = 0 ; i &lt; 25 ; i++){
+            int countb = getPrefixSum(pre_b , 0 , i);
+            int counta = pre_a[25] - <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match24-1.html#3',3,'match24-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>getPrefixSum(pre_a , 0 , i);
+            
+            ans = Math.min(ans , total - counta - countb);
+        }
+        
+        
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
