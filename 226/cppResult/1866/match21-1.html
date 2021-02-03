@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>841_Try12345.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>841_Try12345.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; adjacentPairs) {
+        int n = adjacentPairs.size()+1;
+        
+        unordered_map&lt;int,int&gt; freq;
+        unordered_map&lt;int,vector&lt;int&gt;&gt; adj;
+        for(auto p: adjacentPairs) {
+            adj[p[0]].push_back(p[1]);
+            adj[p[1]].push_back(p[0]);
+            freq[p[0]]++;
+            freq[p[1]]++;
+        }
+        
+        int head = -1;
+        for(auto p: freq)
+            if(p.second==1) {
+                head = p.first;
+                break;
+            }
+        
+        vector&lt;int&gt; ans(n);
+        ans[0] = head; </B></FONT>
+        unordered_set&lt;int&gt; used;
+        used.insert(ans[0]);
+        
+        for(int i=1; i&lt;n; i++) {
+            int prev = ans[i-1];
+            for(auto x: adj[prev]) {
+                if(used.find(x)==used.end()) {
+                    ans[i] = x;
+                    used.insert(x);
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

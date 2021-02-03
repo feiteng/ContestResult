@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>865_chen30.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>865_chen30.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool checkPartitioning(string s) {
+        int N = s.size();
+        vector&lt;vector&lt;bool&gt;&gt; is_huiwen(N, vector&lt;bool&gt;(N));
+        
+        // init
+        for (int length = 1; length &lt;= N; ++ length) {
+            for (int i = 0; i &lt; N; ++ i) {
+<A NAME="1"></A>                int j = i + length - 1;
+                if (j &gt;= N) break;</B></FONT>
+                
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (i == j) is_huiwen[i][j] = true;
+                else if (i == j - 1) is_huiwen[i][j] = (s[i] == s[j]);
+                else is_huiwen[i][j] = (s[i] == s[j] &amp;&amp; is_huiwen[i+1][j-1]);
+            }            
+        }
+<A NAME="2"></A>        
+        
+        for (int i = 0; i &lt; N - 1; ++ i) {</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = i + 1; j &lt; N - 1; ++ j) {
+                if (is_huiwen[0][i] &amp;&amp; is_huiwen[i+1][j] &amp;&amp; is_huiwen[j+1][N-1]) return true;
+            }
+        }
+        
+        return false;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

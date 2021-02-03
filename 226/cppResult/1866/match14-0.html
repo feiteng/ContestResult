@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>242_SuperWhw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>242_SuperWhw.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; ad) {
+        vector&lt;int&gt; res;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        unordered_map&lt;int,vector&lt;int&gt; &gt; m;
+        for(auto&amp; v: ad) {
+            m[v[0]].push_back(v[1]);
+            m[v[1]].push_back(v[0]);
+        }
+        int begin;
+        for(auto it: m) {
+            if(it.second.size() == 1) {
+                begin = it.first;
+                break;
+            }
+        }</B></FONT>
+<A NAME="1"></A>        while(res.size() &lt; ad.size()+1) {
+            int back = res.size() ? res.back() : INT_MAX;
+            res.push_back(begin);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int tmp = begin;
+            for(auto&amp; i: m[tmp]) {
+                if(i != back) {begin = i;break;}
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

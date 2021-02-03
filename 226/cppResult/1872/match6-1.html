@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>849_zhangyi4399-UiXZXzmciK.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>849_zhangyi4399-UiXZXzmciK.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;bool&gt; canEat(vector&lt;int&gt;&amp; candiesCount, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+<A NAME="0"></A>      int candidate_size = candiesCount.size(), query_size = queries.size();
+      vector&lt;long long&gt; prefix_sum(candidate_size,0);
+      prefix_sum[0] = candiesCount[0];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      for(int i = 1; i &lt; candidate_size; i++){
+        prefix_sum[i] = prefix_sum[i - 1] + candiesCount[i];
+      }
+      vector&lt;bool&gt; result(query_size,true);
+      for(int i = 0; i &lt; query_size; i++){
+        long long favor_type = queries[i][0], favor_day = queries[i][1],day_cap = queries[i][2];
+        if(prefix_sum[favor_type] &lt; favor_day + 1 || (favor_type != 0 &amp;&amp; prefix_sum[favor_type - 1] &gt;= (favor_day + 1) * day_cap)){
+          result[i] = false;
+        }
+      }
+      return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

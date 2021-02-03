@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>869_heshan1234.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>869_heshan1234.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean[] canEat(int[] candiesCount, int[][] queries) {
+        int n = queries.length;
+        boolean[] result = new boolean[n];
+        int index = 0</B></FONT>;
+<A NAME="1"></A>        int m = candiesCount.length;
+        long[] sums = new long[m];
+        sums[0] = candiesCount[0];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 1; i &lt; m; ++i) {
+            sums[i] = sums[i-1] + candiesCount[i];
+        }
+        //System.out.println(candiesCount[]));
+        //System.out.println(candiesCount[85]);
+        for(int[] query : queries) {
+            int type = query[0];
+            long day = query[1];
+            long cap = query[2]</B></FONT>;
+            long minEat = 1 * day + 1;
+            long maxEat = cap * day + cap;
+            long minCandy = 1;
+            long maxCandy = sums[type];
+<A NAME="2"></A>            if (type &gt; 0) {
+                minCandy = sums[type - 1] + 1;
+            }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (minEat &gt; maxCandy || minCandy &gt; maxEat) {
+                result[index++] = false;
+            } else {
+                result[index++] = true;
+            }
+        }
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

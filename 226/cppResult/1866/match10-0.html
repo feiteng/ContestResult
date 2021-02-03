@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>500_Ravan_2070.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>500_Ravan_2070.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public:
+    map&lt;int,vector&lt;int&gt;&gt;A;
+    map&lt;int,int&gt;vis;
+    vector&lt;int&gt;ans;
+    void dfs(int v)
+    {
+        vis[v]=1;
+        ans.push_back(v);
+        for(auto c:A[v])
+        {
+            if(vis[c]==0)</B></FONT>
+            {
+                dfs(c);
+            }
+        }
+    }
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; adjacentPairs) {
+        
+<A NAME="1"></A>        int i,n=adjacentPairs.size()+1;
+        map&lt;int,int&gt;M;
+        for(i=0;i&lt;n-1;i++)
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        {
+            M[adjacentPairs[i][0]]++;
+            M[adjacentPairs[i][1]]++;
+            A[adjacentPairs[i][0]].push_back(adjacentPairs[i][1]);
+            A[adjacentPairs[i][1]].push_back(adjacentPairs[i][0]);
+            
+        }
+        
+        int source;
+        for(auto it:M)
+        {
+            if(it.second==1){source=it.first;break;}
+        }
+        
+        dfs(source);
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

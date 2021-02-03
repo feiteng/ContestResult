@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>884_yuanye-2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>884_yuanye-2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool checkPartitioning(string s) {
+        int len = s.size();
+        //创建二维数组用于记录子串s[a:b]是否为回文串，且一开始全部初始化为false（可以发现a&lt;=b）
+        vector&lt;vector&lt;bool&gt;&gt; checkPalindrome(len, vector&lt;bool&gt;(len, false));
+        
+        //根据所给的字符串s，遍历，记录子串s[a:b]是否为回文串
+        for(int right=0;right&lt;len;right++){
+            for(int left=0;left&lt;=right;left++){</B></FONT>
+<A NAME="1"></A>                if(s[left]==s[right] &amp;&amp; (right-left&lt;=2 || checkPalindrome[left+1][right-1])){ // &quot;right-left&lt;=2&quot; 和 &quot;checkPalindrome[left+1][right-1]&quot;位置不可换
+                    checkPalindrome[left][right]=true;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        // [0,i] [i+1,j] [j+1,len)
+        for (int i = 0;i&lt;len-1;i++) {
+            for (int j = i+1;j&lt;len;j++) {
+                if (checkPalindrome[0][i] &amp;&amp; checkPalindrome[i+1][j] &amp;&amp; checkPalindrome[j+1][len-1]) return true;
+            }
+        }
+        return false;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

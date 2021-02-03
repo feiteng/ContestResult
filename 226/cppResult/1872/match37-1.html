@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_lunaticge.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_lunaticge.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;bool&gt; canEat(vector&lt;int&gt;&amp; candiesCount, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        vector&lt;long long&gt; psum(1, 0);
+        long long sum = 0;
+        for (int i : candiesCount) {
+            sum += i;
+            psum.push_back(sum);
+        }
+        vector&lt;bool&gt; ans;
+        for (vector&lt;int&gt; q : queries) {</B></FONT>
+            long long emax = q[2] * 1ll * (q[1] + 1);
+            long long emin = q[1] + 1;
+            if (emax &gt; psum[q[0]] &amp;&amp; emin &lt;= psum[q[0] + 1]) {
+                ans.push_back(true);
+            } 
+            else {
+                ans.push_back(false);
+            }
+        }
+        return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

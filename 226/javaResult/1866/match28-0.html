@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>758_venkatesh17.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>758_venkatesh17.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] restoreArray(int[][] pairs) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; hm = new HashMap&lt;&gt;();
+        for(int[] a: pairs) {</B></FONT>
+<A NAME="1"></A>            if(!hm.containsKey(a[0])) hm.put(a[0], new HashSet&lt;&gt;());
+            if(!hm.containsKey(a[1])) hm.put(a[1], new HashSet&lt;&gt;());
+            hm.get(a[1]).add(a[0]);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>hm.get(a[0]).add(a[1]);
+        }
+        int out = -1;
+<A NAME="2"></A>        for(int key: hm.keySet()) {
+            if(hm.get(key).size() == 1) {
+                o</B></FONT>ut = key;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>break;
+            }
+        }
+        int[] res = new int[pairs.length + 1];
+        res[0] = out;
+        int index = 1</B></FONT>;
+<A NAME="3"></A>        while(index &lt; res.length) {
+            int val = hm.get(out).iterator().next();
+            hm.remove(out);
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match28-1.html#3',3,'match28-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>hm.get(val).remove(out);
+            res[index++] = val;
+            out = val;
+        }
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>842_haibo6.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>842_haibo6.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    bool checkPartitioning(string s) {
+        // f(0, n)
+        
+        // -&gt; consider prefix and suffix palindromic strings
+        // check if the middle string is also palindromic
+        
+        // isPalindrom([0: i]) &amp;&amp; isPalindrom[j: n] &amp;&amp; isPalindrom[i: j]
+        
+        // can string s be split in to 2 palindroms?   n * n
+        // for (int i = k; i &lt; n; i++)
+        //      check [k: i]  &amp;&amp; [i: n]
+        
+        // then check [0:k]
+        
+        // we need an array to quickly check if [x: y] is palindrom
+        
+        // f(x, y) == f(x + 1, y - 1) &amp;&amp; s[x] == s[y]  || x == y
+        
+        int n = s.size();
+        bool dp[n][n];
+        for (int i = 0; i &lt; n; ++i) {
+            dp[i][i] = true;
+        }
+        
+        for (int i = 0; i &lt; n - 1; ++i) {
+            dp[i][i + 1] = s[i] == s[i + 1];
+        }
+        
+        for (int i = 1; i &lt; n; ++i) {
+            for (int j = i - 1; j &gt;= 0; --j) {
+                //cout &lt;&lt; j + 1 &lt;&lt; &quot; &quot; &lt;&lt; i - 1 &lt;&lt; &quot; = &quot; &lt;&lt; dp[j + 1][i - 1] &lt;&lt; endl;
+                dp[j][i] = s[j] == s[i] &amp;&amp; (j + 1 &gt;= i - 1 || dp[j + 1][i - 1]);
+            }
+        }
+<A NAME="1"></A>        
+        for (int k = 1; k &lt; n; ++k) {</B></FONT>
+            if (!dp[0][k - 1]) continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = k; i + 1&lt; n; ++i) {
+                if (dp[k][i] &amp;&amp; dp[i + 1][n-1])
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

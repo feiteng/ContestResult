@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>523_chang_you_ren.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>523_chang_you_ren.py</CENTER></H3><HR>
+<PRE>
+from collections import *
+class Solution:
+    def restoreArray(self, adjP: List[List[int]]) -&gt; List[int]:
+        deg = Counter()
+<A NAME="0"></A>        g = defaultdict(list)
+        for adj in adjP:
+            u, v = adj
+            g<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[u].append(v)
+            g[v].append(u)
+            deg[u] += 1
+            deg[v] += 1
+        st = 0
+        for k in deg:
+            if deg[k] == 1:
+                st = k
+                break
+        ret = []
+<A NAME="1"></A>        used =</B></FONT> set()
+        deq = deque()
+        deq.append(st)
+        used.add<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(st)
+        while deq:
+            f = deq.popleft()
+            ret.append(f)
+            for nxt in g[f]:
+                if nxt not in used:
+                    used.add(nxt)
+                    deq.append(nxt)
+        re</B></FONT>turn ret 
+        
+</PRE>
+
+</BODY>
+</HTML>

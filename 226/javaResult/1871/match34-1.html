@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>775_mufanlee.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>775_mufanlee.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean checkPartitioning(String s) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        for (int i = 0; i &lt; n; i++) {
+            d</B></FONT>p[i][i] = true;
+<A NAME="1"></A>            if (i &lt; n - 1 &amp;&amp; s.charAt(i) == s.charAt(i+1)) {
+                dp[i][i+1] = true;
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int i = 3; i &lt;= n; i++) {
+            for (int j = 0; j + i - 1 &lt; n; j++) {
+                int end = j + i - 1</B></FONT>;
+<A NAME="2"></A>                if (s.charAt(j) == s.charAt(end)) {
+                    dp[j][end] = dp[j + 1][end - 1];
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 2; j &lt; n; j++) {
+                if (dp[0][i] &amp;&amp; dp[i+1][j-1] &amp;&amp; dp[j][n-1]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

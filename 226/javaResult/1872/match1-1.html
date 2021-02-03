@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>305_maoyp.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>305_maoyp.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean[] canEat(int[] candiesCount, int[][] queries) {
+        long[] preCount = new long[candiesCount.length];
+        for (int i = 1; i &lt; candiesCount.length; i++){
+            preCount[i] = preCount[i - 1] + (long)candiesCount[i - 1];
+        }
+        
+        boolean[] result = new boolean[queries.length];
+        for (int i = 0; i &lt; queries.length; i++){
+            int type = queries[i][0], day = queries[i][1], cap = queries[i][2];
+            result[i] = (long)(day + 1) &lt;= preCount[type] + candiesCount[type] &amp;&amp; (day + 1) * (long)cap &gt; preCount[type];
+        }
+        
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

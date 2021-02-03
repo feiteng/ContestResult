@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54_hust_dhc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>54_hust_dhc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; adjacentPairs) {
+        unordered_map&lt;int,vector&lt;int&gt;&gt; umap;
+        for(int i =0;i&lt;adjacentPairs.size();i++){
+            umap[adjacentPairs[i][0]].emplace_back(adjacentPairs[i][1]);
+            umap[adjacentPairs[i][1]].emplace_back(adjacentPairs[i][0]);
+<A NAME="1"></A>        }
+        int start = 0;</B></FONT>
+        vector&lt;int&gt; ans(adjacentPairs.size()+1);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto it = umap.begin();it!=umap.end();it++){
+            if(it-&gt;second.size()==1){
+                start = it-&gt;first;
+                break;
+            }
+        }
+        unordered_map&lt;int,bool&gt; vis;
+        for(int i =0;i&lt;ans.size();i++){</B></FONT>
+            ans[i] = start;
+            vis[start] = true;
+<A NAME="2"></A>            if(i==ans.size()-1){
+                break;
+            }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(vis[umap[start][0]]){
+                start = umap[start][1];
+            }else{
+                start = umap[start][0];
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

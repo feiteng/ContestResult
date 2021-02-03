@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>964_mingrui.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>964_mingrui.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool checkPartitioning(string s) {
+        int n = s.length();
+        vector&lt;vector&lt;bool&gt;&gt; table(n, vector&lt;bool&gt;(n));
+        for (int i = 0; i &lt; n; i++) {
+<A NAME="1"></A>            table[i][i] = true;
+        }
+        for (int i = 1; i &lt; n; i++) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            table[i - 1][i] = (s[i - 1] == s[i]);
+        }
+<A NAME="2"></A>        for (int len = 3; len &lt;= n; len++) {
+            for (int start = 0; start + len - 1 &lt; n; start++) {</B></FONT>
+                table[start][start + len - 1] = (s[start] == s[start + len - 1]) &amp;&amp; table[start + 1][start + len - 2];
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        for (int i = 1; i &lt; n - 1; i++) {
+            for (int j = i; j &lt; n - 1; j++) {
+                if (table[0][i - 1] &amp;&amp; table[i][j] &amp;&amp; table[j + 1][n - 1]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

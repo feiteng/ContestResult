@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_delphih.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_delphih.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def restoreArray(self, A: List[List[int]]) -&gt; List[int]:
+        n = len(A) + 1
+        g = collections.defaultdict<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(set)
+        for u, v in A:
+            g[u].add(v)
+            g[v].add(u)
+        st = 0
+        for u in g:
+            if len(g[u]) == 1:
+                st = u
+                br</B></FONT>eak
+        res = []
+<A NAME="1"></A>        seen = set()
+        def dfs(p):
+            res.append(p)
+            seen<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.add(p)
+            for q in g[p]:
+                if q not in seen: dfs(q)
+        dfs(st)
+        r</B></FONT>eturn res
+</PRE>
+
+</BODY>
+</HTML>

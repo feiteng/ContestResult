@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>329_ToffeeLu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>329_ToffeeLu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean[] canEat(int[] candiesCount, int[][] queries) {
+        int n = candiesCount.length;
+        long[] preSum = new long[n];
+        preSum[0] = candiesCount[0];
+        for(int i = 1; i &lt; n; i++){
+            preSum[i] = preSum[i-1] + candiesCount[i];
+        }
+        
+        int m = queries.length;
+        boolean[] res = new boolean[m];
+        for(int i = 0; i &lt; m; i++){
+            int type = queries[i][0];
+<A NAME="1"></A>            int day = queries[i][1] + 1;
+            long limit = Math.min((long)queries[i][2], preSum[n-1]);</B></FONT>
+            long winMinCount = type &gt; 0 ? preSum[type-1] + 1 : 1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long winMaxCount = preSum[type];
+            if(winMinCount &lt;= limit * day &amp;&amp; day * 1 &lt;= winMaxCount){
+                res[i] = true;
+            }
+            else{
+                res[i] = false;
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_necoramen.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+<A NAME="0"></A>import java.util.HashMap;
+import java.util.List;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] restoreArray(int[][] pairs) {
+
+        HashMap&lt;Integer, List&lt;Integer&gt;&gt; adj = new HashMap&lt;&gt;();
+<A NAME="1"></A>        for (int[] pair : pairs) {
+            int v = pair[0]</B></FONT>, w = pair[1];
+            adj.putIfAbsent(v, new ArrayList&lt;&gt;());
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>adj.putIfAbsent(w, new ArrayList&lt;&gt;());
+
+            adj.get(v).add(w);
+            adj.get(w).add(v);
+<A NAME="2"></A>        }
+
+        Integer prev = null</B></FONT>;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (var entry : adj.entrySet()) {
+            if (entry.getValue().size() == 1) {
+                p</B></FONT>rev = entry.getKey();
+                break;
+            }
+        }
+        int[] ans = new int[pairs.length + 1];
+        ans[0] = prev;
+<A NAME="3"></A>
+
+        for (int i = 1; i &lt; ans.length; i++) {
+            var list = <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>adj.get(ans[i - 1]);
+<A NAME="4"></A>            if (list.size() == 1) {
+                ans[i] = list.get(0);
+            } else {</B></FONT>
+                ans[i] = list.get(0) == ans[i - 2] ? list.get(1) : <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#4',2,'match6-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.get(0);
+            }
+        }
+        return ans;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

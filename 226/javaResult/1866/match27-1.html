@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>448_Usain.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>448_Usain.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] restoreArray(int[][] adjacentPairs) {
+        // Each element appears twice except for the start and the end.
+        Map&lt;Integer, ArrayList&lt;Integer&gt;&gt; m = new HashMap&lt;&gt;();
+        // from val to adjacent values 
+        for(int[] pair: adjacentPairs) {</B></FONT>
+<A NAME="1"></A>            int val1 = pair[0];
+            int val2 = pair[1];
+            
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(!m.containsKey(val1)) m.put(val1, new ArrayList&lt;&gt;());
+            if(!m.containsKey(val2)) m.put(val2, new ArrayList&lt;&gt;());
+            
+            m.get(val1).add(val2);
+            m.get(val2).add(val1);
+        }
+        
+        int[] res = new int[adjacentPairs.length+1];</B></FONT>
+<A NAME="2"></A>        int idx = 0;
+        
+        // get the start
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(Integer val: m.keySet()) {
+            if(m.get(val).size() == 1) {
+                res[idx] = val;
+                idx++;
+                break;
+            }
+        }</B></FONT>
+        
+        while(idx &lt; res.length) {
+            int prev = res[idx-1];
+            ArrayList&lt;Integer&gt; adj = m.get(prev);
+            if(adj.size() == 1) {
+                res[idx] = adj.get(0);
+            } else {
+                int prevPrev = res[idx-2];
+                int next = adj.get(0) == prevPrev? adj.get(1) : adj.get(0);
+                res[idx] = next;
+            }
+            idx++;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

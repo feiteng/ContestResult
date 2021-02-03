@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>627_warudo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>627_warudo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+       public int[] restoreArray(int[][] adjacentPairs) {
+
+        Map&lt;Integer, List&lt;Integer&gt;&gt; m1 = new HashMap&lt;&gt;();
+
+
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+
+<A NAME="0"></A>        for (int[] adjacentPair : adjacentPairs) {
+            map.merge(adjacentPair[0], 1, (v1, v2) -&gt; v1 + v2);
+            map.merge(adjacentPair[1], 1, (v1, v2) -&gt; v1 + v2);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>m1.computeIfAbsent(adjacentPair[0], k -&gt; new ArrayList&lt;&gt;()).add(adjacentPair[1]);
+            m1.computeIfAbsent(adjacentPair[1], k -&gt; new ArrayList&lt;&gt;()).add(adjacentPair[0]);
+<A NAME="1"></A>        }
+        int key = -1;
+        for (Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) {
+            if (entry.getValue</B></FONT>() == 1) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                key = entry.getKey();
+                break;
+            }
+        }
+
+        int[] res = new int[adjacentPairs.length + 1];
+<A NAME="2"></A>        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        set.add(key);
+        res[0] = key;
+        for (int i = 0</B></FONT>; i &lt; adjacentPairs.length; i++) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            List&lt;Integer&gt; integers = m1.get(res[i]);
+            for (Integer integer : integers) {
+                if (integer != null &amp;&amp; !set.contains(integer)) {
+<A NAME="3"></A>                    r</B></FONT>es[i + 1] = integer;
+                    set.add(integer);
+                    break;
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

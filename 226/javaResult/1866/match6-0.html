@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>938_catOfkkkkky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>938_catOfkkkkky.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] restoreArray(int[][] adjacentPairs) {
+<A NAME="1"></A>        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int[] i: adjacentPairs) {
+            List&lt;Integer&gt; l1 = map.getOrDefault(i[0], new LinkedList&lt;&gt;())</B></FONT>;
+            List&lt;Integer&gt; l2 = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.getOrDefault(i[1], new LinkedList&lt;&gt;());
+            l1.add(i[1]);
+            l2.add(i[0]);
+            map.put(i[0], l1);
+            map.put(i[1], l2);
+<A NAME="2"></A>        }
+        int n = adjacentPairs.length</B></FONT>;
+        int[] ans = new int[n + 1];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i: map.keySet()) {
+            if(map.get(i).size() == 1) {
+                a</B></FONT>ns[0] = i;
+                break;
+            }
+        }
+<A NAME="3"></A>        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        set.add(ans[0]);
+        for(int i = 1; i &lt; n + 1; i++) {
+            int a = <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match6-1.html#3',3,'match6-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(ans[i - 1]).get(0);
+            if(!set.contains(a)) {
+                ans[i] = a;
+                set.add(a);
+<A NAME="4"></A>            } else {</B></FONT>
+                int b = map.get(ans[i - 1]).get(1);
+                ans[i] = b;
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match6-1.html#4',3,'match6-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>set.add(b);
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

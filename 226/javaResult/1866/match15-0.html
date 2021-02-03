@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>770_yuanyao8855.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>770_yuanyao8855.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] restoreArray(int[][] adjacentPairs) {
+        HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+
+        for(int[] p : adjacentPairs){
+            int a= p[0],</B></FONT> b=p[1];
+<A NAME="1"></A>            if(!map.containsKey(a)) map.put(a, new HashSet&lt;&gt;());
+            if(!map.containsKey(b)) map.put(b, new HashSet&lt;&gt;());
+            map.get(a).add(b);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(b).add(a);
+  
+        }
+<A NAME="2"></A>        int n =adjacentPairs.length+1;
+        int[] ans = new int[n];
+        HashSet&lt;Integer&gt; seen = new</B></FONT> HashSet&lt;&gt;();
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int key : map.keySet()){
+            if(map.get(key).size()==1){
+                a</B></FONT>ns[0]=key;
+                seen.add(key);
+                break;
+            }
+<A NAME="3"></A>        }
+        
+        for(int i=1; i&lt;n;++i){
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match15-1.html#3',3,'match15-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int next : map.get(ans[i-1])){
+<A NAME="4"></A>                if(!seen.contains(next)){
+                    ans[i]=next;
+                    seen.add</B></FONT>(next);
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match15-1.html#4',3,'match15-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>592_notsomeoneyouknow.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>592_notsomeoneyouknow.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def restoreArray(self, adjacentPairs: List[List[int]]) -&gt; List[int]:
+        g = collections.defaultdict(list)
+        for pair in adjacentPairs:
+            g[pair[0]].append(pair[1])
+            g[pair[1]].append(pair[0])
+            
+        
+        leaf = 0
+        for i, lst in g.items():
+            if len(lst) == 1:
+                leaf = i
+                break
+                
+        lst = []
+        s = set()
+        
+        def</B></FONT> dfs(n, g, lst, s):
+            if n in s:
+                return
+            lst.append(n)
+            s.add(n)
+            for x in g[n]:
+                dfs(x, g, lst, s)
+        
+        dfs(leaf, g, lst, s)
+        
+        return lst
+</PRE>
+
+</BODY>
+</HTML>

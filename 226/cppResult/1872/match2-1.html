@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>628_roastingclub.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>628_roastingclub.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;bool&gt; canEat(vector&lt;int&gt;&amp; a, vector&lt;vector&lt;int&gt;&gt;&amp; q) {
+        int n=a.size();
+        vector&lt;long long&gt; pre(n+1,0);
+        for(int i=1;i&lt;=n;i++){
+            pre[i]=pre[i-1]+a[i-1];
+        }
+        vector&lt;bool&gt; ans(q.size());
+        for(int i=0;i&lt;q.size();i++){
+<A NAME="1"></A>            int type=q[i][0],day=q[i][1],limit=q[i][2];</B></FONT>
+            long long numdays1=(pre[type]/limit);
+            long long numdays2=(pre[type+1]/limit);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(numdays1&gt;day||pre[type+1]&lt;=day){
+                ans[i]=false;
+            }else{
+                ans[i]=true;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

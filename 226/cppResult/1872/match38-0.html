@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>160_subhamx.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>160_subhamx.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;bool&gt; canEat(vector&lt;int&gt;&amp; candiesCount, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        int n=candiesCount.size();
+<A NAME="1"></A>        vector&lt;long long&gt; pref(n);
+        for(int i=0;i&lt;n;i++){
+            pref[i]=(i!=0?pref[i-1]:0)+candiesCount[i];</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        vector&lt;bool&gt; ans;
+        for(auto x:queries){
+            long long day=x[1];
+            long long maxiDay=x[2];
+            long long type=x[0];
+            
+            long long needToFinish=(type!=0?pref[type-1]:0);</B></FONT>
+            if(needToFinish&gt;(maxiDay*day+maxiDay-1)){
+                // I cannot finish all candies till type-1;
+                ans.push_back(false);
+                continue;
+            }
+            long long temp=pref[type]-1;
+            if(temp&gt;=day){
+                // I have 1 candy of type, which I can eat on day;
+                ans.push_back(true);
+            }else{
+                ans.push_back(false);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>157_ustcsse301.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>157_ustcsse301.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; adj) {
+        int n = adj.size() + 1;
+        unordered_map&lt;int,vector&lt;int&gt;&gt; pre;
+        unordered_map&lt;int,int&gt; count;
+        for (auto&amp; a:adj) {
+            int x = a[0], y = a[1];
+            pre[x].push_back(y);
+            pre[y].push_back(x);
+            count[x]++;
+            count[y]++;
+        }
+        int start;</B></FONT>
+        for (auto&amp; [k,times]:count) {
+<A NAME="1"></A>            if (times == 1) {
+                start = k;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        unordered_set&lt;int&gt; visit;
+        vector&lt;int&gt; ans(n);
+        ans[0] = start;
+        visit.insert(start);
+        for (int i = 1; i &lt; n; i++) {
+            for (auto&amp; neigh:pre[start]) {
+                if (!visit.count(neigh)) {
+                    visit.insert(neigh);
+                    start = neigh;
+                    ans[i] = neigh;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

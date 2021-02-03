@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>818_fnwjkm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>818_fnwjkm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="1"></A>    public int[] restoreArray(int[][] adjacentPairs) {
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int[] p : adjacentPairs) {</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.putIfAbsent(p[0], new ArrayList&lt;&gt;());
+            map.putIfAbsent(p[1], new ArrayList&lt;&gt;());
+            map.get(p[0]).add(p[1]);
+            map.get(p[1]).add(p[0]);
+<A NAME="2"></A>        }
+        int n = adjacentPairs.length + 1;
+        int[] res = new</B></FONT> int[n];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int key : map.keySet()) {
+            if (map.get(key).size() == 1) {
+                res[0] = key;
+                break;
+            }
+        }</B></FONT>
+        int preTwo = -100001;
+        for (int i = 1;i &lt; n;i++) {
+            int pre = res[i - 1];
+            for (int cur : map.get(pre)) {
+                if (cur != preTwo) {
+                    res[i] = cur;
+                    preTwo = pre;
+                    break;
+                } 
+            }
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

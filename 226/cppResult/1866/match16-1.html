@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>115_nichenametla.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>115_nichenametla.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    void dfs(unordered_map&lt;int, vector&lt;int&gt;&gt;&amp; graph, int idx, vector&lt;int&gt; &amp;ans, unordered_set&lt;int&gt;&amp; vis)
+    {
+        ans.push_back(idx); 
+        vis.insert(idx); 
+        for (auto j : graph[idx])
+        {
+            if (vis.count(j)) continue; </B></FONT>
+            else dfs(graph, j, ans, vis); 
+        }
+    }
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; adj) {
+        int n = adj.size() + 1; 
+<A NAME="1"></A>        unordered_map&lt;int, vector&lt;int&gt;&gt; graph;
+        
+        for (int i = 0; i &lt; adj.size(); i++)
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        {
+            graph[adj[i][0]].push_back(adj[i][1]); 
+            graph[adj[i][1]].push_back(adj[i][0]);
+        }
+        int idx = INT_MAX; 
+        for (auto it : graph)
+        {
+            if (it.second.size() == 1)
+            {
+                idx = it.first; 
+                break;
+            }
+        }
+        vector&lt;int&gt; ans; 
+        unordered_set&lt;int&gt; vis; 
+        dfs(graph, idx, ans, vis); 
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

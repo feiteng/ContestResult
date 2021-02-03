@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>683_ericschang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>683_ericschang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; restoreArray(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        unordered_map&lt;int, vector&lt;int&gt;&gt; m;
+        for (int i = 0; i &lt; a.size(); i++) {
+            m[a[i][0]].push_back(a[i][1]);
+<A NAME="1"></A>            m[a[i][1]].push_back(a[i][0]);
+        }
+        int s = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto const&amp; x : m) {
+            if (x.second.size() == 1) {
+                s = x.first;
+                break;
+            }
+        }
+<A NAME="2"></A>        vector&lt;int&gt; n;
+        for (int i = 0; i &lt;= a.size(); i++) {</B></FONT>
+            n.push_back(s);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (m[s].size() == 2 &amp;&amp; m[s][0] == n[i-1]) {
+                s = m[s][1];
+            }
+            else {
+                s = m[s][0];
+            }
+        }
+        return n;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>559_kuikuikaka.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>559_kuikuikaka.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean[] canEat(int[] candiesCount, int[][] queries) {
+        int n = queries.length;
+        boolean[] res = new boolean[n];
+        
+<A NAME="1"></A>        long[] preSum = new</B></FONT> long [candiesCount.length];
+        
+        long sum = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; candiesCount.length; i++) {
+            sum += candiesCount[i];
+            preSum[i] = sum;
+        }
+        // for (int i = 0; i &lt;candiesCount.length; i++) {
+        //     System.out.print(&quot; &quot; + preSum[i]);
+        // }
+        // System.out.println();
+        //  System.out.println(&quot;index 90 &quot; + preSum[90]);
+        // System.out.println(&quot;index 91 &quot; + preSum[91]);
+        // System.out.println(candiesCount.length);
+        
+        for (int i = 0; i &lt; n; i++) {
+            long day = queries[i][1] + 1; // least number to eat
+            int type = queries[i][0];
+            long cap = queries[i][2] * day; // most number to eat
+            
+           // System.out.println(&quot; min &quot; + day + &quot; cap &quot; + cap);
+            
+<A NAME="2"></A>            if (type &gt; 0  &amp;&amp; preSum[type] &gt;= day &amp;&amp; preSum[type - 1] &lt; cap) {
+                res[i] = true;
+            }</B></FONT>
+            if (type == 0 &amp;&amp; preSum[type] &gt;= day) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res[i] = true;
+            }
+            
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

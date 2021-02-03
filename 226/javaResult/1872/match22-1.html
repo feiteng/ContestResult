@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_stormsunshine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_stormsunshine.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean[] canEat(int[] candiesCount, int[][] queries) {
+        int length = candiesCount.length;
+        long[] prefixSums = new long[length + 1];
+<A NAME="1"></A>        for (int i = 0; i &lt; length; i++)
+            p</B></FONT>refixSums[i + 1] = prefixSums[i] + candiesCount[i];
+        int queriesCount = queries.length;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean[] answer = new boolean[queriesCount];
+<A NAME="2"></A>        for (int i = 0; i &lt; queriesCount; i++) {
+            int type = queries[i][0], day = queries[i][1], capacity = queries[i][2];
+            long minCandies = prefixSums[type] + 1</B></FONT>, maxCandies = prefixSums[type + 1];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long minPossible = day + 1;
+            long maxPossible = (long) (day + 1) * capacity;
+            answer[i] = minCandies &lt;= maxPossible &amp;&amp; maxCandies &gt;= minPossible;
+        }
+        return answer;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>734_x372p.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>734_x372p.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean[] canEat(int[] candiesCount, int[][] queries) {
+        int n = candiesCount.length;
+        //before[i] -&gt; candies to eat before this candie
+        long[] before = new long[n+1];
+        before[0] = 0;
+        for (int i = 1; i &lt; n+1; i++) {
+<A NAME="1"></A>            before[i] = before[i-1] + candiesCount[i-1];
+        }
+        
+        boolean[] ans = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new boolean[queries.length]</B></FONT>;
+        for (int i = 0; i &lt; queries.length; i++) {
+            int[] qu = queries[i];
+            int type = qu[0];
+            int day = qu[1];
+            int limit = qu[2];
+            
+//             //eat the min, if min passes the day, then false
+//             int min = day-1;
+//             if (min &gt; before[type+1]) {
+//                 ans[i] = false;
+//             }
+            
+//             //before day the max can eat:
+//             long eaten = (long)limit * (long)(day-1);
+//             if (eaten &gt; before[type] &amp;&amp; before[type] &gt;= day-1) {
+//                 ans[i] = true;
+//             } else {
+//                 ans[i] = false;
+//             }
+            
+            //min to eat after day
+            int min = day+1;</B></FONT>
+            
+            //max to eat after day
+            long max = (long)limit * (long)(day+1);
+            
+            long before0 = (long)before[type];
+<A NAME="2"></A>            long before1 = (long)before[type+1];
+            
+            //System.out.println(&quot; min &quot; + min + &quot; max &quot; + max + &quot; before &quot; + before[type+1]);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match4-1.html#2',3,'match4-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (before1 &gt;= min &amp;&amp; before0+1 &lt;= max) {
+                ans[i] = true;
+            } else {
+                ans[i] = false;
+            }
+            
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

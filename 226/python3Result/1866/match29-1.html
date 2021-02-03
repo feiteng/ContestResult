@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>593_OliverJiang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>593_OliverJiang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def restoreArray(self, adjacentPairs: List[List[int]]) -&gt; List[int]:
+        graph = defaultdict(list)
+        for pair in adjacentPairs:
+            graph[pair[0]].append(pair[1])
+            graph[pair[1]].append(pair[0])
+        start = None
+        for key, value in graph.items():
+            if len(value) == 1:
+                start = key
+                break
+        ret = [start]
+        visited =</B></FONT> set([start])
+        while len(ret) &lt; len(adjacentPairs)+1:
+            # print(ret)
+            # print(graph[ret[-1]])
+            for possible in graph[ret[-1]]:
+                if len(ret) == 1 or possible not in visited:
+                    ret.append(possible)
+                    visited.add(possible)
+        return ret
+</PRE>
+
+</BODY>
+</HTML>
