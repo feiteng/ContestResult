@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>279_ju_c_anik.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>279_ju_c_anik.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+        int n=nums.size();int k=n/2;
+        vector&lt;int&gt;possible;
+        for(int i=0;i&lt;(1&lt;&lt;k);i++){
+            int temp=0;
+            for(int j=0;j&lt;k;j++){</B></FONT>
+                if((i&amp;(1&lt;&lt;j))&gt;=1)
+                    temp=temp+nums[j];
+<A NAME="1"></A>            }
+            possible.push_back(temp);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        k=n-k;sort(possible.begin(),possible.end());
+        int min_diff=INT_MAX;
+        for(int i=0;i&lt;(1&lt;&lt;k);i++){
+            int temp=0;
+            for(int j=0;j&lt;k;j++){</B></FONT>
+                if((i&amp;(1&lt;&lt;j))&gt;=1)
+                    temp=temp+nums[j+(n/2)];
+            }
+            int req_sum=goal-temp;
+            int pos=lower_bound(possible.begin(),possible.end(),req_sum)-possible.begin();
+            if(pos==possible.size())pos--;
+            if(possible[pos]==req_sum)min_diff=0;
+            else{
+                min_diff=min(min_diff,abs(possible[pos]+temp-goal));
+                if(pos-1&gt;=0){
+                    pos=pos-1;
+                    min_diff=min(min_diff,abs(possible[pos]+temp-goal));
+                }
+            }
+        }
+        return min_diff;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

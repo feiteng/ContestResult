@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_siahuat0727.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>247_siahuat0727.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minAbsDifference(self, nums: List[int], goal: int) -&gt; int:
+        if len(nums) == 1:
+            return min(abs(goal), abs(goal-nums[0]))
+        k = len(nums)//2
+        
+        
+        def allcomb(n):
+            res = [0, n[0]]
+            for i in range(1, len(n)):
+                res.extend([q+n[i] for q in res])
+            return res
+        
+        
+        n1 = allcomb(nums[:k])
+        n2 = sorted(allcomb(nums[k:]))
+        
+        res = abs(goal)
+<A NAME="0"></A>        
+        for n in n1:
+            target = goal - n
+            i = bisect.bisect_left<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(n2, target)
+            if i != len(n2):
+                res = min(res, abs(target-n2[i]))
+            if i != 0:
+                res = min(res, abs(target-n2[i-1]))
+                
+        re</B></FONT>turn res
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

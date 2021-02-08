@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>204_ronnith.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>204_ronnith.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+using ll = long long;
+using pii = pair&lt;int, int&gt;;
+using pll = pair&lt;ll, ll&gt;;
+using vi = vector&lt;int&gt;;
+using vl = vector&lt;ll&gt;;
+using tiii = tuple&lt;int, int, int&gt;;
+using str = string;
+using ld = long double;
+
+#define FOR(i,a,b) for(int i = (a);i &lt; (b);i ++)
+#define ROF(i,a,b) for(int i = (a);i &gt;= (b);i --)
+#define For(i,b) for(int i = 0;i &lt; (b);i ++)
+#define Rof(i,b) for(int i = (b);i &gt;= 0;i --)
+#define trav(a, b) for(auto a : (b))
+
+#define all(a) (a).begin(), (a).end()
+#define sz(a) int((a).size())
+#define lb(x, y) lower_bound(all(x), y) 
+#define ub(x, y) upper_bound(all(x), y)
+#define beg(x) (x).begin()
+#define en(x) (x).end()
+#define pb push_back
+#define eb emplace_back
+#define ins insert
+
+#define mk make_pair
+#define mt make_tuple
+#define f first
+#define s second
+
+#define LOCAL
+#ifdef LOCAL
+	#define nme(x) #x &lt;&lt; &quot; : &quot; &lt;&lt; x &lt;&lt; ' '
+#else
+	#define cerr if(false)cerr
+	#define nme(x) #x &lt;&lt; &quot; : &quot; &lt;&lt; x &lt;&lt; ' '
+#endif
+
+template&lt;class T&gt; void maxself(T&amp; x, const T&amp; y){x = (y &gt; x ? y : x);}
+template&lt;class T&gt; void minself(T&amp; x, const T&amp; y){x = (y &lt; x ? y : x);}
+
+const ld PI = 3.141592653589793238462643;
+const ll mod = 1000000007;
+struct mi{
+	ll val;explicit operator int() const {return val;}
+	mi():val(0){}
+	mi(ll v):val(v % mod){}
+};
+mi operator+(const mi&amp; a, const mi&amp; b){return (a.val + b.val) % mod;}
+mi operator*(const mi&amp; a, const mi&amp; b){return (a.val * b.val) % mod;}
+mi operator-(const mi&amp; a, const mi&amp; b){return (a.val - b.val + mod) % mod;}
+
+class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+		int n = sz(nums);
+<A NAME="0"></A>		vector&lt;int&gt; A, B;
+		A.pb(0);
+		B.pb(0);        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		for(int i = 0;i &lt; (1&lt;&lt;(n / 2));i ++) {
+			int sum = 0;
+			for(int j = 0;j &lt; n / 2;j ++) {
+				if((1&lt;&lt;j)&amp;i) {
+					sum += nums[j];
+<A NAME="1"></A>				}
+			}</B></FONT>
+			A.pb(sum);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		}
+		int ln = n - n / 2;
+		for(int i = 0;i &lt; (1&lt;&lt;ln);i ++) {
+			int sum = 0;
+			for(int j = 0;j &lt; ln;j ++) {
+				if((1&lt;&lt;j)&amp;i) {
+					sum += nums[j + n / 2];
+				}
+			}</B></FONT>
+			B.pb(sum);
+		}
+		sort(all(A));
+		sort(all(B));
+<A NAME="2"></A>		int ans = INT_MAX;
+
+		for(auto e : A) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			int req = goal - e;
+			auto x = lower_bound(all(B), req);
+			if(x != B.end()) {
+				ans = min(ans, abs(*x + e - goal)); 
+			}
+			if(x != B.begin()) {
+				x --;
+				ans = min(ans, abs(*x + e - goal));
+			}
+		}
+		return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

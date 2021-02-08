@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>254_khoaisohd.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>254_khoaisohd.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    /**
+    Generate all possible sum 0 -&gt; n /2, first
+    Generate all posssible sum n/2 -&gt; n, second
+    sort second 
+    for each sum in first, |goal - sum|, binary search the first number in the second, find firstNumber &lt;
+    **/
+<A NAME="0"></A>    public int minAbsDifference(int[] nums, int goal) {
+        int n = nums.length;
+        TreeSet&lt;Integer&gt; firstSums = generate(nums, 0, n / 2);
+        TreeSet&lt;Integer&gt; treeSet = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>generate(nums, n / 2, n);
+        
+        int ans = Integer.MAX_VALUE;
+        
+        for (int sum: firstSums) {
+            int target = goal - sum;
+            Integer bigger = treeSet.ceiling(target);
+            if (bigger != null) {
+                ans = Math.min(ans, Math.abs(bigger - target));
+            }
+            
+            Integer smaller = treeSet.floor(target);
+            if (smaller != null) {
+                ans = Math.min(ans, Math.abs(target - smaller));
+            }
+        }
+        
+        return ans;
+    }
+    
+    private TreeSet&lt;Integer&gt; generate(int[] nums, int start, int end) {
+        if</B></FONT> (start == end) {
+            return new TreeSet&lt;&gt;(Collections.singleton(0));
+        }
+        
+        TreeSet&lt;Integer&gt; subset = generate(nums, start + 1,  end);
+        TreeSet&lt;Integer&gt; res = new TreeSet&lt;&gt;(subset);
+        for (int sum: subset) {
+            res.add(nums[start] + sum);
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

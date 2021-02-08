@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>112_littledva.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>112_littledva.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int minAbsDifference(vector&lt;int&gt;&amp; v, int goal) {
+        set&lt;int&gt;s;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n=v.size(),nl=n/2,nr=n-nl;
+        for(int i=0; i&lt;1&lt;&lt;nl; i++){
+            int now = 0;
+            for(int j=0; j&lt;21; j++)if(i&amp;(1&lt;&lt;j)){
+                now += v[j];
+<A NAME="1"></A>            }
+            s.insert(now);
+        }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 1e9+7;
+        for(int i=0; i&lt;1&lt;&lt;nr; i++){
+            int now = 0;
+            for(int j=0; j&lt;21; j++)if(i&amp;(1&lt;&lt;j)){
+                now += v[j+nl];
+            }
+            auto it=s.lower_bound(goal-now);
+            if(it!=s.end()){</B></FONT>
+                if(*it==goal-now)return 0;
+                ans = min(ans, *it-(goal-now));
+            }
+            if(it!=s.begin()){
+                it--;
+                ans = min(ans, (goal-now)-*it);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

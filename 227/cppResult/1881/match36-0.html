@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_qwnjc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_qwnjc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+        int n = nums.size();
+        if (n == 1) {
+            return abs(goal - nums[0]);
+        }
+        
+        int l = n / 2;
+        int r = n - l;
+        int L = 1 &lt;&lt; l;
+        int R = 1 &lt;&lt; r;
+        
+        vector&lt;int&gt; LA;
+        LA.reserve(L);
+<A NAME="0"></A>        vector&lt;int&gt; RA;
+        RA.reserve(R);
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 2e9;
+        for (int i = 0; i &lt; L; ++i) {
+            int sum = 0;
+            for (int j = 0; j &lt; l; ++j) {</B></FONT>
+                if ((i &gt;&gt; j) &amp; 1) {
+<A NAME="1"></A>                    sum += nums[j];
+                }
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            res = min(res, abs(sum - goal));
+            LA.push_back(sum);
+        }
+        for (int i = 0; i &lt; R; ++i) {
+            int sum = 0;
+            for (int j = 0; j &lt; r; ++j) {</B></FONT>
+                if ((i &gt;&gt; j) &amp; 1) {
+                    sum += nums[l + j];
+                }
+            }
+            res = min(res, abs(sum - goal));
+            RA.push_back(sum);
+        }
+        
+        sort(LA.begin(), LA.end());
+        LA.resize(unique(LA.begin(), LA.end()) - LA.begin());
+        sort(RA.begin(), RA.end());
+<A NAME="2"></A>        RA.resize(unique(RA.begin(), RA.end()) - RA.begin());
+        
+        for (int i = 0, j = R - 1; i &lt; L; ++i) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match36-1.html#2',3,'match36-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            while (j &gt;= 0 &amp;&amp; LA[i] + RA[j] &gt; goal) {
+                --j;
+            }
+            if (j &gt;= 0) {
+                res = min(res, abs(LA[i] + RA[j] - goal));
+            }
+            if (j + 1 &lt; R) {
+                res = min(res, abs(LA[i] + RA[j + 1] - goal));
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_tonyli0000.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>36_tonyli0000.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+		int n = nums.size();
+		vector&lt;int&gt;a,b;
+		for (int i = 0; i &lt; n; i++) {
+			if (i &lt; n / 2)a.push_back(nums[i]);
+<A NAME="0"></A>			else b.push_back(nums[i]);
+		}
+		vector&lt;int&gt;x, y;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		int na = a.size(), nb = b.size();
+		for (int i = 0; i &lt; (1 &lt;&lt; na); i++) {
+			int sum = 0;
+			for (int j = 0; j &lt; na; j++) {
+				if (i &amp; (1 &lt;&lt; j))sum += a[j];
+			}
+			x.push_back(sum);
+		}
+		for (int i = 0; i &lt; (1 &lt;&lt; nb); i++) {
+			int sum = 0;
+			for (int j = 0; j &lt; nb; j++) {
+				if (i &amp; (1 &lt;&lt; j))sum += b[j];
+			}
+			y.push_back(sum);
+		}
+		sort(x.begin(), x.end());
+		sort(y.begin(), y.end());
+
+		int minn = 2e9;
+		int ret = -1;
+		for (int i = 0; i &lt; x.size(); i++) {</B></FONT>
+			int need = goal - x[i];
+			auto it = upper_bound(y.begin(), y.end(), need - 1);
+			if (it != y.end()) {
+				int val = y[it - y.begin()];
+				if (abs(goal - (x[i] + val)) &lt; minn) {
+					ret = x[i] + val;
+					minn = min(minn, abs(goal - ret));
+				}
+			}
+			if (it != y.begin()) {
+				it--;
+				int val = y[it - y.begin()];
+				if (abs(goal - (x[i] + val)) &lt; minn) {
+					ret = x[i] + val;
+					minn = min(minn, abs(goal - ret));
+				}
+
+			}
+		}
+		return minn;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

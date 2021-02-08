@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>160_huanglin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>160_huanglin.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minAbsDifference(int[] nums, int goal) {
+        TreeSet&lt;Integer&gt; resultSet1 = new TreeSet&lt;&gt;();
+        HashSet&lt;Integer&gt; tmpSet = new HashSet&lt;&gt;();
+        resultSet1.add(0);
+        long target = goal;
+        long ans = Math.abs(goal);
+        int n = nums.length;
+        for (int i = 0; i &lt; n / 2; i++) {
+            tmpSet.clear();
+<A NAME="0"></A>            for (int pre : resultSet1) {
+                int validSum = pre + nums[i];
+                ans = Math.min(ans, Math.abs(target - validSum));
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>tmpSet.add(validSum);
+            }
+            resultSet1.addAll(tmpSet);
+        }
+
+        HashSet&lt;Integer&gt; resultSet2 = new HashSet&lt;&gt;();
+        resultSet2.add(0);
+        for (int i = n / 2; i &lt; n; i++) {</B></FONT>
+            tmpSet.clear();
+<A NAME="1"></A>            for (int pre : resultSet2) {
+                int validSum = pre + nums[i];
+                ans = Math.min(ans, Math.abs(target - validSum));
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>tmpSet.add(validSum);
+            }
+            resultSet2.addAll(tmpSet);
+        }
+
+        for (int halfNum : resultSet2) {
+            long distance = target - halfNum</B></FONT>;
+            if (distance &gt; Integer.MAX_VALUE || distance &lt; Integer.MIN_VALUE) {
+                continue;
+            }
+            int d = (int)distance;
+            Integer tmp = resultSet1.floor(d);
+            if (tmp != null) {
+                ans = Math.min(ans, Math.abs(d - tmp));
+            }
+<A NAME="2"></A>
+            tmp = resultSet1.ceiling(d);
+            if (tmp != null) {
+                ans = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(ans, Math.abs(d - tmp));
+            }
+        }
+
+        return (int)ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

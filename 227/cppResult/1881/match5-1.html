@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>177_czjczj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>177_czjczj.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; w, int goal) {
+        int total = w.size();
+        int n=total/2, m=total-n;
+        unordered_set&lt;int&gt; prev, last;
+        for(int i=0; i&lt;(1&lt;&lt;n); i++){
+            int t = 0;
+            for(int j=0; j&lt;n; j++){
+                if((i&gt;&gt;j) &amp; 1) t += w[j];
+            }
+<A NAME="1"></A>            prev.insert(t);
+        }</B></FONT>
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;(1&lt;&lt;m); i++){
+            int t = 0;
+            for(int j=0; j&lt;m; j++){
+                if((i&gt;&gt;j) &amp; 1) t += w[n+j];
+            }</B></FONT>
+            last.insert(t);
+        }
+        
+//         for(auto x: prev) cout&lt;&lt;x&lt;&lt;' ';
+//         cout&lt;&lt;endl;
+//         for(auto x: last) cout&lt;&lt;x&lt;&lt;' ';
+//         cout&lt;&lt;endl;
+        
+        
+        vector&lt;int&gt; left, r;
+        for(auto x: prev) left.push_back(x);
+        for(auto x: last) r.push_back(x);
+        sort(r.begin(), r.end());
+        int ans = INT_MAX;
+        
+        for(auto x: left){
+            int t = goal-x;
+            int idx = lower_bound(r.begin(), r.end(), t) - r.begin();
+            if(idx&lt;r.size()) ans = min(ans, abs(r[idx] - t));
+            
+            int L=0, R=r.size()-1;
+            while(L&lt;R){
+                int mid = L+R+1&gt;&gt;1;
+                if(r[mid]&lt;=t) L=mid;
+                else R=mid-1;
+            }
+            if(r[L]&lt;=t) ans = min(ans, abs(r[L]-t));
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

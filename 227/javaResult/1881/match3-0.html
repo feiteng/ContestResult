@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>363_mhaghpanah.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>363_mhaghpanah.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minAbsDifference(int[] nums, int goal) {
+        int n = nums.length;
+<A NAME="0"></A>        int m = n / 2;
+        long ans = Integer.MAX_VALUE;
+        TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; (1 &lt;&lt; m); i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; m; j++) {
+                if (((i &gt;&gt; j) &amp; 1) != 0) {
+                    sum += nums[j];
+                }
+            }
+<A NAME="1"></A>            set.add(sum);
+        }</B></FONT>
+        // System.out.println(set);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; (1 &lt;&lt; (n - m)); i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; n - m; j++) {
+                if (((i &gt;&gt; j) &amp; 1) != 0) {
+                    sum += nums[m + j];
+                }
+            }
+            // System.out.println(sum);
+            int k = goal - sum</B></FONT>;
+            Integer floor = set.floor(k);
+            Integer ceiling = set.ceiling(k);
+            if (floor != null &amp;&amp; ans &gt; Math.abs(goal - (floor + sum))) ans = Math.abs(goal - (floor + sum));
+            if (ceiling != null &amp;&amp; ans &gt; Math.abs(goal - (ceiling + sum))) ans = Math.abs(goal - (ceiling + sum));
+                
+        }
+        return (int)ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

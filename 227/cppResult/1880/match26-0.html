@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>791_studyprogram.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>791_studyprogram.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string largestMerge(string word1, string word2) {
+<A NAME="0"></A>        string merge;
+        int n1 = word1.size();
+        int n2 = word2.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int i=0,j=0,k=0;
+        while(i&lt;n1 &amp;&amp; j&lt;n2){
+            if (word1[i] &gt; word2[j]){
+                merge += word1[i];
+                i ++;
+            }
+            else if (word1[i] &lt; word2[j]){
+<A NAME="1"></A>                merge += word2[j];
+                j ++;
+            }
+            else if(word1[i] == word2[j]) {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                int t1 = i,t2=j;
+
+                while(t1&lt;n1 &amp;&amp; t2&lt;n2 &amp;&amp; word1[t1] == word2[t2]){
+                    // cout&lt;&lt;t1&lt;&lt;&quot; &quot;&lt;&lt;t2&lt;&lt;endl;
+                    // cout&lt;&lt;word1[t1]&lt;&lt;&quot; &quot;&lt;&lt;word2[t2]&lt;&lt;endl;
+                    t1 ++;
+                    t2 ++;
+                }
+                // cout&lt;&lt;word1[t1]&lt;&lt;&quot; &quot;&lt;&lt;word2[t2]&lt;&lt;endl;
+                if (t1 == n1){
+                    merge+= word2[j];
+                    j ++;
+                }
+                else if (t2 == n2){
+                    merge+= word1[i];
+                    i ++;
+                }
+                else if (word1[t1] &gt; word2[t2]){
+                    merge += word1[i];
+                    i ++;
+                }
+                else{
+                    merge += word2[j];
+                    j ++;
+                }
+            }
+            
+        }
+        
+        while (i&lt;n1){
+            merge += word1[i];
+            i ++;
+        }
+        while(j&lt;n2){
+            merge += word2[j];
+            j ++;
+        }
+        
+        return merge;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>333_WangQiuc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>333_WangQiuc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+<A NAME="1"></A>        int n = nums.size();
+        int t = n&gt;&gt;1; 
+        vector&lt;int&gt; A, B;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int N = 1&lt;&lt;t;
+        for(int x = 0; x &lt; N; x++)
+        {
+            int s = 0;
+            for(int i = 0; i &lt; t; i++) if(x&gt;&gt;i&amp;1)
+                s += nums[i];</B></FONT>
+<A NAME="2"></A>            A.push_back(s);
+        }
+        N = 1&lt;&lt;(n-t);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int x = 0; x &lt; N; x++)
+        {
+            int s = 0;
+            for(int i = t; i &lt; n; i++) if(x&gt;&gt;(i-t)&amp;1)
+                s += nums[i];
+            B.push_back(s);
+        }
+        sort(B.begin(), B.end());
+        int diff = 0x7fffffff;</B></FONT>
+        n = B.size();
+        for(int x : A)
+        {
+            int y = goal-x;
+            int i = lower_bound(B.begin(), B.end(), y) - B.begin();
+            if(i) diff = min(diff, abs(B[i-1]-y));
+            if(i &lt; n) diff = min(diff, abs(B[i]-y));
+            if(!diff) return 0;
+        }
+        return diff; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

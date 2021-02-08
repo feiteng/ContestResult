@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>551_jklp2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>551_jklp2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match43-1.html#0',3,'match43-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string largestMerge(string word1, string word2) {
+        int m=word1.size(),n=word2.size();
+        int i=0,j=0;
+        string ret;
+        while(i&lt;m&amp;&amp;j&lt;n){
+            if(word1[i]&gt;word2[j]){
+                ret+=word1[i];
+                i++;
+            }else if(word1[i]&lt;word2[j]){
+                ret+=word2[j];
+                j++;
+            }else{</B></FONT>
+                int t1=i+1,t2=j+1,phase=-1;
+                while(t1&lt;m&amp;&amp;t2&lt;n){
+                    if(word1[t1]&lt;word2[t2]){
+                        phase=0;
+                        break;
+                    }else if(word1[t1]&gt;word2[t2]){
+                        phase=1;
+                        break;
+                    }
+                    t1++;
+                    t2++;
+                }
+                if(phase==-1){
+                    if(t1&lt;m)
+                        phase=1;
+<A NAME="1"></A>                    else
+                        phase=0;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match43-1.html#1',3,'match43-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(phase==0){
+                    ret+=word2[j];
+                    j++;
+                }else{
+                    ret+=word1[i];
+                    i++;
+                }
+            }
+        }
+        while(i&lt;m){
+            ret+=word1[i];
+            i++;
+        }
+        while(j&lt;n){
+            ret+=word2[j];
+            j++;
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_Prasanna648.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>320_Prasanna648.py</CENTER></H3><HR>
+<PRE>
+import bisect
+class Solution:
+    def minAbsDifference(self, nums: List[int], goal: int) -&gt; int:
+        #@lru_cache(None)
+#         def backtrack(pos, currsum):
+#             if pos &gt;= n:
+#                 return currsum
+            
+#             take = backtrack(pos+1, currsum+nums[pos])
+#             leave = backtrack(pos+1, currsum)
+#             #print(take)
+#             if abs(take - goal) &lt; abs(leave - goal):
+#                 return take
+#             else:
+#                 return leave
+            
+<A NAME="0"></A>        n = len(nums)
+#         nums.sort()
+#         return abs(backtrack(0, 0)-goal)
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def gen(i, e, cs):
+            if i == e:
+                return [cs]
+            take = gen(i+1, e, cs+nums[i])
+            leave = gen(i+1, e, cs)
+            return take+leave
+        
+        f = gen(0, n//2, 0)
+        s = gen(</B></FONT>n//2, n, 0)
+        #print(n//2)
+        s.sort()
+        res = abs(goal)
+        #print(f, s)
+        for i in range(len(f)):
+            c1 = bisect.bisect_left(s, goal - f[i])
+            #print(rem)
+            #c2 = bisect.bisect_right(s, goal - f[i])
+            #print(c1, c2)
+            res = min(res, abs(goal - (f[i]+s[min(c1, len(s)-1)])), abs(goal - (f[i]+s[min(c1+1, len(s)-1)])), abs(goal - (f[i]+s[min(c1-1, len(s)-1)])))
+            
+        return res
+            
+</PRE>
+
+</BODY>
+</HTML>

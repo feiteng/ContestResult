@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>83_llcD_K.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>83_llcD_K.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+        int N = nums.size();
+        vector&lt;int&gt; v1, v2;
+        for(int i = 0; i &lt; N/2; i++){</B></FONT>
+            v1.push_back(nums[i]);
+        }
+        for(int i = N/2; i &lt; N; i++){
+            v2.push_back(nums[i]);
+        }
+        
+        vector&lt;int&gt; p1, p2;
+        genAllPossible(v1, p1);
+        genAllPossible(v2, p2);
+<A NAME="1"></A>        
+        sort(p2.begin(), p2.end()); 
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 2000000001;
+        for(int n: p1){
+            int ptr = lower_bound(p2.begin(), p2.end(), goal - n) - p2.begin();
+            if(ptr &lt; p2.size()){
+                res = min(res, abs(p2[ptr] + n - goal));
+            }
+            if(ptr &gt; 0){
+                res = min(res, abs(p2[ptr-1] + n - goal));
+            }
+        }
+        
+        return res;
+    }</B></FONT>
+<A NAME="2"></A>    
+    void genAllPossible(vector&lt;int&gt;&amp; origin, vector&lt;int&gt;&amp; allP){
+        int N = origin.size();
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int x = 0; x &lt; (1 &lt;&lt; N); x++){
+            int sum = 0;
+            for(int i = 0; i &lt; N; i++){
+                if((x &amp; (1 &lt;&lt; i)) &gt; 0) sum += origin[i];</B></FONT>
+            }
+            allP.push_back(sum);
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>772_lechen999.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>772_lechen999.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="1"></A>    public String largestMerge(String word1, String word2) {
+        StringBuilder sb = new StringBuilder();
+        int i1 = 0</B></FONT>, i2 = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (i1 &lt; word1.length() &amp;&amp; i2 &lt; word2.length()) {
+            char c1 = word1.charAt(i1), c2 = word2.charAt(i2);
+            if (c1 &gt; c2) {
+                sb.append(c1);
+                i1++;
+            } else if (c2 &gt; c1) {
+<A NAME="2"></A>                sb.append(c2);
+                i2++;
+            } else {</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (word1EqualLarger(i1, word1, i2, word2)) {
+                    sb.append(c1);
+                    i1++;
+                } else {
+                    sb.append(c2);
+                    i2++;
+                }
+            }
+        }
+        while (i1 &lt; word1.length()) {
+            sb.append(word1.charAt(i1));
+            i1++;
+        }
+        while (i2 &lt; word2.length()) {
+            sb.append(word2.charAt(i2));
+            i2++;
+        }
+        return sb.toString();
+    }</B></FONT>
+    
+    private boolean word1EqualLarger(int i1, String word1, int i2, String word2) {
+        while (i1 &lt; word1.length() &amp;&amp; i2 &lt; word2.length() &amp;&amp; word1.charAt(i1) == word2.charAt(i2)) {
+            i1++;
+            i2++;
+        } 
+        if (i2 == word2.length()) {
+            return true;
+        }
+        if (i1 == word1.length()) {
+            return false;
+        }
+        return word1.charAt(i1) &gt; word2.charAt(i2);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

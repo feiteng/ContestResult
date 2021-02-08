@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>798_xr_g.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>798_xr_g.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    string largestMerge(string word1, string word2) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        string merge = &quot;&quot;;
+        int idx1, idx2;
+        
+        idx1 = 0, idx2 = 0;
+        while (idx1 != word1.size() &amp;&amp; idx2 != word2.size())
+        {
+            if (word1[idx1] &gt; word2[idx2])
+            {
+                merge += word1[idx1];
+                idx1++;
+            }
+            else if (word1[idx1] &lt; word2[idx2])
+            {
+                merge += word2[idx2];
+                idx2++;
+            }
+            else  // 相等的时候，移动更大的那个指针，更可能遇到更大的字符
+            {
+                if (strcmp(word1.c_str() + idx1, word2.c_str() + idx2) &gt;= 0)
+                {
+                    merge += word1[idx1];
+                    idx1++;
+                }
+                else
+                {
+                    merge += word2[idx2];
+                    idx2++;
+                }
+            }
+        }
+        while (idx1 != word1.size())
+        {
+            merge += word1[idx1++];
+        }
+        while (idx2 != word2.size())
+        {
+            merge += word2[idx2++];
+        }
+        return merge;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>302_hemendra.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>302_hemendra.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string largestMerge(string word1, string word2) {
+        int n1 = word1.length(), n2 = word2.length();
+        /*vector&lt;vector&lt;bool&gt;&gt; is1greater(n1, vector&lt;bool&gt;(n2));
+        for(int i = n1 - 1; i &gt;= 0; i--) { // starting at i
+            for(int j = n2 - 1; j &gt;= 0; j--) { // starting at j;
+                if(word1[i] &gt; word2[j]) {
+                    is1greater[i][j] = true;
+                }
+                else if(word1[i] &lt; word2[j]) {
+                    is1greater[i][j] = false;
+                }
+                else {
+                    if(i == n1-1) {
+                        is1greater[i][j] = false;
+                    }
+                    else if(j == n2 - 1) {
+                        is1greater[i][j] = true;
+                    }
+                    else {
+                        is1greater[i][j] = is1greater[i+1][j+1];
+                    }
+                }
+            }
+
+        }
+        string ans;
+        int i1 = 0, i2 = 0;
+        while((i1 &lt; n1) &amp;&amp; (i2 &lt; n2)) {
+            if(is1greater[i1][i2]) {
+                ans += word1[i1++];
+            }
+            else {
+                ans += word2[i2++];
+            }
+        }
+        while(i1 &lt; n1) {
+            ans += word1[i1++];
+        }
+        while(i2 &lt; n2) {
+            ans += word2[i2++];
+        }
+<A NAME="0"></A>        return ans;*/
+        string ans;
+        //cout &lt;&lt; n1 &lt;&lt; ' ' &lt;&lt; n2 &lt;&lt; '\n';
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int i1 = 0, i2 = 0;
+        while ((i1 &lt; n1) &amp;&amp; (i2 &lt; n2)) {
+            if (word1[i1] &gt; word2[i2]) {
+                ans += word1[i1++];
+            }
+            else if (word1[i1] &lt; word2[i2]) {
+                ans += word2[i2++];
+            }
+            else {
+                int j1 = i1, j2 = i2;
+                while ((j1 &lt; n1) &amp;&amp; (j2 &lt; n2) &amp;&amp; (word1[j1] == word2[j2])) {
+                    j1++, j2++;
+                }
+                if ((j1 == n1)) {
+                    //while (i2 &lt;= j2) {
+                        ans += word2[i2++];
+                    //}
+                }
+                else if ((j2 == n2)) {
+                    //while (i1 &lt;= j1) {
+                        ans += word1[i1++];
+                    //}
+                }
+                else {
+                    if (word1[j1] &gt; word2[j2]) {
+                        //while (i1 &lt;= j1) {
+<A NAME="1"></A>                            ans += word1[i1++];
+                        //}
+                    }
+                    else {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                        //while (i2 &lt;= j2) {
+                            ans += word2[i2++];
+                        //}
+                    }
+                }
+            }
+        }
+        while (i1 &lt; n1) {
+            ans += word1[i1++];
+        }
+        while (i2 &lt; n2) {
+            ans += word2[i2++];
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

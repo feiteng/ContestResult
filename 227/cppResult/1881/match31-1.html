@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_hank55663.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_hank55663.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="1"></A>    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+        set&lt;int&gt; s1,s2;
+        if(nums.size()&lt;=20){
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int ans=1e9;
+            for(int i = 0;i&lt;(1&lt;&lt;nums.size());i++){
+                int sum=0;
+                for(int j = 0;j&lt;nums.size();j++){</B></FONT>
+                    if(i&amp;(1&lt;&lt;j))sum+=nums[j];
+                }
+                ans=min(ans,abs(goal-sum));
+            }
+<A NAME="0"></A>            return ans;
+        }
+        else{
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int mid=nums.size()/2;
+            for(int i = 0;i&lt;(1&lt;&lt;mid);i++){
+                int sum=0;
+                for(int j = 0;j&lt;mid;j++){</B></FONT>
+                    if(i&amp;(1&lt;&lt;j))sum+=nums[j];
+                }
+                s1.insert(sum);
+            }
+            int ans=1e9;
+<A NAME="2"></A>            for(int i =0;i&lt;(1&lt;&lt;(nums.size()-mid));i++){
+                int sum=0;
+                for(int j = 0;j+mid&lt;nums.size();j++){
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if(i&amp;(1&lt;&lt;j))sum+=nums[mid+j];
+                }
+             //   s2.insert(sum);
+                auto it2=s1.lower_bound(goal-sum);
+                if(it2!=s1.end())ans=min(ans,sum+*it2-goal);
+                if(it2!=s1.begin()){
+                    it2--;
+                    ans=min(ans,goal-sum-*it2);
+                }
+            }
+            /*
+            int ans=1e9;
+            for(auto it:s1){
+                auto it2=s2.lower_bound(goal-it);
+                if(it2!=s2.end())ans=min(ans,it+*it2-goal);
+                if(it2!=s2.begin()){
+                    it2--;
+                    ans=min(ans,goal-it-*it2);
+                }
+            }*/
+            return ans;
+        }
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

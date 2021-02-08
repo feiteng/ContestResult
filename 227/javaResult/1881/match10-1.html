@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_Neymars.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_Neymars.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minAbsDifference(int[] nums, int goal) {
+        int n = nums.length;
+        int len = 1 &lt;&lt; n / 2;
+        long ans = 5000000000L;
+        List&lt;Long&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; (1 &lt;&lt; n / 2); i++) {
+            long sum = 0;
+            for (int j = 0; j &lt; n / 2; j++) {
+                if</B></FONT> ((i &gt;&gt; j &amp; 1) != 0)
+                    sum += nums[j];
+            }
+            list.add(sum);
+        }
+<A NAME="1"></A>        int size = list.size();
+        Collections.sort(list);
+        for (int i = 0; i &lt; (n + 1) / 2; i++)
+            nums[i] = nums[i + n / 2]<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        for (int i = 0; i &lt; (1 &lt;&lt; (n + 1) / 2); i++) {
+            long sum = 0;
+            for (int j = 0; j &lt; (n + 1) / 2; j++) {
+                if</B></FONT> ((i &gt;&gt; j &amp; 1) != 0)
+                    sum += nums[j];
+            }
+            int l = 0, r = size - 1, p = -1;
+            while (l &lt;= r) {
+                int mid = (l + r) / 2;
+                if (goal - sum &gt;= list.get(mid)) {
+                    p = mid;
+                    l = mid + 1;
+                } else
+                    r = mid - 1;
+            }
+            if (p != -1)
+                ans = Math.min(ans, Math.abs(goal - (sum + list.get(p))));
+            if (p + 1 &lt; size)
+                ans = Math.min(ans, Math.abs(goal - (sum + list.get(p + 1))));
+        }
+        return (int) ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

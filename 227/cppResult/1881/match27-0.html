@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>290_cai-liao-xian-zhi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>290_cai-liao-xian-zhi.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+<A NAME="0"></A>        int i,n=nums.size(),res=abs(goal),m=n&gt;&gt;1;
+        int N=1&lt;&lt;m,M=1&lt;&lt;(n-m);
+        set&lt;int&gt;s;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(i=0;i&lt;N;++i){
+            int sum = 0;
+            for(int j=0;j&lt;m;++j){
+                if((1&lt;&lt;j)&amp;i)sum += nums[j];
+            }</B></FONT>
+            //cout&lt;&lt;sum&lt;&lt;&quot; &quot;&lt;&lt;goal;
+            if(sum==goal)return 0;
+<A NAME="1"></A>            res = min(res,abs(sum-goal));
+            s.insert(sum);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(i=0;i&lt;M;++i){
+            int sum = 0;
+<A NAME="2"></A>            for(int j=m;j&lt;n;++j){
+                if((1&lt;&lt;(j-m))&amp;i)sum += nums[j];
+            }</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto p = s.lower_bound(goal-sum);
+            if(p!=s.end())res = min(res,abs(goal-sum-*p));
+            if(p!=s.begin()){
+                p--;
+                res = min(res,abs(goal-sum-*p));
+            }
+            //cout&lt;&lt;sum&lt;&lt;&quot; &quot;&lt;&lt;res&lt;&lt;endl;
+            if(res==0)return 0;
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

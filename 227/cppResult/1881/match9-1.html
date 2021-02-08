@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7__aki_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>7__aki_.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>vector&lt;int&gt; calc(vector&lt;int&gt; a) {
+    vector&lt;int&gt; res;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int m = 0; m &lt; (1 &lt;&lt; a.size()); ++ m) {
+        int s = 0;
+        for (int i = 0; i &lt; a.size(); ++ i) {
+            if (m &gt;&gt; i &amp; 1) {</B></FONT>
+                s += a[i];
+            }
+        }
+        res.push_back(s);
+    }
+<A NAME="0"></A>    sort(res.begin(), res.end());
+    return res;
+}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; A, int s) {
+        int B = A.size() / 2;
+        vector&lt;int&gt; a, b;
+        for (int i = 0; i &lt; B; ++ i) a.push_back(A[i]);</B></FONT>
+<A NAME="1"></A>        for (int i = B; i &lt; A.size(); ++ i) b.push_back(A[i]);
+        auto t1 = calc(a);
+        auto t2 = calc(b);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 2e9;
+        for (int x : t1) {
+            int i = upper_bound(t2.begin(), t2.end(), s - x) - t2.begin();
+            if (i &gt; 0) {
+                ans = min(ans, abs(t2[i - 1] + x - s));
+            }
+            if (i &lt; t2.size()) {
+                ans = min(ans, abs(t2[i] + x - s));
+            }
+        }
+        return ans;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

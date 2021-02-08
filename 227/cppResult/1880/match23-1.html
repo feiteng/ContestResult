@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>575_febr30th.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>575_febr30th.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution
+{
+public:
+    string largestMerge(string word1, string word2)
+    {
+        string ans;
+        int m=word1.size(),n=word2.size(),i=0,j=0,k,l;
+        while(i&lt;m&amp;&amp;j&lt;n)
+        {
+            if(word1[i]&gt;word2[j])
+            {
+                ans.push_back(word1[i++]);
+            }
+            else if(word2[j]&gt;word1[i])
+            {
+                ans.push_back(word2[j++]);
+            }
+            else
+            {
+                k=i;l=j;
+                while(k&lt;m&amp;&amp;l&lt;n&amp;&amp;word1[k]==word2[l])
+                {
+                    k++;
+                    l++;
+                }
+                if(k==m)
+                {
+                    ans.push_back(word2[j++]);
+                }
+                else if(l==n)</B></FONT>
+                {
+                    ans.push_back(word1[i++]);
+                }
+                else if(word1[k]&gt;word2[l])
+                {
+<A NAME="1"></A>                    ans.push_back(word1[i++]);
+                }
+                else
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                {
+                    ans.push_back(word2[j++]);
+                }
+            }
+        }
+        while(i&lt;m)
+        {
+            ans.push_back(word1[i++]);
+        }
+        while(j&lt;n)
+        {
+            ans.push_back(word2[j++]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

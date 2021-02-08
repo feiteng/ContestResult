@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>90_LarryNY.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>90_LarryNY.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minAbsDifference(int[] nums, int goal) {
+        int N = nums.length;
+        
+        int Nleft = N / 2;
+        int Nright = N - Nleft;
+<A NAME="0"></A>        
+        Set&lt;Long&gt; leftSet = new HashSet&lt;Long&gt;();
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; (1 &lt;&lt; Nleft); i++) {
+            long current = 0;
+            for (int j = 0; j &lt; Nleft; j++) {
+                if ((i &amp; (1 &lt;&lt; j)) &gt; 0) {
+                    current += nums[j];
+                }
+            }
+            leftSet.add</B></FONT>(current);
+        }
+        
+        ArrayList&lt;Long&gt; leftArr = new ArrayList&lt;Long&gt;();
+        for (Long x : leftSet) {
+            leftArr.add(x);
+        }
+        Collections.sort(leftArr);
+<A NAME="1"></A>        
+        long best = Math.abs(goal);
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; (1 &lt;&lt; Nright); i++) {
+            long current = 0;
+            for (int j = 0; j &lt; Nright; j++) {
+                if ((i &amp; (1 &lt;&lt; j)) &gt; 0) {
+                    current += nums[j + Nleft];
+                }
+            }</B></FONT>
+            
+            int index = Collections.binarySearch(leftArr, goal - current);
+            if (index &lt; 0) {
+                index = -(index + 1);
+            }
+            if (index &lt; leftArr.size()) {
+                best = Math.min(best, Math.abs(goal - (leftArr.get(index) + current)));
+            }
+<A NAME="2"></A>            if (index - 1 &gt;= 0) {
+                best = Math.min(best, Math.abs(goal - (leftArr.get(index - 1) + current)));
+            }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (index + 1 &lt; leftArr.size()) {
+                best = Math.min(best, Math.abs(goal - (leftArr.get(index + 1) + current)));
+            }
+        }
+        return (int) best;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

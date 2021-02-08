@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_ferrarima.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_ferrarima.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minAbsDifference(self, nums: List[int], goal: int) -&gt; int:
+        def getAllSums(nums):
+            vset=set([0])
+            for x in nums:
+                for e in list(vset):
+                    vset.add(x+e)
+            return sorted(</B></FONT>list(vset))
+        n=len(nums)
+        md=n//2
+        p1sums=getAllSums(nums[:md])
+        p2sums=getAllSums(nums[md:])
+        m1=len(p1sums)
+        m2=len(p2sums)
+        i1=0
+        i2=m2-1
+        ans=abs(goal)
+        while i1&lt;m1 and i2&gt;=0:
+            diff=p1sums[i1]+p2sums[i2]-goal
+            if diff==0:
+                return 0
+            ans=min(ans,abs(p1sums[i1]+p2sums[i2]-goal))
+            if diff&lt;0:
+                i1+=1
+            else:
+                i2-=1
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

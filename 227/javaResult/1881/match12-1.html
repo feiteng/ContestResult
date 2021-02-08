@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>193_USF-CS.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>193_USF-CS.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+  void pre(int n, int nn, int[] v, int[] res) {
+    for(int x = 0; x &lt; nn; x++) {</B></FONT>
+      <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; n; i++) {
+        if( ((1&lt;&lt;i) &amp; x) &gt; 0) {
+<A NAME="2"></A>          res[x] += v[i];
+        }
+      }</B></FONT>
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+  }
+  public int minAbsDifference(int[] nums, int goal) {
+    int n = nums.length</B></FONT>;
+<A NAME="3"></A>    if(n == 1) {
+      int v1 = Math.abs(0 - goal);
+      int v2 = Math.abs(nums[0] - goal);
+      return <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#3',2,'match12-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(v1, v2);
+    }
+    int n1 = n/2, n2 = n-n/2;
+    int[] v1 = new int[n1], v2 = new int[n2];
+    for(int i = 0</B></FONT>; i &lt; n1; i++) v1[i] = nums[i];
+    for(int j = 0; j &lt; n2; j++) v2[j] = nums[n1 + j];
+    int nn1 = (1&lt;&lt;n1), nn2 = (1&lt;&lt;n2);
+    int[] A = new int[nn1], B = new int[nn2];
+    pre(n1, nn1, v1, A);
+    pre(n2, nn2, v2, B);
+    Arrays.sort(A);
+    Arrays.sort(B);
+    int ans = Math.abs(goal);
+    int j = nn2-1;
+    long gg = goal;
+    for(int i = 0; i &lt; nn1; i++) {
+      while(j &gt;= 0 &amp;&amp; A[i] + B[j] &gt;= goal) {
+        if(A[i] + B[j] == goal) return 0;
+        if(A[i] + B[j] &gt; goal) {
+          ans = Math.min(ans, (A[i] + B[j] - goal));
+<A NAME="4"></A>          j--;
+        }
+      }
+      <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#4',2,'match12-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(j &gt;= 0) {
+          ans = Math.min(ans, Math.abs(A[i] + B[j] - goal));        
+      }
+    }
+    return ans;
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>189_madlogic.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>189_madlogic.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+ public:
+  int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+<A NAME="1"></A>    int n = (int) nums.size();
+    int m = (n &gt;&gt; 1);</B></FONT>
+    set&lt;int&gt; st;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; (1 &lt;&lt; m); i++) {
+      int s = 0;
+      for (int j = 0; j &lt; m; j++) 
+        if (i &amp; (1 &lt;&lt; j)) 
+          s += nums[j];
+      st.insert(s);
+    }
+    int ans = INT_MAX;
+    for (int i = 0; i &lt; (1 &lt;&lt; (n - m)); i++) {
+      int cur = 0;
+      for (int j = 0; j &lt; (n - m); j++) 
+        if (i &amp; (1 &lt;&lt; j)) 
+          cur += nums[m + j];</B></FONT>
+      int x = goal - cur;
+      auto target = st.upper_bound(x);
+      if (target != st.end()) {
+        int val = cur + *target;
+        ans = min(ans, abs(goal - val));
+      }
+      if (target != st.begin()) {
+        --target;
+        int val = cur + *target;
+        ans = min(ans, abs(goal - val));
+      }
+    }
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

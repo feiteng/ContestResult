@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_sshang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_sshang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minAbsDifference(self, nums: List[int], goal: int) -&gt; int:
+        
+        n = len(nums)
+        
+        def generate(i, end, s):
+            
+            if i == end:
+                return s
+            
+            new = set()
+            for prev in s:
+                new.add(prev + nums[i])
+            return generate(i+1, end, s | new)
+        
+        ls, rs = generate(0, n // 2, set([0])), generate(n // 2, n, set([0]))
+        ls, rs = list(sorted(ls)), list(sorted(rs))
+        
+        res = abs(goal)
+<A NAME="0"></A>        
+        idx = bisect.bisect_left(ls, goal)
+        if idx &gt; 0:
+            res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= min(res, abs(goal - ls[idx - 1]))
+        if idx &lt; len(ls):
+            res = min(res, abs(goal - ls[</B></FONT>idx]))
+            
+        idx = bisect.bisect_left(rs, goal)
+        if idx &gt; 0:
+            res = min(res, abs(goal - rs[idx - 1]))
+        if idx &lt; len(rs):
+            res = min(res, abs(goal - rs[idx]))
+            
+<A NAME="1"></A>        for l in ls:
+            idx = bisect.bisect_left(rs, goal - l)
+            if idx &gt; 0:
+                res <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= min(res, abs(goal - l - rs[idx - 1]))
+            if idx &lt; len(rs):
+                res = min(res, abs(goal - l - rs[idx]))
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

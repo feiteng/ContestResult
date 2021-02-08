@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>544_shiqi-4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>544_shiqi-4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String largestMerge(String word1, String word2) {
+        StringBuilder ans = new StringBuilder();
+        
+        int n1=word1.length(), n2=word2.length();
+        int i=0, j=0;
+        
+        while(i&lt;n1 || j&lt;n2) {
+            if(i==n1) {
+                ans.append(word2.charAt(j++));
+                continue;
+            }
+            if(j==n2) {
+                ans.append(word1.charAt(i++));
+                continue;
+            }
+            
+            
+            if(word1.charAt(i) &gt; word2.charAt(j)) {
+                ans.append(word1.charAt(i++));
+            }
+            else if(word1.charAt(i) &lt; word2.charAt(j)) {
+                ans.append(word2.charAt(j++));
+            }
+            else {
+<A NAME="1"></A>                if(word1.substring(i,n1).compareTo</B></FONT>(word2.substring(j,n2)) &gt; 0) {
+                    ans.append(word1.charAt(i++));
+                }
+                else ans.append(word2.charAt(j++))<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        
+        return ans.toString();
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

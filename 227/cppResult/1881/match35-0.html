@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>329_CreedBratton.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>329_CreedBratton.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+        sort(nums.begin(), nums.end());
+        
+        int n = nums.size();
+<A NAME="0"></A>        int ans = abs(goal);
+        if(n &lt;= 20) {
+            // O(n * 2^n) = 21 mil
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int i = 0; i &lt; (1 &lt;&lt; n); ++i) {
+                int sum = 0;
+                for(int j = 0; j &lt; n; ++j) {
+                    if(i &amp; (1 &lt;&lt; j)) {</B></FONT>
+                        sum += nums[j];
+                    }
+                }
+                ans = min(ans, abs(sum - goal));
+            }
+        } else {
+            // O(20 * 2^20) = 21 mil
+<A NAME="1"></A>            int HALF = n / 2;
+            vector&lt;int&gt; va; va.clear();
+            for(int i = 0; i &lt; (1 &lt;&lt; HALF); ++i) { // set limit here
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int sum = 0;
+                for(int j = 0; j &lt; HALF; ++j) { // set limit here
+                    if(i &amp; (1 &lt;&lt; j)) {
+                        sum += nums[j];
+                    }
+                }</B></FONT>
+                ans = min(ans, abs(sum - goal)); // candidate ans could be in here
+                va.push_back(sum);
+<A NAME="2"></A>            }
+            
+            vector&lt;int&gt; secondHalf; secondHalf.clear();
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match35-1.html#2',3,'match35-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int i = HALF; i &lt; n; ++i) secondHalf.push_back(nums[i]);
+            
+            int sz = secondHalf.size();
+            vector&lt;int&gt; vb; vb.clear();
+            for(int i = 0; i &lt; (1 &lt;&lt; sz); ++i) {
+                int sum = 0;
+                for(int j = 0; j &lt; sz; ++j) {
+                    if(i &amp; (1 &lt;&lt; j)) {</B></FONT>
+                        sum += secondHalf[j];
+                    }
+                }
+                ans = min(ans, abs(sum - goal)); // candidate ans could be in here as well
+                vb.push_back(sum);
+            }
+            
+            sort(va.begin(), va.end());
+            sort(vb.begin(), vb.end());
+            
+            int na = int(va.size()), nb = int(vb.size());
+            for(int b: vb) {
+                // find target in va
+                int target = goal - b;
+                auto it = lower_bound(va.begin(), va.end(), target);
+                if(it != va.end()) {
+                    ans = min(ans, abs(*it + b - goal));
+                }
+                
+                // this one requires important observation:
+                if(it != va.begin()) {
+                    --it;
+                    ans = min(ans, abs(*it + b - goal));
+                }
+            }
+        }
+        return ans;
+    }
+};
+/*
+[5,-7,3,5]
+6
+[7,-9,15,-2]
+-5
+[1,2,3]
+-7
+[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+10
+[9210,-5402,8022,-4660,-1719,-9686,3899,8543,-8813,2070,3791,3177,-775,-9400,-7036,-7050,-9843,2563,-1190,5216,-1089,2210,5775,1027,2729,4947,-6183,5850,1616,-5259,3605,-5142]
+-10259
+[3530,-1549,6835,-587,3787,-1033,4205,1006,5918,-2940,6101,3169,3930,-7006,-7889,-5758,-3246,-5098,-2489,-9144,-6617,-1703,-4898,5721,-6758,3078,-3859,-9902,-7079,4014,-8334,8009]
+842213514
+*/
+</PRE>
+</BODY>
+</HTML>

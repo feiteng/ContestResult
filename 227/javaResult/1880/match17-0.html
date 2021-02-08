@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>650_blackspinner.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>650_blackspinner.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String largestMerge(String word1, String word2) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+<A NAME="0"></A>        int j = 0;
+        int n = word1.length();
+        int m = word2.length();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (i &lt; n &amp;&amp; j &lt; m) {
+            if (word1.charAt(i) &gt; word2.charAt(j)) {
+                sb.append(word1.charAt(i));
+                i++;
+            }
+            else if (word1.charAt(i) &lt; word2.charAt(j)) {
+                sb.append(word2.charAt(j));
+                j++;
+            }
+            else {
+                int k = i;
+                int l = j;
+                while (k &lt; n &amp;&amp; l &lt; m &amp;&amp; word1.charAt(k) == word2.charAt(l)) {
+                    k++;
+                    l++;
+                }
+                if (k == n) {
+                    sb.append(word2.charAt(j));
+                    j++;
+                }
+                else if (l == m) {
+<A NAME="1"></A>                    sb.append(word1.charAt(i));
+                    i++;
+                }
+                else <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (</B></FONT>word1.charAt(k) &gt; word2.charAt(l)) {
+                    sb.append(word1.charAt(i));
+                    i++;
+                }
+<A NAME="2"></A>                else {
+                    sb.append(word2.charAt(j));
+                    j++;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}</B></FONT>
+            }
+        }
+        while (i &lt; n) {
+            sb.append(word1.charAt(i));
+            i++;
+        }
+        while (j &lt; m) {
+            sb.append(word2.charAt(j));
+            j++;
+        }
+        return sb.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>818_da-xia-feng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>818_da-xia-feng.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+     public String largestMerge(String word1, String word2) {
+        StringBuilder sb = new StringBuilder();
+        int len1 = word1.length();
+        int len2 = word2.length();
+        int idx1 = 0;
+        int idx2 = 0;
+        while (idx1&lt;len1||idx2&lt;len2){
+            if(idx1==len1){
+                sb.append(word2.charAt(idx2));
+                idx2++;
+                continue;
+            }
+            if(idx2==len2){
+                sb.append(word1.charAt(idx1));
+                idx1++;
+                continue;
+            }
+            if(word1.charAt(idx1)&gt;word2.charAt(idx2)){
+                sb.append(word1.charAt(idx1));
+                idx1++;
+            }else if(word1.charAt(idx1)&lt;word2.charAt(idx2)){
+                sb.append(word2.charAt(idx2));
+                idx2++;
+            }else{
+                if(select</B></FONT>(word1,word2,idx1,idx2)){
+                    sb.append(word1.charAt(idx1));
+                    idx1++;
+<A NAME="1"></A>                }else{
+                    sb.append(word2.charAt(idx2));
+                    idx2++;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return sb.toString();
+    }</B></FONT>
+
+    public boolean select(String word1, String word2,int idx1,int idx2){
+        int len1 = word1.length();
+        int len2 = word2.length();
+        while (idx1&lt;len1&amp;&amp;idx2&lt;len2){
+            if(word1.charAt(idx1)==word2.charAt(idx2)){
+              idx1++;
+                idx2++;
+                continue;
+            }
+            return word1.charAt(idx1)&gt;word2.charAt(idx2);
+        }
+        return  idx1&lt;len1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

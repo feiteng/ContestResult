@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>391_YuranN.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>391_YuranN.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minAbsDifference(self, nums: List[int], goal: int) -&gt; int:
+        negsum = sum([n for n in nums if n &lt; 0])
+        possum = sum<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>([n for n in nums if n &gt; 0])
+        if possum &lt;= goal:
+            return goal - possum
+        if negsum &gt;= goal:
+            return negsum - goal
+        d = set([-goal])
+        mindiff = abs(goal)
+        for</B></FONT> n in nums:
+            dd = d.copy()
+            for key in d:
+                v = key + n
+                dd.add(v)
+                mindiff = min(mindiff, abs(v))
+                if mindiff == 0:
+                    return 0
+            d = dd
+        return mindiff
+                
+</PRE>
+
+</BODY>
+</HTML>

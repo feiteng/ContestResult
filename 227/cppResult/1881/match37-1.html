@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>359_flpt0x.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>359_flpt0x.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; a, b;
+    int n;
+    int x, y;
+<A NAME="0"></A>    
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int goal) {
+        n = nums.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        x = n / 2, y = n - n / 2;
+        
+        for (int i = 0; i &lt; (1 &lt;&lt; x); i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; x; j++) {
+                if (i &gt;&gt; j &amp; 1) sum += nums[j];
+            }
+            a.push_back(sum);
+        }      
+
+        sort(a.begin(), a.end());
+        a.erase(unique(a.begin(), a.end()), a.end());
+        
+        for (int i = 0; i &lt; (1 &lt;&lt; y); i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; y; j++) {
+                if (i &gt;&gt; j &amp; 1) sum += nums[x + j];
+            }
+            b.push_back(sum);
+        }
+        sort(b.begin(), b.end());
+        b.erase(unique(b.begin(), b.end()), b.end());
+        
+        
+        int ptr = b.size() - 1;
+        int ans = 2e9 + 10;
+        // for (int i = 0; i &lt; x; i++) cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        //         for (int i = 0; i &lt; y; i++) cout &lt;&lt; b[i] &lt;&lt; &quot; &quot;;
+        // for (int i = 0; i &lt; a.size(); i++) cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;; cout &lt;&lt; endl;
+        // for (int i = 0; i &lt; b.size(); i++) cout &lt;&lt; b[i] &lt;&lt; &quot; &quot;; cout &lt;&lt; endl;
+        
+        for (int i = 0; i &lt; a.size(); i++) {</B></FONT>
+            while (ptr &gt;= 0 &amp;&amp; b[ptr] + a[i] &gt; goal) ptr -= 1;
+            if (ptr &gt;= 0) ans = min(ans, abs(b[ptr] + a[i] - goal));
+            if (ptr + 1 &gt;= 0 &amp;&amp; ptr + 1 &lt; b.size()) ans = min(ans, abs(b[ptr + 1] + a[i] - goal));
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

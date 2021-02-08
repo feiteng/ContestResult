@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>147_marchem.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>147_marchem.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minAbsDifference(vector&lt;int&gt;&amp; nums, int g) {
+        vector&lt;int&gt; a,b;
+        int n=nums.size();
+        for(int i=0;i&lt;n/2;i++)
+        {
+        a.push_back(nums[i]);
+        }
+        for(int i=n/2;i&lt;n;i++)
+<A NAME="0"></A>        {
+        b.push_back(nums[i]);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int x=a.size(),y=b.size();
+        vector&lt;int&gt; p,q;
+        for(int i=0;i&lt;(1&lt;&lt;x);i++)
+        {
+        int sm=0;
+            for(int o=0;o&lt;x;o++)
+            {
+            if((i &amp; (1&lt;&lt;o)))
+            {
+            sm+=a[o];
+            }
+            }
+<A NAME="1"></A>            p.push_back(sm);
+        }</B></FONT>
+        sort(p.begin(),p.end());
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;(1&lt;&lt;y);i++)
+        {
+        int sm=0;
+            for(int o=0;o&lt;y;o++)
+            {
+            if((i &amp; (1&lt;&lt;o)))
+            {
+            sm+=b[o];
+            }
+            }</B></FONT>
+            q.push_back(sm);
+        }
+        sort(q.begin(),q.end());
+<A NAME="2"></A>        int ans=1e9;
+        for(int i=0;i&lt;p.size();i++)
+        {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ps=upper_bound(q.begin(),q.end(),g-p[i])-q.begin();
+            if(ps&lt;q.size())
+            {
+            ans=min(ans,q[ps]+p[i]-g);
+            }
+            if(ps-1&gt;=0)
+            {
+            ans=min(ans,g-q[ps-1]-p[i]);
+            }
+            
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
