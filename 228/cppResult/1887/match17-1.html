@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_Chasey.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_Chasey.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minTrioDegree(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;bool&gt;&gt; v(n, vector&lt;bool&gt;(n, false));
+        vector&lt;int&gt; c(n, 0);
+<A NAME="1"></A>        for (auto&amp; a: edges) { v[a[0]-1][a[1]-1] = true; v[a[1]-1][a[0]-1] = true; c[a[0]-1]++; c[a[1]-1]++; }
+        int result = INT_MAX;
+        for (int i1 = 0; i1 &lt; n; i1++) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i2 = i1+1; i2 &lt; n; i2++) {
+                if (!v[i1][i2]) continue;
+                for (int i3 = i2+1; i3 &lt; n; i3++) {
+                    if (!v[i1][i3] || !v[i2][i3]) continue;
+                    result = min(result, c[i1]+c[i2]+c[i3]-6);
+                }
+            }
+        }
+        return result == INT_MAX ? -1 : result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>770_melody1844.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>770_melody1844.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minTrioDegree(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int res = INT_MAX;
+        vector&lt;vector&lt;int&gt;&gt; G(n+1, vector&lt;int&gt;(n+1, 0));
+        vector&lt;int&gt; dgr(n+1, 0);
+        for(auto e: edges){
+            G[e[0]][e[1]] = 1;
+            G[e[1]][e[0]] = 1;
+            dgr[e[0]]++;
+            dgr[e[1]]++;
+        }
+        for(int i = 1; i &lt;= n; i++){
+            for(int j = 1; j &lt; i; j++){
+                for(int k = 1; k &lt; j; k++){
+                    if(G[i][j] &amp;&amp; G[j][k] &amp;&amp; G[k][i]){
+                        int tmp = dgr[i] - 2 + dgr[j] - 2 + dgr[k] - 2;
+                        res = min(res, tmp);
+                    }
+                }
+            }
+        }</B></FONT>
+        if(res == INT_MAX) return -1;
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

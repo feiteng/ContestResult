@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>224_haiwu2020.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>224_haiwu2020.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minTrioDegree(int n, int[][] edges) {
+        int[] degree = new int[n + 1];
+        int[][] map = new int[n + 1][n + 1];
+        for (int[] edge : edges) {
+            degree[edge[0]]++;
+            degree[edge[1]]++;
+            map[edge[0]][edge[1]] = 1;
+            map[edge[1]][edge[0]] = 1;
+        }
+        int res = -1;
+        for (int i = 1; i &lt; n - 1; i ++) {
+            for (int j = i + 1; j &lt; n ; j++) {
+                for (int k = j + 1; k &lt; n + 1; k++) {
+                    if (map[i][j] == 1 &amp;&amp; map[j][k] == 1 &amp;&amp; map[i][k] == 1) {
+                        if (res &lt; 0) {
+<A NAME="1"></A>                            res = degree[i] + degree[j] + degree[k] - 6;
+                        }</B></FONT> else {
+                            res = Math.min(res, degree[i] + degree[j] + degree[k] - 6);
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

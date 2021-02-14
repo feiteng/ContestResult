@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>768_akg7227.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>768_akg7227.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    
+    int minTrioDegree(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        bitset&lt;405&gt; adjList[n+5],B;
+        // vector&lt;vector&lt;int&gt; &gt; ADJ(400+1,vector&lt;int&gt;(400+1));
+        for(auto p : edges){
+            int u = p[0], v = p[1];
+            adjList[u][v] = true;
+            adjList[v][u] = true;
+            // ADJ[u].push_back(v);
+            // ADJ[v].push_back(u);
+        }
+        
+        int ans = INT_MAX;
+        
+        for(int i = 1 ; i &lt;= n ; i++){
+            for(int j = i+1 ; j &lt;= n; j++){
+                if(i==j)
+                    continue;
+                if(adjList[i][j] &amp;&amp; adjList[j][i] ){
+                    B = (adjList[i] &amp; adjList[j]);
+                    int cnt1 = B.count();
+                    if(cnt1)
+                    {
+                        for(int k = j+1 ; k &lt;=n ; k++){
+                            if(B[k]==true)
+                            {
+                                int cnt =adjList[i].count() + adjList[j].count() + adjList[k].count() - 6;                               
+                                ans = min(ans,cnt);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+            
+        return ans==INT_MAX ?-1 : ans;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

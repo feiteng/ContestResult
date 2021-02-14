@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_venico19.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_venico19.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minTrioDegree(self, n: int, edges: List[List[int]]) -&gt; int:
+        g = collections.defaultdict(set)
+        for u, v in edges:
+            g[u].add(v)
+            g[v].add(u)
+<A NAME="1"></A>        
+        res =</B></FONT> len(edges)
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(1, n+1):
+            for j in range(i+1, n+1):
+                if j not in g[i]:
+                    continue
+                for k in range(j+1, n+1):
+                    if k not in g[i] or k not in g[j]:
+                        continue
+                    ans = len(</B></FONT>g[i]) + len(g[j]) +len(g[k]) - 6
+                    res = min(res, ans)
+                    if res == 0:
+                        return 0
+        
+        return res if res != len(edges) else -1
+</PRE>
+
+</BODY>
+</HTML>

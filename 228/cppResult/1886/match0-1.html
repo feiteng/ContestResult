@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_ACVV_lucky_light.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>257_ACVV_lucky_light.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>typedef long long LL;
+class Solution {
+public:
+    vector&lt;int&gt; v;
+    int cnt;
+    bool Check(int t)
+    {
+        LL ret = 0;
+        for (auto x : v)
+        {
+            ret += x / t + (x % t != 0) - 1;
+        }
+        return ret &lt;= cnt;
+    }
+    int minimumSize(vector&lt;int&gt;&amp; nums, int maxOperations) {
+        v = nums, cnt = maxOperations;
+        int l = 1, r = v[0], mid;
+        for (auto x : v)    
+            r = max(r, x);
+        
+        while (l &lt; r)
+        {
+            mid = l + r &gt;&gt; 1;
+            if (Check(mid))
+            {
+                r = mid;
+            }
+            else
+            {
+                l = mid + 1;
+            }
+        }
+        return l;       
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

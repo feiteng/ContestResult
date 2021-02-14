@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_bigmiaomiao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_bigmiaomiao.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minTrioDegree(self, n: int, edges: List[List[int]]) -&gt; int:
+        graph=[set() for i in range(n+1)]
+        for x,y in edges:
+            graph[x].add(y)
+            graph[y].add(x)
+        edge=[0 for i in range(n+1)]
+        for x in range(1,n+1):
+            for</B></FONT> y in graph[x]:
+                edge[x]+=1
+<A NAME="1"></A>        
+        mins=10**9
+        for x in range(1,n+1):
+            for y in range<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(x+1,n+1):
+                if y not in graph[x]:
+                    continue
+                for z in range(y+1,n+1):
+                    if (z not in graph[x]) or (z not in graph[y]):
+                        continue
+                    temps=</B></FONT>edge[x]+edge[y]+edge[z]-6
+                    mins=min(mins,temps)
+        if mins==10**9:
+            return -1
+        return mins
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

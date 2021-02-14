@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>706_veeranjaneyulus.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>706_veeranjaneyulus.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minTrioDegree(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        // degree
+        // find trio
+        // a,b; b,c; c,a
+        // n^3
+        // each edge (b,c): check if (a,b), (a,c) exist
+        // then trio
+        // b,c nbrs of a -&gt; check pairwise if b,c are nbrs too!
+        // adj matrix nxn
+        
+        vector&lt;vector&lt;bool&gt;&gt; A(n, vector&lt;bool&gt;(n,false));
+        vector&lt;int&gt; deg(n,0);
+        for(auto&amp; e: edges) {
+            A[e[0]-1][e[1]-1] = true;
+            A[e[1]-1][e[0]-1] = true;
+            deg[e[0]-1]++;
+            deg[e[1]-1]++;
+        }
+<A NAME="1"></A>        int ans = INT_MAX;
+        for(int i=0;i&lt;n;i++) {</B></FONT>
+            if(deg[i]&lt;2) continue;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j=i+1;j&lt;n;j++) {
+                if(deg[j]&lt;2 || !A[i][j]) continue;
+                
+                for(int k=j+1;k&lt;n;k++) {
+                    if(!A[i][k] || !A[j][k]) continue;
+                    
+                    // i,j,k trio
+                    ans = min(ans, deg[i] + deg[j] + deg[k] - 6);
+                }
+            }
+        }
+        return (ans == INT_MAX) ? -1: ans;
+        
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

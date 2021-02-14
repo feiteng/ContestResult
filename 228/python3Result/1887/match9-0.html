@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_kimuchibox4000.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>431_kimuchibox4000.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minTrioDegree(self, n: int, edges: List[List[int]]) -&gt; int:
+        adj = {e: set([]) for e in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(1,n+1)}
+        for n1, n2 in edges:
+            adj[n1].add(n2)
+            adj[n2].add(n1)
+        
+        best = float('inf')
+        for</B></FONT> e1, lst in adj.items():
+            for e2 in lst:
+                if e2 &lt;= e1:
+                    continue
+<A NAME="1"></A>                for e3 in lst:
+                    if e3 &lt;= e2:
+                        continue
+                    if e3 in adj<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[e2]:
+                        
+                        best = min(best, len(adj[e1]) + len(adj[e2]) + len(adj[e3]) - 6)
+        return best if best &lt; float('</B></FONT>inf') else -1
+</PRE>
+
+</BODY>
+</HTML>

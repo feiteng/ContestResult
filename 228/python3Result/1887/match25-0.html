@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>910_y-square.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>910_y-square.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minTrioDegree(self, n: int, edges: List[List[int]]) -&gt; int:
+        graph = [[0]*(n+1) for _ in range(n+1)] 
+        node = [0]*(n+1)
+        for i,j in edges:
+            graph[i][j] = 1
+            graph[j][i] = 1
+            node[i] += 1
+            node[j] +</B></FONT>= 1
+<A NAME="1"></A>        print(node,graph)
+        trio = 0
+        ans = float('inf')
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(1,n+1):
+            for j in range(i+1,n+1):
+                if graph[i][j] == 1:
+                    for k in range(j+1,n+1):
+                        if graph[i][k] and graph[j][k]:
+                            trio =</B></FONT> 1
+                            ans = min(ans,node[i]+node[j]+node[k] - 6)
+                            
+        if trio == 0:
+            return -1
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

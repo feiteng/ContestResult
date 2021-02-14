@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>891_krivakin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>891_krivakin.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minimumSize(vector&lt;int&gt;&amp; nums, int maxOperations) {
+        int l = 1;
+        int r = 1000000000;
+        
+        int ret = INT_MAX;
+        while (l &lt; r) {
+<A NAME="1"></A>            int ops = 0;
+            
+            int m = l + (r - l) / 2;
+            for (int v : nums) {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                ops += (v - 1) / m;
+            }
+            
+            //cout &lt;&lt; l &lt;&lt; &quot; &quot; &lt;&lt; r &lt;&lt; &quot; &quot; &lt;&lt; m &lt;&lt; &quot; &quot; &lt;&lt; ops &lt;&lt; endl;
+            
+            if (ops &lt;= maxOperations) {
+                ret = min(ret, m);
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        return ret;
+    }
+};</B></FONT>
+
+/*
+[9]
+2
+[2,4,8,2]
+4
+[7,17]
+2
+[431,922,158,60,192,14,788,146,788,775,772,792,68,143,376,375,877,516,595,82,56,704,160,403,713,504,67,332,26]
+80
+*/
+</PRE>
+</BODY>
+</HTML>
