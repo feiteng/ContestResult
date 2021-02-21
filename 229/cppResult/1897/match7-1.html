@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>290_lifehappy01.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>290_lifehappy01.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 1e3 + 10;
+
+int dp1[N][N], dp2[N][N], dp[N][N];
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int longestPalindrome(string str1, string str2) {
+      int n = str1.size(), m = str2.size();
+      reverse(str2.begin(), str2.end());
+      str1 = &quot; &quot; + str1, str2 = &quot; &quot; + str2;
+      for (int i = n; i &gt;= 1; i--) {
+        dp1[i][i] = 1;
+        for (int j = i + 1; j &lt;= n; j++) {
+          if (str1[i] == str1[j]) {
+            dp1[i][j] = dp1[i + 1][j - 1] + 2;
+          }
+          else {
+            dp1[i][j] = max(dp1[i + 1][j], dp1[i][j - 1]);
+          }
+        }
+      }
+      for (int i = m; i &gt;= 1; i--) {
+        dp2[i][i] = 1;
+        for (int j = i + 1; j &lt;= m; j++) {
+          if (str2[i] == str2[j]) {
+            dp2[i][j] = dp2[i + 1][j - 1] + 2;
+          }
+          else {
+            dp2[i][j] = max(dp2[i + 1][j], dp2[i][j - 1]);
+          }
+        }
+      }
+      for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= m; j++) {
+          if (str1[i] == str2[j]) {
+            dp[i][j] = dp[i - 1][j - 1] + 1;
+          }
+          else {
+            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+          }
+        }
+      }
+      int ans = 0;
+      for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= m; j++) {
+          if (dp[i][j]) {
+            ans = max(ans, dp[i][j] * 2 + max(dp1[i + 1][n], dp2[j + 1][m]));
+          }
+          // cout &lt;&lt; dp[i][j] &lt;&lt; &quot; \n&quot;[j == m];
+        }
+      }</B></FONT>
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

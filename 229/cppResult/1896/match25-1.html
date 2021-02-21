@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_smax.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_smax.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    const int INF = 1e9 + 5;
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int maximumScore(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; multipliers) {
+        int n = nums.size(), m = multipliers.size();
+        vector&lt;vector&lt;int&gt;&gt; dp(m + 1, vector&lt;int&gt;(m + 1, -INF));
+        // amount taken from left, number of multipliers
+        dp[0][0] = 0;
+        for (int j=0; j&lt;m; j++)
+            for (int i=0; i&lt;=j; i++) {
+                int r = n - (j - i) - 1;</B></FONT>
+<A NAME="1"></A>                // take from left
+                dp[i+1][j+1] = max(dp[i+1][j+1], dp[i][j] + nums[i] * multipliers[j]);
+                // take from right
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                dp[i][j+1] = max(dp[i][j+1], dp[i][j] + nums[r] * multipliers[j]);
+            }
+        int ret = -INF;
+        for (int i=0; i&lt;=m; i++)
+            ret = max(ret, dp[i][m]);
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

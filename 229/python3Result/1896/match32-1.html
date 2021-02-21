@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>440_D_8023_K.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>440_D_8023_K.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maximumScore(self, nums: List[int], multipliers: List[int]) -&gt; int:
+        # memo = {}
+        # def helper(l, r):
+        #     # if ind==len(multipliers):
+        #     #     return 0
+        #     # if (l, r, ind) in memo:
+        #     #     return memo[(l, r, ind)]
+        #     # temp = max(helper(l+1, r, ind+1)+nums[l]*multipliers[ind], helper(l, r-1, ind+1)+nums[r]*multipliers[ind])
+        #     # memo[(l, r, ind)] = temp
+        #     # return temp
+        #     if l+len(nums)-1-r==len(multipliers):
+        #         return 0
+        #     if (l, r) in memo:
+        #         return memo[(l, r)]
+        #     ind = l+len(nums)-1-r
+        #     temp = max(helper(l+1, r)+nums[l]*multipliers[ind], helper(l, r-1)+nums[r]*multipliers[ind])
+        #     memo[(l, r)] = temp
+        #     return temp
+        # return helper(0, len(nums)-1)
+        # n, m = len(nums), len(multipliers)
+        # num = []
+        # if n&gt;=2*m:
+        #     # nums[:] = nums[:m] + nums[-m:]
+        #     for i in range(m):
+        #         num.append(nums[i])
+        #     for i in range(-m, 0):
+        #         num.append(nums[i])
+        # else:
+        #     num = nums
+        # # print(len(nums))
+        # dp = [[0 for _ in range(len(num))] for _ in range(len(num))]
+        # for j in range(len(num)):
+        #     for i in range(j, -1, -1):
+        #         ind = i+len(num)-1-j
+        #         if ind&lt;len(multipliers):
+        #             if i==j:
+        #                 dp[i][j] = num[i]*multipliers[ind]
+        #             else:
+        #                 dp[i][j] = max(dp[i+1][j]+num[i]*multipliers[ind], dp[i][j-1]+num[j]*multipliers[ind])
+        # return dp[0][len(num)-1]
+        n, m = len(nums), len(multipliers)
+        dp = [[0 for _ in range(m+1)] for _ in range(m+1)]
+        
+<A NAME="1"></A>        for j in range(1, m+1):
+            for i in range(</B></FONT>j-1, -1, -1):
+                ind = m-j+i
+                dp<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][j] = max(dp[i+1][j]+nums[i]*multipliers[ind], dp[i][j-1]+nums[j+n-m-1]*multipliers[</B></FONT>ind])
+        return dp[0][m]
+</PRE>
+
+</BODY>
+</HTML>

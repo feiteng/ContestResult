@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>971_Akatsuki_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>971_Akatsuki_.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maximumScore(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; mul) {
+<A NAME="1"></A>        int n = nums.size(), m = mul.size();
+        vector&lt;vector&lt;int&gt;&gt; dp(m+1, vector&lt;int&gt;(m+1, INT_MIN));</B></FONT>
+        dp[0][0] = nums[n-1]*mul[0], dp[0][1] = nums[0]*mul[0];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 1; i &lt; m; i++) {
+            for(int j = 0; j &lt;= i+1; j++) {
+                if(n-1-(i-j) &gt;= 0 &amp;&amp; n-1-(i-j) &lt; n &amp;&amp; dp[i-1][j] != INT_MIN) {
+<A NAME="2"></A>                    dp[i][j] = max(dp[i][j], dp[i-1][j]+mul[i]*nums[n-1-(i-j)]);</B></FONT>
+                }
+                if(j-1 &gt;= 0 &amp;&amp; j-1 &lt; n &amp;&amp; dp[i-1][j-1] != INT_MIN) {
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    dp[i][j] = max(dp[i][j], dp[i-1][j-1]+mul[i]*nums[j-1]);
+                }
+            }
+        }
+        int ans = INT_MIN;
+        for(int i = 0; i &lt;= m; i++) {
+            ans = max(ans, dp[m-1][i]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

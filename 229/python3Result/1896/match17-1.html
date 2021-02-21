@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_chen-yu-hong.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>215_chen-yu-hong.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def maximumScore(self, nums: List[int], multipliers: List[int]) -&gt; int:
+        n = len(nums)
+        m = len(multipliers)
+        dp = [[0 for i in range(m + 1)] for j in range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(m + 1)]
+        
+        for l in range(1, m + 1):
+            for head in range(l+1):
+                if head == 0:
+                    dp[l][head] = dp[l-1][head] + multipliers[l-1]*nums[n-l]
+                elif head == l:
+                    dp[l][head] = dp[l-1][head-1] + multipliers[l-1]*nums[l-1]
+                else:
+                    dp[l][head] = max(dp[l-1][head-1] + multipliers[l-1]*nums[head-1], dp[l-1][head] + multipliers[l-1]*nums[n-l+head])
+        return max(dp[-</B></FONT>1])
+</PRE>
+
+</BODY>
+</HTML>

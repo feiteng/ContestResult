@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>594_mengdage.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>594_mengdage.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestPalindrome(self, word1: str, word2: str) -&gt; int:
+        # word1 = &quot;cacb&quot;, word2 = &quot;cbba&quot;
+        # cacbcbba
+        # dp[i][j] = if i &gt;= len(word1) or j &lt; len(word1): 0
+        #            else: if s[i] == s[j]: dp[i+1][j-1] + 2
+        #                   else: max(dp[i][j-1], dp[i+1][j])
+<A NAME="0"></A>        size1, size2 = len(word1), len(word2)
+        size = size1 + size2
+        s = word1 + word2
+        dp <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [[0] * (size) for _ in range(size)]
+        for i in range(size):
+            dp[i][i] = 1
+<A NAME="1"></A>        
+        for j in range(1, size):
+            for i in range(</B></FONT>j-1, -1, -1):
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if s[i] == s[j]:
+                    dp[i][j] = 2 + dp[i + 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i][j-1], dp[i+1][j])
+        # for row in dp:
+        #     print(row)
+<A NAME="2"></A>        result = 0
+        for i in range(size1):
+            for j in range(</B></FONT>size1, size):
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if s[i] == s[j]:
+                    result = max(result, dp[i][j])
+        
+        re</B></FONT>turn result
+</PRE>
+
+</BODY>
+</HTML>

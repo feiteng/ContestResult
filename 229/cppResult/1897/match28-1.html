@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>413_leetcodit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>413_leetcodit.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    
+    int longestPalindrome(string word1, string word2) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int len1 = word1.size();
+        int len2 = word2.size();
+        string word = word1 + word2;
+        int len = word.size();
+        vector&lt;vector&lt;int&gt;&gt; dp(len, vector&lt;int&gt;(len));
+<A NAME="1"></A>        for (int i = 0; i &lt; len; ++i) {</B></FONT>
+            dp[i][i] = 1;
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
+        for (int i = len - 1; i &gt;= 0; --i) {
+            for (int j = i + 1; j &lt; len; ++j) {
+                if (word[i] == word[j]) {
+                    dp[i][j] = 2 + dp[i + 1][j - 1];
+                    if (i &lt; len1 &amp;&amp; j &gt;= len1) {
+                        ret = max(ret, dp[i][j]);
+                    }
+                } else {</B></FONT>
+                    dp[i][j] = max(dp[i][j - 1], dp[i + 1][j]);
+                }
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

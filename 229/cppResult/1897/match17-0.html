@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>683_debajyoti123.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>683_debajyoti123.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int longestPalindrome(string a, string b) {
+        
+        int m = a.length();
+        int n = a.length() + b.length();
+        string s = a+b;
+<A NAME="0"></A>        
+        int dp[n][n];
+        memset(dp,0,sizeof(dp));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;n;i++)dp[i][i]=1;
+<A NAME="1"></A>        int ans = 0;
+        for(int i=0;i+1&lt;n;i++){</B></FONT>
+            int j = i+1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(s[i]==s[j]){
+                dp[i][j]=2;
+                if(i&lt;m &amp;&amp; j&gt;=m)ans=max(ans,dp[i][j]);
+            }
+            else dp[i][j]=1;
+<A NAME="2"></A>        }
+        for(int l=2;l&lt;n;l++){
+            for(int i=0,j=l;j&lt;n;i++,j++){</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(s[i]==s[j]){
+                    dp[i][j]=2+dp[i+1][j-1];
+                    if(i&lt;m &amp;&amp; j&gt;=m)ans=max(ans,dp[i][j]);
+                }
+                else dp[i][j]=max(dp[i+1][j],dp[i][j-1]);
+            }
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

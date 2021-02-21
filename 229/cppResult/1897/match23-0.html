@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>704_itak.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>704_itak.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int longestPalindrome(string s1, string s2) {
+        string str = s1 + s2;
+<A NAME="0"></A>        int n = str.size();
+        int a[n][n];
+        memset(a, 0, sizeof(a));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0; i&lt;n; i++) a[i][i] = 1;
+        for(int i=n-1; i&gt;=0; i--) {
+            for(int j=i+1; j&lt;n; j++) {
+                if(str[i] == str[j])
+                    a[i][j] = a[i+1][j-1] + 2;
+                else
+                    a[i][j] = max(a[i+1][j], a[i][j-1]);
+            }
+        }
+<A NAME="1"></A>        int ans = a[0][n-1], ans1 = a[0][s1.size()-1], ans2 = a[s1.size()][n-1];</B></FONT>
+        if(ans1==ans || ans2==ans) {
+            ans = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int i=0; i&lt;s1.size(); i++) {
+                for(int j=0; j&lt;s2.size(); j++) {
+                    if(s1[i] == s2[j]) {
+                        ans = max(ans, a[i][j+s1.size()]);
+                    }
+                }
+            }</B></FONT>
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

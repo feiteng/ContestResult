@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>965_cpthk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>965_cpthk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maximumScore(int[] nums, int[] multipliers) {
+        Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; mem = new HashMap&lt;Integer, Map&lt;Integer, Integer&gt;&gt;();
+        return traverse(nums, multipliers, 0, nums.length - 1, 0, mem);
+    }
+    
+    private int traverse(int[] nums, int[] multipliers, int i, int j, int k, Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; mem) {
+        if (k == multipliers.length) {
+            return 0;
+        }
+        if (mem.containsKey(i) &amp;&amp; mem.get</B></FONT>(i).containsKey(j)) {
+            return mem.get(i).get(j);
+<A NAME="1"></A>        }
+        int front = traverse(nums, multipliers, i + 1, j, k + 1, mem);// cur + multipliers[k] * nums[i],
+        int back = traverse(nums, multipliers, i, j - 1, k + 1, mem);// cur + multipliers[k] * nums[j],
+        int max = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(front + multipliers[k] * nums[i], back + multipliers[k] * nums[j]);
+        if (!mem.containsKey(i)) {
+            mem.put(i, new HashMap&lt;Integer, Integer&gt;());
+        }
+        mem.get(i).put(j, max);
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

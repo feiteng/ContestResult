@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>160_i_am_xiaoshagua.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>160_i_am_xiaoshagua.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def maximumScore(self, nums: List[int], multipliers: List[int]) -&gt; int:
+        n = len(nums)
+        m = len(multipliers)
+        d = [[0 for _ in range(m+1)] for _ in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(m+1)] 
+        # d[mm,i] means max amount of chosen mm number, and i from the front side, then mm - i from the end side
+        # d[mm,i] = max(d[mm-1,i] + nums[-(mm-i)]*multipliers[mm],d[mm-1,i-1] + nums[i] * multipliers[mm]), 0&lt;= i &lt;= mm, 1&lt;= mm &lt;= m
+        for mm in range(1,m+1):
+            d[mm][0] = d[mm-1][0] + nums[-mm] * multipliers[mm-1]
+            d[mm][mm] = d[mm-1][mm-1] + nums[mm-1] * multipliers[mm-1]
+            for i in range(1,mm):
+                    d[mm][i] = max(d[mm-1][i] + nums[-(mm-i)]*multipliers[mm-1],d[mm-1][i-1] + nums[i-1] * multipliers[mm-1])     
+        return max(d[m</B></FONT>m])
+</PRE>
+
+</BODY>
+</HTML>

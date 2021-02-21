@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_eastflag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>273_eastflag.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] minOperations(String boxes) {
+        char[] bs = boxes.toCharArray();
+        int n = bs.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        int balls = bs[0] - '0';
+        for (int i = 1; i &lt; n; i++) {
+            left[i] = balls + left[i - 1];
+            balls += bs[i] - '0';
+        }
+        balls = bs[n - 1] - '0';
+        for (int i = n - 2; i &gt;= 0; i--) {
+            right[i] = balls + right[i + 1];
+            balls += bs[i] - '0';
+        }
+        int[] res = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            res[i] = left[i] + right[i];
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

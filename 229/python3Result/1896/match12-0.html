@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>383_ddoudle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>383_ddoudle.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maximumScore(self, nums: List[int], multipliers: List[int]) -&gt; int:
+        
+        n, m = len(nums), len(multipliers)
+        
+        dp = [[-float('inf')] * (m+1) for _ in range(m+1)]
+        
+        for i in range(m+1):
+            for j in range(</B></FONT>m+1):
+                if i + j &gt; m:
+                    break
+<A NAME="1"></A>                if i == 0 and j == 0:
+                    dp[i][j] = 0
+                elif i == 0:
+                    dp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j] = dp[i][j-1] + nums[-j] * multipliers[j-1]
+                elif j == 0:
+                    dp[i][j] = dp[i-1][j] + nums[i-1] * multipliers[i-1]
+                else:
+                    dp[i][j] = max(dp[i][j-1] + nums[-j] * multipliers[i+j-1], dp[i-1][j] + nums[i-1] * multipliers[i+j-1])
+                    
+        
+#         @lru_cache(None)
+#         def dp(i, j):
+#             #前面用了i，后面用了j，一共用了i+j
+#             if i == 0 and j == 0:
+#                 return 0
+#             if i == 0:
+#                 return dp(i, j-1) + nums[-j] * multipliers[j-1]
+#             if j == 0:
+#                 return dp(i-1, j) + nums[i-1] * multipliers[i-1]
+#             return max(dp(i, j-1) + nums[-j] * multipliers[i+j-1], dp(i-1, j) + nums[i-1] * multipliers[i+j-1])
+        
+        res =</B></FONT> -float('inf')
+        for i in range(len(multipliers) + 1):
+            res = max(res, dp[i][len(multipliers)-i])
+        return res
+</PRE>
+
+</BODY>
+</HTML>

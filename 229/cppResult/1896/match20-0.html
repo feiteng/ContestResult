@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>858_DDAY.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>858_DDAY.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int dp[1001][1001];
+    int go(int i,int pos,vector&lt;int&gt;&amp; N, vector&lt;int&gt;&amp; M){
+<A NAME="1"></A>        if(pos==M.size())return 0;
+        if(dp[i][pos]!=-1)
+                return dp[i][pos];
+        int l=i,h=(N.size()-1-(pos-i));</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        
+        return dp[i][pos]=max(M[pos]*N[i]+go(i+1,pos+1,N,M),M[pos]*N[h]+go(i,pos+1,N,M));
+    }
+    int maximumScore(vector&lt;int&gt;&amp; N, vector&lt;int&gt;&amp; M) {
+        // dp.clear();
+        
+        // int l=0,h=N.size()-1;
+        // int pos=0;
+        // int ans=0;
+        // while(pos&lt;M.size())
+        // {
+        //     if(M[pos]&lt;=0)
+        //     {
+        //         int t;
+        //         if(N[l]&gt;N[h]){
+        //             t=h;
+        //             h--;
+        //         }
+        //         else{
+        //             t=l;
+        //             l++;
+        //         }
+        //         ans+=M[pos++]*N[t];
+        //     }
+        //     else{
+        //         int t;
+        //         if(N[l]&gt;N[h]){
+        //             t=l;
+        //             l++;
+        //         }
+        //         else{
+        //             t=h;
+        //             h--;
+        //         }
+        //         ans+=M[pos++]*N[t];
+        //     }
+        // }
+        memset(dp,-1,sizeof(dp));
+        return go(0,0,N,M);     
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

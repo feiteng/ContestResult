@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>682_silvertint10.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>682_silvertint10.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestPalindrome(self, word1: str, word2: str) -&gt; int:
+        if not set(word1) &amp; set(word2): return 0
+<A NAME="0"></A>        x, y = len(word1), len(word2)
+        s = word1 + word2
+        n = len(s)
+        dp <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [[0] * n for _ in range(n)]
+        ans = 0
+        for i in range(n - 1, -1, -1):
+            dp[i][i] = 1
+            for j in range(i + 1, n):
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1] + 2
+                    if i &lt; x and j &gt;= x:
+                        ans = max(ans, dp[i][j])
+                else:
+                    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+        # print(dp)
+        re</B></FONT>turn ans
+        
+        
+        # m, n = len(word1), len(word2)
+        # dp = [[0] * (n + 1) for _ in range(m + 1)]
+        # word2 = word2[::-1]
+        # for i in range(1, m + 1):
+        #     for j in range(1, n + 1):
+        #         if word1[i - 1] == word2[j - 1]:
+        #             dp[i][j] = dp[i - 1][j - 1] + 1
+        #         else:
+        #             dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+        # print(dp[-1][-1])
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_blackskygg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_blackskygg.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int longestPalindrome(string X, string Y) {
+        const int m = X.size(), n = Y.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string s = X+Y;
+        vector&lt;vector&lt;int&gt;&gt; L(m+n+1, vector&lt;int&gt;(n+m));
+        int ans = 0;
+        for (int i = 0; i &lt; s.size(); ++i) L[1][i] = 1;
+        for (int l = 2; l &lt;= m+n; ++l) {
+            for (int i = 0; i+l-1 &lt; s.size(); ++i) {</B></FONT>
+<A NAME="1"></A>                const int j = i+l-1;
+                if (s[i] == s[j]) {
+                    L[l][i] = 2 + L[l-2][i+1];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if (i &lt; m &amp;&amp; j &gt;= m) ans = max(ans, L[l][i]);
+                } else {
+                    L[l][i] = max(L[l-1][i+1], L[l-1][i]);
+                }
+            }
+        }
+        return ans;
+    }
+    
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

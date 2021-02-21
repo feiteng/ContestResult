@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>128_venkatesh17.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>128_venkatesh17.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maximumScore(int[] nums, int[] multipliers) {
+        //Map&lt;String, Integer&gt; hm = new HashMap&lt;&gt;();
+        int[][] arr = new int[multipliers.length+1][multipliers.length+2];
+        for(int[]ar: arr) {
+            Arrays.fill(ar, Integer.MIN_VALUE);
+        }
+        return check(nums, multipliers, arr, 0, nums.length - 1, 0);
+    }
+    
+    int check(int[] nums, int[] mul, int[][]arr, int start, int end, int m_s) {
+        if(m_s == mul.length) {
+            return 0;
+<A NAME="1"></A>        }</B></FONT>
+        //String cur = String.valueOf(start) + &quot;,&quot; + String.valueOf(end);
+        int back_index = nums.length - end;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(arr[start][back_index] != Integer.MIN_VALUE) {
+            return arr[start][back_index];
+        }
+        int out = Math.max(nums[start]*mul[m_s] + check(nums, mul, arr, start+1, end, m_s+1), nums[end]*mul[m_s] + check</B></FONT>(nums, mul, arr, start, end-1, m_s+1));
+        arr[start][back_index] = out;
+        return out;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

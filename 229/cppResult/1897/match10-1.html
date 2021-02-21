@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>168_kevincabbage.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>168_kevincabbage.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int longestPalindrome(string word1, string word2) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string word = word1 + word2;
+        int res = 0;
+        
+        vector&lt;vector&lt;int&gt;&gt; record(word.size() + 1, vector&lt;int&gt;(word.size(), 0));
+        
+        for(int i = word.size() - 1; i &gt;= 0; --i) {
+            record[i][i] = 1;
+            for(int j = i + 1; j &lt; word.size(); ++j) {
+                if(word[i] == word[j]) record[i][j] = record[i + 1][j - 1] + 2;
+                else record[i][j] = max(record[i + 1][j], record[i][j - 1]);
+<A NAME="1"></A>            }
+        }</B></FONT>
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; word1.size(); ++i) {
+            for(int j = word1.size(); j &lt; word.size(); ++j) {
+                if(word[i] == word[j]) res = max(res, record[i][j]);
+            }
+        }
+        
+       return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

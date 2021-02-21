@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_korney_a.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_korney_a.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int longestPalindrome(String word1, String word2) {
+        String common = word1 + word2;
+        int n = common.length();
+        int border = word1.length();
+        int mx = 0;
+        int[][] lps = new int[n][n];
+        for(int i = n - 1; i &gt;= 0; i--) {
+            lps[i][i] = 1;
+            for(int j = i + 1; j &lt; n; j++) {
+                if(common.charAt(i) == common.charAt(j)) {
+                    lps[i][j] = 2 + lps[i + 1][j - 1];
+                    if(i &lt; border &amp;&amp; j &gt;= border) mx = Math.max(mx, lps[i][j]);
+                }
+                else {
+                    lps[i][j] = Math.max(lps[i + 1][j], lps[i][j - 1]);
+                } 
+            }
+        }
+        
+        return mx;
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
