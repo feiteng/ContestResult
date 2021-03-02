@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>238_ght1993.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>238_ght1993.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public double[] getCollisionTimes(int[][] cars) {
+        // res[i]  res[i + 1]
+        // cars[i][1] &lt; min(cars[k][1]) (k &gt; i): res[i] = -1
+        // cars[i][1] &lt; cars[i + 1][1]: res[i] = (cars[k][0] - cars[i][0]) / (cars[i][1] - cars[k][1]) k是右边第一个速度小于i的车
+        // 首先找到i右边第一个 速度小于i 而且 自然情况i追上k的时间t &lt;= res[k] || res[k] == -1 res[i] = t
+        // 如果t &gt; res[k], res[i] = 
+        double[] res = new double[cars.length];
+        res[res.length - 1] = -1.0;
+        int minSpeed = cars[cars.length - 1][1];
+        for (int i = res.length - 2; i &gt;= 0; i--) {
+            if (cars[i][1] &lt; minSpeed) {
+                res[i] = -1.0;
+            } else {
+<A NAME="0"></A>                int j = i + 1;
+                while (j &lt; res.length) {
+                    if (cars[j][1] &lt; cars[i][1]) {
+                        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double t = (cars[j][0] - cars[i][0]) * 1.0 / (cars[i][1] - cars[j][1]);
+                        if (t &lt;= res[j] || res[j] == -1) {
+                            res[i] = t;
+                            break;
+                        }
+                    }
+                    j++;
+                }</B></FONT>
+                if (j == res.length) res[i] = -1.0;
+            }
+            minSpeed = Math.min(minSpeed, cars[i][1]);
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>431_Piguhoumian.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>431_Piguhoumian.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    int so = Integer.MAX_VALUE  / 2;
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+      //dfs
+      <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; baseCosts.length; i++) {
+          dfs(baseCosts[i], toppingCosts, target, 0);
+      }
+<A NAME="1"></A>      return so;
+    }
+    
+    pri</B></FONT>vate void dfs(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int cur, int[] toppingCosts, int target, int index) {
+      if (index == toppingCosts.length) {
+          if (Math.abs(cur - target) &lt; Math.abs(so - target)) {
+<A NAME="2"></A>              so = cur;
+          } else if (Math.abs(cur - target) == Math.abs(so - target) &amp;&amp; cur &lt; so) {
+              s</B></FONT>o = cur;
+          <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+          return;
+      }
+      for (int i = 0; i &lt;= 2; i++) {
+          dfs(cur + i * toppingCosts[index], toppingCosts, target, index + 1);
+      }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

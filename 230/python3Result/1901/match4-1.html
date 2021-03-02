@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>297_please_AC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>297_please_AC.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        s1 = sum(nums1)
+        s2 = sum(nums2)
+        if s1 &gt; s2:
+            nums1, nums2 = nums2, nums1
+            s1, s2 = s2, s1
+        
+        cnt1 = collections.Counter(nums1)
+        cnt2 = collections.Counter(</B></FONT>nums2)
+        
+        res = 0
+        diff = s2 - s1
+        for i in range(1, 6):
+            j = 7 - i
+            cur = cnt1[i] + cnt2[j]
+            if cur * (j - 1) &gt;= diff:
+                res += diff // (j - 1)
+                if diff % (j - 1):
+                    res += 1
+                return res
+            diff -= cur * (j - 1)
+            res += cur
+        
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

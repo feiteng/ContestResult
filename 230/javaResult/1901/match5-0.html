@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>831_felix-16.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>831_felix-16.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        int l1 = nums1.length;
+        int l2 = nums2.length;
+<A NAME="0"></A>        int sum1 = 0;
+        int sum2 = 0;
+        for(int i = 0; i &lt; l1; i++)
+            sum1 += nums1[i]<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        for (int i = 0; i &lt; l2; i++) {
+            sum2 += nums2[i];
+        }
+        int ans = 0;
+        if(sum1 &gt; sum2){</B></FONT>
+            if(l1 &gt; l2*6) return -1;
+            int dif = sum1 - sum2;
+            Arrays.sort(nums1);
+            Arrays.sort(nums2);
+            int index1 = l1 - 1;
+<A NAME="1"></A>            int index2 = 0;
+            int change = 0;
+            while(change &lt; dif){
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(index1 &gt;= 0 &amp;&amp; index2 &lt; l2) {
+                    if (nums1[index1] - 1 &gt; 6 - nums2[index2]) {
+                        change += (nums1[index1] - 1);
+                        index1--;
+
+                        ans ++;
+                    } else {
+                        change += (6 - nums2[index2]);
+                        index2++;
+
+                        ans ++;
+                    }
+                }
+                else if(index1 &gt;= 0){
+                    change += (nums1[index1] - 1);
+                    index1--;
+
+                    ans ++;
+                }
+                else if(index2 &lt; l2){
+                    change += (6 - nums2[index2]);
+                    index2++;
+
+                    ans ++;
+                }
+            }
+        }else{</B></FONT>
+            if(l2 &gt; l1*6) return -1;
+            int dif = sum2 - sum1;
+            Arrays.sort(nums1);
+            Arrays.sort(nums2);
+            int index2 = l2 - 1;
+<A NAME="2"></A>            int index1 = 0;
+            int change = 0;
+            while(change &lt; dif){
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(index2 &gt;= 0 &amp;&amp; index1 &lt; l1) {
+                    if (nums2[index2] - 1 &gt; 6 - nums1[index1]) {
+                        change += (nums2[index2] - 1);
+                        index2--;
+
+                        ans ++;
+                    } else {
+                        change += (6 - nums1[index1]);
+                        index1++;
+
+                        ans ++;
+                    }
+                }
+                else if(index2 &gt;= 0){
+                    change += (nums2[index2] - 1);
+                    index2--;
+
+                    ans ++;
+                }
+                else if(index1 &lt; l1){
+                    change += (6 - nums1[index1]);
+                    index1++;
+
+                    ans ++;
+                }
+            }
+        }</B></FONT>
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

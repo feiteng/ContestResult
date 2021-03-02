@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>559_maoyp.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>559_maoyp.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        int sum1 = 0, sum2 = 0;
+        for (int num : nums1){
+            sum1 += num;
+        }
+        for (int num : nums2){
+            sum2 += num;
+        }
+        
+        if (sum1 == sum2){
+            return 0;
+        }</B></FONT>
+        if (sum1 &lt; sum2){
+            return minOp(nums2, sum2, nums1, sum1);
+        }
+        return minOp(nums1, sum1, nums2, sum2);
+    }
+    
+<A NAME="1"></A>    private int minOp(int[] nums1, int sum1, int[] nums2, int sum2){
+        Queue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(nums1.length, (Integer i1, Integer i2) -&gt; i2.intValue() - i1.intValue());
+        Queue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;(nums2.length);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int num : nums1){
+            maxHeap.offer(num);
+        }
+        for (int num : nums2){
+            minHeap.offer(num);
+        }
+        int result = 0;
+        
+        while</B></FONT> (sum1 &gt; sum2){
+            int diff = sum1 - sum2;
+            int diff1 = maxHeap.peek() - 1, diff2 = 6 - minHeap.peek();
+            if (diff1 == 0 &amp;&amp; diff2 == 0){
+                return -1;
+            }
+            if (diff &lt;= Math.max(diff1, diff2)){
+                return result + 1;
+            } 
+            if (diff1 &gt;= diff2){
+                sum1 = sum1 - maxHeap.peek() + 1;
+                maxHeap.poll();
+                maxHeap.offer(1);
+            } else {
+                sum2 = sum2 - minHeap.peek() + 6;
+                minHeap.poll();
+                minHeap.offer(6);
+            }
+            result++;
+        }
+        
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

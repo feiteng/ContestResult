@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>852_YannYang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>852_YannYang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int res = -1;
+    int d = INT_MAX;
+    //int dp[10010];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int closestCost(vector&lt;int&gt;&amp; baseCosts, vector&lt;int&gt;&amp; toppingCosts, int target) {
+        unordered_set&lt;int&gt; cnt;
+        cnt.insert(0);
+        for (auto &amp;top : toppingCosts) {
+            vector&lt;int&gt; bar;
+            for (auto&amp; x : cnt) {
+                bar.emplace_back(x + top);
+                bar.emplace_back(x + top + top);
+            }
+            for (auto&amp; x : bar)</B></FONT>
+                cnt.insert(x);
+        }
+<A NAME="1"></A>        for (auto&amp; base : baseCosts) {
+            for (auto&amp; top : cnt) {
+                int sum = base + top;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int dd = abs(sum - target);
+                if (dd &lt; d) {
+                    d = dd;
+                    res = sum;
+                }else if (dd == d &amp;&amp; sum &lt; target) {
+                    res = sum;
+                } 
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

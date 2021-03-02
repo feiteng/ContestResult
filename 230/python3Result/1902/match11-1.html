@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>12_azala.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>12_azala.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        h = []
+<A NAME="0"></A>        ans = [-1] * len(cars)
+        prv = [-1] + list(range(len(cars)-1))
+        nxt = list(range(1, len(cars))) + [-1]
+        for i in range(len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(cars)-1):
+            a, b = cars[i]
+            c, d = cars[i+1]
+            if b &gt; d:
+                t = (c - a) / (b - d)
+                heapq.heappush(h, (t, i, i+1))
+            
+        while</B></FONT> h:
+            x, y, z = heapq.heappop(h)
+            if ans[y] != -1:
+                continue
+            ans[y] = x
+            
+            a, b = prv[y], nxt[y]
+            if b != -1:
+                prv[b] = a
+            if a != -1:
+                nxt[a] = b
+                
+            if a != -1 and b != -1:
+                y, z = a, b
+                a, b = cars[y]
+                c, d = cars[z]
+                if b &gt; d:
+                    t = (c - a) / (b - d)
+                    heapq.heappush(h, (t, y, z))
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

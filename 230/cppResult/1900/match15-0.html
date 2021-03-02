@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_anil9717.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>51_anil9717.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll  long long
+//#define int ll
+#define vi vector&lt;int&gt;
+#define pii pair&lt;int,int&gt;
+#define piii pair&lt;int, pii&gt;
+#define pb push_back
+#define fs first
+#define sc second
+//#define ONLINE_JUDGE
+#define endl &quot;\n&quot;
+#define pow2(i) (1&lt;&lt;(i))  
+#define d0(x) cout&lt;&lt;x&lt;&lt;&quot; &quot;
+#define d1(x) cout&lt;&lt;(x)&lt;&lt;endl
+#define d2(x,y) cout&lt;&lt;(x)&lt;&lt;&quot; &quot;&lt;&lt;(y)&lt;&lt;endl
+#define d3(x,y,z) cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;&quot; &quot;&lt;&lt;z&lt;&lt;endl
+#define d4(x,y,z,w) cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;&quot; &quot;&lt;&lt;z&lt;&lt;&quot; &quot;&lt;&lt;w&lt;&lt;endl
+#define d5(x,y,z,w,s) cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;&quot; &quot;&lt;&lt;z&lt;&lt;&quot; &quot;&lt;&lt;w&lt;&lt;&quot; &quot;&lt;&lt;s&lt;&lt;endl
+#define fifo ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define precise(x) cout&lt;&lt;fixed&lt;&lt;setprecision(x)
+#define all(v) (v).begin(),(v).end()
+<A NAME="0"></A>const int mod = 1e9+7;
+
+ 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int closestCost(vector&lt;int&gt;&amp; b, vector&lt;int&gt;&amp; t, int C) {
+
+        int ans = 1e8;
+
+        int n = b.size();
+        int m = t.size();
+
+        int M=1;
+        for(int i=1;i&lt;=m;i++)
+            M*=3;
+        //M-=1;// M/=2;
+        
+        //d3(n,m,M);
+
+<A NAME="1"></A>            for(int j=0;j&lt;M;j++)
+            {
+                int x = j;int tmp = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for(int k=0;k&lt;m;k++)
+                {
+                    tmp += t[k]*(x%3);
+                    x/=3;
+                }
+               // d2(j,tmp);
+                for(int i=0;i&lt;n;i++)
+                {
+                    int tmp1 = tmp + b[i];</B></FONT>
+                    if(abs(C-tmp1)&lt;abs(C-ans)||(abs(C-tmp1)==abs(C-ans) &amp;&amp; tmp1&lt;ans))
+                        ans = tmp1;
+                }
+            }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

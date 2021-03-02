@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>197_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+<A NAME="0"></A>        final int N = nums1.length;
+        final int M = nums2.length;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int sum1 = arraySum(nums1);
+        int sum2 = arraySum(nums2);
+        
+        if (sum1 &lt; sum2) {
+            return minOperations(nums2, nums1);
+        }</B></FONT>
+        
+<A NAME="1"></A>        // int[] freq1 = makeFreq(nums1);
+        // int[] freq2 = makeFreq(nums2);
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] deltaPower = new int[6];
+        for (int x : nums1) {
+            ++deltaPower[x - 1];
+        }
+        for (int x : nums2) {
+            ++deltaPower[6 - x];
+        }
+        // System.out.println(Arrays.toString(deltaPower));
+        
+        int moves = 0;
+        int diff = sum1 - sum2;
+        int p = 5</B></FONT>;
+        while (diff &gt; 0) {
+            while (p &gt; 0 &amp;&amp; deltaPower[p] &lt;= 0) {
+                --p;
+            }
+            if (p &lt;= 0) {
+                break;
+            }
+            // System.out.format(&quot;move = %d, diff = %d, p = %d\n&quot;, moves, diff, p);
+            ++moves;
+            diff -= p;
+            --deltaPower[p];
+        }
+        if (diff &gt; 0) {
+            return -1;
+        }
+        return moves;
+        
+//         ArrayList&lt;int[]&gt; opts1 = new ArrayList&lt;&gt;();
+//         generate(new int[N], 0, opts1);
+        
+//         ArrayList&lt;int[]&gt; opts2 = new ArrayList&lt;&gt;();
+<A NAME="2"></A>//         generate(new int[M], 0, opts2);
+        
+//         IntArrayList[] 
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private static int arraySum(int[] arr) {
+        int s = 0;
+        for (int x : arr) {
+            s += x;
+        }
+        return s;
+    }</B></FONT>
+    
+    private static int[] makeFreq(int[] arr) {
+        int[] freq = new int[7];
+        for (int x : arr) {
+            ++freq[x];
+        }
+        return freq;
+    }
+    
+    private static void generate(int[] arr, int i, ArrayList&lt;int[]&gt; output) {
+        if (i &gt;= arr.length) {
+            output.add(Arrays.copyOf(arr, arr.length));
+            return;
+        }
+        for (int x = 1; x &lt;= 6; ++x) {
+            arr[i] = x;
+            generate(arr, i + 1, output);
+        }
+    }
+    
+    private static class IntArrayList extends ArrayList&lt;int[]&gt; {}
+}
+</PRE>
+
+</BODY>
+</HTML>

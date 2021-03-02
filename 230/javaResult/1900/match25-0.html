@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>515_kevinSS.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>515_kevinSS.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int res = Integer.MAX_VALUE;
+    private void helper (int[] toppingCosts, int idx, int target, int cur) {
+        if (Math.abs(target - cur) &lt; Math.abs(target - res)) {
+            res = cur;
+        } else if (Math.abs(target - cur) == Math.abs(target - res)) {
+            res = Math.min(cur, res);
+        }
+        if</B></FONT> (target &lt; cur) {
+            return;
+        }
+        for (; idx &lt; toppingCosts.length; idx++) {
+            helper(toppingCosts, idx + 1, target, cur + toppingCosts[idx]);
+            helper(toppingCosts, idx + 1, target, cur + toppingCosts[idx] * 2);
+        }
+<A NAME="1"></A>    }
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+        Arrays.sort(toppingCosts);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; baseCosts.length; i++) {
+            helper(toppingCosts, 0, target, baseCosts[i]);
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

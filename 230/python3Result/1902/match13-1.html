@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_serdes.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_serdes.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getCollisionTimes(self, a: List[List[int]]) -&gt; List[float]:
+        
+        n = len(a)
+        
+        # -- monotonically decreasing 
+        # [steepness, pos]
+        stk = []
+        
+        # [lo, hi]
+        
+        # bias low
+        # hug low
+        # kill low
+        # so you never need to check hi
+        
+        # no steepness is infinite so that is good
+        
+        # y = mx + b
+        # b == starting position
+        # m == speed (steepness)
+        
+        # mx + b == Mx + B
+        # (M-m)x = b-B
+        # x = (b-B)/(M-m)
+        
+        # ok cool
+        
+        # monotonically decreasing stack... by speed?
+        # monotonically increasing by position start
+        
+        # but you need to pop and access efficiently
+        
+        # do I think you need it the other way around?
+        
+        
+        
+        def line_intersection(m, b, M, B):
+            return (b-B)/(M-m)
+        
+        # my logic probably isn't correct
+        # i probably need to continue to pop off the convex hull
+        # while... while what condition?
+        # i think while it completely subsumes the previous two
+        # something like this
+        # its totally possible to have it be completely consumed
+        
+        # do I need the last to compare against the last TWO?
+        
+        # yes...
+        
+        # monotonically increasing stack, by speed
+        # monotonically decreasing stack, by position start
+        
+        ret = [-1] * n
+        
+        for i,(pos,steepness) in reversed(list(enumerate(a))):
+            
+            #print(&quot;current i&quot;, i)
+            
+            # check intersection points
+            # convex hull maintenance
+            
+            # you WILL pop off anything that is FASTER
+            
+            while stk and stk[-1][0] &gt;= steepness:
+                stk.pop()
+                
+            #print(&quot;stk to work with&quot;, stk)
+            
+            # cars are more forward
+            
+            # you need the SLOWER ONES
+            # 
+            
+            # will never intersect with anything
+            if not stk:
+                ret[i] = -1.0
+                
+            # will intersect
+            else:
+                
+                # binary search for the optimal
+                # intersect(stk[i]) &lt;= intersect(stk[i+1])
+                # essentially look for this
+                
+                # looking for a minima on a parabola
+                # hug lo
+                
+                lo = 0
+                hi = len(stk) - 1
+                
+                # a[i] = [pos, steepness]
+                # stk has [steepness, pos]
+                
+                while lo != hi:
+                    
+<A NAME="0"></A>                    mid = (lo+hi)//2
+                    
+                    if (
+                        line_intersection(a<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][1],a[i][0],stk[mid][0],stk[mid][1]) &lt;= line_intersection(a[i][1],a[i][0],stk[mid+1][</B></FONT>0],stk[mid+1][1])):
+                        hi = mid
+                    else:
+                        lo = mid+1
+                        
+                    
+                ret[i] = line_intersection(a[i][1],a[i][0], stk[lo][0],stk[lo][1])
+                
+            # update with convex hull maintenance
+            # stk[-1] will 
+            # if intersection point of stk[-2] comes earlier than stk[-2], then you must pop it off
+            
+            while len(stk) &gt;= 2 and line_intersection(steepness,pos,stk[-1][0],stk[-1][1]) &gt;= line_intersection(steepness,pos,stk[-2][0],stk[-2][1]):
+                stk.pop()
+            
+            stk.append([steepness, pos])
+            
+        
+        return ret
+            # update == pop off as many as which tie or lower than your steepness
+            
+        
+        # TODO: how to tell if x will never hit any parent?
+        
+        # need to solve the equation in order to determine the intersection point...
+        
+        # OH
+        # there is a quick way to check this
+        
+        # you need to check only the range which has &gt; steepness
+        # because you'll only ever possibly intersect with these
+        # so lets just pop these off in advance
+        
+        # if there is nothing left in the stack
+        # you know you'll never intersect with anything
+        
+        
+        # STACK
+        
+        # race car
+        # this is a repeat question
+        
+        # cars are all moving forward
+        
+        # start with the leading car (most rightward)
+        
+        # consider collision time of kth and k+1th car
+        
+        # oh, slowest car in the fleet, hmm
+        
+        # O(nlogn)?
+        
+        # its already ordered...
+        
+        # stack... bisect based on collision time, I think?
+        
+        # do you need to binary search to see 
+        
+        # the pack you see in front of you will just get slower and slower
+        
+        # lets say you already have a monotonic stack of the cars in front of you (and their collision times?)
+        
+        # now what?
+        
+        # strictly decreasing speed
+        
+        # is there an inflection point somewhere?
+        
+        # polygon lines
+        
+        # the slower one is below the others until it gets above
+        # and then it will always be above the faster ones
+        
+        # I think its binary search yes
+        
+        # find the one where the next one, you'll intersect at a LATER time
+        # ^ you can consider tie as OK (satisfactory)
+        
+        # where do you insert your own value?
+        
+        # I think you just pop off of the stack
+        
+        # you might need to do monotonically decreasing...
+        
+        # now the bisect will be kind of wierd...
+        
+        # 
+
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>33_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int closestCost(int[] bcs, int[] tcs, int tg) {
+        boolean[][] dp = new boolean[tcs.length*2+1][20001];
+        for (int i = 0; i &lt; bcs.length; ++i) {
+            dp[0][bcs[i]] = true;
+        }
+        for (int i = 0; i &lt; tcs.length; ++i) {
+            for (int j = 0; j &lt;= 10000; ++j) {</B></FONT>
+                dp[i+1][j] = dp[i+1][j]||dp[i][j];
+                dp[i+1][j+tcs[i]] = dp[i+1][j+tcs[i]]||dp[i][j];
+            }
+        }
+        for (int i = 0; i &lt; tcs.length; ++i) {
+<A NAME="1"></A>            for (int j = 0; j &lt;= 10000; ++j) {
+                dp[i+1+tcs.length][j] = dp[i+1+tcs.length][j]||dp[i+tcs.length][j];
+                dp[i+1+tcs.length][j+tcs[i]] = dp[i+1+tcs.length][j+tcs[i]]||dp[i+tcs.length][j];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        int ans = 1000000;
+        for (int i = 0; i &lt;= 20000; ++i) {
+            if (dp[tcs.length*2][i] &amp;&amp; Math.abs(i-tg)&lt;Math.abs(ans-tg)) {
+                ans = i;
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

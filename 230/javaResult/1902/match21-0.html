@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>77_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>77_zac4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double[] getCollisionTimes(int[][] cars) {
+        int N = cars.length;
+        double[] ans = new double[N];
+        Stack&lt;Car&gt; stack = new Stack();
+        for (int i = N - 1; i &gt;= 0; i--) {
+            int p = cars[i][0]</B></FONT>, v = cars[i][1];
+            while (!stack.isEmpty()) {
+                Car next = stack.pop();
+                if (next.v &gt;= v) {
+                    continue;
+                } else if (stack.isEmpty()) {
+                    stack.push(next);
+                    break;
+                } else {
+                    Car nnext = stack.peek();
+                    double t1 = (double) (next.p - p) / (double) (v - next.v);
+                    double t2 = (double) (nnext.p - p) / (double) (v - nnext.v);
+                    if (t2 &lt;= t1) {
+                        continue;
+                    } else {
+                        stack.push(next);
+                        break;
+                    }
+                }
+            }
+            if (stack.isEmpty()) {
+                ans[i] = -1.0;
+            } else {
+                Car next = stack.peek();
+                ans[i] = (double) (next.p - p) / (double) (v - next.v);
+            }
+            stack.push(new Car(p, v));
+            // System.out.println(stack.toString());
+        }
+        return ans;
+    }
+    
+    class Car {
+        int p, v;
+        
+        Car(int p, int v) {
+            this.p = p;
+            this.v = v;
+        }
+        
+//         @Override
+//         public String toString() {
+//             return &quot;[&quot; + p + &quot;, &quot; + v + &quot;]&quot;;
+//         }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

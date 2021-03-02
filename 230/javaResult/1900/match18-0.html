@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>758_zbw0.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>758_zbw0.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean dp[]=new boolean[1&lt;&lt;20];
+        for(int i=0;i&lt;baseCosts.length;i++){
+            dp[baseCosts[i]]=true;
+        }
+        for(int i=0;i&lt;toppingCosts.length;i++){
+<A NAME="1"></A>            for(int j=dp.length-1;j&gt;=toppingCosts[i];j--){
+                dp[j]|=dp[j-toppingCosts[i]];
+                if</B></FONT>(j-toppingCosts[i]*2&gt;=0)
+                    dp[j]|=dp[j-toppingCosts[i]*2]<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            }
+        }
+        int sum=Integer.MAX_VALUE;
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i&lt;dp.length;i++){
+            if(dp[i]){
+<A NAME="2"></A>                if(sum&gt;Math.abs(target-i)){
+                    sum=target-i;
+                    m</B></FONT>in=i;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

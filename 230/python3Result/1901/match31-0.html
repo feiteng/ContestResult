@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>892_jthuang41.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>892_jthuang41.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        sum1 = sum(nums1)
+        sum2 = sum(nums2)
+        
+        if sum1 == sum2:
+            return 0
+        
+        if sum2 &gt; sum1:
+            nums1, nums2 = nums2, nums1
+            sum1, sum2 = sum2, sum1
+        
+        ops = 0
+        left, right =</B></FONT> sum1, sum1
+        
+        d = {}
+        d[sum1] = [0, None]
+        
+        for i in reversed(sorted(nums1)):
+            if i == 1:
+                break
+            else:
+                right = left - 1
+                left = left - (i - 1)
+                ops += 1
+                for j in range(left, right + 1):
+                    if j not in d:
+                        d[j] = [None, None]
+                    d[j][0] = ops
+
+        if sum2 not in d:
+            d[sum2] = [None, 0]
+        left, right = sum2, sum2
+        ops = 0
+
+        for i in sorted(nums2):
+            if i == 6:
+                break
+            else:
+                left = right + 1
+                right = right + (6 - i)
+                ops += 1
+                for j in range(left, right + 1):
+                    if j not in d:
+                        d[j] = [None, None]
+                    d[j][1] = ops
+        
+        ans = None
+        for i, j in d.items():
+            if j[0] is not None and j[1] is not None:
+                ops = j[0] + j[1]
+                if ans is None:
+                    ans = ops
+                else:
+                    ans = min(ans, ops)
+        
+        if ans is None:
+            return -1
+        return ans
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

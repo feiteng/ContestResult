@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>460_wakamori.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>460_wakamori.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def closestCost(self, baseCosts: List[int], toppingCosts: List[int], target: int) -&gt; int:
+        self.nearest = float('inf')
+        def DFS(cur: int, i: int):
+            if i == len(toppingCosts):
+                if (abs(target - cur) &lt; abs(target - self.nearest)) or \
+                    ((abs(target - cur) == abs(target - self.nearest)) and cur &lt; self.</B></FONT>nearest):
+                    self.nearest = cur
+            else:
+                DFS(cur, i + 1)
+                DFS(cur + toppingCosts[i], i + 1)
+                DFS(cur + toppingCosts[i] * 2, i + 1)
+        for b in baseCosts:
+            DFS(b, 0)
+        return self.nearest
+</PRE>
+
+</BODY>
+</HTML>

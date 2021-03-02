@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>93_w285714.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>93_w285714.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int minOperations(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        vector&lt;int&gt; a1(7),a2(7);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int s1=0,s2=0;
+        for(int q:nums1){
+            s1+=q;
+            ++a1[q];
+        }
+        for(int q:nums2){
+            s2+=q;
+            ++a2[q];
+<A NAME="1"></A>        }
+        if(s1==s2)
+            return 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(s1&lt;s2){
+            swap(s1,s2);
+            swap(a1,a2);
+        }
+        int d=s1-s2;
+        int res=0;
+        for(int i=6;d&gt;0&amp;&amp;i&gt;=2;--i){
+            int t=a1[i]+a2[7-i];
+            int s=t*(i-1);
+            if(s&lt;d){
+                d-=s;
+                res+=t;
+            }
+            else{                
+                res+=d/(i-1);
+                res+=(d%(i-1))!=0;</B></FONT>
+                d=0;
+            }                
+        }
+        if(d==0)
+            return res;
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

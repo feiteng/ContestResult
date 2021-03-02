@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>117_dj2014.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>117_dj2014.py</CENTER></H3><HR>
+<PRE>
+from sortedcontainers import SortedList
+from heapq import heappush, heappop
+
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        n = len(cars)
+        ans = [-1] * n
+        visited = set()
+        
+        sl = SortedList(list(range(n)))
+<A NAME="0"></A>        
+        a = []
+        for i in range(0, n-1):
+            t = math<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.inf if cars[i][1] &lt;= cars[i+1][1] else (cars[i+1][0] - cars[i][0]) / (cars[i][1] - cars[i+1][1])
+            heappush(</B></FONT>a, (t, i, i+1))
+        
+        # print(a)  
+        
+        while a:
+            t, x, y = heappop(a)
+            if t == math.inf:
+                break
+            if x in visited or y in visited:
+                continue
+            ans[x] = t
+            visited.add(x)
+            sl.remove(x)
+            idx = sl.bisect_left(x)
+            if idx &gt; 0:
+                z = sl[idx-1]
+                t = math.inf if cars[z][1] &lt;= cars[y][1] else (cars[y][0] - cars[z][0]) / (cars[z][1] - cars[y][1])
+                heappush(a, (t, z, y))
+        
+        return ans
+                
+</PRE>
+
+</BODY>
+</HTML>

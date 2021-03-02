@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>578_xywang0520.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>578_xywang0520.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        int sum1 = calculateSum(nums1);
+        int sum2 = calculateSum(nums2);
+        if (sum1 == sum2) return 0;
+        // make nums1 &gt; nums2
+        if</B></FONT> (sum1 &lt; sum2) {
+            int[] temp = nums1;
+            nums1 = nums2;
+            nums2 = temp;
+            int t = sum1;
+            sum1 = sum2;
+            sum2 = t;
+        }
+        
+        int res = 0;
+        int diff = sum1 - sum2;
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int n = nums1.length;
+        int m = nums2.length;
+        int i = n-1;
+        int j = 0;
+        while (diff &gt; 0) {
+            if (i &lt; 0 &amp;&amp; j == m) return -1;
+            if (i &lt; 0) {
+                if (nums2[j] == 6) return -1;
+                int d = 6 - nums2[j];
+                if (d &gt;= diff) return res + 1;
+                diff -= d;
+                j++;
+            } else if (j == m) {
+                if (nums1[i] == 1) return -1;
+                int d = nums1[i] - 1;
+                if (d &gt;= diff) return res + 1;
+                diff -= d;
+                i--;
+            } else {
+                int d1 = 6 - nums2[j];
+                int d2 = nums1[i] - 1;
+                if (d1 &gt;= d2) {
+                    if (d1 &gt;= diff) return res + 1;
+                    j++;
+                    diff -= d1;
+                } else {
+                    if (d2 &gt;= diff) return res + 1;
+                    i--;
+                    diff -= d2;
+<A NAME="1"></A>                }
+            }
+            res++;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return res;
+    }
+    
+    private int calculateSum(int[] arr) {
+        int sum = 0;
+        for (int num: arr) sum += num;
+        return sum;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

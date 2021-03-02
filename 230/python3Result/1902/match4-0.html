@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_liuzhi3434.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>53_liuzhi3434.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        n = len(cars)
+        res = [-1] * n
+        sp = [[0, cars[</B></FONT>-1][1]]]
+        #print(sp)
+        for i in range(n - 2, -1, -1):
+            p, s = cars[i]
+            if s &lt;= sp[-1][1]:
+                res[i] = -1
+                sp = [[0, s]]
+                continue
+            gap = cars[i+1][0] - p
+            rt = 0
+            nsp = []
+            for j in range(len(sp)):
+                ct, cs = sp[j]
+                req_t = gap / (s - cs) if s != cs else inf
+                ht = inf if j == len(sp) - 1 else sp[j+1][0] - ct
+                if req_t &lt; 0 or req_t &gt; ht:
+                    gap -= (ht * (s - cs))
+                    rt += ht
+                else:
+                    
+                    nsp = [[0, s], [rt + req_t, cs]]
+                    res[i] = rt + req_t
+                    for k in range(j, len(sp)):
+                        if sp[k][0] &gt; rt + req_t:
+                            nsp.append(sp[k])
+                        else:
+                            nsp[-1][1] = sp[k][1]
+                    break
+            sp = nsp
+            #print(sp)
+                    
+        return res
+</PRE>
+
+</BODY>
+</HTML>

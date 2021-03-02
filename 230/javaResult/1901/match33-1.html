@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>902_jeffjyang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>902_jeffjyang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        if (nums1.length &gt; 6 * nums2.length || nums2.length &gt; 6 * nums1.length) {
+            return -1;
+        }
+        
+        int[] countsA = new int[7]</B></FONT>;
+        int[] countsB = new int[7];
+        
+<A NAME="1"></A>        int sumA = 0;
+        int sumB = 0;
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int x : nums1) {
+            countsA[x] ++;
+            sumA += x;
+        }
+        for (int x : nums2) {
+            countsB[x] ++;
+            sumB += x;
+        }
+        
+
+        int ops = 0</B></FONT>;
+        while (sumA != sumB) {
+            if (sumA &lt; sumB) {
+                int t = sumA;
+                sumA = sumB;
+                sumB = t;
+                int[] t2 = countsA;
+                countsA = countsB;
+                countsB = t2;
+            }
+            // sumA &gt; sumB;
+            
+            int maxMoveA = 0;
+            for (int i = 6; i &gt; 0; i --) {
+                if (countsA[i] != 0) {
+                    maxMoveA = i - 1; 
+                    break;
+                }
+            }
+           
+            int maxMoveB = 0;
+            for (int i = 1; i &lt; 7; i ++) {
+                if (countsB[i] != 0) {
+                    maxMoveB = 6 - i; 
+                    break;
+                }
+            }
+                        
+            int maxMove = Math.max(maxMoveA, maxMoveB);
+
+            if (sumA - sumB &gt; maxMove) {
+                // max move
+                for (int diff = maxMove; diff &gt; 0; diff --) {
+                    if (countsA[1 + diff] != 0) {
+                        countsA[1 + diff] --;
+                        countsA[1] ++;
+                        sumA -= diff;
+                        ops ++;
+                        break;
+                    } else if (countsB[6 - diff] != 0) {
+                        countsB[6 - diff] --;
+                        countsB[6] ++;
+                        sumB += diff;
+                        ops ++;
+<A NAME="2"></A>                        break;
+                    }
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} 
+            else {
+                ops ++;
+                break;
+            } 
+            
+            
+            
+        }
+        return ops;
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

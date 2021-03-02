@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>558_jotaki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>558_jotaki.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minOperations(int[] nums1, int[] nums2) {            
+        int total1 = 0;
+        int total2 = 0;
+        
+<A NAME="1"></A>        int[] counts1 = new int[7];
+        int[] counts2 = new</B></FONT> int[7];
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int num : nums1) {
+            total1 += num;
+            counts1[num]++;
+        }
+        for (int num : nums2) {
+            total2 += num;
+            counts2[num]++;
+        }
+        
+        // Already same, don't need to change anything.
+        if</B></FONT> (total1 == total2) {
+            return 0;
+        }
+        
+        // Both sums must be equal, so for each possible sum, just find out
+        // min moves for each to reach that.
+        int M = nums1.length;
+        int N = nums2.length;
+        
+        // Check if not possible no matter what.
+        if (M*6 &lt; N || N*6 &lt; M) {
+            return -1;
+        }
+        
+        int min = Integer.MAX_VALUE;
+                
+        int minTotal = Math.max(M, N); // Larger one cannot go any smaller.
+        int maxTotal = Math.min(M, N) * 6; // Smaller one cannot go any larger.
+        
+        for (int total = minTotal; total &lt;= maxTotal; total++) {
+            int moves1 = getMoves(counts1, total, total1);
+            int moves2 = getMoves(counts2, total, total2);
+            
+            if (moves1 != -1 &amp;&amp; moves2 != -1) {
+                min = Math.min(min, moves1 + moves2);
+            }
+        }
+        
+<A NAME="2"></A>        return min;
+    }
+    
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match37-1.html#2',3,'match37-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int getMoves(int[] counts, int target, int total) {
+        if (total == target) return 0;
+        
+        int moves = 0;
+        
+        // Best to decrease.
+        if (total &gt; target) {
+            for (int val = 6; val &gt;= 2; val--) {
+                if (counts[val] &gt; 0) {</B></FONT>
+                    int count = counts[val];
+                    int offset = total - target;
+                    
+                    // Max we can change the total by changing this value to a 1.
+                    int loss = val - 1;
+                    int times = 0;
+                    
+                    if (offset &gt;= loss) {
+                        times = Math.min(count, offset / loss);
+                        moves += times;
+                        total -= (times * loss);
+                    }
+                    
+                    int rem = count - times;
+                    if (rem &gt; 0) {
+                        if (total &gt; target) {
+                            int diff = total - target;
+                            
+                            // Just decrease by whatever remains.
+                            if (loss &gt;= diff) {
+                                moves++;
+                                total -= diff;
+<A NAME="3"></A>                            }
+                        }
+                    }
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match37-1.html#3',3,'match37-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        // Best to increase.
+        else {
+            for (int val = 1; val &lt;= 5; val++) {
+                if (counts[val] &gt; 0) {</B></FONT>
+                    int count = counts[val];
+                    int offset = target - total;
+                    
+                    int gain = 6 - val;
+                    int times = 0;
+                    
+                    if (offset &gt;= gain) {
+                        times = Math.min(count, offset / gain);
+                        moves += times;
+                        total += (times * gain);
+                    }
+                    
+                    int rem = count - times;
+                    if (rem &gt; 0) {
+                        if (target &gt; total) {
+                            int diff = target - total;
+                            
+                            if (gain &gt;= diff) {
+                                moves++;
+                                total += diff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        if (total != target) {
+            return -1;
+        }
+        else {
+            return moves;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

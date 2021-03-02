@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_bladerunner123.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>218_bladerunner123.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="1"></A>    vector&lt;int&gt; tops;
+    int best = INT_MAX;
+    int res = -1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int closestCost(vector&lt;int&gt;&amp; baseCosts, vector&lt;int&gt;&amp; toppingCosts, int target) {
+        
+        int n = baseCosts.size();
+        int m = toppingCosts.size();
+        tops = toppingCosts;
+        for (int i = 0; i &lt; n; ++i)
+        {</B></FONT>
+            DFS(0, target, baseCosts[i]);
+        }
+        
+<A NAME="0"></A>        return res;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void DFS(int index, int target, int curCost)
+    {
+        if (index &gt;= tops.size())
+        {
+            if (abs(curCost - target) &lt; best)
+            {
+                best = abs(curCost - target);
+                res = curCost;
+            }
+            else if (abs(curCost - target) == best &amp;&amp; curCost &lt; res)
+            {
+                res = curCost;
+            }
+            return;
+        }</B></FONT>
+        
+        DFS(index + 1, target, curCost);
+        DFS(index + 1, target, curCost + tops[index]);
+        DFS(index + 1, target, curCost + tops[index] * 2);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

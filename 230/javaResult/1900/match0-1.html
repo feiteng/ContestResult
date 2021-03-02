@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_sgkldfkl.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>284_sgkldfkl.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        set.add(0);
+        for (int val : toppingCosts) {
+<A NAME="1"></A>            Set&lt;Integer&gt; next = new</B></FONT> HashSet&lt;&gt;();
+            for (int c : set) {
+                next.add(c);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>next.add(c + val);
+                next.add(c + val + val);
+            }
+            set = next;
+        }
+        int diff = Integer.MAX_VALUE;
+        int result = Integer.MAX_VALUE;
+        for (int val : set) {
+            for (int b : baseCosts) {
+                int t = val + b;
+                int d = Math.abs(target - t);
+                if (d == 0) {</B></FONT>
+<A NAME="2"></A>                    return target;
+                }
+                if (d &lt; diff) {
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>diff = d;
+                    result = t;
+                } else if (d == diff &amp;&amp; t &lt; result) {
+                    result = t;
+                }
+            }
+        }
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>226_blin00.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>226_blin00.py</CENTER></H3><HR>
+<PRE>
+INF = float('inf')
+
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        N = len(cars)
+        res = [INF] * N
+        if N == 1:
+            return [-1]
+        # final speed of each car is the min speed of everything in front of it
+        # back to front
+        # is it true: each car collides with the first car in front of it that's slower?
+        # nope
+        min_idx = N - 1
+        min_spd = cars[-1][1]
+<A NAME="0"></A>        # invariant: sequence of speeds i, ..., last_idx is strictly decreasing
+        # idx, pos, spd, min collision time
+        stack = [(N - 1, cars[-1][0], cars[-1][1], INF)]
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(N - 2, -1, -1):
+            pos, spd = cars[i]
+            while stack and spd &lt;= stack[-1][2]:
+                stack.pop()
+            if spd &lt;= min_spd:
+                best_t =</B></FONT> INF
+                # never
+                min_idx = i
+                min_spd = spd
+            else:
+                # definitely will collide with...one of the blobs in front of it
+                # take the min over each individual one?
+                &quot;&quot;&quot;
+                [[2,4],[4,5],[6,2],[10,4],[13,1],[15,4],[17,3],[18,5],[19,4],[20,1]]
+                me: [2.00000,0.66667,7.00000,1.00000,-1.00000,2.00000,1.50000,1.00000,0.33333,-1.00000]
+                expected: [2.00000,0.66667,7.00000,1.00000,-1.00000,1.66667,1.50000,0.50000,0.33333,-1.00000]
+                &quot;&quot;&quot;
+                best_t = INF
+                assert(stack)
+                
+                ## begin panic
+                if len(stack) &gt; 100:
+                    for j in range(len(stack) - 1, len(stack) - 1 - 50, -1):
+                        f_idx, f_pos, f_spd, stack_t = stack[j]
+                        t = (f_pos - pos) / (spd - f_spd)
+                        assert t &gt;= 0
+                        best_t = min(best_t, t)
+                        if best_t &lt; stack_t:
+                            break
+                        
+                    for j in range(50, -1, -1):
+                        f_idx, f_pos, f_spd, stack_t = stack[j]
+                        t = (f_pos - pos) / (spd - f_spd)
+                        assert t &gt;= 0
+                        best_t = min(best_t, t)
+                        
+                ## end panic
+                else:
+                    for j in range(len(stack) - 1, -1, -1):
+                        f_idx, f_pos, f_spd, stack_t = stack[j]
+                        t = (f_pos - pos) / (spd - f_spd)
+                        assert t &gt;= 0
+                        best_t = min(best_t, t)
+                        if best_t &lt; stack_t:
+                            break
+                # while stack:
+                #     j = stack[-1][0]
+                #     if res[j] &lt; 0 or res[j] &gt; best_t:
+                #         stack.pop()
+                #     else:
+                #         break
+                assert best_t &lt; INF
+                res[i] = best_t
+            stack_t = best_t
+            if stack:
+                stack_t = min(stack_t, stack[-1][3])
+            stack.append((i, pos, spd, stack_t))
+            # print('stack:')
+            # for i, pos, spd, _ in stack:
+            #     print(i, res[i])
+            # print()
+        res = [-1 if x &gt;= INF else x for x in res]
+        return res
+</PRE>
+
+</BODY>
+</HTML>

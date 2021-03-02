@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>601_tyhaha.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>601_tyhaha.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minOperations(self, a1: List[int], a2: List[int]) -&gt; int:
+        h1 = []
+        h2 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+        if sum(a1) &gt; sum(a2):
+            a1, a2 = a2, a1
+        p = sum(a2) - sum(a1)
+        for e in a1:
+            heapq.heappush(h1, e)
+        for e in a2:
+            heapq.heappush(h2, -e)
+        ans = 0
+        while</B></FONT> p &gt; 0 and (h1 or h2):
+            if h1:
+                d1 = 6-h1[0]
+            else:
+                d1 = -1
+            if h2:
+                d2 = -h2[0]-1
+            else:
+                d2 = -1
+            # print(h1[0], -h2[0], d1, d2, p)
+            if d1 &gt; d2:
+                p -= d1
+                heapq.heappop(h1)
+            else:
+                p -= d2
+                heapq.heappop(h2)
+            ans += 1
+        # print('---')
+        if p &gt; 0:
+            return -1
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

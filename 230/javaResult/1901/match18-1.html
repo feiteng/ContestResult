@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>702_khaufnak.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>702_khaufnak.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minOperations(int[] num1, int[] num2) {
+        int[] count1 = new int[7];
+        int[] count2 = new int[7];
+        
+        int sum1=0;
+        int sum2 = 0;
+        
+        for (int i = 0; i &lt; num1.length; ++i) {
+            count1[num1[i]]++;
+            sum1 += num1[i];
+        }
+        for (int i = 0; i &lt; num2.length; ++i) {
+            count2[num2[i]]++;
+<A NAME="1"></A>            sum2 += num2[i];
+        }
+        
+        if</B></FONT> (sum1 &gt; sum2) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            int[] temp = count2;
+            count2 = count1;
+            count1 = temp;
+        }
+        
+        int diff = Math.abs(sum2 - sum1);
+        // System.out.println(diff);
+        int tot = 0</B></FONT>;
+        int ans = 0;
+        for (int i = 1; i &lt; 6; ++i) {
+            int last = 6 - i + 1;
+            int poss = count1[i] + count2[last];
+            tot = poss * (6 - i);
+            if (tot &gt; diff) {
+                
+                ans += ((diff + 5 - i) / (6 - i));
+                diff = 0;
+            } else {
+                diff -= tot;
+                ans += poss;
+            }
+            
+            // System.out.println(diff);
+        }
+        if (diff != 0) return -1;
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

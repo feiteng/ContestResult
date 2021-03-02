@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_arignote.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_arignote.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+	private int max;
+
+	public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+<A NAME="1"></A>		max = 99999;
+		for (int baseCost : baseCosts) </B></FONT>{
+			closestCost(baseCost, 0, toppingCosts, target);
+		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		return max;
+	}
+
+	private void closestCost(int cost, int index, int[] toppingCosts, int target) {
+		if (Math.abs(cost - target) &lt; Math.abs(max - target)</B></FONT>) {
+<A NAME="2"></A>			max = cost;
+		} else if (Math.abs(cost - target) == Math.abs(max - target) &amp;&amp; cost &lt; max) {
+			max = cost;
+		}<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		if (index &lt; toppingCosts.length &amp;&amp; cost &lt;= target) {
+			closestCost(cost, index + 1, toppingCosts, target);
+			closestCost(cost + toppingCosts[index], index + 1, toppingCosts, target);
+			closestCost(cost + 2 * toppingCosts[index], index + 1, toppingCosts, target);
+		}
+	}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

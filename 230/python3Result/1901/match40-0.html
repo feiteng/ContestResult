@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>531_YY88.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>531_YY88.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match40-1.html#0',3,'match40-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, A: List[int], B: List[int]) -&gt; int:
+        sa = sum(A)
+        sb = sum(B)
+        if sa == sb:
+            return 0
+        if sa &gt; sb:
+            sa, sb = sb, sa
+            A, B = B, A
+        A.sort(</B></FONT>)
+        B.sort()
+        mna = []
+        mxa = []
+        for a in A:
+            if a &gt; 1:
+                mna.append(a - 1)
+            if a &lt; 6:
+                mxa.append(6 - a)
+        mnb = []
+        mxb = []
+        for b in B:
+            if b &gt; 1:
+                mnb.append(b - 1)
+            if b &lt; 6:
+                mxb.append(6 - b)
+        
+        if sa + sum(mxa) &lt; sb - sum(mnb):
+            return -1
+        
+        mxa.sort()
+        mxb.sort()
+        res = 0
+        while sa &lt; sb:
+            # add to a or deduct from b
+            if mnb and mxa:
+                if mnb[-1] &gt; mxa[-1]:
+                    v = mnb.pop()
+                    res += 1
+                    sb -= v
+                else:
+                    v = mxa.pop()
+                    res += 1
+                    sa += v
+            elif mnb:
+                v = mnb.pop()
+                res += 1
+                sb -= v
+            elif mxa:
+                v = mxa.pop()
+                res += 1
+                sa += v
+        return res
+</PRE>
+
+</BODY>
+</HTML>

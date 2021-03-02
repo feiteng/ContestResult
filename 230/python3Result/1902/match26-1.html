@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_hanwang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>215_hanwang.py</CENTER></H3><HR>
+<PRE>
+
+
+import heapq
+
+
+class Solution(object):
+    def getCollisionTimes(self, cars):
+        &quot;&quot;&quot;
+        :type cars: List[List[int]]
+        :rtype: List[float]
+        &quot;&quot;&quot;
+
+        res = [-1.0 for x in range(len(cars))]
+        pres = [-1]
+        nxts = [x+1 for x in range(len(cars)-1)]
+        nxts.append(-1)
+        for i in range(1, len(cars)):
+            pres.append(i-1)
+        q = []
+
+        curt = 0
+        for i in range(len(cars)-1):
+            if cars[i+1][1] &gt;= cars[i][1]:
+                continue
+            else:
+                heapq.heappush(q, ((cars[i+1][0]-cars[i][0])/(1.0*(cars[i][1]-cars[i+1][1])), i, cars[i+1][0], cars[i+1][1]))
+
+        while q:
+            cur = heapq.heappop(q)
+            if res[cur[1]] != -1.0:
+                continue
+            res[cur[1]] = cur[0]
+            
+            if cur[1] != 0:
+                pre = pres[cur[1]]
+                pres[nxts[cur[1]]] = pre
+<A NAME="0"></A>                nxts[pre] = nxts[cur[1]]
+                if res[pre] == -1.0:
+                    if cur[3] &lt; cars[pre][1]:
+                        heapq.heappush(q, (<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(cur[2]-cars[pre][0])/(1.0*(cars[pre][1]-cur[3])), pre, cur[2], cur[3]))
+
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

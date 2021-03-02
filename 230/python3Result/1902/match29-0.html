@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_ddoudle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>234_ddoudle.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        n = len(cars)
+        prev = [i-1 for i in range(n)]
+        nxt = [i+1 for i in range(n)]
+        speed = [car[1] for car in cars]
+        ps = [car[0] for car in cars]
+        
+        ts = []
+<A NAME="0"></A>        res = [-1] * n
+        for i in range(n-1):
+            if speed[i] &gt; speed[i+1]:
+                heappush(ts, [(ps[i+1] - ps[i]) / (speed[i] - speed[i<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>+1]), i, i+1])
+        
+        while ts:
+            t, carId, carId2 = heappop(ts)
+            # print(t, carId, carId2)
+            if res[carId] != -1:
+                continue
+            res[carId] = t
+            before = prev[</B></FONT>carId]
+            if before != -1:
+                nxt[before] = carId2
+                prev[carId2] = before
+                if speed[before] &gt; speed[carId2]:
+                    heappush(ts, [(ps[carId2] - ps[before]) / (speed[before] - speed[carId2]), before, carId2])
+            # print(res)
+        return res
+                
+</PRE>
+
+</BODY>
+</HTML>

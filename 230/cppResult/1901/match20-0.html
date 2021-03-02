@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_agoodusername.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>21_agoodusername.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
+        int n = A.size();
+        int m = B.size();
+        if (n &gt; m * 6 || m &gt; n * 6) return -1;</B></FONT>
+        int sa = 0;
+        int sb = 0;
+        for (auto k : A) sa += k;
+        for (auto k : B) sb += k;
+        if (sa &gt; sb) {
+            swap(A,B);
+            swap(n,m);
+            swap(sa,sb);
+        }
+        
+        sort(A.begin(), A.end());
+        sort(B.begin(), B.end());
+        
+        reverse(B.begin(), B.end());
+        A.push_back(100);
+        B.push_back(-100);
+        
+      //  cout &lt;&lt; sa &lt;&lt; &quot; &quot; &lt;&lt; sb &lt;&lt; endl;
+        int ans = 0;
+        int d = sb - sa;
+        int i = 0, j = 0;
+<A NAME="1"></A>        while (d &gt; 0) {
+            ans++;
+            int x = 6 - A[i];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int y = B[j] - 1;
+            if (x &gt; y &amp;&amp; i &lt; n) {
+                d -= x;
+                i++;
+            } else {
+                d -= y;
+                j++;
+            }
+        //    cout &lt;&lt; d &lt;&lt; &quot; &quot; &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

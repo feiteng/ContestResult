@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>126_i_love_xiaoshagua_cpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>126_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<PRE>
+//#pragma GCC optimize(2)
+/*#pragma GCC optimize(&quot;no-stack-protector&quot;)
+#pragma GCC optimize(&quot;fast-math&quot;)
+#pragma GCC optimize(&quot;O3&quot;)
+#pragma GCC optimize(&quot;Ofast&quot;)*/
+#include &lt;bits/stdc++.h&gt;
+#include &lt;random&gt;
+#ifdef _MSC_VER
+#include &lt;hash_map&gt;
+#include &lt;hash_set&gt;
+using namespace stdext;
+#define unordered_map hash_map
+#define unordered_set hash_set
+#else
+#include &lt;unordered_map&gt;
+#include &lt;unordered_set&gt;
+#include &lt;regex&gt;
+#include &lt;tuple&gt;
+#endif
+using namespace std;
+// If answer may exceed long long:
+// typedef __int128 ll;
+typedef long long ll;
+#define DEB(x) printf(#x);printf(&quot;: &quot;)
+#define PRT(x) DEB(x);print(x)
+// #define DEBUG(x,fmt) DEB(x);printf(fmt, x);printf(&quot;\n&quot;)
+#define LMID(a,b) (a+(b-a)/2)
+#define RMID(a,b) (b-(b-a)/2)
+#define MEM(a,b) memset((a),(b),sizeof(a))
+#define MP make_pair
+#define MT make_tuple
+#define PB push_back
+#define FI first
+#define SE second
+#define sz(x) (int)x.size()
+#define ALL(x) x.begin(),x.end()
+#define SORT(x) sort(ALL(x))
+#define RSORT(x) sort(x.rbegin(),x.rend())
+#define SUM(x) accumulate(ALL(x),0LL)
+#define REVERSE(x) reverse(ALL(x))
+#define REP(i,n) for(int i=0;i&lt;(n);++i)
+#define FOR(i,a,b) for(int i=(a);i&lt;=(b);++i)
+#define FORR(i,a,b) for(int i=(a);i&gt;=(b);--i)
+// kuaidu example: codeforces/practice/1316_C.cc
+inline int kuaidu() { int k = 0; char f=1;char c=getchar();for(;!isdigit(c);c=getchar())if(c=='-')f=-1;for(;isdigit(c);c=getchar())k=k*10+c-'0';return k*f;}
+inline ll kuaidull() { ll k = 0; char f=1;char c=getchar();for(;!isdigit(c);c=getchar())if(c=='-')f=-1;for(;isdigit(c);c=getchar())k=k*10LL+c-'0';return k*f;}
+char KX[100];
+inline void kuaixie(const int&amp; x) { if (x == 0) {putchar('0');return;} int tmp = x &gt; 0 ? x : -x; if (x &lt; 0) putchar('-'); int cnt = 0; while (tmp &gt; 0) { KX[cnt++] = tmp % 10 + '0'; tmp /= 10; } while (cnt &gt; 0) putchar(KX[--cnt]);}
+inline void kuaixie(const ll&amp; x) { if (x == 0) {putchar('0');return;} ll tmp = x &gt; 0 ? x : -x; if (x &lt; 0) putchar('-'); int cnt = 0; while (tmp &gt; 0) { KX[cnt++] = tmp % 10 + '0'; tmp /= 10; } while (cnt &gt; 0) putchar(KX[--cnt]);}
+inline void print(const ll&amp; x) {kuaixie(x);putchar('\n');}
+inline void print(const int&amp; x) {kuaixie(x);putchar('\n');}
+#define vec vector
+#define ins insert
+#define u_m unordered_map
+#define u_s unordered_set
+#define CONTAINS(m,x) (m.find(x)!=m.end())
+#define FORI(i,v) for(int i=0;i&lt;(sz(v));++i)
+#define FORE(x,v) for(auto x : v)
+#define endl &quot;\n&quot;
+#define CASE(i) printf(&quot;Case #%d: &quot;,i);
+#define pf printf
+#define nl pf(endl)
+#define SEED srand(time(NULL))
+typedef pair&lt;int,int&gt; PII;
+typedef vector&lt;pair&lt;int,int&gt; &gt; VPII;
+typedef pair&lt;ll,ll&gt; PLL;
+typedef vector&lt;pair&lt;ll,ll&gt; &gt; VPLL;
+typedef pair&lt;int,ll&gt; PIL;
+typedef pair&lt;ll,int&gt; PLI;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;double&gt; VD;
+typedef vector&lt;VD&gt; VVD;
+typedef vector&lt;char&gt; VC;
+typedef vector&lt;VC&gt; VVC;
+typedef vector&lt;VI&gt; VVI;
+typedef vector&lt;ll&gt; VL;
+typedef vector&lt;VL&gt; VVL;
+typedef set&lt;int&gt; SI;
+typedef set&lt;ll&gt; SL;
+typedef queue&lt;int&gt; QI;
+typedef unordered_set&lt;int&gt; USI;
+typedef unordered_set&lt;ll&gt; USL;
+typedef unordered_map&lt;int,int&gt; UMI;
+/************* define end  *************/
+void read(int&amp; x){x=kuaidu();}
+void read(int&amp; x,int&amp; y){read(x);read(y);}
+void read(int&amp; x,int&amp; y,int&amp; z){read(x,y);read(z);}
+void read(int&amp; x,int&amp; y,int&amp; z,int&amp; w){read(x,y);read(z,w);}
+void read(int&amp; x,int&amp; y,int&amp; z,int&amp; w, int&amp; mu){read(x,y);read(z,w,mu);}
+void read(ll&amp; x){x=kuaidull();}
+void read(ll&amp; x,ll&amp; y){read(x);read(y);}
+void read(ll&amp; x,ll&amp; y,ll&amp; z){read(x,y);read(z);}
+void read(ll&amp; x,ll&amp; y,ll&amp; z,ll&amp; w){read(x,y);read(z,w);}
+void read(ll&amp; x,ll&amp; y,ll&amp; z,ll&amp; w, ll&amp; mu){read(x,y);read(z,w,mu);}
+void read(int* x, int n){REP(i,n)read(x[i]);}
+void read(ll* x, int n){REP(i,n)read(x[i]);}
+void read(VI&amp; x, int n){x.resize(n);REP(i,n)read(x[i]);}
+void print(int* x, int n){REP(i,n){kuaixie(x[i]);putchar(&quot; \n&quot;[i==n-1]);}}
+void print(int *x,int l,int r){FOR(i,l,r) {kuaixie(x[i]);putchar(&quot; \n&quot;[i==r]);}}
+void print(const VI&amp; x){REP(i,sz(x)) {kuaixie(x[i]);putchar(&quot; \n&quot;[i==sz(x)-1]);}}
+void print(ll* x, int n){REP(i,n){kuaixie(x[i]);putchar(&quot; \n&quot;[i==n-1]);}}
+void print(ll *x,int l,int r){FOR(i,l,r) {kuaixie(x[i]);putchar(&quot; \n&quot;[i==r]);}}
+void print(const VL&amp; x){REP(i,sz(x)) {kuaixie(x[i]);putchar(&quot; \n&quot;[i==sz(x)-1]);}}
+void print(const PII&amp; pr) {print(VI({pr.FI,pr.SE}));}
+void print(const unordered_map&lt;int,int&gt;&amp; um){for(const auto&amp; it : um){cout&lt;&lt;&quot;Key:&quot;&lt;&lt;it.FI&lt;&lt;endl;cout&lt;&lt;&quot;Value:&quot;&lt;&lt;it.SE&lt;&lt;endl;}}
+void print(const VPII&amp; v){REP(i,sz(v))print(v[i]);}
+void print(const VPLL&amp; v){REP(i,sz(v))print(v[i]);}
+void print(const int&amp; i, const int&amp; j){kuaixie(i);putchar(' ');kuaixie(j);putchar('\n');}
+void print(const int&amp; i, const int&amp; j, const int&amp; k){kuaixie(i);putchar(' ');kuaixie(j);putchar(' ');kuaixie(k);putchar('\n');}
+void print(const int&amp; i, const int&amp; j, const int&amp; k, const int&amp; l){kuaixie(i);putchar(' ');kuaixie(j);putchar(' ');kuaixie(k);putchar(' ');kuaixie(l);putchar('\n');}
+void print(const ll&amp; i, const ll&amp; j){kuaixie(i);putchar(' ');kuaixie(j);putchar('\n');}
+void print(const ll&amp; i, const ll&amp; j, const ll&amp; k){kuaixie(i);putchar(' ');kuaixie(j);putchar(' ');kuaixie(k);putchar('\n');}
+void print(const ll&amp; i, const ll&amp; j, const ll&amp; k, const ll&amp; l){kuaixie(i);putchar(' ');kuaixie(j);putchar(' ');kuaixie(k);putchar(' ');kuaixie(l);putchar('\n');}
+#define MIN(x) *min_element(ALL(x))
+#define MAX(x) *max_element(ALL(x))
+#define pdelim printf(&quot;==========&quot;)
+#define QPOP(x) x.front();x.pop()
+#define TOYES(x) printf(x?&quot;YES\n&quot;:&quot;NO\n&quot;)
+#define que queue
+#define stk stack
+#define bitcount __builtin_popcountll
+#define EB(x,y) PB(MP(x,y))
+#define readvpii(x,n) VPII x(n);REP(i,n){read(x[i].FI,&amp;x[i].SE);}
+mt19937_64 mrand(random_device{}());
+ll myrand(ll x) { return (mrand() % x + x) % x; }
+ll myrand(ll x, ll y) { return x + myrand(y - x + 1);}
+int gcd (int a, int b) { while (b) { a %= b; swap(a, b); } return a; }
+ll gcd (ll a, ll b) { while (b) { a %= b; swap(a, b); } return a; }
+#define FET(tt) int tt,TT;read(TT);for(tt=0;tt&lt;TT;++tt)
+#define SHUF(v) shuffle(ALL(v), mrand);
+#define CLR(v) v.clear();
+VPII dirs={{-1,0},{1,0},{0,-1},{0,1}};
+#define INBOUND(x,m) (x&gt;=0&amp;&amp;x&lt;(m))
+#define UNIQ(a) a.erase(unique(ALL(a)), a.end());
+#define FIND(v,x) lower_bound(ALL(v),x)-v.begin()
+// Start of Warsaw debugging template
+#define sim template &lt; class c
+#define ris return * this
+#define dor &gt; debug &amp; operator &lt;&lt;
+#define eni(x) sim &gt; typename \
+  enable_if&lt;sizeof dud&lt;c&gt;(0) x 1, debug&amp;&gt;::type operator&lt;&lt;(c i) {
+sim &gt; struct rge { c b, e; };
+sim &gt; rge&lt;c&gt; range(c i, c j) { return rge&lt;c&gt;{i, j}; }
+sim &gt; auto dud(c* x) -&gt; decltype(cerr &lt;&lt; *x, 0);
+sim &gt; char dud(...);
+struct debug {
+//#undef LOCAL
+#ifdef LOCAL
+~debug() { cerr &lt;&lt; endl; }
+eni(!=) cerr &lt;&lt; boolalpha &lt;&lt; i; ris; }
+eni(==) ris &lt;&lt; range(begin(i), end(i)); }
+sim, class b dor(pair &lt; b, c &gt; d) {
+  ris &lt;&lt; &quot;(&quot; &lt;&lt; d.first &lt;&lt; &quot;, &quot; &lt;&lt; d.second &lt;&lt; &quot;)&quot;;
+}
+sim dor(rge&lt;c&gt; d) {
+  *this &lt;&lt; &quot;[&quot;;
+  for (auto it = d.b; it != d.e; ++it)
+    *this &lt;&lt; &quot;, &quot; + 2 * (it == d.b) &lt;&lt; *it;
+  ris &lt;&lt; &quot;]&quot;;
+}
+#else
+sim dor(const c&amp;) { ris; }
+#endif
+};
+#define imie(...) &quot; [&quot; &lt;&lt; #__VA_ARGS__ &quot;: &quot; &lt;&lt; (__VA_ARGS__) &lt;&lt; &quot;] &quot;
+// End of Warsaw debugging template
+void printrandvl(int n, int l, int r) {REP(i,n){if(i)printf(&quot; &quot;);printf(&quot;%lld&quot;,myrand(l,r));}printf(&quot;\n&quot;);}
+// Enumerate all submask of m.
+// time complexity for all m is O(3^n).
+// if(s==0)break;
+#define SUBMASK(s,m) for(int s=m; ; s=(s-1)&amp;m)
+// Debugging:
+//   int c = 5; debug() &lt;&lt; imie(c*2) &lt;&lt; imie(c * 6);
+// VI a = {1, 2, 3}; debug() &lt;&lt; imie(a);
+// Do not use codejam.
+#define IO ios_base::sync_with_stdio(false); cin.tie(NULL);
+ll MOD = 1E9+7;
+struct UnionFind { vector&lt;int&gt; C;int cnt; UnionFind(int n) : C(n, -1),cnt(n) {} int find(int x) { return (C[x] &lt; 0) ? x : C[x] = find(C[x]); } void merge(int x, int y) { int px = find(x), py = find(y); if (px != py) { --cnt; int rx = -C[px], ry = -C[py]; if (rx == ry) {--C[py]; ++ry;} if (rx &lt; ry) C[px] = py; else C[py] = px; } } int numgroup() {return cnt;}};
+#define WAN(d) (d*100100)
+#define MAXN (WAN(4))
+// Segment Tree Template
+/*
+#define T ll // Change this.
+T DEFAULT = 0; // Change this.
+T combine(T node1, T node2) { return node1+node2; } // Change this.
+int nn; T t[(MAXN*4)];
+T sset_helper(int l, int r, int i, int t_idx, T v) { if (i &lt; l || i &gt; r) { return t[t_idx]; } if (l == r) { t[t_idx] = v; return t[t_idx]; } int mid = (l + r) / 2; T ans = combine(sset_helper(l, mid, i, t_idx * 2 + 1, v), sset_helper(mid + 1, r, i, t_idx * 2 + 2, v)); return t[t_idx] = ans; } // Sets a[i] = v for range [l, r].
+void sset(int i, T v) { sset_helper(0, nn - 1, i, 0, v); } // a[i] = v.
+T query_helper(int l, int r, int il, int ir, int t_idx) { if (il &gt; r || ir &lt; l) { return DEFAULT; } if (l == il &amp;&amp; r == ir) { return t[t_idx]; } int mid = (l + r) / 2; return combine(query_helper(l, mid, il, min(ir, mid), t_idx * 2 + 1), query_helper(mid + 1, r, max(il, mid + 1), ir, t_idx * 2 + 2)); } // Returns sum of [l, r] ^ [il, ir].
+T query(int l, int r) { return query_helper(0,nn-1,l, r, 0); } // a[l] + ... + a[r].
+*/
+struct BIT { vector&lt;int&gt; tree; int N; BIT(int N) : N(N), tree(N + 1, 0) {}
+  // add v to value at x
+  void add(int x, int v) { assert(x &gt;= 0 &amp;&amp; x &lt;= N); ++x; while(x &lt;= N) { tree[x] += v; x += (x &amp; -x); } }
+  // get cumulative sum up to and including x
+  int get(int x) { if (x &lt; 0) return 0; assert(x &lt;= N); ++x; int res = 0; while(x) { res += tree[x]; x -= (x &amp; -x); } return res; }
+};
+/* discretize: sort(A,A+n); n=unique(A,A+n)-A; int idx=lower_bound(A,A+n,A[i])-A; */
+ll ksm(ll x, ll k) { ll ret = 1; while(k) { if(k &amp; 1) { ret *= x; ret %= MOD; } k &gt;&gt;= 1; x *= x; x %= MOD; } return ret; }
+VVL matmul(VVL&amp; A, VVL&amp; B) { int n = A.size(), m = A[0].size(), k = B[0].size(); VVL C(n, VL(k, 0)); for(int i = 0; i &lt; n; i++) for(int j = 0; j &lt; k; j++) for(int l = 0; l &lt; m; l++) C[i][j] += A[i][l] * B[l][j]; return C; }
+VVL matpower(VVL&amp; A, ll k) { int n = A.size(); VVL ret(n, VL(n)), B = A; for(int i = 0; i &lt; n; i++) ret[i][i]=1; while(k) { if(k &amp; 1) ret = matmul(ret, B); k &gt;&gt;= 1; B = matmul(B, B); } return ret; }
+ll mod_inverse(ll x) { return ksm(x, MOD - 2); }
+// Linear, ~O(n)
+vector&lt;int&gt; GetPrimes(int n) { vector&lt;bool&gt; a(n+10); a[0]=a[1]=true; vector&lt;int&gt; v; FOR(i,2,n) { if (!a[i]) v.push_back(i); for(int j = 0; j &lt; v.size() &amp;&amp; v[j]*i &lt;= n;j++) { a[i*v[j]] = 1; if (i % v[j] == 0) break; } } return v; }
+// https://www.cnblogs.com/fengzi8615/p/11699820.html
+// Generate random tree of size N.
+// 1-indexed.
+void randtree(int N) { for (int i = 2; i &lt;= N; ++i) { int pa = myrand(1, i - 1); print(pa); } }
+#define defstruct3(struct_name,pt1,pn1,pt2,pn2,pt3,pn3) struct struct_name { pt1 pn1; pt2 pn2; pt3 pn3; struct_name(pt1 pn1,pt2 pn2,pt3 pn3):pn1(pn1),pn2(pn2),pn3(pn3){} void print(){debug()&lt;&lt;imie(pn1)&lt;&lt;imie(pn2)&lt;&lt;imie(pn3);}};
+#define defstruct4(struct_name,pt1,pn1,pt2,pn2,pt3,pn3,pt4,pn4) struct struct_name { pt1 pn1; pt2 pn2; pt3 pn3; pt4 pn4;struct_name(pt1 pn1,pt2 pn2,pt3 pn3,pt4 pn4):pn1(pn1),pn2(pn2),pn3(pn3),pn4(pn4){} void print(){debug()&lt;&lt;imie(pn1)&lt;&lt;imie(pn2)&lt;&lt;imie(pn3)&lt;&lt;imie(pn4);}};
+#define defstruct5(struct_name,pt1,pn1,pt2,pn2,pt3,pn3,pt4,pn4,pt5,pn5) struct struct_name { pt1 pn1; pt2 pn2; pt3 pn3; pt4 pn4; pt5 pn5;struct_name(pt1 pn1,pt2 pn2,pt3 pn3,pt4 pn4,pt5 pn5):pn1(pn1),pn2(pn2),pn3(pn3),pn4(pn4),pn5(pn5){} void print(){debug()&lt;&lt;imie(pn1)&lt;&lt;imie(pn2)&lt;&lt;imie(pn3)&lt;&lt;imie(pn4)&lt;&lt;imie(pn5);}};
+#define defstruct6(struct_name,pt1,pn1,pt2,pn2,pt3,pn3,pt4,pn4,pt5,pn5,pt6,pn6) struct struct_name { pt1 pn1; pt2 pn2; pt3 pn3; pt4 pn4; pt5 pn5;pt6 pn6;struct_name(pt1 pn1,pt2 pn2,pt3 pn3,pt4 pn4,pt5 pn5,pt6 pn6):pn1(pn1),pn2(pn2),pn3(pn3),pn4(pn4),pn5(pn5),pn6(pn6){} void print(){debug()&lt;&lt;imie(pn1)&lt;&lt;imie(pn2)&lt;&lt;imie(pn3)&lt;&lt;imie(pn4)&lt;&lt;imie(pn5)&lt;&lt;imie(pn6);}};
+// defstruct3(Edge,int,u,int,v,int,w)
+// Edge edge(1,2,3); edge.print();
+// defstruct3(Query,int,a,int,b,int,idx)
+// defstruct4(Query,int,a,int,b,int,c,int,d)
+// defstruct5(Query,int,a,int,b,int,c,int,d,int,e)
+
+struct Car {
+  int x;
+  int s;
+  int idx;
+  double time;
+  Car(int x, int s, int idx) : x(x),s(s),idx(idx),time(-1){}
+};
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;double&gt; getCollisionTimes(vector&lt;vector&lt;int&gt;&gt;&amp; cars) {
+      stack&lt;Car&gt; st;
+      int n = sz(cars);
+      vector&lt;double&gt; ans(n, -1);
+      for (int i = n - 1; i &gt;= 0; --i) {
+        Car curr(cars[i][0],cars[i][1],i);
+        while (!st.empty()) {
+          if (curr.s &lt;= st.top().s) {</B></FONT>
+            st.pop();
+          } else {
+            double meet = (double)(curr.x - st.top().x) / (double)(st.top().s-curr.s);
+            if (meet &lt;= st.top().time || st.top().time &lt; 0) {
+              // add myself.
+              ans[curr.idx]=meet;
+              curr.time = meet;
+              st.push(curr);
+              break;
+            } else {
+              st.pop();
+            }
+          }
+        }
+        st.push(curr);
+      }
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

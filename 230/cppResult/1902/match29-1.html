@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>113_domen111.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>113_domen111.cpp</CENTER></H3><HR>
+<PRE>
+typedef pair&lt;double, int&gt; pdi;
+class Solution {
+    double collide(pdi a, pdi b) {
+<A NAME="0"></A>        return (b.first - a.first) / (a.second - b.second);
+    }
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;double&gt; getCollisionTimes(vector&lt;vector&lt;int&gt;&gt;&amp; cars) {
+        int n = (int)cars.size();
+        vector&lt;double&gt; ans(n);
+        vector&lt;pdi&gt; stk;
+        stk.push_back({1e7, 1e7});
+        for (int i = n - 1; i &gt;= 0; --i) {</B></FONT>
+            double pos = cars[i][0];
+            int spd = cars[i][1];
+            pdi now = {pos, spd};
+            while (stk.size() &amp;&amp; spd &lt;= stk.back().second)
+                stk.pop_back();
+            while (stk.size() &gt;= 2 &amp;&amp;
+                   collide(now, stk.back()) &gt;= collide(now, stk[stk.size()-2]))
+                stk.pop_back();
+            if (stk.empty()) {
+                stk.push_back(now);
+                ans[i] = -1;
+            } else {
+                pdi tmp = stk.back();// stk.pop_back();
+                ans[i] = collide(now, tmp);
+                // tmp.first = pos + ans[i] * spd;
+                // stk.push_back(tmp);
+                stk.push_back(now);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_scut_dell.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_scut_dell.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    double cal(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
+        return -((double)a[0] - b[0]) / (a[1] - b[1]);
+    }
+    
+    vector&lt;double&gt; getCollisionTimes(vector&lt;vector&lt;int&gt;&gt;&amp; cars) {
+        vector&lt;int&gt; Q;
+        
+        vector&lt;double&gt; ret(cars.size(), 0);
+        int n = cars.size();
+        for (int i = n - 1;i &gt;= 0;i--) {
+            while (Q.size() &gt; 0) {
+                int x = Q[Q.size() - 1];
+                if (cars[i][1] &lt;= cars[x][1]) {
+                    Q.pop_back();
+                } else {
+                    break;
+<A NAME="0"></A>                }
+            }
+            while (Q.size() &gt;= 2) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (cal(cars[i], cars[Q[Q.size() - 1]]) &gt;= cal(cars[i], cars[Q[Q.size() - 2]])) {
+                    Q.pop_back();
+                } else {
+                    break;
+                }
+            } 
+            if (Q.size() == 0) {
+                ret[i] = -1;
+            } else {
+                ret[i] = cal(cars[i], cars[Q[Q.size() - 1]]);
+            }
+            Q.push_back(i);
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

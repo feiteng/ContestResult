@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>514_craybabylovefatdeer.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>514_craybabylovefatdeer.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        if sum(nums1) &gt; sum(nums2):
+            nums1, nums2 = nums2, nums1
+        
+        s1, s2 = sum(nums1), sum(nums2)
+        h1, h2 = list(filter(lambda x:x != 6, nums1)), list(filter(lambda y:y != -1, list(map(lambda x:-x, nums2))))
+<A NAME="0"></A>        heapq.heapify(h1)
+        heapq.heapify(h2)
+        
+        print<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(h1, h2)
+        ans = 0
+        while s1 != s2 and (h1 or h2):
+            if not h1 or (h2 and h1[0] - h2[0] &gt;= 7):
+                move = -1 - heapq.heappop(h2)
+                move = min(s2 - s1, move)
+                s2 = s2 - move
+            else:
+                move = 6 - heapq.heappop(h1)
+                move = min(s2 - s1, move)
+                s1 = s1 + move
+            # print(move, s1, s2, h1, h2)
+            ans += 1
+        re</B></FONT>turn ans if s1 == s2 else -1
+        
+                
+                
+                
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1023_lijinglun.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1023_lijinglun.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minOperations(self, a: List[int], b: List[int]) -&gt; int:
+        s1 = sum(a)
+        s2 = sum(b)
+        if s1 &gt; s2:
+            a, b = b, a
+            s1, s2 = s2, s1
+        if len(b) &gt; len(a) * 6:
+            return -1
+        d =</B></FONT> [6 - x for x in a]
+        d.extend(x - 1 for x in b)
+        d.sort(reverse=True)
+        diff = s2 - s1
+        ans = 0
+        for x in d:
+            if diff &gt; 0 and x &gt; 0:
+                diff -= min(diff, x)
+                ans += 1
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

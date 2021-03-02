@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>850_ye15.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>850_ye15.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        if 6*len(nums1) &lt; len(nums2) or 6*len(nums2) &lt; len(nums1): return -1 # impossible 
+        
+        s1 = sum(nums1)
+        s2 = sum(nums2)
+        if s1 &lt; s2: 
+            nums1, nums2 =</B></FONT> nums2, nums1
+            s1, s2 = s2, s1
+            
+        pq1 = [-x for x in nums1] # max-heap 
+        pq2 = nums2 # min-heap 
+        heapify(pq1)
+        heapify(pq2)
+        
+        ans = 0
+        # s1 &gt; s2 (1-2-3-4-5-6)
+        while s1 &gt; s2: 
+            x1 = pq1[0]
+            x2 = pq2[0]
+            if -1-x1 &gt; 6-x2: # change x1 to 1
+                s1 += x1 + 1
+                heapreplace(pq1, -1)
+            else: 
+                s2 += 6 - x2
+                heapreplace(pq2, 6)
+            ans += 1
+        return ans 
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>89_Aragog.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>89_Aragog.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    class Event {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double time;
+        int left;
+        int right;
+
+        Event(double time, int left, int right) {
+            this.time = time;
+            this.left = left;
+            this.right = right;
+        }
+    }</B></FONT>
+
+    public double[] getCollisionTimes(int[][] cars) {
+        TreeSet&lt;Integer&gt; treeSet = new TreeSet&lt;&gt;();
+        int N = cars.length;
+        for (int i = 0; i &lt; N; i++) {
+            treeSet.add(i);
+        }
+        PriorityQueue&lt;Event&gt; pq = new PriorityQueue&lt;&gt;((e1, e2) -&gt; {
+            if (e1.time &lt; e2.time) {
+                return -1;
+            } else if (e1.time == e2.time) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+        for (int i = 0; i &lt; N - 1; i++) {
+            if (cars[i][1] &gt; cars[i + 1][1]) {
+                double time = ((double)cars[i + 1][0] - cars[i][0]) / (cars[i][1] - cars[i + 1][1]);
+                Event e = new Event(time, i, i + 1);
+                pq.offer(e);
+            }
+        }
+        double[] res = new double[N];
+        Arrays.fill(res, Double.MAX_VALUE);
+        while (!pq.isEmpty()) {
+            Event e = pq.poll();
+            if (!(treeSet.contains(e.left) &amp;&amp; treeSet.contains(e.right))) {
+                continue;
+            }
+            res[e.left] = Double.min(res[e.left], e.time);
+            treeSet.remove(e.left);
+            Integer left = treeSet.floor(e.left);
+            if (left != null) {
+                int right = e.right;
+                if (cars[left][1] &gt; cars[right][1]) {
+<A NAME="0"></A>                    double time = ((double) cars[right][0] - cars[left][0]) / (cars[left][1] - cars[right][1]);
+                    Event ne = new Event(time, left, right);
+                    pq.offer(ne);
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        for (int i = 0; i &lt; N; i++) {
+            if (res[i] == Double.MAX_VALUE) {
+                res[i] = -1;
+            }
+        }
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

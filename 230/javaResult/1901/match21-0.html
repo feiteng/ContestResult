@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>448_JackyZhang98.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>448_JackyZhang98.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int sum1 = 0;
+        int sum2 = 0;
+        int[] arr1Smaller = new int[6];
+        int[] arr2Smaller = new int[6];
+        
+        for (int n1 : nums1) {
+            sum1 += n1;
+            arr1Smaller[6 - n1]++;
+            arr2Smaller[n1 - 1]++;
+        }
+        
+        for (int n2 : nums2) {
+            sum2 += n2;
+            arr2Smaller[6 - n2]++;
+            arr1Smaller[n2 - 1]++;
+        }
+        
+        if (sum1 == sum2)
+            return 0;</B></FONT>
+        
+        int ops = 0;
+        
+        if (sum1 &lt; sum2) {
+            int diff = sum2 - sum1;
+            for (int i = 5; i &gt;= 0; i--) {
+                if (diff &gt; i * arr1Smaller[i]) {
+                    ops += arr1Smaller[i];
+                    diff -= i * arr1Smaller[i];
+                }
+                else {
+                    ops += diff / i;
+<A NAME="1"></A>                    if (diff % i != 0) {
+                        ops++;
+                    }
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ops;
+                }
+            }
+        }
+        else {
+            int diff = sum1 - sum2</B></FONT>;
+            for (int i = 5; i &gt;= 0; i--) {
+                if (diff &gt; i * arr2Smaller[i]) {
+                    ops += arr2Smaller[i];
+                    diff -= i * arr2Smaller[i];
+                }
+                else {
+                    ops += diff / i;
+<A NAME="2"></A>                    if (diff % i != 0) {
+                        ops++;
+                    }
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ops;
+                }
+            }
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

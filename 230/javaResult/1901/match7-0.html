@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>635_delvy3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>635_delvy3.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        if (nums1.length &gt; nums2.length * 6 || nums1.length * 6 &lt; nums2.length) return -1;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int sum1 = 0;
+        int sum2 = 0;
+        for (int num : nums1){
+            sum1 += num;
+        }
+        for (int num : nums2){
+            sum2 += num;
+        }
+<A NAME="1"></A>        if</B></FONT> (sum1 == sum2) return 0;
+        
+        PriorityQueue&lt;Integer&gt; minQ = new PriorityQueue&lt;Integer&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;Integer&gt; maxQ = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; (b - a));
+        if (sum1 &gt; sum2) {
+            for (int num : nums1){
+                maxQ.add(num);
+            }
+            for (int num : nums2){
+                minQ.add(num);
+            }
+        }
+        else {
+            for (int num : nums2){
+                maxQ.add(num);
+            }
+            for (int num : nums1){
+                minQ.add(num);
+            }
+        }
+        
+        int operations = 0</B></FONT>;
+        int diff = Math.abs(sum1 - sum2);
+        while(diff != 0){
+            // max gain
+            //System.out.println(diff);
+            operations++;
+            int max = maxQ.peek();
+            int min = minQ.peek();
+            if (max  - 1 &lt; 6 - min){
+                // by increase minQ head will make the biggest differnece
+                int adjustment = 6 - min;
+                if (adjustment &gt;= diff) {
+                    return operations;
+                }
+                else {
+                    diff -= adjustment;
+                    minQ.poll();
+                    minQ.add(6);
+                }
+            }
+            else {
+                int adjustment = max - 1;
+                if (adjustment &gt;= diff) {
+                    return operations;
+                }
+                else {
+                    diff -= adjustment;
+                    maxQ.poll();
+                    maxQ.add(1);
+                }
+            }
+        }
+        
+        
+        return operations;
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

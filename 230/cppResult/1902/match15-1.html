@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_kwongweng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>214_kwongweng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;double&gt; getCollisionTimes(vector&lt;vector&lt;int&gt;&gt;&amp; cars) {
+        int n = cars.size();
+        vector&lt;double&gt; ans(n, -1);
+        vector&lt;int&gt; r(n+1, n);
+        stack&lt;int&gt; st;
+        for (int i = n-1; i &gt;= 0; i--){
+            while (!st.empty() &amp;&amp; cars[st.top()][1] &gt;= cars[i][1]){
+                st.pop();
+            }
+            if (!st.empty()) r[i] = st.top(); </B></FONT>
+            st.push(i);
+        }
+        for (int j = n-1; j &gt;= 0; j--){
+            int i = j;
+            if (r[i] == n) continue;
+            double dis = cars[r[i]][0] - cars[i][0];
+            double speed = cars[i][1] - cars[r[i]][1];
+            ans[i] = dis/speed;
+            while (ans[r[i]] != -1 &amp;&amp; ans[i] &gt; ans[r[i]]){
+                r[i] = r[r[i]];
+                dis = cars[r[i]][0] - cars[i][0];
+                speed = cars[i][1] - cars[r[i]][1];
+                ans[i] = dis/speed;
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

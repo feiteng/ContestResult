@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_ph52.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_ph52.py</CENTER></H3><HR>
+<PRE>
+
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        N = len(cars)
+<A NAME="0"></A>        ans = [inf] * N
+
+        stack = []
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(N - 1, -1, -1):
+            pos1, speed1 = cars[i]
+
+            while stack and stack[-1][1] &gt;= speed1:
+                # If the speed is faster, we won't collide with that car
+                stack.pop()
+
+            if stack:
+                pos2, speed2 =</B></FONT> stack[-1]
+                ans[i] = min(ans[i], (pos2 - pos1) / (speed1 - speed2))
+                while len(stack) &gt; 1:
+                    pos2, speed2 = stack[-2]
+                    a1 = min(ans[i], (pos2 - pos1) / (speed1 - speed2))
+                    if a1 &lt; ans[i]:
+                        ans[i] = a1
+                        stack.pop()
+                    else:
+                        break
+
+            stack.append(cars[i])
+
+        return [a if a != inf else -1.0 for a in ans]
+</PRE>
+
+</BODY>
+</HTML>

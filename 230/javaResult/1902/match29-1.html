@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_MMMMMMoSky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_MMMMMMoSky.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    final static double eps = 1e-6;
+
+    static class Gap {
+        int id;
+        int version;
+        double time;
+        double timestamp; // 用于计算 length
+        double length;
+        int car1, car2; // car1 追赶 car2
+        int speed1, speed2;
+    }
+
+    public double[] getCollisionTimes(int[][] cars) {
+        double[] answer = new double[cars.length];
+        Arrays.fill(answer, -1);
+
+        PriorityQueue&lt;Gap&gt; heap = new PriorityQueue&lt;&gt;(new Comparator&lt;Gap&gt;() {
+            @Override
+            public int compare(Gap o1, Gap o2) {
+                if (Double.isInfinite(o1.time)) {
+                    return 1;
+                }
+                if (Double.isInfinite(o2.time)) {
+                    return -1;
+                }
+                double diff = o1.time - o2.time;
+                return diff &lt; -eps ? -1 : (diff &gt; eps ? 1 : 0);
+<A NAME="0"></A>            }
+        });
+
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double timeNow = 0;
+        int[] newestVersion = new int[cars.length - 1];
+        TreeMap&lt;Integer, Gap&gt; existedGaps = new TreeMap&lt;&gt;();
+        for (int i = 1; i &lt; cars.length; i++) {
+            Gap gap = new Gap()</B></FONT>;
+            gap.id = i - 1;
+            gap.version = newestVersion[gap.id];
+            gap.length = cars[i][0] - cars[i - 1][0];
+            gap.car1 = i - 1;
+            gap.car2 = i;
+            gap.speed1 = cars[i - 1][1];
+            gap.speed2 = cars[i][1];
+            gap.timestamp = timeNow;
+            if (gap.speed1 &gt; gap.speed2) {
+                gap.time = gap.length / (gap.speed1 - gap.speed2);
+            } else {
+                gap.time = Double.POSITIVE_INFINITY;
+            }
+            heap.add(gap);
+<A NAME="1"></A>            existedGaps.put(gap.id, gap);
+        }
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!heap.isEmpty()) {
+            Gap gap = heap.poll();
+            if (gap.version != newestVersion[gap.id]) {
+                continue;
+            }</B></FONT>
+            if (Double.isInfinite(gap.time)) {
+                break;
+            }
+            timeNow = gap.time;
+            answer[gap.car1] = gap.time;
+
+            existedGaps.remove(gap.id);
+            Integer lastGapId = existedGaps.lowerKey(gap.id);
+            if (lastGapId == null) {
+                continue;
+            }
+
+            newestVersion[lastGapId]++;
+            Gap lastGap = existedGaps.get(lastGapId);
+            Gap newGap = new Gap();
+            newGap.id = lastGap.id;
+            newGap.version = newestVersion[lastGapId];
+            newGap.length = lastGap.length - (lastGap.speed1 - lastGap.speed2) * (timeNow - lastGap.timestamp);
+            newGap.car1 = lastGap.car1;
+            newGap.car2 = lastGap.car2;
+            newGap.speed1 = lastGap.speed1;
+            newGap.speed2 = gap.speed2;
+            newGap.timestamp = timeNow;
+            if (newGap.speed1 &gt; newGap.speed2) {
+                newGap.time = newGap.length / (newGap.speed1 - newGap.speed2) + timeNow;
+            } else {
+                newGap.time = Double.POSITIVE_INFINITY;
+            }
+            heap.add(newGap);
+            existedGaps.put(newGap.id, newGap);
+        }
+
+
+        return answer;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

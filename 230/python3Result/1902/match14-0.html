@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_yaroslav-repeta.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_yaroslav-repeta.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        i = len(cars) - 1
+        res = []
+        stack = []
+        while i &gt;= 0:
+            while stack and (cars[i][1] &lt;= stack[-1][1] or (stack[-1][0] - cars[i][0]) / (cars[i][1] - stack[-1][1]) &gt;= stack[-1][2]):
+                stack.pop()
+            if not stack:
+<A NAME="0"></A>                stack.append((cars[i][0], cars[i][1], math.inf))
+                res.append(-1)
+            else:
+                sec = (stack[-1][0] - cars[i]<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0]) / (cars[i][1] - stack[-1][1])
+                stack.append((cars[i][0], cars[i][1], sec))
+                res.</B></FONT>append(sec)
+            i -= 1
+        res.reverse()
+        return res
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_tian-tang-6.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>37_tian-tang-6.java</CENTER></H3><HR>
+<PRE>
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.TreeSet;
+
+class Solution {
+
+    public static void main(String[] args) {
+    }
+<A NAME="1"></A>
+    double inf = 1e50;
+
+    private double meetTime(Car a, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Car b) {
+        if (a.speed &lt;= b.speed) {
+            return inf;
+        }
+        return (b.x - a.x) / (a.speed - b.speed);
+    }
+
+    public double[] getCollisionTimes(int[][] data) {</B></FONT>
+        int n = data.length;
+        Car[] cars = new Car[n];
+        PriorityQueue&lt;Event&gt; pq = new PriorityQueue&lt;&gt;(n, Comparator.comparingDouble(x -&gt; x.time));
+        TreeSet&lt;Car&gt; set = new TreeSet&lt;&gt;(Comparator.comparingInt(x -&gt; x.id));
+        for (int i = 0; i &lt; n; i++) {
+            cars[i] = new Car(data[i][0], data[i][1], i);
+            set.add(cars[i]);
+        }
+        for (int i = 0; i &lt; n - 1; i++) {
+            pq.add(new Event(meetTime(cars[i], cars[i + 1]), cars[i], cars[i + 1]));
+        }
+
+
+        Car buf = new Car(0, 0, 0);
+        while (!pq.isEmpty()) {
+            Event head = pq.remove();
+            if (head.time == inf) {
+                break;
+            }
+            Car former = head.former;
+            Car later = head.later;
+            if (!set.contains(former) || Math.abs(meetTime(later, former) - head.time) &gt;= 1e-10) {
+                continue;
+            }
+            later.ans = head.time;
+            set.remove(head.later);
+            buf.id = former.id - 1;
+            Car prev = set.floor(buf);
+            if (prev != null) {
+                pq.add(new Event(meetTime(prev, former), prev, former));
+            }
+        }
+        double[] ans = Arrays.stream(cars).mapToDouble(x -&gt; x.ans).toArray();
+        return ans;
+    }
+}
+
+class Event {
+    double time;
+    Car later;
+    Car former;
+
+    public Event(double time, Car later, Car former) {
+<A NAME="0"></A>        this.time = time;
+        this.later = later;
+        this.former = former;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+}
+
+class Car {
+    double x;
+    int speed;
+    int id;
+    double ans = -1;
+
+    public Car(double x, int speed, int id) {
+        this.x = x;
+        this.speed = speed;
+        t</B></FONT>his.id = id;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

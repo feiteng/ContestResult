@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef pair&lt;double, pair&lt;int, int&gt;&gt; pp;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+  vector&lt;double&gt; getCollisionTimes(vector&lt;vector&lt;int&gt;&gt;&amp; cars) {
+    int N = cars.size();
+    vector&lt;double&gt; ans(N, -1);
+    set&lt;int&gt; S;
+    priority_queue&lt;pp, vector&lt;pp&gt;, greater&lt;pp&gt;&gt; Q;
+    for (int i = 0; i &lt; N; i++) S.insert(i); </B></FONT>
+    auto gao = [&amp;cars](int i, int j) -&gt; double {
+      return (double)(cars[j][0] - cars[i][0]) / (cars[i][1] - cars[j][1]);
+    };
+    for (int i = 1; i &lt; N; i++)  if (cars[i-1][1] &gt; cars[i][1]) Q.push({gao(i-1, i), {i-1, i}});
+    while (!Q.empty()) {
+      auto [t, xy] =Q.top(); Q.pop();
+      auto [x, y] = xy;
+      if(!S.count(x) || !S.count(y)) continue;
+      ans[x] = t;
+      S.erase(x);
+      auto it = S.lower_bound(x);
+      assert(*it == y);
+      if (it == S.begin()) continue;
+      auto it2 = prev(it);
+      if (cars[*it][1] &lt; cars[*it2][1])  Q.push({gao(*it2, *it), {*it2, *it}});
+    }
+    
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_setayesh.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_setayesh.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        n = len(cars)
+        ans = [inf]*n
+        stack = [(cars[</B></FONT>-1],n-1)]
+        last = n-1
+        for i in range(n-2,-1,-1):
+            p, v = cars[i]
+            while stack and (stack[-1][0][1]&gt;=v or (stack[-1][0][0]-p)/(v-stack[-1][0][1])&gt;ans[stack[-1][1]]):
+                 stack.pop()
+            if stack:
+                ans[i] = (stack[-1][0][0]-p)/(v-stack[-1][0][1])
+            stack.append((cars[i],i))
+            
+        for i, val in enumerate(ans):
+            if val==inf:
+                ans[i] = -1.0
+        return ans
+                             
+                 
+            
+                
+                
+                
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

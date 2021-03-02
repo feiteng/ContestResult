@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>155_jdluckyday.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>155_jdluckyday.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        nums1Sum = sum(nums1)
+        nums2Sum = sum(nums2)
+        if nums2Sum == nums1Sum:
+            return 0
+        
+        if nums2Sum &gt; nums1Sum:
+            nums1Sum, nums2Sum, nums1, nums2 = nums2Sum, nums1Sum, nums2, nums1 
+        
+<A NAME="0"></A>        nums1Len = len(nums1)
+        nums2Len = len(nums2)
+        if (nums1Len &gt; nums2Len*6) or (nums2Len &gt; 6*nums1Len):
+            r<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn -1
+        
+        # nums1PlusCounter = Counter([6-num for num in nums1])
+        nums1MinusCounter = Counter([num - 1 for num in nums1])
+        nums2PlusCounter = Counter([6-num for num in nums2])
+        # nums2MinusCounter = Counter([num - 1 for num in nums2])
+        targetDelta = nums1Sum - nums2Sum
+        ans = 0
+        # print(targetDelta)
+        for delta in range(5, 0, -1):
+            maxOp = (nums1MinusCounter[delta] + nums2PlusCounter[delta])
+            # print(maxOp, targetDelta)
+            if (maxOp*delta) &lt; targetDelta:
+                targetDelta -= (maxOp*delta)
+                ans += maxOp
+            else:
+                if targetDelta%delta == 0:
+                    ans += (targetDelta//delta)
+                    return ans
+                else:
+                    ans += (targetDelta//delta + 1)
+                    ret</B></FONT>urn ans            
+                            
+        
+</PRE>
+
+</BODY>
+</HTML>

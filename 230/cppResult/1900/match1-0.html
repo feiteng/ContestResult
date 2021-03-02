@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>967_edudagedob.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>967_edudagedob.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+
+    vector&lt;int&gt; tc;
+<A NAME="0"></A>    vector&lt;int&gt; bc;
+    int delta = INT_MAX;
+    int res;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int t;
+    int closestCost(vector&lt;int&gt;&amp; baseCosts, vector&lt;int&gt;&amp; toppingCosts, int target) {
+        t = target;
+        bc = baseCosts;
+        tc = toppingCosts;
+        dfs(0, 0);
+        return res;
+    }
+
+<A NAME="1"></A>    void dfs(int index, int sum) {</B></FONT>
+        if(index &gt;= tc.size()) {
+            for(auto b :  bc) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                auto tmp = b + sum;
+                if(abs(tmp - t) &lt; delta) {
+                    delta = abs(tmp - t);
+                    res = tmp;
+                } else if(abs(tmp - t) == delta &amp;&amp; tmp &lt; res) {
+                    res = tmp;
+                }
+            }
+            return;
+        }
+        dfs(index + 1, sum);
+        dfs(index + 1, sum + tc[index]);
+        dfs(index + 1, sum + 2 * tc[index]);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

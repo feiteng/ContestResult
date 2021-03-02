@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>955_tarxvzf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>955_tarxvzf.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int bestDiff;
+    int bestNum;
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+<A NAME="0"></A>        bestNum = -1;
+        bestDiff = Integer.MAX_VALUE;
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; baseCosts.length; i++) {
+            recurse(0, baseCosts[i], target, toppingCosts);
+        }
+        
+        return bestNum;
+    }
+    
+    private void recurse(int idx, int partial, int target, int[] toppingCosts) {
+        // update best
+        int curDiff = Math.abs(partial-target);
+        if (curDiff &lt; bestDiff) {
+            bestDiff = curDiff;
+            bestNum = partial;
+        } else if (curDiff == bestDiff) {
+            bestNum = Math.min(bestNum, partial);
+        }
+        
+        // return early if no further step can beat the optimal seen so far
+        if (partial &gt; target &amp;&amp; (partial-target) &gt;= bestDiff) return;
+        
+        // base case
+        if (idx == toppingCosts.length) return;
+        
+        
+        // consider taking topping[idx] 0,1,2 times
+        recurse(idx+1, partial, target, toppingCosts);
+        recurse(idx+1, partial + toppingCosts[idx], target, toppingCosts);
+        recurse(idx+1, partial + 2*toppingCosts[idx], target, toppingCosts);
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

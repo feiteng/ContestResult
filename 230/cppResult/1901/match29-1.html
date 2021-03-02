@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_ddmike.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>273_ddmike.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        vector&lt;int&gt; cn1(6, 0), cn2(6, 0);
+        int sum1 = 0, sum2 = 0;
+        for (const auto each : nums1)</B></FONT>
+        {
+            ++cn1[each - 1];
+<A NAME="1"></A>            sum1 += each;
+        }
+        for (const auto each : nums2)
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        {
+            ++cn2[each - 1];
+            sum2 += each;
+        }
+        if (sum1 &gt; sum2)
+        {
+            swap(cn1, cn2);
+            swap(sum1, sum2);
+        }
+        int del = sum2 - sum1, ans = 0;
+       
+        for (int i = 0; i &lt; 5; ++i)
+        {
+            int c = cn1[i] + cn2[5 - i], rdc = 5 - i;</B></FONT>
+            if (rdc * c &gt;= del)
+            {
+                ans += del / rdc;
+                del = del - (del / rdc * rdc);
+                if (del != 0)
+                {
+                    del = 0;
+                    ++ans;
+                }
+            }
+            else{
+                ans += c;
+                del -= c * rdc;
+            }
+        }
+        if (del &gt; 0) return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

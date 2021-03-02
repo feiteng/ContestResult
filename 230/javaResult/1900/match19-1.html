@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1011_shen-yi-yang-de-shao-nian.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1011_shen-yi-yang-de-shao-nian.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int v = Integer.MAX_VALUE;
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+        for (int cost : baseCosts) {
+            int[] nums = new int[toppingCosts.length];
+            dfs</B></FONT>(toppingCosts, nums, target, cost);
+<A NAME="1"></A>            if (v == target) {
+                break;
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return v;
+    }
+    
+<A NAME="2"></A>    public void dfs(int[] toppingCosts, int[] nums, int target, int ans</B></FONT>) {
+        if ((Math.abs(ans - target) &lt; Math.abs(v - target)) || (Math.abs(ans - target) == Math.abs(v - target) &amp;&amp; ans &lt; v)) {
+            v = ans;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if (ans &gt; target) {
+            return;
+        }
+        for (int i = 0; i &lt; toppingCosts.length; i++) {
+            if (nums[i] == 2) {
+                continue;
+            }
+            nums[i]++;
+            dfs(toppingCosts, nums, target, ans + toppingCosts[i]);
+            nums[i]--;
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

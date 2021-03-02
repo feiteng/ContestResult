@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>192_zcm18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>192_zcm18.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public double[] getCollisionTimes(int[][] cars) {
+        int len = cars.length;
+        double[] res = new double[len];
+        Deque&lt;double[]&gt; qu = new LinkedList&lt;&gt;();
+<A NAME="0"></A>        for(int i = len - 1; i &gt; -1; i--){
+            double cur = 1000000;
+            double pos = cars[i][0], speed = cars[i][1];
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double a = pos, b = speed;
+            for(double[] it : qu){
+                if(it[1] &lt; speed){
+                    double temp = (it[0] - pos) / (speed - it[1]);
+                    if(cur &lt; 0 || cur &gt; temp) {
+                        cur = temp;
+                    }</B></FONT>
+                    a = it[0];
+                    b = it[1];
+                }
+            }
+            res[i] = cur == 1000000 ? -1 : cur;
+            while(!qu.isEmpty() &amp;&amp; (cur &gt;= qu.getLast()[2] || speed &lt;= qu.getLast()[1])){
+                qu.pollLast();
+            }
+            qu.offerLast(new double[]{pos, speed, cur});
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

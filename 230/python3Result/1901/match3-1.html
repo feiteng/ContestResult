@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>711_Codeless.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>711_Codeless.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        sum1 = sum(nums1)
+        sum2 = sum(nums2)
+        if sum1 &gt; sum2:
+            nums1, nums2 = nums2, nums1
+            sum1, sum2 = sum2, sum1
+        n1 =</B></FONT> len(nums1)
+        n2 = len(nums2)
+
+        min1 = n1
+        max1 = 6 * n1
+        min2 = n2
+        max2 = 6 * n2
+        
+        if max1 &lt; min2 or max2 &lt; min1:
+            return -1
+
+        diff = sum2 - sum1
+<A NAME="1"></A>        if not diff: return 0
+        #print(diff)
+
+        d <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= collections.defaultdict(int)
+        for num in nums1:
+            d[6-num] += 1
+        #print(d)
+        for num in nums2:
+            d[num-1] += 1
+        #print(d)
+        ans =</B></FONT> 0
+        for change in range(5, 0, -1):
+            if d[change] * change &gt;= diff:
+                ans += (diff + change - 1) // change
+                return ans
+            
+            ans += d[change]
+            diff -= change * d[change]
+            
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

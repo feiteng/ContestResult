@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_Heltion.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_Heltion.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minOperations(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        vector&lt;int&gt; cnt1(7), cnt2(7);
+        int sum1 = 0, sum2 = 0;
+        for(int x : nums1){</B></FONT>
+<A NAME="1"></A>            cnt1[x] += 1;
+            sum1 += x;
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int x : nums2){
+            cnt2[x] += 1;
+            sum2 += x;
+        }
+        if(sum1 &gt; sum2){
+            swap(sum1, sum2);
+            swap(cnt1, cnt2);
+        }
+        int ans = 0, d = sum2 - sum1;
+        for(int i = 5; i &gt;= 1 and d &gt; 0; i -= 1){
+            int x = cnt1[6 - i] + cnt2[i + 1];</B></FONT>
+            int h = min(x, (d + i - 1) / i);
+            ans += h;
+            d -= h * i;
+        }
+        if(d &gt; 0) return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

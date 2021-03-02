@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_shua-ti-shi-wo-bian-qiang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_shua-ti-shi-wo-bian-qiang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def closestCost(self, baseCosts: List[int], toppingCosts: List[int], target: int) -&gt; int:
+        ans = [10**10]
+        n = len(toppingCosts)
+        
+        def dfs(cur, p):
+<A NAME="0"></A>            if p == n:
+                if abs(cur-target) &lt; abs(ans[0]-target):
+                    ans[0] = cur
+                elif abs(cur-target) == abs(ans[0]-target) and cur &lt; ans<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[0]:
+                    ans[0] = cur
+                return
+            dfs(cur, p+1)
+            dfs(cur+toppingCosts[p], p+1)
+            dfs(cur+toppingCosts[p]*2, p+1)
+        
+        for i in baseCosts:
+            dfs(i, 0)
+        return ans[0</B></FONT>]
+</PRE>
+
+</BODY>
+</HTML>

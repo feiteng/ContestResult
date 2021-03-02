@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>568_hastings2k.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>568_hastings2k.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        s1,s2 = sum(nums1),sum(nums2)
+        if s1 == s2:
+            return 0
+        if s1&gt;s2:
+            s1,s2 = s2,s1
+            nums1,nums2 = nums2,nums1
+        n1,n2 =</B></FONT> len(nums1),len(nums2)
+        if 6*n1&lt;n2 or 6*n2&lt;n1:
+            return -1
+        def _func(arr):
+            temp = [0] * 6
+            for n in arr:
+                temp[n-1] += 1
+            return temp
+        cnt = 0
+        dis = s2-s1
+        s1,s2 = _func(nums1),_func(nums2)
+        # print(s1,s2)
+        
+        while dis:
+            # print(dis,s1,s2)
+            min0 = min([i for i in range(6) if s1[i]&gt;0])
+            max1 = max([i for i in range(6) if s2[i]&gt;0])
+            # print(min0,max1,5-min0)
+            if 5-min0&gt;max1:
+                # print(&quot;=s1&quot;)
+                if dis&gt;s1[min0]*(5-min0):
+                    dis -= s1[min0]*(5-min0)
+                    cnt += s1[min0]
+                    s1[-1] += s1[min0]
+                    s1[min0] = 0
+                else:
+                    cnt += dis//(5-min0)
+                    cnt += 1 if dis%(5-min0) else 0
+                    return cnt
+            else:
+                # print(&quot;=s2&quot;)
+                if dis&gt;s2[max1]*max1:
+                    dis -= s2[max1]*max1
+                    cnt += s2[max1]
+                    s2[0] += s2[max1]
+                    s2[max1] = 0
+                else:
+                    cnt += dis//max1
+                    cnt += 1 if dis%max1 else 0
+                    return cnt
+        return cnt
+'''
+[1,2,3,4,5,6]
+[1,1,2,2,2,2]
+=3
+[1,1,1,1,1,1,1]
+[6]
+=-1
+[6,6]
+[1]
+=3
+'''
+        
+</PRE>
+
+</BODY>
+</HTML>

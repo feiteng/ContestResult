@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_user1841.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_user1841.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        a1, a2 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [], []
+        if sum(nums1) &gt; sum(nums2):
+            nums1, nums2 = nums2, nums1
+        s1, s2 = sum(nums1), sum(nums2)
+        for x in nums1:
+            heapq.heappush(a1, x)
+        for x in nums2:
+            heapq.heappush(a2, -x)
+        res = 0
+        while</B></FONT> s1 &lt; s2:
+            a, b = a1[0] if a1 else 6, -a2[0] if a2 else 1 # a min, b max
+            if a == 6 and b == 1:
+                return -1
+            if 6-a &gt; b-1:
+                heapq.heappop(a1)
+                s1 += 6-a
+            else:
+                heapq.heappop(a2)
+                s2 -= b-1
+            res += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

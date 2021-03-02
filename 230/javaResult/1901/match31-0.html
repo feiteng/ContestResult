@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_jason_wong1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>360_jason_wong1.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minOperations(int[] nums1, int[] nums2) {
+        int longw = Math.max(nums1.length, nums2.length);
+        int shortw = Math.min(nums1.length, nums2.length);
+<A NAME="0"></A>        if (shortw * 6 &lt; longw) {
+            return -1;
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int sum1 = 0;
+        int sum2 = 0;
+        for (int i : nums1) {
+            sum1 += i;
+        }
+        for (int i : nums2) {
+            sum2 += i;
+        }   
+        if (sum1 == sum2) {
+            return 0;
+        }</B></FONT>
+        int bigger = 0;
+        int smaller = 0;
+        int[] bigA = new int[1];
+        int[] smallA = new int[1];
+        if (sum1 &lt; sum2) {
+            bigger = sum2;
+            bigA = nums2;
+            smaller = sum1;
+            smallA = nums1;
+        } else {
+            bigger = sum1;
+            bigA = nums1;
+            smaller = sum2;
+            smallA = nums2;
+        }
+        return helper(bigA, bigger, smallA, smaller);                
+    }
+    public int helper(int[] arr1, int sum1, int[] arr2, int sum2) {
+        int diff = sum1 - sum2;
+        int res = 0;
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;((o1 , o2) -&gt; {
+            if (Math.abs(o1) == Math.abs(o2)) {
+                return 0;
+            }
+            if (Math.abs(o1) &gt; Math.abs(o2)) {
+                return -1;
+<A NAME="1"></A>            }
+            return 1;
+        });
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; arr1.length; i++) {
+            pq.offer(1 - arr1[i]);
+        }
+        for (int i = 0; i &lt; arr2.length; i++) {
+            pq.offer(6 - arr2[i]);
+        }</B></FONT>        
+        while (pq.size() &gt; 0) {
+<A NAME="2"></A>            int cur = Math.abs(pq.poll());
+            diff = diff - cur;
+            res++;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (diff &lt;= 0) {
+                return res;
+            }
+        }
+        return -1;
+    }
+}</B></FONT>
+
+
+// Input: nums1 = [1,2,3,4,5,6], nums2 = [1,1,2,2,2,2]
+// 21   10 
+// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+
+</BODY>
+</HTML>

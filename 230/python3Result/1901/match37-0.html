@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>679_btdlozc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>679_btdlozc.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        n1, n2 = len(nums1), len(nums2)
+        if n1 &gt; 6 * n2 or n2 &gt; n1 * 6:
+            return -1
+        
+        sum1, sum2 = sum(nums1), sum(nums2)
+        if sum1 == sum2:
+            return 0
+        elif sum1 &gt; sum2:
+            largeNums, smallNums = nums1, nums2
+            largeSums, smallSums =</B></FONT> sum1, sum2
+        else:
+            largeNums, smallNums = nums2, nums1
+            largeSums, smallSums = sum2, sum1
+            
+        largeNums.sort()
+        smallNums.sort(reverse=True)
+        res = 0
+        while largeSums &gt; smallSums:
+            diff = largeSums - smallSums
+            if largeNums:
+                changeLarge = largeNums[-1] - 1
+            else:
+                changeLarge = -float('inf')
+                
+            if smallNums:
+                changeSmall = 6 - smallNums[-1]
+            else:
+                changeSmall = -float('inf')
+                
+            if (largeNums and not smallNums) or changeLarge &gt;= changeSmall:
+                if changeLarge &gt;= diff:
+                    res += 1
+                    return res
+                else:
+                    res += 1
+                    largeSums -= changeLarge
+                    largeNums.pop()
+                continue
+                
+            if (smallNums and not largeNums) or changeLarge &lt; changeSmall:
+                if changeSmall &gt;= diff:
+                    res += 1
+                    return res
+                else:
+                    res += 1
+                    smallSums += changeSmall
+                    smallNums.pop()
+                continue
+                
+        return res
+            
+</PRE>
+
+</BODY>
+</HTML>

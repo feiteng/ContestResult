@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>633_haggaibadguy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>633_haggaibadguy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def closestCost(self, baseCosts: List[int], toppingCosts: List[int], target: int) -&gt; int:
+        costs = set(baseCosts)
+        for toppingCost in toppingCosts:
+            new_costs = set()
+            for cost in costs:
+                new_costs.add(cost + toppingCost)
+                new_costs.add(cost + toppingCost * 2)
+            costs.update(new_costs)
+            
+        best =</B></FONT> math.inf
+        for cost in costs:
+            best_distance = abs(target - best)
+            new_distance = abs(target - cost)
+            if new_distance &lt; best_distance:
+                best = cost
+            elif new_distance == best_distance and cost &lt; best:
+                best = cost
+                
+        return best
+            
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>248_USF-CS.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>248_USF-CS.java</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>class Solution {
+  <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#2',2,'match37-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int doit(int[] cnt, int sum, int target) {
+    if(sum == target) return 0;
+    int v = 0;
+    if(sum &lt; target) {
+      for(int j = 1; j &lt; 6; j++) {
+<A NAME="3"></A>        if(sum + (6-j) * cnt[j] &gt;= target) {</B></FONT>
+          v += (target - sum + (6-j-1)) / (6-j);
+          return v;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#3',2,'match37-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        v += cnt[j];
+        sum += (6-j)*cnt[j];
+      }
+    }
+    else {
+      for(int j = 6; j &gt; 1; j--) {
+        if(target + (j-1) * cnt[j] &gt;= sum) {</B></FONT>
+          v += (sum - target + (j-2)) / (j-1);
+          return v;
+        }
+        v += cnt[j];
+        target += (j-1)*cnt[j];
+      }      
+    }
+<A NAME="0"></A>    return 100_000_000;
+  }
+  
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minOperations(int[] nums1, int[] nums2) {
+<A NAME="1"></A>      int n1 = nums1.length, n2 = nums2.length;
+      int[] c1 = new int[7], c2 = new</B></FONT> int[7];
+      int s1 = 0, s2 = 0;
+      <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int x : nums1){ c1[x]++; s1 += x; }
+      for(int y : nums2){ c2[y]++; s2 += y; }
+      if</B></FONT>(s1 == s2) return 0;
+      int ans = 100_000_000;
+      for(int tar = Math.min(s1, s2); tar &lt;= Math.max(s1, s2); tar++) {
+        int v1 = doit(c1, s1, tar);
+        int v2 = doit(c2, s2, tar);
+        ans = Math.min(ans, v1+v2);
+        // System.out.format(&quot;tar = %d, s1 = %d, v1 = %d,   s2 = %d, v2 = %d\n&quot;, tar, s1, v1, s2, v2);
+      }
+      return ans == 100_000_000 ? -1 : ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

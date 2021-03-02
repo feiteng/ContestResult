@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>942_AnneTrojan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>942_AnneTrojan.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        if len(nums1) &gt; 6 * len(nums2) or len(nums2) &gt; 6 * len(nums1):
+            return -1
+        
+        s1, s2 = sum(nums1), sum(nums2)
+        nums1.sort()
+        nums2.sort()
+        
+        if s1 == s2:
+            return 0
+        elif s1 &lt; s2:
+            return self.find(nums1, nums2[::-1], s2 - s1)
+        else:
+            return self.find(nums2, nums1[::-1], s1 - s2)
+<A NAME="0"></A>        
+    def find(self, nums1, nums2, diff):
+        idx1, idx2, l1, l2 = 0, 0, len(nums1), len(nums2)
+        res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+        
+        while idx1 &lt; l1 and idx2 &lt; l2:
+            n1, n2 = nums1[idx1], nums2[idx2]
+            if (6 - n1) &gt; (n2 - 1):
+                diff -= (6 - n1)
+                idx1 += 1
+            else:
+                diff -= (n2 - 1)
+<A NAME="1"></A>                idx2 += 1
+            res +=</B></FONT> 1
+            if diff &lt;= 0:
+                re<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>turn res
+        
+        while idx1 &lt; l1 and diff &gt; 0:
+            diff -= (6 - nums1[idx1])
+            idx1 += 1
+            res += 1
+        
+        while idx2 &lt; l2 and diff &gt; 0:
+            diff -= (nums2[idx2] - 1)
+            idx2 += 1
+            res += 1
+        re</B></FONT>turn res
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

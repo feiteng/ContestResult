@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_senliu_ac.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_senliu_ac.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -&gt; List[float]:
+        times = []
+        rst = [-1] * len(cars)
+        fleet_firsts = [i for i in range(len(cars))]
+        for i in range(len(cars) - 1):
+            speed_diff = cars[i][1] - cars[i + 1][1]
+            if speed_diff &lt;= 0:
+                continue
+<A NAME="0"></A>            dist = cars[i + 1][0] - cars[i][0]
+            time = dist / speed_diff
+            # time, fleet_last, next
+            heappush(times, (t<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ime, i, i + 1))
+            
+        while times:
+            time, fleet_last, next_car = heappop(times)
+            
+            if rst[fleet_last] != -1:
+                continue
+            
+            rst[fleet_last] = time
+            
+            fleet_first = fleet_firsts[</B></FONT>fleet_last]
+            fleet_firsts[next_car] = fleet_first
+            
+            if fleet_first == 0:
+                continue
+                
+            new_fleet_last = fleet_first - 1
+            
+            new_speed_diff = cars[new_fleet_last][1] - cars[next_car][1]
+            if new_speed_diff &lt;= 0:
+                continue
+            
+            new_dist = cars[next_car][0] - cars[new_fleet_last][0]
+            new_time = time = new_dist / new_speed_diff
+            heappush(times, (new_time, new_fleet_last, next_car))
+        
+        return rst
+                
+            
+</PRE>
+
+</BODY>
+</HTML>

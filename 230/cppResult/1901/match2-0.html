@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>921_dddeddd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>921_dddeddd.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int minOperations(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int sum1 = 0, sum2 = 0;
+        for (int i = 0; i &lt; nums1.size(); ++i) sum1 += nums1[i];
+        for (int i = 0; i &lt; nums2.size(); ++i) sum2 += nums2[i];
+        
+        if (sum2 &lt; sum1) {
+            swap(nums1, nums2);
+            swap(sum1, sum2);
+        }
+        
+        priority_queue&lt;int&gt; que;
+        for (int i = 0; i &lt; nums1.size(); ++i) que.push(6 - nums1[i]);
+        for (int i = 0; i &lt; nums2.size(); ++i) que.push(nums2[i] - 1);
+<A NAME="1"></A>        
+        int diff = sum2 - sum1;</B></FONT>
+        int res = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(que.size() &amp;&amp; 0 != diff) {
+            int t = que.top();
+            diff -= min(diff, t);
+            que.pop();
+            ++res;
+        }
+        if (0 != diff) res = -1;
+        
+        return res;
+        
+    }
+};</B></FONT>
+
+/*
+
+
+[1,2,3,4,5,6]
+[1,1,2,2,2,2]
+[1,1,1,1,1,1,1]
+[6]
+[6,6]
+[1]
+[5,6,4,3,1,2]
+[6,3,3,1,4,5,3,4,1,3,4]
+
+*/
+</PRE>
+</BODY>
+</HTML>

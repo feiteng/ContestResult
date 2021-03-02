@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>43_necoramen.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+
+class Solution {
+    public double[] getCollisionTimes(int[][] cars) {
+
+        double[] toHit = new double[cars.length];
+<A NAME="0"></A>        boolean[] hit = new boolean[cars.length];
+        int[] prev = new int[cars.length], next = new int[cars.length];
+        Arrays.fill(prev, -1);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Arrays.fill(next, -1);
+
+
+        PriorityQueue&lt;double[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; Double.compare(a[0], b[0]));
+        for (int i = 0; i &lt; cars.length; i++) {
+            if (i &gt; 0) {</B></FONT>
+                prev[i] = i - 1;
+            }
+            if (i + 1 &lt; cars.length) {
+                next[i] = i + 1;
+            }
+
+            if (i == cars.length - 1 || cars[i + 1][1] &gt;= cars[i][1]) {
+                toHit[i] = Double.POSITIVE_INFINITY;
+<A NAME="1"></A>            } else {
+                toHit[i] = (double) (cars[i + 1][0] - cars[i][0])
+                        / (cars[i][1] - cars[i + 1][1]);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pq.add(new double[]{toHit[i], i});
+            }
+        }
+
+        double[] ans = new double[cars.length];
+        Arrays.fill(ans, -1);
+        while (!pq.isEmpty()) {
+
+            double[] pair = pq.poll();
+            int i = (int) pair[1];
+            double t = pair[0];
+            if</B></FONT> (hit[i] || toHit[i] != t) {
+                continue;
+            }
+
+            hit[i] = true;
+            ans[i] = t;
+
+
+            int j = prev[i], k = next[i];
+            if (j &gt;= 0) {
+                next[j] = next[i];
+            }
+            if (k &gt;= 0) {
+                prev[k] = prev[i];
+            }
+
+            if (j &gt;= 0 &amp;&amp; k &gt;= 0) {
+
+                if (cars[k][1] &gt;= cars[j][1]) {
+                    toHit[j] = Double.POSITIVE_INFINITY;
+<A NAME="2"></A>                } else {
+                    toHit[j] = (double) (cars[k][0] - cars[j][0])
+                            / (cars[j][1] - cars[k][1]);
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pq.add(new double[]{toHit[j], j});
+                }
+            }
+
+        }
+        return ans;
+
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

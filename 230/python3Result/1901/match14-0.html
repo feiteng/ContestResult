@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>258_piscesdream-7.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>258_piscesdream-7.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minOperations(self, nums1: List[int], nums2: List[int]) -&gt; int:
+        diff = sum(nums1) - sum(nums2)
+        if diff == 0:
+            return 0 
+        
+        if diff &gt; 0:
+            diff = -diff
+            nums1, nums2 = nums2, nums1
+            
+        takes =</B></FONT> []      
+        for num in nums1: takes.append(6-num)
+        for num in nums2: takes.append(num-1)
+        takes = [take for take in takes if take != 0]
+        # if len(takes) == 0: return -1
+        
+        takes.sort()
+        
+        prev_diff = diff
+        step = 0
+        while takes:
+            prev_diff = diff
+            
+            diff += takes.pop()
+            step += 1
+            
+            if prev_diff * diff &lt;= 0: return step
+        return -1 
+</PRE>
+
+</BODY>
+</HTML>

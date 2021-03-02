@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>346_avlgood2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>346_avlgood2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+            Set&lt;Integer&gt; toppingSet = new HashSet&lt;&gt;();
+            toppingSet.add(0);
+            for (int i = 0; i &lt; toppingCosts.length; i++) {
+                HashSet&lt;Integer&gt; newSet = new</B></FONT> HashSet&lt;&gt;();
+                for (int j = 1; j &lt; 3; j++) {
+                    for (Integer old : toppingSet) {
+                        newSet.add(old + toppingCosts[i] * j);
+                    }
+                }
+<A NAME="1"></A>                toppingSet.addAll(newSet);
+            }
+            System.out.println(toppingSet);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int min = Integer.MAX_VALUE;
+            int result = 0;
+            for (int baseCost : baseCosts) {
+                for (int topCost : toppingSet) {
+                    int diff = baseCost + topCost - target;
+                    int diffABS = Math.abs(diff);
+<A NAME="2"></A>                    if (diffABS &lt; min || (diffABS == min &amp;&amp; diff &lt; 0)) {
+                        min = diffABS;
+                        result = baseCost + topCost;
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}</B></FONT>
+                }
+            }
+            return result;
+        }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
