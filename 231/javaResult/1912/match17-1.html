@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>503_alexlin87.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>503_alexlin87.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    private List&lt;int[]&gt;[] adj;
+    private long[] distance;
+    private int[] dp;
+    private int mod = (int)1e9 + 7;
+    public int countRestrictedPaths(int n, int[][] edges) {
+        a</B></FONT>dj = buildGraph(n, edges);
+        boolean[] processed = new boolean[n + 1];
+        distance = new long[n + 1];
+<A NAME="2"></A>        Arrays.fill(distance, Long.MAX_VALUE);
+        distance[n] = 0;
+        PriorityQueue&lt;long[]&gt; q = new PriorityQueue&lt;&gt;(Comparator.comparingLong(a -&gt; a[0]));
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.add(new long[]{0, n});
+        
+        while(!q.isEmpty()) {
+            long[] curr = q.poll();
+            int node = (int)curr[1]</B></FONT>;
+<A NAME="3"></A>            if(processed[node]) continue;
+            processed[node] = true;
+            for(int[] next : adj[node]) {
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(curr[0] + next[1] &lt; distance[next[0]]) {
+                    distance[next[0]] = curr[0] + next[1];
+                    q.add(new long[]{distance[next[0]], next[0]});
+                }
+            }
+        }
+        dp = new</B></FONT> int[n + 1];
+        Arrays.fill(dp, -1);
+<A NAME="4"></A>        dp[n] = 1;
+        return dfs(1, n);
+    }
+    private int dfs(int node, <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#4',2,'match17-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n) {
+        if(node == n) return 1;
+        if(dp[node] &gt;= 0) return dp[node];
+<A NAME="5"></A>        int cnt = 0;
+        for(int[] next : adj[node]) {</B></FONT>
+            if(distance[next[0]] &lt; distance[node]) {
+                cnt = (cnt + <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#5',2,'match17-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(next[0], n)) % mod;
+            }
+        }
+        dp[node] = cnt;
+        return cnt;
+    }</B></FONT>
+    private List&lt;int[]&gt;[] buildGraph(int n, int[][] edges) {
+<A NAME="1"></A>        List&lt;int[]&gt;[] adj = new List[n + 1];
+        for(int i = 0; i &lt;= n; i++) {
+            adj[i] = new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for(int[] e : edges) {
+            adj[e[0]].add(new int[]{e[1], e[2]});
+            adj[e[1]].add(new int[]{e[0], e[2]});
+        }</B></FONT>
+        return adj;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

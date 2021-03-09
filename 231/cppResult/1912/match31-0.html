@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>972_sudeep_423.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>972_sudeep_423.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;pair&lt;int,int&gt;&gt; vect[n+1];
+        for(auto i: edges){</B></FONT>
+            vect[i[0]].push_back({i[1],i[2]});
+            vect[i[1]].push_back({i[0],i[2]});
+        }
+        vector&lt;long long int&gt; dp(n+1,1e18);
+        vector&lt;bool&gt; visit(n+1,false),temp(n+1,false);
+        vector&lt;long long int&gt; v(n+1,0);
+        priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt;&gt; ,greater&lt;pair&lt;int,int&gt;&gt;&gt; p;
+        p.push({0,n});
+        dp[n]=0;
+        while(p.size()){
+            auto k = p.top();
+            p.pop();
+            if(!visit[k.second]){
+                visit[k.second]=true;
+                for(auto i: vect[k.second]){
+                    if(dp[i.first]&gt;k.first+i.second){
+                        dp[i.first]=k.first+i.second;
+                        p.push({dp[i.first],i.first});
+                    }
+                }
+            }
+        }
+        v[1]=1;
+<A NAME="1"></A>        long long int mod=1e9+7;
+        priority_queue&lt;pair&lt;long long int,int&gt;&gt; que;
+        que.push({dp[1],1});
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(que.size()){
+            auto k = que.top();
+            que.pop();
+            if(temp[k.second])
+                continue;
+            temp[k.second]=true;
+            for(auto i: vect[k.second]){
+                if(dp[i.first]&lt;dp[k.second]){
+                    v[i.first]+=v[k.second];</B></FONT>
+                    v[i.first]=v[i.first]%mod;
+                    que.push({dp[i.first],i.first});
+                }
+            }
+        }
+        return v[n];
+                 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

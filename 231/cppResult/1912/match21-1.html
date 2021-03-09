@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_polonez.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_polonez.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;pair&lt;int,int&gt; &gt; &gt; g; g.resize(n+1);
+        for (auto &amp;x : edges)
+        {
+            g[x[0]].push_back(make_pair(x[1], x[2]));
+            g[x[1]].push_back(make_pair(x[0], x[2]));
+        }
+        vector&lt;int&gt; d, f; d.resize(n+1, 2e9), f.resize(n+1);</B></FONT>
+        d[n] = 0, f[n] = 1;
+        int MOD = 7+1e9;
+        priority_queue &lt;pair&lt;int,int&gt; &gt; h;
+        h.push(make_pair(0, n));
+        vector&lt;bool&gt; ok; ok.resize(n+1);
+        while (!h.empty())
+        {
+            auto t = h.top(); h.pop();
+            if (ok[t.second]) continue;
+<A NAME="1"></A>            ok[t.second] = true;
+            for (auto &amp;x : g[t.second])
+            {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (-t.first &lt; d[x.first])
+                {
+                    f[x.first] = (f[x.first]+f[t.second]) % MOD;
+                    if (x.second - t.first &lt; d[x.first])
+                    {
+                        d[x.first] = x.second - t.first;
+                        h.push(make_pair(-d[x.first], x.first));
+                    }
+                }
+            }
+        }
+        return f[1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

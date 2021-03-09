@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>477_fnwjkm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>477_fnwjkm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    int mod = 1000000007;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int countRestrictedPaths(int n, int[][] edges) {
+        List&lt;int[]&gt;[] adj = new List[n];
+        for (int i = 0;i &lt;  n;i++) {
+<A NAME="2"></A>            adj[i] = new ArrayList&lt;&gt;();
+        }
+        for (int[] e : edges) {</B></FONT>
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>adj[e[0] - 1].add(new int[]{e[1] - 1, e[2]});
+            adj[e[1] - 1].add(new int[]{e[0] - 1, e[2]});
+        }
+        int[] disToLast =  disToLast(n,  ad</B></FONT>j);
+        // for (int d : disToLast) {
+        //     System.out.println(d);
+<A NAME="0"></A>        // }
+        return (int)dfs(adj, disToLast[0], 0, n, disToLast, new HashMap&lt;&gt;());
+    }
+    private long dfs(List&lt;int[]&gt;[] adj, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int preDis, int cur, int n, int[] disToLast, Map&lt;Integer, Long&gt; map){
+        if (cur == n - 1) {
+            return 1;
+        }
+        if</B></FONT> (map.containsKey(cur)) {
+            return map.get(cur);
+        }
+        long res = 0;
+        for (int[] nexts : adj[cur]) {
+            int next = nexts[0];
+            if (preDis &lt;= disToLast[next])  continue;
+            res += dfs(adj, disToLast[next], next, n, disToLast, map);
+            res %= mod;
+        }
+        map.put(cur, res);
+        return res;
+    }
+    private int[] disToLast(int n, List&lt;int[]&gt;[] adj) {
+<A NAME="3"></A>        int[] res = new int[n];
+        Arrays.fill(res, -1);
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; (a[1] - b[1]));
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new int[]{n - 1, 0});
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int d = cur[1], idx = cur[0];
+            if (res[idx] != -1) continue;</B></FONT>
+            res[idx] = d;
+<A NAME="4"></A>            for (int[] nexts : adj[idx]) {
+                int next = nexts[0], nextD = nexts[1];
+                if (res[next] == -1) {
+                    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#4',2,'match36-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new int[]{next, d + nextD});
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

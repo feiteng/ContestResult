@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_leetcodecontest.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_leetcodecontest.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minChanges(self, nums: List[int], k: int) -&gt; int:
+        n = len(nums)
+        vals = [None] * k
+
+        for i in range(k):
+          vals[i] = defaultdict(lambda: 0)
+
+          for j in range(i, n, k):
+            vals[i][nums[j]] += 1
+
+        def cost(i, e):
+          return ceil((n - i) / k) - vals[i][e]
+
+        def min_cost(i):
+          return min([cost(i, e) for e in vals[i]])
+
+        sumCost = sum([min_cost(i) for i in range(k)])
+
+        maxLimit = sumCost + min([ceil((n - i) / k) - min_cost(i) for i in range(k)])
+
+        dp = {0: 0}
+
+        for i in range(k):
+          tempDp = defaultdict(lambda: float('inf'))
+
+          for e in vals[i]:
+            for xor_pfx in dp:
+              new_cost = cost(i, e) + dp[xor_pfx]
+
+              if new_cost &lt; maxLimit:
+                newPrefix = xor_pfx ^ e
+                tempDp[newPrefix] = min(tempDp[newPrefix], new_cost)
+
+          dp = tempDp
+
+        result = dp[0] if 0 in dp else maxLimit
+
+        re</B></FONT>turn (result)
+        
+</PRE>
+
+</BODY>
+</HTML>

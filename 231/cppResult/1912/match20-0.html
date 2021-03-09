@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>216_gggggxz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>216_gggggxz.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+  public:
+  int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; es) {
+    vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; edges(n);
+    for (auto &amp;e : es) {</B></FONT>
+      int u = e[0] - 1, v = e[1] - 1, w = e[2];
+      edges[u].emplace_back(v, w);
+      edges[v].emplace_back(u, w);
+    }
+    int m = es.size();
+    using ll = long long;
+    vector&lt;ll&gt; dis(n, 1LL &lt;&lt; 50);
+<A NAME="1"></A>    int s = n - 1;
+    dis[s] = 0LL;
+    vector&lt;bool&gt; vis(n);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    priority_queue&lt;pair&lt;ll, int&gt;&gt; que;
+    que.emplace(0LL, s);
+    while (!que.empty()) {
+      auto [d, u] = que.top();
+      que.pop();
+      if (vis[u]) continue;
+      vis[u] = true;
+      for (auto [v, w] : edges[u]) {
+        if (dis[v] &gt; dis[u] + w) {
+          dis[v] = dis[u] + w;</B></FONT>
+          que.emplace(-dis[v], v);
+        }
+      }
+    }
+    vector&lt;ll&gt; d(n, -1);
+    d[0] = 1;
+    ll mod = 1e9 + 7;
+    function&lt;ll(int)&gt; find = [&amp;](int u) {
+      if (d[u] != -1) return d[u];
+      d[u] = 0;
+      for (auto [v, _] : edges[u]) {
+        if (dis[v] &gt; dis[u]) {
+          d[u] = (d[u] + find(v)) % mod;
+        }
+      }
+      return d[u];
+    };
+    return find(n - 1);
+  }
+};
+</PRE>
+</BODY>
+</HTML>

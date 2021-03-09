@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>549_ksmukta.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>549_ksmukta.cpp</CENTER></H3><HR>
+<PRE>
+#define pii pair&lt;int, int&gt;
+class Solution {
+    vector&lt;int&gt; dist;
+    vector&lt;int&gt; fz;
+    vector&lt;int&gt; numr;
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; nbrs;
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        int mod = 1e9 + 7;
+        dist.resize(n, INT_MAX);
+<A NAME="0"></A>        fz.resize(n, false);
+        numr.resize(n, 0);
+        nbrs.resize(n);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto&amp; vec: edges){
+            int u = vec[0]-1, v = vec[1]-1, w = vec[2];
+            nbrs[u].push_back({v, w});
+            nbrs[v].push_back({u, w});
+        }</B></FONT>
+        
+        priority_queue&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; pq;
+<A NAME="1"></A>        pq.push({0, n-1});
+        dist[n-1] = 0;
+        numr[n-1] = 1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match37-1.html#1',3,'match37-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(pq.size()) {
+            auto [d, v] = pq.top(); pq.pop();
+            if(dist[v]&gt;d || fz[v]) continue;
+            fz[v] = true;
+            for(auto&amp; [u, wn]: nbrs[v]) {
+                if(wn+d&lt;dist[u]) {
+                    pq.push({wn+d, u});
+                    dist[u] = wn+d;
+                } else if(fz[u] &amp;&amp; dist[u]&lt;dist[v]) {</B></FONT>
+                    numr[v] += numr[u];
+                    numr[v] %= mod;
+                }
+            }
+        }
+        return numr[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

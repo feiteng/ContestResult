@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_ShidaLei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>459_ShidaLei.cpp</CENTER></H3><HR>
+<PRE>
+struct cmp {
+  bool operator()(pair&lt;int, int&gt; &amp;v1, pair&lt;int, int&gt;&amp; v2) {
+<A NAME="0"></A>    return v1.second &gt; v2.second;
+  }
+};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+ public:
+  int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; es) {
+    vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; edges(n + 1);
+    for (auto &amp;e : es) {</B></FONT>
+      int u = e[0], v = e[1], w = e[2];
+      edges[u].push_back({v, w});
+      edges[v].push_back({u, w});
+    }
+    priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, cmp&gt; pq;
+    pq.push({n, 0});
+<A NAME="1"></A>    vector&lt;int&gt; min_dis(n + 1, INT_MAX);
+    vector&lt;bool&gt; visited(n + 1, false);
+    min_dis[n] = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    while (!pq.empty()) {
+      auto [v, d] = pq.top();
+      pq.pop();
+      if (visited[v]) continue;
+      visited[v] = true;
+      for (auto [u, w] : edges[v]) {
+        if (!visited[u] &amp;&amp; d + w &lt; min_dis[u]) {
+          min_dis[u] = d + w;</B></FONT>
+          pq.push({u, d + w});
+        }
+      }
+    }
+    for (int i = 1; i &lt;= n; i++) visited[i] = false;
+    memo[n] = 1;
+    visited[n] = true;
+    dfs(1, n, edges, min_dis, visited);
+    return memo[1];
+  }
+ private:
+  unordered_map&lt;int, int&gt; memo;
+  int mod = 1e9 + 7;
+  void dfs(int i, int n, vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; &amp;edges, vector&lt;int&gt; &amp;min_dis, vector&lt;bool&gt; &amp;visited) {
+    if (visited[i]) {
+      return;
+    }
+    visited[i] = true;
+    int res = 0;
+    for (auto &amp;[v, w] : edges[i]) {
+      if (min_dis[v] &gt;= min_dis[i]) continue;
+      dfs(v, n, edges, min_dis, visited);
+      res = (res + memo[v]) % mod;
+    }
+    memo[i] = res;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>339_jljljljljl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>339_jljljljljl.cpp</CENTER></H3><HR>
+<PRE>
+using ll = long long;
+
+class Solution {
+public:
+    ll INF = 1e16;
+    ll ret;
+<A NAME="1"></A>    ll n;
+    vector&lt;ll&gt; dp;
+    ll mod = 1e9 + 7;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countRestrictedPaths(int nn, vector&lt;vector&lt;int&gt;&gt;&amp; edges)
+    {
+        n = nn;
+        vector&lt;vector&lt;pair&lt;ll, ll&gt;&gt;&gt; adj(n + 1);
+        for(auto&amp; e : edges)
+        {
+            adj[e[0]].push_back({e[2], e[1]});
+            adj[e[1]].push_back({e[2], e[0]});
+        }
+        priority_queue&lt;pair&lt;ll, ll&gt;, vector&lt;pair&lt;ll, ll&gt;&gt;, greater&lt;&gt;&gt; pq;
+        vector&lt;ll&gt; dist(n + 1, INF);
+        pq.push({0, n});</B></FONT>
+        dist[n] = 0;
+        vector&lt;bool&gt; vis(n + 1, false);
+        while(!pq.empty())
+        {
+            auto [w, idx] = pq.top();
+            pq.pop();
+            if(vis[idx])
+                continue;
+            vis[idx] = true;
+            for(auto&amp; [nw, nidx] : adj[idx])
+            {
+                if(dist[idx] + nw &lt; dist[nidx])
+                {
+                    dist[nidx] = dist[idx] + nw;
+                    pq.push({dist[nidx], nidx});
+                }
+            }
+        }
+        
+        dp = vector&lt;ll&gt;(n + 1, -1);
+        return dfs(1, adj, dist);
+    }
+    
+    
+    ll dfs(ll idx, vector&lt;vector&lt;pair&lt;ll, ll&gt;&gt;&gt;&amp; adj, vector&lt;ll&gt;&amp; dist)
+    {
+        if(idx == n)
+        {
+<A NAME="0"></A>            return 1;
+        }
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(dp[idx] != -1)
+            return dp[idx];
+        
+        ll ret = 0;
+        for(auto&amp; [nw, nidx] : adj[idx])
+        {
+            if(dist[nidx] &lt; dist[idx])
+            {
+                ret += dfs(nidx, adj, dist);
+                ret %= mod;
+            }
+        }
+        dp[idx] = ret;
+        return ret;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>821_wannacry89.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>821_wannacry89.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+
+class Solution {
+
+    Node[] nodes;
+    class Node {
+        List&lt;int[]&gt; neighbors; // {neighidx, edgeweight}
+        public Node() { neighbors = new ArrayList&lt;&gt;(); }
+        boolean visited = false;
+        long sumrest = 0;
+        long dist2last = Long.MAX_VALUE;
+<A NAME="0"></A>    }
+    public int countRestrictedPaths(int n, int[][] edges) {
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>nodes = new Node[n];
+        for(int i = 0; i &lt; n; i++) {
+            nodes[i] = new Node();
+        }
+        for(int[] edge: edges) {
+            nodes[edge[0]-1].neighbors.add(new int[]{edge[1]-1, edge[2]});
+            nodes[edge[1]-1].neighbors.add(new int[]{edge[0]-1, edge[2]});
+        }
+        solveDijkstra</B></FONT>();
+
+        return (int)count(0);
+    }
+
+    private long count(int idx) {
+        Node node = nodes[idx];
+        if (idx == nodes.length-1) { node.sumrest = 1; node.visited = true; return 1; }
+        if (node.visited) { return node.sumrest; }
+
+<A NAME="1"></A>        for(int[] neigh : node.neighbors) {
+            int neighidx = neigh[0];
+            Node neighnode = nodes[neighidx];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (node.dist2last &gt; neighnode.dist2last) { node.sumrest += count(neighidx); node.sumrest %= 1e9 + 7; }
+        }
+
+        node.sumrest %= 1e9 + 7;
+        node.visited = true;
+        return node.sumrest;
+<A NAME="2"></A>    }</B></FONT>
+
+    private void solveDijkstra() {
+        PriorityQueue&lt;long[]&gt; que = new PriorityQueue&lt;long[]&gt;((a,<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>b)-&gt;{
+            if (a[1]-b[1] == 0) { return 0; }
+<A NAME="3"></A>            if (a[1]-b[1] &lt; 0) { return -1; }</B></FONT>
+            return +1;
+        });  // {nodeidx, dist2last}
+        que.add(<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match22-1.html#3',3,'match22-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new long[]{nodes.length-1, 0});
+        nodes[nodes.length-1].dist2last = 0;
+        while(!que.isEmpty()) {
+            long[] on = que.poll</B></FONT>();
+            int myidx = (int)on[0];
+            long dist2last = on[1];
+            Node onnode = nodes[myidx];
+            if (onnode.dist2last &lt; dist2last) { continue; }
+
+            for(int[] neigh : nodes[myidx].neighbors) {
+<A NAME="4"></A>                int neighidx = neigh[0];
+                Node neighnode = nodes[neighidx];
+                int weight = neigh[1];
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match22-1.html#4',3,'match22-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long cand = dist2last + (long)weight;
+                if (cand &lt; neighnode.dist2last) { neighnode.dist2last = cand; que.add(new long[]{neighidx, cand}); }
+            }
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

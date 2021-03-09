@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_xh286286.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_xh286286.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minChanges(vector&lt;int&gt;&amp; nums, int k) {
+<A NAME="0"></A>        
+        int n  = nums.size();
+        vector&lt;int&gt; dp(1024, 10000);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dp[0] = 0;
+        int totalm = 0;
+        int md = 10000;
+        for (int j=0; j&lt;k; ++j) {
+            map&lt;int, int&gt; z;
+            int tot = 0;
+            for (int t = j; t&lt;n; t+=k) {
+                z[nums[t]]++;
+                ++ tot;
+            }
+            vector&lt;int&gt; dp1(1024, 10000);</B></FONT>
+            int m1 = 0;
+            for (auto g: z) {
+                m1 = max(m1, g.second);
+                for (int i=0; i&lt;1024; ++i) {
+                    if (dp[i]&gt;= 10000) continue;
+                    dp1[i ^ g.first] = min(dp1[i^g.first], dp[i] + tot - g.second);
+                }
+            }
+            dp = dp1;  
+            totalm += tot - m1;
+            md = min(md,   m1);
+        }
+        int res = totalm + md;
+        cout&lt;&lt;res&lt;&lt;endl;
+        res = min(res, dp[0]);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>916_IIIIIIII.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>916_IIIIIIII.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int M = (int) (1e9 + 7);
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int countRestrictedPaths(int n, int[][] edges) {
+        List&lt;List&lt;int[]&gt;&gt; G = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt;= n; i++) {
+            G.add(new ArrayList&lt;&gt;());
+<A NAME="1"></A>        }
+        for (int[] e : edges) {</B></FONT>
+            int u = e[0], v = e[1], w = e[2];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>G.get(u).add(new int[]{v, w});
+            G.get(v).add(new int[]{u, w});
+        }
+        // TreeMap&lt;Integer, List&lt;Integer&gt;&gt; distMap = new TreeMap&lt;&gt;();
+        int startDist = 0</B></FONT>;
+        Queue&lt;int[]&gt; q = new PriorityQueue&lt;&gt;((a, b) -&gt; (a[0] - b[0])); // d, id
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[n] = 0;
+        q.offer(new int[]{0, n});
+        
+        while (!q.isEmpty()) {
+            int[] top = q.poll();
+<A NAME="2"></A>            int d = top[0], u = top[1];
+            // distMap.putIfAbsent(d, new ArrayList&lt;&gt;());
+            // distMap.get(d).add(u);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int[] next : G.get(u)) {
+                int v = next[0], w = next[1];
+                if (d + w &lt; dist[v]) {
+                    dist[v] = d + w;
+                    q.offer(new int[]{ d + w, v});
+                }
+            }
+        }</B></FONT>
+        
+        // System.out.println(Arrays.toString(dist));
+        
+        return (int) dfs(G, dist, 1, n, new boolean[n + 1]);
+        
+        // // dist[0] - 0;
+        // Map&lt;Integer, List&lt;Integer&gt;&gt; subMap = distMap.headMap(dist[n]);
+        // System.out.println(dist[1] + &quot; &quot; + subMap.size());
+        // int ret = 0;
+        // // List&lt;Map.Entry&lt;Integer, List&lt;Integer&gt;&gt;&gt; entryList = new ArrayList&lt;&gt;(subMap.entrySet());
+        // // Collections.reverse(entryList);
+        // for (Map.Entry&lt;Integer, List&lt;Integer&gt;&gt; entry : subMap.entrySet()) {
+        //     System.out.println(entry.getKey() + &quot; &quot; + entry.getValue().size());
+        //     if (entry.getKey() &gt; 0) {
+        //         ret = ret + ret * entry.getValue().size() + entry.getValue().size();
+        //     }
+        // }
+        // return ret;
+    }
+    Map&lt;Integer, Long&gt; memo = new HashMap&lt;&gt;();
+    long dfs(List&lt;List&lt;int[]&gt;&gt; G, int[] dist, int cur, int target, boolean[] visited) {
+        if (cur == target) {
+            return 1;
+        }
+        if (visited[cur]) {
+            return 0;
+        }
+        if (memo.containsKey(cur)) {
+<A NAME="3"></A>            return memo.get(cur);
+        }
+        visited[cur] = true;
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match6-1.html#3',3,'match6-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long ret = 0;
+        for (int[] next : G.get(cur)) {
+            int v = next[0];
+            if (dist[v] &lt; dist[cur]) {
+                ret += dfs(G, dist, v, target, visited);
+                ret %= M;
+            }
+        }
+        v</B></FONT>isited[cur] = false;
+        memo.put(cur, ret);
+        return ret;
+    }
+}
+
+// Z1 Z2 Z3
+
+// d1 d2 d3
+</PRE>
+
+</BODY>
+</HTML>

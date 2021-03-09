@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>565_claraliii.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>565_claraliii.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    int MOD = 1000000007;
+<A NAME="0"></A>    public int countRestrictedPaths(int n, int[][] edges) {
+        if (n == 1) return 1;
+        // construct adjacent matrix
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, List&lt;int[]&gt;&gt; edgeMap = new HashMap&lt;&gt;();
+        for (int i = 1; i &lt;= n; i++) {
+<A NAME="1"></A>            edgeMap.put(i, new ArrayList&lt;&gt;());
+        }
+        for (int[] edge: edges) {</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>edgeMap.get(edge[0]).add(new int[]{edge[1], edge[2]});
+            edgeMap.get(edge[1]).add(new int[]{edge[0], edge[2]});
+        }
+        // System.out.println(edgeMap);
+        // find shortest path from n to all nodes
+        PriorityQueue&lt;Node&gt; heap = new PriorityQueue&lt;&gt;((a, b) -&gt; a.dist - b.di</B></FONT>st);
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        
+        Node[] nodes = new Node[n + 1];
+        for (int i = 1; i &lt; n; i++) {
+            nodes[i] = new Node(i, Integer.MAX_VALUE);
+            heap.add(nodes[i]);
+        }
+<A NAME="2"></A>        nodes[n] = new Node(n, 0);
+        heap.add(nodes[n]);
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (heap.size() &gt; 0) {
+            Node cur = heap.poll();
+            dist[cur.id] = cur.dist;
+            
+            for (int[] next: edgeMap.get(cur.id)) {</B></FONT>
+                if (cur.dist + next[1] &lt; dist[next[0]]) {
+                    heap.remove(nodes[next[0]]);
+<A NAME="3"></A>                    dist[next[0]] = cur.dist + next[1];
+                    nodes[next[0]].dist = dist[next[0]];
+                    heap.add(nodes[next[0]]);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        
+        int[] visited = new int[n + 1];
+        Arrays.fill(visited, -1);
+<A NAME="4"></A>        v</B></FONT>isited[1] = 1;
+        
+        return helper(n, dist, edgeMap, visited);
+    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#4',2,'match24-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public int helper (int cur, int[] dist, Map&lt;Integer, List&lt;int[]&gt;&gt; edges, int[] visited) {
+        if</B></FONT> (visited[cur] != -1) return visited[cur];
+<A NAME="5"></A>        
+        int count = 0;
+        for (int[] next: edges.get(cur)) {
+            <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#5',2,'match24-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (dist[next[0]] &gt; dist[cur]) {
+                count = (count + helper(next[0], dist, edges, visited)) % MOD;
+            }
+        }
+        
+        visited[cur] = count;
+        return visited[cur];
+    }</B></FONT>
+    
+    class Node {
+        int id;
+        int dist;
+        
+        public Node(int id, int dist) {
+            this.id = id;
+            this.dist = dist;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

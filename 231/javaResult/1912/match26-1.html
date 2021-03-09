@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>493_DCXiaoBing.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>493_DCXiaoBing.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  // get dis from last to all nodes nlogn
+  // restricted acutally means no cycle?
+  // So just do bfs start from last node?
+  
+<A NAME="0"></A>  static int modulo = (int)1e9 + 7;
+  public int countRestrictedPaths(int n, int[][] edges) {
+    List&lt;List&lt;int[]&gt;&gt; graph = new ArrayList&lt;&gt;();
+    for(int i = 0; i &lt;= n; i++) graph.add(new ArrayList&lt;&gt;())<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+    for(int[] edge : edges) {
+      graph.get(edge[0]).add(new int[]{edge[1], edge[2]});
+      graph.get(edge[1]).add(new int[]{edge[0], edge[2]});
+    }</B></FONT>
+<A NAME="1"></A>    
+    int[] dis = new int[n + 1];
+    Arrays.fill(dis, Integer.MAX_VALUE);
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>PriorityQueue&lt;int[]&gt; heap = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);
+    heap.add(new int[]{n, 0});
+    while(!heap.isEmpty()) {
+      int[] cur = heap.poll</B></FONT>();
+      
+      if(dis[cur[0]] &lt;= cur[1]) continue;
+      dis[cur[0]] = cur[1];
+      
+      for(int[] nbh : graph.get(cur[0])) {
+        // if(cur[0] == 5) System.out.println(&quot;5 &quot; + Arrays.toString(nbh));
+        if(dis[nbh[0]] &gt; dis[cur[0]] + nbh[1]) heap.add(new int[]{nbh[0], cur[1] + nbh[1]});
+      }
+    }
+    
+    dp = new int[n + 1];
+    seen = new boolean[n + 1];
+    return dfs(graph, dis, n);
+<A NAME="2"></A>  }
+  int[] dp;
+  boolean[] seen;
+  private int dfs(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;List&lt;int[]&gt;&gt; graph, int[] dis, int cur) {
+    if(cur == 1) return 1;
+    
+<A NAME="3"></A>    if(seen[cur]) return dp[cur];</B></FONT>
+    seen[cur] = true;
+    
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#3',2,'match26-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 0;
+    for(int[] nbh : graph.get(cur)) {
+      if(dis[cur] &lt; dis[nbh[0]]) {
+        res += dfs(graph, dis, nbh[0]);
+        res %= modulo;
+      }
+    }
+    dp[cur] = res;
+    return dp[cur];
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>27_vipjml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>27_vipjml.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+<A NAME="1"></A>        vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n);
+        for(auto e:edges){</B></FONT>
+            int u=e[0],v=e[1],w=e[2];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            u--,v--;
+            g[u].push_back({v,w});
+            g[v].push_back({u,w});
+        }
+        priority_queue&lt;pair&lt;int,int&gt;&gt; qq;
+        qq.push({0,n-1});
+        vector&lt;int&gt; dis(n,INT_MAX);
+        dis[n-1]=0;
+        while(qq.size()&gt;0){</B></FONT>
+            auto [d,x]=qq.top();
+            qq.pop();
+<A NAME="2"></A>            d=-d;
+            if(d&gt;dis[x]) continue;
+            for(auto [ne,w]:g[x]){
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(d+w&lt;dis[ne]){
+                    dis[ne]=d+w;
+                    qq.push({-dis[ne],ne});
+                }
+            }
+        }
+        vector&lt;pair&lt;int,int&gt;&gt; r;
+        for(int i=0;i&lt;n;i++) r.push_back({dis[i],i});</B></FONT>
+        sort(r.begin(),r.end());
+        vector&lt;int&gt; res(n,0);
+        res[n-1]=1;
+        int mod=1e9+7;
+        for(int i=1;i&lt;n;i++){
+            int x=r[i].second;
+            for(auto [ne,w]:g[x]){
+                if(dis[ne]&lt;dis[x]){
+                    res[x]=(res[x]+res[ne])%mod;
+                }
+            }
+        }
+        return res[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>606_onesunny.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>606_onesunny.cpp</CENTER></H3><HR>
+<PRE>
+
+typedef pair&lt;int, int&gt; pii; typedef vector&lt;int&gt; vi; typedef vector&lt;vi&gt; vvi; typedef vector&lt;pii&gt; vp; typedef vector&lt;vp&gt; vvp;
+const int N = 2e5, inf = 0x3f3f3f3f, mod = 1e9+7;
+typedef long long ll;
+class Solution {
+public:
+   int h[N], ed[N], ne[N], w[N];
+<A NAME="0"></A>ll cnt[N], d[N];
+bool inq[N], vis[N];
+int idx = 0, n, res = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void add(int a, int b, int c) {
+    ed[idx] = b;
+    w[idx] = c;
+    ne[idx] = h[a];
+    h[a] = idx++;
+}
+void spfa(){
+    memset(d, inf, sizeof d);
+    d[n] = 0;</B></FONT>
+    queue&lt;int&gt;q;
+    q.push(n);
+    inq[n] = true;
+    while(q.size()){
+        int t = q.front(); q.pop();
+        inq[t] = false;
+        for(int i = h[t]; i != -1; i = ne[i]){
+            int v = ed[i];
+            if(d[t] + w[i] &lt; d[v]){
+                d[v] = d[t] + w[i];
+                q.push(v);
+                if(!inq[v]){
+                    q.push(v);
+                    inq[v] = true;   
+                }
+            }
+        }
+    }
+}
+void get(){
+    memset(vis, 0, sizeof vis);
+    priority_queue&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; q;
+<A NAME="1"></A>    q.push({ 0, n});
+    cnt[n] = 1;
+    while(q.size()){
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        auto u = q.top().second;
+        q.pop();
+        if (vis[u]) continue;
+        vis[u] = true;
+        for (int i = h[u]; i != -1; i = ne[i]) {
+            int v = ed[i];
+            if (d[u] &lt; d[v]) {
+                cnt[v] = (cnt[v] + cnt[u]) % mod;
+                q.push({ d[v], v });
+            }
+        }
+<A NAME="2"></A>    }
+}
+    int countRestrictedPaths(int nn, vector&lt;vector&lt;int&gt;&gt;&amp; e) {</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        n = nn;
+        memset(h, -1, sizeof h);
+        for(int i = 0; i &lt; e.size(); i++){
+            int u = e[i][0], v = e[i][1], w = e[i][2];
+            add(u, v, w), add(v, u, w);
+        }</B></FONT>
+        spfa();
+        get();
+        return cnt[1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

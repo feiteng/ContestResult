@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>197_rarakasm.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>197_rarakasm.cpp</CENTER></H3><HR>
+<PRE>
+struct P{
+    int to;
+    long c;
+    P(int to, long c) : to(to), c(c) {}
+    bool operator &lt; (const P&amp; other) const {
+        return c &gt; other.c;
+    }
+};
+
+struct Q{
+    int i, c;
+    Q(int i, int c) : i(i), c(c) {}
+    bool operator &lt; (const Q&amp; other) const {
+        return c &lt; other.c;
+<A NAME="0"></A>    }
+};
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;unordered_map&lt;int, int&gt;&gt; adj(n);
+        for(auto&amp; e : edges){</B></FONT>
+            e[0]--, e[1]--;
+            adj[e[0]][e[1]] = e[2];
+            adj[e[1]][e[0]] = e[2];
+        }
+<A NAME="1"></A>        vector&lt;long&gt; toLast(n, -1);
+        priority_queue&lt;P&gt; pq;
+        pq.emplace(n - 1, 0);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(pq.size()){
+            auto [to, c] = pq.top();
+            pq.pop();
+            if(toLast[to] != -1) continue;
+            toLast[to] = c;
+            for(auto&amp; e : adj[to]){
+                if(toLast[e.first] == -1){</B></FONT>
+                    pq.emplace(e.first, c + e.second);
+                }
+            }
+        }
+        priority_queue&lt;Q&gt; pq2;
+        for(int i = 0; i &lt; n; i++) pq2.emplace(i, toLast[i]);
+        vector&lt;long&gt; ans(n);
+        ans[0] = 1;
+        int mod = 1e9 + 7;
+        while(pq2.size()){
+            auto [i, c] = pq2.top();
+            pq2.pop();
+            if(i == 0) continue;
+            for(auto&amp; e : adj[i]){
+                if(toLast[e.first] &gt; c){
+                    ans[i] = (ans[i] + ans[e.first]) % mod;
+                }
+            }
+        }
+        return ans[n - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

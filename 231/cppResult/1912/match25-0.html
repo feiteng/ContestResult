@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>682_z_limbo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>682_z_limbo.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    using LL = long long;
+    using PII = pair&lt;int, int&gt;;
+    const LL MOD = 1e9 + 7L; 
+    vector&lt;vector&lt;int&gt;&gt;* esp;
+    vector&lt;int&gt; dist;
+    vector&lt;vector&lt;PII&gt;&gt; adj;
+    vector&lt;int&gt; pathNum;
+    int n;
+<A NAME="0"></A>    
+    LL dfs(int u) {
+        if (pathNum[u]) return pathNum[u];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        LL ret = 0L;
+        for (auto&amp; [v, d]: adj[u]) {
+            if (dist[u] &gt; dist[v]) {
+                ret = (ret + dfs(v)) % MOD;
+            }
+        }
+        return pathNum[u] = ret;
+    }
+    
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        esp = &amp;edges;</B></FONT>
+        this-&gt;n = n;
+        dist = vector&lt;int&gt;(n + 1, INT_MAX);
+        pathNum = vector&lt;int&gt;(n + 1);
+        adj = vector&lt;vector&lt;PII&gt;&gt;(n + 1);
+        
+        for (auto&amp; e: edges) {
+            adj[e[0]].emplace_back(e[1], e[2]);
+            adj[e[1]].emplace_back(e[0], e[2]);
+        }
+        
+        vector&lt;bool&gt; vis(n + 1);
+        priority_queue&lt;PII, vector&lt;PII&gt;, greater&lt;PII&gt;&gt; pq;
+        dist[n] = 0;
+<A NAME="1"></A>        pq.push({0, n});
+        
+        while (!pq.empty()) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int u = pq.top().second; 
+            pq.pop();
+            if (vis[u]) continue;
+            vis[u] = true;
+            
+            for (auto&amp; [v, d]: adj[u]) {
+                // cout &lt;&lt; u &lt;&lt; &quot; - &quot; &lt;&lt; v &lt;&lt; endl;
+                if (dist[u] + d &lt; dist[v]) {
+                    dist[v] = dist[u] + d;
+                    pq.push({dist[v], v});
+                }
+            }
+        }
+        
+        
+        pathNum[n] = 1;</B></FONT>
+        LL ans = dfs(1) % MOD;
+        
+        // for (int i = 1; i &lt;= n; ++i) {
+        //     cout &lt;&lt; i &lt;&lt; &quot; : &quot; &lt;&lt; dist[i] &lt;&lt; &quot;\t&quot; &lt;&lt; pathNum[i] &lt;&lt; endl;
+        // }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

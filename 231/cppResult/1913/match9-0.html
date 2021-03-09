@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>72_AQT.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>72_AQT.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int dp[2005];
+    int tmp[2005];
+    
+    int minChanges(vector&lt;int&gt;&amp; nums, int k) {
+        fill(dp, dp+(1&lt;&lt;10), 100000);
+<A NAME="0"></A>        dp[0] = 0;
+        for(int i = 1; i&lt;=k; i++){
+            unordered_map&lt;int, int&gt; mp;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int cnt = 0;
+            for(int j = i-1; j&lt;nums.size(); j+=k){
+                mp[nums[j]]++;
+                cnt++;
+            }
+            int mn = nums.size();
+            for(int x = 0; x&lt;1&lt;&lt;10; x++){
+                mn = min(mn, dp[x]);
+            }
+            for(int x = 0; x&lt;1&lt;&lt;10; x++){</B></FONT>
+                tmp[x] = mn + cnt;
+                for(auto p : mp){
+                    //cout &lt;&lt; p.first &lt;&lt; &quot; &quot; &lt;&lt; p.second &lt;&lt; endl;
+                    tmp[x] = min(tmp[x], dp[x^p.first] + cnt - p.second);
+                }
+            }
+            for(int x = 0; x&lt;1&lt;&lt;10; x++){
+                dp[x] = tmp[x];
+            }
+        }
+        return dp[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

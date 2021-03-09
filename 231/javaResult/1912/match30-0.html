@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>755_SamuelHao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>755_SamuelHao.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public long[] shortestPath(int start, int n, Map&lt;Integer, List&lt;int[]&gt;&gt; edges) {
+        long[] dist = new long[n+1];
+        PriorityQueue&lt;long[]&gt; pq = new PriorityQueue&lt;&gt;((a,b) -&gt; Long.compare(a[1], b[1]));
+<A NAME="0"></A>        Set&lt;Integer&gt; settle = new HashSet&lt;&gt;();
+        for (int i = 1; i &lt;= n; i++) dist[i] = Long.MAX_VALUE;
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pq.add(new long[]{start, 0});
+        dist[start] = 0;
+        while (settle.size() != n) {
+            long[] pair = pq.remove</B></FONT>();
+            int node = (int) pair[0];
+            if (settle.contains(node)) continue;
+            long weight = pair[1];
+            settle.add(node);
+            
+            for (int[] neighbour : edges.get(node)) {
+                if (!settle.contains(neighbour[0])) {
+                    int edgeWeight = neighbour[1];
+                    long newDist = dist[node] + edgeWeight;
+<A NAME="1"></A>                    
+                    if (newDist &lt; dist[neighbour[0]]) dist[neighbour[0]] = newDist;
+                    
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>pq.add(new long[]{neighbour[0], dist[neighbour[0]]});
+                }
+            }
+        }</B></FONT>
+        return dist;
+    }
+    
+<A NAME="2"></A>    public long numPaths(long[] distToLastNode, int curNode, long[] memo, Map&lt;Integer, List&lt;int[]&gt;&gt; edges) {
+        if (memo[curNode] != -1) return memo[curNode];
+        long dist = distToLastNode[curNode];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (dist == 0) return 1;
+        long ans = 0;
+        for (int[] neighbour : edges.get(curNode)) {
+            int neighNode = neighbour[0];
+            if (distToLastNode[neighNode] &lt; dist) {
+                ans += numPaths(distToLastNode, neighNode, memo, edges);
+            }
+            ans %= 1000000007;
+        }
+        ans %= 1000000007;
+        memo[curNode] = ans;
+<A NAME="3"></A>        return ans;
+    }</B></FONT>
+    
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match30-1.html#3',3,'match30-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int countRestrictedPaths(int n, int[][] e) {
+        Map&lt;Integer, List&lt;int[]&gt;&gt; edges = new HashMap&lt;&gt;();
+        for (int[] edge : e) {</B></FONT>
+            int u = edge[0];
+            int v = edge[1];
+<A NAME="4"></A>            int weight = edge[2];
+            if (!edges.containsKey(u)) edges.put(u, new ArrayList&lt;&gt;());
+            if (!edges.containsKey(v)) edges.put(v, new ArrayList&lt;&gt;());
+            <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match30-1.html#4',3,'match30-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>edges.get(u).add(new int[]{v, weight});
+            edges.get(v).add(new int[]{u, weight});
+        }
+        long[] shortest = shortestPath(n, n, edges)</B></FONT>;
+        // for (int i = 1; i &lt;= n; i++) {
+        //     System.out.println(&quot;Shortest i&quot; + i + &quot; &quot; + shortest[i]);
+        // }
+        
+        long[] memo = new long[n+1];
+        Arrays.fill(memo, -1);
+        long ans = 0;
+        ans += numPaths(shortest, 1, memo, edges);
+        ans %= 1000000007;
+        return (int) ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

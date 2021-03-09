@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1018_sonal_G.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1018_sonal_G.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+<A NAME="0"></A>        vector&lt;int&gt; dist(n + 1, INT_MAX);
+        dist[n] = 0;
+            
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; adjList(n + 1);
+        
+        for (auto&amp; edge : edges) {
+            adjList[edge[0]].push_back({ edge[1], edge[2] });
+            adjList[edge[1]].push_back({ edge[0], edge[2] });
+            
+            /*if (edge[0] == n) {
+                dist[edge[1]] = edge[2];
+            }
+            else if (edge[1] == n) {
+                dist[edge[0]] = edge[0];
+            }*/
+        }
+        
+        vector&lt;int&gt; visited(n + 1, false);
+        
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; pq;</B></FONT>
+        pq.push({ 0, n });
+        //visited[n] = true;
+        
+        while (!pq.empty()) {
+            auto top = pq.top();
+            pq.pop();
+            int node = top.second;
+            
+            if (visited[node]) {
+<A NAME="1"></A>                continue;
+            }
+            
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            visited[node] = true;
+            
+            for (auto&amp; adj : adjList[node]) {
+                int adjNode = adj.first;
+                int adjDist = adj.second;
+                
+                if (dist[adjNode] &gt; dist[node] + adjDist) {
+                    dist[adjNode] = dist[node] + adjDist;
+                    pq.push({ dist[adjNode], adjNode });
+                }
+            }
+        }</B></FONT>
+        
+        /*for (int d : dist) {
+            cout &lt;&lt; d &lt;&lt; &quot;, &quot;;
+        }
+        cout &lt;&lt;endl;*/
+        
+        vector&lt;int&gt; restrictedPaths(n + 1, -1);
+        return dfs(adjList, 1, dist, restrictedPaths);
+        //return restrictedPaths[1];
+    }
+    
+    int dfs (vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; adjList, int src, vector&lt;int&gt;&amp; dist, vector&lt;int&gt;&amp; restrictedPaths) {
+        if (src == adjList.size() - 1) {
+            return 1;
+        }
+        
+        if (restrictedPaths[src] != -1) {
+            return restrictedPaths[src];
+<A NAME="2"></A>        }
+        
+        long count = 0;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto&amp; adj : adjList[src]) {
+            if (dist[src] &gt; dist[adj.first]) {
+                count = (count + dfs(adjList, adj.first, dist, restrictedPaths)) % 1000000007;
+            }
+        }
+        
+        return restrictedPaths[src] = count;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

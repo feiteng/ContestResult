@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_jasonvictoryan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>46_jasonvictoryan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int sum[2005];
+    int cnt[2005][2005];
+    int cc[2005];
+    int f[2005][2005];
+<A NAME="0"></A>public:
+    int minChanges(vector&lt;int&gt;&amp; nums, int k) {
+        int ret=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n=nums.size();
+        for(int i=1;i&lt;=n;i++) {
+            sum[i]=sum[i-1] ^ nums[i-1];
+        }
+        for(int i=0;i&lt;n;i++) {
+            cnt[i % k][nums[i]]++;</B></FONT>
+            cc[i % k]++;
+        }
+        if (k==1){
+            return n-cnt[0][0];
+        }
+        memset(f,63,sizeof(f));
+        f[0][0]=0;
+        for(int i=0;i&lt;k;i++) {
+            int mnj=1e9;
+            for(int j=0;j&lt;(1 &lt;&lt; 10);j++) {
+                if (f[i][j]&gt;1e6) continue;
+                for(int tmp=i;tmp&lt;n;tmp+=k) {
+                    f[i+1][j ^ nums[tmp]]=min(f[i+1][j ^ nums[tmp]],f[i][j]+cc[i]-cnt[i][nums[tmp]]);
+                }
+                mnj=min(mnj,f[i][j]);
+            }
+            
+            for(int j=0;j&lt;(1 &lt;&lt; 10);j++) {
+                f[i+1][j]=min(f[i+1][j],mnj+cc[i]);
+            }
+        }
+<A NAME="1"></A>        if (f[k][0]&lt;=n) return f[k][0];
+        int res=1e9;
+        for(int i=0;i&lt;k;i++) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j=0;j&lt;(1 &lt;&lt; 10);j++) {
+                for(int tmp=i;tmp&lt;n;tmp+=k) {
+                    res=min(res,f[k][j] + cnt[i][nums[tmp]]);
+                }
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

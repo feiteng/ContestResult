@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>826_de_li_de_pao_pao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>826_de_li_de_pao_pao.cpp</CENTER></H3><HR>
+<PRE>
+typedef pair&lt;int, int&gt; PII;
+const int N = 2 * 10000 + 10, M = 4 * 10000 * 2 + 10, mod = 1000000000 + 7;
+int n;
+int h[N], ne[M], e[M], w[M], idx = 0;
+int f[N], dist[N];
+bool st[N];
+
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void add(int a, int b, int c)
+    {
+        e[idx] = b, w[idx] = c, ne[idx] = h[a] , h[a] = idx ++;
+    }
+    void dijkstra()
+    {
+        memset(dist, 0x3f, sizeof dist);
+        dist[n] = 0;</B></FONT>
+        priority_queue&lt;PII, vector&lt;PII&gt;, greater&lt;PII&gt;&gt; heap;
+        heap.push({0, n});
+        while (heap.size())
+        {
+<A NAME="1"></A>            auto t = heap.top();
+            heap.pop();
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int ver = t.second, distance = t.first;
+
+            if (st[ver]) continue;
+            st[ver] = true;
+
+            for (int i = h[ver]; i != -1; i = ne[i])
+            {
+                int j = e[i];
+                if (dist[j] &gt; dist[ver] + w[i])
+                {
+                    dist[j] = dist[ver] + w[i];
+                    heap.push({dist[j], j});
+                } 
+            }
+        }
+    }
+    int dfs(int u)</B></FONT>
+    {
+        if(f[u] != -1) return f[u];
+        f[u] = 0;
+        for(int i = h[u];i != -1;i = ne[i])
+        {
+            int j = e[i];
+            
+            if(dist[u] &gt; dist[j])
+                f[u] = (f[u] + dfs(j)) % mod;
+        }
+        return f[u];
+    }
+<A NAME="2"></A>    int countRestrictedPaths(int _n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        n = _n;
+        memset(h, -1, sizeof h);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        idx = 0;
+        
+        memset(st, 0, sizeof st);
+        for(int i = 0;i &lt; edges.size();i ++)
+        {
+            int a = edges[i][0], b = edges[i][1], c = edges[i][2];
+            add(a, b, c);
+            add(b, a, c);
+        }</B></FONT>
+        
+        dijkstra();
+        memset(f, -1, sizeof f);
+        f[n] = 1;
+        int t = dfs(1);
+        return t;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

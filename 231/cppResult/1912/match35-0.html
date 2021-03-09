@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>986_andreslel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>986_andreslel.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    #define ll long long
+    typedef pair&lt;ll,ll&gt; pi;
+<A NAME="0"></A>
+    ll mod = 1000000007;
+    vector&lt;ll&gt; dist;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;pi&gt;&gt; g(n+1);
+        for(auto &amp;edge: edges){
+            g[edge[0]].push_back({edge[1],edge[2]});
+            g[edge[1]].push_back({edge[0],edge[2]});
+        }
+        vector&lt;ll&gt; dp(n+1,0);
+        dp[n] = 1;</B></FONT>
+        dist.resize(n+1,INT_MAX);
+        priority_queue&lt;pi&gt; q;
+<A NAME="1"></A>        q.push({0,n});
+        dist[n] = 0;
+        while(q.size()){
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            pi dad = q.top();
+            dad.first *= -1;
+            q.pop();
+            if(dist[dad.second] &lt; dad.first) continue;
+            for(auto &amp;adj:g[dad.second]){
+                if(dad.first + adj.second &lt; dist[adj.first]){
+                    dist[adj.first] = dad.first + adj.second;
+                    q.push({-dist[adj.first],adj.first});
+                }</B></FONT>
+                else if(dad.first &gt; dist[adj.first]){
+                    dp[dad.second] += dp[adj.first];
+                    if(dp[dad.second] &gt;= mod) dp[dad.second] -= mod;
+                }
+            }
+        }
+        return dp[1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

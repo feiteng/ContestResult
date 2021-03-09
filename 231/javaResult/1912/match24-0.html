@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>665_bob-116.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>665_bob-116.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    private int MOD = (int) 1e9 + 7;
+
+    public int countRestrictedPaths(int n, int[][] edges) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;List&lt;int[]&gt;&gt; edgeList = new ArrayList&lt;&gt;(n + 1);
+        for (int i = 0; i &lt;= n; i++) {
+            edgeList.add(new ArrayList&lt;&gt;());
+<A NAME="1"></A>        }
+        for (int[] edge : edges) {</B></FONT>
+            int u = edge[0], v = edge[1], w = edge[2];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>edgeList.get(u).add(new int[]{v, w});
+            edgeList.get(v).add(new int[]{u, w});
+        }
+        int[] dis = new int[n + 1]</B></FONT>;
+        int[] visit = new int[n + 1];
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        Arrays.fill(dis, Integer.MAX_VALUE);
+<A NAME="2"></A>        dis[n] = 0;
+        queue.add(n);
+        visit[n] = 1;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!queue.isEmpty()) {
+            int u = queue.poll();
+            visit[u] = 0;
+            for (int[] p : edgeList.get(u)) {</B></FONT>
+                int v = p[0], w = p[1];
+                if (dis[v] &gt; dis[u] + w) {
+                    dis[v] = dis[u] + w;
+                    if (visit[v] == 0) {
+<A NAME="3"></A>                        queue.add(v);
+                        visit[v] = 1;
+                    }
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match24-1.html#3',3,'match24-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        long[] ans = new long[n + 1];
+        Arrays.fill(ans, -1);
+<A NAME="4"></A>        a</B></FONT>ns[n] = 1;
+        dfs(ans, 1, edgeList, dis);
+        return (int) (ans[1] % MOD);
+    <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match24-1.html#4',3,'match24-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    private long dfs(long[] ans, int u, List&lt;List&lt;int[]&gt;&gt; edgeList, int[] dis) {
+        if</B></FONT> (ans[u] != -1) {
+            return ans[u];
+        }
+<A NAME="5"></A>        long ways = 0;
+        for (int[] p : edgeList.get(u)) {
+            int v = p[0];
+            <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match24-1.html#5',3,'match24-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (dis[v] &lt; dis[u]) {
+                ways = (ways + dfs(ans, v, edgeList, dis)) % MOD;
+            }
+        }
+        ans[u] = ways;
+        return ans[u];
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

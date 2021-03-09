@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>591_lacfo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>591_lacfo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private final int MOD = (int)(1e9 + 7);
+    public int countRestrictedPaths(int n, int[][] edges) {
+        //first, lets first calcualte distanceToLastNode for each node
+        //then we can use DFS to start from 1 and use restricted rule to get to last node
+<A NAME="1"></A>        Map&lt;Integer, List&lt;int[]&gt;&gt; graph = new HashMap&lt;&gt;();
+        for (int[] e : edges) {</B></FONT>
+            int x = e[0], y = e[1], w = e[2];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>graph.putIfAbsent(x, new ArrayList&lt;&gt;());
+            graph.putIfAbsent(y, new ArrayList&lt;&gt;());
+<A NAME="2"></A>            graph.get(x).add(new int[] {y, w});
+            graph.get(y).add(new int[] {x, w});
+        }</B></FONT>
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] dist = new int[n+1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[n] = 0;
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b)-&gt;(a[0]-b[0]));
+        pq.add(new int[] {n, 0});
+        //get the distToLastNode for each node
+<A NAME="3"></A>        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int x = cur[0]</B></FONT>, d = cur[1];
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#3',2,'match28-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int[] children : graph.get(x)) {
+                int tempx = children[0], w = children[1];
+                if (d+w &lt; dist[tempx]) {
+                    dist[tempx] = d+w;
+                    pq.add(new int[] {tempx, dist[tempx]});
+                }
+            }
+        }
+        Set&lt;Integer&gt; visited = new</B></FONT> HashSet&lt;&gt;();
+        int[] dp = new int[n+1];
+        Arrays.fill(dp, -1);
+        return dfs(1, n, graph, dist, visited, dp);
+    }
+    
+    private int dfs(int curNode, int targetNode, Map&lt;Integer, List&lt;int[]&gt;&gt; graph, int[] dist, Set&lt;Integer&gt; visited, int[] dp) {
+        if (dp[curNode] != -1) return dp[curNode];
+        visited.add(curNode);
+        if (curNode == targetNode) {
+            visited.remove(curNode);
+            return 1;
+        }
+        int res = 0;
+        for (int[] next : graph.get(curNode)) {
+            int x = next[0];
+            if (visited.contains(x) || dist[x] &gt;= dist[curNode]) continue;
+            res = (res + dfs(x, targetNode, graph, dist, visited, dp)) % MOD;
+        }
+        visited.remove(curNode);
+        dp[curNode] = res;
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

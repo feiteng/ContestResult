@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>374_colinchen94.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>374_colinchen94.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        const int kMOD = 1e9+7;
+        vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; graph(n);
+        for (auto &amp;edge: edges) {
+            int u = edge[0] - 1;
+            int v = edge[1] - 1;
+            int w = edge[2];
+            graph[u].push_back({v, w});
+            graph[v].push_back({u, w});
+        }
+        
+        vector&lt;int&gt; mini_dist(n, numeric_limits&lt;int&gt;::max());
+        mini_dist[n-1] = 0;
+        priority_queue&lt;pair&lt;int, int&gt;&gt; max_heap;
+        max_heap.push({0, n-1});
+        while (!max_heap.empty()) {
+            auto [w, u] = max_heap.top();
+<A NAME="0"></A>            max_heap.pop();
+            
+            w = -w;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (auto [v, nxt_w]: graph[u]) {
+                if (w + nxt_w &lt; mini_dist[v]) {
+                    mini_dist[v] = w + nxt_w;
+                    max_heap.push({-mini_dist[v], v});
+                }
+            }
+        }
+        
+        vector&lt;pair&lt;int, int&gt;&gt; tmp(n);
+<A NAME="1"></A>        for (int i = 0; i &lt; n; ++i) tmp[i] = {mini_dist[i], i};</B></FONT>
+        sort(tmp.begin(), tmp.end());
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; dp(n, 0);
+        dp[n-1] = 1;
+        for (int i = 0; i &lt; n &amp;&amp; tmp[i].second != 0; ++i) {
+            int v = tmp[i].second;
+            for (auto [nxt, w]: graph[v]) {
+                if (mini_dist[v] &lt; mini_dist[nxt]) {
+                    dp[nxt] = (dp[v] + dp[nxt]) % kMOD;
+                }
+            }
+        }
+        return dp[0];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

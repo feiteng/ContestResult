@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private int MOD = 1_000_000_007;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int countRestrictedPaths(int n, int[][] edges) {
+        
+        ArrayList&lt;ArrayList&lt;int[]&gt;&gt; adj = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt;= n; i++) {
+            adj.add(new ArrayList&lt;&gt;());
+        }
+        for (int[] e : edges) {
+            int v = e[0], w = e[1], cost = e[2];
+            adj.get(v).add(new int[]{w, cost});
+            adj.get(w).add(new int[]{v, cost});
+        }
+        
+        int[] dist = new</B></FONT> int[n + 1];
+        boolean[] visited = new boolean[n + 1];
+<A NAME="1"></A>        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);
+        pq.add(new int[]{n, 0});
+        int found = 0;
+        while (true) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            int[] pair = pq.poll();
+            int v = pair[0], cost = pair[1];
+            if (visited[v]) {
+                continue;
+            }
+            v</B></FONT>isited[v] = true;
+            dist[v] = cost;
+            found++;
+            if (found == n) {
+                break;
+            }
+            for (int[] p : adj.get(v)) {
+                int w = p[0], weight = p[1];
+                if (visited[w]) {
+<A NAME="2"></A>                    continue;
+                }
+                pq.add(new int[]{w, weight + cost});
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return countPath(1, dist, n, new int[n + 1], adj);
+    }
+    
+    private int countPath(int v, int[] dist, int n, int[] memo, ArrayList&lt;ArrayList&lt;int[]&gt;&gt; adj) {
+        if (memo[v] &gt; 0) {
+            return memo[v];
+        }</B></FONT>
+        if (v == n) {
+            memo[v] = 1;
+            return 1;
+<A NAME="3"></A>        }
+        int ans = 0;
+        for (int[] p : adj.get(v)) {
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#3',2,'match13-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (dist[p[0]] &lt; dist[v]) {
+                ans += countPath(p[0], dist, n, memo, adj);
+                ans %= MOD;
+            }
+        }
+        memo[v] = ans;
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

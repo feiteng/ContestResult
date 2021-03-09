@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_guoyihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_guoyihua.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minChanges(int[] nums, int k) {
+        int n = nums.length;
+        int[][] seqs = new int[n+1][1025];
+        
+        for (int i = 0; i &lt; k; i++) {</B></FONT>
+            for (int j = i; j &lt; n; j += k) {
+                seqs[i][nums[j]] += 1;
+            }
+        }
+        
+        int[] minCost = new int[k];
+        int sumCost = 0;
+        int tmpMin = Integer.MAX_VALUE;
+        
+        for (int i = 0; i &lt; k; i++) {
+            minCost[i] = findMin(i, n, k, seqs);
+            sumCost += minCost[i];
+            tmpMin = Math.min(tmpMin, ceil(n, i, k) - minCost[i]);
+        }
+        
+        
+        int maxCost = sumCost + tmpMin;
+        
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(0, 0);
+        
+        for (int i = 0; i &lt; k; i++) {
+            Map&lt;Integer, Integer&gt; newmap = new HashMap&lt;&gt;();
+            
+            for (int j = 0; j &lt; 1025; j++) {
+                if (seqs[i][j] &gt; 0) {
+                    for (Integer key : map.keySet()) {
+                        int tmpCost = ceil(n, i, k) - seqs[i][j] + map.get(key);
+                        
+                        if (tmpCost &lt; maxCost) {
+                            int v = key ^ j;
+                            newmap.put(v, Math.min(newmap.getOrDefault(v, Integer.MAX_VALUE), tmpCost));
+                        }
+                    }
+                }
+            }
+            
+            map = newmap;
+        }
+        
+        if (map.containsKey(0)) {
+            return map.get(0);
+        }
+        
+        return maxCost;
+    }
+    
+    private int ceil(int n, int i, int k) {
+        int tmp = (n - i) / k;
+        if (tmp * k == n - i) {
+            return tmp;
+        }
+        return tmp + 1;
+    }
+    
+    private int findMin(int i, int n, int k, int[][] seqs) {
+        int res = Integer.MAX_VALUE;
+        
+        for (int j = 0; j &lt; 1025; j++) {
+            if (seqs[i][j] &gt; 0) {
+                int tmp = ceil(n, i, k) - seqs[i][j];
+                res = Math.min(res, tmp);
+            }
+        }
+        
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

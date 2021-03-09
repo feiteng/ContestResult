@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>659_alex_woods.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>659_alex_woods.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from heapq import heappop as pop, heappush as push
+class Solution:
+    def countRestrictedPaths(self, n: int, A: List[List[int]]) -&gt; int:
+        dis, nbs = {}, collections.defaultdict(set)
+        for a, b, d in A:
+            nbs[a].add((b, d))
+            nbs[b].add((a, d))
+        st =</B></FONT> [(0, n)]
+        while st:
+            d, nd = pop(st)
+            if nd in dis:
+                continue
+<A NAME="1"></A>            dis[nd] = d
+            for a, b in nbs[nd]:
+                if a not in dis:
+                    push(st, (d +<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> b, a))
+        @functools.lru_cache
+        def dfs(i):
+            if i == n:  return 1
+            ret = 0
+            for nd, d in nbs[i]:
+                if dis[nd] &lt; dis[i]:
+                    ret += dfs(nd)
+            return ret
+        
+        return dfs(1</B></FONT>) % (10 ** 9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

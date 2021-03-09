@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_yge2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>121_yge2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[][] a;
+    int[] b;
+    int[][] ans;
+    Set&lt;Integer&gt;[] s;
+    public int minChanges(int[] nums, int k) {
+        int n = nums.length;
+        a = new int[k][1024];
+<A NAME="0"></A>        b = new int[k];
+        ans = new int[k][1024];
+        s = new Set[k];
+        int[] max = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[k];
+        for (int i=0; i&lt;k; i++)
+            s[i] = new HashSet&lt;&gt;();
+        for (int i=0; i&lt;n; i++) {</B></FONT>
+            a[i%k][nums[i]]++;
+            if (a[i%k][nums[i]] &gt; max[i%k])
+                max[i%k] = a[i%k][nums[i]];
+            s[i%k].add(nums[i]);
+        }
+        for (int i=0; i&lt;k; i++)
+            b[i] = (n-i-1) / k + 1;
+        for (int i=0; i&lt;k; i++)
+            for (int j=0; j&lt;1024; j++)
+                ans[i][j] = -1;
+        Arrays.sort(max);
+        int ans2 = n;
+        for (int i=1; i&lt;k; i++)
+            ans2 -= max[i];
+        return Math.min(ans2, search(k-1, 0));
+    }
+    private int search(int k, int x) {
+        if (ans[k][x] &gt;= 0)
+            return ans[k][x];
+        if (k == 0) {
+            ans[k][x] = b[k] - a[k][x];
+            return ans[k][x];
+        }
+        int t = Integer.MAX_VALUE;
+        for (int y : s[k])
+            t = Math.min(t, search(k-1, x ^ y) + b[k] - a[k][y]);
+        ans[k][x] = t;
+        return t;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

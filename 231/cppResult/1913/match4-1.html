@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_ykx_akks.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_ykx_akks.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int minChanges(vector&lt;int&gt;&amp; nums, int k) {
+        int n = nums.size();
+        int inf = n;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        auto a = nums;
+        int res = 0;
+        vector&lt;int&gt; f(1024, inf), g(1024, 0);
+        f[0] = 0;
+        
+        for (int i = 0; i &lt; k; ++i) {
+            map&lt;int, int&gt; mp;
+            // int tot = 0, mx = 0;
+            int tot = 0;
+            for (int j = i; j &lt; n; j += k) {
+                mp[a[j]] += 1;
+                tot += 1;
+                // tot += 1; mx = max(mx, mp[a[j]]);
+            }
+            // res += (tot - mx);
+            int minF = inf;</B></FONT>
+            for (int i = 0; i &lt; f.size(); ++i) {
+                minF = min(minF, f[i]);
+            }
+            for (int i = 0; i &lt; g.size(); ++i) {
+                g[i] = minF + tot;
+            }
+            for (auto p: mp) {
+                for (int i = 0; i &lt; f.size(); ++i) {
+                    g[i] = min(g[i], f[i ^ p.first] + tot - p.second);
+                }
+            }
+            swap(f, g);
+        }
+        return f[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

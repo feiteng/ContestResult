@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_ruanys.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>484_ruanys.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="2"></A>class Solution {
+    int MOD=1e9+7;
+public:
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;adj(n);
+        for (auto edge: edges) {
+            adj[edge[0]-1].push_back({edge[1]-1, edge[2]});
+<A NAME="0"></A>            adj[edge[1]-1].push_back({edge[0]-1, edge[2]});
+        }
+        vector&lt;int&gt;dis(n, -1);
+</B></FONT><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt;pq;
+        pq.push({0, n-1});
+        while(!pq.empty()) {
+            auto f = pq.top();
+            pq.pop();
+            int node=f.second, d=f.first;</B></FONT>
+            if (dis[node]==-1) {
+                dis[node]=d;
+                for (auto next: adj[node]) {
+                    if (dis[next.first]==-1) {
+                        pq.push({d+next.second, next.first});
+                    }
+                }
+            }
+
+        }
+        
+        vector&lt;int&gt;dp(n, -1);
+        dp[n-1]=1;
+        return helper(dp, 0, adj, dis, n);
+    }
+    
+    
+    int helper(vector&lt;int&gt;&amp;dp, int node, const vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; adj, const vector&lt;int&gt;&amp; dis, const int&amp; n) {
+       // cout &lt;&lt; node &lt;&lt; &quot;, &quot; &lt;&lt; dis[node] &lt;&lt; endl;
+<A NAME="1"></A>        if (dp[node]!=-1) {
+            return dp[node];
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res=0;
+        for (auto next: adj[node]) {
+            if (dis[next.first]&lt;dis[node]) {
+                res=(res+helper(dp, next.first, adj, dis, n))%MOD;
+            }
+        }
+        dp[node]=res;
+        return res;
+        
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

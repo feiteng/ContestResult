@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_ASAPIN.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_ASAPIN.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long LL;
+typedef double D;
+#define all(v) (v).begin(), (v).end()
+inline LL fastpo(LL x, LL n, LL mod) {
+	LL res(1);
+	while(n) {
+		if(n &amp; 1) {
+			res = res * (LL)x % mod;
+		}
+		x = x * (LL) x % mod;
+		n /= 2;
+	}
+	return res;
+}
+LL c(int a, int b) {
+    LL res = 1;
+    for(int i = 1; i &lt;= b; i++) {
+        res = res * (a - i + 1);
+        res /= i;
+    }
+    return res;
+}
+LL gcd(LL a, LL b) { return b ? gcd(b, a % b) : a; }
+inline string itoa(int x, int width = 0) {
+  string res;
+  if(x == 0) res.push_back('0');
+  while(x) {
+    res.push_back('0' + x % 10);
+    x /= 10;
+  }
+  while((int)res.size() &lt; width) res.push_back('0');
+  reverse(res.begin(), res.end());
+  return res;
+}
+struct P {
+	D x, y;
+};
+const int mod = 1e9 + 7;
+const int inf = 1e9 + 7;
+int dx[4] = {1, 0, -1, 0};
+int dy[4] = {0, 1, 0, -1};
+#define fi first
+#define se second
+#define ins insert
+#define pb push_back
+const int N = 2222;
+int rela[N];
+int getr(int x) {
+    int p = x;
+    while(rela[p] != p) p = rela[p];
+    int p1 = p; p = x;
+    while(rela[p] != p) {
+        int p2 = rela[p];
+        rela[p] = p1;
+        p = p2;
+    }
+    return p1;
+}
+int dp[N][N];
+int cntneq[N];
+class Solution {
+public:
+    int minChanges(vector&lt;int&gt;&amp; a, int k) {
+        int n = a.size();
+        int ans = n;
+        for(int i = 0; i &lt; 1024; i++) dp[0][i] = i == 0 ? 0 : inf;
+        for(int i = 0; i &lt; k; i++) {
+<A NAME="1"></A>            for(int j = 0; j &lt; 1024; j++) {
+                cntneq[j] = (n - i + k - 1) / k;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int mn = inf;
+            for(int j = 0; j &lt; 1024; j++) {
+                mn = min(mn, dp[i][j]);
+            }
+<A NAME="0"></A>            for(int j = 0; j &lt; 1024; j++) {</B></FONT>
+                dp[i + 1][j] = mn + cntneq[0];
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            vector&lt;int&gt; v;
+            for(int j = i; j &lt; n; j += k) {
+                cntneq[a[j]]--;
+                v.pb(j);
+            }
+            for(int j = 0; j &lt; 1024; j++) {</B></FONT>
+                for(int k : v) {
+                    dp[i + 1][j ^ a[k]] = min(dp[i + 1][j ^ a[k]], dp[i][j] + cntneq[a[k]]);
+                }
+            }
+        }
+        return dp[k][0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>905_user4453.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>905_user4453.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    Integer[] dist;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Long[] memo;
+    ArrayList&lt;int[]&gt;[] graph;
+    int N;
+    int MOD = 1000000007;
+    boolean[] visited;
+    public int countRestrictedPaths(int n, int[][] edges) {
+        N = n+1;
+<A NAME="1"></A>        dist = new Integer[N];
+        graph = new ArrayList[N];
+        visited = new</B></FONT> boolean[N];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0; i&lt;N; ++i) graph[i] = new ArrayList&lt;&gt;();
+        for(int[] e : edges) {
+            int v1 = e[0], v2 = e[1], w = e[2];
+            graph[v1].add(new int[]{v2, w});
+            graph[v2].add(new int[]{v1, w});
+        }</B></FONT>
+
+        dijsktra();
+        // System.out.println(Arrays.toString(dist));
+
+        long res = 0;
+        visited[1] = true;
+        memo = new Long[N];
+        for(int[] c : graph[1]) {
+            // System.out.println(&quot;=====&quot;);
+            if(dist[c[0]] &lt; dist[1]) {
+                res +=  process(c[0]);
+                if(res &gt; Integer.MAX_VALUE) res = res%MOD;
+<A NAME="3"></A>            }
+        }
+
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#3',2,'match35-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return (int)(res%MOD);
+    }
+
+    private long process(int node) {
+        if(node == N-1) return 1l;
+        if(memo[node] != null) return memo[node];</B></FONT>
+
+        visited[node] = true;
+        long res = 0;
+
+        for(int[] c : graph[node]) {
+            if(visited[c[0]]) continue;
+            if(dist[c[0]] &lt; dist[node]) {
+                res += process(c[0]);
+                if(res &gt; Integer.MAX_VALUE) res = res%MOD;
+            }
+        }
+        
+        // System.out.println(node + &quot; &quot; + res);
+
+        visited[node] = false;
+        return memo[node] = res;
+    }
+
+    private void dijsktra() {
+        // node, dist
+<A NAME="2"></A>        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt; (new Comparator&lt;int[]&gt;() {
+            public int compare(int[] a, int[] b) {return a[1]-b[1];}
+        });
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new int[]{N-1, 0});
+
+        while(!pq.isEmpty()) {
+            int[] n = pq.poll</B></FONT>();
+            if(dist[n[0]] != null) continue;
+            dist[n[0]] = n[1];
+            for(int[] c : graph[n[0]]) {
+                if(dist[c[0]] != null) continue;
+                pq.add(new int[]{c[0], c[1] + n[1]});
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>823_wudiymy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>823_wudiymy.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countRestrictedPaths(self, n: int, edges: List[List[int]]) -&gt; int:
+        mem <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= collections.defaultdict(list)
+        for u, v, w in edges:
+            mem[u-1].append((v-1, w))
+            mem[v-1].append((u-1, w))
+            
+        dist =</B></FONT> [inf for _ in range(n)] 
+<A NAME="1"></A>        visitd = [False for _ in range(n)]
+        start = n - 1
+        queue = []
+        heapq.heappush(queue, (<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>0, start)) 
+        dist[start] = 0
+
+        while(queue):
+            mindist, u = heapq.heappop(queue)
+            if visitd[u]:
+                continue
+            visitd[u] = True
+
+            for v, w in mem[</B></FONT>u]:
+                new_dist = mindist + w
+                if new_dist &lt; dist[v]:
+                    dist[v] = new_dist
+                    heapq.heappush(queue, (dist[v], v))
+<A NAME="2"></A>        ans = 0
+        #print(dist)
+        
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>@lru_cache(None)
+        def dfs(i):
+            if i == n - 1:
+                return 1
+            aa = 0
+            for j, _ in mem[i]:
+                 if dist[j] &lt; dist[i]:
+                        aa += dfs(j)
+            return aa
+        return dfs(</B></FONT>0) % (10**9+7)
+        
+        
+#         visited = [False for _ in range(n)]
+        
+#         visited[0] = True
+#         def dfs(i):
+#             if i == n - 1:
+#                 nonlocal ans
+#                 ans += 1
+#                 return 0
+            
+#             for j, _ in mem[i]:
+#                 if dist[j] &lt; dist[i] and visited[j] == False:
+#                     visited[j] = True
+#                     dfs(j)
+#                     visited[j] = False
+                    
+#         dfs(0)
+        
+        return ans
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

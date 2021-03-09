@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_Yulian_Yarema.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>37_Yulian_Yarema.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector&lt;vector&lt;pair&lt;int,int&gt; &gt; &gt; g(20004);
+        for(int i=0;i&lt;edges.size();i++) {
+            int a=edges[i][0];
+            int b=edges[i][1];
+            int w=edges[i][2];
+            g[a].push_back(make_pair(b,w));
+            g[b].push_back(make_pair(a,w));
+        }
+        
+        vector&lt;int&gt; d(20004,2000000009);</B></FONT>
+        priority_queue&lt;pair&lt;int,int&gt; &gt; q;
+        d[n]=0;
+        q.push(make_pair(-d[n],n));
+        while(q.size()) {
+            pair&lt;int,int&gt; t=q.top();
+            q.pop();
+            
+            int dd=-t.first;
+            int u=t.second;
+            if(d[u]!=dd) {
+<A NAME="1"></A>                continue;
+            }
+            
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i=0;i&lt;g[u].size();i++)  {
+                int to=g[u][i].first;
+                int len=g[u][i].second;
+                if(d[to]&gt;len+d[u]) {
+                    d[to]=len+d[u];
+                    q.push(make_pair(-d[to],to));
+                }
+            }
+        }
+        vector&lt;pair&lt;int,int&gt; &gt; v;</B></FONT>
+        for(int i=1;i&lt;=n;i++) {
+            v.push_back(make_pair(d[i],i));
+        }
+        sort(v.begin(),v.end());
+        long long mod=1000000007;
+<A NAME="2"></A>        vector&lt;long long&gt; dp(20004,0);
+        dp[1]=1;
+        for(int i=v.size()-1;i&gt;=0;i--) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int u=v[i].second;
+            for(int j=0;j&lt;g[u].size();j++) {
+                int to=g[u][j].first;
+                if(d[to]&gt;d[u]) {
+                    dp[u]=(dp[u]+dp[to])%mod;
+                }
+            }
+        }
+        return (int)dp[n];</B></FONT>
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

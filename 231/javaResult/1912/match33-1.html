@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>691_rayms.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>691_rayms.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    // TLE: V = 400, E = 4000
+    public int countRestrictedPaths(int n, int[][] edges) {
+        Map&lt;Integer, Integer&gt;[] graph = new Map[n];
+        for (int i = 0; i &lt; n; i ++) {
+            graph[i] = new HashMap&lt;&gt;();
+        }
+        
+        for (int[] e : edges) {</B></FONT>
+<A NAME="1"></A>            int a = e[0] - 1, b = e[1] - 1, w = e[2];
+            graph[a].put(b, w);
+            graph[b].put(a, w);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        // O(E * LogV)
+        int[] dist = new int[n];
+        boolean[] visited = new boolean[n];
+        Queue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);
+        pq.add(new int[] { n - 1, 0 });
+        while (!pq.isEmpty()) {
+            int[] top = pq.poll</B></FONT>();
+            int current = top[0], total = top[1];
+            if (!visited[current]) {
+                dist[current] = total;
+                visited[current] = true;
+                for (int next : graph[current].keySet()) {
+                    pq.add(new int[] { next, total + graph[current].get(next) });
+                }
+            }
+        }
+        
+        // int[] ans = { 0 };
+        // helper(graph, dist, n - 1, new boolean[n], ans);
+        // return ans[0];
+        
+        // [4, 2, 1, 6, 0]
+        // System.out.println(Arrays.toString(dist));
+        // [0, 0, 0, 0, 1]
+        // [0, 1, 1, 1, 1]
+        // [1, 2, 1, 1, 1]
+        
+        long[] dp = new long[n];
+        dp[n - 1] = 1;
+        Arrays.fill(visited, false);
+        Queue&lt;Integer&gt; bfs = new PriorityQueue&lt;&gt;((a, b) -&gt; dist[a] - dist[b]);
+        bfs.add(n - 1);
+        while (!bfs.isEmpty()) {
+            int current = bfs.poll();
+            if (!visited[current]) {
+                visited[current] = true;
+                for (int next : graph[current].keySet()) {
+                    if (dist[current] &lt; dist[next]) {
+<A NAME="2"></A>                        bfs.add(next);
+                        dp[next] = (dp[next] + dp[current]) % 1_000_000_007;
+                    }
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        // System.out.println(Arrays.toString(dp));
+        return (int)dp[0];
+    }</B></FONT>
+    
+    void helper(Map&lt;Integer, Integer&gt;[] graph, int[] dist, int current, boolean[] visited, int[] ans) {
+        if (current == 0) {
+            ans[0] ++;
+            return;
+        }
+        visited[current] = true;
+        for (int next : graph[current].keySet()) {
+            if (!visited[next] &amp;&amp; dist[current] &lt; dist[next]) {
+                helper(graph, dist, next, visited, ans);
+            }
+        }
+        visited[current] = false;
+    }
+}
+
+/*
+
+5
+[[1,2,3],[1,3,3],[2,3,1],[1,4,2],[5,2,2],[3,5,1],[5,4,10]]
+7
+[[1,3,1],[4,1,2],[7,3,4],[2,5,3],[5,6,1],[6,7,2],[7,5,3],[2,6,4]]
+
+    void helper(Map&lt;Integer, Integer&gt;[] graph, int[] dist, int node, int current, boolean[] visited, int[] ans) {
+        if (node == 0) {
+            // if (dist[0] &gt; prev) {
+            //     ans[0] ++;
+            // }
+            // return 0;
+            ans[0] ++;
+            return;
+        }
+        visited[node] = true;
+        for (int next : graph[node].keySet()) {
+            if (!visited[next] &amp;&amp; dist[node] &lt; dist[next]) {
+                helper(graph, dist, next, )
+            }
+        }
+    }
+*/
+</PRE>
+
+</BODY>
+</HTML>

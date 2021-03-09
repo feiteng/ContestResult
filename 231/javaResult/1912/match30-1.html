@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>674_Lannister_jlx.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>674_Lannister_jlx.java</CENTER></H3><HR>
+<PRE>
+<A NAME="3"></A>class Solution {
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#3',2,'match30-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int countRestrictedPaths(int n, int[][] edges) {
+        // form a graph
+        List&lt;List&lt;int[]&gt;&gt; graph = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt;= n; i++) {</B></FONT>
+<A NAME="4"></A>            graph.add(new ArrayList&lt;int[]&gt;());
+        }
+        for (int[] edge: edges) {
+            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#4',2,'match30-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>graph.get(edge[0]).add(new int[]{edge[1], edge[2]});
+            graph.get(edge[1]).add(new int[]{edge[0], edge[2]});
+        }
+        // dijisktra 
+        int[] dist = new int[n + 1]</B></FONT>;
+<A NAME="0"></A>        Arrays.fill(dist, Integer.MAX_VALUE);
+        boolean[] visited = new boolean[n + 1];
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new int[]{n, 0});
+        dist[n] = 0;
+        while (!pq.isEmpty()) {
+            int[] curr = pq.poll</B></FONT>();
+            if (visited[curr[0]])  {
+                continue;
+            }
+            visited[curr[0]] = true;
+            
+            for (int[] neigbors: graph.get(curr[0])) {
+                int node = neigbors[0];
+<A NAME="1"></A>                int d = neigbors[1];
+                if (dist[node] &gt; dist[curr[0]] + d) {
+                    dist[node] = dist[curr[0]] + d;
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.add(new int[]{node, dist[node]});
+                }
+            }
+        }</B></FONT>
+        
+        // for (int i = 1; i &lt;= n; i++) {
+        //     System.out.print(dist[i] + &quot; &quot;);
+        // }
+        // System.out.println();
+        int[] cache = new int[n + 1];
+        return helper(1, n, dist, graph, cache); 
+    }
+<A NAME="2"></A>    
+    private int helper(int curr, int target, int[] dist, List&lt;List&lt;int[]&gt;&gt; graph, int[] cache) {
+        if (cache[curr] != 0) return cache[curr];
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (curr == target) return 1;
+        int res = 0;
+        for (int[] neigbors: graph.get(curr)) {
+            int node = neigbors[0];
+            if (dist[node] &lt; dist[curr]) {
+                res += helper(node, target, dist, graph,cache);
+                res %= 1000000007;
+            }
+        }
+        res %= 1000000007;
+        cache[curr] = res;
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

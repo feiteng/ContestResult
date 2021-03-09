@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>962_pK2015.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>962_pK2015.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    long mod = 1_0000_0000_7;
+    public int countRestrictedPaths(int n, int[][] edges) {
+        Long[] dis = new Long[n+1];
+        List&lt;long[]&gt;[] adj = new List[n+1];
+<A NAME="0"></A>        
+        for(int i=1; i&lt;=n; i++){
+            dis[i] = null;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>adj[i] = new ArrayList&lt;long[]&gt;();
+        }
+        // u v w
+        for(int[] edge: edges){
+            adj[(int)edge[0]].add(new long[]{edge[1], edge[2]});
+            adj[(int)edge[1]].add(new long[]{edge[0], edge[2]});
+        }</B></FONT>
+        
+        dis[n] = 0L;
+        
+        // dis , index
+        var q = new PriorityQueue&lt;long[]&gt;( (v1,v2) -&gt; Long.compare(v1[0], v2[0]) );
+<A NAME="1"></A>        q.add(new long[]{0,n});
+        boolean[] seen = new boolean[n+1];
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(!q.isEmpty()){
+            // dis , index
+            long[] cur = q.poll();
+            
+            if(seen[(int)cur[1]]) continue;
+            
+            seen[(int)cur[1]] = true;
+            for(long[] nei: adj[(int)cur[1]]){
+                // v, w
+<A NAME="2"></A>                // System.out.println(Arrays.toString(nei));
+                if(!seen[(int)nei[0]] &amp;&amp; (dis[(int)nei[0]] == null || dis[(int)cur[1]] + nei[1] &lt; dis[(int)nei[0]])){
+                    d</B></FONT>is[(int)nei[0]] = dis[(int)cur[1]] + nei[1];
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>q.add(new long[]{dis[(int)nei[0]], nei[0]});
+                }
+            }
+        }
+        
+        // System.out.println(Arrays.toString(dis));
+        
+        Long[] ans = new</B></FONT> Long[n+1];
+        seen = new boolean[n+1];
+        
+        long ansFinal = dfs(1, adj, dis, ans, seen);
+<A NAME="3"></A>        // System.out.println(Arrays.toString(ans));
+        return (int)ansFinal;
+        //return ans[0];
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match10-1.html#3',3,'match10-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    long dfs(long node, List&lt;long[]&gt;[] adj, Long[] dis, Long[] ans, boolean[] seen){</B></FONT>
+        // System.out.println(node);
+        long n = dis.length - 1;
+        long res = 0;
+        if(node == n){
+           
+            // System.out.println();
+            return 1;
+        }
+<A NAME="4"></A>        if(ans[(int)node]!=null) return ans[(int)node];
+        seen[(int)node] = true;
+        
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match10-1.html#4',3,'match10-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(long[] nei: adj[(int)node]){
+            // v, w
+            if(!seen[(int)nei[0]] &amp;&amp; dis[(int)nei[0]] &lt; dis[(int)node]){
+                res = (res + dfs(nei[0], adj, dis, ans, seen))%mod;
+            }
+        }
+    
+        s</B></FONT>een[(int)node] = false;
+        ans[(int)node] = res;
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

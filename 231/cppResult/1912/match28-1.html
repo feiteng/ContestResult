@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>813_tyler_durden_07.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>813_tyler_durden_07.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        vector &lt; pair &lt; int, int &gt; &gt; adj[n+1];
+        for(auto x: edges){</B></FONT>
+            adj[x[0]].push_back({x[1], x[2]});
+            adj[x[1]].push_back({x[0], x[2]});
+        }
+        vector &lt; long long &gt; dis(n+1, 0), visited(n+1, 0);
+        for(int i=1;i&lt;=n;i++)
+            dis[i]=1e13;
+        dis[n]=0;
+        priority_queue &lt; pair &lt; long long, int &gt;, vector &lt; pair &lt; long long , int &gt; &gt; , greater &lt; pair &lt; long long , int &gt; &gt; &gt; q;
+        q.push({0, n});
+        while(!q.empty()){
+            auto x = q.top();
+            q.pop();
+<A NAME="1"></A>            if(visited[x.second])
+                continue;
+            visited[x.second]=1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(auto v: adj[x.second]){
+                if(dis[v.first]&gt; dis[x.second]+ v.second){
+                    dis[v.first] = dis[x.second]+v.second;
+                    q.push({dis[v.first], v.first});
+                }
+            }
+        }
+        
+        queue &lt; int &gt; qu;</B></FONT>
+        for(int i=0;i&lt;visited.size();i++)
+            visited[i]=0;
+        vector &lt; long long &gt; ways(n+1, 0);
+        vector &lt; pair &lt; long long , int &gt; &gt; vv;
+        for(int i=1;i&lt;=n;i++)
+            vv.push_back({dis[i], i});
+        sort(vv.begin(), vv.end());
+<A NAME="2"></A>        ways[vv[0].second]=1;
+        for(int i=0;i&lt;vv.size();i++){
+            //cout&lt;&lt;vv[i].second&lt;&lt;endl;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(auto x: adj[vv[i].second]){
+                //cout&lt;&lt;x.first&lt;&lt;&quot; &quot;&lt;&lt;vv[i].second&lt;&lt;&quot; &quot;&lt;&lt;dis[x.first]&lt;&lt;&quot; &quot;&lt;&lt;dis[vv[i].second]&lt;&lt;endl;
+                if(dis[x.first]&gt;dis[vv[i].second]){
+                   // cout&lt;&lt;&quot;Here&quot;&lt;&lt;endl;
+                    ways[x.first]+= ways[vv[i].second];
+                ways[x.first] %= (1000000007);}
+            }
+        }
+        // for(int i=1;i&lt;=n;i++)
+        //     cout&lt;&lt;ways[i]&lt;&lt;&quot; &quot;&lt;&lt;i&lt;&lt;endl;
+        return ways[1];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

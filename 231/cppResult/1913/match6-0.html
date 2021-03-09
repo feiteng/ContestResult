@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>29_CaoRui.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>29_CaoRui.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+#define MAX 2005
+#define LIM ((1&lt;&lt;10))
+    int cnt[MAX][MAX], f[MAX][LIM+5], mn[MAX];
+    int minChanges(vector&lt;int&gt;&amp; a, int k) {
+        int n = a.size();
+<A NAME="0"></A>        memset(cnt, 0, sizeof(cnt));
+        memset(f, 0x3f, sizeof(f));
+        for(int i = 0; i &lt; a.size(); i++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            cnt[i%k][a[i]]++;
+        }
+        int len = n/k+(n%k &gt; 0);
+        for(int i = 0; i &lt; LIM; i++){
+<A NAME="1"></A>            f[0][i] = len-cnt[0][i];
+        }
+        for(int i = 1; i &lt; k; i++){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            len = n/k+(n%k &gt; i);
+            for(int j = 0; j &lt; len; j++){
+                int x = a[j*k+i];
+                for(int l = 0; l &lt; LIM; l++){
+                    f[i][l^x] = min(f[i][l^x], f[i-1][l]+len-cnt[i][x]);
+                }
+            }
+        }</B></FONT>
+        int ans = f[k-1][0], s = 0;
+        for(int i = 0; i &lt; k; i++){
+            len = n/k+(n%k &gt; i);
+            mn[i] = n+1;
+            for(int j = 0; j &lt; len; j++){
+                int x = a[j*k+i];
+                mn[i] = min(mn[i], len-cnt[i][x]);
+            }
+            s += mn[i];
+        }
+        for(int i = 0; i &lt; k; i++){
+            len = n/k+(n%k &gt; i);
+            ans = min(ans, s-mn[i]+len);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

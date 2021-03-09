@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>602_Dragoslav133.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>602_Dragoslav133.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+     
+
+    static class State implements Comparable&lt;State&gt; {
+        int node;
+        long dist;
+        public State(int n, long d) {
+            node = n;
+<A NAME="1"></A>            dist = d;
+        }
+
+        public in</B></FONT>t compareTo(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>State s) {
+            return Long.compare(dist, s.dist);
+        }
+    }
+    public int countRestrictedPaths(int n, int[][] edges) {
+        int N = n</B></FONT>;
+        
+<A NAME="2"></A>        ArrayList&lt;State&gt;[] graph = new ArrayList[N];
+        for (int i = 0; i &lt; N; i++) graph[i] = new ArrayList&lt;State&gt;();
+        for (int[] e : edges) {
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long w = (long) e[2];
+            graph[e[0]-1].add(new State(e[1]-1, w));
+            graph[e[1]-1].add(new State(e[0]-1, w));
+        }
+
+        // Dijkstra's Algorithm
+        long[] distances = new long[N];
+        Arrays.fill(distances, Long.MAX_VALUE);
+        distances[N - 1] = 0L;
+        PriorityQueue&lt;State&gt; pq = new PriorityQueue&lt;State&gt;();
+        State s = new State(N - 1, 0L)</B></FONT>;
+        pq.add(s);
+<A NAME="3"></A>        while (!pq.isEmpty()) {
+            s = pq.poll();
+            for (State e : graph[s.node]) {
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (distances[e.node] &gt; distances[s.node] + e.dist) {
+                    distances[e.node] = distances[s.node] + e.dist;
+                    pq.add(new State(e.node, distances[e.node]));
+                }
+            }
+        }
+        State[] vals = new State[N];
+        for (int i = 0</B></FONT>; i &lt; N; i++) vals[i] = new State(i, distances[i]);
+        Arrays.sort(vals);
+
+        long[] ans = new long[N];
+        ans[N - 1] = 1L;
+        for (int i = 1; i &lt; N; i++) {
+            int u = vals[i].node;
+<A NAME="4"></A>            for (State e : graph[u]) {
+                int v = e.node;
+                if (distances[u] &gt; distances[v])
+                    ans[u] = (ans[u] + ans[v]) % 1000000007<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match23-1.html#4',3,'match23-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            }
+        }
+        return (int) ans[0];
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

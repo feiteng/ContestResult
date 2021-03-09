@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>93___slots__.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>93___slots__.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countRestrictedPaths(self, n: int, edges: List[List[int]]) -&gt; int:
+        d = [-1]*(n+1)
+        G <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [[]for _ in range(n+1)]
+<A NAME="1"></A>        for u, v, w in edges:
+            G[u].append((v, w))
+            G[v].append((u</B></FONT>, w))
+        h <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [(0, n)]
+        while h:
+            w, u = heapq.heappop(h)
+            if d[u]!=-1: continue
+            d[u] = w
+            for v, w1 in G[u]:
+                if d[v]== -1:
+                    heapq.heappush(h, (w+w1, v))
+        @lru_cache(None)
+        def dfs(u, limit):
+            if u==1: r</B></FONT>eturn 1
+            res = 0
+            for v, _ in G[u]:
+                if d[v]&gt;limit: res += dfs(v, d[v])
+            return res
+        return dfs(n, 0) % (10**9+7)
+</PRE>
+
+</BODY>
+</HTML>

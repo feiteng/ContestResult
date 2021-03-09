@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>125_azala.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>125_azala.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def countRestrictedPaths(self, n: int, edges: List[List[int]]) -&gt; int:
+        MOD = int(1e9) + 7
+        g = [{} for _ in range(n)]
+        for x, y, w in edges:
+            x -= 1
+            y -= 1
+<A NAME="0"></A>            g[x][y] = g[y][x] = w
+        dist = [float(inf)] * n
+        dist[n-1] = 0
+        h <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [(0, n-1)]
+        while h:
+            d, i = heapq.heappop(h)
+<A NAME="1"></A>            if dist[i] != d:
+                continue
+            for</B></FONT> ch in g[i]:
+                nd = d + g[i]<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[ch]
+                if dist[ch] &gt; nd:
+                    dist[ch] = nd
+                    heapq.heappush(h, (nd, ch))
+        
+        @lru_cache(None)
+        def f(idx):
+            if idx == n-1:
+                return 1
+            ret = 0
+            for ch in g[idx]:
+                if dist[ch] &lt; dist[idx]:
+                    ret += f(ch)
+            return ret % MOD
+        
+        return f(0</B></FONT>)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>767_acvv_ssssssssssssp-offer.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>767_acvv_ssssssssssssp-offer.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long LL;
+typedef pair&lt;int,int&gt; PII;
+typedef pair&lt;LL,LL&gt; PLL;
+const LL MOD = 1e9 + 7;
+const LL INF = 1e11;
+const int N = 1e6;
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;LL&gt; d;
+    vector&lt;bool&gt; vis;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; num;
+    // vector&lt;vector&lt;PLL&gt;&gt; g;
+    LL h[N],ne[N],e[N],w[N],idx=0;
+    int n;
+    
+    void add(int x, int y,int z)
+    {
+        e[idx]=y,w[idx]=z,ne[idx]=h[x],h[x]=idx++;
+    }</B></FONT>
+    
+    int countRestrictedPaths(int _n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        n=_n;
+        // g.resize(n+1,vector&lt;PLL&gt;());
+        fill_n(h,N,-1);
+        for(auto &amp;i:edges)
+        {
+            add(i[0],i[1],i[2]);
+            add(i[1],i[0],i[2]);
+        }
+        d.resize(n+1,INF);
+        vis.resize(n+1,false);
+        num.resize(n+1,-1);
+        dijkstra();
+        // for(int i=1;i&lt;=n;++i) 
+        //     cout&lt;&lt;d[i]&lt;&lt;endl;
+        return getnum(1);
+        
+    }
+    
+    void dijkstra()
+    {
+        priority_queue&lt;PLL,vector&lt;PLL&gt;,greater&lt;PLL&gt;&gt; q;
+        d[n]=0;
+        q.push({0,n});
+        while(q.size())
+<A NAME="1"></A>        {
+            auto t=q.top();
+            q.pop();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            LL dis = t.first, v = t.second;
+            if(vis[v]) continue;
+            vis[v]=true;
+            for(int i=h[v];~i;i=ne[i])
+            {
+                int j=e[i];
+                if(d[j]&gt;d[v]+w[i])
+                {
+                    d[j]=d[v]+w[i];
+                    q.push({d[j],j});
+                }
+            }
+            // for(auto i:g[v])
+            // {
+            //     if(d[i.first]&gt;d[v]+i.second)
+            //     {
+            //         d[i.first]=d[v]+i.second;
+            //         q.push({d[i.first],i.first});
+            //     }
+            // }
+        }</B></FONT>
+        return;
+    }
+    
+<A NAME="2"></A>    int getnum(int v)
+    {
+        if(v==n) return num[v]=1;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(num[v]!=-1) return num[v];
+        LL res=0;
+        for(int i=h[v];~i;i=ne[i])
+        {
+            int j=e[i];
+            if(d[j]&lt;d[v])
+            {
+                res+=getnum(j);
+                res%=MOD;
+            }
+        }</B></FONT>
+        // for(auto i:g[v])
+        // {
+        //     if(d[i.first]&lt;d[v])
+        //     {
+        //         res+=getnum(i.first);
+        //         res%=MOD;
+        //     }
+        // }
+        return num[v]=res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

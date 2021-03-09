@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>20_sun-man-man.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>20_sun-man-man.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def countRestrictedPaths(self, n: int, edges: List[List[int]]) -&gt; int:
+        mod = 10**9 + 7
+        g = collections.defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        for u, v, w in edges:
+            g[u].append([v, w])
+            g[v].append([u, w])
+        q =</B></FONT> [(0, n)]
+        dist = [-1] * (n + 1)
+        while q:
+<A NAME="1"></A>            dis, node = heapq.heappop(q)
+            if dist[node] &gt;= 0:
+                continue
+            dist<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[node] = dis
+
+            for nn, wi in g[node]:
+                heapq.heappush(q, [dis + wi, nn])
+
+        @functools.lru_cache(None)
+        def dfs(cur):
+            if cur == n:
+                return 1
+            ans = 0
+            for nn, wi in g[cur]:
+                if dist[nn] &lt; dist[cur]:
+                    ans += dfs(nn)
+            return ans
+
+        return dfs(1</B></FONT>) % mod
+</PRE>
+
+</BODY>
+</HTML>

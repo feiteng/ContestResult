@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>643_jaewonjo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>643_jaewonjo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int N;
+    LinkedList&lt;int[]&gt;[] G;
+    int[] dists;
+    Long[] M;
+    
+    public int countRestrictedPaths(int n, int[][] edges) {
+        this.N = n;
+<A NAME="1"></A>        this.G = new</B></FONT> LinkedList[N];
+        for (int i = 0; i &lt; N; i++) G[i] = new LinkedList&lt;&gt;();
+        for (int[] e : edges) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>G[e[0] - 1].offer(new int[] { e[1] - 1, e[2] });
+            G[e[1] - 1].offer(new int[] { e[0] - 1, e[2] });
+        }
+        
+        PriorityQueue&lt;int[]&gt; Q = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - </B></FONT>b[1]);
+<A NAME="2"></A>        this.dists = new int[N];
+        Arrays.fill(dists, Integer.MAX_VALUE);
+        dists[n - 1] = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Q.offer(new int[] { n - 1, 0 });
+        
+        while (!Q.isEmpty()) {
+            int[] arr = Q.poll();
+            int i = arr[0];
+            int d = arr[1];
+            
+            if (dists[i] &lt; d) continue;</B></FONT>
+            
+            for (int[] arr2 : G[i]) {
+                int j = arr2[0];
+                int w = arr2[1];
+                
+                if (d + w &lt; dists[j]) {
+                    dists[j] = d + w;
+                    Q.offer(new int[] { j, d + w });
+                }
+            }
+<A NAME="3"></A>        }
+        M = new Long[N];
+        return (int) dfs(0);
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    long dfs(int i) {
+        if (i == N - 1) return 1;
+        if (M[i] != null) return M[i];
+        
+        long ans = 0;
+        for (int[] arr : G[i]) {</B></FONT>
+            int j = arr[0];
+            
+            if (dists[i] &gt; dists[j]) {
+                ans += dfs(j);
+            }
+        }
+        
+        M[i] = ans % (int) (1e9 + 7);
+        return M[i];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

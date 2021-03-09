@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>500_evan_hossain.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>500_evan_hossain.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dist[20002];
+    vector&lt;pair&lt;int, int&gt; &gt; adj[20002];
+    int dp[20002], mod = 1e9+7;
+    
+    int call(int i, int n){
+        if(i == n)
+            return 1;
+        int &amp;ret = dp[i];
+        if(~ret) return ret;
+        ret = 0;
+        for(auto v: adj[i]){
+            if(dist[v.first] &lt; dist[i])
+            {
+                ret += call(v.first, n);
+                ret %= mod;
+<A NAME="0"></A>            }
+        }
+        return ret;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    
+    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        for(auto edge: edges){
+            adj[edge[0]].push_back({edge[1], edge[2]});
+            adj[edge[1]].push_back({edge[0], edge[2]});
+        }
+        queue&lt;int&gt; Q;
+        Q.push(n);
+<A NAME="1"></A>        for(int i = 1; i &lt;= n; i++)
+            dist[i] = INT_MAX;
+        dist[n] = 0;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while(!Q.empty()){
+            int u = Q.front();
+            Q.pop();
+            for(auto v: adj[u]){
+                if(dist[v.first] &gt; v.second + dist[u]){
+                    Q.push(v.first);
+                    dist[v.first] = v.second + dist[u];
+                }
+            }
+        }</B></FONT>
+        // for(int i = 1; i &lt;= n; i++)
+        //     cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; dist[i] &lt;&lt; &quot;,&quot;;
+        // cout &lt;&lt; endl;
+        int res = 0;
+        memset(dp, -1, sizeof dp);
+        return call(1, n);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

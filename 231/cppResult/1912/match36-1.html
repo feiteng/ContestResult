@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>842_paresh_501.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>842_paresh_501.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    const long long inf =  9999999999999;
+    const long long mode = 1e9 + 7;
+    #define ll long long
+    
+    int dfs(long long u,vector&lt;ll&gt;&amp; dist, vector&lt;vector&lt;pair&lt;ll,ll&gt;&gt;&gt;&amp; adj, vector&lt;ll&gt;&amp; dp){
+        ll n = dist.size()-1;
+        if (u==n){
+            return 1;
+        }
+        if (dp[u]!=-1) return dp[u];
+        long long ans = 0;
+        for (auto v:adj[u]){
+            if (dist[v.first]&lt;dist[u]){
+                ans = ans + dfs(v.first, dist, adj, dp);
+                ans =  ans%mode;
+            }
+        }
+        dp[u] = ans;
+<A NAME="0"></A>        return ans;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countRestrictedPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {
+        
+        vector&lt;ll&gt; dist(n+1, inf);
+        vector&lt;vector&lt;pair&lt;ll,ll&gt;&gt;&gt; adj(n+1);
+        for (auto i:edges){
+            adj[i[0]].push_back({i[1], i[2]});
+            adj[i[1]].push_back({i[0], i[2]});
+        }</B></FONT>
+        vector&lt;ll&gt; dp(n+1, -1);
+        set&lt;pair&lt;ll,ll&gt;&gt; st;
+<A NAME="1"></A>        st.insert({0, n});
+        dist[n] = 0;
+        while(!st.empty()){
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            auto p = *(st.begin());
+            st.erase(st.begin());
+            if (p.first!=dist[p.second]) continue;
+            for (auto v:adj[p.second]){
+                if (dist[v.first] &gt; p.first + v.second){
+                    dist[v.first] = p.first + v.second;
+                    st.insert({dist[v.first], v.first});
+                }</B></FONT>
+            }
+        }
+        
+        long long int ans = dfs(1, dist, adj, dp);
+        ans = ans%mode;
+        return ans;
+        
+        
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>80_OTTFF.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>80_OTTFF.cpp</CENTER></H3><HR>
+<PRE>
+const int INF=0x3f3f3f3f;
+const int M=1024;
+const int N=2005;
+unordered_map&lt;int,int&gt; cnt[N];
+int ccnt[N];
+int dp[2][M];
+class Solution {
+public:
+    int minChanges(vector&lt;int&gt;&amp; nums, int k) {
+        if(k==1)
+        {
+            int ans=0;
+            for(int i:nums) if(i) ans++;
+            return ans;
+        }
+        int n=nums.size();
+        for(int i=0;i&lt;k;i++)
+        {
+            cnt[i].clear();
+            ccnt[i]=0;
+            for(int j=i;j&lt;n;j+=k)
+            {
+                cnt[i][nums[j]]++;
+<A NAME="0"></A>                ccnt[i]++;
+            }
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;M;i++)
+            dp[0][i]=INF;
+        dp[0][0]=0;
+        for(int i=1;i&lt;=k;i++)
+        {
+            //cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;ccnt[i-1]&lt;&lt;endl;
+            int mi=INF;
+            for(int j=0;j&lt;M;j++)
+                mi=min(mi,dp[(i^1)&amp;1][j]);
+            //cout&lt;&lt;mi&lt;&lt;endl;
+            // for(int j=0;j&lt;M;j++)
+            //     if(dp[(i^1)&amp;1][j]==4) cout&lt;&lt;&quot;!!!!  &quot;&lt;&lt;j&lt;&lt;endl;
+            for(int j=0;j&lt;M;j++)
+                dp[i&amp;1][j]=mi+ccnt[i-1];
+            for(auto p:cnt[i-1])</B></FONT>
+            {
+                int v=p.first;
+                int c=p.second;
+                //cout&lt;&lt;&quot; &quot;&lt;&lt;v&lt;&lt;&quot; &quot;&lt;&lt;c&lt;&lt;endl;
+                for(int j=0;j&lt;M;j++)
+                {
+                    dp[i&amp;1][j]=min(dp[i&amp;1][j],dp[(i^1)&amp;1][j^v]+ccnt[i-1]-c);
+                    // if(j==992) cout&lt;&lt;v&lt;&lt;&quot; &quot;&lt;&lt;c&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;(j^v)&lt;&lt;&quot; &quot;&lt;&lt;dp[i&amp;1][j]&lt;&lt;endl;
+                }
+                    
+                // for(int j=0;j&lt;32;j++)
+                //     cout&lt;&lt;&quot; &quot;&lt;&lt;dp[i&amp;1][j];
+                // cout&lt;&lt;endl;
+            }
+        }
+        return dp[k&amp;1][0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>
