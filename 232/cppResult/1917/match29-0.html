@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>753_jslu0418.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>753_jslu0418.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        // The average pass ration increase only determined by the people in the smallest class
+        priority_queue&lt;pair&lt;double, int&gt;&gt; pq;
+        for(int i=0; i&lt;classes.size(); i++){</B></FONT>
+            pq.push({(classes[i][0]+1)*1.0/(classes[i][1]+1)-classes[i][0]*1.0/classes[i][1], i});
+        }
+        pair&lt;double, int&gt; cur;
+        int diff;
+        while(extraStudents&gt;0){
+            cur=pq.top();
+<A NAME="1"></A>            pq.pop();
+            classes[cur.second][0]+=1;
+            classes[cur.second][1]+=1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            extraStudents-=1;
+            pq.push({(classes[cur.second][0]+1)*1.0/(classes[cur.second][1]+1)-classes[cur.second][0]*1.0/classes[cur.second][1], cur.second});
+        }
+        double ret=0.0;
+        for(auto &amp;e : classes){
+            ret+=(e[0]*1.0)/e[1];
+        }
+        return ret/(classes.size());
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

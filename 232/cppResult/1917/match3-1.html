@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_yi-zhi-xiao-ruo-ji.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_yi-zhi-xiao-ruo-ji.cpp</CENTER></H3><HR>
+<PRE>
+struct nod{
+<A NAME="0"></A>    int n;
+    int pass;
+    bool operator&lt;(const nod&amp; n1) const {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return 1.0 * (pass + 1) / (n + 1) - 1.0 * pass / n &lt; 1.0 * (n1.pass + 1) / (n1.n + 1) - 1.0 * n1.pass / n1.n;
+    }
+};
+class Solution {
+public:
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        priority_queue&lt;nod&gt; Q;
+        for (auto it : classes) {
+            Q.push({ it[1], it[0] });
+        }
+        for (int i = 0; i &lt; extraStudents; i++) {
+            auto it = Q.top();
+            Q.pop();
+            it.pass++;
+            it.n++;
+            Q.push(it);
+        }
+
+        double ret = 0;
+        while (!Q.empty()) {
+            auto it = Q.top();
+            Q.pop();
+            ret += 1.0*it.pass / it.n;</B></FONT>
+
+        }
+        
+        return ret / classes.size();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

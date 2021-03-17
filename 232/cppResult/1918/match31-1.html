@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>695_fisheye.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>695_fisheye.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maximumScore(vector&lt;int&gt;&amp; nums, int k) {
+        int left = k-1;
+        int right = k+1;
+        int minn = nums[k];
+        int ans = minn;
+        int n = nums.size();
+        while(left&gt;=0 || right &lt;n){
+            if(left&gt;=0 &amp;&amp; (right==n || nums[left]&gt;=nums[right])){
+                minn = min(minn,nums[left]);
+                ans = max(ans,minn*(right-left));
+                left--;
+            }
+            else{
+                minn = min(minn,nums[right]);
+                ans = max(ans,minn*(right-left));
+                right++;
+            }
+            // cout&lt;&lt;left&lt;&lt;&quot; &quot;&lt;&lt;right&lt;&lt;endl;
+        }</B></FONT>
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

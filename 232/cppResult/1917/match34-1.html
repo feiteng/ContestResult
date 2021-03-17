@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>591_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>591_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+typedef pair&lt;double, double&gt; pii;
+<A NAME="0"></A>
+struct cmp
+{
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  bool operator()(pii &amp;l, pii &amp;r) {
+    return (l.first+1)/(l.second+1)-l.first/l.second &lt; 
+         (r.first+1)/(r.second+1)-r.first/r.second ;
+  }
+};
+
+class Solution {
+public:
+  double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+    int N = classes.size();
+    priority_queue&lt;pii, vector&lt;pii&gt;,cmp&gt; Q;
+    for (auto c: classes) Q.push({c[0], c[1]});</B></FONT>
+    while (extraStudents--) {
+<A NAME="1"></A>      auto [x, y] = Q.top(); Q.pop();
+  //    cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; endl;
+      Q.push({x+1, y+1});
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    double tot = 0;
+    while (!Q.empty()) { 
+      auto [x, y] = Q.top(); Q.pop();
+      tot += x/y;
+    }
+      
+    return tot/N;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

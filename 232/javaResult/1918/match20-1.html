@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>358_x372p.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>358_x372p.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int maximumScore(int[] nums, int k) {
+        //pq -&gt; {position, min}
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a,b) -&gt; (b[1] - a[1]));
+        
+        int n = nums.length;
+        int minSofar = nums[k];
+        for (int i = k+1; i &lt; n; i++) {
+            if (nums[i] &lt; minSofar) {
+                pq.add(new int[] {i, minSofar});
+                minSofar = nums[i];
+            }
+        }
+        pq.add(new int[] {n, minSofar});
+        
+        minSofar = nums[k];
+        for (int i = k-1; i &gt;= 0; i--) {
+            if (nums[i] &lt; minSofar) {
+                pq.add(new int[] {i, minSofar});
+                minSofar = nums[i];
+            }
+        }
+        pq.add(new int[] {-1, minSofar});
+        
+        //int minSofar = nums[k];
+<A NAME="1"></A>        int left = k;
+        int right = k</B></FONT>;
+        int ans = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(!pq.isEmpty()) {
+            int[] curr = pq.remove();
+            int idx = curr[0];
+            int lastMin = curr[1];
+            if (idx &gt; k) {
+                right = idx;
+            } else {
+                left = idx;
+            }
+            
+            
+            int temp = lastMin * (right - left - 1);
+            ans = Math.max(ans, temp);
+        }
+        
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

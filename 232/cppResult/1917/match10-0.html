@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_simpleqin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_simpleqin.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct clas
+{
+    int p,t;
+    double up;
+    clas(int _p,int _t,double _up)
+    {
+        p = _p;
+<A NAME="1"></A>        t = _t;
+        up = _up;
+    }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    friend bool operator  &lt; (clas a, clas b)
+    {
+        return a.up &lt; b.up;
+    }
+};
+class Solution {
+public:
+    double up_ca(int p,int t)
+    {</B></FONT>
+        return 1.0*(p+1)/(t+1) - 1.0*p/t;
+    }
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) 
+    {
+        int n = classes.size();
+<A NAME="2"></A>        priority_queue&lt;clas&gt; q;
+        for(int i=0;i&lt;n;i++)
+            q.push(clas(classes[i][0],classes[i][1],up_ca(classes[i][0],classes[i][1])));
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;extraStudents;i++)
+        {
+            clas t = q.top();
+            q.pop();
+            t.p += 1;
+            t.t += 1;
+            t.up = up_ca(t.p,t.t);
+            q.push(t);
+        }
+        double ans = 0;
+        while(!q.empty())
+        {
+            clas t = q.top();
+            q.pop();
+            ans += 1.0*t.p/t.t;
+        }
+        ans /= n;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

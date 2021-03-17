@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_mahapatraakash.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_mahapatraakash.cpp</CENTER></H3><HR>
+<PRE>
+class Classroom{
+public:
+    long long x;
+    long long y;
+    Classroom(int nx, int ny){
+        x = nx;
+        y = ny;
+<A NAME="0"></A>    }
+};
+struct Compare{
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool operator()(const Classroom &amp;a, const Classroom &amp;b){
+        return (a.y-a.x)*(b.y*(b.y+1)) &lt; (b.y-b.x)*(a.y*(a.y+1)); 
+    }
+};
+class Solution {
+public:
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        priority_queue&lt;Classroom, vector&lt;Classroom&gt;, Compare&gt; pq;
+        for(int i=0; i&lt;classes.size(); i++){
+            pq.push(Classroom(classes[i][0], classes[i][1]));
+        }
+        while(extraStudents--){
+            Classroom cr = pq.top();
+            pq.pop();
+            cr.x++;
+            cr.y++;
+            pq.push(cr);
+        }
+        
+        double avg = 0;
+        while(!pq.empty()){
+            Classroom cr = pq.top();
+            pq.pop();
+            avg = avg + ((double)cr.x)/cr.y;</B></FONT>
+        }
+        
+        avg/=classes.size();
+        
+        return avg;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

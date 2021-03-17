@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>380_cpparabian.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>380_cpparabian.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximumScore(self, nums: List[int], k: int) -&gt; int:
+<A NAME="0"></A>        n = len(nums)
+        be = k
+        en = k
+        res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= nums[k] * 1
+        cur_min = nums[k]
+        
+        while be &gt; 0 or en &lt; n - 1:
+            if be == 0:
+                # add en as it is the only option
+                en += 1
+                cur_min = min(cur_min, nums[en])
+            elif en == n - 1:
+                be -= 1
+                cur_min = min(cur_min, nums[be])
+<A NAME="1"></A>            else: # pick either be or en
+                if nums[be - 1] &gt;= nums[en + 1]:
+                    be -=</B></FONT> 1
+                    cur_min <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= min(cur_min, nums[be])
+                else:
+                    en += 1
+                    cur_min = min(cur_min, nums[en])
+            res = max(res, cur_min * (en - be + 1))
+        
+        re</B></FONT>turn res
+                    
+</PRE>
+
+</BODY>
+</HTML>

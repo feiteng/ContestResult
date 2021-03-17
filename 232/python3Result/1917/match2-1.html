@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1005_Pony1999.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1005_Pony1999.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -&gt; float:
+        new_classes = [(-(t-p)/(t*(t+1)),t,p) for p,t in classes]
+        heapify(new_classes)
+        for i in range(extraStudents):
+            comp,t,p = heappop(new_classes)
+            t += 1
+            p += 1
+            heappush(new_classes, (-(t-p)/(t*(t+1)), t, p))
+            #print(new_classes)
+        
+        
+        return sum(p/t for _,t,p in new_classes)/len(c</B></FONT>lasses)
+</PRE>
+
+</BODY>
+</HTML>

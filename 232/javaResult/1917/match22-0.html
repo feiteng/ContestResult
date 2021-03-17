@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>884_wwssxxu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>884_wwssxxu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.PriorityQueue;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue&lt;int[]&gt; queue = new PriorityQueue&lt;&gt;((o1, o2) -&gt; {
+<A NAME="1"></A>            Double a=((double)(o1[0]+1))/(o1[1]+1)-(double)o1[0]/o1[1];
+            Double b=((double)(o2[0]+1))/(o2[1]+1)-(double)o2[0]/o2[1];
+            return</B></FONT> b.compareTo(a);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        );
+        for (int[] i : classes) {
+            queue.add(i);
+        }
+        int n = extraStudents;
+//        while (n &gt; 0) {
+//            int[] cur = queue.poll();
+//            int[] next = queue.peek();
+//            int a = cur[0] + cur[1];
+//            int b = next[0] + next[1];
+//            int gap = (b - a) / 2 ;
+//            int max = Math.min(gap, n);
+//            n -= max;
+//            queue.add(new int[]{cur[0] + max, cur[1] + max});
+//        }
+        while (n&gt;0){
+                        int[] cur = queue.poll</B></FONT>();
+<A NAME="2"></A>            queue.add(new int[]{cur[0] + 1, cur[1] + 1});
+            n--;
+//
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+//        for (int[] ints : queue) {
+//            print.println(ints);
+//        }
+        double res = 0;
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            res += (double) cur[0] / cur[1];
+        }
+        return res / classes.length;
+    }
+
+//    public static void main(String[] args) {
+//        int[][]a={{2,4},{3,9},{4,5},{2,10}};
+//        System.out.println(new Solution().maxAverageRatio(a,4));
+//    }
+}</B></FONT>
+
+</PRE>
+
+</BODY>
+</HTML>

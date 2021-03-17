@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>739_brillant_o-.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>739_brillant_o-.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximumScore(self, nums: List[int], k: int) -&gt; int:
+        
+        # n = len(nums)
+        # ans = 0
+        # for i in range(k+1):
+        #     min_value = min(nums[i:k+1])
+        #     for j in range(k, n):
+        #         if nums[j] &lt; min_value:
+        #             min_value = nums[j]
+        #         ans = max(ans, min_value * (j-i+1))
+        # return ans
+        
+        n = len(nums)
+        ans = nums[k]
+        
+        i = j = k
+        min_value = nums[k]
+        while i &gt;= 0 and j &lt; n:
+<A NAME="0"></A>            if i == 0 and j == n-1:
+                break
+            elif i-1 &gt;= 0 and j+1 &lt; n:
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if nums[i-1] &gt; nums[j+1]:
+                    i -= 1
+                    min_value = min(min_value, nums[i])
+                else:
+                    j += 1
+                    min_value = min(min_value, nums[j])
+            elif j+1 &lt; n:
+                j += 1
+                min_value = min(min_value, nums[j])
+            elif i-1 &gt;= 0:
+                i -= 1
+                min_value = min(min_value, nums[i])
+            ans = max(ans, min_value * (j-i+1))
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

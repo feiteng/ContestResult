@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>418_itsing7.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>418_itsing7.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        auto cmp = [](pair&lt;int, int&gt;&amp; lhs, pair&lt;int, int&gt;&amp; rhs) {
+            return 1.0 * lhs.first / lhs.second - 1.0 * (lhs.first + 1) / (lhs.second + 1) &gt; 
+                1.0 * rhs.first / rhs.second - 1.0 * (rhs.first + 1) / (rhs.second + 1);
+        };
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, decltype(cmp)&gt; pq(cmp);
+        for (auto&amp; c : classes) pq.push({c[0], c[1]});</B></FONT>
+        for (int i = 0; i &lt; extraStudents; i++) {
+            auto [p, t] = pq.top();
+<A NAME="1"></A>            //cout&lt;&lt;p &lt;&lt;&quot; &quot;&lt;&lt;t&lt;&lt;endl;
+            pq.pop();
+            pq.push({p + 1, t + 1});
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        double res = 0;
+        while (!pq.empty()) {
+            auto [p, t] = pq.top();
+            res += 1.0 * p / t;
+            pq.pop();
+        }
+        return res / classes.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

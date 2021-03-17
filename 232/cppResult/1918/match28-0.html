@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_lucifer1005.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_lucifer1005.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maximumScore(vector&lt;int&gt;&amp; nums, int k) {
+        int n = nums.size();
+        vector&lt;int&gt; left(n, -1), right(n, n);
+        stack&lt;int&gt; st;
+        for (int i = 0; i &lt; n; ++i) {
+            while (!st.empty() &amp;&amp; nums[st.top()] &gt; nums[i]) {
+                right[st.top()] = i;
+                st.pop();
+            }
+<A NAME="1"></A>            st.push(i);
+        }</B></FONT>
+        st = stack&lt;int&gt;();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = n - 1; i &gt;= 0; --i) {
+            while (!st.empty() &amp;&amp; nums[st.top()] &gt; nums[i]) {
+                left[st.top()] = i;
+                st.pop();
+            }
+            st.push(i);
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            int l = left[i] + 1, r = right[i] - 1;
+            if (l &lt;= k &amp;&amp; r &gt;= k)</B></FONT>
+                ans = max(ans, (r - l + 1) * nums[i]);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>283_Tanguilol.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>283_Tanguilol.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    private static class C {
+        Integer pass;
+        Integer total;
+        
+        public C(int pass, int total) {
+            this.pass = pass;
+            this.total = total;
+        }
+        
+        public String toString() {
+            return &quot;[&quot; + pass + &quot;, &quot; + total + &quot;]&quot;;
+        }</B></FONT>
+        
+        public Double improvement() {
+            double current = ((double) pass) / total;
+            double next = ((double) pass + 1) / (total + 1);
+<A NAME="1"></A>            return next - current;
+        }
+        
+<A NAME="2"></A>    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue&lt;C&gt; queue = new PriorityQueue&lt;&gt;(classes.length, (a, b) -&gt; <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>b.impro</B></FONT>vement().compareTo(a.improvement()));
+        
+        for (int i = 0; i &lt; classes.length; i++) {
+            queue.add(new C(classes[i][0], classes[i][1]));
+        }
+        
+        for (int i = 0; i &lt; extraStudents; i++) {
+            C smallest = queue.poll();
+            smallest.pass += 1;
+            smallest.total += 1;
+            queue.add</B></FONT>(smallest);
+        }
+<A NAME="3"></A>        
+        System.out.println(queue);
+        
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double sumRatio = 0;
+        
+        while (!queue.isEmpty()) {
+            C c = queue.poll();
+            
+            sumRatio += ((double) c.pass) / c.total;
+        }
+        
+        return sumRatio / classes.length;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

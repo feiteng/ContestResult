@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>593_zhanzhi-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>593_zhanzhi-2.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximumScore(self, nums: List[int], k: int) -&gt; int:
+        min_val = nums[k]
+<A NAME="0"></A>        ret = nums[k]
+        left, right = k, k
+        n = len(nums)
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while left &gt; 0 and right &lt; n - 1:
+            if left &gt; 0 and nums[left - 1] &gt;= nums[right + 1]:
+                left -= 1
+                min_val = min(min_val, nums[left])
+            else:
+                right += 1
+                min_val = min(min_val, nums[right])
+            ret = max(ret, min_val * (right - left + 1))
+        while left&gt;0:
+            left-=1
+            min_val = min(min_val, nums[left])
+            ret = max(ret, min_val * (right - left + 1))
+        while right&lt;n-1:
+            right += 1
+            min_val = min(min_val, nums[right])
+            ret = max(ret, min_val * (right - left + 1))
+        re</B></FONT>turn ret
+</PRE>
+
+</BODY>
+</HTML>

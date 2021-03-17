@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_Dengxj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>268_Dengxj.cpp</CENTER></H3><HR>
+<PRE>
+class Ele {
+<A NAME="0"></A>public:
+    int x, y;
+    Ele(int _x, int _y): x(_x), y(_y) {}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool operator &lt; (const Ele&amp; other) const {
+        return 1.0 * (other.x + 1) / (other.y + 1) - 1.0 * other.x / other.y &gt;
+            1.0 * (x + 1) / (y + 1) - 1.0 * x / y;
+    }
+};
+
+class Solution {
+public:
+<A NAME="1"></A>    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {</B></FONT>
+        priority_queue&lt;Ele&gt; que;
+        for (auto&amp; c: classes) que.emplace(c[0], c[1]);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (extraStudents) {
+            auto cur = que.top(); que.pop();
+            cur.x += 1;
+            cur.y += 1;
+            que.push(cur);
+            extraStudents -= 1;
+        }
+        double res = 0;
+        while (que.size()) {
+            auto cur = que.top(); que.pop();
+            res += 1.0 * cur.x / cur.y;
+        }
+        res /= classes.size();
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

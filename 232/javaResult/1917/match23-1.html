@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>228_MMMMMMoSky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>228_MMMMMMoSky.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    static class Class {
+        int pass;
+        int total;
+
+        public Class(int pass, int total) {
+            this.pass = pass;
+            this.total = total;
+        }
+
+<A NAME="1"></A>        double differ() {
+            return (double) (pass + 1) / (total + 1) - (double) pass / total;
+        }</B></FONT>
+<A NAME="2"></A>    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue&lt;Class&gt; heap = new PriorityQueue&lt;&gt;((c1, c2) -&gt; <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>c1.diff</B></FONT>er() &gt; c2.differ() ? -1 : 1);
+        for (var c : classes) {
+            heap.add(new Class(c[0], c[1]));
+        }
+        for (int i = 0; i &lt; extraStudents; i++) {
+<A NAME="3"></A>            Class c = heap.poll();
+            heap.add</B></FONT>(new Class(c.pass + 1, c.total + 1));
+        }
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#3',2,'match23-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double sum = 0;
+        while (!heap.isEmpty()) {
+            Class c = heap.poll();
+            sum += (double) c.pass / c.total;
+        }
+        return sum / classes.length;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

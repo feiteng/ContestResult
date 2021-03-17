@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>369_giggly.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>369_giggly.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;(new Comparator&lt;Integer&gt;() {
+            public int compare(Integer i, Integer j) {
+                double d1 = delta(classes[i][0], classes[i][1]);
+                double d2 = delta(classes[j][0], classes[j][1]);
+                if (d1 &lt;= d2) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });  
+            
+<A NAME="1"></A>        for (int i = 0; i &lt; classes.length; i++) {
+            if</B></FONT> (classes[i][0] != classes[i][1]) {
+                pq.add(i);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+
+        for (int i = 0; i &lt; extraStudents; i++) {
+            if (pq.isEmpty()) {
+                break;
+            }
+            int j = pq.remove();
+            classes[j][0]++;
+            classes[j][1]++;
+            pq.add(j);
+        }
+        double res = 0;
+        for (int i = 0; i &lt; classes.length; i++) {
+            res += (double)classes[i][0] / (double)classes[i][1];
+        }
+        return res / (double)classes.length;
+    }
+
+    
+    private double delta (int m, int n) {
+        double dm = (double)m;
+        double dn = (double)n;
+        return (dn-dm)/(dn*(dn+1));
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

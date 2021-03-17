@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>638_s-hse.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>638_s-hse.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        priority_queue&lt;pair&lt;double, int&gt;, vector&lt;pair&lt;double,int&gt;&gt;,less&lt;pair&lt;double,int&gt;&gt;&gt; pq;
+        int N = classes.size();
+        for (int i = 0; i &lt; N; ++i) {</B></FONT>
+            pq.push(make_pair(((classes[i][0]+1) * 1.0 / (1.0 * (classes[i][1]+1))) - (classes[i][0] * 1.0 / (1.0*classes[i][1])), i));
+        }
+        while (extraStudents &gt; 0) {
+<A NAME="1"></A>            int i = pq.top().second;
+            pq.pop();
+            //cout &lt;&lt; i &lt;&lt; endl;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            --extraStudents;
+            ++classes[i][0];
+            ++classes[i][1];
+            pq.push(make_pair(((classes[i][0] + 1) * 1.0 / (1.0 * (classes[i][1] + 1))) - (classes[i][0] * 1.0 / (1.0 * classes[i][1])), i));
+        }
+        double res = 0;
+        for (int i = 0; i &lt; N; ++i) {
+            res += (classes[i][0] * 1.0) / (classes[i][1] * 1.0);
+        }
+        return res/N;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

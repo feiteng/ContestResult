@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>470_septher.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>470_septher.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double up(int x, int y){
+        return 1.0 * (x + 1) / (y + 1) - 1.0 * x / y;
+    }
+    
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        priority_queue&lt;pair&lt;double, int&gt; &gt; q;
+        int n = classes.size();
+        for(int i = 0; i &lt; n; i++){</B></FONT>
+<A NAME="1"></A>            q.push(make_pair(up(classes[i][0], classes[i][1]), i));
+        }
+        while(extraStudents--){
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            pair&lt;double, int&gt; tp = q.top();q.pop();
+            int idx = tp.second;
+            classes[idx][0]++;
+            classes[idx][1]++;
+            q.push(make_pair(up(classes[idx][0], classes[idx][1]), idx));
+        }
+        double ans = 0.0;
+        for(int i = 0; i &lt; n; i++) ans += 1.0 * classes[i][0] / classes[i][1] / n;</B></FONT>
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

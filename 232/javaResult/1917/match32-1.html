@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>484_zhengyuyu123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>484_zhengyuyu123.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((a, b) -&gt; {
+<A NAME="1"></A>            double diff1 = (double)(a[0] + 1) / (a[1] + 1) - (double)a[0] / a[1];
+            double diff2 = (double)(b[0] + 1) / (b[1] + 1) - (double)b[0] / b[1]</B></FONT>;
+            return Double.compare(diff2, diff1);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>});
+        for(int i = 0; i &lt; classes.length; i++) {
+            pq.add(classes[i]);
+        }
+        for(int i = 0; i &lt; extraStudents; i++) {
+            int[] cur = pq.poll();
+            cur[0]++;
+            cur[1]++;
+            pq.add(cur);
+        }
+        double res = 0;
+        while(!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            res += (double)cur[0] / cur[1];
+        }
+        return res / classes.length;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

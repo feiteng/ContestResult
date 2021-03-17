@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>506_KobeDuu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>506_KobeDuu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    struct node{
+        int a,b;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        friend bool operator&lt;(node n1, node n2){
+            return (n1.b+1)*1.0/(n1.a+1)-(n1.b)*1.0/(n1.a) &lt; (n2.b+1)*1.0/(n2.a+1)-(n2.b)*1.0/(n2.a);
+        }
+    };
+<A NAME="1"></A>    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        priority_queue&lt;node&gt; q;
+        for (vector&lt;int&gt; c : classes) q.push((node){c[1], c[0]});</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (extraStudents--){
+            node now = q.top(); q.pop();
+            //cout &lt;&lt; now.b &lt;&lt; &quot; / &quot; &lt;&lt; now.a &lt;&lt; endl;
+            now.a += 1; now.b += 1;
+            q.push(now);
+        }
+        double sum = 0.0;
+        while(!q.empty()) {
+            node now = q.top(); q.pop();
+            sum += now.b*1.0/now.a;
+        }
+        return sum / classes.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

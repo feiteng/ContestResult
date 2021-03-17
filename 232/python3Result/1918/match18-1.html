@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>421_chou-xing.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>421_chou-xing.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximumScore(self, nums: List[int], k: int) -&gt; int:
+        n = len(nums)
+        res = nums[k]
+<A NAME="0"></A>        left = k
+        right = k
+        mini = nums[k]
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while not (left==0 and right==n-1):
+            if left-1&gt;=0 and right+1&lt;n:
+                if nums[left-1]&gt;=nums[right+1]:
+                    left -= 1
+                    mini = min(mini, nums[left])
+                    res = max(res, mini*(right-left+1))
+                else:
+                    right += 1
+                    mini = min(mini, nums[right])
+                    res = max(res, mini*(right-left+1))
+            elif left==0:
+                right += 1
+                mini = min(mini, nums[right])
+                res = max(res, mini*(right-left+1))
+            else:
+                left -= 1
+                mini = min(mini, nums[left])
+                res = max(res, mini*(right-left+1))
+        re</B></FONT>turn res
+    
+</PRE>
+
+</BODY>
+</HTML>

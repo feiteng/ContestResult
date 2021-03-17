@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_yuanyao8855.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>465_yuanyao8855.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maximumScore(int[] nums, int k) {
+        int n =nums.length;
+        int l =k-1, r=k+1;
+        int ans =nums[k];
+        int min = nums[k];
+        while(l&gt;=0 || r&lt;n){
+            int left = (l&lt;0? 0 : nums[l]);
+            int right = (r&gt;=n? 0: nums[r]);
+            if(left&gt;right){
+                min= Math.min(min, left);
+                ans= Math.max(ans, min*(r-l));
+                l--;
+            }else{
+                min=Math.min(min,right);
+                ans= Math.max(ans, min*(r-l));
+                r++;
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

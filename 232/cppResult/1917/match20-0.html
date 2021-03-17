@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>304_Wilson1996.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>304_Wilson1996.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>using pdi=pair&lt;double, int&gt;;
+struct Cmp {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool operator()(const pdi&amp; lhs, const pdi&amp; rhs) {
+        double delta1=(lhs.first*lhs.second+1)/(lhs.second+1)-lhs.first;        
+        double delta2=(rhs.first*rhs.second+1)/(rhs.second+1)-rhs.first;
+        return delta1&lt;delta2;
+    }
+};
+class Solution {
+public:
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int exSts) {
+        int n=classes.size();
+        priority_queue&lt;pdi, vector&lt;pdi&gt;, Cmp&gt; pq;
+        for(int i=0; i&lt;n; ++i) {</B></FONT>
+<A NAME="1"></A>            pq.emplace((double)classes[i][0]/classes[i][1], classes[i][1]);
+        }
+        while(exSts--) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto [avg, tot] = pq.top();
+            pq.pop();
+            avg=(avg*tot+1)/(tot+1);
+            pq.emplace(avg, tot+1);
+        }
+        double res=0;
+        while(!pq.empty()) {
+            auto [avg, tot]=pq.top();
+            // printf(&quot;avg=%lf, tot=%d\n&quot;, avg, tot);
+            pq.pop();
+            res+=avg;
+        }
+        return res/n;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

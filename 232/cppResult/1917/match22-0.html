@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_ChenShouao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_ChenShouao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    struct node{
+        double a;
+        double b;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        friend bool operator &lt; (node x, node y) {
+            return (x.a + 1)/(x.b + 1) - x.a / x.b &lt; (y.a + 1) / (y.b + 1) - y.a / y.b; 
+        }
+    }tmp;
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; classes, int extraStudents) {
+        priority_queue&lt;node&gt;pq;
+        for (int i = 0; i &lt; classes.size(); ++i) {</B></FONT>
+            tmp.a = classes[i][0];
+<A NAME="1"></A>            tmp.b = classes[i][1];
+            pq.push(tmp);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; extraStudents; ++i) {
+            tmp = pq.top();
+            ++tmp.a;
+            ++tmp.b;
+            pq.pop();
+            pq.push(tmp);
+        }
+        double ans = 0;
+        while (!pq.empty()) {
+            tmp = pq.top();
+            pq.pop();
+            ans += tmp.a / tmp.b;
+        }
+        return ans / classes.size();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

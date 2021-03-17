@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>899_robothy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>899_robothy.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="1"></A>    public double maxAverageRatio(int[][] classes, int n) {
+        
+        Queue&lt;double[]&gt; queue = new PriorityQueue&lt;double[]&gt;((a, b) -&gt; {</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double x = ((b[0]+1)/(b[1]+1) - b[0]/b[1]), y = ((a[0]+1)/(a[1]+1) - a[0]/a[1]);
+            if(x&gt;y) return 1;
+            if(x&lt;y) return -1;
+            return 0;
+        } );
+<A NAME="2"></A>        
+        for(int[] c : classes){
+            queue.offer</B></FONT>(new double[]{c[0], c[1]});
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        while(n--&gt;0){
+            double[] c = queue.poll();
+            c[0]+=1.0d;
+            c[1]+=1.0d;
+            queue.offer(c);
+        }
+        
+        double ans = 0;
+        while(!queue.isEmpty()){
+            double[] c = queue.poll();
+            ans += (c[0]/c[1]);
+        }
+        return ans / classes.length;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

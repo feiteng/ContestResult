@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>669_shadox.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>669_shadox.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    struct Node{
+        double a, b;
+        double rate;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        bool operator&lt;(const Node&amp; t)const{  
+            return (a+1) / (b+1) - rate &lt; (t.a+1) / (t.b+1) - t.rate;
+        }  
+    };
+    
+    double maxAverageRatio(vector&lt;vector&lt;int&gt;&gt;&amp; cs, int es) {
+        int n = cs.size();
+<A NAME="1"></A>        priority_queue&lt;Node&gt;q;
+        for(auto &amp;it : cs){</B></FONT>
+            q.push({(double)it[0], (double)it[1], it[0] * 1.0 / it[1]});
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        for(int i = 0; i &lt; es; i++){
+            Node k = q.top();
+            q.pop();
+          //  cout &lt;&lt; k.a &lt;&lt; ' ' &lt;&lt; k.b &lt;&lt; endl;
+            q.push({k.a+1,k.b+1, (k.a+1)*1.0/(k.b+1)});
+        }
+        double ret = 0;
+        while(!q.empty()){
+            ret += q.top().rate;</B></FONT>
+            q.pop();
+        }
+        return ret / n;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
